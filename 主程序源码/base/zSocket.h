@@ -203,14 +203,14 @@ typedef ByteBuffer<std::vector<unsigned char> > t_BufferCmdQueue;
  * \param size 向缓冲写入了多少数据
  */
 template <>
-inline void t_BufferCmdQueue::wr_reserve(const unsigned int size)
+inline void ByteBuffer<std::vector<unsigned char> >::wr_reserve(const unsigned int size)
 {
-	if (wr_size() < size)
-	{
+    if (wr_size() < size)
+    {
 #define trunkCount(size) (((size) + trunkSize - 1) / trunkSize)
-		_maxSize += (trunkSize * trunkCount(size));
-		_buffer.resize(_maxSize);
-	}
+        _maxSize += (trunkSize * trunkCount(size));
+        _buffer.resize(_maxSize);
+    }
 }
 
 
@@ -226,17 +226,15 @@ typedef ByteBuffer<unsigned char [PACKET_ZIP_BUFFER]> t_StackCmdQueue;
  * \param size 向缓冲写入了多少数据
  */
 template <>
-inline void t_StackCmdQueue::wr_reserve(const unsigned int size)
+inline void ByteBuffer<unsigned char [PACKET_ZIP_BUFFER]>::wr_reserve(const unsigned int size)
 {
-	/*
-	if (wr_size() < size)
-	{
-		//不能动态扩展内存
-		assert(false);
-	}
-	// */
+    /*
+    if (wr_size() < size)
+    {
+        assert(false);
+    }
+    // */
 }
-
 /**
  * \brief 变长指令的封装，固定大小的缓冲空间
  * 在栈空间分配缓冲内存

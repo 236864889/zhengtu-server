@@ -139,11 +139,8 @@ const String & zLogger::getName()
  */
 void zLogger::setName(const String & setName)
 {
-	//PowerLogger *log=(PowerLogger *)logger;
-	//PowerLogger * pl=logger.p;
-	((PowerLogger *)logger.p)->setName(setName);
+    logger = Logger::getLogger(setName);
 }
-
 /**
  * \brief 添加控制台输出Log
  * \return	成功返回true，否则返回false 

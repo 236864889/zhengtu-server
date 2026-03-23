@@ -31,18 +31,16 @@
  * 动态分配内存的缓冲区，大小可以随时扩展
  */
 template <>
-t_BufferCmdQueue::ByteBuffer()
-	: _maxSize(trunkSize), _offPtr(0), _currPtr(0), _buffer(_maxSize) { }
-
+ByteBuffer<std::vector<unsigned char> >::ByteBuffer()
+    : _maxSize(trunkSize), _offPtr(0), _currPtr(0), _buffer(_maxSize) { }
 /**
  * 构造函数
  * 模板偏特化
  * 静态数组的缓冲区，大小不能随时改变
  */
 template <>
-t_StackCmdQueue::ByteBuffer()
-	: _maxSize(PACKET_ZIP_BUFFER), _offPtr(0), _currPtr(0) { }
-
+ByteBuffer<unsigned char [PACKET_ZIP_BUFFER]>::ByteBuffer()
+    : _maxSize(PACKET_ZIP_BUFFER), _offPtr(0), _currPtr(0) { }
 /**
  * \brief 构造函数，初始化对象
  * \param sock 套接口
