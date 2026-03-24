@@ -26,22 +26,6 @@
 #include "zSocket.h"
 
 /**
- * 构造函数
- * 模板偏特化
- * 动态分配内存的缓冲区，大小可以随时扩展
- */
-template <>
-ByteBuffer<std::vector<unsigned char> >::ByteBuffer()
-    : _maxSize(trunkSize), _offPtr(0), _currPtr(0), _buffer(_maxSize) { }
-/**
- * 构造函数
- * 模板偏特化
- * 静态数组的缓冲区，大小不能随时改变
- */
-template <>
-ByteBuffer<unsigned char [PACKET_ZIP_BUFFER]>::ByteBuffer()
-    : _maxSize(PACKET_ZIP_BUFFER), _offPtr(0), _currPtr(0) { }
-/**
  * \brief 构造函数，初始化对象
  * \param sock 套接口
  * \param addr 地址
@@ -155,25 +139,31 @@ int zSocket::recvToCmd(void *pstrCmd, const int nCmdLen, const bool wait)
 int zSocket::sendRawData(const void *pBuffer, const int nSize)
 {
 	//Zebra::logger->trace("zSocket::sendRawData");
+	int retcode = -1;
 	if (isset_flag(INCOMPLETE_WRITE))
 	{
 		clear_flag(INCOMPLETE_WRITE);
-		goto do_select;
-	}
-
-	int retcode = TEMP_FAILURE_RETRY(::send(sock, pBuffer, nSize, MSG_NOSIGNAL));
-	if (retcode == -1 && (errno == EAGAIN || errno == EWOULDBLOCK))
-	{
-do_select:
 		retcode = waitForWrite();
 		if (1 == retcode)
 			retcode = TEMP_FAILURE_RETRY(::send(sock, pBuffer, nSize, MSG_NOSIGNAL));
 		else
 			return retcode;
 	}
+	else
+	{
+		retcode = TEMP_FAILURE_RETRY(::send(sock, pBuffer, nSize, MSG_NOSIGNAL));
+		if (retcode == -1 && (errno == EAGAIN || errno == EWOULDBLOCK))
+		{
+			retcode = waitForWrite();
+			if (1 == retcode)
+				retcode = TEMP_FAILURE_RETRY(::send(sock, pBuffer, nSize, MSG_NOSIGNAL));
+			else
+				return retcode;
+		}
+	}
 
 	if (retcode > 0 && retcode < nSize)
-			set_flag(INCOMPLETE_WRITE);
+		set_flag(INCOMPLETE_WRITE);
 
 	return retcode;
 }

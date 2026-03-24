@@ -190,57 +190,98 @@ class ByteBuffer
 /**
  * 动态内存的缓冲区，可以动态扩展缓冲区大小
  */
-#ifdef _POOL_ALLOC_
-typedef ByteBuffer<std::vector<unsigned char, __gnu_cxx::__pool_alloc<unsigned char> > > t_BufferCmdQueue;
-#else
-typedef ByteBuffer<std::vector<unsigned char> > t_BufferCmdQueue;
-#endif
-
-/**
- * 模板偏特化
- * 对缓冲的内存进行重新整理，向缓冲写数据，如果缓冲大小不足，重新调整缓冲大小，
- * 大小调整原则按照trunkSize的整数倍进行增加
- * \param size 向缓冲写入了多少数据
- */
-template <>
-inline void ByteBuffer<std::vector<unsigned char> >::wr_reserve(const unsigned int size)
+class t_BufferCmdQueue
 {
-    if (wr_size() < size)
-    {
+	public:
+		t_BufferCmdQueue() : _maxSize(trunkSize), _offPtr(0), _currPtr(0), _buffer(_maxSize) {}
+
+		inline void put(const unsigned char *buf, const unsigned int size)
+		{
+			wr_reserve(size);
+			bcopy(buf, &_buffer[_currPtr], size);
+			_currPtr += size;
+		}
+
+		inline unsigned char *wr_buf()
+		{
+			return &_buffer[_currPtr];
+		}
+
+		inline unsigned char *rd_buf()
+		{
+			return &_buffer[_offPtr];
+		}
+
+		inline bool rd_ready() const
+		{
+			return _currPtr > _offPtr;
+		}
+
+		inline unsigned int rd_size() const
+		{
+			return _currPtr - _offPtr;
+		}
+
+		inline void rd_flip(unsigned int size)
+		{
+			_offPtr += size;
+			if (_currPtr > _offPtr)
+			{
+				unsigned int tmp = _currPtr - _offPtr;
+				if(_offPtr >= tmp)
+				{
+					memmove(&_buffer[0], &_buffer[_offPtr], tmp);
+					_offPtr = 0;
+					_currPtr = tmp;
+				}
+			}
+			else
+			{
+				_offPtr = 0;
+				_currPtr = 0;
+			}
+		}
+
+		inline unsigned int wr_size() const
+		{
+			return _maxSize - _currPtr;
+		}
+
+		inline void wr_flip(const unsigned int size)
+		{
+			_currPtr += size;
+		}
+
+		inline void reset()
+		{
+			_offPtr = 0;
+			_currPtr = 0;
+		}
+
+		inline unsigned int maxSize() const
+		{
+			return _maxSize;
+		}
+
+		inline void wr_reserve(const unsigned int size)
+		{
+			if (wr_size() < size)
+			{
 #define trunkCount(size) (((size) + trunkSize - 1) / trunkSize)
-        _maxSize += (trunkSize * trunkCount(size));
-        _buffer.resize(_maxSize);
-    }
-}
+				_maxSize += (trunkSize * trunkCount(size));
+				_buffer.resize(_maxSize);
+			}
+		}
 
+	private:
+		unsigned int _maxSize;
+		unsigned int _offPtr;
+		unsigned int _currPtr;
+		std::vector<unsigned char> _buffer;
+};
 
-/**
- * 静态大小的缓冲区，以栈空间数组的方式来分配内存，用于一些临时变量的获取
- */
-typedef ByteBuffer<unsigned char [PACKET_ZIP_BUFFER]> t_StackCmdQueue;
+typedef t_BufferCmdQueue t_StackCmdQueue;
 
-/**
- * 模板偏特化
- * 对缓冲的内存进行重新整理，向缓冲写数据，如果缓冲大小不足，重新调整缓冲大小，
- * 大小调整原则按照trunkSize的整数倍进行增加
- * \param size 向缓冲写入了多少数据
- */
-template <>
-inline void ByteBuffer<unsigned char [PACKET_ZIP_BUFFER]>::wr_reserve(const unsigned int size)
-{
-    /*
-    if (wr_size() < size)
-    {
-        assert(false);
-    }
-    // */
-}
-/**
- * \brief 变长指令的封装，固定大小的缓冲空间
- * 在栈空间分配缓冲内存
- * \param cmd_type 指令类型
- * \param size 缓冲大小
- */
 template <typename cmd_type, unsigned int size = 64 * 1024>
 class CmdBuffer_wrapper
 {
