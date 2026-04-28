@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<config>
+	<SchoolFee>
+		<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+		<upgrade level="1-1000" desc="初入凡尘" value="10" costID="71111" costNum="1" salary="5000" pDam="1" mDam="1" pDef="1" mDef="1" hp="2" juejiDam="0" juejiDef="0"/>
+		<upgrade level="1001-2000" desc="筑基初成" value="10" costID="71111" costNum="2" salary="5000" pDam="2" mDam="2" pDef="2" mDef="2" hp="4" juejiDam="0" juejiDef="0"/>
+		<upgrade level="2001-3000" desc="筑基圆满" value="5" costID="71111" costNum="3" salary="5000" pDam="3" mDam="3" pDef="3" mDef="3" hp="6" juejiDam="0" juejiDef="0"/>
+		<upgrade level="3001-4000" desc="开光境" value="5" costID="71111" costNum="4" salary="5000" pDam="5" mDam="5" pDef="4" mDef="4" hp="8" juejiDam="0" juejiDef="0"/>
+		<upgrade level="4001-5000" desc="炼体境" value="5" costID="71111" costNum="5" salary="5000" pDam="6" mDam="6" pDef="5" mDef="5" hp="10" juejiDam="0" juejiDef="0"/>
+		<upgrade level="5001-6000" desc="聚气境" value="5" costID="71111" costNum="6" salary="5000" pDam="8" mDam="8" pDef="6" mDef="6" hp="12" juejiDam="0" juejiDef="0"/>
+		<upgrade level="6001-7000" desc="结丹初期" value="5" costID="71111" costNum="7" salary="5000" pDam="10" mDam="10" pDef="8" mDef="8" hp="16" juejiDam="0" juejiDef="0"/>
+		<upgrade level="7001-8000" desc="结丹中期" value="5" costID="71111" costNum="8" salary="5000" pDam="12" mDam="12" pDef="10" mDef="10" hp="20" juejiDam="0" juejiDef="0"/>
+		<upgrade level="8001-9000" desc="结丹后期" value="5" costID="71111" costNum="9" salary="5000" pDam="14" mDam="14" pDef="12" mDef="12" hp="24" juejiDam="0" juejiDef="0"/>
+		<upgrade level="9001-20000" desc="元婴初期" value="5" costID="71111" costNum="10" salary="5000" pDam="20" mDam="20" pDef="18" mDef="18" hp="40" juejiDam="0" juejiDef="0"/>
+		<upgrade level="20001-30000" desc="元婴中期" value="5" costID="71111" costNum="12" salary="5000" pDam="30" mDam="30" pDef="25" mDef="25" hp="60" juejiDam="0" juejiDef="0"/>
+		<upgrade level="30001-40000" desc="元婴后期" value="5" costID="71111" costNum="14" salary="5000" pDam="40" mDam="40" pDef="40" mDef="35" hp="80" juejiDam="0" juejiDef="0"/>
+		<upgrade level="40001-60000" desc="化神初期" value="5" costID="71111" costNum="16" salary="5000" pDam="60" mDam="60" pDef="50" mDef="50" hp="120" juejiDam="0" juejiDef="0"/>
+		<upgrade level="60001-80000" desc="化神中期" value="5" costID="71111" costNum="18" salary="5000" pDam="80" mDam="80" pDef="60" mDef="60" hp="160" juejiDam="0" juejiDef="0"/>
+		<upgrade level="80001-100000" desc="化神后期" value="5" costID="71111" costNum="20" salary="5000" pDam="100" mDam="100" pDef="70" mDef="70" hp="200" juejiDam="0" juejiDef="0"/>
+		<upgrade level="100001-200000" desc="大乘初期" value="5" costID="71111" costNum="25" salary="5000" pDam="150" mDam="150" pDef="100" mDef="100" hp="300" juejiDam="0" juejiDef="0"/>
+		<upgrade level="200001-300000" desc="大乘中期" value="5" costID="71111" costNum="30" salary="5000" pDam="200" mDam="200" pDef="150" mDef="150" hp="400" juejiDam="0" juejiDef="0"/>
+		<upgrade level="300001-400000" desc="大乘后期" value="5" costID="71111" costNum="35" salary="5000" pDam="300" mDam="300" pDef="200" mDef="200" hp="600" juejiDam="0" juejiDef="0"/>
+		<upgrade level="400001-4000000" desc="飞升仙界" value="5" costID="71111" costNum="50" salary="5000" pDam="400" mDam="400" pDef="300" mDef="300" hp="800" juejiDam="0" juejiDef="0"/>
+	</SchoolFee>
+	<!-- 小孩装备 -->
+	<meridianMap>
+		<meridian index="25000">
+			<point level="1-5000" value="10" costID="71112" costNum="1" salary="5000" pDam="1" mDam="1" pDef="0" mDef="0" hp="0" juejiDam="0" juejiDef="0"/>
+			<point level="5001-20000" value="10" costID="71112" costNum="2" salary="5000" pDam="2" mDam="2" pDef="0" mDef="0" hp="1" juejiDam="0" juejiDef="0"/>
+		</meridian>
+		<meridian index="25001">
+			<point level="1-5000" value="10" costID="26100" costNum="1" salary="5000" pDam="0" mDam="0" pDef="1" mDef="1" hp="0" juejiDam="0" juejiDef="0"/>
+			<point level="5001-20000" value="10" costID="26100" costNum="2" salary="5000" pDam="0" mDam="0" pDef="2" mDef="2" hp="1" juejiDam="0" juejiDef="0"/>
+		</meridian>
+		<meridian index="25002">
+			<point level="1-5000" value="10" costID="26101" costNum="1" salary="5000" pDam="0" mDam="0" pDef="1" mDef="0" hp="0" juejiDam="0" juejiDef="0"/>
+			<point level="5001-20000" value="10" costID="26101" costNum="2" salary="5000" pDam="0" mDam="0" pDef="2" mDef="0" hp="1" juejiDam="0" juejiDef="0"/>
+		</meridian>
+		<meridian index="25003">
+			<point level="1-5000" value="10" costID="26102" costNum="1" salary="5000" pDam="1" mDam="0" pDef="0" mDef="0" hp="0" juejiDam="0" juejiDef="0"/>
+			<point level="5001-20000" value="10" costID="26102" costNum="2" salary="5000" pDam="2" mDam="0" pDef="0" mDef="0" hp="1" juejiDam="0" juejiDef="0"/>
+		</meridian>
+		<meridian index="25004">
+			<point level="1-5000" value="10" costID="26103" costNum="1" salary="5000" pDam="0" mDam="0" pDef="0" mDef="1" hp="0" juejiDam="0" juejiDef="0"/>
+			<point level="5001-20000" value="10" costID="26103" costNum="2" salary="5000" pDam="0" mDam="0" pDef="0" mDef="2" hp="1" juejiDam="0" juejiDef="0"/>
+		</meridian>
+		<meridian index="25005">
+			<point level="1-5000" value="10" costID="26104" costNum="1" salary="5000" pDam="0" mDam="1" pDef="0" mDef="0" hp="0" juejiDam="0" juejiDef="0"/>
+			<point level="5001-20000" value="10" costID="26104" costNum="2" salary="5000" pDam="0" mDam="2" pDef="0" mDef="0" hp="1" juejiDam="0" juejiDef="0"/>
+		</meridian>
+	</meridianMap>
+</config>

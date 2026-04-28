@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<config>
+	<!-- 时装魔盒披风类进阶配置 -->
+	<meridianMap>
+		<meridian index="1">
+			<pointMap>
+				<point level="0" exp="0" costID="120049" costNum="10" wugong="8" mogong="8" hp="30000" shengming="10" fashu="10" bang="0"/>
+				<point level="1" exp="10" costID="120049" costNum="10" wugong="10" mogong="10" hp="60000" shengming="12" fashu="12" bang="1"/>
+				<point level="2" exp="10" costID="120049" costNum="10" wugong="14" mogong="14" hp="90000" shengming="14" fashu="14" bang="1"/>
+				<point level="3" exp="10" costID="120049" costNum="10" wugong="18" mogong="18" hp="150000" shengming="16" fashu="16" bang="2"/>
+				<point level="4" exp="10" costID="120049" costNum="10" wugong="22" mogong="22" hp="200000" shengming="18" fashu="18" bang="3"/>
+				<point level="5" exp="10" costID="120049" costNum="10" wugong="26" mogong="26" hp="350000" shengming="20" fashu="20" bang="4"/>
+				<point level="6" exp="10" costID="120049" costNum="10" wugong="35" mogong="35" hp="500000" shengming="22" fashu="22" bang="5"/>
+			</pointMap>
+		</meridian>
+	</meridianMap>
+</config>

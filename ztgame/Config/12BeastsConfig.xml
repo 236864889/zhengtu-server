@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<config>
+	<!-- 神剑配置 -->
+	<meridianMap>
+		<meridian index="20001">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20002">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20003">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20051">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20052">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20053">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20101">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20102">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20103">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20151">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20152">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20153">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20201">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20202">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20203">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20251">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20252">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20253">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20301">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20302">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20303">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20351">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20352">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20353">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20401">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20402">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20403">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20451">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20452">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20453">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20501">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20502">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20503">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+
+		<meridian index="20551">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20552">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+		<meridian index="20553">
+			<pointMap>
+				<!--  level:等级[配合层级] value:当前等级所需成长值 costID:扣除道具 costNum:单次扣数量 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 juejiDam:绝技攻 juejiDef:绝技防 -->
+				<point level="1-100" value="5" costID="799" costNum="1" salary="50000" pDam="10000" mDam="10000" pDef="12000" mDef="12000" hp="15000"/>
+			</pointMap>
+		</meridian>
+	</meridianMap>
+</config>

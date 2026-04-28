@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseTest|Win32">
+      <Configuration>ReleaseTest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C91E7E41-22CA-44BA-8724-E21C30A6E86D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.23107.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\RunClient\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../lua-5.0.2/include;../luabind;../boost_1_34_1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>../../engine/include/engine.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gui_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>../lua-5.0.2/include;../luabind;../boost_1_34_1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>../../engine/include/engine.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat />
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gui.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>../lua-5.0.2/include;../luabind;../boost_1_34_1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;RELEASE_TEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>../../engine/include/engine.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)gui.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="include\GuiProcess.cpp" />
+    <ClCompile Include="source\AccelKey.cpp" />
+    <ClCompile Include="source\Cursor.cpp" />
+    <ClCompile Include="source\GuiButton.cpp" />
+    <ClCompile Include="source\GuiCheckBox.cpp" />
+    <ClCompile Include="source\GuiComboBox.cpp" />
+    <ClCompile Include="source\GuiControl.cpp" />
+    <ClCompile Include="source\GuiDialog.cpp" />
+    <ClCompile Include="source\GuiEditBox.cpp" />
+    <ClCompile Include="source\GuiElement.cpp" />
+    <ClCompile Include="source\GuiFloatItem.cpp" />
+    <ClCompile Include="source\GuiImage.cpp" />
+    <ClCompile Include="source\GuiItemCell.cpp" />
+    <ClCompile Include="source\GuiListBox.cpp" />
+    <ClCompile Include="source\GuiManager.cpp" />
+    <ClCompile Include="source\GuiMenu.cpp" />
+    <ClCompile Include="source\GuiMLEditBox.cpp" />
+    <ClCompile Include="source\GuiMLTextBox.cpp" />
+    <ClCompile Include="source\GuiPanel.cpp" />
+    <ClCompile Include="source\GuiRadioButton.cpp" />
+    <ClCompile Include="source\GuiScrollBar.cpp" />
+    <ClCompile Include="source\GuiScrollTab.cpp" />
+    <ClCompile Include="source\GuiSlider.cpp" />
+    <ClCompile Include="source\GuiStatic.cpp" />
+    <ClCompile Include="source\GuiTab.cpp" />
+    <ClCompile Include="source\GuiTable.cpp" />
+    <ClCompile Include="source\GuiTree.cpp" />
+    <ClCompile Include="source\guiTypes.cpp" />
+    <ClCompile Include="source\gui_script.cpp" />
+    <ClCompile Include="source\ToolTips.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\AccelKey.h" />
+    <ClInclude Include="include\Cursor.h" />
+    <ClInclude Include="include\GuiButton.h" />
+    <ClInclude Include="include\GuiCheckBox.h" />
+    <ClInclude Include="include\GuiComboBox.h" />
+    <ClInclude Include="include\GuiControl.h" />
+    <ClInclude Include="include\GuiDialog.h" />
+    <ClInclude Include="include\GuiEditBox.h" />
+    <ClInclude Include="include\GuiElement.h" />
+    <ClInclude Include="include\GuiFloatItem.h" />
+    <ClInclude Include="include\GuiImage.h" />
+    <ClInclude Include="include\GuiImeEditBox.h" />
+    <ClInclude Include="include\GuiItemCell.h" />
+    <ClInclude Include="include\GuiListBox.h" />
+    <ClInclude Include="include\GuiManager.h" />
+    <ClInclude Include="include\GuiMenu.h" />
+    <ClInclude Include="include\GuiMLEditBox.h" />
+    <ClInclude Include="include\GuiMLTextBox.h" />
+    <ClInclude Include="include\GuiPanel.h" />
+    <ClInclude Include="include\GuiProcess.h" />
+    <ClInclude Include="include\GuiRadioButton.h" />
+    <ClInclude Include="include\GuiScrollBar.h" />
+    <ClInclude Include="include\GuiScrollTab.h" />
+    <ClInclude Include="include\GuiSlider.h" />
+    <ClInclude Include="include\GuiStatic.h" />
+    <ClInclude Include="include\GuiTab.h" />
+    <ClInclude Include="include\GuiTable.h" />
+    <ClInclude Include="include\GuiTree.h" />
+    <ClInclude Include="include\guiTypes.h" />
+    <ClInclude Include="include\gui_script.h" />
+    <ClInclude Include="include\ToolTips.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="menuSmp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties DevPartner_IsInstrumented="0" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

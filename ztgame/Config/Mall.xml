@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by ccc (Ru-Board) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by fuzb -->
+<wares>
+		<item id="50319" action="1"/>
+		<item id="50320" action="1"/>
+		
+		<item id="50322" action="1"/>
+		<item id="50323" action="1"/>
+
+		<item id="50325" action="1"/>
+		<item id="50326" action="1"/>
+
+		<item id="50328" action="1"/>
+		<item id="50329" action="1"/>
+		<item id="120047" action="1"/>
+		<item id="120055" action="1"/>
+		<item id="120057" action="1"/>
+		<item id="50341" action="1"/>
+		<item id="50342" action="1"/>
+		<item id="50343" action="1"/>
+		<item id="50344" action="1"/>
+</wares>

@@ -1,0 +1,31 @@
+ScenesServer 崩溃问题调试记录
+================================
+
+崩溃信息:
+- Signal: SIGSEGV, Segmentation fault
+- Location: SkillStatusManager::clearActiveSkillStatusOnlyUseToStatus48
+- this pointer: 0xe7a29de98bb8ed9a (invalid)
+
+调用栈:
+1. SkillStatusManager::clearActiveSkillStatusOnlyUseToStatus48
+2. SceneTimeTick::run
+3. zThread::threadFunc
+
+问题分析:
+- this指针无效，可能是entry指针为NULL
+- 可能原因：编译器优化、多线程竞争、初始化顺序
+
+尝试过的修复:
+1. 复制config.xml到ScenesServer目录 - 完成
+2. 复制map/, tbl/等资源文件 - 完成
+3. 重新编译 - 被中断
+
+临时解决方案:
+暂时跳过ScenesServer启动，其他7个服务器正常运行。
+
+建议修复方案:
+1. 使用GCC 4.4重新编译
+2. 或使用-O0禁用优化重新编译
+3. 检查SkillStatusManager初始化代码
+
+记录时间: 2026-04-03 01:10

@@ -1,0 +1,215 @@
+/**
+ * \file
+ * \version  $Id: zSocket.h  $
+ * \author  
+ * \date 
+ * \brief ¶¨ÒåzSocketÀà£¬ÓÃÓÚ¶ÔÌ×½Ó¿Úµ×²ã½øĞĞ·â×°
+ */
+
+#ifndef _zSocket_h_
+#define _zSocket_h_
+
+#include <errno.h>
+#include <unistd.h>
+#include <cstdlib>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <string.h>
+#include <netinet/tcp.h>
+#include <fcntl.h>
+#include <pthread.h>
+#include <sys/socket.h>
+#include <zlib.h>
+#include <net/if.h>
+#include <sys/ioctl.h>
+#include <pthread.h>
+#include <assert.h>
+#include <iostream>
+#include <queue>
+#include <ext/pool_allocator.h>
+#include <ext/mt_allocator.h>
+
+#include "zNoncopyable.h"
+#include "zMutex.h"
+#include "zNullCmd.h"
+#include "Zebra.h"
+#include "zTime.h"
+
+#include "EncDec/EncDec.h"
+
+#include <sys/poll.h>
+#ifdef _USE_EPOLL_
+#include <sys/epoll.h>
+#endif
+
+const unsigned int trunkSize = 64 * 8192;
+#define unzip_size(zip_size) ((zip_size) * 120 / 100 + 12)
+const unsigned int PACKET_ZIP_BUFFER	=	unzip_size(trunkSize - 1) + sizeof(unsigned int) + 8;	/**< Ñ¹ËõĞèÒªµÄ»º³å */
+
+/**
+ * ×Ö½Ú»º³å£¬ÓÃÓÚÌ×½Ó¿Ú½ÓÊÕºÍ·¢ËÍÊı¾İµÄ»º³å
+ * \param _type »º³åÇøÊı¾İÀàĞÍ
+ */
+template <typename _type>
+class zByteBuffer
+{
+
+	public:
+
+		/**
+		 * ¹¹Ôìº¯Êı
+		 */
+		zByteBuffer();
+
+		/**
+		 * Ïò»º³åÌîÈëÊı¾İ
+		 * \param buf ´ıÌîÈë»º³åµÄÊı¾İ
+		 * \param size ´ıÌîÈë»º³åÊı¾İµÄ³¤¶È
+		 */
+		inline void put(const unsigned char *buf, const unsigned int size)
+		{
+			//Ê×ÏÈÈ·ÈÏ»º³åÄÚ´æÊÇ·ñ×ã¹»
+			wr_reserve(size);
+			bcopy(buf, &_buffer[_currPtr], size);
+			_currPtr += size;
+		}
+
+		/**
+		 * µÃµ½µ±Ç°¿ÉĞ´bfµÄÎ´Öª
+		 * ±£Ö¤ÔÚµ÷ÓÃ´Ëº¯ÊıĞ´ÈëÊı¾İÖ®Ç°ĞèÒªµ÷ÓÃwr_reserve(size)À´Ô¤Áô»º³åÇø´óĞ¡
+		 * \return ¿ÉĞ´Èë»º³å¿ªÊ¼µØÖ·
+		 */
+		inline unsigned char *wr_buf()
+		{
+			return &_buffer[_currPtr];
+		}
+
+		/**
+		 * ·µ»Ø»º³åÖĞÓĞĞ§Êı¾İµÄ¿ªÊ¼µØÖ·
+		 * \return ÓĞĞ§Êı¾İµØÖ·
+		 */
+		inline unsigned char *rd_buf()
+		{
+			return &_buffer[_offPtr];
+		}
+
+		/**
+		 * ÅĞ¶Ï»º³åÖĞÊ±ºòÓĞÓĞĞ§Êı¾İ
+		 * \return ·µ»Ø»º³åÖĞÊÇ·ñÓĞÓĞĞ§Êı¾İ
+		 */
+		inline bool rd_ready() const
+		{
+			return _currPtr > _offPtr;
+		}
+
+		/**
+		 * µÃµ½»º³åÖĞÓĞĞ§Êı¾İµÄ´óĞ¡
+		 * \return ·µ»Ø»º³åÖĞÓĞĞ§Êı¾İ´óĞ¡
+		 */
+		inline unsigned int rd_size() const
+		{
+			return _currPtr - _offPtr;
+		}
+
+		/**
+		 * µ±»º³åµÄÓĞĞ§Êı¾İ±»Ê¹ÓÃÒÔºó£¬ĞèÒª¶Ô»º³å½øĞĞÕûÀí
+		 * \param size ×îºóÒ»´ÎÊ¹ÓÃµÄÓĞĞ§Êı¾İ³¤¶È
+		 */
+		inline void rd_flip(unsigned int size)
+		{
+			_offPtr += size;
+			if (_currPtr > _offPtr)
+			{
+				unsigned int tmp = _currPtr - _offPtr;
+				if(_offPtr >= tmp)
+				{
+					memmove(&_buffer[0], &_buffer[_offPtr], tmp);
+					_offPtr = 0;
+					_currPtr = tmp;
+				}
+			}
+			else
+			{
+				_offPtr = 0;
+				_currPtr = 0;
+			}
+		}
+
+		/**
+		 * µÃµ½»º³å¿ÉĞ´ÈëÊı¾İµÄ´óĞ¡
+		 * \return ¿ÉĞ´ÈëÊı¾İµÄ´óĞ¡
+		 */
+		inline unsigned int wr_size() const
+		{
+			return _maxSize - _currPtr;
+		}
+
+		/**
+		 * Êµ¼ÊÏò»º³åĞ´ÈëÁËÊı¾İ£¬ĞèÒª¶Ô»º³å½øĞĞÕûÀí
+		 * \param size Êµ¼ÊĞ´ÈëµÄÊı¾İ
+		 */
+		inline void wr_flip(const unsigned int size)
+		{
+			_currPtr += size;
+		}
+
+		/**
+		 * ÖØÖµ»º³åÖĞµÄÊı¾İ£¬Çå¿ÕÎŞÓÃµÄÀ¬»øÊı¾İ
+		 */
+		inline void reset()
+		{
+			_offPtr = 0;
+			_currPtr = 0;
+		}
+
+		/**
+		 * ·µ»Ø»º³å×î´ó´óĞ¡
+		 * \return »º³å×î´ó´óĞ¡
+		 */
+		inline unsigned int maxSize() const
+		{
+			return _maxSize;
+		}
+
+		/**
+		 * ¶Ô»º³åµÄÄÚ´æ½øĞĞÖØĞÂÕûÀí£¬Ïò»º³åĞ´Êı¾İ£¬Èç¹û»º³å´óĞ¡²»×ã£¬ÖØĞÂµ÷Õû»º³å´óĞ¡£¬
+		 * ´óĞ¡µ÷ÕûÔ­Ôò°´ÕÕtrunkSizeµÄÕûÊı±¶½øĞĞÔö¼Ó
+		 * \param size Ïò»º³åĞ´ÈëÁË¶àÉÙÊı¾İ
+		 */
+		inline void wr_reserve(const unsigned int size)
+		{
+			if (wr_size() < size)
+			{
+				_maxSize += size;
+				_buffer.resize(_maxSize);
+			}
+		}
+
+	private:
+
+		unsigned int _maxSize;
+		unsigned int _offPtr;
+		unsigned int _currPtr;
+		_type _buffer;
+
+};
+
+/**
+ * ¶¯Ì¬ÄÚ´æµÄ»º³åÇø£¬¿ÉÒÔ¶¯Ì¬À©Õ¹»º³åÇø´óĞ¡
+ */
+#ifdef _POOL_ALLOC_
+typedef zByteBuffer<std::vector<unsigned char, __gnu_cxx::__pool_alloc<unsigned char> > > t_BufferCmdQueue;
+#else
+typedef zByteBuffer<std::vector<unsigned char> > t_BufferCmdQueue;
+#endif
+
+/**
+
+ * é™æ€å¤§å°çš„ç¼“å†²åŒºï¼Œä½¿ç”¨æ ˆç©ºé—´åˆ†é…å†…å­˜ï¼Œç”¨äºä¸€äº›ä¸´æ—¶æ•°æ®çš„è·å–
+ */
+typedef zByteBuffer<std::vector<unsigned char> > t_StackCmdQueue;
+
+/**
+ * \brief å˜é•¿æŒ‡é’ˆçš„å°è£…ï¼Œå›ºå®šå¤§å°çš„ç¼“å†²åŒºå 
+ * ç”¨æ ˆç©ºé—´ç¼“å­˜å†…å­˜
+ * \param cmd_type æŒ‡é’ˆç±»å‹

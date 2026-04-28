@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<config>
+	<!-- 时装魔盒坐骑类配置 -->
+	<meridianMap>
+		<meridian index="1">
+			<pointMap>
+				<!--  name:坐骑名字 exp:坐骑激活魔盒增加经验 npcID:坐骑ID jihuoID:激活需要道具 npcNum:对应补丁图包 -->
+				<point name="的卢马" exp="100" npcID="3272" jihuoID="120051" jihuoNum="100" npcNum="5006"/>
+				<point name="金甲神牛" exp="100" npcID="3205" jihuoID="120051" jihuoNum="100" npcNum="5014"/>
+				<point name="天煞狂狼" exp="100" npcID="3206" jihuoID="120051" jihuoNum="100" npcNum="5013"/>
+				<point name="玄冥圣虎" exp="100" npcID="3207" jihuoID="120051" jihuoNum="100" npcNum="5011"/>
+				<point name="赤焰魔狮" exp="100" npcID="3208" jihuoID="120051" jihuoNum="100" npcNum="5015"/>
+				<point name="紫金麒麟" exp="100" npcID="3209" jihuoID="120051" jihuoNum="100" npcNum="5012"/>
+
+				<point name="龙鳞圣兽" exp="100" npcID="3210" jihuoID="120051" jihuoNum="100" npcNum="5030"/>
+				<point name="奔霄马" exp="100" npcID="3234" jihuoID="120051" jihuoNum="100" npcNum="5023"/>
+				<point name="富贵猪" exp="100" npcID="3235" jihuoID="120051" jihuoNum="100" npcNum="5028"/>
+				<point name="机关马" exp="100" npcID="3236" jihuoID="120051" jihuoNum="100" npcNum="5010"/>
+				<point name="追风马" exp="100" npcID="3237" jihuoID="120051" jihuoNum="100" npcNum="510"/>
+				<point name="玄冰马" exp="100" npcID="3238" jihuoID="120051" jihuoNum="100" npcNum="1446"/>
+
+				<point name="赤龙驹" exp="100" npcID="3239" jihuoID="120051" jihuoNum="100" npcNum="1445"/>
+				<point name="圣天马" exp="100" npcID="3242" jihuoID="120051" jihuoNum="100" npcNum="1089"/>
+				<point name="乌云马" exp="100" npcID="3244" jihuoID="120051" jihuoNum="100" npcNum="513"/>
+				<point name="铁甲统帅" exp="100" npcID="3245" jihuoID="120051" jihuoNum="100" npcNum="1084"/>
+				<point name="九天神驹" exp="100" npcID="3246" jihuoID="120051" jihuoNum="100" npcNum="810"/>
+				<point name="九天神龙" exp="100" npcID="3247" jihuoID="120051" jihuoNum="100" npcNum="5005"/>
+
+				<point name="傲视炎豹" exp="100" npcID="3248" jihuoID="120051" jihuoNum="100" npcNum="912"/>
+				<point name="帝王御马" exp="100" npcID="3254" jihuoID="120051" jihuoNum="100" npcNum="5004"/>
+				<point name="梦魇战马" exp="100" npcID="3250" jihuoID="120051" jihuoNum="100" npcNum="5001"/>
+				<point name="黄金魔蚊" exp="100" npcID="3362" jihuoID="120051" jihuoNum="100" npcNum="4542"/>
+				<point name="水上摩托" exp="100" npcID="3361" jihuoID="120051" jihuoNum="100" npcNum="4535"/>
+				<point name="冥火马" exp="100" npcID="3299" jihuoID="120051" jihuoNum="100" npcNum="512"/>
+
+				
+				<point name="土豪金" exp="100" npcID="3339" jihuoID="120051" jihuoNum="100" npcNum="5016"/>
+				<point name="白虎" exp="100" npcID="3305" jihuoID="120051" jihuoNum="100" npcNum="1091"/>
+				<point name="年兽" exp="100" npcID="3319" jihuoID="120051" jihuoNum="100" npcNum="1214"/>
+				<point name="魅影" exp="100" npcID="3318" jihuoID="120051" jihuoNum="100" npcNum="1215"/>
+				<point name="百变龙马" exp="100" npcID="3309" jihuoID="120051" jihuoNum="100" npcNum="1512"/>
+				<point name="白熊" exp="100" npcID="3317" jihuoID="120051" jihuoNum="100" npcNum="1791"/>
+
+				<point name="国风" exp="100" npcID="3308" jihuoID="120051" jihuoNum="100" npcNum="1919"/>
+				<point name="烈焰狮王" exp="100" npcID="3307" jihuoID="120051" jihuoNum="100" npcNum="1972"/>
+				<point name="小白虎" exp="100" npcID="3310" jihuoID="120051" jihuoNum="100" npcNum="2049"/>
+				<point name="焰光麒麟" exp="100" npcID="3312" jihuoID="120051" jihuoNum="100" npcNum="2139"/>
+				<point name="华云奔焰" exp="100" npcID="3314" jihuoID="120051" jihuoNum="100" npcNum="2510"/>
+				<point name="坐骑" exp="100" npcID="3363" jihuoID="120051" jihuoNum="100" npcNum="4549"/>
+
+				<point name="黄金老虎" exp="100" npcID="3321" jihuoID="120051" jihuoNum="100" npcNum="4609"/>
+				<point name="镇魂龟" exp="100" npcID="3341" jihuoID="120051" jihuoNum="100" npcNum="1238"/>
+				<point name="天使马" exp="100" npcID="3338" jihuoID="120051" jihuoNum="100" npcNum="1862"/>
+				<point name="坐骑名字" exp="100" npcID="3364" jihuoID="120051" jihuoNum="100" npcNum="4551"/>
+				<point name="坐骑名字" exp="100" npcID="3365" jihuoID="120051" jihuoNum="100" npcNum="4552"/>
+				<point name="坐骑名字" exp="100" npcID="3366" jihuoID="120051" jihuoNum="100" npcNum="4557"/>
+
+
+
+				<point name="坐骑名字" exp="100" npcID="3367" jihuoID="120051" jihuoNum="100" npcNum="4577"/>
+				<point name="坐骑名字" exp="100" npcID="3368" jihuoID="120051" jihuoNum="100" npcNum="4578"/>
+				<point name="坐骑名字" exp="100" npcID="3369" jihuoID="120051" jihuoNum="100" npcNum="4598"/>
+				<point name="坐骑名字" exp="100" npcID="3370" jihuoID="120051" jihuoNum="100" npcNum="4602"/>
+				<point name="坐骑名字" exp="100" npcID="3371" jihuoID="120051" jihuoNum="100" npcNum="1910"/>
+				<point name="坐骑名字" exp="100" npcID="3372" jihuoID="120051" jihuoNum="100" npcNum="1975"/>
+
+
+				<point name="坐骑名字" exp="100" npcID="3373" jihuoID="120051" jihuoNum="100" npcNum="4631"/>
+				<point name="坐骑名字" exp="100" npcID="3374" jihuoID="120051" jihuoNum="100" npcNum="4633"/>
+				<point name="坐骑名字" exp="100" npcID="3375" jihuoID="120051" jihuoNum="100" npcNum="4642"/>
+				<point name="坐骑名字" exp="100" npcID="3376" jihuoID="120051" jihuoNum="100" npcNum="4659"/>
+				<point name="坐骑名字" exp="100" npcID="3377" jihuoID="120051" jihuoNum="100" npcNum="4665"/>
+				<point name="坐骑名字" exp="100" npcID="3378" jihuoID="120051" jihuoNum="100" npcNum="2145"/>
+
+				<point name="坐骑名字" exp="100" npcID="3379" jihuoID="120051" jihuoNum="100" npcNum="4688"/>
+				<point name="坐骑名字" exp="100" npcID="3380" jihuoID="120051" jihuoNum="100" npcNum="4693"/>
+				<point name="坐骑名字" exp="100" npcID="3381" jihuoID="120051" jihuoNum="100" npcNum="4697"/>
+				<point name="坐骑名字" exp="100" npcID="3383" jihuoID="120051" jihuoNum="100" npcNum="4711"/>
+				<point name="坐骑名字" exp="100" npcID="3384" jihuoID="120051" jihuoNum="100" npcNum="4719"/>
+				<point name="坐骑名字" exp="100" npcID="3385" jihuoID="120051" jihuoNum="100" npcNum="4722"/>
+
+				<point name="坐骑名字" exp="100" npcID="3386" jihuoID="120051" jihuoNum="100" npcNum="4723"/>
+				<point name="坐骑名字" exp="100" npcID="3387" jihuoID="120051" jihuoNum="100" npcNum="4753"/>
+				<point name="坐骑名字" exp="100" npcID="3388" jihuoID="120051" jihuoNum="100" npcNum="4755"/>
+				<point name="坐骑名字" exp="100" npcID="3389" jihuoID="120051" jihuoNum="100" npcNum="4763"/>
+				<point name="坐骑名字" exp="100" npcID="3390" jihuoID="120051" jihuoNum="100" npcNum="2111"/>
+				<point name="坐骑名字" exp="100" npcID="3391" jihuoID="120051" jihuoNum="100" npcNum="4772"/>
+
+				<point name="坐骑名字" exp="100" npcID="3393" jihuoID="120051" jihuoNum="100" npcNum="1913"/>
+				<point name="坐骑名字" exp="100" npcID="3394" jihuoID="120051" jihuoNum="100" npcNum="1920"/>
+				<point name="坐骑名字" exp="100" npcID="3395" jihuoID="120051" jihuoNum="100" npcNum="1943"/>
+				<point name="坐骑名字" exp="100" npcID="3396" jihuoID="120051" jihuoNum="100" npcNum="1965"/>
+				<point name="坐骑名字" exp="100" npcID="3397" jihuoID="120051" jihuoNum="100" npcNum="1969"/>
+				<point name="坐骑名字" exp="100" npcID="3398" jihuoID="120051" jihuoNum="100" npcNum="1973"/>
+
+
+
+
+			</pointMap>
+		</meridian>
+	</meridianMap>
+</config>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by any (Ru-Board) -->
+<!-- 游戏中各种功能和活动的配置表 -->
+<Config>
+	  <!-- 
+    副本的参数
+    FBID                副本ID
+    FBType		        副本类型 一种副本对应一种类型
+	FBMapID             副本对应的mapID
+    FBCounID            副本对应的CounID 国家ID 区或线
+	FBName              副本的名字 32字节，约8个汉字
+    StartTime           开放时间 ,格式： 20100905 23:59:47
+    LastTime            持续时间 ，单位：秒。 默认两个小时。
+    MaxOpenNumPerDay    每天可开启的最大次数。默认为3次。如果不限次数，填入副本持续时间的秒数。
+    MaxEnterNumPerDay   每天可进入的最大次数。默认为3次。如果不限次数，填入副本持续时间的秒数。
+    MaxUserCount        最大用户数量
+    MaxFBCount          最大副本数量，同时可开启的最大副本数量，默认40.
+    IsNeedTeam          是否需要组队前往 0,无需组队。 1，需要组队
+    MinTeamMembNum      队伍成员数量下限 
+    UserMinLvLimit      玩家最低等级限制（VIP积分）
+    UserMaxLvLimit      玩家最高等级限制（VIP积分）
+    -->
+    <FuBen FBID="1" FBType="1" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="1800" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="1" UserMaxLvLimit="10"/>
+    <FuBen FBID="2" FBType="2" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="3600" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="11" UserMaxLvLimit="20"/>
+    <FuBen FBID="3" FBType="3" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="5400" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="21" UserMaxLvLimit="30"/>
+    <FuBen FBID="4" FBType="4" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="7200" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="31" UserMaxLvLimit="40"/>
+    <FuBen FBID="5" FBType="5" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="9000" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="41" UserMaxLvLimit="50"/>
+    <FuBen FBID="6" FBType="6" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="10800" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="51" UserMaxLvLimit="60"/>
+    <FuBen FBID="7" FBType="7" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="12600" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="61" UserMaxLvLimit="70"/>
+    <FuBen FBID="8" FBType="8" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="14400" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="71" UserMaxLvLimit="80"/>
+    <FuBen FBID="9" FBType="9" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="16200" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="81" UserMaxLvLimit="90"/>
+    <FuBen FBID="10" FBType="10" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="18000" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="91" UserMaxLvLimit="100"/>
+    <FuBen FBID="11" FBType="11" FBMapID="333" FBCounID="6" FBName="虚空禁地" StartTime="20100905 23:58:58" LastTime="24000" MaxOpenNumPerDay="1" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="101" UserMaxLvLimit="20000"/>
+    <FuBen FBID="12" FBType="12" FBMapID="1652" FBCounID="6" FBName="轩辕城" StartTime="20100905 23:58:58" LastTime="7200" MaxOpenNumPerDay="3" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="1"  MinTeamMembNum="2" UserMinLvLimit="0" UserMaxLvLimit="20000"/>
+    <FuBen FBID="13" FBType="13" FBMapID="439" FBCounID="6" FBName="人间天堂" StartTime="20100905 23:58:58" LastTime="7200" MaxOpenNumPerDay="3" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="1"  MinTeamMembNum="2" UserMinLvLimit="0" UserMaxLvLimit="20000"/>
+    <FuBen FBID="14" FBType="999" FBMapID="20011" FBCounID="6" FBName="云天别墅" StartTime="20240401 00:00:00" LastTime="86400" MaxOpenNumPerDay="86400" MaxEnterNumPerDay="86400" MaxUserCount="1" MaxFBCount="40" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="0" UserMaxLvLimit="2200"/>
+    <FuBen FBID="15" FBType="15" FBMapID="734" FBCounID="6" FBName="铁匠村" StartTime="20100905 23:58:58" LastTime="7200" MaxOpenNumPerDay="3" MaxEnterNumPerDay="3" MaxUserCount="6" MaxFBCount="30" IsNeedTeam="1"  MinTeamMembNum="2" UserMinLvLimit="0" UserMaxLvLimit="20000"/>
+
+</Config>

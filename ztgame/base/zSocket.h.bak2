@@ -1,0 +1,579 @@
+/**
+ * \file
+ * \version  $Id: zSocket.h  $
+ * \author  
+ * \date 
+ * \brief ¶¨ÒåzSocketÀà£¬ÓÃÓÚ¶ÔÌ×½Ó¿Úµ×²ã½øĞĞ·â×°
+ */
+
+#ifndef _zSocket_h_
+#define _zSocket_h_
+
+#include <errno.h>
+#include <unistd.h>
+#include <cstdlib>
+#include <arpa/inet.h>
+#include <sys/types.h>
+#include <string.h>
+#include <netinet/tcp.h>
+#include <fcntl.h>
+#include <pthread.h>
+#include <sys/socket.h>
+#include <zlib.h>
+#include <net/if.h>
+#include <sys/ioctl.h>
+#include <pthread.h>
+#include <assert.h>
+#include <iostream>
+#include <queue>
+#include <ext/pool_allocator.h>
+#include <ext/mt_allocator.h>
+
+#include "zNoncopyable.h"
+#include "zMutex.h"
+#include "zNullCmd.h"
+#include "Zebra.h"
+#include "zTime.h"
+
+#include "EncDec/EncDec.h"
+
+#include <sys/poll.h>
+#ifdef _USE_EPOLL_
+#include <sys/epoll.h>
+#endif
+
+#define trunkSize (64 * 8192)
+#define unzip_size(zip_size) ((zip_size) * 120 / 100 + 12)
+const unsigned int PACKET_ZIP_BUFFER	=	unzip_size(trunkSize - 1) + sizeof(unsigned int) + 8;	/**< Ñ¹ËõĞèÒªµÄ»º³å */
+
+/**
+ * ×Ö½Ú»º³å£¬ÓÃÓÚÌ×½Ó¿Ú½ÓÊÕºÍ·¢ËÍÊı¾İµÄ»º³å
+ * \param _type »º³åÇøÊı¾İÀàĞÍ
+ */
+template <typename _type>
+class ByteBuffer
+{
+
+	public:
+
+		/**
+		 * ¹¹Ôìº¯Êı
+		 */
+		ByteBuffer();
+
+		/**
+		 * Ïò»º³åÌîÈëÊı¾İ
+		 * \param buf ´ıÌîÈë»º³åµÄÊı¾İ
+		 * \param size ´ıÌîÈë»º³åÊı¾İµÄ³¤¶È
+		 */
+		inline void put(const unsigned char *buf, const unsigned int size)
+		{
+			//Ê×ÏÈÈ·ÈÏ»º³åÄÚ´æÊÇ·ñ×ã¹»
+			wr_reserve(size);
+			bcopy(buf, &_buffer[_currPtr], size);
+			_currPtr += size;
+		}
+
+		/**
+		 * µÃµ½µ±Ç°¿ÉĞ´bfµÄÎ´Öª
+		 * ±£Ö¤ÔÚµ÷ÓÃ´Ëº¯ÊıĞ´ÈëÊı¾İÖ®Ç°ĞèÒªµ÷ÓÃwr_reserve(size)À´Ô¤Áô»º³åÇø´óĞ¡
+		 * \return ¿ÉĞ´Èë»º³å¿ªÊ¼µØÖ·
+		 */
+		inline unsigned char *wr_buf()
+		{
+			return &_buffer[_currPtr];
+		}
+
+		/**
+		 * ·µ»Ø»º³åÖĞÓĞĞ§Êı¾İµÄ¿ªÊ¼µØÖ·
+		 * \return ÓĞĞ§Êı¾İµØÖ·
+		 */
+		inline unsigned char *rd_buf()
+		{
+			return &_buffer[_offPtr];
+		}
+
+		/**
+		 * ÅĞ¶Ï»º³åÖĞÊ±ºòÓĞÓĞĞ§Êı¾İ
+		 * \return ·µ»Ø»º³åÖĞÊÇ·ñÓĞÓĞĞ§Êı¾İ
+		 */
+		inline bool rd_ready() const
+		{
+			return _currPtr > _offPtr;
+		}
+
+		/**
+		 * µÃµ½»º³åÖĞÓĞĞ§Êı¾İµÄ´óĞ¡
+		 * \return ·µ»Ø»º³åÖĞÓĞĞ§Êı¾İ´óĞ¡
+		 */
+		inline unsigned int rd_size() const
+		{
+			return _currPtr - _offPtr;
+		}
+
+		/**
+		 * µ±»º³åµÄÓĞĞ§Êı¾İ±»Ê¹ÓÃÒÔºó£¬ĞèÒª¶Ô»º³å½øĞĞÕûÀí
+		 * \param size ×îºóÒ»´ÎÊ¹ÓÃµÄÓĞĞ§Êı¾İ³¤¶È
+		 */
+		inline void rd_flip(unsigned int size)
+		{
+			_offPtr += size;
+			if (_currPtr > _offPtr)
+			{
+				unsigned int tmp = _currPtr - _offPtr;
+				if(_offPtr >= tmp)
+				{
+					memmove(&_buffer[0], &_buffer[_offPtr], tmp);
+					_offPtr = 0;
+					_currPtr = tmp;
+				}
+			}
+			else
+			{
+				_offPtr = 0;
+				_currPtr = 0;
+			}
+		}
+
+		/**
+		 * µÃµ½»º³å¿ÉĞ´ÈëÊı¾İµÄ´óĞ¡
+		 * \return ¿ÉĞ´ÈëÊı¾İµÄ´óĞ¡
+		 */
+		inline unsigned int wr_size() const
+		{
+			return _maxSize - _currPtr;
+		}
+
+		/**
+		 * Êµ¼ÊÏò»º³åĞ´ÈëÁËÊı¾İ£¬ĞèÒª¶Ô»º³å½øĞĞÕûÀí
+		 * \param size Êµ¼ÊĞ´ÈëµÄÊı¾İ
+		 */
+		inline void wr_flip(const unsigned int size)
+		{
+			_currPtr += size;
+		}
+
+		/**
+		 * ÖØÖµ»º³åÖĞµÄÊı¾İ£¬Çå¿ÕÎŞÓÃµÄÀ¬»øÊı¾İ
+		 */
+		inline void reset()
+		{
+			_offPtr = 0;
+			_currPtr = 0;
+		}
+
+		/**
+		 * ·µ»Ø»º³å×î´ó´óĞ¡
+		 * \return »º³å×î´ó´óĞ¡
+		 */
+		inline unsigned int maxSize() const
+		{
+			return _maxSize;
+		}
+
+
+/**
+ * å¯¹ç¼“å†²åŒºå†…å­˜è¿›è¡Œé¢„åˆ†é…ï¼Œä¿è¯ç¼“å­˜å†™æ•°æ®ï¼Œå¦‚æœç¼“å­˜å¤§å°ä¸å¤Ÿï¼Œåˆ™æ›´æ–°ç¼“å†²åŒºå¤§å°
+ * æœ€å°å•å…ƒä¸ºtrunkSizeï¼Œä¿è¯å†…å­˜å¯¹é½
+ * \param size ç¼“å­˜å†™æ•°æ®çš„å¤§å°
+ */
+inline void wr_reserve(const unsigned int size)
+{
+if (wr_size() < size)
+{
+_maxSize += size;
+_buffer.resize(_maxSize);
+}
+}
+
+private:
+_type _buffer; /**< ç¼“å†²åŒº */
+unsigned int _currPtr; /**< å½“å‰è¯»å†™ä½ç½® */
+unsigned int _offPtr; /**< æœ‰æ•ˆæ•°æ®åç§»ä½ç½® */
+unsigned int _maxSize; /**< ç¼“å†²åŒºæœ€å¤§å¤§å° */
+};
+typedef ByteBuffer<std::vector<unsigned char, __gnu_cxx::__pool_alloc<unsigned char> > > t_BufferCmdQueue;
+#else
+typedef ByteBuffer<std::vector<unsigned char> > t_BufferCmdQueue;
+#endif
+
+/**
+ * é™æ€å¤§å°çš„ç¼“å†²åŒºï¼Œä½¿ç”¨æ ˆç©ºé—´åˆ†é…å†…å­˜ï¼Œç”¨äºä¸€äº›ä¸´æ—¶æ•°æ®çš„è·å–
+ */
+typedef ByteBuffer<unsigned char [PACKET_ZIP_BUFFER]> t_StackCmdQueue;
+ */
+typedef ByteBuffer<unsigned char [PACKET_ZIP_BUFFER]> t_StackCmdQueue;
+
+	public:
+
+		typedef cmd_type type;
+		unsigned int cmd_size;
+		unsigned int max_size;
+		type *cnt;
+
+		CmdBuffer_wrapper() : cmd_size(sizeof(type)), max_size(size)// : cnt(NULL)
+		{
+			cnt = (type *)buffer;
+			constructInPlace(cnt);
+		}
+
+	private:
+
+		unsigned char buffer[size];
+
+};
+
+/**
+ * \brief ·â×°Ì×½Ó¿Úµ×²ãº¯Êı£¬Ìá¹©Ò»¸ö±È½ÏÍ¨ÓÃµÄ½Ó¿Ú
+ */
+class zSocket : private zNoncopyable
+{
+
+	public:
+
+		static const int T_RD_MSEC					=	2100;					/**< ¶ÁÈ¡³¬Ê±µÄºÁÃëÊı */
+		static const int T_WR_MSEC					=	5100;					/**< ·¢ËÍ³¬Ê±µÄºÁÃëÊı */
+
+		static const unsigned int PH_LEN 			=	sizeof(unsigned int);	/**< Êı¾İ°ü°üÍ·´óĞ¡ */
+		static const unsigned int PACKET_ZIP_MIN	=	32;						/**< Êı¾İ°üÑ¹Ëõ×îĞ¡´óĞ¡ */
+
+		static const unsigned int PACKET_ZIP		=	0x40000000;				/**< Êı¾İ°üÑ¹Ëõ±êÖ¾ */
+		static const unsigned int INCOMPLETE_READ	=	0x00000001;				/**< ÉÏ´Î¶ÔÌ×½Ó¿Ú½øĞĞ¶ÁÈ¡²Ù×÷Ã»ÓĞ¶ÁÈ¡ÍêÈ«µÄ±êÖ¾ */
+		static const unsigned int INCOMPLETE_WRITE	=	0x00000002;				/**< ÉÏ´Î¶ÔÌ×½Ó¿Ú½øĞĞĞ´Èë²Ù×÷ÃºÓÍĞ´ÈëÍê±ÏµÄ±êÖ¾ */
+
+		static const unsigned int PACKET_MASK			=	trunkSize - 1;	/**< ×î´óÊı¾İ°ü³¤¶ÈÑÚÂë */
+		static const unsigned int MAX_DATABUFFERSIZE	=	PACKET_MASK;						/**< Êı¾İ°ü×î´ó³¤¶È£¬°üÀ¨°üÍ·4×Ö½Ú */
+		static const unsigned int MAX_DATASIZE			=	(MAX_DATABUFFERSIZE - PH_LEN);		/**< Êı¾İ°ü×î´ó³¤¶È */
+		static const unsigned int MAX_USERDATASIZE		=	(MAX_DATASIZE - 128);				/**< ÓÃ»§Êı¾İ°ü×î´ó³¤¶È */
+
+		static const char *getIPByIfName(const char *ifName);
+
+		zSocket(const int sock, const struct sockaddr_in *addr = NULL, const bool compress = false);
+		~zSocket();
+
+		int recvToCmd(void *pstrCmd, const int nCmdLen, const bool wait);
+		bool sendCmd(const void *pstrCmd, const int nCmdLen, const bool buffer = false);
+		bool sendCmdNoPack(const void *pstrCmd, const int nCmdLen, const bool buffer = false);
+		bool sync();
+		void force_sync();
+
+		int checkIOForRead();
+		int checkIOForWrite();
+		int recvToBuf_NoPoll();
+		int recvToCmd_NoPoll(void *pstrCmd, const int nCmdLen);
+
+		/**
+		 * \brief »ñÈ¡Ì×½Ó¿Ú¶Ô·½µÄµØÖ·
+		 * \return IPµØÖ·
+		 */
+		inline const char *getIP() const { return inet_ntoa(addr.sin_addr); }
+		inline const DWORD getAddr() const { return addr.sin_addr.s_addr; }
+
+		/**
+		 * \brief »ñÈ¡Ì×½Ó¿Ú¶Ô·½¶Ë¿Ú
+		 * \return ¶Ë¿Ú
+		 */
+		inline const unsigned short getPort() const { return ntohs(addr.sin_port); }
+
+		/**
+		 * \brief »ñÈ¡Ì×½Ó¿Ú±¾µØµÄµØÖ·
+		 * \return IPµØÖ·
+		 */
+		inline const char *getLocalIP() const { return inet_ntoa(local_addr.sin_addr); }
+
+		/**
+		 * \brief »ñÈ¡Ì×½Ó¿Ú±¾µØ¶Ë¿Ú
+		 * \return ¶Ë¿Ú
+		 */
+		inline const unsigned short getLocalPort() const { return ntohs(local_addr.sin_port); }
+
+		/**
+		 * \brief ÉèÖÃ¶ÁÈ¡³¬Ê±
+		 * \param msec ³¬Ê±£¬µ¥Î»ºÁÃë 
+		 * \return 
+		 */
+		inline void setReadTimeout(const int msec) { rd_msec = msec; }
+
+		/**
+		 * \brief ÉèÖÃĞ´Èë³¬Ê±
+		 * \param msec ³¬Ê±£¬µ¥Î»ºÁÃë 
+		 * \return 
+		 */
+		inline void setWriteTimeout(const int msec) { wr_msec = msec; }
+
+#ifdef _USE_EPOLL_
+		/**
+		 * \brief Ìí¼Ó¼ì²âÊÂ¼şµ½epollÃèÊö·û
+		 * \param kdpfd epollÃèÊö·û
+		 * \param events ´ıÌí¼ÓµÄÊÂ¼ş
+		 * \param ptr ¶îÍâ²ÎÊı
+		 */
+		inline void addEpoll(int kdpfd, __uint32_t events, void *ptr)
+		{
+			struct epoll_event ev;
+			ev.events = events;
+			ev.data.ptr = ptr;
+			if (-1 == epoll_ctl(kdpfd, EPOLL_CTL_ADD, sock, &ev))
+			{
+				char _buf[100];
+				bzero(_buf, sizeof(_buf));
+				strerror_r(errno, _buf, sizeof(_buf));
+				Zebra::logger->fatal("%s:%s", __FUNCTION__, _buf);
+			}
+		}
+		/**
+		 * \brief ´ÓepollÃèÊö·ûÖĞÉ¾³ı¼ì²âÊÂ¼ş
+		 * \param kdpfd epollÃèÊö·û
+		 * \param events ´ıÌí¼ÓµÄÊÂ¼ş
+		 */
+		inline void delEpoll(int kdpfd, __uint32_t events)
+		{
+			struct epoll_event ev;
+			ev.events = events;
+			ev.data.ptr = NULL;
+			if (-1 == epoll_ctl(kdpfd, EPOLL_CTL_DEL, sock, &ev))
+			{
+				char _buf[100];
+				bzero(_buf, sizeof(_buf));
+				strerror_r(errno, _buf, sizeof(_buf));
+				Zebra::logger->fatal("%s:%s", __FUNCTION__, _buf);
+			}
+		}
+#else
+		/**
+		 * \brief Ìî³äpollfd½á¹¹
+		 * \param pfd ´ıÌî³äµÄ½á¹¹
+		 * \param events µÈ´ıµÄÊÂ¼ş²ÎÊı
+		 */
+		inline void fillPollFD(struct pollfd &pfd, short events)
+		{
+			pfd.fd = sock;
+			pfd.events = events;
+			pfd.revents = 0;
+		}
+#endif
+
+		inline void setEncMethod(CEncrypt::encMethod m) { enc.setEncMethod(m); }
+		inline void set_key_rc5(const unsigned char *data, int nLen, int rounds = RC5_8_ROUNDS) { enc.set_key_rc5(data, nLen, rounds); }
+		inline void set_key_des(const_DES_cblock *key) { enc.set_key_des(key); }
+		inline unsigned int snd_queue_size() const { return _snd_queue.rd_size() + _enc_queue.rd_size(); }
+
+		inline unsigned int getBufferSize() const {return _rcv_queue.maxSize() + _snd_queue.maxSize();}
+	private:
+		int sock;									/**< Ì×½Ó¿Ú */
+		struct sockaddr_in addr;					/**< Ì×½Ó¿ÚµØÖ· */
+		struct sockaddr_in local_addr;				/**< Ì×½Ó¿ÚµØÖ· */
+		int rd_msec;								/**< ¶ÁÈ¡³¬Ê±£¬ºÁÃë */
+		int wr_msec;								/**< Ğ´Èë³¬Ê±£¬ºÁÃë */
+
+		t_BufferCmdQueue _rcv_queue;				/**< ½ÓÊÕ»º³åÖ¸Áî¶ÓÁĞ */
+		unsigned int _rcv_raw_size;					/**< ½ÓÊÕ»º³å½âÃÜÊı¾İ´óĞ¡ */
+		t_BufferCmdQueue _snd_queue;				/**< ¼ÓÃÜ»º³åÖ¸Áî¶ÓÁĞ */
+		t_BufferCmdQueue _enc_queue;				/**< ¼ÓÃÜ»º³åÖ¸Áî¶ÓÁĞ */
+		unsigned int _current_cmd;
+		zMutex mutex;								/**< Ëø */
+
+		zTime last_check_time;						/**< ×îºóÒ»´Î¼ì²âÊ±¼ä */
+
+		unsigned int bitmask;						/**< ±êÖ¾ÑÚÂë */
+		CEncrypt enc;								/**< ¼ÓÃÜ·½Ê½ */
+
+		inline void set_flag(unsigned int _f) { bitmask |= _f; }
+		inline bool isset_flag(unsigned int _f) const { return bitmask & _f; }
+		inline void clear_flag(unsigned int _f) { bitmask &= ~_f; }
+		inline bool need_enc() const { return CEncrypt::ENCDEC_NONE!=enc.getEncMethod(); }
+		/**
+		 * \brief ·µ»ØÊı¾İ°ü°üÍ·×îĞ¡³¤¶È
+		 * \return ×îĞ¡³¤¶È
+		 */
+		inline unsigned int packetMinSize() const { return PH_LEN; }
+
+		/**
+		 * \brief ·µ»ØÕû¸öÊı¾İ°üµÄ³¤¶È
+		 * \param in Êı¾İ°ü
+		 * \return ·µ»ØÕû¸öÊı¾İ°üµÄ³¤¶È
+		 */
+		inline unsigned int packetSize(const unsigned char *in) const { return PH_LEN + ((*((unsigned int *)in)) & PACKET_MASK); }
+
+		inline int sendRawData(const void *pBuffer, const int nSize);
+		inline bool sendRawDataIM(const void *pBuffer, const int nSize);
+		inline int sendRawData_NoPoll(const void *pBuffer, const int nSize);
+		inline bool setNonblock();
+		inline int waitForRead();
+		inline int waitForWrite();
+		inline int recvToBuf();
+
+		inline unsigned int packetUnpack(unsigned char *in, const unsigned int nPacketLen, unsigned char *out);
+		template<typename buffer_type>
+		inline unsigned int packetAppend(const void *pData, const unsigned int nLen, buffer_type &cmd_queue);
+		template<typename buffer_type>
+		inline unsigned int packetAppendNoEnc(const void *pData, const unsigned int nLen, buffer_type &cmd_queue);
+		template<typename buffer_type>
+		inline unsigned int packetPackEnc(buffer_type &cmd_queue, const unsigned int current_cmd, const unsigned int offset = 0);
+	public:
+		template<typename buffer_type>
+		static inline unsigned int packetPackZip(const void *pData, const unsigned int nLen, buffer_type &cmd_queue, const bool _compress = true);
+
+};
+
+/**
+ * \brief ¶ÔÊı¾İ½øĞĞ×éÖ¯,ĞèÒªÊ±Ñ¹Ëõ,²»¼ÓÃÜ
+ * \param pData ´ı×éÖ¯µÄÊı¾İ£¬ÊäÈë
+ * \param nLen ´ı²ğ°üµÄÊı¾İ³¤¶È£¬ÊäÈë
+ * \param cmd_queue Êä³ö£¬´æ·ÅÊı¾İ
+ * \return ·â°üºóµÄ´óĞ¡
+ */
+template<typename buffer_type>
+inline unsigned int zSocket::packetAppendNoEnc(const void *pData, const unsigned int nLen, buffer_type &cmd_queue)
+{
+	return packetPackZip(pData, nLen, cmd_queue, PACKET_ZIP == (bitmask & PACKET_ZIP));
+}
+
+/**
+ * \brief ¶ÔÊı¾İ½øĞĞ×éÖ¯,ĞèÒªÊ±Ñ¹ËõºÍ¼ÓÃÜ
+ * \param pData ´ı×éÖ¯µÄÊı¾İ£¬ÊäÈë
+ * \param nLen ´ı²ğ°üµÄÊı¾İ³¤¶È£¬ÊäÈë
+ * \param cmd_queue Êä³ö£¬´æ·ÅÊı¾İ
+ * \return ·â°üºóµÄ´óĞ¡
+ */
+template<typename buffer_type>
+inline unsigned int zSocket::packetAppend(const void *pData, const unsigned int nLen, buffer_type &cmd_queue)
+{
+	unsigned int nSize = packetPackZip(pData, nLen, cmd_queue, PACKET_ZIP == (bitmask & PACKET_ZIP));
+	if (need_enc())
+		nSize = packetPackEnc(cmd_queue, cmd_queue.rd_size());
+	return nSize;
+}
+
+/**
+ * \brief 				¶ÔÊı¾İ½øĞĞ¼ÓÃÜ
+ * \param cmd_queue		´ı¼ÓÃÜµÄÊı¾İ£¬ÊäÈëÊä³ö
+ * \param current_cmd	×îºóÒ»¸öÖ¸Áî³¤¶È
+ * \param offset		´ı¼ÓÃÜÊı¾İµÄÆ«ÒÆ
+ * \return 				·µ»Ø¼ÓÃÜÒÔºóÕæÊµÊı¾İµÄ´óĞ¡
+ */
+template<typename buffer_type>
+inline unsigned int zSocket::packetPackEnc(buffer_type &cmd_queue, const unsigned int current_cmd, const unsigned int offset)
+{
+	unsigned int mod = (cmd_queue.rd_size() - offset) % 8;
+	if (0!=mod)
+	{
+		mod = 8 - mod;
+		(*(unsigned int *)(&(cmd_queue.rd_buf()[cmd_queue.rd_size() - current_cmd]))) += mod;
+		cmd_queue.wr_flip(mod);
+	}
+
+	//¼ÓÃÜ¶¯×÷
+	enc.encdec(&cmd_queue.rd_buf()[offset], cmd_queue.rd_size() - offset, true);
+
+	return cmd_queue.rd_size();
+}
+
+/**
+ * \brief 			¶ÔÊı¾İ½øĞĞÑ¹Ëõ,ÓÉÉÏ²ãÅĞ¶ÏÊÇ·ñĞèÒª¼ÓÃÜ,ÕâÀïÖ»¸ºÔğ¼ÓÃÜ²»×÷ÅĞ¶Ï
+ * \param pData 	´ıÑ¹ËõµÄÊı¾İ£¬ÊäÈë
+ * \param nLen 		´ıÑ¹ËõµÄÊı¾İ³¤¶È£¬ÊäÈë
+ * \param pBuffer 	Êä³ö£¬´æ·ÅÑ¹ËõÒÔºóµÄÊı¾İ
+ * \param _compress	µ±Êı¾İ°ü¹ı´óÊ±ºòÊÇ·ñÑ¹Ëõ
+ * \return 			·µ»Ø¼ÓÃÜÒÔºóÕæÊµÊı¾İµÄ´óĞ¡
+ */
+template<typename buffer_type>
+inline unsigned int zSocket::packetPackZip(const void *pData, const unsigned int nLen, buffer_type &cmd_queue, const bool _compress)
+{
+	/*if (nLen > MAX_DATASIZE)
+	{
+		Cmd::t_NullCmd *cmd = (Cmd::t_NullCmd *)pData;
+		Zebra::logger->warn("%s: ·¢ËÍµÄÊı¾İ°ü¹ı´ó(cmd = %u, para = %u", __FUNCTION__, cmd->cmd, cmd->para);
+	}*/
+	unsigned int nSize = nLen > MAX_DATASIZE ? MAX_DATASIZE : nLen;//nLen & PACKET_MASK;
+	unsigned int nMask = 0;//nLen & (~PACKET_MASK);
+	if (nSize > PACKET_ZIP_MIN /*Êı¾İ°ü¹ı´ó*/ 
+			&& _compress /*´øÑ¹Ëõ±ê¼Ç£¬Êı¾İ°üĞèÒªÑ¹Ëõ*/
+			/*&& !(nMask & PACKET_ZIP)*/ /*Êı¾İ°ü¹ı´ó¿ÉÄÜÒÑ¾­ÊÇÑ¹Ëõ¹ıµÄ*/ )
+	{
+		uLong nZipLen = unzip_size(nSize);
+		cmd_queue.wr_reserve(nZipLen + PH_LEN);
+		int retcode = compress(&(cmd_queue.wr_buf()[PH_LEN]), &nZipLen, (const Bytef *)pData, nSize);
+		switch(retcode)
+		{
+			case Z_OK:
+				break;
+			case Z_MEM_ERROR:
+				Zebra::logger->fatal("(%s)Z_MEM_ERROR." ,__PRETTY_FUNCTION__);
+				break;
+			case Z_BUF_ERROR:
+				Zebra::logger->fatal("(%s)Z_BUF_ERROR." ,__PRETTY_FUNCTION__);
+				break;
+		}
+		nSize = nZipLen;
+		nMask |= PACKET_ZIP;
+	}
+	else
+	{
+		cmd_queue.wr_reserve(nSize + PH_LEN);
+		bcopy(pData, &(cmd_queue.wr_buf()[PH_LEN]), nSize);
+	}
+
+	(*(unsigned int *)cmd_queue.wr_buf()) = (nSize | nMask);
+	cmd_queue.wr_flip(nSize + PH_LEN);
+	//Zebra::logger->debug("%sÀ©Õ¹ºóÊı¾İ°ü³¤¶È£º%u, %u, %u", __FUNCTION__, nSize+PH_LEN, *(unsigned int *)(cmd_queue.wr_buf()) & PACKET_MASK, nLen);
+
+	return nSize + PH_LEN;
+}
+
+/**
+ * \brief ¶¨ÒåÁËÏûÏ¢´¦Àí½Ó¿Ú£¬ËùÓĞ½ÓÊÕµ½µÄTCPÊı¾İÖ¸ÁîĞèÒªÍ¨¹ıÕâ¸ö½Ó¿ÚÀ´´¦Àí
+ */
+class zProcessor
+{
+	public:
+		virtual bool msgParse(const Cmd::t_NullCmd *, const unsigned int) = 0;
+};
+/**
+ * \brief Ö¸ÁîÁ÷Á¿·ÖÎö
+ */
+struct CmdAnalysis
+{
+	CmdAnalysis(const char *disc,DWORD time_secs):_log_timer(time_secs)
+	{
+		bzero(_disc,sizeof(disc));
+		strncpy(_disc,disc,sizeof(_disc)-1);
+		bzero(_data,sizeof(_data));
+		_switch=false;
+	}
+	struct
+	{
+		DWORD num;
+		DWORD size;
+	}_data[256][256] ;
+	zMutex _mutex;
+	Timer _log_timer;
+	char _disc[256];
+	bool _switch;//¿ª¹Ø
+	void add(const BYTE &cmd, const BYTE &para , const DWORD &size)
+	{
+		if(!_switch)
+		{
+			return ;
+		}
+		_mutex.lock(); 
+		_data[cmd][para].num++;
+		_data[cmd][para].size +=size;
+		zRTime ct;
+		if(_log_timer(ct))
+		{
+			for(int i = 0 ; i < 256 ; i ++)
+			{
+				for(int j = 0 ; j < 256 ; j ++)
+				{
+					if(_data[i][j].num)
+						Zebra::logger->debug("%s:%d,%d,%d,%d",_disc,i,j,_data[i][j].num,_data[i][j].size);
+				}
+			}
+			bzero(_data,sizeof(_data));
+		}
+		_mutex.unlock(); 
+	}
+};
+
+#endif

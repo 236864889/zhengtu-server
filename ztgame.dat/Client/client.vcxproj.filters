@@ -1,0 +1,1572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{2b81a65a-bde5-4db7-8373-2ff288615411}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source\游戏场景">
+      <UniqueIdentifier>{8c3104ba-4f99-4b09-bf65-bd7e6e44c96d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\网络通讯">
+      <UniqueIdentifier>{e8475fd0-e1ab-4a04-a367-9de3616f6c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UI">
+      <UniqueIdentifier>{78ae4f6b-f897-4213-96ee-0b5b57198fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UI\推荐人系统">
+      <UniqueIdentifier>{dca16939-dbc3-4478-abe8-4f87e189c12a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UI\BOSS领主系统">
+      <UniqueIdentifier>{e720e846-7a5b-43a7-b360-3267d4c8fefd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\UI\师徒系统">
+      <UniqueIdentifier>{f9c677ef-cb09-4383-8098-6a41d223ccfe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\数据表格">
+      <UniqueIdentifier>{31ed13dd-9429-41f1-a02e-b93684c29a73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\AI">
+      <UniqueIdentifier>{9144f2f1-ede5-4f1b-a97d-164cf751e821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\AI\脚本支持">
+      <UniqueIdentifier>{932db0e2-59b8-4df8-a38a-0ac1face49c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\游戏时间">
+      <UniqueIdentifier>{34c95095-a613-442c-b3f8-ece7750f6b22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Other">
+      <UniqueIdentifier>{95237e77-84a3-40da-9e6c-f4c47683a212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\角色相关">
+      <UniqueIdentifier>{51c48f98-db80-48df-b39b-ea120adc7fd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\全局定义">
+      <UniqueIdentifier>{6d085fac-52d1-42ae-a84b-5914c7fda580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\SpecialEffect">
+      <UniqueIdentifier>{7c9576f2-8dca-4548-9616-3df41844d65c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Particle">
+      <UniqueIdentifier>{cda84fd3-c51d-4b36-9284-c03cec430c0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\错误处理">
+      <UniqueIdentifier>{b19c7010-d18b-41bd-96d7-0afeaa0c80b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MiniGame">
+      <UniqueIdentifier>{28d5aae0-7fea-4389-94e3-9dce46f64fc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\LordStrike">
+      <UniqueIdentifier>{cd22e36c-a280-49af-a7f8-2ffcf7b7262e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\排行榜">
+      <UniqueIdentifier>{4c4c93f5-05a8-49f0-a89a-a52a4641883a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\新手引导">
+      <UniqueIdentifier>{a2b04e17-1a1a-4327-a49d-b6d657f6a791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\时间显示">
+      <UniqueIdentifier>{ebf78201-c755-43cb-aa97-381db8774315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\装备系统">
+      <UniqueIdentifier>{e47720eb-48f4-41e3-9ef7-cced3164ac51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\百兽图鉴">
+      <UniqueIdentifier>{af475965-5f44-4c72-abc6-ebeaab8331a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\商城">
+      <UniqueIdentifier>{7f76f3f1-846c-42ab-97af-0a8c7950a340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\功勋竞猜">
+      <UniqueIdentifier>{bbfe25ab-4921-4494-a1e6-0c12d47ec1be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\法宝系统">
+      <UniqueIdentifier>{ce635fe4-9bdb-48a0-931e-617c9f30f65b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\五附件系统">
+      <UniqueIdentifier>{6e005114-0a6b-4aba-aca9-67802071a32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\理财系统">
+      <UniqueIdentifier>{a4b4266e-daa7-4727-98c8-8b1533cd5ea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\元神系统">
+      <UniqueIdentifier>{b82abf4c-0420-40e3-8192-8118ed99ea6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\头衔系统">
+      <UniqueIdentifier>{57f646c1-0d4b-455e-a26c-059010548a50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\称号系统">
+      <UniqueIdentifier>{8b97a3ee-3a5e-4249-ade1-01e7495ff80e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\副本系统">
+      <UniqueIdentifier>{4d35fa17-af65-496f-b832-c2a87ca20dcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\生儿育女">
+      <UniqueIdentifier>{a16e003e-d35c-4a8c-a5c5-68992e041b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\充值系统">
+      <UniqueIdentifier>{05dd7579-48a0-4f31-a97f-273460bfecf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\天下第一">
+      <UniqueIdentifier>{29280129-5d51-4b0d-96d4-24e7c7267d61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\自行车系统">
+      <UniqueIdentifier>{60c76469-2294-45b9-8059-0a76f358e8db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\云天别墅">
+      <UniqueIdentifier>{5d4f31e8-4cbd-42ac-8438-4bb92f5d5e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\回收系统">
+      <UniqueIdentifier>{349d92ba-76a9-4207-8686-df6d5b49fd7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\新人引导">
+      <UniqueIdentifier>{1f193bce-a29d-4eee-b95c-84c9757feddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\每日任务">
+      <UniqueIdentifier>{68bc0e07-d618-4923-843d-80fc0b690b85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\自动使用">
+      <UniqueIdentifier>{fac95dad-90eb-4669-9c2c-19b3abb80c04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\修炼系统">
+      <UniqueIdentifier>{a7a93e3e-c6fc-45cd-8fdc-4f31bdf3d02b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\修仙系统">
+      <UniqueIdentifier>{9e7509b4-524b-44b2-a31e-1bf15e084b2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\封印系统">
+      <UniqueIdentifier>{819c81a9-8a35-47f2-a1ce-5de08a1e8873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\装备转换">
+      <UniqueIdentifier>{a3ab726b-60b2-4fe1-a55f-e5a6971dc568}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\后门系统">
+      <UniqueIdentifier>{bde1f54f-7144-4010-86ea-e3adc6c9dfe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\战车系统">
+      <UniqueIdentifier>{4b5211c3-c8a5-4f0e-9441-b15e13c0a590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\家族BOSS">
+      <UniqueIdentifier>{61f966a5-71c4-4517-8915-fa27f708bf6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\坐骑图鉴">
+      <UniqueIdentifier>{742d9a60-4712-4752-b8a6-4a653c12bb01}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bitmap1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="icon1.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CGuiRightFadeNotifyDialog.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Chat.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="FindPath.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameAccelKeyManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameAppation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingDlg.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Relation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMovie.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Auction.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Build.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Country.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Horse.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Magic.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Mail.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="MainCharacter.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Pet.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneImage.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.cpp">
+      <Filter>Source\游戏场景</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Source\网络通讯</Filter>
+    </ClCompile>
+    <ClCompile Include="NetAutoConnect.cpp">
+      <Filter>Source\网络通讯</Filter>
+    </ClCompile>
+    <ClCompile Include="CartoonPet.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterProperty.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CountryInfo.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateRole.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Dlg2ProgressBar.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgProgressBar.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCursor.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameGuiFloatItem.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameGuiManager.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAddMemberDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAddNearByChat.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAddSalaryDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAdoptCartoonDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiApplyConn.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAuctionDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAuctionGoldCoinInputDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAuctionMoneyInputDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAutoAttackDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAutoReplySettingDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiBallot.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiBoardGameDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiButtonList.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiCartoonAddCentDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChangeCountry.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChangeCountrySalary.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChangeWarField.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChatInvite.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChatOutput.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChatSelect.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChatSelectButton.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChongzhiTrade.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiClearPointDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiClothColorDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiColorDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiCompetition.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiCongratulateInfo.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiCountryWarQuery.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiCowryboxdialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiCreateCharDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiEmotionDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiExitGameDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiFace.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiFloatAccessKey.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiFloatControl.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiFriendLevelup.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiGiveGiftDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiGmMsgBoard.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiGoldExchangeDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiGoodHelperDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiHairStyleDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiHalofFameTop.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiHeadListDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiInputBox.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiInputBox2Dialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiInputBoxFive.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiItem.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiItemDetailInfo.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiKeyBoard.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiKingSelectDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiLogin.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiLoginGameDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMain.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMessageBox.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMiniMap.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMoneyInputBox.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiNameMoneyInputBoxDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiNpcDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiNpcTrade.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiOtherAccessKey.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiOthersShopDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiPackage.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiPasswordDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiPetCtrlDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiPetDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiPetPackDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiPrivateChat.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiPrivateChatSelect.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiQQPannel.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiQuestGameDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiQuestVipGameDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiRecvMailDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiReliveDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSafeGameDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSalaryTrade.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSaveBox.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSaveBoxContinueDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSelectCharDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSelectDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSelectMarryType.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSelectSeptDareType.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSendMailDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiShopDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiShortcutItem.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSkillTree.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiStockDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSysChat.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiSystem.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTaiMiaoTop.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTaskDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTeam.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTiaoGameDlg.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTicketTrade.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTop.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTrade.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiUnoinPower.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiUserInfo.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiWorldBoard.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiWorldConn.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="NationalMapDialog.cpp">
+      <Filter>Source\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiRecoSys_A_InputDlg.cpp">
+      <Filter>Source\UI\推荐人系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiRecoSys_A_Query_TakeDlg.cpp">
+      <Filter>Source\UI\推荐人系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiRecoSys_B_Query_TakeDlg.cpp">
+      <Filter>Source\UI\推荐人系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiBossInfoDlg.cpp">
+      <Filter>Source\UI\BOSS领主系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMasterBountyDlg.cpp">
+      <Filter>Source\UI\师徒系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiPrenticeBountyDlg.cpp">
+      <Filter>Source\UI\师徒系统</Filter>
+    </ClCompile>
+    <ClCompile Include="table.cpp">
+      <Filter>Source\数据表格</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>Source\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="game_script.cpp">
+      <Filter>Source\AI\脚本支持</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>Source\游戏时间</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoGame.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitWindows.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="GameHookThread.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="KillProcess.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="PEHook.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="SafetyUser.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObj.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="UserLocalInfo.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="RoleItem.cpp">
+      <Filter>Source\角色相关</Filter>
+    </ClCompile>
+    <ClCompile Include="RoleSkill.cpp">
+      <Filter>Source\角色相关</Filter>
+    </ClCompile>
+    <ClCompile Include="public.cpp">
+      <Filter>Source\全局定义</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectCloud.cpp">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectRain.cpp">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="WeatherMgr.cpp">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\Emiter.cpp">
+      <Filter>Source\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\Movement.cpp">
+      <Filter>Source\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\Particle.cpp">
+      <Filter>Source\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\ParticleSysMgr.cpp">
+      <Filter>Source\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\ParticleSystem.cpp">
+      <Filter>Source\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\public.cpp">
+      <Filter>Source\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="DumpError.cpp">
+      <Filter>Source\错误处理</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorDlg.cpp">
+      <Filter>Source\错误处理</Filter>
+    </ClCompile>
+    <ClCompile Include="MGMoneyInputDlg.cpp">
+      <Filter>Source\MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="MGNumberDlg.cpp">
+      <Filter>Source\MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGameListDlg.cpp">
+      <Filter>Source\MiniGame</Filter>
+    </ClCompile>
+    <ClCompile Include="cardpattern.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeBaseDlg.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeCard.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeGame.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeGameBkDlg.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeHelpDlg.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeLobby.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeLobbyDlg.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeManager.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikePlayer.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LordStrikeRoomDlg.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LSChangeMoneyDlg.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LSParseMessage.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LSScore.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="LSScoreDlg.cpp">
+      <Filter>Source\LordStrike</Filter>
+    </ClCompile>
+    <ClCompile Include="RanksMgr.cpp">
+      <Filter>Source\排行榜</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiHelp.cpp">
+      <Filter>Source\新手引导</Filter>
+    </ClCompile>
+    <ClCompile Include="MyTimer.cpp">
+      <Filter>Source\时间显示</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerDisplayMgr.cpp">
+      <Filter>Source\时间显示</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEquipAnnexpack.cpp">
+      <Filter>Source\装备系统</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEquipRecast.cpp">
+      <Filter>Source\装备系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMagicBoxDlg.cpp">
+      <Filter>Source\装备系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiNpcMake.cpp">
+      <Filter>Source\装备系统</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEquipbookRecast.cpp">
+      <Filter>Source\百兽图鉴</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEquiphandbook.cpp">
+      <Filter>Source\百兽图鉴</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgMall.cpp">
+      <Filter>Source\商城</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiWare.cpp">
+      <Filter>Source\商城</Filter>
+    </ClCompile>
+    <ClCompile Include="MallDataMgr.cpp">
+      <Filter>Source\商城</Filter>
+    </ClCompile>
+    <ClCompile Include="Guigongxun.cpp">
+      <Filter>Source\功勋竞猜</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEquipFabaoRecast.cpp">
+      <Filter>Source\法宝系统</Filter>
+    </ClCompile>
+    <ClCompile Include="Guijianzhong.cpp">
+      <Filter>Source\五附件系统</Filter>
+    </ClCompile>
+    <ClCompile Include="Guijingmai.cpp">
+      <Filter>Source\五附件系统</Filter>
+    </ClCompile>
+    <ClCompile Include="Guishengqi.cpp">
+      <Filter>Source\五附件系统</Filter>
+    </ClCompile>
+    <ClCompile Include="Guishengxiao.cpp">
+      <Filter>Source\五附件系统</Filter>
+    </ClCompile>
+    <ClCompile Include="Guizhengtuzhuan.cpp">
+      <Filter>Source\五附件系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiLicai.cpp">
+      <Filter>Source\理财系统</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgEquipYuanshenRecast.cpp">
+      <Filter>Source\元神系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTouxian.cpp">
+      <Filter>Source\头衔系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiChenghao.cpp">
+      <Filter>Source\称号系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiFuben.cpp">
+      <Filter>Source\副本系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiBaby.cpp">
+      <Filter>Source\生儿育女</Filter>
+    </ClCompile>
+    <ClCompile Include="Guichongzhi.cpp">
+      <Filter>Source\充值系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiTianxia.cpp">
+      <Filter>Source\天下第一</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiBike.cpp">
+      <Filter>Source\自行车系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiBieshu.cpp">
+      <Filter>Source\云天别墅</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiHuishou.cpp">
+      <Filter>Source\回收系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiXinshou.cpp">
+      <Filter>Source\新人引导</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMeiri.cpp">
+      <Filter>Source\每日任务</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiAutoUse.cpp">
+      <Filter>Source\自动使用</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiXiulian.cpp">
+      <Filter>Source\修炼系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiXiuxian.cpp">
+      <Filter>Source\修仙系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiFengyin.cpp">
+      <Filter>Source\封印系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiZhuanhuan.cpp">
+      <Filter>Source\装备转换</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiMianban.cpp">
+      <Filter>Source\后门系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiZhanche.cpp">
+      <Filter>Source\战车系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiZhancheCmd.cpp">
+      <Filter>Source\战车系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiZhanchelist.cpp">
+      <Filter>Source\战车系统</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiJiazuboss.cpp">
+      <Filter>Source\家族BOSS</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiZuoqi.cpp">
+      <Filter>Source\坐骑图鉴</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CGuiRightFadeNotifyDialog.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Chat.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="FindDLL.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="FindPath.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="GameAccelKeyManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="GameAppation.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingDlg.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Relation.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMovie.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Auction.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Build.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Country.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Horse.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Magic.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Mail.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="MainCharacter.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Pet.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneImage.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
+      <Filter>Source\游戏场景</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Source\网络通讯</Filter>
+    </ClInclude>
+    <ClInclude Include="command.h">
+      <Filter>Source\网络通讯</Filter>
+    </ClInclude>
+    <ClInclude Include="NetAutoConnect.h">
+      <Filter>Source\网络通讯</Filter>
+    </ClInclude>
+    <ClInclude Include="CartoonPet.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterProperty.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CountryInfo.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateRole.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Dlg2ProgressBar.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgProgressBar.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCursor.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGuiFloatItem.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameGuiManager.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAddMemberDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAddNearByChat.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAddSalaryDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAdoptCartoonDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiApplyConn.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAuctionDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAuctionGoldCoinInputDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAuctionMoneyInputDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAutoAttackDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAutoReplySettingDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiBallot.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiBoardGameDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiButtonList.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiCartoonAddCentDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChangeCountry.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChangeCountrySalary.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChangeWarField.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChatInvite.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChatOutput.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChatSelect.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChatSelectButton.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChongzhiTrade.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiClearPointDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiClothColorDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiColorDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiCompetition.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiCongratulateInfo.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiCountryWarQuery.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiCowryboxdialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiCreateCharDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiEmotionDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiExitGameDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiFace.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiFloatAccessKey.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiFloatControl.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiFriendLevelup.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiGiveGiftDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiGmMsgBoard.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiGoldExchangeDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiGoodHelperDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiHairStyleDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiHalofFameTop.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiHeadListDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiInputBox.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiInputBox2Dialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiInputBoxFive.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiItem.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiItemDetailInfo.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiKeyBoard.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiKingSelectDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiLogin.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiLoginGameDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMain.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMessageBox.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMiniMap.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMoneyInputBox.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiNameMoneyInputBoxDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiNpcDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiNpcTrade.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiOtherAccessKey.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiOthersShopDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiPackage.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiPasswordDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiPetCtrlDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiPetDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiPetPackDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiPrivateChat.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiPrivateChatSelect.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiQQPannel.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiQuestGameDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiQuestVipGameDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiRecvMailDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiReliveDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSafeGameDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSalaryTrade.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSaveBox.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSaveBoxContinueDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSelectCharDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSelectDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSelectMarryType.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSelectSeptDareType.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSendMailDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiShopDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiShortcutItem.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSkill.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiStockDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSysChat.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiSystem.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTaiMiaoTop.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTaskDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTeam.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTiaoGameDlg.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTicketTrade.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTop.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTrade.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiUnoinPower.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiUserInfo.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiWorldBoard.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiWorldConn.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="NationalMapDialog.h">
+      <Filter>Source\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiRecoSys_A_InputDlg.h">
+      <Filter>Source\UI\推荐人系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiRecoSys_A_Query_TakeDlg.h">
+      <Filter>Source\UI\推荐人系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiRecoSys_B_Query_TakeDlg.h">
+      <Filter>Source\UI\推荐人系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiBossInfoDlg.h">
+      <Filter>Source\UI\BOSS领主系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMasterBountyDlg.h">
+      <Filter>Source\UI\师徒系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiPrenticeBountyDlg.h">
+      <Filter>Source\UI\师徒系统</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Source\数据表格</Filter>
+    </ClInclude>
+    <ClInclude Include="table.h">
+      <Filter>Source\数据表格</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>Source\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="game_script.h">
+      <Filter>Source\AI\脚本支持</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
+      <Filter>Source\游戏时间</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoGame.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitWindows.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="GameHookThread.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="KillProcess.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="MulFunction.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SafetyUser.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObj.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="UserLocalInfo.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="RoleItem.h">
+      <Filter>Source\角色相关</Filter>
+    </ClInclude>
+    <ClInclude Include="RoleSkill.h">
+      <Filter>Source\角色相关</Filter>
+    </ClInclude>
+    <ClInclude Include="public.h">
+      <Filter>Source\全局定义</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectCloud.h">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectRain.h">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="WeatherMgr.h">
+      <Filter>Source\SpecialEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\Emiter.h">
+      <Filter>Source\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\Movement.h">
+      <Filter>Source\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\Particle.h">
+      <Filter>Source\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\ParticleSysMgr.h">
+      <Filter>Source\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\ParticleSystem.h">
+      <Filter>Source\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="DumpError.h">
+      <Filter>Source\错误处理</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorDlg.h">
+      <Filter>Source\错误处理</Filter>
+    </ClInclude>
+    <ClInclude Include="MGMoneyInputDlg.h">
+      <Filter>Source\MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MGNumberDlg.h">
+      <Filter>Source\MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGameListDlg.h">
+      <Filter>Source\MiniGame</Filter>
+    </ClInclude>
+    <ClInclude Include="cardpattern.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeBaseDlg.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeCard.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeGame.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeGameBkDlg.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeHelpDlg.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeLobby.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeLobbyDlg.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeManager.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikePlayer.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LordStrikeRoomDlg.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LSChangeMoneyDlg.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LSScore.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="LSScoreDlg.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="miniusercommand.h">
+      <Filter>Source\LordStrike</Filter>
+    </ClInclude>
+    <ClInclude Include="RanksMgr.h">
+      <Filter>Source\排行榜</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiHelp.h">
+      <Filter>Source\新手引导</Filter>
+    </ClInclude>
+    <ClInclude Include="MyTimer.h">
+      <Filter>Source\时间显示</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerDisplayMgr.h">
+      <Filter>Source\时间显示</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEquipAnnexpack.h">
+      <Filter>Source\装备系统</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEquipRecast.h">
+      <Filter>Source\装备系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMagicBoxDlg.h">
+      <Filter>Source\装备系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiNpcMake.h">
+      <Filter>Source\装备系统</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEquipbookRecast.h">
+      <Filter>Source\百兽图鉴</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEquiphandbook.h">
+      <Filter>Source\百兽图鉴</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgMall.h">
+      <Filter>Source\商城</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiWare.h">
+      <Filter>Source\商城</Filter>
+    </ClInclude>
+    <ClInclude Include="MallDataMgr.h">
+      <Filter>Source\商城</Filter>
+    </ClInclude>
+    <ClInclude Include="Guigongxun.h">
+      <Filter>Source\功勋竞猜</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEquipFabaoRecast.h">
+      <Filter>Source\法宝系统</Filter>
+    </ClInclude>
+    <ClInclude Include="Guijianzhong.h">
+      <Filter>Source\五附件系统</Filter>
+    </ClInclude>
+    <ClInclude Include="Guijingmai.h">
+      <Filter>Source\五附件系统</Filter>
+    </ClInclude>
+    <ClInclude Include="Guishengqi.h">
+      <Filter>Source\五附件系统</Filter>
+    </ClInclude>
+    <ClInclude Include="Guishengxiao.h">
+      <Filter>Source\五附件系统</Filter>
+    </ClInclude>
+    <ClInclude Include="Guizhengtuzhuan.h">
+      <Filter>Source\五附件系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiLicai.h">
+      <Filter>Source\理财系统</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgEquipYuanshenRecast.h">
+      <Filter>Source\元神系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTouxian.h">
+      <Filter>Source\头衔系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiChenghao.h">
+      <Filter>Source\称号系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiFuben.h">
+      <Filter>Source\副本系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiBaby.h">
+      <Filter>Source\生儿育女</Filter>
+    </ClInclude>
+    <ClInclude Include="Guichongzhi.h">
+      <Filter>Source\充值系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTianxia.h">
+      <Filter>Source\天下第一</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiBike.h">
+      <Filter>Source\自行车系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiBieshu.h">
+      <Filter>Source\云天别墅</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiHuishou.h">
+      <Filter>Source\回收系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiXinshou.h">
+      <Filter>Source\新人引导</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMeiri.h">
+      <Filter>Source\每日任务</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAutoUse.h">
+      <Filter>Source\自动使用</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiXiulian.h">
+      <Filter>Source\修炼系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiXiuxian.h">
+      <Filter>Source\修仙系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiFengyin.h">
+      <Filter>Source\封印系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiZhuanhuan.h">
+      <Filter>Source\装备转换</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMianban.h">
+      <Filter>Source\后门系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiZhanche.h">
+      <Filter>Source\战车系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiZhancheCmd.h">
+      <Filter>Source\战车系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiZhanchelist.h">
+      <Filter>Source\战车系统</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiJiazuboss.h">
+      <Filter>Source\家族BOSS</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiZuoqi.h">
+      <Filter>Source\坐骑图鉴</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

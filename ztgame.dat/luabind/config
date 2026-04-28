@@ -1,0 +1,6 @@
+# luabind configuration for Lua 5.1 and Boost 1.41
+CXX = /opt/rh/devtoolset-8/root/usr/bin/g++
+AR = ar
+LUA_PATH = /usr
+BOOST_ROOT = /usr/include
+CONFIG = -O2 -Wall -ftemplate-depth-100 -fPIC

@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseTest|Win32">
+      <Configuration>ReleaseTest</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{618AEDF2-D2EF-48CC-B947-535AA3334860}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>14.0.23107.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>../include/engine.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)Engine_d.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>../include/engine.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat />
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)Engine.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseTest|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;RELEASE_TEST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>../include/engine.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)Engine.lib</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Animation.cpp" />
+    <ClCompile Include="source\Appation.cpp" />
+    <ClCompile Include="source\BmpTextout.cpp" />
+    <ClCompile Include="source\BxmpTextout.cpp" />
+    <ClCompile Include="source\crc.cpp" />
+    <ClCompile Include="source\engine.cpp" />
+    <ClCompile Include="source\EngineState.cpp" />
+    <ClCompile Include="source\engine_color.cpp" />
+    <ClCompile Include="source\engine_script.cpp" />
+    <ClCompile Include="source\FilePackHelper.cpp" />
+    <ClCompile Include="source\FileStream.cpp" />
+    <ClCompile Include="source\FilterStream.cpp" />
+    <ClCompile Include="source\Fps.cpp" />
+    <ClCompile Include="source\frameAllocator.cpp" />
+    <ClCompile Include="source\Graphic.cpp" />
+    <ClCompile Include="source\IBitmap.cpp" />
+    <ClCompile Include="source\IBitmaps.cpp" />
+    <ClCompile Include="source\IDevice.cpp" />
+    <ClCompile Include="source\IGraphicCursor.cpp" />
+    <ClCompile Include="source\Ini.cpp" />
+    <ClCompile Include="source\Lock.cpp" />
+    <ClCompile Include="source\lookaside_alloc.cpp" />
+    <ClCompile Include="source\MemStream.cpp" />
+    <ClCompile Include="source\PackAggregate.cpp" />
+    <ClCompile Include="source\PackSubStream.cpp" />
+    <ClCompile Include="source\PhraseFilter.cpp" />
+    <ClCompile Include="source\ResizeFilterStream.cpp" />
+    <ClCompile Include="source\Socket.cpp" />
+    <ClCompile Include="source\Spell.cpp" />
+    <ClCompile Include="source\Stream.cpp" />
+    <ClCompile Include="source\StreamQueue.cpp" />
+    <ClCompile Include="source\stringex.cpp" />
+    <ClCompile Include="source\SystemInfo.cpp" />
+    <ClCompile Include="source\TBitmapList.cpp" />
+    <ClCompile Include="source\TCPSocket.cpp" />
+    <ClCompile Include="source\Thread.cpp" />
+    <ClCompile Include="source\Timer.cpp" />
+    <ClCompile Include="source\UdpSocket.cpp" />
+    <ClCompile Include="source\winFileio.cpp" />
+    <ClCompile Include="source\ZipAggregate.cpp" />
+    <ClCompile Include="source\zipHeader.cpp" />
+    <ClCompile Include="source\ZipSubStream.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Animation.h" />
+    <ClInclude Include="include\Appation.h" />
+    <ClInclude Include="include\BmpTextout.h" />
+    <ClInclude Include="include\BxmpTextout.h" />
+    <ClInclude Include="include\crc.h" />
+    <ClInclude Include="include\cSafeQueue.h" />
+    <ClInclude Include="include\engine.h" />
+    <ClInclude Include="include\EngineState.h" />
+    <ClInclude Include="include\engine_color.h" />
+    <ClInclude Include="include\engine_core.h" />
+    <ClInclude Include="include\engine_script.h" />
+    <ClInclude Include="include\File.h" />
+    <ClInclude Include="include\FilePackHelper.h" />
+    <ClInclude Include="include\FileStream.h" />
+    <ClInclude Include="include\FilterStream.h" />
+    <ClInclude Include="include\Fps.h" />
+    <ClInclude Include="include\frameAllocator.h" />
+    <ClInclude Include="include\graphic.h" />
+    <ClInclude Include="include\IBitmap.h" />
+    <ClInclude Include="include\IBitmapList.h" />
+    <ClInclude Include="include\IBitmaps.h" />
+    <ClInclude Include="include\IDevice.h" />
+    <ClInclude Include="include\ijl.h" />
+    <ClInclude Include="include\ILightMap.h" />
+    <ClInclude Include="include\Ini.h" />
+    <ClInclude Include="include\Lock.h" />
+    <ClInclude Include="include\Log.h" />
+    <ClInclude Include="include\lookaside_alloc.h" />
+    <ClInclude Include="include\MathEx.h" />
+    <ClInclude Include="include\MemStream.h" />
+    <ClInclude Include="include\PackAggregate.h" />
+    <ClInclude Include="include\PackSubStream.h" />
+    <ClInclude Include="include\PhraseFilter.h" />
+    <ClInclude Include="include\ResizeFilterStream.h" />
+    <ClInclude Include="include\simpleAllocator.h" />
+    <ClInclude Include="include\SimpleList.h" />
+    <ClInclude Include="include\Socket.h" />
+    <ClInclude Include="include\stack_alloc.h" />
+    <ClInclude Include="include\Stream.h" />
+    <ClInclude Include="include\StreamQueue.h" />
+    <ClInclude Include="include\streamtypes.h" />
+    <ClInclude Include="include\stringex.h" />
+    <ClInclude Include="include\SystemInfo.h" />
+    <ClInclude Include="include\TBitmapList.h" />
+    <ClInclude Include="include\TBitmaps.h" />
+    <ClInclude Include="include\TCPSocket.h" />
+    <ClInclude Include="include\Thread.h" />
+    <ClInclude Include="include\Timer.h" />
+    <ClInclude Include="include\UdpSocket.h" />
+    <ClInclude Include="include\ZipAggregate.h" />
+    <ClInclude Include="include\zipHeader.h" />
+    <ClInclude Include="include\ZipSubStream.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties DevPartner_IsInstrumented="0" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

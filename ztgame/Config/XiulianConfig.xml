@@ -1,0 +1,1788 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<config>
+	<!-- 头衔配置 -->
+	<meridianMap>
+		<meridian index="1">
+			<pointMap>
+<item id="3034" objIds="688067" growths="100" producedesc="需求：每使用1个不消费打死你增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1329" objIds="664941" growths="100" producedesc="需求：每使用1个隐世上神增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1330" objIds="664942" growths="100" producedesc="需求：每使用1个飞升上仙增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="12000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1682" objIds="670491" growths="100" producedesc="需求：每使用1个一念成佛一念成魔增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1331" objIds="664943" growths="100" producedesc="需求：每使用1个走上人生巅峰增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1377" objIds="665468" growths="100" producedesc="需求：每使用1个王之蔑视增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1378" objIds="665469" growths="100" producedesc="需求：每使用1个叱咤风云增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1379" objIds="665470" growths="100" producedesc="需求：每使用1个独步天下增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1435" objIds="666416" growths="100" producedesc="需求：每使用1个四方庇护增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1436" objIds="666417" growths="100" producedesc="需求：每使用1个金刚罗汉增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1441" objIds="666994" growths="100" producedesc="需求：每使用1个在牛A与牛C之间增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1442" objIds="666995" growths="100" producedesc="需求：每使用1个赤手遮天增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1443" objIds="666996" growths="100" producedesc="需求：每使用1个豪情无双增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1444" objIds="666997" growths="100" producedesc="需求：每使用1个我意纵横增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1445" objIds="666998" growths="100" producedesc="需求：每使用1个势如破竹增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1380" objIds="665471" growths="100" producedesc="需求：每使用1个谁与争锋增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1381" objIds="665472" growths="100" producedesc="需求：每使用1个傲视群雄增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1432" objIds="666413" growths="100" producedesc="需求：每使用1个斗战胜佛增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1433" objIds="666414" growths="100" producedesc="需求：每使用1个大智神君增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="20000" mda="20000" pdef="10000" mdef="10000" hp="40000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1434" objIds="666415" growths="100" producedesc="需求：每使用1个混沌元始增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="25000" mda="25000" pdef="12500" mdef="12500" hp="50000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1446" objIds="667676" growths="100" producedesc="需求：每使用1个不明觉厉增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="30000" mda="30000" pdef="15000" mdef="15000" hp="60000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1447" objIds="667677" growths="100" producedesc="需求：每使用1个人艰不拆增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="40000" mda="40000" pdef="20000" mdef="20000" hp="80000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1448" objIds="667678" growths="100" producedesc="需求：每使用1个喜大普奔增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="100000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1449" objIds="667679" growths="100" producedesc="需求：每使用1个累觉不爱增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="80000" mda="80000" pdef="40000" mdef="40000" hp="160000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1450" objIds="667680" growths="100" producedesc="需求：每使用1个不哭站撸增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100000" mda="100000" pdef="50000" mdef="50000" hp="200000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="886" objIds="670492" growths="100" producedesc="需求：每使用1个十步一杀增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1000" mda="1000" pdef="500" mdef="500" hp="2000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="887" objIds="670493" growths="100" producedesc="需求：每使用1个一剑凌云增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1200" mda="1200" pdef="600" mdef="600" hp="2400" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="888" objIds="670494" growths="100" producedesc="需求：每使用1个枯魂百斩增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="889" objIds="670495" growths="100" producedesc="需求：每使用1个决胜千里增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1745" objIds="671659" growths="100" producedesc="需求：每使用1个不服憋着增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1746" objIds="671660" growths="100" producedesc="需求：每使用1个绞肉机增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1747" objIds="671661" growths="100" producedesc="需求：每使用1个操作流增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1748" objIds="671662" growths="100" producedesc="需求：每使用1个鼠标党增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+<item id="1749" objIds="671663" growths="100" producedesc="需求：每使用1个用脸滚键盘增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1827" objIds="673367" growths="100" producedesc="需求：每使用1个飞龙在天增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1828" objIds="673368" growths="100" producedesc="需求：每使用1个龙战于野增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1829" objIds="673369" growths="100" producedesc="需求：每使用1个亢龙有悔增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1830" objIds="673370" growths="100" producedesc="需求：每使用1个神龙摆尾增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="1831" objIds="673371" growths="100" producedesc="需求：每使用1个潜龙勿用增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2027" objIds="678607" growths="100" producedesc="需求：每使用1个踏雪无痕去无踪增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2028" objIds="678608" growths="100" producedesc="需求：每使用1个非侠非影非佛陀增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2029" objIds="678609" growths="100" producedesc="需求：每使用1个无敌无我无阴阳增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2030" objIds="678610" growths="100" producedesc="需求：每使用1个不入金刚便入魔增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2153" objIds="683114" growths="100" producedesc="需求：每使用1个君临天下增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2154" objIds="683115" growths="100" producedesc="需求：每使用1个一代枭雄增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2155" objIds="683116" growths="100" producedesc="需求：每使用1个问鼎苍穹增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2156" objIds="683117" growths="100" producedesc="需求：每使用1个御风而上增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2299" objIds="688064" growths="100" producedesc="需求：每使用1个天下无敌心有敌增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2300" objIds="688065" growths="100" producedesc="需求：每使用1个道成无敌功至上增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="2301" objIds="688066" growths="100" producedesc="需求：每使用1个无剑有剑尽为虚增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+    <item id="3033" objIds="912377" growths="100" producedesc="需求：每使用1个老子是菜鸟增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200" juejidag="600" juejidef="500"/>
+    </item>
+<!--自行车开始-->
+    <item id="3047" objIds="690012" growths="100" producedesc="需求：每使用1个 福到了 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="11-20" fullgrowth="600" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="21-30" fullgrowth="1200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="31-40" fullgrowth="2400" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="41-50" fullgrowth="4800" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="51-60" fullgrowth="9600" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="61-70" fullgrowth="14400" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="71-80" fullgrowth="19200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="81-90" fullgrowth="24000" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="91-100" fullgrowth="30000" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    </item>
+    <item id="3042" objIds="690007" growths="100" producedesc="需求：每使用1个 心动节拍 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="11-20" fullgrowth="600" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    </item>
+    <item id="3038" objIds="690003" growths="100" producedesc="需求：每使用1个 红桃素李且年华 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="11-20" fullgrowth="600" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+    </item>
+<!--自行车结束-->
+<!--迷宫开始-->
+    <item id="3132" objIds="690097" growths="100" producedesc="需求：每使用1个 洪荒破壁人 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="11-20" fullgrowth="600" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="21-30" fullgrowth="1200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="31-40" fullgrowth="2400" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="41-50" fullgrowth="4800" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="51-60" fullgrowth="9600" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="61-70" fullgrowth="14400" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="71-80" fullgrowth="19200" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="81-90" fullgrowth="24000" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+        <addatr level="91-100" fullgrowth="30000" pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    </item>
+    <item id="3061" objIds="690026" growths="100" producedesc="需求：每使用1个 再来一局！ 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="11-20" fullgrowth="600" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="21-30" fullgrowth="1200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="31-40" fullgrowth="2400" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="41-50" fullgrowth="4800" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="51-60" fullgrowth="9600" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="61-70" fullgrowth="14400" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="71-80" fullgrowth="19200" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="81-90" fullgrowth="24000" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+        <addatr level="91-100" fullgrowth="30000" pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    </item>
+    <item id="3024" objIds="690024" growths="100" producedesc="需求：每使用1个 请稍后再试 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="11-20" fullgrowth="600" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="21-30" fullgrowth="1200" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="31-40" fullgrowth="2400" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="41-50" fullgrowth="4800" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="51-60" fullgrowth="9600" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="61-70" fullgrowth="14400" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="71-80" fullgrowth="19200" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="81-90" fullgrowth="24000" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+        <addatr level="91-100" fullgrowth="30000" pda="750" mda="750" pdef="380" mdef="380" hp="1500"/>
+    </item>
+<!--迷宫结束-->
+<!--家族BOss开始-->
+    <item id="3074" objIds="690039" growths="100" producedesc="需求：每使用1个 驯兽师 增加100点进阶成长值">
+        <addatr level="1-1000" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    </item>
+    <item id="3048" objIds="690013" growths="100" producedesc="需求：每使用1个 名门望族白 增加100点进阶成长值">
+        <addatr level="1-1000" fullgrowth="200" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+    </item>
+    <item id="3049" objIds="690014" growths="100" producedesc="需求：每使用1个 名门望族蓝 增加100点进阶成长值">
+        <addatr level="1-1000" fullgrowth="200" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+    </item>
+    <item id="3050" objIds="690015" growths="100" producedesc="需求：每使用1个 名门望族紫 增加100点进阶成长值">
+        <addatr level="1-1000" fullgrowth="200" pda="400" mda="400" pdef="200" mdef="200"  hp="800"/>
+    </item>
+    <item id="3051" objIds="690016" growths="100" producedesc="需求：每使用1个 名门望族红 增加100点进阶成长值">
+        <addatr level="1-1000" fullgrowth="200" pda="500" mda="500" pdef="250" mdef="250" hp="1000"/>
+    </item>
+<!--家族BOss结束-->
+<!--英雄开始-->
+    <item id="3155" objIds="690120" growths="100" producedesc="需求：每使用1个 吊打全服 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="11-20" fullgrowth="600" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="21-30" fullgrowth="1200" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="31-40" fullgrowth="2400" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="41-50" fullgrowth="4800" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="51-60" fullgrowth="9600" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="61-70" fullgrowth="14400" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="71-80" fullgrowth="19200" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="81-90" fullgrowth="24000" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+        <addatr level="91-100" fullgrowth="30000" pda="300" mda="300" pdef="150" mdef="150" hp="600"/>
+    </item>
+    <item id="3157" objIds="690122" growths="100" producedesc="需求：每使用1个 唯我独尊称号 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="11-20" fullgrowth="600" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="21-30" fullgrowth="1200" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="31-40" fullgrowth="2400" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="41-50" fullgrowth="4800" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="51-60" fullgrowth="9600" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="61-70" fullgrowth="14400" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="71-80" fullgrowth="19200" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="81-90" fullgrowth="24000" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+        <addatr level="91-100" fullgrowth="30000" pda="200" mda="200" pdef="100" mdef="100" hp="400"/>
+    </item>
+    <item id="3080" objIds="690045" growths="100" producedesc="需求：每使用1个 逐风侠士 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="11-20" fullgrowth="600" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="21-30" fullgrowth="1200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="31-40" fullgrowth="2400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="41-50" fullgrowth="4800" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="51-60" fullgrowth="9600" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+        <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    </item>
+<!--英雄结束-->
+	    <item id="3062" objIds="690027" growths="100" producedesc="需求：每使用1个 就这？ 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="11-20" fullgrowth="600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="21-30" fullgrowth="1200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="31-40" fullgrowth="2400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="41-50" fullgrowth="4800" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="51-60" fullgrowth="9600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="61-70" fullgrowth="14400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="71-80" fullgrowth="19200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="81-90" fullgrowth="24000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="91-100" fullgrowth="30000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+    </item>
+	    <item id="3111" objIds="690076" growths="100" producedesc="需求：每使用1个 老子不是菜鸟 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="11-20" fullgrowth="600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="21-30" fullgrowth="1200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="31-40" fullgrowth="2400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="41-50" fullgrowth="4800" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="51-60" fullgrowth="9600" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="61-70" fullgrowth="14400" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="71-80" fullgrowth="19200" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="81-90" fullgrowth="24000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+        <addatr level="91-100" fullgrowth="30000" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="1000"/>
+    </item>
+	    <item id="3035" objIds="688068" growths="100" producedesc="需求：每使用1个 我命由我不由天 增加100点进阶成长值">
+        <addatr level="1-10" fullgrowth="200" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="11-20" fullgrowth="600" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="21-30" fullgrowth="1200" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="31-40" fullgrowth="2400" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="41-50" fullgrowth="4800" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="51-60" fullgrowth="9600" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="61-70" fullgrowth="14400" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="71-80" fullgrowth="19200" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="81-90" fullgrowth="24000" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+        <addatr level="91-100" fullgrowth="30000" pda="50000" mda="50000" pdef="25000" mdef="25000" hp="25000"/>
+    </item>
+<!--秘银宝盒-->
+<item id="3036" objIds="690001" growths="100" producedesc="需求：每使用1个 干将莫邪 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3037" objIds="690002" growths="100" producedesc="需求：每使用1个 梦绕魂牵 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3039" objIds="690004" growths="100" producedesc="需求：每使用1个 竹韵春歌 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3040" objIds="690005" growths="100" producedesc="需求：每使用1个 春江潮水连海平 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3041" objIds="690006" growths="100" producedesc="需求：每使用1个 人面桃花相映红称 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3043" objIds="690008" growths="100" producedesc="需求：每使用1个 春来踏青雨纷纷 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3044" objIds="690009" growths="100" producedesc="需求：每使用1个 心悦 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3045" objIds="690010" growths="100" producedesc="需求：每使用1个 长沙陈伟霆 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3046" objIds="690011" growths="100" producedesc="需求：每使用1个 一夜东风随春来 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3052" objIds="690017" growths="100" producedesc="需求：每使用1个 云锦天章 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3053" objIds="690018" growths="100" producedesc="需求：每使用1个 冬日暖情岁岁浓 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3054" objIds="690019" growths="100" producedesc="需求：每使用1个 圣诞树上平安果 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3055" objIds="690020" growths="100" producedesc="需求：每使用1个 封狼居胥 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3056" objIds="690021" growths="100" producedesc="需求：每使用1个 寒梅点点映山红 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3057" objIds="690022" growths="100" producedesc="需求：每使用1个 辞旧迎新一岁除 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3058" objIds="690023" growths="100" producedesc="需求：每使用1个 来得早不如来得巧 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3060" objIds="690025" growths="100" producedesc="需求：每使用1个 千金散尽还复来 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3063" objIds="690028" growths="100" producedesc="需求：每使用1个 白首不分离 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3064" objIds="690029" growths="100" producedesc="需求：每使用1个 为你披上雪白誓言 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3065" objIds="690030" growths="100" producedesc="需求：每使用1个 博物馆馆长 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3066" objIds="690031" growths="100" producedesc="需求：每使用1个 无敌破坏王 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3067" objIds="690032" growths="100" producedesc="需求：每使用1个 天工巧匠 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3068" objIds="690033" growths="100" producedesc="需求：每使用1个 聚宝盆 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3069" objIds="690034" growths="100" producedesc="需求：每使用1个 山海经书卷 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3070" objIds="690035" growths="100" producedesc="需求：每使用1个 幻想生物集 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3071" objIds="690036" growths="100" producedesc="需求：每使用1个 极品欧皇 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3072" objIds="690037" growths="100" producedesc="需求：每使用1个 点石成金 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3073" objIds="690038" growths="100" producedesc="需求：每使用1个 猛兽征服者 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3075" objIds="690040" growths="100" producedesc="需求：每使用1个 寒霜松柏出深山 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3076" objIds="690041" growths="100" producedesc="需求：每使用1个 爱的华尔兹称 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<item id="3077" objIds="690042" growths="100" producedesc="需求：每使用1个 小龙包子摊 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="11-20" fullgrowth="600"   pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="61-70" fullgrowth="14400" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="71-80" fullgrowth="19200" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="81-90" fullgrowth="24000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+    <addatr level="91-100" fullgrowth="30000" pda="100" mda="100" pdef="50" mdef="50" hp="200"/>
+</item>
+<!--金山返利称号-->
+<item id="3085" objIds="690050" growths="100" producedesc="需求：每使用1个 夜空中最炫的星 增加100点进阶成长值">
+    <addatr level="1-100"  fullgrowth="100" pda="5000" mda="5000" pdef="2500" mdef="2500" hp="2500"/>
+</item>
+<item id="3117" objIds="690082" growths="100" producedesc="需求：每使用1个 输赢成败几人闻 增加100点进阶成长值">
+    <addatr level="1-100"  fullgrowth="100" pda="10000" mda="10000" pdef="5000" mdef="5000" hp="5000"/>
+</item>
+<item id="3193" objIds="690058" growths="100" producedesc="需求：每使用1个 九五至尊 增加100点进阶成长值">
+    <addatr level="1-100"  fullgrowth="100" pda="15000" mda="15000" pdef="7500" mdef="7500" hp="7500"/>
+</item>
+<!--天降鸿福称号-->
+  <item id="3078" objIds="690043" growths="100" producedesc="需求：每使用1个 兔兔水果捞 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="1000" mda="1000" pdef="500" mdef="500" hp="2000"/>
+  </item>
+  <item id="3079" objIds="690044" growths="100" producedesc="需求：每使用1个 福虎玩偶铺 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="1500" mda="1500" pdef="750" mdef="750" hp="3000"/>
+  </item>
+  <item id="3081" objIds="690046" growths="100" producedesc="需求：每使用1个 占领屏幕 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="2000" mda="2000" pdef="1000" mdef="1000" hp="4000"/>
+  </item>
+  <item id="3082" objIds="690047" growths="100" producedesc="需求：每使用1个 西天取经不容易 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="2500" mda="2500" pdef="1250" mdef="1250" hp="5000"/>
+  </item>
+  <item id="3083" objIds="690048" growths="100" producedesc="需求：每使用1个 变脸王 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="3000" mda="3000" pdef="1500" mdef="1500" hp="6000"/>
+  </item>
+  <item id="3084" objIds="690049" growths="100" producedesc="需求：每使用1个 变脸大师 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="3500" mda="3500" pdef="1750" mdef="1750" hp="7000"/>
+  </item>
+  <item id="3086" objIds="690051" growths="100" producedesc="需求：每使用1个 六翼天使 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="4000" mda="4000" pdef="2000" mdef="2000" hp="8000"/>
+  </item>
+  <item id="3087" objIds="690052" growths="100" producedesc="需求：每使用1个 还少一件隐形斗篷 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="4500" mda="4500" pdef="2250" mdef="2250" hp="9000"/>
+  </item>
+  <item id="3089" objIds="690054" growths="100" producedesc="需求：每使用1个 永远穿不够 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="5000" mda="5000" pdef="2500" mdef="2500" hp="10000"/>
+  </item>
+  <item id="3090" objIds="690055" growths="100" producedesc="需求：每使用1个 新衣最好看 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="5500" mda="5500" pdef="2750" mdef="2750" hp="11000"/>
+  </item>
+  <item id="3195" objIds="690160" growths="100" producedesc="需求：每使用1个 千锤百炼 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="6000" mda="6000" pdef="3000" mdef="3000" hp="12000"/>
+  </item>
+  <item id="3196" objIds="690161" growths="100" producedesc="需求：每使用1个 自古多情空余恨 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="6500" mda="6500" pdef="3250" mdef="3250" hp="13000"/>
+  </item>
+  <item id="3197" objIds="690162" growths="100" producedesc="需求：每使用1个 红包 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="7000" mda="7000" pdef="3500" mdef="3500" hp="14000"/>
+  </item>
+  <item id="3198" objIds="690163" growths="100" producedesc="需求：每使用1个 仲夏夜之梦 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="7500" mda="7500" pdef="3750" mdef="3750" hp="15000"/>
+  </item>
+  <item id="3199" objIds="690164" growths="100" producedesc="需求：每使用1个 陌上花开缓缓归 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="8000" mda="8000" pdef="4000" mdef="4000" hp="16000"/>
+  </item>
+  <item id="3200" objIds="690165" growths="100" producedesc="需求：每使用1个 愿我如星君如月 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="8500" mda="8500" pdef="4250" mdef="4250" hp="17000"/>
+  </item>
+  <item id="3201" objIds="690166" growths="100" producedesc="需求：每使用1个 偷得浮生半日闲 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="9000" mda="9000" pdef="4500" mdef="4500" hp="18000"/>
+  </item>
+  <item id="3202" objIds="690167" growths="100" producedesc="需求：每使用1个 人间四月芳菲尽 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="9500" mda="9500" pdef="4750" mdef="4750" hp="19000"/>
+  </item>
+  <item id="3203" objIds="690168" growths="100" producedesc="需求：每使用1个 皇庭小王子 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="10000" mda="10000" pdef="5000" mdef="5000" hp="20000"/>
+  </item>
+  <item id="3204" objIds="690169" growths="100" producedesc="需求：每使用1个 夜阑饮散春宵短 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="11-20"  fullgrowth="600"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="21-30"  fullgrowth="1200"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="31-40"  fullgrowth="2400"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="41-50"  fullgrowth="4800"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="51-60"  fullgrowth="9600"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="61-70"  fullgrowth="14400"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="71-80"  fullgrowth="19200"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="81-90"  fullgrowth="24000"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+    <addatr level="91-100"  fullgrowth="30000"   pda="10500" mda="10500" pdef="5250" mdef="5250" hp="21000"/>
+  </item>
+<item id="3088" objIds="690053" growths="100" producedesc="需求：每使用1个 心之所向 爱之所蛗 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3091" objIds="690056" growths="100" producedesc="需求：每使用1个 我言秋日胜春朝 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3092" objIds="690057" growths="100" producedesc="需求：每使用1个 相思枫叶丹 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3093" objIds="690058" growths="100" producedesc="需求：每使用1个 财运滚滚 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3094" objIds="690059" growths="100" producedesc="需求：每使用1个 秋风桂花香满山 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3095" objIds="690060" growths="100" producedesc="需求：每使用1个 天作比翼地连枝 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3096" objIds="690061" growths="100" producedesc="需求：每使用1个 城南花开半夏 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3097" objIds="690062" growths="100" producedesc="需求：每使用1个 唯我独尊银色 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3098" objIds="690063" growths="100" producedesc="需求：每使用1个 三花聚顶 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3099" objIds="690064" growths="100" producedesc="需求：每使用1个 鬼魅嬉戏间 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"   pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3100" objIds="690065" growths="100" producedesc="需求：每使用1个 糖果物语 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3101" objIds="690066" growths="100" producedesc="需求：每使用1个 倚栏枕风听涛眠 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3102" objIds="690067" growths="100" producedesc="需求：每使用1个 莫使金樽空对月 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3103" objIds="690068" growths="100" producedesc="需求：每使用1个 竹篱茅舍逢春日 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3104" objIds="690069" growths="100" producedesc="需求：每使用1个 潇湘夜雨 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3105" objIds="690070" growths="100" producedesc="需求：每使用1个 永不失联的爱 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3106" objIds="690071" growths="100" producedesc="需求：每使用1个 一雷惊蛰始 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3107" objIds="690072" growths="100" producedesc="需求：每使用1个 YYDS 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3108" objIds="690073" growths="100" producedesc="需求：每使用1个 轻风小寒吹浪花 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3109" objIds="690074" growths="100" producedesc="需求：每使用1个 鬼魅嬉戏间 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3110" objIds="690075" growths="100" producedesc="需求：每使用1个 招财进宝 增加100点进阶成长值">
+    <addatr level="1-10" fullgrowth="200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3112" objIds="690077" growths="100" producedesc="需求：每使用1个 碧玉妆成一树高 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3113" objIds="690078" growths="100" producedesc="需求：每使用1个 芬芳馥郁 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3114" objIds="690079" growths="100" producedesc="需求：每使用1个 福运万来 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3115" objIds="690080" growths="100" producedesc="需求：每使用1个 轻琼冷絮舞长空 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3116" objIds="690081" growths="100" producedesc="需求：每使用1个 一夜挽回天下春 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3118" objIds="690083" growths="100" producedesc="需求：每使用1个 年少谁人不荒唐 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3119" objIds="690084" growths="100" producedesc="需求：每使用1个 立新迎春 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3120" objIds="690085" growths="100" producedesc="需求：每使用1个 无关风月 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3121" objIds="690086" growths="100" producedesc="需求：每使用1个 相见一杯酒 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+<item id="3122" objIds="690087" growths="100" producedesc="需求：每使用1个 征途冰雪王 增加100点进阶成长值">
+    <addatr level="1-10"  fullgrowth="200"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="11-20" fullgrowth="600"  pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="21-30" fullgrowth="1200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="31-40" fullgrowth="2400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="41-50" fullgrowth="4800" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="51-60" fullgrowth="9600" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="61-70" fullgrowth="14400" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="71-80" fullgrowth="19200" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="81-90" fullgrowth="24000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+    <addatr level="91-100" fullgrowth="30000" pda="150" mda="150" pdef="75" mdef="75" hp="300"/>
+</item>
+
+<!--称号结束-->
+			</pointMap>
+		</meridian>
+	</meridianMap>
+</config>

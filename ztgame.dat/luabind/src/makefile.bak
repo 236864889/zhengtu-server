@@ -1,0 +1,19 @@
+include ../config
+
+SOURCES = 	wrapper_base.cpp 	pcall.cpp 	error.cpp 	ref.cpp 	scope.cpp 	class.cpp 	class_rep.cpp 	function.cpp 	find_best_match.cpp 	implicit_cast.cpp 	open.cpp 	create_class.cpp 	stack_content_by_name.cpp 	object_rep.cpp 	class_info.cpp 	class_registry.cpp 	link_compatibility.cpp 	weak_ref.cpp 	overload_rep.cpp
+
+OBJECTS = 
+
+TARGET = ../lib/libluabind.a
+
+all:	
+
+:	
+	 rcu  
+	ranlib 
+
+%.o:%.cpp
+	 -g -ftemplate-depth-100 -Wall -DLUABIND_BUILDING -c 127 -o  -I/include -I.. -I 
+
+clean:
+	rm -f  

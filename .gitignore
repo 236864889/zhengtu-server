@@ -1,0 +1,48 @@
+# Visual Studio cache
+*.sdf
+*.opensdf
+*.suo
+*.VC.db
+*.VC.opendb
+*.ipch
+.vs/
+
+# build outputs
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.exe
+*.pdb
+*.idb
+
+# logs
+*.log
+
+# temp
+*.tmp
+*.temp
+*~
+
+# core dumps
+core
+core.*
+# Linux core dump files
+core
+core.*
+*.core
+
+# build/cache
+.build/
+**/.build/
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.exe
+*.log
+*.tmp
+.vscode/
+**/.vscode/
