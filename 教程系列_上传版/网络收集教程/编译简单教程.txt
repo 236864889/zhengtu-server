@@ -1,0 +1,37 @@
+账号 root   密码  153874111
+
+进入源码文件目录
+cd /home/serverht
+
+编译  
+make
+
+
+常规编译发布：make
+
+带 GM 功能编译：make debug
+
+清理后重新编译：make clean && make
+
+
+
+编译过程中请不要关闭ssh工具，也没有卡住请耐心等待即可
+
+然后就可以在release下看到编译成功的主程序
+
+
+头文件直接用VS打开 然后生成就行了 
+
+
+
+
+需要转换NpcBase.tbl的，请把tblxml上传到服务器tbl文件夹下，然后运行
+解包命令
+./tblxml --toxml  
+
+./tblxml 打包
+
+
+
+
+
