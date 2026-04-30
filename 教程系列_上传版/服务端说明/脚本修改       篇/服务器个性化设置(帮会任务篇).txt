@@ -1,0 +1,16 @@
+
+/home/ztgame/quest/on_visit/333.xml 
+
+最下面的: 
+<actions> 
+                                <notify content="完成任务，经验增加"/> 
+<!--只需要修改下面两行中的100,就是获得经验百分比,改成500,应该就是5倍经验奖励了..呵呵--> 
+                                <exp1 value="100" id="50021" name="selflevel"/> 
+                                <exp1 value="100" id="50021" name="unionid_kill_selflevel"/> 
+                                <notify content="经验增加"/> 
+                                <var type="Set" name="kill" value="0"/> 
+                                <var type="Set" name="state" value="-2"/> 
+                                <refresh name="kill"/> 
+                                <refresh name="state"/> 
+                                <timeouts/> 
+                        </actions>

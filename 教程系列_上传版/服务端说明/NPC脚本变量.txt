@@ -1,0 +1,195 @@
+NPC脚本变量
+
+action 买=1,卖=2,修=4,打造=8,改造=16,合成=32, 魂魄 镶嵌=64, 魂魄 合成=128,打孔（增加凹槽）=256,仓库保管功能=512，拆除 装备 =1024，如果ID或者kind是0表示所有可以有此动作的物品 2048 转生 打造 4096 转生 改造 
+
+itemlevel 物品等级 ，用在材料上 
+item id 物品编号 
+action 
+( IsHasTask() == false) then 可以作为检查征途私服是否是外国人和是否有 任务 的检测项 
+
+
+NPC 对话框内容，带参数，如：
+function MainDialog() if( IsHasTask() == false) then this:AddTalk("你要 NPC 说的话") end TaskDialog() end this:AddDialog("MainDialog")
+意思为：功能 面板结束 （ ） ，如果（ 有任务 （ ） ==假） ，那么这： 制造出这句话回答 （ "你要NPC说的话" ）完 任务结束 （ ）结束这场： 制造对话 （ " 面板记录 " ） 
+也就是说在 和 中间，这些是NPC的对话框，但是你可以运用参数来进行编辑，例如没到这个等级或任务没做完，NPC不和他进行正面对话，让他达到等级或做完任务再进行对话，或检测他是否有这个任务，如果有，和他进行任务对话！ 
+\ 代表换行，后面可以不用回车，直接连续下去也可以！ 
+对话 脚本 解释： 
+this:NewYearBeast("澎澎GOGOGO!!!(0)") TaskDialog() end this:AddDialog("MainDialog") 
+这个选择：新活动("澎澎GOGOGO!!!")（可以点的）任务结束 完成 这次：制造结束 ("面板结束") 
+
+MainDialog 结束面板 
+TaskDialog() end this:AddDialog("MainDialog") 每个NPC对话末端都必须加上此语句，代表完成了NPC所说的话，否则NPC脚本出错！ 
+NPC对话前端都必须加上检测变量，否则检测不出NPC脚本！ 
+检测语句如下： 
+function MainDialog() if( IsHasTask() == false) then this:AddTalk 
+功能 面板结束 （ ） ，如果（ 有任务 （ ） ==假） ，那么这： 制造出这句话回答 
+function MainDialog() this:AddTalk 
+功能 面板结束 （ ） 这个：制造任务 
+变量后面的("你要NPC说的话")为白字说明 
+选择项，如("澎澎GOGOGO!!!(0)")里的(0)代表文字前的图标 
+
+
+说明连接语句 
+如天工巧匠里的第一项说明。 
+this:AddDialogItem("关于装备改造系统说明(3)","Dialog1") 
+这个：制造任务可选项目("关于装备改造系统说明(图标3)，"连接Dialog1") 
+在对话末端，增加end function Dialog1() this:AddTalk("装备改造的说明此处省略") this:AddDialogItem("离开","MainDialog") end this:AddDialog("MainDialog") 
+end function Dialog1() this:AddTalk表示选择完成功能键Dialog1 显示这个：制造窗口任务("装备改造的说明此处省略") 
+
+this:AddModifyAttri 
+这个：制造 修改 属性窗口 
+this:AddMDSkillA 
+这个：制造修改技能窗口 
+this:AddLVSoullineMD 
+这个：制造保留灵魂锁链的改造窗口 
+this:AddModifySoulA 
+这个：制造修改灵魂属性的窗口 
+this:AddAddMaker 
+这个：制造修改签名的窗口 
+this:AddReBind 
+这个：制造重新绑定装备的窗口 
+this:AddEquipRound 
+这个：制造修改装备转生级别的窗口 
+this:AddMakeItem 
+这个：制造制造装备窗口 
+this:AddBackoutItem 
+这个：制造拆除装备窗口 
+this:AddHoleMakeItem 
+这个：制造增加凹槽窗口 
+this:AddEquipLV 
+这个：制造升级装备窗口 
+this:AddForTuneFundDlg 
+这个：制造保险投资窗口 
+this:AddCompetitionNpc2 
+这个：制造答题窗口 
+this:AddDialogItem 
+这个：制造任务项目（在某个二级窗口对话未加上此语句代表点关闭后返回上级窗口） 
+this:AddSpringCmdItem 
+这个：制造活期任务管理项目 
+this:AddTalk 
+这个：制造任务 
+this:AddCloseItem 
+这个：制造返回项目（也就是NPC脚本中的离开前面的变量） 
+this:AddRequestSeptNormalExp 
+这个：制造领取任务窗口 
+this:AddSendOutPrisonCmd 
+这个：制造监狱管理列表 
+this:AddQuestDragonSprite 
+这个：制造龙睛 
+this:AddQuestTigerSprite 
+这个：制造虎魄 
+this:AddProtecterCart 
+这个：制造回去上次镖车失败地 
+this:AddRecoSys_A_Input 
+这个：在管理名单内增加的一个人名，推荐人功能。 
+this:AddRecoSys_B_Query_Take 
+这个：制造个窗口查看自己在管理名单内的情况，查看推荐信息用的！ 
+this:AddRecoSys_A_Query_Take 
+这个：制造个窗口显示自己在管理名单内的情况与信息，提取信息。用于征途私服收取推荐人奖金的！ 
+this:SendGoTrainUserCmd(level) 
+这个：制造快速传送用户的功能（需要检查权限是否满足），去王墓的功能` 
+this:AddDialogItemEx 
+这个：制造个检查是否满足项目，如果满足就进行继续，如果不满足则错误！ 
+this:AddSalaryDialog 
+这个：制造工资领取窗口 
+this:AddManagerSalaryDlg 
+这个：制造工资消费窗口 
+this:AddTradeRepairItem 
+这个：制造修复物品窗口 
+this:AddChangeCountryBySalary 
+这个：制造使用工资金子修改人物国家的窗口 
+this laySound 
+这个：开始运行传送（传送NPC类的使用的） 
+车夫 的脚本写法： 
+function MainDialog() if( IsHasTask() == false) then this:AddTalk("好！我可以帮你实现你梦想的地方去。") end this laySound("60016.wav,21001.wav,21003.wav,21005.wav") TaskDialog() end this:AddDialog("MainDialog")
+其中的("60016.wav,21001.wav,21003.wav,21005.wav")代表任务功能，只需要写入任务 文件 名就会自动显示适应的任务名字 
+this:AddTradeItem 
+这个：制造买卖窗口，脚本例子： 
+function MainDialog() id=this:AddTradeItem("杂货(1)","杂货{id[4318,9900-9903,876,669]}","type[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,52,53,51]","杂货") TaskDialog() end if( IsHasTask() == false) then MainDialog() this:Action(id) this:EndDialog() else this:AddDialog("MainDialog") end
+解释：功能 面板结束() 类型=制造一个标题为杂货的买卖窗口选择项，卖出物品ID为4318,9900-9903,876,669，类型是101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,52,53,51如果是外国人的话，不与对方对话，直接完成此对话，如果是的话，选择性关闭完成 
+NPC对话换行后，如果需要增加数字编号，必须增加n于数字前，格式：\n1要说的话\n2要讲的话 
+NPC对话内的离开选项写法：("离开","MainDialog") 
+NPC窗口内物品的写法：("窗口标题(图标)","id[10011-10018,10061-10068,10111-10118,10161-10168,10211-10218,10261-10268,10312-10319,10412-10419,10512-10519,10562-10569,10612-10619,10662-10669,10711-10718,10773-10788,10823-10838,10873-10888,10921-10936,10973-10988,11023-11038,20011-20018,20061-20068,20111-20118,20161-20168,20211-20218,20261-20268,20312-20319,20412-20419,20512-20519,20562-20569,20612-20619,20662-20669,20711-20718,20773-20788,20823-20838,20873-20888,20921-20936,20973-20988,21023-21038]","窗口标题") 
+其中id代表物品ID，增加征途私服物品ID即可使物品可以在窗口内使用，如买卖、制造、升级、改造等！10011-10018的意思为从10011到10018编号的装备都可以使用在本窗口内其中包括10011.10012.10013.10014.10015.10016.10017.10018 
+item kind 物品种类 
+item id 物品ID
+
+
+
+
+
+
+
+quests 任务集 quest id=2 name=新手辅导 建立任务
+ description 任务描述 body p n color=255,239,196,0新手辅导n a href=goto 114,93清源村-村长(114,93)a 和我们用的超级链接NNN相似呀
+ p diffcult level=1 等级为1 body description events 任务事件 
+ event type=on_enter source=227.xml 事件链接 
+ events quest quests 这是一个基本架构。架构性语句：
+1、embranchment id=10 分支 
+2、conditions 状况 
+3、actions 动作
+4、menu 任务菜单 
+5、function TaskDialog() 
+            对话框函数描述性语句 1、object id=690 短刀-战士武器 object 显示物品
+                                 2、 message color=255,255,255,20 n鸡：n n var=kill_鸡 task=214 n10n message 
+数量任务显示执行性语句： 1、变量定义 var type=Differ name=state value=-1 id=211 
+                         2、变量修改 var type=Set name=state value=-3
+                         3、变量比较 var type=Equal name=state value=-3 id=215 refresh name=state 刷新变量 
+                         4、系统给玩家物品 
+                        additem value=5 id=585 普通的 addbinditem value=5 id=585 绑定的 addgreenbinditem value=5 id=585 绑定的绿装
+                         5、系统给玩家经验
+                             exp value=500 
+                         6、系统给玩家银子 gold type=Add value=6000 
+                         7、系统给玩家提示 notify content=恭喜你完成了“身世”任务 notify1 content=得到60两酬劳 
+
+
+
+
+
+
+
+
+命令与函数：
+checkjob (Warr, Wizard, Taos) ;测试职业
+checkgold (金币数) ;测试金币
+checklevel (等级) ;测试等级
+checkitem (物品名) (数量) ;测试物品及数量
+give gold (金币数) ;给钱
+give (物品名) (数量) ;给物及数量
+take gold (金币数) ;拿走钱
+take (物品名) (数量) ;拿走物及数量
+checkpkpoint (pk值) ;测试PK值
+checkluckypoint (幸运值) ;幸运值正值为好,负值为差
+checkduraeva (物品名) (数值) ;一般测试矿物等物品的品质
+checkhum (地图名) (数值) ;测试这个地图的人数
+checkmonmap (地图名) (数值) ;测试这个地图的怪物数
+map (地图名) ;移动到这个地图
+mapmove (地图名) (坐标A) (坐标B) ;移动到这个地图指定坐标
+monclear 地图清除
+close 关闭对话框
+TimeRecall (设定时间值) ;分钟,一般指进入地图时间限制
+BreakTimeRecall ;中断设定时间
+ExchangeMap (地图名) ;与指定地图里的人交换位置
+daytime sunset ;一天时间
+checkbaggage ;测试背包满没
+small (变量) (数值) ;测试变量是不是小于指定数值
+large (变量) (数值) ;测试变量是不是大于指定数值
+equal (变量) (数值) ;测试变量是不是等于指定数值
+mov (变量) (数值) ;让变量等于指定数值
+sum (变量A) (变量B) ;A+B 注意,如果还要家第3个数直接换行写sum (变量C) 
+注:关于SUM的详解
+首先有MOV (变量X) 0 ;(变量X)清0
+sum (变量A) (变量B) ;X=A+B
+sum (变量C) ;X=X+C
+movr (变量) (数值) ;随机把指定数值以下的数(正数)给变量
+inc (变量) (数值) ;让变量自动加指定数值到变量
+playdice (骰子数) @xxx ;玩骰子,跳转到标签[@xxx]
+random (随机数) ;一般用在#IF语句中作为触发#IF机率,有时随机数=并列#IF语句数用于随机多项选择,既:
+#IF RANDOM 3 #SAY() #ELSEACT 
+#IF RANDOM 3 #SAY() #ELSEACT
+#IF RANDOM 3 #SAY() #ELSEACT
+Check [条件数] 1 ;测试[条件数]触发与否 1(触发) 
+SET [条件数] 1 ;设置[条件数]触发 
+
+
+<!-- phase action="该阶段boss的动作" x="位置" y="位置" region="范围" lasttime="该阶段持续时间" --

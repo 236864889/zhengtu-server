@@ -1,0 +1,223 @@
+最近好多人问我,我发一下
+NPC(boss)刷新时间调整和无敌NPC制造
+经常有玩家在广播里面喊叫“GM，我们国家的高级杂货被别国的人杀死了，怎么办啊，要不要去叛国啊”等等，由此说明这个区的管理者没有系统的分析目前玩家的需求。现在好多服的玩家的装备很变态，五个玩家组队去别国秒杀NPC的现象也时有发生，那么我们应该如何根据自己的服的特点修改NPC死亡后的刷新时间和血量呢？将NPC的血量修改成足够多就近似无敌了。呵呵
+
+具体修改方法如下：
+以下内容需要回复才能看到
+首先我们讲一下NPC的刷新时间，在游戏中NPC包括小商小贩也包括各种怪。他们的文件配置文件在服务器端的map目录。
+例如我们要修改王城的高级杂货的刷新时间，我们就去map目录找wushuangcheng-main.xml
+需要说明的是在征途服务器端中王城的名称是无双城。呵呵，在修改的时候注意一下哦
+打开wushuangcheng-main.xml文件，打开这个文件的工具很多，最简单的是用记事本打开。
+我们找到
+<npc id="884" name="高级杂货" width="1" height="1" x="886" y="471" num="1" interval="1800" color="0,255,0,0"/>
+
+说明:
+id="884" 该NPC的ID号码是884和npctrade.xml文件里面的对应，如果他是任务NPC的话，那么这个ID号码也会和quest文件夹里面的文件对应的。
+name="高级杂货" 这个NPC的名字，这里的名字不重要，显示在客户端以NpcBase.tbl里面的名字为准。
+width="1" height="1" 就是在1*1的范围内刷新
+x="886" y="471" 就是以王城的X轴886Y轴471坐标点刷新
+num="1" 刷新的数量是1个
+interval="1800" 刷新的时间是1800秒也就是30分钟，这个就是我们要修改的关键，我们可以修改成180秒（3分钟）或者更为变态的就是1秒，呵呵，被杀后一秒钟就又刷新了。是不是等于无敌呢。
+
+同样呢，我们也可以在王城添加刷新吉祥三宝
+<npc id="16740" name="吉祥三宝" width="60" height="60" x="321" y="620" num="100" interval="30" color="0,255,0,0"/>
+
+意思就是在以X轴等于321，Y轴等于620为坐标点的60乘以60的范围内刷新100个ID为16740的吉祥三宝，刷新时间为30秒。
+此处要说明我这里的ID16740是30级的吉祥三宝，16741是60级的、16742是100级的，你也通过修改map目录下的NpcBase.tbl文件修改成其他的等级。当然你也可以工具将tbl转成xml修改完成之后再转回去。
+
+接下来讲讲修改NPC血量，将map目录下的NpcBase.tbl文件使用工具将NpcBase.tbl转换成xml，当然你也可以工具直接修改tbl文件。
+我们打开转换后的NpcBase.xml
+找到
+<row 编号="884" 名称="高级杂货商" 类型="7" 等级="165" 生命值="3500000" 经验值="160000" 力="0" 智="0" 敏捷="0" 精神="0" 体质0="0" 体质1="0" 颜色="-1" ai="768" 移动间隔="0" 攻击间隔="0" 最小物理防御力="2000" 最大物理防御力="2000" 最小法术防御力="2000" 最大法术防御力="2000" 五行属性="0" 五行点数="0" 攻击类型="0" 最小法术攻击="0" 最大法术攻击="0" 最小攻击力="0" 最大攻击力="0" 技能="0" 携带物品="" 魂魄之石几率="0" 使用技能="0" 状态="0" 躲避率="0" 命中率="0" 图片="397" 品质="0" 怪物类别="10" 纸娃娃图片="100000" 回血="0" 二进制标志1="1" 二进制标志2="2" />
+
+看到了吗，这里的编号="884"是不是和id="884"对应的呢。呵呵，找到生命值="3500000"修改吧，在这个数字上在增加两个0，呵呵血量增加100倍。或者更卑鄙点，修改她的防御，物理防御和魔法防御都提高100倍，呵呵，是不是无敌了？不过不建议这么变态的修改，不多对于“无敌镖车”可以这么修改。
+
+然后再使用工具将修改好后的NpcBase.xml转换成NpcBase.tbl，上传到服务器，重启。
+
+
+===========================
+快速修改帮会行动力的方法
+使用数据库编辑工具找开数据库，找到UNION表（也就是帮会表），然后找到ACTIONPOINT字段，这个就是帮会行动力的字段，想要多少就修改为多少，但别太过份了哦，出错我可不负责！
+注：修改前一定要把服务端关闭，不然修改是不起作用的。
+
+方法就是这样，大家自己看着办吧！
+如何修改帮会行动力
+帮会行动力不能直接添加，它是通过家族威望来增加的，修改方法如下: 1.请先保证你的服务器在关闭状态 2.打开 zt 库中的 SEPT 表,表内容如下: septID:家族在整个服务器家族系统中的编号 name:家族名 CharID 和 Master 必须和 Charbase 表中一一对应,不能有错,否则家族名乱显示 ......再看后面的 Repute:这个就是家族威望 Unionid:这个是本家族所属帮会ID,也不能有错,有错就乱显示了,这个段之后就是家族等级之类的东东了..用处不大! 说明一下:因为在征途里,帮会威望是由各家族威望相加得来的,所以没有单独的帮会威望字段,但可由添加家族威望来达到目的,另外,修改完 Repute 字段值,开启服务器后,请用 date -s 命令将系统时间至少加快一天(24小时),因为征途帮会及家族行动力的计算是统一在 00:00 刷新,不改系统时间就得等上一天。
+
+
+=============================
+写征途脚本方法
+现在的服务器端,脚本文件千篇一律,没有创新,有没有尝试过自己编写适合自己的脚本呢?希望以下这个范例对您编写征途NPC脚本有所帮助,同时也感谢所有朋友对三狼论坛,对我的支持...
+以下以"车夫"脚本为例,希望对大家有所帮助,若有偏差,敬请海涵:
+<event id="5096" name="清源-车夫(140,126)">      对应的任务文件名"5096.xml",NPC名称,以及此NPC在当前地图的坐标点
+<quest id="960100">                            任务ID参数,目前尚未研究明白
+<embranchment id="9">                          本NPCID参数定义"9"
+<conditions>                                    开始命令行
+<selfcountry value="1"/>                        判断本NPC有效地点为本国范围内
+<gold type="Great" value="4999"/>              限定可参与NPC脚本执行的角色银币数量为>4999文,即50两
+</conditions>                                  命令行结束
+<actions>                                      重新定义命令行开始,此命令行包括人机交互模式
+<menu>                                          菜单开始
+function TaskDialog()                          菜单选项初始化定义
+this:AddTalk("我是清源村的车夫，本车夫只认钱不认人，不管路程远近票价一律50两！")
+    this:指本行脚本命令定义  后跟参数,如 AddTalk 即对话,AddTaskCmdItem 即可选中的菜单项目,如下所示:
+this:AddTaskCmdItem("凤凰城(0)", "v5096", 160100, 10)
+    可选菜单项目定义,("地图名称(0),"所属NPC",任务参数ID,跳转指定的脚本),注意,这个只是定义,不是可选,可选在后面
+this:AddCloseItem("离开")                      关闭本菜单的命令 AddCloseItem
+end                                            菜单结束
+</menu>                                        后面这三行必须与先前的定义行一一对应,不可有重复或缺失
+</actions>
+</embranchment>
+<embranchment id="11">
+<conditions>
+<selfcountry value="1"/>
+<gold type="Less" value="5000"/>
+</conditions>
+<actions>
+<menu>
+function TaskDialog()
+this:AddTalk("    我是清源村的车夫，本车夫只认钱不认人，不管路程远近票价一律50两！")
+this:AddDialogItem("凤凰城(0)", "Dialog98")
+    这行才是真正可以选择的,点击后脚本将直接跳转到 Dialog98 段进行执行
+end
+function Dialog98()                    这行即是上面可执行项指定的 Dialog98 实为钱数不足跳转的项目
+this:AddTalk("滚远点穷鬼，没钱还想坐车，小心我扁你啊！");
+this:AddCloseItem("离开")
+end
+下面是定义选中转移地点时跳转的脚本命令段
+<quest id="160100" new="1">
+<embranchment id="10" active="1">          注意这里的 ID="10" 看看上面第一段,最后一个数字,即对应这里
+<conditions>
+<isguard/>
+<selfcountry value="1"/>
+<gold type="Great" value="4999"/>
+</conditions>
+<actions>
+<goto name="凤凰城" pos="422,379"/>        注意这里有几个重要的脚本语句:
+      <goto name="地图名称" pos="x坐标,y坐标"/>
+<notify c/>
+      <定义屏幕右下角出现的系统提示,若为 notify1 即是在屏幕正上方出现的系统提示>
+<gold type="Sub" value="5000"/>
+      <对于银币的操作 <gold type="操作代码" value="数值"/>  Sub 是回收,给银子的大家应该很熟悉了吧
+<var type="Set" name="state" value="-2"/>
+</actions>
+</embranchment>
+NPC交易添加物品
+1.NPC交易信息在ZTGAME目录下的: NPCTRADE.XML 文件里,用写字板打开该文件
+2.物品代码可以用工具查到,(501-405017)代表了征途1.04的N种物品
+3.查找:高级杂货商,(假定要添加的物品是材料,六等,10个一捆)
+在具有相同格式的地方加入一行:{ <item id="材料代码" action="3" itemlevel="5"/>}
+
+action="3"表示这个物品是用来出售的
+
+
+仅仅这样,还不能完成物品添加,必须要做如下步骤:
+
+
+在这个NPC名字下面有这些行,定义了NPC可以出售的物品,如果只是添加上面那行,服务器开启后NPC还是不会出售指定的物品,必须要在这面添加定义!!切记切记!!
+
+
+id=this:AddTradeItem("高级杂货(1)","杂货{id[物品代码*数量*物品等级,963,963*10,666,734,795,755,760,761,655,685,686,881,882,929,930,942,502,512,522,532,542,507*1*1,507*50*3,517*1*1,517*50*3,527*1*1,527*50*3,537*1*1,537*50*3,547*1*1,547*50*3,679*1*4,678*1*4,771,772,920,921,776,777]}|时装一{id[15402-15445]}|时装二{id[15446-15489]}","type[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,52,53,119,51]","杂货买卖") 
+
+物品等级计算方式--->0=1级白色,1=2级蓝色,2=3级黄色,3=4级绿色,4=5级紫色,5=6级紫色.....
+
+
+物品添加到此为止了...重新启动服务器,指定的NPC就可以出售添加的相关物品了!!
+
+
+NPC卖状态的脚本
+
+<conditions>
+<innation/>
+<gold type="Great" value="199"/> //检测银子
+<familyvar type="Equal" name="bufftype" value="2"/>
+<familyvar type="Equal" name="bufffinish" value="1"/>
+<uservar type="Differ" name="buff" value="1"/>
+</conditions>
+<actions>
+<gold type="Sub" value="200"/> //拿走人物2两银子
+<notify content="你获得了物理攻击上升的祝福"/>
+<useskill id="501" level="3"/> //对人物使用技能
+<uservar type="Set" name="buff" value="1"/>
+</actions> 
+
+每天买一次御赐的脚本
+
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com/) by 1 (1) --> 这个网址是什么意思，不太明白。
+<event id="869" name="王城-御赐商人">
+<quest id="900011">
+<embranchment id="1">
+<conditions>
+<level type="Great" value="119"/>
+<gold type="Great" value="19999"/>
+<timeouts long="86400" id="100901" less="0"/>
+</conditions>
+<actions>
+<menu>
+function TaskDialog()
+this:AddTalk(" 您现在可以花20锭买一颗御赐金符，但每天只能购买一次哦，您要现在购买么？？")
+this:AddDialogItem("购买御赐金符-20锭(0)", "Dialog74")
+end
+function Dialog74()
+this:AddTalk(" 购买御赐金符-要20锭哦，你确定要买么？")
+this:AddTaskCmdItem("确定购买-20锭(0)", "v869", 100901, 11)
+end
+</menu>
+</actions>
+</embranchment>
+<embranchment id="2">
+<conditions>
+<level type="Great" value="119"/>
+<gold type="Great" value="19999"/>
+<timeouts long="86400" id="100901" less="1"/>
+</conditions>
+<actions>
+<menu>
+function TaskDialog()
+this:AddTalk(" 对不起，御赐金符今天卖光了，请明天再来。")
+end
+</menu>
+</actions>
+</embranchment>
+<embranchment id="15">
+<conditions>
+<level type="Great" value="119"/>
+<gold type="Less" value="20000"/>
+</conditions>
+<actions>
+<menu>
+function TaskDialog()
+this:AddDialogItem("购买御赐金符-20锭(2)", "Dialog75")
+end
+function Dialog75()
+this:AddTalk("等级或者钱不够吧?买这个需要120级+20锭银子呢")
+this:AddCloseItem("离开")
+end
+</menu>
+</actions>
+</embranchment>
+</quest>
+<quest id="100901" new="1">
+<embranchment id="11" active="1">
+<conditions>
+<space size="1"/>
+<timeouts long="86400" id="100901" less="0"/>
+<gold type="Great" value="19999"/>
+</conditions>
+<actions>
+<notify content="你购买了御赐金符"/>
+<notify1 content="获得御赐金符"/>
+<notify1 content="金钱-20锭"/>
+<gold type="Sub" value="20000"/>
+<additem value="1" id="969"/>
+<timeouts/>
+</actions>
+</embranchment>
+</quest>
+</event>
+
+用色彩标识的命令行请留心一下,呵呵,对写其他脚本有用处喔...这里我就不多作解释了,呵呵
+对了,这个NPC是北郊的,注明一下,呵呵....其他地方的修改同理啦.
+
+稍稍改下,就可以实现限定等级每天领多少银子工资的脚本了...

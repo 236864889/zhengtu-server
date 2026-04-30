@@ -1,0 +1,15 @@
+缺少 Libjpeg.so.62
+
+yum install libjpeg-devel libpng-devel
+
+缺少 libX11.so.6
+
+yum -y install libX11
+
+缺少 libfontconfig.so.1
+
+yum install fontconfig
+
+缺少 libpng12.so.0
+
+yum install libpng12

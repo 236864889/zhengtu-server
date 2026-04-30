@@ -1,0 +1,22 @@
+修改可以注册的国家数量
+打开服务端 scenesinfo.xml 
+
+
+id国家编号,name国家名称,mapID该国家主城(新手出生等);国家名称不能有特殊字符·
+
+function0表示可以注册，1表示不可以注册。
+
+countryinfo
+  country id=2 name=宋国 mapID=101 function=0
+  country id=3 name=魏国 mapID=101 function=0
+  country id=4 name=齐国 mapID=101 function=0
+  country id=5 name=燕国 mapID=101 function=0
+  country id=7 name=唐国 mapID=101 function=1
+  country id=8 name=汉国 mapID=101 function=1
+  country id=9 name=吴国 mapID=101 function=1
+  country id=10 name=赵国 mapID=101 function=1
+  country id=11 name=周国 mapID=101 function=1
+  country id=12 name=楚国 mapID=101 function=1
+  country id=6 name=中立区 function=1
+
+这些表示在注册角色时可以选择注册的国家。

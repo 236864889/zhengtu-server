@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="GB2312"?>
+<event id="2012010" name="大雪人(活动)">
+	<!--new means new quest, default is quest on user-->
+	<quest id="20120101">
+		<embranchment id="1">
+			<conditions>
+				<level type="Great" value="160"/>
+			 </conditions>
+			<actions>
+				<menu>
+function TaskDialog()
+this:AddTalk("活动期间：\n王城摆摊区附近将出现大量“哟！。")
+this:AddDialogItem("向大雪人交付堆雪人材料(2)","Dialog001")
+this:AddDialogItem("雪人积分卡-兑换经验道具(22)","Dialog002")
+this:AddDialogItem("雪人积分卡-兑换物品道具(22)","Dialog003")
+this:AddDialogItem("雪人积分卡-兑换卷轴道具(22)","Dialog004")
+end
+<!--雪人材料交付列表-->
+function Dialog001()
+this:AddTalk("堆雪人材料：\n4种类型材料为一组（帽子,手套,胡萝卜，雪堆）如果以上材料都有10个，那么就是10组。\n交付后可获得雪人积分卡，可用于在王城·大雪人处兑换稀有物品道具，一组道具兑换1张积分卡。")
+this:AddTaskCmdItem("交付-堆雪人材料[1组](2)", "v2012010", 5200, 1)
+this:AddTaskCmdItem("交付-堆雪人材料[5组](2)", "v2012010", 5200, 2)
+this:AddTaskCmdItem("交付-堆雪人材料[10组](2)", "v2012010", 5200, 3)
+this:AddTaskCmdItem("交付-堆雪人材料[50组](2)", "v2012010", 5200, 4)
+this:AddTaskCmdItem("交付-堆雪人材料[100组](2)", "v2012010", 5200, 5)
+this:AddCloseItem("离开")
+end
+<!--经验道具选项列表-->
+function Dialog002()
+this:AddTalk(" 【雪人积分卡】经验道具兑换列表")
+this:AddTaskCmdItem("兑换-灵魂丹[10亿]=1张积分卡(2)", "v2012010", 5201, 1)
+this:AddTaskCmdItem("兑换-灵魂丹[30亿]=3张积分卡(2)", "v2012010", 5201, 2)
+this:AddTaskCmdItem("兑换-灵魂丹[50亿]=5张积分卡(2)", "v2012010", 5201, 3)
+this:AddTaskCmdItem("兑换-灵魂丹[80亿]=8张积分卡(2)", "v2012010", 5201, 4)
+this:AddTaskCmdItem("兑换-灵魂丹[100亿]=10张积分卡(2)", "v2012010", 5201, 5)
+this:AddCloseItem("离开")
+end
+<!--物品道具选项列表-->
+function Dialog003()
+this:AddTalk(" 【雪人积分卡】物品道具兑换列表")
+this:AddTaskCmdItem("兑换-太庙换砖令=2张积分卡(2)", "v2012010", 5202, 1)
+this:AddCloseItem("离开")
+end
+<!--卷轴道具选项列表-->
+function Dialog004()
+this:AddTalk(" 【雪人积分卡】卷轴道具兑换列表")
+this:AddTaskCmdItem("兑换-金子卷轴(1锭)=1张积分卡(2)", "v2012010", 5203, 1)
+this:AddTaskCmdItem("兑换-金子卷轴(10锭)=10张积分卡(2)", "v2012010", 5203, 2)
+this:AddTaskCmdItem("兑换-金子卷轴(30锭)=29张积分卡(2)", "v2012010", 5203, 3)
+this:AddTaskCmdItem("兑换-金子卷轴(50锭)=48张积分卡(2)", "v2012010", 5203, 4)
+this:AddTaskCmdItem("兑换-金子卷轴(100锭)=90张积分卡(2)", "v2012010", 5203, 5)
+this:AddTaskCmdItem("兑换-银子卷轴(10锭)=1张积分卡(2)", "v2012010", 5203, 6)
+this:AddTaskCmdItem("兑换-银子卷轴(50锭)=5张积分卡(2)", "v2012010", 5203, 7)
+this:AddTaskCmdItem("兑换-银子卷轴(100锭)=10张积分卡(2)", "v2012010", 5203, 8)
+this:AddCloseItem("离开")
+end
+	
+				</menu>
+                
+			</actions>
+		</embranchment>
+	</quest>
+
+<quest id="5200" new="1"><!--雪人材料交付参数开始-->
+ <embranchment id="1" active="1"><!--材料1组交付参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="1" id="1700100"/><!--胡萝卜[活动]-->
+					<item value="1" id="1700101"/><!--手套[活动]-->
+					<item value="1" id="1700102"/><!--帽子[活动]-->
+					<item value="1" id="1700103"/><!--小雪块[活动]-->
+		    </conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="1" id="1700100" log="删除背包-胡萝卜[活动]"/>
+					<removeitem value="1" id="1700101" log="删除背包-手套[活动]"/>
+					<removeitem value="1" id="1700102" log="删除背包-帽子[活动]"/>
+					<removeitem value="1" id="1700103" log="删除背包-小雪块[活动]"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="170010" log="获得雪人积分卡"/>
+					<!--执行世界公告动作表参数-->
+			        <getname name="caption_name" id="5200"/>
+                    <countryname name="country_name" id="5200"/>
+                    <varbulletin kind="4" count="2" content="【%s】玩家『%s』在王城·大雪人处交付了1组堆雪人材料.温馨提示：获得的雪人积分卡可兑换稀有物品道具！" var1="country_name" var2="caption_name"/>
+             </actions><!--执行动作表结束-->
+  </embranchment><!--材料1组交付参数结束-->
+  <embranchment id="2" active="1"><!--材料5组交付参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="5" id="1700100"/><!--胡萝卜[活动]-->
+					<item value="5" id="1700101"/><!--手套[活动]-->
+					<item value="5" id="1700102"/><!--帽子[活动]-->
+					<item value="5" id="1700103"/><!--小雪块[活动]-->
+		    </conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="5" id="1700100" log="删除背包-胡萝卜[活动]"/>
+					<removeitem value="5" id="1700101" log="删除背包-手套[活动]"/>
+					<removeitem value="5" id="1700102" log="删除背包-帽子[活动]"/>
+					<removeitem value="5" id="1700103" log="删除背包-小雪块[活动]"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="5" id="170010" log="获得雪人积分卡"/>
+					<!--执行世界公告动作表参数-->
+			        <getname name="caption_name" id="5200"/>
+                    <countryname name="country_name" id="5200"/>
+                    <varbulletin kind="4" count="2" content="【%s】玩家『%s』在王城·大雪人处交付了5组堆雪人材料.温馨提示：获得的雪人积分卡可兑换稀有物品道具！" var1="country_name" var2="caption_name"/>
+             </actions><!--执行动作表结束-->
+  </embranchment><!--材料5组交付参数结束-->
+  <embranchment id="3" active="1"><!--材料10组交付参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="10" id="1700100"/><!--胡萝卜[活动]-->
+					<item value="10" id="1700101"/><!--手套[活动]-->
+					<item value="10" id="1700102"/><!--帽子[活动]-->
+					<item value="10" id="1700103"/><!--小雪块[活动]-->
+		    </conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="10" id="1700100" log="删除背包-胡萝卜[活动]"/>
+					<removeitem value="10" id="1700101" log="删除背包-手套[活动]"/>
+					<removeitem value="10" id="1700102" log="删除背包-帽子[活动]"/>
+					<removeitem value="10" id="1700103" log="删除背包-小雪块[活动]"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="10" id="170010" log="获得雪人积分卡"/>
+					<!--执行世界公告动作表参数-->
+			        <getname name="caption_name" id="5200"/>
+                    <countryname name="country_name" id="5200"/>
+                    <varbulletin kind="4" count="2" content="【%s】玩家『%s』在王城·大雪人处交付了10组堆雪人材料.温馨提示：获得的雪人积分卡可兑换稀有物品道具！" var1="country_name" var2="caption_name"/>
+             </actions><!--执行动作表结束-->
+  </embranchment><!--材料10组交付参数结束-->
+  <embranchment id="4" active="1"><!--材料50组交付参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="50" id="1700100"/><!--胡萝卜[活动]-->
+					<item value="50" id="1700101"/><!--手套[活动]-->
+					<item value="50" id="1700102"/><!--帽子[活动]-->
+					<item value="50" id="1700103"/><!--小雪块[活动]-->
+		    </conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="50" id="1700100" log="删除背包-胡萝卜[活动]"/>
+					<removeitem value="50" id="1700101" log="删除背包-手套[活动]"/>
+					<removeitem value="50" id="1700102" log="删除背包-帽子[活动]"/>
+					<removeitem value="50" id="1700103" log="删除背包-小雪块[活动]"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="50" id="170010" log="获得雪人积分卡"/>
+					<!--执行世界公告动作表参数-->
+			        <getname name="caption_name" id="5200"/>
+                    <countryname name="country_name" id="5200"/>
+                    <varbulletin kind="4" count="2" content="【%s】玩家『%s』在王城·大雪人处交付了50组堆雪人材料.温馨提示：获得的雪人积分卡可兑换稀有物品道具！" var1="country_name" var2="caption_name"/>
+             </actions><!--执行动作表结束-->
+  </embranchment><!--材料50组交付参数结束-->
+  <embranchment id="5" active="1"><!--材料100组交付参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="100" id="1700100"/><!--胡萝卜[活动]-->
+					<item value="100" id="1700101"/><!--手套[活动]-->
+					<item value="100" id="1700102"/><!--帽子[活动]-->
+			 		<item value="100" id="1700103"/><!--小雪块[活动]-->
+		    </conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="100" id="1700100" log="删除背包-胡萝卜[活动]"/>
+					<removeitem value="100" id="1700101" log="删除背包-手套[活动]"/>
+					<removeitem value="100" id="1700102" log="删除背包-帽子[活动]"/>
+					<removeitem value="100" id="1700103" log="删除背包-小雪块[活动]"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="100" id="170010" log="获得雪人积分卡"/>
+					<!--执行世界公告动作表参数-->
+			        <getname name="caption_name" id="5200"/>
+                    <countryname name="country_name" id="5200"/>
+                    <varbulletin kind="4" count="2" content="【%s】玩家『%s』在王城·大雪人处交付了100组堆雪人材料.温馨提示：获得的雪人积分卡可兑换稀有物品道具！" var1="country_name" var2="caption_name"/>
+              </actions><!--执行动作表结束-->
+  </embranchment><!--材料100组交付参数结束-->
+  
+</quest><!--雪人材料交付参数结束-->
+
+<quest id="5201" new="1"><!--积分卡兑换经验道具参数开始-->
+ <embranchment id="1" active="1"><!--兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="1" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="1" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012106" log="获得灵魂丹[10E储蓄经验]"/>
+		    </actions><!--执行动作表结束-->
+  </embranchment><!--兑换参数结束-->
+  <embranchment id="2" active="1"><!--兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="3" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="3" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012107" log="获得灵魂丹[30E储蓄经验]"/>
+		    </actions><!--执行动作表结束-->
+  </embranchment><!--兑换参数结束-->
+  <embranchment id="3" active="1"><!--兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="5" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="5" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012108" log="获得灵魂丹[50E储蓄经验]"/>
+		    </actions><!--执行动作表结束-->
+  </embranchment><!--兑换参数结束-->
+  <embranchment id="4" active="1"><!--兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="8" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="8" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012109" log="获得灵魂丹[80E储蓄经验]"/>
+		    </actions><!--执行动作表结束-->
+  </embranchment><!--兑换参数结束-->
+  <embranchment id="5" active="1"><!--兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="10" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="10" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012110" log="获得灵魂丹[100E储蓄经验]"/>
+		    </actions><!--执行动作表结束-->
+  </embranchment><!--兑换参数结束-->
+</quest><!--积分卡兑换经验道具参数结束-->	
+
+<quest id="5202" new="1"><!--积分卡兑换物品道具参数开始-->
+       <embranchment id="1" active="1"><!--太庙换砖令兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="2" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="2" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012105" log="获得太庙换砖令"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--太庙换砖令兑换参数结束-->
+</quest><!--积分卡兑换物品道具参数结束-->
+
+<quest id="5203" new="1"><!--积分卡兑换物品道具参数开始-->
+       <embranchment id="1" active="1"><!--金子卷轴兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="1" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="1" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012111" log="金子卷轴[1锭]"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--金子卷轴兑换参数结束-->
+	   <embranchment id="2" active="1"><!--金子卷轴兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="10" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="10" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012112" log="金子卷轴[10锭]"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--金子卷轴兑换参数结束-->
+	   <embranchment id="3" active="1"><!--金子卷轴兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="29" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="29" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012113" log="金子卷轴[30锭]"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--金子卷轴兑换参数结束-->
+	   <embranchment id="4" active="1"><!--金子卷轴兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="48" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="48" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012114" log="金子卷轴[50锭]"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--金子卷轴兑换参数结束-->
+	   <embranchment id="5" active="1"><!--金子卷轴兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="90" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="90" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012115" log="金子卷轴[100锭]"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--金子卷轴兑换参数结束-->
+	   <embranchment id="6" active="1"><!--银子卷轴兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="1" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="1" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012117" log="银子卷轴[10锭]"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--银子卷轴兑换参数结束-->
+	   <embranchment id="7" active="1"><!--银子卷轴兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="5" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="5" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012119" log="银子卷轴[50锭]"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--银子卷轴兑换参数结束-->
+	   <embranchment id="8" active="1"><!--银子卷轴兑换参数开始-->
+			<conditions><!--需求动作表开始-->
+                 	<item value="10" id="170010"/><!--雪人积分卡-->
+			</conditions><!--需求动作表结束-->
+			<actions><!--执行动作表开始-->
+			        <!--执行删除道具动作表参数-->
+					<removeitem value="10" id="170010" log="删除背包-雪人积分卡"/>
+					<!--执行获得绑定道具动作表参数-->
+                    <addbinditem value="1" id="2012120" log="银子卷轴[100锭]"/>
+		    </actions><!--执行动作表结束-->
+       </embranchment><!--银子卷轴兑换参数结束-->
+</quest><!--积分卡兑换物品道具参数结束-->		
+</event>

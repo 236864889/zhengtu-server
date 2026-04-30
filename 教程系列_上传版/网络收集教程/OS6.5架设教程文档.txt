@@ -1,0 +1,282 @@
+﻿
+<!--橘子制作-唯一QQ:153874111-->
+<!--切勿用于商业用途,如不同意请在下载后24小时内删除-->
+
+橘子整理  linux  版本征途 架设 教程
+
+CentOS 64 位 6.5版本  或者更高 （这里我使用的 是6.5版本）
+
+安装系统注意事项 ：1.开发包全装 中文语言包！2.不装 数据库！
+
+系统安装好之后就是进行必须工具的准备
+
+mysql-6.0.11 专用数据库
+
+LINUX下上传工具WinSCP3
+
+HB-SQLyog 中文版数据库管理工具（带注册）
+
+SecureCRT.rar LINUX命令连接工具
+
+工具准备好之后我们先用 LINUX下上传工具WinSCP3 连接上服务器
+
+
+查看系统版本
+
+cat /etc/redhat-release
+
+Linux关闭防火墙命令
+
+永久性生效，重启后不会复原
+
+开启：chkconfig iptables on
+
+关闭：chkconfig iptables off
+
+即时生效，重启后复原
+
+开启：service iptables start
+
+关闭：service iptables stop
+
+查看防火墙状态：
+
+service iptables status
+
+iptables：未运行防火墙
+
+
+查询已安装的数据库
+rpm -qa |grep -i mysql       
+
+卸载数据库
+yum remove mysql-libs-5.1.71-1.el6.x86_64
+
+
+如果需要才更换服务器源
+
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/centos/6.5/readme
+
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.163.com/.help/CentOS6-Base-163.repo
+
+yum makecache
+
+补yum
+
+yum install gcc gcc-c++ gcc-g77 flex bison autoconf automake bzip2-devel zlib-devel ncurses-devel libjpeg-devel libpng-devel libtiff-devel freetype-devel pam-devel libxml2-devel
+
+yum install yum-fastestmirror.noarch -y
+
+yum upgrade openssl -y
+
+yum install bison.x86_64 bison-devel.x86_64 ncurses.x86_64 ncurses-devel.x86_64 zlib.x86_64 zlib-devel.x86_64 openssl.x86_64 openssl-devel.x86_64 gnutls.x86_64 gnutls-devel.x86_64 gcc.x86_64 gcc-c++.x86_64 -y
+
+yum remove postgresql-libs -y
+
+yum install postgresql.x86_64 postgresql-contrib.x86_64 postgresql-devel.x86_64 postgresql-docs.x86_64 postgresql-libs.x86_64 postgresql-python.x86_64 postgresql-server.x86_64 -y
+
+yum install apr-util.x86_64 httpd.x86_64 httpd-manual.x86_64 mod_perl.x86_64 mod_python.x86_64 mod_ssl.x86_64 php.x86_64 subversion.x86_64 system-config-httpd webalizer.x86_64 -y
+
+yum -y install gcc gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype  freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel  bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5- devel              libidn libidn-devel openssl openssl-devel nss_ldap openldap openldap- devel  openldap-clients openldap-servers libxslt-devel libevent-devel ntp  libtool-ltdl  bison libtool vim-enhanced 
+
+补 yum 结束
+
+连接上之后进入根目录找到 home 文件夹进入
+
+把必须的 mysql-6.0.11 专用数据库 与征途版本包上传到 home 文件夹里边（权限给到777）
+
+然后开始对 mysql-6.0.11 专用数据库进行解压缩 
+
+现在我们用 SecureCRT.rar LINUX命令连接工具 连接上服务器
+
+现在我们在命令窗口中输入 cd /home 进入存放数据库的文件夹
+
+输入以下命令解压缩数据库文件包
+
+tar xzvf mysql-6.0.11.tar.gz
+
+tar -xvf archive.tgz
+好了现在已经解压好了
+
+将解压好的 mysql-6.0.11-alpha   -alpha 重命名删除掉
+
+修改后为 mysql-6.0.11
+
+输入以下命令进入mysql-6.0.11目录下
+
+cd /home/mysql-6.0.11 
+
+接着分别输入以下命令
+
+echo “*    soft    nofile  4096” >>/etc/security/limits.conf
+
+echo “*      hard    nofile  65535” >>/etc/security/limits.conf
+
+echo “session required  pam_limits.so” >>/etc/pam.d/login
+
+以下是64位系统，x86_64 的数据库安装命令复制到命令筐中执行
+
+CFLAGS="-O3 -m64" CXX=gcc CXXFLAGS="-O3 -m64 -felide-constructors -fno-exceptions -fno-rtti" ./configure --with-raid --enable-thread-safe-client --enable-assembler  --with-server-suffix =" for >>>MySQL Database of Zebra by Yhc<<<" --without-debug --with-extra-charsets=none --without-isam --disable-shared --with-mysqld-ldflags=-all-static --prefix=/usr/local/mysql --without-bench
+
+数据库完成了安装接下来我们要进行CUP的编译
+
+输入  make -j 12 && make install  这里写的是1个UPU服务器的编译命令如果服务器为2个CUP我们可以这样写 make -j 8 && make install
+
+make -j 12 && make install
+
+对于编译用的时间比较长
+
+我们先修改系统的默认语言  
+
+找到 etc目录下sysconfig目录下i18n 文件 修改为  LANG="zh_CN.GB2312"  
+
+CPU编译完成我们开始下一个步骤
+
+输入以下命令添加用户[这里的用户不是数据库的用户名是系统的数据库目录权限]
+
+groupadd mysql && useradd -g mysql mysql
+
+创建数据库需要的目录目录
+
+mkdir /usr/local/mysql/data && mkdir /usr/local/mysql/run && mkdir /usr/local/mysql/log && mkdir /usr/local/mysql/var
+
+继续输入以下命令更改mysql目录所有者
+
+chgrp mysql -R /usr/local/mysql && chown mysql -R /usr/local/mysql
+
+增加打开文件数量
+
+ulimit -n 4096
+
+添加PATH
+
+echo "PATH=\"/usr/local/mysql/bin:\$PATH\"" >> /etc/profile && export PATH="/usr/local/mysql/bin:$PATH"
+
+写入strip可执行文件
+
+strip /usr/local/mysql/libexec/mysqld
+
+添加LIB PATH
+
+echo "/usr/local/mysql/lib" >> /etc/ld.so.conf && ldconfig
+
+将my.cnf文件cp到/etc目录下
+
+cp support-files/my-huge.cnf /etc/my.cnf
+
+这里会提示是否覆盖我们选择 y 覆盖系统中原来的 my.cnf 文件
+
+然后我们用WinSCP3登陆服务器在 etc目录下找到 my.cnf 这个文件右键编辑
+
+修改my.cnf
+
+加入 数据库路径 datadir=/db/mysql
+
+[mysqld]
+在这里加入  datadir=/db/mysql
+port		= 3306
+socket		= /tmp/mysql.sock
+skip-locking
+key_buffer = 384M
+max_allowed_packet = 1M
+table_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+read_rnd_buffer_size = 8M
+myisam_sort_buffer_size = 64M
+thread_cache = 8
+query_cache_size = 32M
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 8
+
+修改后的
+
+[mysqld]
+datadir=/db/mysql
+port		= 3306
+socket		= /tmp/mysql.sock
+skip-locking
+key_buffer = 384M
+max_allowed_packet = 1M
+table_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+read_rnd_buffer_size = 8M
+myisam_sort_buffer_size = 64M
+thread_cache = 8
+query_cache_size = 32M
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 8
+
+保存后关闭
+
+继续输入以下命令创建数据库存放路径
+
+mkdir /db
+
+chown mysql.mysql /db -R
+
+开始初始化Mysql数据库表我们来输入以下命令
+
+su - mysql -c "mysql_install_db"
+
+输入以下命令启动MYSQL数据库
+
+su - mysql -c "mysqld_safe --skip-name-resolve --open-files-limit=4096&"
+
+启动了然后按回车继续
+
+输入  mysql 进入数据库目录
+mysql   
+
+再输入 show databases;  打开数据库表
+
+现在我们开始创建数据库用户名与密码
+
+#我们输入以下命令
+
+grant   ALL PRIVILEGES   on   *.*   to  Czj236864889@"%"   Identified   by   "Cjy12140113" WITH GRANT OPTION;
+
+grant   ALL PRIVILEGES   on   *.*   to  ztgame@"%"   Identified   by   "Cjy12140113" WITH GRANT OPTION;
+说明：ztgame 是用户名 admin 是密码自己修改以后在命令窗口执行
+
+回车后看到 Query OK, 0 rows affected (0.00 sec) 提示数据库用户创建成功
+
+exit  解释退出数据库表目录
+
+输入  cd /tmp  解释进入根目录下tmp目录
+
+mkdir offlineMessages 解释创建 offlineMessages 文件夹
+
+文档教程结束
+
+<!--橘子制作-唯一QQ:153874111-->
+<!--切勿用于商业用途,如不同意请在下载后24小时内删除-->
+
+服务器时间
+查询系统时间
+date -R
+
+安装NTP：
+sudo yum install ntp
+1
+启动并启用NTP服务：
+sudo systemctl start ntpd
+sudo systemctl enable ntpd
+1
+2
+同步
+sudo ntpdate pool.ntp.org
+
+修改时区文件
+1.
+etc/sysconfig clock
+ZONE="Asia/Shanghai"
+
+2.
+etc/timezone
+“Asia/Shanghai”
+
+
+将系统时间写入硬件时钟：
+sudo hwclock --systohc

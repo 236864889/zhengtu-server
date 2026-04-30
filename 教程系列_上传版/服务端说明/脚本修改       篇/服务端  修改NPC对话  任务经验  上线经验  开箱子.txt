@@ -1,0 +1,125 @@
+修改服务端数据
+官方的规则随便改?咱们的规则也可以改!你觉的哪里不好就修改哪里,修改完成后要想生效必须重新开启服务程序.
+一、 修改NPC对话
+查找MAKI5目录下的npctrade.xml文件找到后用记事本打开
+- <npc name="环城自行车赛发令员" id="933">
+  <menu>function MainDialog() this:AddTalk(" 环城自行车大赛由国王发布，发布时间必须在每天17点至23点间，国王发布比赛后1小时比赛正式开始，每次比赛时间为30分钟，顺利完成比赛者根据自身等级将获得相应银子奖励，前三名将额外有20锭，10锭，5锭银子奖励。\n\n注：每人每天只能参加一次") this:CountryKingAppBikeRace("国王申请大赛(0)") this:AddBikeRance("参加比赛(0)") thiseleteBikeRance("注销比赛(0)") TaskDialog() end this:AddDialog("MainDialog")</menu> 
+比如自行车NPC的介绍，把中间的介绍文字改成你自己的就可以了。
+二、修改NPC说话
+打开MAKI5的MAP目录下的NpcAIScript.xml文件找到后用记事本打开
+- <info>
+- <script id="3" name="村长" npcid="56000" repeat="-1" shared="1">
+  <phase action="say" str="你好，欢迎来到征途SF，做完清缘付的所有任务，将会有超级经验。" lasttime="240" /> 
+  <phase action="randomchat" lasttime="10" /> 
+比如村长所说的话，上面那几个字改成你自己的就可以了
+
+三、修改任务经验
+打开Maki5\quest\on_visit目录，里面的所有文件都是NPC的具体信息
+比如102.xml这个是清源村-武器商王仁
+<exp value="3000" /> 
+  <addgreenbinditem value="1" id="776" /> 
+  <gold type="Add" value="6000" /> 
+  <notify1 content="经验+，银子+" /> 
+  <addgreenbinditem value="1" id="80320" /> 
+  <addgreenbinditem value="1" id="80719" /> 
+  <notify content="任务：你得到乾坤屠龙战刀之影" /> 
+  <additem value="1" id="6000" /> 
+  <notify content="得到一本落叶斩秘籍，右键学习" /> 
+  <notify1 content="得到乾坤屠龙战刀之影" /> 
+  <notify1 content="得到一本落叶斩秘籍，右键学习" /> 
+上面的6000代表给的银子，那个3000是代表给的经验，其实这里最大是40亿，超过后经验反而会减少，修改奖励物品大家也看到了，就是那个id="6000"那句话，大家用工具找到物品的ID号，就可以修改奖励的物品了。
+
+四、修改上线经验
+这个在前面已经讲过了，就是用SQLyog数据库管理软件，在CHARBASE上用鼠标右键，点击“更改数据表F6”，就会进入一个更为详细的列表，这里是人物初始信息。
+
+设置EXP值，为初始经验（需要做完第一个任务才会得到）
+SALARY、GOLD、MONEY，分别是上线福利、金子和上线银子，注意这里是按“文”为单位的，假如设置为1L是100，设置1D的话则是10000。数据库里面的东西很多，大家有心慢慢研究。
+
+五、修改开箱子物品
+打开MAKI5目录下的GiftBoxConfig.xml，前面都是物品的信息，找到最后面
+<giftbox id="3">
+  <!-- id="钥匙ID" size="格子个数" maxnumber="再来1次次数上限" price="基础价格"-->
+  <boxitem itemid="100040" size="17" maxnumber="1" price="0"/>
+  <!-- quality="物品档次" qualityodds="选中该档几率" maxnum="最大选中数量"  numkind="小类型数"-->
+  <qualitys quality="54" qualityodds="100000" maxnum="3" numkind="19"/>
+  <qualitys quality="53" qualityodds="100000" maxnum="3" numkind="19"/>
+  <qualitys quality="48" qualityodds="100000" maxnum="3" numkind="19"/>
+  <qualitys quality="47" qualityodds="50000" maxnum="5" numkind="19"/>
+  <qualitys quality="46" qualityodds="100000" maxnum="5" numkind="19"/>
+  <qualitys quality="45" qualityodds="10000" maxnum="1" numkind="19"/>
+  <qualitys quality="44" qualityodds="10000" maxnum="1" numkind="19"/>
+  <qualitys quality="41" qualityodds="100000" maxnum="12" numkind="19"/>
+  <qualitys quality="42" qualityodds="100000" maxnum="5" numkind="19"/>
+  <qualitys quality="36" qualityodds="100000" maxnum="3" numkind="19"/>
+  <qualitys quality="22" qualityodds="100000" maxnum="3" numkind="19"/>
+  <qualitys quality="21" qualityodds="100000" maxnum="15" numkind="19"/>
+  <qualitys quality="20" qualityodds="100000" maxnum="15" numkind="19"/>
+  <qualitys quality="19" qualityodds="100000" maxnum="5" numkind="19"/>
+  <qualitys quality="18" qualityodds="100000" maxnum="5" numkind="19"/>
+  <qualitys quality="17" qualityodds="100000" maxnum="5" numkind="19"/>
+
+ID＝1就是指密银宝箱
+ID＝2就是指水晶宝箱
+ID＝3就是指精金宝箱
+出现物品这里需要仔细研究，否则可能会出现改成空箱子点的笑话，我就曾经有过。后面那一串数字就是是所开出的物品和出现概率，在此再次BS征途公司和老史，他们弄的这个东西根本就是骗人的，可以随意在后台修改出现的几率，你想开出好装备？你想开了鱼翅？随便一调你就开不出来！或许下次更新的时候后台数据就稍稍的修改了………
+
+……..
+结束语
+好了，至此应该可以开服了，因为我已经和我的朋友们照此方法玩了好多天了，而且一切运转正常！你也快快开服让朋友们都来爽一爽吧！其实还有很多地方都可以修改，个人水平有限，只能把你领到这里了，你已经入门了，更高级的东西有待于你去研究、开发。也请您不要吝啬，有什么好技术请发到网上让大家分享。当我们的征途SF遍地开花、无孔不入的时候，让他史玉柱的打击见鬼去吧！
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1.需要准备的文件及解释:
+ObjectBase.tbl(物品数据文件)                  需要在此文件内添加相关的物品
+SetObjectBase.tbl(物品灵魂锁链文件)            正确添加新装备装的灵魂,不会再显示至尊锁链了
+UpgradeObjectBase.tbl(物品升级概率文件)        可让新装备装升级至满星必须修改的文件,否则你的新装备不能升级
+2.开始修改:
+(1)ObjectBase.tbl,用三狼的物品查看器,在原来的炎天装备后面加上新的新装备装,其实就是改下名字,再改下装备等级
+(2)SetObjectBase.tbl 和 UpgradeObjectBase.tbl 可以用相关的工具打开,再进行添加,在这里我也提供下我自己改好的这两个TBL文件!如果要使用这两个文件,请注意一下:
+(1)物品升级概率我调整过,升太阳几乎是90%一次OK,只有第13星是30%左右的概率!
+(2)新装备的升级,因为比较懒所以物品库中没有添加新装备的完美升级宝石,所以只能升到13星!
+
+
+
+
+
+
+
+
+
+
+
+
+
+1.NPC交易信息在ZTGAME目录下的: NPCTRADE.XML 文件里,用写字板打开该文件
+2.物品代码可以用工具查到,(501-405017)代表了征途1.04的N种物品
+3.查找:高级杂货商,(假定要添加的物品是材料,六等,10个一捆)
+在具有相同格式的地方加入一行:{ <item id="材料代码" action="3" itemlevel="5"/>}
+
+action="3"表示这个物品是用来出售的
+
+
+仅仅这样,还不能完成物品添加,必须要做如下步骤:
+
+
+在这个NPC名字下面有这些行,定义了NPC可以出售的物品,如果只是添加上面那行,服务器开启后NPC还是不会出售指定的物品,必须要在这面添加定义!!切记切记!!
+
+
+id=this:AddTradeItem("高级杂货(1)","杂货{id[物品代码*数量*物品等级,963,963*10,666,734,795,755,760,761,655,685,686,881,882,929,930,942,502,512,522,532,542,507*1*1,507*50*3,517*1*1,517*50*3,527*1*1,527*50*3,537*1*1,537*50*3,547*1*1,547*50*3,679*1*4,678*1*4,771,772,920,921,776,777]}|时装一{id[15402-15445]}|时装二{id[15446-15489]}","type[101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,52,53,119,51]","杂货买卖") 
+
+物品等级计算方式--->0=1级白色,1=2级蓝色,2=3级黄色,3=4级绿色,4=5级紫色,5=6级紫色.....
+
+
+物品添加到此为止了...重新启动服务器,指定的NPC就可以出售添加的相关物品了!!

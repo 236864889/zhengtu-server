@@ -1,0 +1,95 @@
+首先找到quest.xml主线任务列表，比如我要修改乡勇团任务。。查找 ‘乡勇团’
+
+quest id=211 name=乡勇团
+                description
+                        body
+                                p
+                                        n color=255,239,196,0乡勇团n
+                                p
+                                p
+                                        n    如果想加入乡勇团，可以找n
+                                        a href=goto 145,90清源村-武器商王仁(145,90)a
+                                        n选择武器。n
+                                p
+                                p
+                                        n color=255,239,196,0任务描述：n
+                                p
+                                p
+                                        n    听说王仁成立了乡勇团，还有武器可以免费获取呢，去看看吧。n
+                                p
+                                p
+                                        n color=255,0,196,0任务奖励：n
+                                p
+                                p
+                                        object id=690   短刀-战士武器  object
+                                p
+                                p
+                                        object id=691   柳木杖-法师武器object
+                                p
+                                p
+                                        object id=692   短弓-弓手武器object
+                                p
+                                p
+                                        object id=693   纸扇-仙术师武器object
+                                p
+                                p
+                                        object id=694   木棍-召唤师武器object
+                                p
+                                p
+                                        n color=255,239,196,0经验奖励：n
+                                        n 5n
+                                p
+                                diffcult level=1
+                        body
+                description
+                events这下面3个XML文档是支线任务，这3个XML文档都看看，里面其中有一个是奖励物品的
+                        event type=on_visit source=56000.xml
+                        event type=on_visit source=102.xml  
+                        event type=on_enter source=227.xml
+                events        
+quest
+
+这个奖励物品的文件是在event type=on_visit source=102.xml  这里 on_vistit文件夹下面的 102.xml
+其次打开102.xml文档以后找这里menu
+                                var type=Set name=state value=-2
+                        actions
+                embranchment
+        quest
+        quest id=211 new=1
+                embranchment id=1 active=1
+                        conditions
+                                space size=2
+                                var type=Differ name=state value=-1 id=211
+                                var type=Equal name=state value=-3 id=211
+                        conditions
+                        actions
+                        exp value=50
+                        notify1 content=经验+50
+                        additem value=1 id=690                 notify content=任务：你得到一把自宫用刀
+                        additem value=5 id=794
+  additem value=1 id=942
+                          additem value=1 id=655
+                          additem value=1 id=685
+                           additem value=1 id=15434
+                           additem value=1 id=15437
+                            additem value=1 id=777
+                                additem value=2 id=963
+                                notify content=任务：你得到密银之匙2个
+
+                                notify content=任务：你得到灵魂宝石5个
+                                additem value=1 id=6000
+                                notify content=得到一本落叶斩秘籍，右键学习
+                                notify1 content=得到自宫用刀
+                                notify1 content=得到一本落叶斩秘籍，右键学习
+                                gold type=Add value=2000
+                                var type=Set name=state value=-1
+                                menu
+
+“ additem value=1 id=690
+id=‘690’是物品ID 用工具可以查到  如果你想把这个物品改成绿装或者添加绿装  就把这一行改成这个或者在添加这 addgreenbinditem value=1 id=610
+还想加别的物品就在后面继续添加就可以了”
+notify content=得到一本落叶斩秘籍，右键学习 这个是给完物品系统说的话
+
+gold type=Add value=2000 这个是给的银子 value=2000 表示给了20L银子注意20000是2D 
+
+这个文档有5处要修改，因为这个任务首先要判断你选择的某种职业，征途里面有5种职业，所以要改5处地方。。每次改任务的时候只要找到每个支线列表里的任务奖励就可以了

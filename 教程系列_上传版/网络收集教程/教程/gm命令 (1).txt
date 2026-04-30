@@ -1,0 +1,105 @@
+现身
+//showme
+隐身
+//hideme
+//loadquest 加载任务脚本
+=========================
+//fetch id=会员证
+//throwobject  扔东西
+//fetch id=665 num=1000000 （银子）
+//value gold=1000000 （金子）
+//normal 恢复普通模式 
+//killer 秒杀模式
+==============查看在线人数================
+//userdistribute
+===============跳转到城市刷NPC=============
+//gomap name=齐国·清源村
+//gomap name=魏国·清源村
+//gomap name=宋国·清源村
+//gomap name=燕国·清源村
+//goto 135 80  跳转到坐	标
+//summon name=天姑  刷NPC
+//summon name=武器商王仁
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+//gomap name=齐国·王城
+//gomap name=魏国·王城
+//gomap name=宋国·王城
+//goto 870 450
+//summon name=天姑
+//summon name=高级杂货商
+//summon name=大臣
+//goto 100,100
+//cleararea 驱散周围玩家
+
+//systime 得到系统当前时间
+===========提升人物等级的方法=================
+//levelup name=管理 num=170
+//embar name= time=   囚禁
+=======================
+//kick name=  踢掉玩家
+//countuser "得到本组服务器的人数分布
+//userdistribute 查询在线人数
+//fetch name=铁 level=8 num=40
+===========禁言的方法=================
+//donttalk name=00000df  time=10000
+//clearcolddown  清除冷却
+===解除禁言====
+//talk name=    time=
+
+学习技能
+//studyskill name=力王之魄
+
+=============到人物身边===============
+//gotouser name=玩家名字 
+===============召唤人物到身边=============
+//catchuser name=扫路的
+=============刷怪物的命令===============
+//summon name=怪物名字
+//summon name=馅饼怪怪 num=100  (活动怪物暴通行证)
+//summon id=16734 num=2  (暴1％的石头)
+//summon id=16735 num=1  (暴10％的石头)
+//summon id=16729 玉兔 num=100
+//summon id=16736 暴补天神石
+//summon id=16640  num=100 饼饼怪怪 暴通行证
+//summon name=上古魔兽[一阶] num=5  精神
+//summon name=上古魔兽[二阶] num=5 力量
+//summon name=上古魔兽[三阶] num=3 智力
+//summon name=上古魔兽[四阶] num=3 敏捷
+//summon name=上古魔兽[五阶] num=5  体质
+//summon name=狼王 num=10
+//summon name=兽王 num=5
+//summon name=山大王 num=5
+//summon name=异族头目 num=3
+//summon name=叛军大将 num=3
+//summon name=骷髅王 num=3
+//summon name=赤鳞蛟龙 num=3
+//summon name=火魔蛟龙(魔) num=10
+//summon name=大块头 num=3
+//summon name=蚌精(魔) num=3
+//summon name=钢化巨灵  num=3
+//summon name=混石力士(魔)  num=3
+//summon name=血猿王  num=20            
+//summon name=石化魔人  num=5         
+//summon name=滨海岛主 num=5           
+//summon name=灵蛇(魔)  num=5          
+//summon name=飞天猪 num=20            
+//summon name=吉祥三宝 num=30         
+//summon name=微微鸡              
+//summon name=微微熊             
+//summon name=玉兔       
+//summon name=霸王鳖鸡 
+//summon name=联军头目       
+//summon name=恶魔统领(魔) num=10  
+//summon name=恶魔尊主(魔) num=10
+//summon name=石怪(魔) num=5
+//summon name=夜魔尊主（魔） num=10  
+//summon name=至尊蚌魔（魔） num=10   
+//summon name=铁兽  num=10
+//summon name=王城守卫 num=5
+//summon name=滨海浪人 num=200 
+
+===============发布系统公告=============
+
+//bcworld  我发的消息是滚动的红字，请大家不要相信谣言安心游戏
+
+//bcworld  在线的玩家请务必加入玩家群，

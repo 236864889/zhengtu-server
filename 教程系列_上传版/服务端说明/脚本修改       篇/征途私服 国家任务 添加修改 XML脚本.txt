@@ -1,0 +1,36 @@
+现在的征途SF,国家任务没人做了,主要原因是打怪数量要求太多,并且经验相对于鱼翅来说太低了 
+现在你可以修改一下服务器国家任务的打怪数量和经验奖励了,实际上按照我的服务器个性化设置系列来安排你的服务器,盒子里根本用不着安排鱼翅了,呵呵,于是傻站着等别人来杀的人就少很多了,呵呵...不是更好玩么--逍遥星星征途一条龙制作 
+ 
+
+打开 homeztgamequeston_visit337.xml 靠下,有如下内容
+quest id=50001 new=1
+embranchment id=11 active=1
+conditions
+innation
+uservar type=Less name=country_kill value=1
+week value=127
+!--下面两行是设定这段代码对应的角色等级,这里是19-30,后面还有很多,不同级别奖励经验的--
+level type=Great value=19
+level type=Less value=30
+var type=Differ name=state value=-1 id=50001
+var type=Differ name=state value=1 id=50001
+var type=Differ name=state value=-3 id=50001
+conditions
+actions
+notify content=任务：杀目标国家25级以上的怪物100只
+uservar type=Add name=country_kill value=1
+var type=Set name=state value=1
+!--下面这行设定了前段设定的角色级别需要对应的怪物等级,你不会让30级以下的玩家去打100级怪吧--
+var type=Set name=level value=25
+!--下面这行设定了打怪需要的数量,如果改了请改下上面的任务提示,好让玩家知道喔,建议这个级别在50个怪左右--
+var type=Set name=country_killl_num value=100
+var type=GetP name=country_killl_selflevel value=1
+vars type=Mul name1=country_killl_selflevel name2=country_killl_selflevel
+!--下面这行设定了完成任务的基础经验倍数,呵呵,你试试加个零看看...哇....--
+var type=Set name=baseexp value=63
+
+ 
+
+ 
+
+这样玩家做国家任务的积极性就高咯,而且服务器用不着开鱼翅,玩家只要勤劳一点,一样升级快喔;做国家任务的时候一定会有人来清,有人清就有人反抗,这是个常理,有人反抗,游戏就会更有意思喔...呵呵 逍遥星星征途一条龙制作

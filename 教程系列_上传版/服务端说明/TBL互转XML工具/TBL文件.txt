@@ -1,0 +1,7 @@
+斗魂增加攻防文件  FightsoulObjectBase.tbl
+
+护身符攻防文件    AmuletObjectBase
+
+寒冰麒麟          HbqlObjectBase
+
+段位勋章          MedalObjectBase

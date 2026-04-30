@@ -1,0 +1,85 @@
+﻿linux cent os 7 yum 安装 mysql
+
+#查看系统版本
+
+cat /etc/redhat-release
+
+#修改系统语言
+
+etc/locale.conf 文件 修改为 ① LANG="zh_CN.GB2312"  
+
+cent os 7 已经不支持mysql,所以内部集成了mariadb,而安装mysql的话会和mariadb的文件冲突,所以需要先卸载掉mariadb.
+
+#列出所有被安装的rpm package 
+
+②  rpm -qa | grep mariadb
+
+#卸载
+
+rpm -e 文件名
+
+错误：依赖检测失败：
+libmysqlclient.so.18()(64bit) 被 (已安裝) postfix-2:2.10.1-6.el7.x86_64 需要
+libmysqlclient.so.18(libmysqlclient_18)(64bit) 被 (已安裝) postfix-2:2.10.1-6.el7.x86_64 需要
+
+#强制卸载，因为没有--nodeps
+
+③  rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64   看是什么版本
+
+#安装mysql依赖
+
+④  yum install vim libaio net-tools
+
+#CentOS7的yum源中默认好像是没有mysql的。为了解决这个问题，我们要先下载mysql的repo源。
+
+1. 下载mysql的repo源
+
+如果提示 未找到wget命令，需要安装wget
+
+⑤  yum install wget
+
+⑥  wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+
+2. 安装mysql-community-release-el7-5.noarch.rpm包
+
+⑦  sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
+
+#安装这个包后，会获得两个mysql的yum repo源：/etc/yum.repos.d/mysql-community.repo，/etc/yum.repos.d/mysql-community-source.repo。
+
+3. 安装mysql
+
+⑧  sudo yum install mysql-server
+
+#启动mysql服务
+
+⑨  service mysqld restart
+
+#停止mysql服务
+
+service mysqld stop
+
+
+#进入MySQL
+
+⑩  mysql
+
+#设置远程主机登录用户名和密码
+
+GRANT ALL PRIVILEGES ON *.* TO 'mengxiang'@'%' IDENTIFIED BY 'kongbai0' WITH GRANT OPTION;
+
+#设置本地主机登录用户名和密码
+
+GRANT ALL PRIVILEGES ON *.* TO 'mengxiang'@'127.0.0.1' IDENTIFIED BY 'kongbai0' WITH GRANT OPTION;
+
+exit 
+
+cd /tmp  解释进入根目录下tmp目录
+
+mkdir offlineMessages 解释创建 offlineMessages 文件夹
+
+#mysql存放目录
+
+var/lib/mysql/
+
+
+yum install -y unzip zip

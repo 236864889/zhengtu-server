@@ -1,0 +1,5 @@
+BOOS攻城代码，只要放上去怪物攻城开始拉
+<npc id="150001" name="大将军灵王(魔)" width="150" height="60" x="853" y="472" num="5" interval="30" color="0,255,0,0" />  
+<npc id="30040" name="恶魔统领(魔)" width="60" height="60" x="853" y="472" num="5" interval="30" color="0,255,0,0" />  
+<npc id="21537" name="月魔弓手" width="100" height="60" x="853" y="470" num="30" interval="30" color="0,255,0,0" />  
+<npc id="21524" name="月魔战士" width="200" height="60" x="853" y="470" num="30" interval="30" color="0,255,0,0" />

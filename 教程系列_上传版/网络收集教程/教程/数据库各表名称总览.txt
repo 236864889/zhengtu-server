@@ -1,0 +1,17 @@
+数据库各表名称总览
+ANSWER 智力答题表 
+BALANCE 股票商表 
+CARTOONPET 替身宝宝表 
+CHARBASE 角色表 CITY 占领城市表 
+COUNTRY 国家表 
+HEROLIST 英雄列表 
+HOME 家庭表 
+MAIL 邮件表 MINIGAME 小游戏表 
+NPCDARE NPC占领表 
+PKGAME 争霸赛表 
+SEPT 家族表 
+SEPTMEMBER 家族成员表 
+SERVERLIST 服务程序列表 
+SORTLIST 世界排名列表 
+TANK 家族战车表 UNION 帮会表 
+UNIONMEMBER 帮会成员表

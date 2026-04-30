@@ -1,0 +1,88 @@
+GetLeader  队长
+
+<!--输入你要说的话-->
+wages  工资
+
+Percent  百分比
+
+per  比率
+
+rate  同上
+
+random 随机
+
+Gift  奖品
+
+<extentimer start="2013-9-1-21:00:00" end="2013-9-1-23:00:00"/><!--限制时间-->
+
+<country countryid="2" value="1"/><!--2为国家ID 只有该国家玩家才可显示的菜单限制3/4/5...以此类推-->
+
+<countrydefence   value="2"/><!--国战时才可显示菜单的限制-->
+
+<selfcountry value="1"/><!--1本国才能显示菜单的限制，2敌国才能显示菜单的限制-->
+
+<week value="1"/><!--限制星期任务1代表星期一-->
+
+<grade value="1"/><!--限制只能国王可用-->
+
+<space size="1"/><!--限制只能城主可用-->
+
+<addbinditem value="1" id="111" odds="1200"/><!--随机抽奖-->
+
+<honor type="Add" value="100"/><!--获得荣誉+100-->
+
+<honor type="Great" value="99"/><!--需要荣誉+100才可显示-->
+
+<honor type="Sub" value="100"/><!--消耗荣誉+100-->
+
+<additem value="10" id="795"/><!--获得物品不绑-->
+
+<addbinditem value="1" id="501008"/><!--获得物品绑定-->
+
+<addgreenbinditem value="1" id="10925"/><!--获得绿色装备-->
+
+<addpurplebinditem value="1" id="10925"/><!--获得紫色装备-->
+
+<addpinkbinditem value="1" id="10470"/><!--获得粉红色装备-->
+
+<addredbinditem value="1" id="10470"/><!--获得红色装备-->
+
+<addorangebinditem value="1" id="10470"/><!--获得橙色装备-->
+
+<item value="1" id="2013504"/><!--限制需要物品-->
+
+<timeouts long="1200" id="21202" less="0"/><!--long读秒id脚本-->
+
+<flexmenu content="恭喜你：成功养成出苍龙！"/><!--中间提示话语-->
+
+<notify1 content="您育养真龙失败,龙蛋破碎！"/><!--头顶显示话语-->
+
+<notify content="您育养真龙失败,龙蛋破碎！"/><!--右下角显示话语-->
+
+<timer start="19:45:58" end="20:05:03"/><!--时间限制-->
+
+<execluafunc name="choujiang" value1=" " value2=" " value3=" " value4=" "/><!--触动lua脚本-->
+
+<checksex type="Equal" value="1"/><!--男性显示语术--><!--详情查找162脚本红娘-->
+
+<checksex type="Equal" value="0"/><!--女性显示语术--><!--详情查找162脚本红娘-->
+
+	<refresh name="state"/>
+        <timeouts/>
+	<var type="Set" name="clock" value="300"/>
+	<refresh name="clock"/><!--右上角读秒-->
+
+<exp value="2000000000"/><!--获得经验-->
+
+<maxhonor type="Add" value="50000"/><!--获得金子5锭-->
+
+<gold type="Add" value="1000000"/><!--获得银子100锭-->
+
+<score type="Add" value="2000"/><!--获得工资20两-->
+
+<removeitem value="10" id="795" log="消耗物品"/><!--扣除物品-->
+
+<gold type="Sub" value="1000"/><!--扣除银子10两-->
+
+<countryname name="country_name" id="23"/>
+<varbulletin kind="4" count="2" content="%s的玩家%s，完成了新人创业计划任务，太牛了.！" var1="country_name" var2="name"/><!--全国提示-->

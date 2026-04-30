@@ -1,0 +1,13 @@
+1) 重启后生效 
+开启： chkconfig iptables on 
+关闭： chkconfig iptables off 
+
+2) 即时生效，重启后失效 
+开启： service iptables start 
+关闭： service iptables stop 
+
+
+
+7.0
+关闭  systemctl stop firewalld.service   重启失效
+停止  systemctl disable firewalld.service 御了

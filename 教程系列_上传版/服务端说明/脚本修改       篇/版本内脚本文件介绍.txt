@@ -1,0 +1,24 @@
+今天开个帖子继续跟大家说下版本里面的文件介绍，看过我的帖子的朋友应该都知道，征途版本基本都被打包命名成ztgame，那么在这里跟大家说下ztgame目录下的文件介绍。（这里用紫装版本来做介绍，其实跟绿装相差无几）
+  1.config目录下的MessageSystem是游戏内系统循环的提示，就是在左下侧聊天频道的（系）红色字体通告，大家可以自行修改
+  2.log目录，一般这个目录没什么用处，是用于游戏存放日志的。
+  3.map目录，目录下都是地图文件，其中mps是一种游戏图片格式，就是地图图片了，Xml可自行修改。
+  4.newquest目录，这目录不建议新手修改，是lua语言的脚本文件，需要懂得lua才可以修改。
+  5.quest目录，这个目录下一般我们修改最多的就是on_use（使用的道具的脚本文件）以及on_visit（npc的脚本文件），其中里面有个单独的文本quests是用于所有NPC的一个脚本集合，如果新增了脚本，需要在这里面相应的添加才可以生效。这里详细给大家解析下on_visit目录下的脚本文件，这里拿出来一个例子细说。
+  on_visit里面基本都是NPC的功能脚本以及任务脚本，大家看这个脚本我们来解析下。
+
+<?xml version="1.0" encoding="GB2312"?>
+ <!-- edited with XMLSPY v720004 rel. 2 U (http://www.xmlspy.com) by 1 (1) -->
+ <event id="880259" name="历练">
+         <!--new means new quest, default is quest on user-->
+         <quest id="333001">
+                 <embranchment id="1">
+                         <conditions>
+                                 <level type="Great" value="99"/>  -----这是限制等级
+                                <timer start="00:00:00" end="23:59:00"/>------这是任务开始到结束的时间，用于控制任务和活动的开启
+                                <uservar type="Less" name="qidi_state_1" value="1"/>
+                                 <var type="Differ" name="state" value="-1" id="25555"/>
+                                 <var type="Differ" name="state" value="1" id="25555"/>
+                                 <var type="Differ" name="state" value="-3" id="25555"/>
+                         </conditions>
+                         <actions>
+                                 <menu>

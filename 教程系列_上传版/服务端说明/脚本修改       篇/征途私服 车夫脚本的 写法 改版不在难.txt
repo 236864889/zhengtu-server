@@ -1,0 +1,55 @@
+<event id="5096" name="清源-车夫(140,126)">      对应的任务文件名"5096.xml",NPC名称,以及此NPC在当前地图的坐标点
+<quest id="960100">                             任务ID参数,目前尚未研究明白
+<embranchment id="9">                           本NPCID参数定义"9"
+<conditions>                                    开始命令行
+<selfcountry value="1"/>                        判断本NPC有效地点为本国范围内
+<gold type="Great" value="4999"/>               限定可参与NPC脚本执行的角色银币数量为>4999文,即50两
+</conditions>                                   命令行结束
+<actions>                                       重新定义命令行开始,此命令行包括人机交互模式
+<menu>                                          菜单开始
+function TaskDialog()                           菜单选项初始化定义
+this:AddTalk("我是清源村的车夫，本车夫只认钱不认人，不管路程远近票价一律50两！")
+     this:指本行脚本命令定义   后跟参数,如 AddTalk 即对话,AddTaskCmdItem 即可选中的菜单项目,如下所示:
+this:AddTaskCmdItem("凤凰城(0)", "v5096", 160100, 10)
+     可选菜单项目定义,("地图名称(0),"所属NPC",任务参数ID,跳转指定的脚本),注意,这个只是定义,不是可选,可选在后面
+this:AddCloseItem("离开")                       关闭本菜单的命令 AddCloseItem
+end                                             菜单结束
+</menu>                                         后面这三行必须与先前的定义行一一对应,不可有重复或缺失
+</actions>
+</embranchment>
+
+<embranchment id="11">
+<conditions>
+<selfcountry value="1"/>
+<gold type="Less" value="5000"/>
+</conditions>
+<actions>
+<menu>
+function TaskDialog()
+this:AddTalk("    我是清源村的车夫，本车夫只认钱不认人，不管路程远近票价一律50两！")
+this:AddDialogItem("凤凰城(0)", "Dialog98")
+     这行才是真正可以选择的,点击后脚本将直接跳转到 Dialog98 段进行执行
+end
+function Dialog98()                     这行即是上面可执行项指定的 Dialog98 实为钱数不足跳转的项目
+this:AddTalk("滚远点穷鬼，没钱还想坐车，小心我扁你啊！逍遥星星一条龙");
+this:AddCloseItem("离开")
+end
+
+下面是定义选中转移地点时跳转的脚本命令段
+<quest id="160100" new="1">
+<embranchment id="10" active="1">          注意这里的 ID="10" 看看上面第一段,最后一个数字,即对应这里
+<conditions>
+<isguard/>
+<selfcountry value="1"/>
+<gold type="Great" value="4999"/>
+</conditions>
+<actions>
+<goto name="凤凰城" pos="422,379"/>        注意这里有几个重要的脚本语句:
+       <goto name="地图名称" pos="x坐标,y坐标"/>
+<notify content="你坐上了长征三号A到达了凤凰城，付了50两银子"/>
+       <定义屏幕右下角出现的系统提示,若为 notify1 即是在屏幕正上方出现的系统提示>
+<gold type="Sub" value="5000"/>
+       <对于银币的操作 <gold type="操作代码" value="数值"/> Sub 是回收,给银子的大家应该很熟悉了吧
+<var type="Set" name="state" value="-2"/>
+</actions>
+</embranchment>

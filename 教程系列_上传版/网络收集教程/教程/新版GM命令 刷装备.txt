@@ -1,0 +1,172 @@
+把CHARBASE  的CHARID改到1-100   中的数1为超级GM   (STR=60000力量 MEN=59000精神 INI=58000智力 DEX=57000敏捷 CON=56000体质 POINTS=属性点 SKILLPOINTS)
+//startbike 显示指令帮助
+//finduser "寻找玩家"
+//gotouser name=  到玩家身边
+//catchuser name=  传唤玩家来身边
+//kick name=  踢掉玩家
+//donttalk name="禁言"
+//talk name= "解除禁言"
+//gohome "回到主城"                      //bcworld 系统消息
+//fetch name=
+//showme 恢复可见状态
+  
+//donttalk name=time=10   "禁言"
+ //talk name= time=  解禁言
+//embar name= time=   囚禁
+//clearcolddown  清除冷却
+//levelup set=100 修改等级为100级
+//levelup "升级
+//levelup name=绾绾 num=1 
+//levelup 国人 160
+//countuser "得到本组服务器的人数分布
+//userdistribute 查询在线人数
+//goto 100,100
+//gomap name=凤凰城
+//gomap name=宋国·王城 
+//gomap name=中立区·皇城
+//gohome (回到原来出生的位置)
+//levelup num=130（当前等级＋num）
+//systime 得到系统当前时间 
+//showme 恢复可见状态 
+//god 无敌模式 
+//normal 恢复普通模式 
+//killer 秒杀模式
+//clearpoint 清除人物属性点 
+//clearskillpoint 清除技能点 
+//cleararea 驱散周围玩家 
+//embar 囚禁指定的玩家 
+//setpunishtime 设置惩罚时间
+//fetch name=游戏点卷 num=500
+//levelup num=130（当前等级＋num）
+//throwobject  扔东西
+//fetch id=665 num=1000000 （银子）
+//value gold=1000000 （金子）
+//value mp=110000 (蓝)
+//value hp=10000 (血)
+//bcworld xxxxx 全区通告
+//fetch name=马铠碎片 level=8 num=50
+//fetch name=精致升级宝石 num=40
+//fetch name=青龙戒指(物) type=14 fivetype=0 Upgrade=15 (01234=风雨雷电火)
+//fetch name=铁 level=8 num=40 （3代表铁原料是4等）
+//settire 设置疲劳时间
+//tong "激活帮会战-使用方法://tongt1=XXXt2=XXX"
+//gomap "跳转地图"
+学习技能
+//studyskill name=力王之魄 （学习技能，技能的使用需要相关的武器）
+召唤
+//summon name=怪物名字
+//summon name=馅饼怪怪 num=100 
+//summon name=狼王 num=10
+//summon name=兽王 num=5
+//summon name=山大王 num=5
+//summon name=异族头目 num=3
+//summon name=叛军大将 num=3
+//summon name=骷髅王 num=3
+//summon name=赤鳞蛟龙 num=3
+//summon name=火魔蛟龙(魔) num=10
+//summon name=大块头 num=3
+//summon name=魔徒(魔)
+//summon name=蚌精(魔) num=3
+//summon name=钢化巨灵 num=3
+//summon name=混石力士(魔) num=3
+//summon name=血猿王 num=20            
+//summon name=石化魔人 num=5         
+//summon name=滨海岛主 num=5           
+//summon name=灵蛇(魔) num=5          
+//summon name=飞天猪 num=20            
+//summon name=吉祥三宝 num=30           
+//summon name=恶魔统领(魔) num=10 
+//summon name=恶魔尊主(魔) num=10
+//summon name=石怪(魔) num=5
+//summon name=夜魔尊主（魔） num=10 
+//summon name=至尊蚌魔（魔） num=10   
+//summon name=铁兽 num=10
+//summon name=铁爪鬼王(魔) 
+//summon name=王城守卫 num=5
+//summon name=滨海浪人 num=200
+//summon name=天山云将(魔)(256级)+(34级)
+//summon name=野性邪兽
+
+
+//summon id=7005 大臣
+//summon name=高级杂货商
+//refreshgeneral 手动刷新各国大将军 设置场景的统计日志开关 
+//clearitem 脱掉未转生玩家穿着的转生装备
+//showaddexp "显示替身宠物附加的经验"
+62889 62789
+62839 62989
+63039
+
+
+编辑好的N多套装备，马匹装备，极品小号装备
+pdamage=攻击上限 maxpdamage=攻击下限
+
+maxhp(血) maxmp(蓝)
+
+pdamage(物攻) maxpdamage(物攻上限)pdam(物攻百分比)
+
+mdamage(魔攻) maxmdamage(魔攻上限)mdam(魔攻百分比)
+
+pdefence(物防)
+
+pdef(增加物理防御百分比)
+
+mdefence(魔防)
+
+mdef(增加魔法防御百分比)
+
+fivetype=0 (01234=风雨雷电火)
+
+
+
+补天：
+//fetch name=补天神石-杖
+//fetch name=补天神石-护腕
+//fetch name=补天神石-鞋子
+//fetch name=补天神石-头盔
+//fetch name=补天神石-项链
+//fetch name=补天神石-布衣
+//fetch name=补天神石-腰带
+//fetch name=补天神石-戒指
+
+
+
+法师：
+//fetch name=赤鳞杖 type=14 level=14 mdamage=180000 maxmdamage=250000 mdam=888 fivetype=4 maker=钻石会员
+//fetch name=精铁戒指(魔) type=14 level=14 mdamage=9900 maxmdamage=9900 mdam=99 fivetype=2 maker=钻石会员
+//fetch name=精铁项链(魔) type=14 level=14 mdamage=9000 maxmdamage=9000 mdam=99 fivetype=0 maker=钻石会员
+//fetch name=棉布衣(男) type=14 level=14 maxhp=391998000 maxmp=9800100 mdef=718 fivetype=4 maker=钻石会员
+//fetch name=冰鳞盔(魔) type=14 level=14 pdefence=50000 mdefence=50000 pdef=718 fivetype=0 maker=钻石会员
+//fetch name=生铁护腕(魔) type=14 level=14 pdefence=9900 mdefence=9900 mdef=718 fivetype=2 maker=钻石会员
+//fetch name=生铁腰带(魔) type=14 level=14 pdefence=7500 mdefence=7500 pdef=718 fivetype=2 maker=钻石会员
+//fetch name=虎纹靴(魔) type=14 level=14 pdefence=50000 mdefence=50000 pdef=718 fivetype=4 maker=钻石会员
+
+
+战士：
+//fetch name=精铁刀 type=14 level=14 pdamage=1800000 maxpdamage=2500000 pdam=88 fivetype=4 maker=钻石会员
+//fetch name=青铜盾 type=14 level=14 pdefence=90000000 mdefence=90000000 pdef=99 mdef=99 fivetype=4 maker=钻石会员
+//fetch name=生铁戒指(物) type=14 level=14 pdamage=9900 maxpdamage=9900 pdam=99 fivetype=2 maker=钻石会员
+//fetch name=生铁项链(物) type=14 level=14 pdamage=9000 maxpdamage=9000 pdam=99 fivetype=0 maker=钻石会员
+
+
+召唤：
+//fetch name=生铁棍 type=14 level=14 mdamage=1800000 maxmdamage=2500000 mdam=888 fivetype=4 maker=钻石会员
+//fetch name=沧海扇 type=14 level=14 mdamage=1800000 maxmdamage=2500000 mdam=888 fivetype=4 maker=钻石会员
+
+
+200法师：
+//fetch name=梦魇光芒圣杖 type=14 level=18 mdamage=180000 maxmdamage=250000 mdam=888 fivetype=0
+//fetch name=梦魇指挥战戒(魔) type=14 level=18 mdamage=9900 maxmdamage=9900 mdam=99 fivetype=3
+//fetch name=梦魇勇气项链(魔) type=14 level=18 mdamage=9000 maxmdamage=9000 mdam=99 fivetype=1
+//fetch name=梦魇龙麟战衣(男) type=14 level=18 maxhp=69199800 maxmp=1800100 mdef=718 fivetype=4
+//fetch name=梦魇战神之盔(魔) type=14 level=18 pdefence=50000 mdefence=50000 pdef=718 fivetype=0
+//fetch name=梦魇决断护腕(魔) type=14 level=18 pdefence=9900 mdefence=9900 mdef=718 fivetype=2
+//fetch name=梦魇智慧腰带(魔) type=14 level=18 pdefence=7500 mdefence=7500 pdef=718 fivetype=3
+//fetch name=梦魇节制战靴(魔) type=14 level=18 pdefence=50000 mdefence=50000 pdef=718 fivetype=4
+
+200马装：
+//fetch name=傲世炎豹马蹄铁(物) type=14 pdamage=190000 maxpdamage=200000 pdam=80 mdam=80 fivetype=2
+//fetch name=傲世炎豹缰绳(物) type=14 mdamage=190000 maxmdamage=200000 pdam=80 mdam=80 fivetype=2
+//fetch name=傲世炎豹马鞍(物) type=14 pdefence=50000 mdefence=50000 pdef=88 mdef=88 fivetype=2
+//fetch name=傲世炎豹护马甲(物) type=14 pdefence=50000 mdefence=50000 pdef=88 mdef=88 fivetype=2
+//fetch name=傲世炎豹马镫(物) type=14 pdefence=70000 mdefence=70000 pdef=88 mdef=88 fivetype=2

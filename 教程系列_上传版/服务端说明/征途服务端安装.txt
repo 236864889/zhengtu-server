@@ -1,0 +1,262 @@
+
+傲雪网络，QQ：1305272585
+
+
+VMware Workstation 虚拟机
+红帽4LINUX系统配置征途教程
+首先准备好工具：
+SecureCRT 5.0
+WinSCP3
+SQLyog Enterprise
+
+
+下面我们用SecureCRT 5.1工具对LINUX服务器进行连接，输入用户名字跟
+密码后，连接成功了，输入cd /home进入到home目录
+
+后使用命令 tar xzvf mysql-5.1.55.tar.gz 对工具包里的 MYSQL 进行解压
+缩,解好后进入目录 cd /home/mysql-5.1.55 回车键
+
+1、命令行输入
+
+
+
+echo “*    soft    nofile  4096” >>/etc/security/limits.conf
+
+echo “*      hard    nofile  65535” >>/etc/security/limits.conf
+
+echo “session required  pam_limits.so” >>/etc/pam.d/login
+
+
+
+2、修改默认语言
+
+用WinSCP3登陆服务器
+
+找到etc/sysconfig/i18n 用编辑命令修改i18n文件把顶上那行换成
+
+LANG="zh_CN.GB2312"
+
+保存退出，转到SecureCRT工具接下来我们输入这个进行下一个步骤的安装
+
+CFLAGS="-O3 -m64" CXX=gcc CXXFLAGS="-O3 -m64 -felide-constructors -fno-exceptions -fno-rtti" ./configure --with-raid --enable-thread-safe-client --enable-assembler  --with-server-suffix =" for >>>MySQL Database of Zebra by Yhc<<<" --without-debug --with-extra-charsets=none --without-isam --disable-shared --with-mysqld-ldflags=-all-static --prefix=/usr/local/mysql --without-bench
+
+
+
+经过等待完成后，我们要对CPU数量进行编译了。输入以下命令
+
+make -j 1 && make install
+
+注意！make -j 2(根据自己实际CPU核数)
+
+
+
+
+#添加用户
+
+groupadd mysql && useradd -g mysql mysql
+
+#创建目录
+
+mkdir /usr/local/mysql/data && mkdir /usr/local/mysql/run && mkdir /usr/local/mysql/log && mkdir /usr/local/mysql/var
+
+#更改mysql目录所有者
+
+chgrp mysql -R /usr/local/mysql && chown mysql -R /usr/local/mysql
+
+#增加打开文件数量
+
+ulimit -n 4096
+
+#添加PATH
+
+echo "PATH=\"/usr/local/mysql/bin:\$PATH\"" >> /etc/profile && export PATH="/usr/local/mysql/bin:$PATH"
+
+#strip可执行文件
+
+strip /usr/local/mysql/libexec/mysqld
+
+#添加LIB PATH
+
+echo "/usr/local/mysql/lib" >> /etc/ld.so.conf && ldconfig export PATH=$PATH:/usr/local/mysql/lib
+
+#将my.cnf文件cp到/etc目录下
+
+cp support-files/my-huge.cnf /etc/my.cnf
+
+输完这一条后会出现这样的提示《cp锛氭槸鍚﹁鐩栤�?etc/my.cnf鈥?》然后输入《 y》回车
+
+用WinSCP3登陆服务器 etc下找到my.cnf
+#修改my.cnf
+
+加入 数据库路径 datadir=/db/mysql
+[mysqld]
+在这里加入  datadir=/db/mysql
+port		= 3306
+socket		= /tmp/mysql.sock
+skip-locking
+key_buffer = 384M
+max_allowed_packet = 1M
+table_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+read_rnd_buffer_size = 8M
+myisam_sort_buffer_size = 64M
+thread_cache = 8
+query_cache_size = 32M
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 8
+
+修改后的
+
+[mysqld]
+datadir=/db/mysql
+port		= 3306
+socket		= /tmp/mysql.sock
+skip-locking
+key_buffer = 384M
+max_allowed_packet = 1M
+table_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+read_rnd_buffer_size = 8M
+myisam_sort_buffer_size = 64M
+thread_cache = 8
+query_cache_size = 32M
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 8
+
+保存后关闭
+
+打开CRT
+#创建数据库存放路径
+
+mkdir /db
+
+chown mysql.mysql /db -R
+
+#初始化Mysql表
+
+su - mysql -c "mysql_install_db"
+
+#启动服务器
+
+su - mysql -c "mysqld_safe --skip-name-resolve --open-files-limit=4096&"
+
+输入  mysql 进入数据库目录
+    
+再输入 show databases;  打开数据库表
+
+
+给mysql数据库建立用户跟密码 ，这里很重要，要设置为自己的密码 这个地方改成自己的密码。以后登陆MYSQL服务器用的记得了。
+
+GRANT ALL PRIVILEGES ON *.* TO qaz1236@'localhost' IDENTIFIED BY 'qazwsx123' WITH GRANT OPTION;
+
+GRANT ALL PRIVILEGES ON *.* TO qaz1236@'%' IDENTIFIED BY 'qazwsx123' WITH GRANT OPTION;
+
+从加载权限
+
+FLUSH PRIVILEGES;
+
+退出mysql命令
+
+exit
+
+使用SQLyog Enterprise建立数据库
+
+找到sql数据库 然后把它复制回本地计算机.
+
+然后在本地进行创建数据库 用SQLyog Enterprise工具进行数据库连接
+
+输入主机IP 用户名字 ztgame 密码 admin 登陆成功了。
+
+我们来建立以下的表名字。
+
+create database FLServer;
+create database GMTool;
+create database LoginServer;
+create database roleChangeServer;
+create database roleregServer;
+create database unify00;
+create database zt;
+
+接下来倒入数据库。把你刚从服务器拉下的SQL数据库表倒入。
+
+改zt库的SERVERLIST表中的IP为你的IP
+
+最后用SecureCRT 5.1工具输入命令 cd /home进入home目录使用以下命令进行MYSQL最后的安装。
+
+rpm -ivh mysqlclient14-4.1.22-1.el4.remi.x86_64.rpm
+
+rpm -ivh openssl097a-0.9.7a-3.1.src.rpm
+
+完成之后我们输入从新启动MYSQL的命令 reboot 从新启动我们的虚拟LINUX服务器。
+
+
+
+
+
+首先，我们启动mysql数据库。用SecureCRT 5.1登陆服务器复制以下命令
+启动MYSQL数据库
+
+su - mysql -c "mysqld_safe --skip-name-resolve --open-files-limit=4096&"
+
+然后用WINSCP工具进行权限的设置，不然加载起服务端会说你没权限。
+
+征途文件根目录下除了 .xml 文件不给权限 其他的文件都给上777权限 flserver 文件夹内的文件也是一样
+
+flserver 文件夹内的文件是验证和注册程序
+
+这里有个 tmp 文件夹也是要给上777权限的 这个是写入日志的目录
+
+tmp 文件夹里边有一个 offlineMessages 文件夹也是不可以少的
+
+好了现在设置和架设都完成了，我们来修改数据库上必须修改的几个项目
+
+修改 zt 库中的 SERVERLIST 表中的IP为你的外网IP
+
+现在修改登陆的端口和 IP名字在 loginserver 数据表里边的的 zoneinfo 表里边
+
+与 roleregServer 里边的 ROLEREG0000 表也要修改
+ 
+这里的 999 对应 这里 可以自己修改 对应的有2个地方还有就是验证里边的文件 zoneInfo.xml 文件
+
+好了现在数据库与全部都架设完成了我们来启动游戏看看。
+
+
+
+
+——————————————————————————————————————————————
+征途LIUNX1.版启动命令如下：如出现启动错误请及时联系技术QQ！382392176
+——————————————————————————————————————————————
+
+su - mysql -c "mysqld_safe --skip-name-resolve --open-files-limit=4096&"
+
+cd /home/ztgame/flserver
+./1到7
+下面是登陆器的启动
+cd /home
+chmod a+x zt_login_ex
+
+./zt_login 127.0.0.1 3306 unify00 ztgame admin 127.0.0.1 3306 zt ztgame admin 10000 7003 &
+*****  注意: 该命令需要修改!!!!    不明白的话,下面有详细说明*******
+按多一次回车
+exit
+说明:把127.0.0.1改为L服务器的IP
+     把ztgame改为对应数据库的账号
+     把admin改为对应数据库的密码
+     unify00是账号数据库
+     zt是角色数据库
+     0是送的金点,可以修改
+     8000是注册网关开放的端口,可以修改
+参数说明: 
+1--5:  账号数据库的 IP地址, 端口, 名称, 账号, 密码
+6--10: 角色数据库的 IP地址, 端口, 名称, 账号, 密码
+11:    注册帐号送的金点
+12:    对外TCP服务所开放的端口
+如果执行成功,会显示: Login Server Open Success !不过这登陆器个有点问题就是商城用不起其他正常
+cd /home/ztgame
+./1到5启动一个6启动2个7启动1个
+
+
+-------------------------------------------------------------------------------------------
+

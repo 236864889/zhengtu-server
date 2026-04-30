@@ -1,0 +1,64 @@
+su - mysql -c "mysqld_safe --skip-name-resolve --open-files-limit=4096&"
+
+cd /home/flserver
+./1到7
+
+下面是登陆器的启动
+cd /home
+chmod a+x zt_login_ex
+
+./zt_login 61.160.222.64 3306 unify00 qaz1236 qazwsx123 61.160.222.64 3306 zt qaz1236 qazwsx123 0 7003 &
+
+
+./zt_login 192.168.0.200 3306 unify00 qaz1236 qazwsx123 192.168.0.200 3306 zt qaz1236 qazwsx123 0 7003 &
+
+
+
+
+
+*****  注意: 该命令需要修改!!!!    不明白的话,下面有详细说明*******
+按多一次回车
+exit
+说明:把127.0.0.1改为L服务器的IP
+     把ztgame改为对应数据库的账号
+     把admin改为对应数据库的密码
+     unify00是账号数据库
+     zt是角色数据库
+     0是送的金点,可以修改
+     8000是注册网关开放的端口,可以修改
+参数说明: 
+1--5:  账号数据库的 IP地址, 端口, 名称, 账号, 密码
+6--10: 角色数据库的 IP地址, 端口, 名称, 账号, 密码
+11:    注册帐号送的金点
+12:    对外TCP服务所开放的端口
+如果执行成功,会显示: Login Server Open Success !不过这登陆器个有点问题就是商城用不起其他正常
+cd /home/ztgame
+./1到5启动一个6启动2个7启动1个
+
+
+
+
+
+
+
+
+cd /home/linux-Gateway
+
+./Ztwg &
+
+
+service mysqld restart
+
+
+cd /home/flserver
+./1到7
+
+下面是登陆器的启动
+cd /home
+chmod a+x zt_login
+
+./zt_login 61.160.222.64 3306 unify00 qazwsx14 qwedc123 61.160.222.64 3306 zt qazwsx14 qwedc123 0 7003 &
+
+
+
+
