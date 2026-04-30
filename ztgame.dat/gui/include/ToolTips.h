@@ -159,7 +159,7 @@ class CToolTips
 	{
 	public:
 		CAnimation image;
-		
+
 		void Render(int x,int y);
 
 		st6TipImageCell(const stResourceLocation* rl)
@@ -169,6 +169,63 @@ class CToolTips
 			height = image.GetHeight();
 		}
 		~st6TipImageCell(){}
+	};
+
+	//by=>friday 支持Y轴偏移的龙槽显示类
+	class st4TipImageCellOffset : public stTipCellBase
+	{
+	public:
+		CAnimation image;
+		int yOffset; // Y轴偏移量
+
+		void Render(int x,int y);
+
+		st4TipImageCellOffset(const stResourceLocation* rl, int offset = 0)
+		{
+			image.Create(rl);
+			width = image.GetWidth()-6;//龙槽间距，与st4TipImageCell保持一致
+			height = image.GetHeight();
+			yOffset = offset;
+		}
+		~st4TipImageCellOffset(){}
+	};
+
+	//by=>friday 支持Y轴偏移的星星显示类
+	class st6TipImageCellOffset : public stTipCellBase
+	{
+	public:
+		CAnimation image;
+		int yOffset; // Y轴偏移量
+
+		void Render(int x,int y);
+
+		st6TipImageCellOffset(const stResourceLocation* rl, int offset = 0)
+		{
+			image.Create(rl);
+			width = image.GetWidth()+10; //星星间距，与st6TipImageCell保持一致
+			height = image.GetHeight();
+			yOffset = offset;
+		}
+		~st6TipImageCellOffset(){}
+	};
+
+	//by=>friday 支持Y轴偏移的普通图片显示类
+	class stTipImageCellOffset : public stTipCellBase
+	{
+	public:
+		CAnimation image;
+		int yOffset; // Y轴偏移量
+
+		void Render(int x,int y);
+
+		stTipImageCellOffset(const stResourceLocation* rl, int offset = 0)
+		{
+			image.Create(rl);
+			width = image.GetWidth(); //普通图片间距，与stTipImageCell保持一致
+			height = image.GetHeight();
+			yOffset = offset;
+		}
+		~stTipImageCellOffset(){}
 	};
 
 	//myy 线条调整高度
@@ -239,6 +296,15 @@ class CToolTips
 			width += p->width;
 		}
 
+		//by=>friday 支持Y轴偏移的普通图片显示
+		void AddAnimation_new(const stResourceLocation* rl, int yOffset = 0)
+		{
+			stTipImageCellOffset* p = new stTipImageCellOffset(rl, yOffset);
+			cells.push_back(p);
+			if(p->height > height) height = p->height; // 与AddAnimation保持一致
+			width += p->width;
+		}
+
 		//x,y为图片坐标偏移量 xs,ys占地偏移量
 		void AddAnimations(const stResourceLocation* rl,int x,int y,int xs,int ys)
 		{
@@ -297,6 +363,15 @@ class CToolTips
 			//if(p->height > height) height = p->height;
 			width += p->width;
 		}
+
+		//by=>friday 支持Y轴偏移的龙槽显示
+		void AddAnimation4_new(const stResourceLocation* rl, int yOffset = 0)
+		{
+			st4TipImageCellOffset* p = new st4TipImageCellOffset(rl, yOffset);
+			cells.push_back(p);
+			if(p->height > height) height = p->height-28; // 龙槽高度28，与AddAnimation4保持一致
+			width += p->width;
+		}
 		
 		//sky 有龙槽星星1
 		void AddAnimation5(const stResourceLocation* rl)
@@ -313,6 +388,15 @@ class CToolTips
 			st6TipImageCell* p = new st6TipImageCell(rl);
 			cells.push_back(p);
 			if(p->height > height) height = p->height;
+			width += p->width;
+		}
+
+		//by=>friday 支持Y轴偏移的星星显示
+		void AddAnimation6_new(const stResourceLocation* rl, int yOffset = 0)
+		{
+			st6TipImageCellOffset* p = new st6TipImageCellOffset(rl, yOffset);
+			cells.push_back(p);
+			if(p->height > height) height = p->height; // 与AddAnimation6保持一致
 			width += p->width;
 		}
 
@@ -383,26 +467,33 @@ public:
 	DWORD GetAlignType() { return m_alignType; }
 	DWORD GetCurColor() { return m_curColor; }
 	
+	//void SetMaxWidth(int maxWidth) { m_maxWidth = maxWidth; }  //by=>friday
+    //int GetMaxWidth() { return m_maxWidth; }  //by=>friday
 	//醉梦正常装备框
 	static void InitBorderTexture();
 
-	void AddText(const char* pszText,int iFont = c_nDefTipFont);
-	void AddText2(const char* pszText,int iFont = c_nDefTipFontnew);
-	void AddText1(const char* pszText,int iFont = c_nDefTipFont);
-	void AddText3(const char* pszText,int iFont = c_nDefTipFont); //桃子新增框
+	//by=>friday 添加动态宽度参数，默认40，可根据需要调整
+	void AddText(const char* pszText,int iFont = c_nDefTipFont, int maxWidth = 40);
+	void AddText2(const char* pszText,int iFont = c_nDefTipFontnew, int maxWidth = 40);
+	void AddText1(const char* pszText,int iFont = c_nDefTipFont, int maxWidth = 40);
+	void AddText3(const char* pszText,int iFont = c_nDefTipFont, int maxWidth = 40); //桃子新增框
 	void AddAnimation(const stResourceLocation *rl,bool bNextLine);
+	void AddAnimation_new(const stResourceLocation *rl,bool bNextLine, int yOffset = 0); //by=>friday 支持Y轴偏移
 	void AddAnimations(const stResourceLocation *rl,int x,int y,int xs,int ys);
 	void AddAnimation1s(const stResourceLocation *rl,int x,int y,int xs,int ys);
 	void AddAnimation1(const stResourceLocation *rl,bool bNextLine);
 	void AddAnimation2(const stResourceLocation *rl,bool bNextLine);
 	void AddAnimation3(const stResourceLocation *rl,bool bNextLine);
 	void AddAnimation4(const stResourceLocation *rl,bool bNextLine);
+	void AddAnimation4_new(const stResourceLocation *rl,bool bNextLine, int yOffset = 0); //by=>friday 支持Y轴偏移
 	void AddAnimation5(const stResourceLocation *rl,bool bNextLine);
 	void AddAnimation6(const stResourceLocation *rl,bool bNextLine);
+	void AddAnimation6_new(const stResourceLocation *rl,bool bNextLine, int yOffset = 0); //by=>friday 支持Y轴偏移
 	void AddAnimation10(const stResourceLocation *rl,bool bNextLine);
 	void RenderBorderTextuer(int x,int y);
 	void Render(int x,int y);
 	void RenderTopLeftPrefer(stRectI rcBBox, int devWidth, int devHeight);
+	void RenderTopLeftPreferDirect( stRectI rcBBox, int devWidth, int devHeight );
 	const char* GetText();
 
 };

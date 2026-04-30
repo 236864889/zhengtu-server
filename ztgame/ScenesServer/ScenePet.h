@@ -77,6 +77,17 @@ public:
 
 	Cmd::t_PetData petData;
 
+	//by=>friday 召唤兽继承主人属性的80%
+	uint64_t masterMinPDamage;    // 继承主人最小物理攻击
+	uint64_t masterMaxPDamage;    // 继承主人最大物理攻击
+	uint64_t masterMinMDamage;    // 继承主人最小魔法攻击
+	uint64_t masterMaxMDamage;    // 继承主人最大魔法攻击
+	uint64_t masterPDefence;      // 继承主人物理防御
+	uint64_t masterMDefence;      // 继承主人魔法防御
+	uint64_t masterMaxHP;         // 继承主人最大生命值
+	//by=>friday 重写防御力函数声明
+
+
 	void setPetAI(Cmd::petAIMode);
 	WORD getPetAI();
 	int isEnemy(SceneEntryPk *, bool = false, bool good = false);
@@ -112,6 +123,12 @@ public:
 	bool isPkZone(SceneEntryPk *other=NULL);
 	bool recover();
 
+
+	//by=>friday 召唤兽属性函数声明
+	virtual uint64_t getPDefence();
+	virtual uint64_t getMDefence();
+	virtual uint64_t getMinMDamage();
+	virtual uint64_t getMaxMDamage();
 	//给GuardNpc继承用
 	virtual void reset(){}
 	virtual void check(){};
@@ -120,16 +137,14 @@ public:
 	DWORD getMasterMana();
 	void changeAndRefreshHMS(bool lock=true, bool sendData=true);
 
-	virtual DWORD getMaxHP();
-	virtual DWORD getBaseMaxHP();
-	virtual DWORD getMinMDamage();
-	virtual DWORD getMaxMDamage(); 
-	virtual DWORD getMinPDamage();
-	virtual DWORD getMaxPDamage();
-	virtual DWORD getMinMDefence();
-	virtual DWORD getMaxMDefence();
-	virtual DWORD getMinPDefence();
-	virtual DWORD getMaxPDefence();
+	virtual uint64_t getMaxHP();
+	virtual uint64_t getBaseMaxHP();
+	virtual uint64_t getMinPDamage();
+	virtual uint64_t getMaxPDamage();
+	virtual uint64_t getMinMDefence();
+	virtual uint64_t getMaxMDefence();
+	virtual uint64_t getMinPDefence();
+	virtual uint64_t getMaxPDefence();
 
 	virtual void levelUp();
 	void getAbilityByLevel(DWORD);

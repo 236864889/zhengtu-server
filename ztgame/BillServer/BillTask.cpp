@@ -334,17 +334,23 @@ bool BillTask::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int n
 							return true;
 						}
 						break;
-					case PARA_REQUEST_GATE_REDEEM_MONTH_CARD:
+					case PARA_REQUEST_GATE_REDEEM_MONTH_CARD: //sky 理财
 						{
 							t_Request_Redeem_MonthCard_Gateway *ptCmd = (t_Request_Redeem_MonthCard_Gateway *)ptNullCmd;
 							BillUser *pUser=BillUserManager::getInstance()->getUserByID(ptCmd->accid);
 							if(pUser)
 							{
+								if(!ptCmd->point)
+								{
+									Zebra::logger->debug("点卡兑换5倍基金指令点数为0(%s)",ptCmd->account);
+									return true;
+								}
 								BillData bd;
 								bzero(&bd, sizeof(bd));
 								//strncpy(bd.account, ptCmd->account, Cmd::UserServer::ID_MAX_LENGTH);
 								bd.uid=ptCmd->accid;
-								bd.at = Cmd::UserServer::AT_MCARD;
+								bd.at = Cmd::UserServer::AT_MCARD; 
+								bd.point = ptCmd->point;
 								strncpy(bd.ip,pUser->getIp(),sizeof(bd.ip));
 
 								if (Bill_action(&bd))
@@ -366,7 +372,7 @@ bool BillTask::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int n
 								strncpy(rgg.account, ptCmd->account, Cmd::UserServer::ID_MAX_LENGTH);
 								rgg.accid=ptCmd->accid;			        /// 账号编号
 								rgg.charid=ptCmd->charid;				/// 角色ID
-								rgg.dwNum=0;				/// 	当前拥有金币数
+								rgg.dwGold=0;				/// 	当前拥有金币数
 								rgg.dwBalance=0;				/// 	当前拥有金币数
 								rgg.byReturn= Cmd::REDEEM_FAIL;	//返回类型
 								sendCmd(&rgg, sizeof(rgg));

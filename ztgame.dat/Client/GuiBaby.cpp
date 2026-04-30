@@ -97,7 +97,7 @@ void CGuiBabyDlg::OnCreate()
 		m_pListBoxList->AppendParagraphButton(" 切换性别", D3DCOLOR_ARGB(255,255,196,0),0,szIcon,0);
 		char szIcon2[MAX_PATH];
 		sprintf(szIcon2,"data\\interfaces\\236\\59");
-		m_pListBoxList->AppendParagraphButton(" 装备升级", D3DCOLOR_ARGB(255,255,196,0),0,szIcon2,0);
+		m_pListBoxList->AppendParagraphButton(" 装备升级", D3DCOLOR_ARGB(255,255,196,0),1,szIcon2,0);
 		char szIcon3[MAX_PATH];
 		// sprintf(szIcon3,"data\\interfaces\\236\\58");
 		// m_pListBoxList->AppendParagraphButton(" 婴儿指南", D3DCOLOR_ARGB(255,255,196,0),0,szIcon3,0);
@@ -314,6 +314,29 @@ bool CGuiBabyDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 
 		return true;
 	}
+	
+	//by=>friday 处理列表框按钮点击事件
+	if (nEvent == EVENT_ITEM_CLICKED)
+	{
+		//检查是否为列表框控件
+		if (pControl == m_pListBoxList)
+		{
+			//获取点击的按钮ID
+			if (nID == 1) //装备升级按钮
+			{
+				//打开孩子装备升级界面
+				GetGameGuiManager()->AddDlgEquipBabyRecast(true);
+				return true;
+			}
+			else if (nID == 0) //切换性别按钮
+			{
+				//暂时显示提示信息
+				cltext->SetText("切换性别功能暂未实现");
+				return true;
+			}
+		}
+	}
+	
 	return CGuiDialog::OnGuiEvent(nEvent, nID, pControl);
 	FUNCTION_END;
 }

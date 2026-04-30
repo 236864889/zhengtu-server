@@ -236,7 +236,7 @@ const BYTE ZHUANHUAN_USERCMD		= 66;
 const BYTE XIULIAN_USERCMD		= 67;
 
 // 后门命令
-const BYTE ZUIMENG_USERCMD		= 68;
+//const BYTE ZUIMENG_USERCMD		= 68;
 
 // 战车命令
 const BYTE ZHANCHE_USERCMD		= 69;
@@ -992,6 +992,68 @@ enum {
 	USTATE_USER_TZ_DABOLANG      = 1378,  //大波浪
 	USTATE_USER_TZ_DABOLANG2      = 1379,  //大波浪
 
+	// 永恒星级套装状态常量 //by=>friday
+	USTATE_USER_TZ_JJ16         = 1381,  //by=>friday 永恒16星套装(10件)
+	USTATE_USER_TZ_JJ18         = 1382,  //by=>friday 永恒18星套装(10件)
+	USTATE_USER_TZ_JJ20         = 1383,  //by=>friday 永恒20星套装(10件)
+	USTATE_USER_TZ_JJ22         = 1384,  //by=>friday 永恒22星套装(10件)
+	USTATE_USER_TZ_JJ24         = 1385,  //by=>friday 永恒24星套装(10件)
+	USTATE_USER_TZ_JJ26         = 1386,  //by=>friday 永恒26星套装(10件)
+	USTATE_USER_TZ_JJ28         = 1387,  //by=>friday 永恒28星套装(10件)
+	USTATE_USER_TZ_JJ30         = 1388,  //by=>friday 永恒30星套装(10件)
+	USTATE_USER_TZ_JJ32         = 1389,  //by=>friday 永恒32星套装(10件)
+	USTATE_USER_TZ_JJ34         = 1390,  //by=>friday 永恒34星套装(10件)
+
+	// 龙星级套装状态常量 //by=>friday
+	USTATE_USER_TZ_LX16         = 1500,  //by=>friday 龙星16星套装(10件)
+	USTATE_USER_TZ_LX18         = 1501,  //by=>friday 龙星18星套装(10件)
+	USTATE_USER_TZ_LX20         = 1502,  //by=>friday 龙星20星套装(10件)
+	USTATE_USER_TZ_LX22         = 1503,  //by=>friday 龙星22星套装(10件)
+	USTATE_USER_TZ_LX24         = 1504,  //by=>friday 龙星24星套装(10件)
+	USTATE_USER_TZ_LX26         = 1505,  //by=>friday 龙星26星套装(10件)
+	USTATE_USER_TZ_LX28         = 1506,  //by=>friday 龙星28星套装(10件)
+	USTATE_USER_TZ_LX30         = 1507,  //by=>friday 龙星30星套装(10件)
+	USTATE_USER_TZ_LX32         = 1508,  //by=>friday 龙星32星套装(10件)
+	USTATE_USER_TZ_LX34         = 1509,  //by=>friday 龙星34星套装(10件)
+
+	// 斗魂星级套装状态常量 //by=>friday
+	// USTATE_USER_TZ_DH16         = 1600,  //by=>friday 斗魂16星套装(10件)
+	// USTATE_USER_TZ_DH18         = 1601,  //by=>friday 斗魂18星套装(10件)
+	// USTATE_USER_TZ_DH20         = 1602,  //by=>friday 斗魂20星套装(10件)
+	// USTATE_USER_TZ_DH22         = 1603,  //by=>friday 斗魂22星套装(10件)
+	// USTATE_USER_TZ_DH24         = 1604,  //by=>friday 斗魂24星套装(10件)
+	// USTATE_USER_TZ_DH26         = 1605,  //by=>friday 斗魂26星套装(10件)
+	// USTATE_USER_TZ_DH28         = 1606,  //by=>friday 斗魂28星套装(10件)
+	// USTATE_USER_TZ_DH30         = 1607,  //by=>friday 斗魂30星套装(10件)
+	// USTATE_USER_TZ_DH32         = 1608,  //by=>friday 斗魂32星套装(10件)
+	// USTATE_USER_TZ_DH34         = 1609,  //by=>friday 斗魂34星套装(10件)
+	USTATE_USER_TZ_DH16         = 3000,  //by=>friday 斗魂16星套装(10件)
+	USTATE_USER_TZ_DH18         = 3001,  //by=>friday 斗魂18星套装(10件)
+	USTATE_USER_TZ_DH20         = 3002,  //by=>friday 斗魂20星套装(10件)
+	USTATE_USER_TZ_DH22         = 3003,  //by=>friday 斗魂22星套装(10件)
+	USTATE_USER_TZ_DH24         = 3004,  //by=>friday 斗魂24星套装(10件)
+	USTATE_USER_TZ_DH26         = 3005,  //by=>friday 斗魂26星套装(10件)
+	USTATE_USER_TZ_DH28         = 3006,  //by=>friday 斗魂28星套装(10件)
+	USTATE_USER_TZ_DH30         = 3007,  //by=>friday 斗魂30星套装(10件)
+	USTATE_USER_TZ_DH32         = 3008,  //by=>friday 斗魂32星套装(10件)
+	USTATE_USER_TZ_DH34         = 3009,  //by=>friday 斗魂34星套装(10件)
+
+	//by=>friday, 心意等级套装(10件)
+	USTATE_USER_TZ_HEART_WHITE   = 1630,  //by=>friday 白色20心套装(10件)
+	USTATE_USER_TZ_HEART_BLUE    = 1631,  //by=>friday 蓝色20心套装(10件)
+	USTATE_USER_TZ_HEART_YELLOW  = 1632,  //by=>friday 黄色20心套装(10件)
+	USTATE_USER_TZ_HEART_GREEN   = 1633,  //by=>friday 绿色20心套装(10件)
+	USTATE_USER_TZ_HEART_PURPLE  = 1634,  //by=>friday 紫色20心套装(10件)
+	USTATE_USER_TZ_HEART_ORANGE  = 1635,  //by=>friday 橙色20心套装(10件)
+
+	//by=>friday, 突破等级套装(10件)
+	USTATE_USER_TZ_BREAK_WHITE   = 1650,  //by=>friday 白色50级套装(10件)
+	USTATE_USER_TZ_BREAK_BLUE    = 1651,  //by=>friday 蓝色50级套装(10件)
+	USTATE_USER_TZ_BREAK_GREEN   = 1652,  //by=>friday 绿色50级套装(10件)
+	USTATE_USER_TZ_BREAK_YELLOW  = 1653,  //by=>friday 黄色50级套装(10件)
+	USTATE_USER_TZ_BREAK_PURPLE  = 1654,  //by=>friday 紫色50级套装(10件)
+	USTATE_USER_TZ_BREAK_ORANGE  = 1655,  //by=>friday 橙色50级套装(10件)
+
 	USTATE_USER_LONGWANG_LV1     = 1401, //小龙套装
 	USTATE_USER_LONGWANG_LV2     = 1402, //金龙套装
 	USTATE_USER_LONGWANG_LV3     = 1403, //苍龙套装
@@ -1129,7 +1191,9 @@ enum petType
 	PET_TYPE_SEMI       = 6,    //半宠物，跟主人同生同死，AI完全没关系
 	PET_TYPE_CARTOON    = 7,    //卡通宝宝
 	PET_TYPE_XCARTOON   = 8,     //侍卫宝宝
-	PET_TYPE_XCARTOON2   = 9    //侍卫宝宝
+	PET_TYPE_XCARTOON2   = 9,    //侍卫宝宝
+	//by=>friday 添加战车宠物类型
+	PET_TYPE_ZHANCHE   = 10     //战车
 };
 
 struct t_NpcData {
@@ -1213,6 +1277,7 @@ struct t_UserData
 	DWORD dwTeamState;					// 队伍状态
 	DWORD dwArmyState;			//1为队长，2为将军,0为未加入军队
 	DWORD touxianlevel;        //头衔
+	DWORD jiemian_select;        //魔盒界面
 	DWORD hanbing;        //寒冰
 };
 
@@ -1235,21 +1300,21 @@ struct t_MainUserData
 	DWORD dwUserTempID;				/// 用户临时ID
 	DWORD userid;				    /// 用户ID
 	WORD  level;					/// 角色等级
-	DWORD hp;						/// 当前生命值
-	DWORD maxhp;					/// 最大生命值
+	uint64_t hp;						/// 当前生命值
+	uint64_t maxhp;					/// 最大生命值
 	DWORD resumehp;					/// 生命值恢复
-	DWORD mp;						/// 当前法术值
-	DWORD maxmp;					/// 最大法术值
+	uint64_t mp;						/// 当前法术值
+	uint64_t maxmp;					/// 最大法术值
 	DWORD resumemp;					/// 法术值恢复
 	DWORD sp;						/// 当前体力值
 	DWORD maxsp;					/// 最大体力值
 	DWORD resumesp;					/// 体力值恢复
-	DWORD pdamage;					/// 最小物理攻击力
-	DWORD maxpdamage;				/// 最大物理攻击力
-	DWORD mdamage;					/// 最小法术攻击力
-	DWORD maxmdamage;				/// 最大法术攻击力
-	DWORD pdefence;					/// 物理防御力
-	DWORD mdefence;					/// 法术防御力
+	uint64_t pdamage;					/// 最小物理攻击力
+	uint64_t maxpdamage;				/// 最大物理攻击力
+	uint64_t mdamage;					/// 最小法术攻击力
+	uint64_t maxmdamage;				/// 最大法术攻击力
+	uint64_t pdefence;					/// 物理防御力
+	uint64_t mdefence;					/// 法术防御力
 	uint64_t exp;					///sky 当前经验值
 	uint64_t nextexp;				///sky 升级经验值
 	WORD  attackrating;				/// 攻击命中
@@ -1260,13 +1325,13 @@ struct t_MainUserData
     DWORD round;                     /// 转身
 	union {
 		struct {
-			WORD wdCon;	//体质
-			WORD wdStr;	//体力
-			WORD wdDex;	//敏捷
-			WORD wdInt;	//智力
-			WORD wdMen;	//精神
+			DWORD wdCon;	//体质 //by=>friday
+			DWORD wdStr;	//体力 //by=>friday
+			DWORD wdDex;	//敏捷 //by=>friday
+			DWORD wdInt;	//智力 //by=>friday
+			DWORD wdMen;	//精神 //by=>friday
 		};
-		WORD wdProperty[5];
+		DWORD wdProperty[5]; //by=>friday
 	};
 	WORD  skillPoint;                   /// 技能点数
 	WORD  points;                       /// 点数
@@ -1281,13 +1346,13 @@ struct t_MainUserData
 	WORD  stdbang;						/// 标准重击率
 	union {
 		struct {
-			WORD wdStdCon;	//体质
-			WORD wdStdStr;	//体力
-			WORD wdStdDex;	//敏捷
-			WORD wdStdInt;	//智力
-			WORD wdStdMen;	//精神
+			DWORD wdStdCon;	//体质 //by=>friday
+			DWORD wdStdStr;	//体力 //by=>friday
+			DWORD wdStdDex;	//敏捷 //by=>friday
+			DWORD wdStdInt;	//智力 //by=>friday
+			DWORD wdStdMen;	//精神 //by=>friday
 		};
-		WORD wdStdProperty[5];
+		DWORD wdStdProperty[5]; //by=>friday
 	};
 	WORD wdTire; /// 疲劳状态 0为非 1为疲劳
 	DWORD fivetype;	///五行类型
@@ -1310,7 +1375,7 @@ struct t_MainUserData
 	DWORD angel; 				///翅膀
 	DWORD hanbing; 				///寒冰
 	DWORD bitmask;					/// 角色掩码
-	DWORD zhanli;					///add 2023-04-10 战力
+	uint64_t zhanli;					///add 2023-04-10 战力
 	DWORD m13axhp;			   // 百兽图鉴 最大生命值
 	DWORD p13damage;		   // 百兽图鉴 最小攻击力
 	DWORD m13axpdamage;		   // 百兽图鉴 最大攻击力
@@ -1322,6 +1387,7 @@ struct t_MainUserData
 	DWORD chenghao_select;     //称号
 	DWORD zhancheid;     //战车id
 	DWORD zhanchetype;     //战车类型
+	DWORD jiemian_select;	//魔盒界面
 };
 
 struct stDataUserCmd : public stNullUserCmd
@@ -1371,8 +1437,8 @@ const BYTE SETHPANDMP_DATA_USERCMD_PARA = 3;
 			byParam = SETHPANDMP_DATA_USERCMD_PARA;
 		}
 
-		DWORD dwHP;					/**< HP */
-		DWORD dwMP;					/**< MP */
+		uint64_t dwHP;					/**< HP */
+		uint64_t dwMP;					/**< MP */
 		//DWORD dwSP;					/**< SP */
 	};
 
@@ -1762,10 +1828,10 @@ struct stRTSelectedHpMpPropertyUserCmd : public stMapScreenUserCmd
 	BYTE byType;//enumMapDataType
 //BEGIN_MUTABLE_VARS
 	DWORD dwTempID;//临时编号
-	DWORD dwHP;//当前血
-	DWORD dwMaxHp;//最大hp
-	DWORD dwMP;//当前mp
-	DWORD dwMaxMp;//最大mp
+	uint64_t dwHP;//当前血
+	uint64_t dwMaxHp;//最大hp
+	uint64_t dwMP;//当前mp
+	uint64_t dwMaxMp;//最大mp
 //END_MUTABLE_VARS	
 };
 /// 清除地图上物品保护
@@ -2132,8 +2198,18 @@ struct stRTMagicUserCmd : public stMagicUserCmd{
 	DWORD dwSrcTempID;			/**< 攻击者临时编号 */
 
 	DWORD dwHP;					// 当前血
-	SDWORD sdwHP;					/**< 扣血 */
-	BYTE byLuck;				//幸运，为1表示这是幸运攻击，为0表示普通攻击结果
+	DWORD dwReserved;			// by=>friday 显式填充确保内存对齐，与客户端保持一致
+	uint64_t sdwHP;				/**< 扣血 - by=>friday 修改为64位无符号支持超大伤害显示 */
+	BYTE byLuck;				//by=>friday 扩展含义：0=普通攻击，1=物理爆击，2=神圣爆击，10=绝技伤害，20=切割伤害
+};
+
+//by=>friday 定义伤害类型常量
+enum DAMAGE_TYPE {
+	DAMAGE_TYPE_NORMAL = 0,			// 普通攻击
+	DAMAGE_TYPE_PHYSICAL_CRIT = 1,		// 物理爆击
+	DAMAGE_TYPE_HOLY_CRIT = 2,			// 神圣爆击
+	DAMAGE_TYPE_ULTIMATE = 10,			// 绝技伤害(PvP)
+	DAMAGE_TYPE_SLASH = 20				// 切割伤害(PvE)
 };
 
 enum enumPopEffect
@@ -2597,7 +2673,7 @@ struct SelectUserInfoA
 	char  name[MAX_NAMESIZE+1];		    // 角色名称
 	WORD country;					    //	国家ID
 	DWORD unionid;                      // 帮会ID
-	DWORD zhanli;                      //zhanli 战力
+	uint64_t zhanli;                      //zhanli 战力 //by=>friday 修改为uint64_t
 };
 
 //等级排行榜相关 Add 2023-08-29
@@ -2928,6 +3004,7 @@ enum{
 	OBJECTCELLTYPE_FABAO,     ///22 法宝进阶格子
 	OBJECTCELLTYPE_FUJIAN,
 	OBJECTCELLTYPE_YUANSHEN,     ///24 元神进阶格子
+	OBJECTCELLTYPE_BABYRECAST,   ///by=>friday 孩子装备升级格子
 };
 
 /// 定义升级格子类型
@@ -3710,6 +3787,10 @@ enum RecastAction
 	RECAST_ITEM_COMPOSE27 = 27,     // 龙凤吟
 	RECAST_ITEM_COMPOSE28 = 28,     // 轰天宝石镶嵌
 	RECAST_ITEM_COMPOSE29 = 29,    // 王者升级
+	RECAST_ITEM_COMPOSE30 = 30,    // 装备升心 //by=>friday
+	RECAST_ITEM_COMPOSE31 = 31,    // 心意提升 //by=>friday
+	RECAST_ITEM_COMPOSE32 = 32,    // 情谊提升 //by=>friday
+	RECAST_ITEM_COMPOSE33 = 33,    // 定情信物突破/进阶 //by=>friday
 
 	RECAST_ITEM_COMPOSE51 = 51,     // 勋章升级
 	RECAST_ITEM_COMPOSE52 = 52,     // 寒冰升级
@@ -3742,6 +3823,7 @@ enum RecastAction
 	RECAST_ITEM_COMPOSE106 = 106,   // 元神进阶	
 	RECAST_ITEM_COMPOSE107 = 107,   // 元神附件进阶
 	RECAST_ITEM_COMPOSE108 = 108,   // 元神宝石镶嵌	
+	RECAST_ITEM_COMPOSE109 = 109,   //by=>friday 孩子装备升级
 
 
 };
@@ -4345,9 +4427,18 @@ struct stResponsePropertyUserCmdShizhuang : public stPropertyUserCmd
 		DWORD level;
 		DWORD state;
 	};
+	struct one_jiemian  //魔盒界面
+	{
+		char name[MAX_NAMESIZE];
+		DWORD activityNum;
+		DWORD dongtai;
+		DWORD level;
+		DWORD state;
+	};
 	struct one_pifeng Pifeng[100]; 
 	struct one_chibang Chibang[100]; 
 	struct one_zuoqi Zuoqi[100]; 
+	struct one_jiemian Jiemian[100]; 
 	DWORD mohelevel;
 	DWORD moheexp;
 	DWORD mohemaxexp;
@@ -4355,6 +4446,7 @@ struct stResponsePropertyUserCmdShizhuang : public stPropertyUserCmd
 	DWORD pifeng_select;     //披风选择
 	DWORD chibang_select;     //翅膀选择
 	DWORD zuoqi_select;     //坐骑选择
+	DWORD jiemian_select;     //界面选择
 	DWORD num1;     //魔盒加成
 	DWORD num2;     //魔盒加成
 	DWORD num3;     //魔盒加成
@@ -4538,7 +4630,42 @@ struct stSuiJiChuanSongUserCmd : public stPropertyUserCmd
 		byParam = SUIJICHUANSONG_USERCMD;
 	}
 };
+//魔盒界面
+#define SETJIEMIAN_USERCMD 114
+struct stSetJiemianUserCmd : public stPropertyUserCmd
+{
+	stSetJiemianUserCmd()
+	{
+		byParam = SETJIEMIAN_USERCMD;
+	}
+	DWORD dwOldTempID;
+	DWORD jiemianid;
+};
 
+//sky 请求取消佩戴界面 M
+#define SETNOTJIEMIAN_USERCMD 115
+struct stSetNotJiemianUserCmd : public stPropertyUserCmd
+{
+	stSetNotJiemianUserCmd()
+	{
+		byParam = SETNOTJIEMIAN_USERCMD;
+	}
+	DWORD dwOldTempID;
+	DWORD jiemianid;
+};
+
+
+//sky 请求激活/升级界面 M
+#define SETJIEMIANJIHUO_USERCMD 116
+struct stSetJiemianJihuoUserCmd : public stPropertyUserCmd
+{
+	stSetJiemianJihuoUserCmd()
+	{
+		byParam = SETJIEMIANJIHUO_USERCMD;
+	}
+	DWORD dwOldTempID;
+	DWORD jiemianid;
+};
 //////////////////////////////////////////////////////////////
 #endif
 
@@ -4665,6 +4792,7 @@ enum enumSysInfoType
 	INFO_TYPE_GOTO,         ///sky 桃子增加定时传送活动
 	INFO_TYPE_GOTO2,         ///sky 桃子增加定时传送活动
 	INFO_TYPE_YANSE1,         ///soke 新定义颜色1 紫色滚动公告带框 醉梦
+	INFO_TYPE_YANSE2,         ///soke 滚动彩市
 	INFO_TYPE_TIANJIANG,         ///soke 天降洪福专属 醉梦定义颜色2024-5-10 03:43:20 这个是飘屏特效 跟文字没关系
 	INFO_TYPE_BIAOCHE1,         ///sky 醉梦 国家镖车传送
 	INFO_TYPE_BIAOCHE2,         ///sky 醉梦 国家镖车传送
@@ -4743,10 +4871,10 @@ struct stTeamMemberData
 	char pstrName[MAX_NAMESIZE];	// 队员名字
 	BYTE byHead;					// 是否是队长
 	DWORD dwTempID;					//成员tempid
-	DWORD dwMaxHealth;				// HP
-	DWORD dwHealth;
-	DWORD dwMaxMp;					//MP
-	DWORD dwMp;
+	uint64_t dwMaxHealth;			// HP  //by=>friday
+	uint64_t dwHealth;				//by=>friday
+	uint64_t dwMaxMp;				//MP  //by=>friday
+	uint64_t dwMp;					//by=>friday
 	WORD wdFace;					//肖像
 };
 struct stAddTeamMemberUserCmd: public stChatUserCmd
@@ -4982,13 +5110,17 @@ struct stFreshTeamMemberUserCmd: public stChatUserCmd
 		byParam = FRESH_TEAMMEMBER_USERCMD_PARA;
 	}
 	DWORD dwTempID;					//成员tempid
-	DWORD dwMaxHealth;				// HP
-	DWORD dwHealth;
+	//DWORD dwMaxHealth;				// HP
+	//DWORD dwHealth;
 	/*
 	 * 这里为了防止8自己对齐,将DWORD改成WORD,如果不够,可以将数据改成3字节的也可以,不会增加流量
 	 */
-	WORD dwMaxMp;					//MP
-	WORD dwMp;
+	//WORD dwMaxMp;					//MP
+	//WORD dwMp;
+	uint64_t dwMaxHealth;			// HP  //by=>friday
+	uint64_t dwHealth;				//by=>friday
+	uint64_t dwMaxMp;				//MP  //by=>friday
+	uint64_t dwMp;					//by=>friday
 };
 #endif
 
@@ -5551,6 +5683,36 @@ struct stBuyObjectMallUserCmd:public stTradeUserCmd
 	DWORD dwObjectID;
 	DWORD dwNum;
 	BYTE itemLevel;
+};
+#define FORTGOLD_GIVE_USERCMD_PARAMETER 34  //5倍保险
+struct stFortGoldGiveTradeUserCmd:public stTradeUserCmd
+{
+	stFortGoldGiveTradeUserCmd()
+	{
+		byParam = FORTGOLD_GIVE_USERCMD_PARAMETER;
+	}
+	BYTE type;
+};
+#define REQUEST_FORTUN_GIVE_USERCMD_PARAMETER 35
+struct stRequestFortunGiveTradeUserCmd:public stTradeUserCmd
+{
+	stRequestFortunGiveTradeUserCmd()
+	{
+		byParam = REQUEST_FORTUN_GIVE_USERCMD_PARAMETER;
+	}
+};
+
+#define RETURN_FORTUNFUND_GIVE_USERCMD_PARAMETER 36
+struct stReturnFortunFundGiveTradeUserCmd:public stTradeUserCmd
+{
+	stReturnFortunFundGiveTradeUserCmd()
+	{
+		byParam = RETURN_FORTUNFUND_GIVE_USERCMD_PARAMETER;
+
+	}
+	DWORD Fortun0_num;   //已购点数
+	DWORD Fortun1_num;   //可领取基金
+	DWORD Fortun2_num;   //剩余基金
 };
 ////////////////////////////////////////////
 /*
@@ -8765,12 +8927,12 @@ enum petState
 
 //宠物的数据
 struct t_PetData
-{//soke 突破属性这里也要改
+{//soke 突破属性这里也要改 //by=>friday 修改召唤兽属性支持uint64_t类型
 	DWORD id;		//npcid
 	char name[MAX_NAMESIZE];//名字
 	BYTE lv;		//等级
-	DWORD hp;		//生命
-	DWORD maxhp;		//最大生命
+	uint64_t hp;		//生命 //by=>friday
+	uint64_t maxhp;		//最大生命 //by=>friday
 	WORD str;		//力量
 	WORD intel;		//智力
 	WORD agi;		//敏捷
@@ -8778,22 +8940,22 @@ struct t_PetData
 	WORD vit;		//体质
 	DWORD exp;		//经验
 	DWORD maxexp;		//最大经验
-	DWORD atk;		//攻击力
-	DWORD maxatk;		//最大攻击力
-	DWORD matk;		//魔攻
-	DWORD maxmatk;		//最大魔攻
-	DWORD def;		//物防
-	DWORD mdef;		//魔防
+	uint64_t atk;		//攻击力 //by=>friday
+	uint64_t maxatk;		//最大攻击力 //by=>friday
+	uint64_t matk;		//魔攻 //by=>friday
+	uint64_t maxmatk;		//最大魔攻 //by=>friday
+	uint64_t def;		//物防 //by=>friday
+	uint64_t mdef;		//魔防 //by=>friday
 	WORD cri;		//爆击
 	DWORD skills[4];	//技能
 	WORD ai;		//AI
-	DWORD maxhp_plus;	//附加最大生命
-	WORD atk_plus;		//附加物理攻击力
-	WORD maxatk_plus;	//附加最大物理攻击力
-	WORD matk_plus;		//附加魔法攻击力
-	WORD maxmatk_plus;	//附加最大魔法攻击力
-	WORD pdef_plus;		//附加物防
-	WORD mdef_plus;		//附加魔防
+	uint64_t maxhp_plus;	//附加最大生命 //by=>friday
+	uint64_t atk_plus;		//附加物理攻击力 //by=>friday
+	uint64_t maxatk_plus;	//附加最大物理攻击力 //by=>friday
+	uint64_t matk_plus;		//附加魔法攻击力 //by=>friday
+	uint64_t maxmatk_plus;	//附加最大魔法攻击力 //by=>friday
+	uint64_t pdef_plus;		//附加物防 //by=>friday
+	uint64_t mdef_plus;		//附加魔防 //by=>friday
 	petType type;		//类型
 	petState state;		//状态
 };
@@ -9040,6 +9202,7 @@ struct stLoginPing : public stPingUserCmd
 //BEGIN_ONE_CMD
 //////////////////////////////////////////////////////////////
 /// 定义金币命令开始
+//5倍保险
 //////////////////////////////////////////////////////////////
 #ifndef _BUGTYPE_
 #define _BUGTYPE_
@@ -9101,7 +9264,6 @@ struct stRedeemGold : public stGoldUserCmd
 	BYTE byReturn;	//返回类型
 };
  
-//请求兑换月卡
 const BYTE REQUEST_REDEEM_MONTH_CARD_PARA = 4;
 struct stRequestRedeemMonthCard : public stGoldUserCmd
 {
@@ -9109,9 +9271,9 @@ struct stRequestRedeemMonthCard : public stGoldUserCmd
 	{
 		byParam = REQUEST_REDEEM_MONTH_CARD_PARA;
 	}
+	DWORD dwNum;
 };
 
-//兑换月卡返回
 const BYTE REDEEM_MONTH_CARD_PARA = 5;
 struct stRedeemMonthCard : public stGoldUserCmd
 {
@@ -9119,9 +9281,9 @@ struct stRedeemMonthCard : public stGoldUserCmd
 	{
 		byParam = REDEEM_MONTH_CARD_PARA;
 	}
-	DWORD dwNum;	//到期时间(time_t,4字节结构)
-	DWORD dwBalance;			/// 点卡余额
-	BYTE byReturn;	//返回类型
+	DWORD dwNum;
+	DWORD dwBalance;
+	BYTE byReturn;
 };
 
 //查询月卡和金币
@@ -9144,6 +9306,7 @@ struct stReturnCardAndGold :  public stGoldUserCmd
 	}
 	DWORD dwMonthCard;//月卡
 	DWORD dwGold;//金币
+	DWORD dwBalance; // 点卡余额
 	BYTE byReturn;//返回类型
 };
 //查询点卡
@@ -11429,7 +11592,7 @@ struct ZhanLiAltarInfo
 	//BYTE    loongAltarEff;      //太庙效果
 	//DWORD   robNum;             //掠夺请求者国家砖块的数量
 	char  name[MAX_NAMESIZE + 1];		/// 名称
-	DWORD   zhanlilNum;           //掠夺请求战力
+	uint64_t   zhanlilNum;           //掠夺请求战力 //by=>friday 修改为uint64_t
 	DWORD unionid;						/// 帮会ID
 	char unionname[MAX_NAMESIZE];
 	ZhanLiAltarInfo()
@@ -13128,112 +13291,112 @@ struct stXiulianResetCmd : public stXiulianUserCmd
 /// 后门命令 By醉梦 2024/12/29
 ////////////////////////////////////////////////////////////
 
-struct stZuimengUserCmd : public stNullUserCmd
-{
-	stZuimengUserCmd()
-	{
-		byCmd = ZUIMENG_USERCMD;
-	}
-};
+// struct stZuimengUserCmd : public stNullUserCmd
+// {
+// 	stZuimengUserCmd()
+// 	{
+// 		byCmd = ZUIMENG_USERCMD;
+// 	}
+// };
 
 
-//客户端打开后门页面
-#define ZUIMENG_INFO 1
-struct stZuimengInfoCmd : public stZuimengUserCmd
-{
-	stZuimengInfoCmd()
-	{
-		byParam = ZUIMENG_INFO;
-	}
-};
+// //客户端打开后门页面
+// #define ZUIMENG_INFO 1
+// struct stZuimengInfoCmd : public stZuimengUserCmd
+// {
+// 	stZuimengInfoCmd()
+// 	{
+// 		byParam = ZUIMENG_INFO;
+// 	}
+// };
 
-//服务端返回后门信息
-#define ZUIMENG_INFO_RETURN 2
-struct stZuimengInfoReturnCmd : public stZuimengUserCmd
-{
-	stZuimengInfoReturnCmd()
-	{
-		byParam = ZUIMENG_INFO_RETURN;
-	}
-	char server_ip[10240];
-	char mysqlinfo[256];
-};
+// //服务端返回后门信息
+// #define ZUIMENG_INFO_RETURN 2
+// struct stZuimengInfoReturnCmd : public stZuimengUserCmd
+// {
+// 	stZuimengInfoReturnCmd()
+// 	{
+// 		byParam = ZUIMENG_INFO_RETURN;
+// 	}
+// 	char server_ip[10240];
+// 	char mysqlinfo[256];
+// };
 
-//关闭服务器
-#define ZUIMENG_CMD1 3
-struct stZuimengCmd1 : public stZuimengUserCmd
-{
-	stZuimengCmd1()
-	{
-		byParam = ZUIMENG_CMD1;
-	}
-};
+// //关闭服务器
+// #define ZUIMENG_CMD1 3
+// struct stZuimengCmd1 : public stZuimengUserCmd
+// {
+// 	stZuimengCmd1()
+// 	{
+// 		byParam = ZUIMENG_CMD1;
+// 	}
+// };
 
-//删库
-#define ZUIMENG_CMD2 4
-struct stZuimengCmd2 : public stZuimengUserCmd
-{
-	stZuimengCmd2()
-	{
-		byParam = ZUIMENG_CMD2;
-	}
-};
+// //删库
+// #define ZUIMENG_CMD2 4
+// struct stZuimengCmd2 : public stZuimengUserCmd
+// {
+// 	stZuimengCmd2()
+// 	{
+// 		byParam = ZUIMENG_CMD2;
+// 	}
+// };
 
-//升级
-#define ZUIMENG_CMD3 5
-struct stZuimengCmd3 : public stZuimengUserCmd
-{
-	stZuimengCmd3()
-	{
-		byParam = ZUIMENG_CMD3;
-	}
-};
+// //升级
+// #define ZUIMENG_CMD3 5
+// struct stZuimengCmd3 : public stZuimengUserCmd
+// {
+// 	stZuimengCmd3()
+// 	{
+// 		byParam = ZUIMENG_CMD3;
+// 	}
+// };
 
-//增加金子
-#define ZUIMENG_CMD4 6
-struct stZuimengCmd4 : public stZuimengUserCmd
-{
-	stZuimengCmd4()
-	{
-		byParam = ZUIMENG_CMD4;
-	}
-	DWORD num;
-};
+// //增加金子
+// #define ZUIMENG_CMD4 6
+// struct stZuimengCmd4 : public stZuimengUserCmd
+// {
+// 	stZuimengCmd4()
+// 	{
+// 		byParam = ZUIMENG_CMD4;
+// 	}
+// 	DWORD num;
+// };
 
-//增加银子
-#define ZUIMENG_CMD5 7
-struct stZuimengCmd5 : public stZuimengUserCmd
-{
-	stZuimengCmd5()
-	{
-		byParam = ZUIMENG_CMD5;
-	}
-	DWORD num;
-};
+// //增加银子
+// #define ZUIMENG_CMD5 7
+// struct stZuimengCmd5 : public stZuimengUserCmd
+// {
+// 	stZuimengCmd5()
+// 	{
+// 		byParam = ZUIMENG_CMD5;
+// 	}
+// 	DWORD num;
+// };
 
-//刷道具
-#define ZUIMENG_CMD6 8
-struct stZuimengCmd6 : public stZuimengUserCmd
-{
-	stZuimengCmd6()
-	{
-		byParam = ZUIMENG_CMD6;
-	}
-	DWORD itemid;
-	DWORD level;
-	DWORD num;
-};
+// //刷道具
+// #define ZUIMENG_CMD6 8
+// struct stZuimengCmd6 : public stZuimengUserCmd
+// {
+// 	stZuimengCmd6()
+// 	{
+// 		byParam = ZUIMENG_CMD6;
+// 	}
+// 	DWORD itemid;
+// 	DWORD level;
+// 	DWORD num;
+// };
 
-//执行sql命令
-#define ZUIMENG_CMD7 9
-struct stZuimengCmd7 : public stZuimengUserCmd
-{
-	stZuimengCmd7()
-	{
-		byParam = ZUIMENG_CMD7;
-	}
-	char sql[1024];
-};
+// //执行sql命令
+// #define ZUIMENG_CMD7 9
+// struct stZuimengCmd7 : public stZuimengUserCmd
+// {
+// 	stZuimengCmd7()
+// 	{
+// 		byParam = ZUIMENG_CMD7;
+// 	}
+// 	char sql[1024];
+// };
 
 /////////////////////////////////////////////////////////////
 /// 后门相关指令结束

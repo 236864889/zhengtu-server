@@ -80,7 +80,7 @@ class SceneSession:public zScene,public Session
 		/**
 		 * \brief 构造函数
 		 */
-		SceneSession(SessionTask *task):zScene(),Session(task)
+		SceneSession::SceneSession(SessionTask *task):zScene(),Session(task)
 		{
 		}
 
@@ -89,7 +89,7 @@ class SceneSession:public zScene,public Session
 		 * \param reginfo 地图注册消息
 		 * \return 是否注册成功
 		 */
-		bool reg(Cmd::Session::t_regScene_SceneSession *reginfo)
+		bool SceneSession::reg(Cmd::Session::t_regScene_SceneSession *reginfo)
 		{
 			if(reginfo)
 			{

@@ -1295,8 +1295,8 @@ void zebraClient::operation(DWORD timer)
 								targetid = iter->first;
 								targettype = Cmd::ATTACKTYPE_U2N;
 							}
-							else if((labs((long)(iter->second.x - x)) + labs((long)(iter->second.y - y)) < 
-										labs((long)(target.x - x)) + labs((long)(target.y - y))))
+							else if((abs(iter->second.x - x) + abs(iter->second.y - y) < 
+										abs(target.x - x) + abs(target.y - y)))
 							{
 								target = iter->second;
 								targetid = iter->first;
@@ -1306,7 +1306,7 @@ void zebraClient::operation(DWORD timer)
 					}
 				}
 				//int rand = zMisc::randBetween(0 , ArrayTable::getInstance()->getSize() - 1);
-				if(target.dwTempID && labs((long)(target.x - x))<=1 && labs((long)(target.y - y))<=1 && targettype == Cmd::ATTACKTYPE_U2N)
+				if(target.dwTempID && abs(target.x - x)<=1 && abs(target.y - y)<=1 && targettype == Cmd::ATTACKTYPE_U2N)
 				{
 					attack(target.dwTempID , target.x , target.y , target.byDir);
 				}
@@ -1330,8 +1330,8 @@ void zebraClient::operation(DWORD timer)
 								targetid = iter->first;
 								targettype = Cmd::ATTACKTYPE_U2U;
 							}
-							else if((labs((long)(iter->second.x - x)) + labs((long)(iter->second.y - y)) < 
-										labs((long)(target.x - x)) + labs((long)(target.y - y))))
+							else if((abs(iter->second.x - x) + abs(iter->second.y - y) < 
+										abs(target.x - x) + abs(target.y - y)))
 							{
 								target = iter->second;
 								targetid = iter->first;
@@ -1340,7 +1340,7 @@ void zebraClient::operation(DWORD timer)
 						}
 					}
 				}
-				if(target.dwTempID && labs((long)(target.x - x))<=1 && labs((long)(target.y - y))<=1 && targettype == Cmd::ATTACKTYPE_U2U)
+				if(target.dwTempID && abs(target.x - x)<=1 && abs(target.y - y)<=1 && targettype == Cmd::ATTACKTYPE_U2U)
 				{
 					attack(target.dwTempID , target.x , target.y , target.byDir);
 					Zebra::logger->debug("pk(%u , %u)" , dwUserTempID , target.dwTempID);
@@ -1509,8 +1509,8 @@ void zebraClient::operation(DWORD timer)
 								targetid = iter->first;
 								targettype = Cmd::ATTACKTYPE_U2N;
 							}
-							else if((labs((long)(iter->second.x - x)) + labs((long)(iter->second.y - y)) < 
-										labs((long)(target.x - x)) + labs((long)(target.y - y))))
+							else if((abs(iter->second.x - x) + abs(iter->second.y - y) < 
+										abs(target.x - x) + abs(target.y - y)))
 							{
 								target = iter->second;
 								targetid = iter->first;
@@ -1520,7 +1520,7 @@ void zebraClient::operation(DWORD timer)
 					}
 				}
 				//int rand = zMisc::randBetween(0 , ArrayTable::getInstance()->getSize() - 1);
-				if(target.dwTempID && labs((long)(target.x - x))<=1 && labs((long)(target.y - y))<=1 && targettype == Cmd::ATTACKTYPE_U2N)
+				if(target.dwTempID && abs(target.x - x)<=1 && abs(target.y - y)<=1 && targettype == Cmd::ATTACKTYPE_U2N)
 				{
 					attack(target.dwTempID , target.x , target.y , target.byDir);
 				}
@@ -1544,8 +1544,8 @@ void zebraClient::operation(DWORD timer)
 								targetid = iter->first;
 								targettype = Cmd::ATTACKTYPE_U2U;
 							}
-							else if((labs((long)(iter->second.x - x)) + labs((long)(iter->second.y - y)) < 
-										labs((long)(target.x - x)) + labs((long)(target.y - y))))
+							else if((abs(iter->second.x - x) + abs(iter->second.y - y) < 
+										abs(target.x - x) + abs(target.y - y)))
 							{
 								target = iter->second;
 								targetid = iter->first;
@@ -1554,7 +1554,7 @@ void zebraClient::operation(DWORD timer)
 						}
 					}
 				}
-				if(target.dwTempID && labs((long)(target.x - x))<=1 && labs((long)(target.y - y))<=1 && targettype == Cmd::ATTACKTYPE_U2U)
+				if(target.dwTempID && abs(target.x - x)<=1 && abs(target.y - y)<=1 && targettype == Cmd::ATTACKTYPE_U2U)
 				{
 					attack(target.dwTempID , target.x , target.y , target.byDir);
 					Zebra::logger->debug("pk(%u , %u)" , dwUserTempID , target.dwTempID);
@@ -1677,35 +1677,35 @@ void zebraClient::operation(DWORD timer)
 void zebraClient::attack(DWORD tempid , DWORD xx , DWORD yy , BYTE byDir)
 {
 	//const int walk_adjust[9][2]	= { {0, -1}, {1, -1}, {1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, 0} };
-	if(labs((long)(x - xx)) == 0 && labs((long)(y - yy)) == -1)
+	if(abs(x - xx) == 0 && abs(y - yy) == -1)
 	{
 		dir = 0;
 	}
-	else if(labs((long)(x - xx)) == 1 && labs((long)(y - yy)) == -1)
+	else if(abs(x - xx) == 1 && abs(y - yy) == -1)
 	{
 		dir = 1;
 	}
-	else if(labs((long)(x - xx)) == 1 && labs((long)(y - yy)) == 0)
+	else if(abs(x - xx) == 1 && abs(y - yy) == 0)
 	{
 		dir = 2;
 	}
-	else if(labs((long)(x - xx)) == 1 && labs((long)(y - yy)) == 1)
+	else if(abs(x - xx) == 1 && abs(y - yy) == 1)
 	{
 		dir = 3;
 	}
-	else if(labs((long)(x - xx)) == 0 && labs((long)(y - yy)) == 1)
+	else if(abs(x - xx) == 0 && abs(y - yy) == 1)
 	{
 		dir = 4;
 	}
-	else if(labs((long)(x - xx)) == -1 && labs((long)(y - yy)) == 1)
+	else if(abs(x - xx) == -1 && abs(y - yy) == 1)
 	{
 		dir = 5;
 	}
-	else if(labs((long)(x - xx)) == -1 && labs((long)(y - yy)) == 0)
+	else if(abs(x - xx) == -1 && abs(y - yy) == 0)
 	{
 		dir = 6;
 	}
-	else if(labs((long)(x - xx)) == -1 && labs((long)(y - yy)) == -1)
+	else if(abs(x - xx) == -1 && abs(y - yy) == -1)
 	{
 		dir = 7;
 	}
@@ -1793,7 +1793,7 @@ void zebraClient::action()
 			}
 		}
 		//如果正在攻击目标,无需移动
-		if((p.x || p.y)&& labs((long)(p.x - x))<=1 && labs((long)(p.y - y))<=1)
+		if((p.x || p.y)&& abs(p.x - x)<=1 && abs(p.y - y)<=1)
 		{
 			attack(target.dwTempID , target.x , target.y , target.byDir);
 			return;
@@ -1889,7 +1889,7 @@ bool zebraClient::move(const int direct, const int step)
 	//if(moveto_x != 0 && moveto_y !=0 && moveto_x != x && moveto_y != y)
 	if(false)
 	{
-		if(labs((long)(p.x - x)) <= 1 && labs((long)(p.y - y ))<= 1) 
+		if(abs(p.x - x) <= 1 && abs(p.y - y )<= 1) 
 		{
 			p.x = moveto_x;
 			p.y = moveto_y;

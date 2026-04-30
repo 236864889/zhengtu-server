@@ -469,7 +469,7 @@ bool SceneUser::checkLoongPearlAct()
         Channel::sendSys(this , Cmd::INFO_TYPE_FAIL, "必须找到太庙才能掠夺太庙资源……");
 		return false;
     }
-    if ( labs((long)(pos.x)-(long)(n->getPos().x)) > (SCREEN_WIDTH >> 1) || labs((long)(pos.y)-(long)(n->getPos().y)) > (SCREEN_HEIGHT >> 1))  
+    if ( abs(pos.x- n->getPos().x) > (SCREEN_WIDTH >> 1) || abs(pos.y-n->getPos().y) > (SCREEN_HEIGHT >> 1))  
     {
         Channel::sendSys(this, Cmd::INFO_TYPE_FAIL,  "你必须去太庙附近！");	
         return false;

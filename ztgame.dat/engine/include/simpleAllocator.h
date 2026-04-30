@@ -7,11 +7,17 @@ struct simpleAllocator{
 	typedef _SIZT size_type;
 	typedef _PDFT difference_type;
 
+	// void deallocate(pointer _Ptr, size_type size)
+	// {	// deallocate object at _Ptr, ignore size
+	// 	//operator delete(_Ptr);
+	// 	assert(size == 1);
+	// 	free(_Ptr);
+	// }
 	void deallocate(pointer _Ptr, size_type size)
 	{	// deallocate object at _Ptr, ignore size
 		//operator delete(_Ptr);
 		assert(size == 1);
-		free(_Ptr);
+		if(_Ptr) { _Ptr->~_Ty(); free(_Ptr); } //by=>friday
 	}
 
 	void destroy(pointer _Ptr)

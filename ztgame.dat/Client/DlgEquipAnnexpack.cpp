@@ -8,7 +8,7 @@
 #include "GuiNpcMake.h"
 #include "GuiNpcDialog.h"
 #include "MyTimer.h"
-
+#include "DlgEquipRecast.h"  // 包含人物装备头文件 //by=>friday
 #include "DlgEquipAnnexpack.h"
 
 namespace
@@ -90,6 +90,8 @@ CDlgEquipAnnexpack::CDlgEquipAnnexpack()
 	m_pTimerProcess = NULL;
 	m_bPutFocusItem = true;
 	m_unSoulMountNeedMoney = 0;
+	m_pBtnSwitchToRecast = NULL; //by=>friday
+	m_pBtnSwitchToRecast = NULL; //by=>friday
 	for (int i = 0; i < TOTAL_MATERIAL_TABLE; ++i)
 	{
 		m_pTableMaterials[i] = NULL;
@@ -111,6 +113,7 @@ void CDlgEquipAnnexpack::OnPutFocusItem(bool bPut)
 {
 	m_bPutFocusItem = bPut;
 	this->RefreshPage();
+	m_pBtnSwitchToRecast = this->GetButton(201); // 切换到人物装备按钮 //by=>friday
 }
 
 void CDlgEquipAnnexpack::OnResult(stResponsePropertyUserCmd* pCmd)
@@ -221,7 +224,7 @@ void CDlgEquipAnnexpack::OnCreate()
 	m_pBtnPages[static_cast<int>(m_eCurPage)]->SetChecked(true);
 	m_strTitle = STR_EQUIPANNEXPACK_TITLES[static_cast<int>(m_eCurPage)];
 	m_pStaResult = this->GetStatic(STATIC_RESULTINFO);
-
+	m_pBtnSwitchToRecast = this->GetButton(201); // 切换到人物装备按钮 //by=>friday
 	this->RefreshPage();
 }
 
@@ -250,6 +253,19 @@ bool CDlgEquipAnnexpack::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 					SetVisible(false);
 				}
 				break;
+				// 修改现有的按钮处理
+case 5: // 人物装备按钮 //by=>friday
+OnSwitchToRecast(); //by=>friday
+return true; //by=>friday
+break;
+case 201: // 附件装备按钮（当前界面，不可点击） //by=>friday
+return true; // 直接返回，不做任何操作 //by=>friday
+break;
+			}
+			if (nID == 201) // 人物装备按钮 //by=>friday
+			{
+				OnSwitchToRecast(); //by=>friday
+				return true; //by=>friday
 			}
 			if (nID >= BUTTONGROUP_EQUIPANNEXPACK && nID < BUTTONGROUP_EQUIPANNEXPACK + MAX_PAGE_NUM)
 			{
@@ -2529,6 +2545,12 @@ void CDlgEquipAnnexpack::RefreshPage()
 
 	
 	this->SetBGImage();
+	m_pBtnSwitchToRecast = this->GetButton(201); // 切换到人物装备按钮 //by=>friday
+	// 设置切换按钮状态 //by=>friday
+    CGuiButton* pBtnRecast = this->GetButton(5); // 人物装备按钮 //by=>friday
+    CGuiButton* pBtnAnnex = this->GetButton(201); // 附件装备按钮 //by=>friday
+    if (pBtnRecast) pBtnRecast->SetEnabled(true); // 切换按钮可点击 //by=>friday
+    if (pBtnAnnex) pBtnAnnex->SetEnabled(false); // 当前界面按钮不可点击 //by=>friday
 }
 
 //soke 勋章升级
@@ -3105,3 +3127,22 @@ void CDlgEquipAnnexpack::RefreshEquipCompose19()
 		}
 	}
 }
+	// 切换到人物装备界面 //by=>friday
+// 切换到人物装备界面 //by=>friday
+void CDlgEquipAnnexpack::OnSwitchToRecast()
+{
+    // 获取当前界面位置 //by=>friday
+    stPointI currentPos = this->GetLocation(); //by=>friday
+    
+    this->Hide(); // 隐藏当前界面 //by=>friday
+    
+    // 检查人物装备界面是否已创建，如果没有则创建 //by=>friday
+    CDlgEquipRecast* pDlg = GetGameGuiManager()->AddDlgEquipRecast(true); //by=>friday
+    if (pDlg) //by=>friday
+    {
+        // 设置新界面位置与当前界面相同 //by=>friday
+        pDlg->SetLocation(currentPos.x, currentPos.y); //by=>friday
+        pDlg->SetVisible(true); // 显示人物装备界面 //by=>friday
+    }
+}
+

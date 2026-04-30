@@ -43,3 +43,13 @@ void CGuiWare::SetName(const std::string& strName)
 		m_pStatic1->SetText(strName.c_str());
 	}
 }
+
+//by=>friday
+void CGuiWare::SetDescVisible(bool bVisible)
+{
+	// 只需控制商品边框图像的显示状态
+	if (m_pImage)
+	{
+		m_pImage->SetVisible(bVisible);
+	}
+}

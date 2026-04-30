@@ -8,6 +8,13 @@
  */
 
 #include "zTCPServer.h"
+#include <map> //by=>friday, 
+#include <ctime> //by=>friday, 
+#ifdef WIN32
+#include <windows.h> //by=>friday
+#else
+#include <sys/time.h> //by=>friday
+#endif
 #include "zTCPTask.h"
 #include "zService.h"
 #include "zMisc.h"
@@ -229,6 +236,7 @@ bool SceneTask::usermsgParseBill(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCm
 bool SceneTask::usermsgParse(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCmd, const unsigned int cmdLen)
 {
 	using namespace Cmd;
+
 
 	if(pUser->getState() == SceneUser::SceneEntry_Death)
 	{
@@ -748,6 +756,7 @@ bool SceneTask::usermsgParse(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCmd, c
 			return pUser->doXiulianCmd((Cmd::stXiulianUserCmd*)ptNullCmd, cmdLen);
 		}
 		break;
+		
 		case ZHANCHE_USERCMD://战车指令
 		{
 			return pUser->doZhancheCmd((Cmd::stZhancheUserCmd*)ptNullCmd, cmdLen);
@@ -768,18 +777,93 @@ bool SceneTask::usermsgParse(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCmd, c
 			return pUser->doMigongCmd((Cmd::stMigongUserCmd*)ptNullCmd, cmdLen);
 		}
 		break;
-		 case GOLD_USERCMD:
+		 case GOLD_USERCMD:  //5倍保险
 			{
 				switch(ptNullCmd->para)
 				{
 					case REDEEM_MONTH_CARD_PARA:
 						{
 							Cmd::stRedeemMonthCard *rev = (Cmd::stRedeemMonthCard *)ptNullCmd;
-							pUser->sendCmdToMe(rev, sizeof(Cmd::stRedeemMonthCard));
-							/*
-							Zebra::logger->debug("%s(%u)兑换月卡",pUser->name , pUser->id);
-							Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"兑换月卡,到期时间%d,剩余点卡%d,返回类型%d",rev->dwNum,rev->dwBalance , rev->byReturn);
-							// */
+							
+							if(rev->byReturn == Cmd::REDEEM_SUCCESS && (int)rev->dwNum >= 0)
+							{
+								//sky 总点数
+								DWORD point = 10000000;//总金点投保上限设定
+
+								//sky 上限提示
+								if((point - pUser->Crd_IalNum) == 0)
+								{
+									Channel::sendSys(pUser, Cmd::INFO_TYPE_MSG, "你购买的五倍投保的已达上 限");
+									return false;
+								}
+								if(rev->dwNum <= (point - pUser->Crd_IalNum))
+								{
+									//sky 购买数量
+									pUser->Crd_IalNum += rev->dwNum;
+									
+									DWORD temp0 = atoi(Zebra::global["dian_shu_vip"].c_str());
+								    //soke 点数增加1点VIP点数
+								    DWORD temp2 = rev->dwNum /temp0;
+									
+									if((int)temp2>0)
+								    {
+									    pUser->charbase.charvip +=temp2;
+									    Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME, "你当前的VIP点数： %d点",pUser->charbase.charvip);
+								    }
+
+									//sky 剩余可领取
+									pUser->charbase.goldsum += rev->dwNum*5; //DWORD(rev->dwNum*(4.8f));
+
+									//sky 投保立即返换金子
+									DWORD goldmax= DWORD(rev->dwNum*(0.2f));
+									pUser->Gie_MatNum +=goldmax;
+									pUser->charbase.goldsum -=goldmax;
+									pUser->charbase.givenum =0; //sky 每次购买清除
+									pUser->packs.addGold(goldmax,"领取5倍即刻返还基金");
+									Channel::sendGold(pUser, Cmd::INFO_TYPE_GAME ,goldmax,"投保成功，获得即刻返还金子");
+									Channel::sendGold(pUser, Cmd::INFO_TYPE_MSG ,goldmax,"投保成功，获得即刻返还金子");
+									pUser->sendCmdToMe(rev, sizeof(Cmd::stRedeemMonthCard));
+								}
+								else if(rev->dwNum > (point - pUser->Crd_IalNum)) //sky 溢出处理
+								{
+								
+								    DWORD temp0 = atoi(Zebra::global["dian_shu_vip"].c_str());
+								    //soke 点数增加1点VIP点数
+								    DWORD temp2 = rev->dwNum /temp0;
+									
+									if((int)temp2>0)
+								    {
+									    pUser->charbase.charvip +=temp2;
+									    Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME, "你当前的VIP点数： %d点",pUser->charbase.charvip);
+								    }
+									
+									//sky 购买数量
+									pUser->Crd_IalNum += (point - pUser->Crd_IalNum);
+
+									//sky 剩余可领取
+									pUser->charbase.goldsum += (point - pUser->Crd_IalNum)*5;
+
+									//sky 投保立即返换金子
+									DWORD goldmax= DWORD(rev->dwNum*(0.2f));
+									pUser->Gie_MatNum +=goldmax;
+									pUser->charbase.goldsum -=goldmax;
+									pUser->charbase.givenum =0; //sky 每次购买清除
+									pUser->packs.addGold(goldmax,"领取5倍即刻返还基金");
+									Channel::sendGold(pUser, Cmd::INFO_TYPE_GAME ,goldmax,"投保成功，获得即刻返还金子");
+									pUser->sendCmdToMe(rev, sizeof(Cmd::stRedeemMonthCard));
+								}
+								//sky 更新客户端
+								stReturnFortunFundGiveTradeUserCmd ret;
+								ret.Fortun0_num=pUser->Crd_IalNum; //sky 5倍基金
+								ret.Fortun1_num=pUser->Gie_MatNum;
+								ret.Fortun2_num=pUser->charbase.goldsum;
+								pUser->sendCmdToMe(&ret, sizeof(ret));
+							}
+							else
+							{
+								Zebra::logger->debug("点卡换五倍基金出现负数,需要平台确认数值(%d,%d)",rev->dwNum,rev->byReturn);
+								Channel::sendSys(pUser, Cmd::INFO_TYPE_MSG, "点数不足，请充值");
+							}
 							return true;
 						}
 						break;
@@ -932,7 +1016,7 @@ bool SceneTask::usermsgParse(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCmd, c
 							return true;
 						}
 						break;
-					case RETURN_REQUEST_POINT_PARA:
+					case RETURN_REQUEST_POINT_PARA:  
 						{
 							Cmd::stReturnRequestPoint *rev = (Cmd::stReturnRequestPoint *)ptNullCmd;
 							pUser->sendCmdToMe(rev ,sizeof(Cmd::stReturnRequestPoint));
@@ -1036,7 +1120,7 @@ bool SceneTask::usermsgParse(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCmd, c
                 bool ret = pUser->doErnvCmd( (Cmd::stErnvUserCmd*)ptNullCmd, cmdLen );
                 return ret;
             }
-            break;			
+            break;		
 		default:
 			break;
 	}
@@ -1105,8 +1189,37 @@ bool SceneTask::msgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int cmd
 
 #include "script_func.h"
 
-bool SceneTask::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int cmdLen)
+//by=>friday, 跨平台毫秒时间函数
+static DWORD GetCurrentTimeMs() {
+#ifdef WIN32
+	return GetTickCount();
+#else
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+#endif
+}
+
+bool SceneTask::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int cmdLen)  //封杀网关
 {
+	//by=>friday
+	static DWORD lastGlobalCheck = 0;
+	static int globalMsgCount = 0;
+	DWORD currentTime = GetCurrentTimeMs();
+	
+	// 每秒重置全局计数器
+	if (currentTime - lastGlobalCheck >= 1000) {
+		globalMsgCount = 0;
+		lastGlobalCheck = currentTime;
+	}
+	
+	globalMsgCount++;
+	
+	// 全局消息频率限制：每秒超过5000条消息就直接丢弃
+	if (globalMsgCount > 5000) {
+		// 静默丢弃，避免日志洪水攻击服务器
+		return true;
+	}
 	if(ptNullCmd->cmd==Cmd::Scene::CMD_FORWARD && ptNullCmd->para==Cmd::Scene::PARA_FORWARD_SCENE)
 	{
 		Cmd::Scene::t_Scene_ForwardScene *rev=(Cmd::Scene::t_Scene_ForwardScene *)ptNullCmd;
@@ -1114,9 +1227,59 @@ bool SceneTask::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int 
 		//if(scene)
 		{
 //			SceneUserManager::getMe().lock();
+			//by=>friday
+			static std::map<DWORD, int> userMsgCount; 
+			static std::map<DWORD, DWORD> userLastTime; 
+			static std::map<DWORD, bool> blockedUsers; 
+			
+
+			DWORD userId = rev->dwUserID;
+			if (blockedUsers[userId]) {
+				return true; 
+			}
+			
+
+			DWORD currentTime = GetCurrentTimeMs();
+			
+			
+			if (currentTime - userLastTime[userId] >= 1000) {
+				userMsgCount[userId] = 0;
+				userLastTime[userId] = currentTime;
+			}
+			
+		
+			userMsgCount[userId]++;
+			
+			
+			if (userMsgCount[userId] == 300) {
+				SceneUser *pUser=SceneUserManager::getMe().getUserByID(userId);
+				if(pUser) {
+					Zebra::logger->warn("用户%u(%s) 消息频率较高：1秒内%d条消息", userId, pUser->name, userMsgCount[userId]);
+				} else {
+					Zebra::logger->warn("用户%u 消息频率较高：1秒内%d条消息", userId, userMsgCount[userId]);
+				}
+			}
+			
+			
+			if (userMsgCount[userId] > 500) {
+				SceneUser *pUser=SceneUserManager::getMe().getUserByID(userId);
+				if(pUser) {
+					Zebra::logger->error("!!! 检测到外挂恶意攻击 !!! 用户%u(%s) 1秒内发送%d条消息，立即封禁", 
+						userId, pUser->name, userMsgCount[userId]);
+				} else {
+					Zebra::logger->error("!!! 检测到外挂恶意攻击 !!! 用户%u 1秒内发送%d条消息，立即封禁", 
+						userId, userMsgCount[userId]);
+				}
+				
+				
+				blockedUsers[userId] = true;
+				return true; 
+			}
+			
 			SceneUser *pUser=SceneUserManager::getMe().getUserByID(rev->dwUserID);
 			if(pUser)
 			{
+				
 				set_me(pUser);
 				if (usermsgParse(pUser,(Cmd::t_NullCmd *)rev->data,rev->size))
 				{
@@ -1148,7 +1311,14 @@ bool SceneTask::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int 
 		SceneUser *pUser=SceneUserManager::getMe().getUserByID(rev->dwUserID);
 		if(pUser)
 		{
+			// 添加用户名称到日志（如果需要）
+			Zebra::logger->debug("处理用户%u(%s)的账单转发消息", rev->dwUserID, pUser->name);
 			return usermsgParseBill(pUser,(Cmd::t_NullCmd *)rev->data,rev->size);
+		}
+		else
+		{
+			Zebra::logger->error("处理账单指令时,未找到用户ID为%ld的用户", rev->dwUserID);
+			return true;
 		}
 	}
 

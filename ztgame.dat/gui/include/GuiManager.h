@@ -32,6 +32,10 @@ private:
 	CGuiDialog * m_pPopupDlg;		
 	CToolTips*	 m_pToolTips;
 	stPointI	 m_ptToolTips;
+	CToolTips*	 m_pToolTips_friday; //by=>friday,
+	stPointI	 m_ptToolTips_friday; //by=>friday,
+	CToolTips*	 m_pToolTips_friday1; //by=>friday,
+	stPointI	 m_ptToolTips_friday1; //by=>friday,
 	CGuiMenu*	 m_pEditMenu;
 	bool		 m_bEnableIme;
 private:
@@ -70,6 +74,16 @@ public:
 	void SetToolTips(CToolTips* p,POINT pt){ m_pToolTips = p; m_ptToolTips = pt;}
 	CToolTips* GetToolTips(){ return m_pToolTips; }
 	POINT GetToolTipsPoint(){ return m_ptToolTips;}
+	
+	//by=>friday, 支持第二个独立tooltip
+	void SetToolTips_friday(CToolTips* p,POINT pt){ m_pToolTips_friday = p; m_ptToolTips_friday = pt;}
+	CToolTips* GetToolTips_friday(){ return m_pToolTips_friday; }
+	POINT GetToolTipsPoint_friday(){ return m_ptToolTips_friday;}
+	
+	//by=>friday, 支持第三个独立tooltip
+	void SetToolTips_friday1(CToolTips* p,POINT pt){ m_pToolTips_friday1 = p; m_ptToolTips_friday1 = pt;}
+	CToolTips* GetToolTips_friday1(){ return m_pToolTips_friday1; }
+	POINT GetToolTipsPoint_friday1(){ return m_ptToolTips_friday1;}
 
 	CGuiManager(void);
 	~CGuiManager(void);

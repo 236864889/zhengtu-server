@@ -480,7 +480,7 @@ bool SceneUser::do_trade_rs_cmd(const Cmd::stTradeUserCmd *rev,unsigned int cmdL
 		Zebra::logger->alarm("%s(%ld)请求购买摆摊物品的用户不存在或者没有摆摊", name, id);
 		return true;
 	}
-	if ( labs((long)(pos.x)-(long)(target->getPos().x)) > (SCREEN_WIDTH ) || labs((long)(pos.y)-(long)(target->getPos().y)) > (SCREEN_HEIGHT))  {
+	if ( abs(pos.x- target->getPos().x) > (SCREEN_WIDTH ) || abs(pos.y-target->getPos().y) > (SCREEN_HEIGHT))  {
 		return true;
 	}
 
@@ -658,6 +658,313 @@ bool SceneUser::doTradeCmd(const Cmd::stTradeUserCmd *rev,unsigned int cmdLen)
 				return true;
 			}
 			break;
+						
+		case REQUEST_FORTUN_GIVE_USERCMD_PARAMETER:  //5倍保险
+			{
+				stReturnFortunFundGiveTradeUserCmd ret;
+				ret.Fortun0_num=this->Crd_IalNum;
+				ret.Fortun1_num=this->Gie_MatNum;
+				ret.Fortun2_num=this->charbase.goldsum;
+				//Channel::sendSys(this, Cmd::INFO_TYPE_GAME, "Fortuna_num ==%d ,Fortunb_num ==%d ,Gold_sum ==%d ,",this->Crd_IalNum,this->Gie_MatNum,this->charbase.goldsum);
+				//Channel::sendSys(this, Cmd::INFO_TYPE_GAME, "Give_Num ==%d  ,",this->charbase.givenum);
+				sendCmdToMe(&ret, sizeof(ret));
+				return true;
+			}
+			break;
+			
+		case FORTGOLD_GIVE_USERCMD_PARAMETER:
+			{
+				//Zebra::logger->debug("收到指令");
+				stFortGoldGiveTradeUserCmd *rett = ( Cmd::stFortGoldGiveTradeUserCmd * )rev;
+			//	Zebra::logger->debug("%d是收到的类型",rett->type);
+				if(rett->type == 0)
+				{
+					if(this->charbase.level < 60)
+					{
+						Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "等级低于60级无法领取");
+						return true;
+					}
+					else if(this->charbase.level >= 60 && this->Crd_IalNum < 1)
+					{
+						Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你没有可领取的五倍投保基金");
+						return true;
+					}
+					else if(this->charbase.level >= 160 && this->charbase.goldsum == 0)
+					{
+						Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你没有可领取的五倍投保基金");
+						return true;
+					}
+
+					if((this->charbase.level >= 60 && this->charbase.level < 70) && this->charbase.goldsum > 0)
+					{
+						
+						if(this->charbase.givenum < 6)
+						{
+							this->charbase.givenum =0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(0.4f)-this->Gie_MatNum);
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							
+							this->charbase.givenum+=6;
+
+							this->packs.addGold(goldmax,"领取5倍基金60级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("60---%u ",goldmax);
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 70 && this->charbase.level < 80) && this->charbase.goldsum > 0)
+					{
+						if(this->charbase.givenum < 7)
+						{
+							this->charbase.givenum =0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(0.6f)-this->Gie_MatNum);
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum+=7;
+
+							this->packs.addGold(goldmax,"领取5倍基金70级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("70---%u ",goldmax);
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 80 && this->charbase.level < 90) && this->charbase.goldsum > 0)
+					{
+						if(this->charbase.givenum < 8)
+						{
+							this->charbase.givenum =0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(0.8f)-this->Gie_MatNum);
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum +=8; // 领取次数
+
+							this->packs.addGold(goldmax,"领取5倍基金80级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("80---%u ",goldmax);
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 90 && this->charbase.level < 100) && this->charbase.goldsum > 0)
+					{
+						if(this->charbase.givenum < 9)
+						{
+							this->charbase.givenum = 0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(1.0f)-this->Gie_MatNum);
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum +=9; // 领取次数
+
+							this->packs.addGold(goldmax,"领取5倍基金90级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("90---%u ",goldmax);
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 100 && this->charbase.level < 110) && this->charbase.goldsum > 0)
+					{
+						if(this->charbase.givenum < 10)
+						{
+							this->charbase.givenum = 0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(1.2f)-this->Gie_MatNum);
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum +=10; // 领取次数
+
+							this->packs.addGold(goldmax,"领取5倍基金100级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("100---%u ",goldmax);
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 110 && this->charbase.level < 120) && this->charbase.goldsum > 0)
+					{
+						
+						if(this->charbase.givenum < 11)
+						{
+							this->charbase.givenum = 0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(1.4f)-this->Gie_MatNum);
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum +=11; // 领取次数
+
+							this->packs.addGold(goldmax,"领取5倍基金110级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("110---%u ",goldmax);
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 120 && this->charbase.level < 130) && this->charbase.goldsum > 0)
+					{
+						
+						if(this->charbase.givenum < 12)
+						{
+							this->charbase.givenum = 0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(1.7f)-this->Gie_MatNum);
+							
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum +=12; // 领取次数
+
+							this->packs.addGold(goldmax,"领取5倍基金120级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("120---%u ",goldmax);
+							return true;
+						}
+						/*else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}*/
+					}
+					else if((this->charbase.level >= 130 && this->charbase.level < 140) && this->charbase.goldsum > 0)
+					{
+						
+						if(this->charbase.givenum < 13)
+						{
+							this->charbase.givenum = 0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(2.0f)-this->Gie_MatNum);
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum +=13; // 领取次数
+
+							this->packs.addGold(goldmax,"领取5倍基金130级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("130---%u ",goldmax);
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 140 && this->charbase.level < 150) && this->charbase.goldsum > 0)
+					{
+						
+						if(this->charbase.givenum < 14)
+						{
+							this->charbase.givenum = 0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(2.5f)-this->Gie_MatNum);
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum +=14; // 领取次数
+
+							this->packs.addGold(goldmax,"领取5倍基金140级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("140---%u ",goldmax);
+
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 150 && this->charbase.level < 160) && this->charbase.goldsum > 0)
+					{
+						if(this->charbase.givenum < 15)
+						{
+							this->charbase.givenum = 0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(3.5f)-this->Gie_MatNum);
+							
+
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							this->charbase.givenum +=15; // 领取次数
+
+							this->packs.addGold(goldmax,"领取5倍基金150级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("150---%u ",goldmax);
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+					else if((this->charbase.level >= 160) && this->charbase.goldsum > 0)
+					{
+						if(this->charbase.givenum < 16)
+						{
+							this->charbase.givenum = 0;
+							DWORD goldmax = DWORD(this->Crd_IalNum*(5.0f)-this->Gie_MatNum);
+							
+							this->Gie_MatNum +=goldmax;
+							this->charbase.goldsum -=goldmax;
+							//this->Fortun3_num ++; // 领取次数
+							this->charbase.givenum += 16;
+
+							this->packs.addGold(goldmax,"领取5倍基金160级");
+							Channel::sendGold(this, Cmd::INFO_TYPE_GAME ,goldmax,"你本次领取5倍投保获得金子");
+							Zebra::logger->debug("160---%u ",goldmax);
+
+							return true;
+						}
+						else
+						{
+							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你已经领取本次五倍投保基金");
+							return true;
+						}
+					}
+
+					stReturnFortunFundGiveTradeUserCmd ret;
+					ret.Fortun0_num=this->Crd_IalNum; //sky 5倍基金
+					ret.Fortun1_num=this->Gie_MatNum;
+					ret.Fortun2_num=this->charbase.goldsum;
+					sendCmdToMe(&ret, sizeof(ret));
+
+				}
+				else if(rett->type == 1)
+				{
+					char tem[512];
+					sprintf(tem,"您当前累计投保点数： %d \n累计返还5倍投保点数：%d \n累计已领取投保点数： %d \n剩余可领取投保点数： %d ",this->Crd_IalNum,this->Crd_IalNum*5,this->Gie_MatNum,this->charbase.goldsum);
+					Channel::sendSys(this, Cmd::INFO_TYPE_MSG, tem); 
+				}
+				
+				return true;
+			}
+			break;
 
 		case REQUEST_TRADE_USERCMD_PARAMETER:
 			{
@@ -678,7 +985,7 @@ bool SceneUser::doTradeCmd(const Cmd::stTradeUserCmd *rev,unsigned int cmdLen)
 							return true;
 						}
 
-						if ( labs((long)(pos.x)-(long)(pAnswer->getPos().x)) > (SCREEN_WIDTH >> 1) || labs((long)(pos.y)-(long)(pAnswer->getPos().y)) > (SCREEN_HEIGHT >> 1))  {
+						if ( abs(pos.x- pAnswer->getPos().x) > (SCREEN_WIDTH >> 1) || abs(pos.y-pAnswer->getPos().y) > (SCREEN_HEIGHT >> 1))  {
 							Channel::sendSys(this, Cmd::INFO_TYPE_FAIL,  "距离太远，不能交易!");	
 							return true;
 						}
@@ -725,7 +1032,7 @@ bool SceneUser::doTradeCmd(const Cmd::stTradeUserCmd *rev,unsigned int cmdLen)
 						return true;
 					}
 
-					if ( labs((long)(pos.x)-(long)(pAsker->getPos().x)) > (SCREEN_WIDTH >> 1) || labs((long)(pos.y)-(long)(pAsker->getPos().y)) > (SCREEN_HEIGHT >> 1))  {
+					if ( abs(pos.x- pAsker->getPos().x) > (SCREEN_WIDTH >> 1) || abs(pos.y-pAsker->getPos().y) > (SCREEN_HEIGHT >> 1))  {
 						tradeorder.cancel();
 						Channel::sendSys(this, Cmd::INFO_TYPE_FAIL,  "距离太远，不能交易!");	
 						return true;
@@ -2299,7 +2606,7 @@ bool SceneUser::doTradeCmd(const Cmd::stTradeUserCmd *rev,unsigned int cmdLen)
 					return true;
 				}
 
-				if ( labs((long)(pos.x)-(long)(target->getPos().x)) > (SCREEN_WIDTH ) || labs((long)(pos.y)-(long)(target->getPos().y)) > (SCREEN_HEIGHT))  
+				if ( abs(pos.x- target->getPos().x) > (SCREEN_WIDTH ) || abs(pos.y-target->getPos().y) > (SCREEN_HEIGHT))  
 				{
 					return true;
 				}

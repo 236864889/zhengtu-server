@@ -222,10 +222,10 @@ void SceneNpc::refreshExpmapAttackTime(SceneUser* pAtt)
  * \param wdHP 减少的hp
  * \return 
  */
-void SceneNpc::reduceHP(SceneUser *pAtt , DWORD wdHP)
+void SceneNpc::reduceHP(SceneUser *pAtt , uint64_t wdHP) //by=>friday 修改为支持64位无符号伤害
 {
 #ifdef _XWL_DEBUG
-	//Zebra::logger->debug("SceneNpc::reduceHP %s hp=%u wdHP=%u", name, hp, wdHP);
+	//Zebra::logger->debug("SceneNpc::reduceHP %s hp=%u wdHP=%llu", name, hp, wdHP); //by=>friday 修复64位显示格式
 #endif
 	if(hp + wdHP == this->getMaxHP())
 	{
@@ -281,18 +281,18 @@ void SceneNpc::reduceHP(SceneUser *pAtt , DWORD wdHP)
 			expRec.wdHP = wdHP;
 			expmap.insert(NpcHpHashmap_pair(leader, expRec));
 #ifdef _XWL_DEBUG
-			Zebra::logger->debug("%s wdHP=%d hp=%u", name, expRec.wdHP, wdHP);
+			Zebra::logger->debug("%s wdHP=%llu hp=%u", name, expRec.wdHP, wdHP); //by=>friday 修复64位显示格式
 #endif			
 		}
 	}
 	else
 	{
 		//		if (iter->second.attack_time(SceneTimeTick::currentTime))
-		if (labs((long)(SceneTimeTick::currentTime.sec())-(long)(iter->second.attack_time.sec())) <= 10)
+		if (abs(SceneTimeTick::currentTime.sec() - iter->second.attack_time.sec()) <= 10)
 		{
 			iter->second.wdHP += wdHP;
 #ifdef _XWL_DEBUG
-			Zebra::logger->debug("小于十秒，累加HP值:%d hp=%u", iter->second.wdHP, hp);
+			Zebra::logger->debug("小于十秒，累加HP值:%llu hp=%u", iter->second.wdHP, hp); //by=>friday 修复64位显示格式
 #endif			
 
 		}
@@ -300,7 +300,7 @@ void SceneNpc::reduceHP(SceneUser *pAtt , DWORD wdHP)
 		{
 			iter->second.wdHP = wdHP;
 #ifdef _XWL_DEBUG
-			Zebra::logger->debug("大于十秒， 重置HP值:%d hp=%u", iter->second.wdHP, hp);
+			Zebra::logger->debug("大于十秒， 重置HP值:%llu hp=%u", iter->second.wdHP, hp); //by=>friday 修复64位显示格式
 #endif			
 		}
 		iter->second.attack_time.now();
@@ -639,7 +639,7 @@ void SceneNpc::distributeExp()
 	NpcHpHashmap_iterator iter;
 	for(iter = expmap.begin() ; iter != expmap.end() ; iter ++)
 	{
-		if (labs((long)(iter->second.attack_time.sec())-(long)(SceneTimeTick::currentTime.sec())) >=10)
+		if (abs(iter->second.attack_time.sec() - SceneTimeTick::currentTime.sec()) >=10)
 		{
 #ifdef _ZJW_DEBUG
 			Zebra::logger->debug("%d 最后一次攻击大于十秒", iter->first);
@@ -1215,6 +1215,19 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 
 bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev, bool physics, SWORD rangDamageBonus)
 {
+	//by=>friday 修复破烂镖车被击杀后掉场景问题 - 阻止任何攻击者攻击破烂镖车
+	if (npc && npc->id == 54099) //破烂的镖车
+	{
+		//破烂镖车不能被任何方式攻击，包括召唤兽
+		SceneEntryPk * am = pAtt->getTopMaster();
+		if (am->getType()==zSceneEntry::SceneEntry_Player)
+		{
+			SceneUser * attacker = (SceneUser *)am;
+			Channel::sendSys(attacker, Cmd::INFO_TYPE_FAIL, "此国家镖车已被劫掠，无法继续攻击");
+		}
+		return false;
+	}
+	
 	using namespace Cmd;
 
 	SceneEntryPk * am = pAtt->getTopMaster();
@@ -2359,6 +2372,17 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 	}
 	if (!canAttack(entry)) return false;
 
+	//by=>friday 战车载具模式保护 - NPC不能攻击战车玩家
+	if (entry && entry->getType() == zSceneEntry::SceneEntry_Player)
+	{
+		SceneUser* targetUser = (SceneUser*)entry;
+		if (targetUser->zhanche_vehicle_mode)
+		{
+			// Zebra::logger->debug("[战车保护] NPC %s 尝试攻击战车载具模式玩家 %s，攻击被阻止", this->name, targetUser->name);
+			return false;
+		}
+	}
+
 	if (entry->getTopMaster() &&
 			entry->getTopMaster()->getType() == zSceneEntry::SceneEntry_Player &&
 			this->getTopMaster() &&
@@ -2706,12 +2730,12 @@ bool SceneNpc::deathAction()
 	if (canLostObject(SceneTimeTick::currentTime))
 	{
 		//Zebra::logger->debug("%s 死亡", name);
-		int value=1;
-		int value1=0;
-		int value2=0;
-		int player_level = 0;
-		int vcharm = 0;
-		int vlucky = 0;
+		uint64_t value=1; //by=>friday
+		uint64_t value1=0; //by=>friday
+		uint64_t value2=0; //by=>friday
+		uint64_t player_level = 0; //by=>friday
+		uint64_t vcharm = 0; //by=>friday
+		uint64_t vlucky = 0; //by=>friday
 		SceneUser *pUser = SceneUserManager::getMe().getUserByID(dwNpcLockedUser);
 		if (pUser)
 		{
@@ -2745,7 +2769,7 @@ bool SceneNpc::deathAction()
 						if (ScriptQuest::get_instance().has(ScriptQuest::NPC_KILL, npc->id)) { 
 							char func_name[32];
 							sprintf(func_name, "%s_%d", "kill", npc->id);
-							SceneNpc* temp_npc = this; execute_script_event(member, func_name, temp_npc);
+							execute_script_event(member, func_name, this);
 						}
 					}
 				}
@@ -2761,7 +2785,7 @@ bool SceneNpc::deathAction()
 				if (ScriptQuest::get_instance().has(ScriptQuest::NPC_KILL, npc->id)) { 
 					char func_name[32];
 					sprintf(func_name, "%s_%d", "kill", npc->id);
-					SceneNpc* temp_npc = this; execute_script_event(pUser, func_name, temp_npc);
+					execute_script_event(pUser,func_name, this);
 				}
 			}
 
@@ -2777,7 +2801,7 @@ bool SceneNpc::deathAction()
 		{
 			npc->nco.lostGreen(nlo, value, value1, value2, vcharm, vlucky);
 		}
-		else if (zMisc::selectByOneHM(100))
+		else if (zMisc::selectByOneHM((unsigned int)100)) //by=>friday
 		{
 			npc->nco.lostAll(nlo);
 		}
@@ -2799,9 +2823,9 @@ bool SceneNpc::deathAction()
 			zObjectB *ob = objectbm.get((*it).id);
 			if (ob)
 			{
-				int num = (*it).minnum;
+				uint64_t num = (*it).minnum; //by=>friday
 				if ((*it).minnum != (*it).maxnum)
-					num = zMisc::randBetween((*it).minnum, (*it).maxnum);
+					num = zMisc::randBetween((int)(*it).minnum, (int)(*it).maxnum); //by=>friday
 				if (num > 0)
 				{
 					if(ob->id == 665)
@@ -2934,7 +2958,7 @@ bool SceneNpc::deathAction()
 			}
 		}
 		//魂魄掉落
-		if (zMisc::/*selectByPercent*//*要求改成万分之几率*/selectByTenTh(npc->soulrate) && zMisc::selectByPercent(drop_odds(player_level, npc->level, npc->kind)) ) {
+		if (zMisc::/*selectByPercent*//*要求改成万分之几率*/selectByTenTh((unsigned int)npc->soulrate) && zMisc::selectByPercent(drop_odds(player_level, npc->level, npc->kind)) ) { //by=>friday
 
 			//zObjectB *base = objectbm.get(SoulStone::id());
 			zObjectB *base = objectbm.get(SoulStone::id(npc->trait));
@@ -3578,13 +3602,13 @@ bool SceneNpc::checkPercent()
  * \author fqnewman
  */
 //soke 属性突破 伤害越界（打怪掉血）
-SQWORD SceneNpc::directDamage(SceneEntryPk *pAtt, const SDWORD &dam, bool notify)
+uint64_t SceneNpc::directDamage(SceneEntryPk *pAtt, const uint64_t &dam, bool notify) //by=>friday 修改为支持64位无符号伤害
 {
 
 	SceneEntryPk::directDamage(pAtt, dam, notify);
 
-	SQWORD reduceHP=0;
-	if ((SQWORD)hp-dam>=0)
+	uint64_t reduceHP=0; //by=>friday 修复类型不匹配，改为无符号类型
+	if (hp >= dam) //by=>friday 修复无符号下溢出问题
 	{
 		hp -= dam;
 		reduceHP = dam;
@@ -4302,8 +4326,7 @@ void SceneNpc::set_quest_status(SceneUser* user)
 	if (ScriptQuest::get_instance().has(ScriptQuest::NPC_VISIT, id)) { 
 		char func_name[32];
 		sprintf(func_name, "%s_%d", "state", id);
-		SceneNpc* temp_npc = this;
-		int state = execute_script_event(user, func_name, temp_npc);
+		int state = execute_script_event(user,func_name, this);
 		if (state) {
 			setUState(state);
 			return;
@@ -5370,10 +5393,56 @@ void SceneNpc::setAppendDamage(DWORD mindamage, DWORD maxdamage)
  * \brief 获取最小法术攻击力
  * \return 最小法术攻击力
  */
-DWORD SceneNpc::getMinMDamage()
+// uint64_t SceneNpc::getMinMDamage()
+// {
+//     uint64_t value = (uint64_t)(this->npc->mdamage+appendMinDamage+skillValue.uppetdamage+skillValue.theurgy_umdam-skillValue.dmdam-skillValue.theurgy_dmdam);
+//     if (value <0) value =0;
+//     return value;
+
+// }
+
+// /**
+//  * \brief 获取最大法术攻击力
+//  * \return 最大法术攻击力
+//  */
+// uint64_t SceneNpc::getMaxMDamage() 
+// {
+//     uint64_t value = (uint64_t)(this->npc->maxmdamage+appendMaxDamage+skillValue.uppetdamage+skillValue.theurgy_umdam-skillValue.dmdam-skillValue.theurgy_dmdam);
+//     if (value <0) value =0;
+
+//     return value;
+// }
+
+// /**
+//  * \brief 获取最小物理攻击力
+//  * \return 最小物理攻击力
+//  */
+// uint64_t SceneNpc::getMinPDamage()
+// {
+//     uint64_t value = (uint64_t)(this->npc->damage+appendMinDamage+skillValue.uppetdamage+skillValue.theurgy_updam-skillValue.dpdam-skillValue.theurgy_dpdam);
+//     if (value <0) value =0;
+//     return value;
+// }
+
+// /**
+//  * \brief 获取最大物理攻击力
+//  * \return 最大物理攻击力
+//  */
+// uint64_t SceneNpc::getMaxPDamage()
+// {
+//     uint64_t value = (uint64_t)(this->npc->maxdamage+appendMaxDamage+skillValue.uppetdamage+skillValue.theurgy_updam-skillValue.dpdam-skillValue.theurgy_dpdam);
+//     if (value <0) value =0;
+//     return value;
+// }
+/**
+ * \brief 获取最小法术攻击力
+ * \return 最小法术攻击力
+ */
+uint64_t SceneNpc::getMinMDamage()
 {
-    SDWORD value = (SDWORD)(this->npc->mdamage+appendMinDamage+skillValue.uppetdamage+skillValue.theurgy_umdam-skillValue.dmdam-skillValue.theurgy_dmdam);
-    if (value <0) value =0;
+    uint64_t positive = this->npc->mdamage+appendMinDamage+skillValue.uppetdamage+skillValue.theurgy_umdam;
+    uint64_t negative = skillValue.dmdam+skillValue.theurgy_dmdam;
+    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday 避免uint64_t下溢
     return value;
 }
 
@@ -5381,10 +5450,11 @@ DWORD SceneNpc::getMinMDamage()
  * \brief 获取最大法术攻击力
  * \return 最大法术攻击力
  */
-DWORD SceneNpc::getMaxMDamage() 
+uint64_t SceneNpc::getMaxMDamage() 
 {
-    SDWORD value = (SDWORD)(this->npc->maxmdamage+appendMaxDamage+skillValue.uppetdamage+skillValue.theurgy_umdam-skillValue.dmdam-skillValue.theurgy_dmdam);
-    if (value <0) value =0;
+    uint64_t positive = this->npc->maxmdamage+appendMaxDamage+skillValue.uppetdamage+skillValue.theurgy_umdam;
+    uint64_t negative = skillValue.dmdam+skillValue.theurgy_dmdam;
+    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday 避免uint64_t下溢
     return value;
 }
 
@@ -5392,10 +5462,11 @@ DWORD SceneNpc::getMaxMDamage()
  * \brief 获取最小物理攻击力
  * \return 最小物理攻击力
  */
-DWORD SceneNpc::getMinPDamage()
+uint64_t SceneNpc::getMinPDamage()
 {
-    SDWORD value = (SDWORD)(this->npc->damage+appendMinDamage+skillValue.uppetdamage+skillValue.theurgy_updam-skillValue.dpdam-skillValue.theurgy_dpdam);
-    if (value <0) value =0;
+    uint64_t positive = this->npc->damage+appendMinDamage+skillValue.uppetdamage+skillValue.theurgy_updam;
+    uint64_t negative = skillValue.dpdam+skillValue.theurgy_dpdam;
+    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday 避免uint64_t下溢
     return value;
 }
 
@@ -5403,45 +5474,66 @@ DWORD SceneNpc::getMinPDamage()
  * \brief 获取最大物理攻击力
  * \return 最大物理攻击力
  */
-DWORD SceneNpc::getMaxPDamage()
+uint64_t SceneNpc::getMaxPDamage()
 {
-    SDWORD value = (SDWORD)(this->npc->maxdamage+appendMaxDamage+skillValue.uppetdamage+skillValue.theurgy_updam-skillValue.dpdam-skillValue.theurgy_dpdam);
-    if (value <0) value =0;
+    uint64_t positive = this->npc->maxdamage+appendMaxDamage+skillValue.uppetdamage+skillValue.theurgy_updam;
+    uint64_t negative = skillValue.dpdam+skillValue.theurgy_dpdam;
+    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday 避免uint64_t下溢
     return value;
 }
-
 /**
  * \brief 获取最小法术防御力
  * \return 最小法术防御力
  */
-DWORD SceneNpc::getMinMDefence()
+// uint64_t SceneNpc::getMinMDefence()
+// {
+//     uint64_t value = this->npc->mdefence+skillValue.uppetdefence+skillValue.umdef+skillValue.theurgy_umdef - skillValue.theurgy_dmdef;
+//     value = (uint64_t)(value *( 1 - skillValue.dmdefp/100.0f));
+//     if (value < 0) value = 0;
+//     return value;
+// }
+uint64_t SceneNpc::getMinMDefence()
 {
-    SDWORD value = this->npc->mdefence+skillValue.uppetdefence+skillValue.umdef+skillValue.theurgy_umdef - skillValue.theurgy_dmdef;
-    value = (SDWORD)(value *( 1 - skillValue.dmdefp/100.0f));
-    if (value < 0) value = 0;
+    uint64_t base = this->npc->mdefence+skillValue.uppetdefence+skillValue.umdef+skillValue.theurgy_umdef;
+    uint64_t reduce = skillValue.theurgy_dmdef;
+    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday 避免uint64_t下溢
+    value = (uint64_t)(value * (1 - skillValue.dmdefp/100.0f));
     return value;
 }
-
 /**
  * \brief 获取最大法术防御力
  * \return 最大法术防御力
  */
-DWORD SceneNpc::getMaxMDefence() 
+// uint64_t SceneNpc::getMaxMDefence() 
+// {
+//     uint64_t value = this->npc->maxmdefence+skillValue.uppetdefence+skillValue.umdef+skillValue.theurgy_umdef - skillValue.theurgy_dmdef;
+//     value = (uint64_t)(value *( 1 - skillValue.dmdefp/100.0f));
+//     if (value < 0) value = 0;
+//     return value;
+// }
+uint64_t SceneNpc::getMaxMDefence() 
 {
-    SDWORD value = this->npc->maxmdefence+skillValue.uppetdefence+skillValue.umdef+skillValue.theurgy_umdef - skillValue.theurgy_dmdef;
-    value = (SDWORD)(value *( 1 - skillValue.dmdefp/100.0f));
-    if (value < 0) value = 0;
+    uint64_t base = this->npc->maxmdefence+skillValue.uppetdefence+skillValue.umdef+skillValue.theurgy_umdef;
+    uint64_t reduce = skillValue.theurgy_dmdef;
+    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday 避免uint64_t下溢
+    value = (uint64_t)(value * (1 - skillValue.dmdefp/100.0f));
     return value;
 }
-
 /**
  * \brief 获取最小物理防御力
  * \return 最小物理防御力
  */
-DWORD SceneNpc::getMinPDefence()
+// uint64_t SceneNpc::getMinPDefence()
+// {
+//     uint64_t value = this->npc->pdefence+skillValue.uppetdefence+skillValue.updef+skillValue.theurgy_updef - skillValue.theurgy_dpdef;
+//     if (value < 0) value = 0;
+//     return value;
+// }
+uint64_t SceneNpc::getMinPDefence()
 {
-    SDWORD value = this->npc->pdefence+skillValue.uppetdefence+skillValue.updef+skillValue.theurgy_updef - skillValue.theurgy_dpdef;
-    if (value < 0) value = 0;
+    uint64_t base = this->npc->pdefence+skillValue.uppetdefence+skillValue.updef+skillValue.theurgy_updef;
+    uint64_t reduce = skillValue.theurgy_dpdef;
+    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday 避免uint64_t下溢
     return value;
 }
 
@@ -5449,25 +5541,31 @@ DWORD SceneNpc::getMinPDefence()
  * \brief 获取最大物理防御力
  * \return 最大物理防御力
  */
-DWORD SceneNpc::getMaxPDefence()
+// uint64_t SceneNpc::getMaxPDefence()
+// {
+//     uint64_t value = this->npc->maxpdefence+skillValue.uppetdefence+skillValue.updef+skillValue.theurgy_updef - skillValue.theurgy_dpdef;
+//     if (value < 0) value = 0;
+//     return value;
+// }
+uint64_t SceneNpc::getMaxPDefence()
 {
-    SDWORD value = this->npc->maxpdefence+skillValue.uppetdefence+skillValue.updef+skillValue.theurgy_updef - skillValue.theurgy_dpdef;
-    if (value < 0) value = 0;
+    uint64_t base = this->npc->maxpdefence+skillValue.uppetdefence+skillValue.updef+skillValue.theurgy_updef;
+    uint64_t reduce = skillValue.theurgy_dpdef;
+    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday 避免uint64_t下溢
     return value;
 }
-
 /**
  * \brief 获得最大的hp
  * \author fqnewman
  * \return 返回最大值
  */
-DWORD SceneNpc::getMaxHP()
+uint64_t SceneNpc::getMaxHP()
 {
 #ifdef _XWL_DEBUG
 	if (boostupHpMaxP)
 		Zebra::logger->debug("boostupHpMaxP=%u", boostupHpMaxP);
 #endif
-    return (DWORD)((npc->hp+(anpc?anpc->hp:0)+skillValue.maxhp)*(1.0f+(float)(boostupHpMaxP/100.0f)));;
+    return (uint64_t)((npc->hp+(anpc?anpc->hp:0)+skillValue.maxhp)*(1.0f+(float)(boostupHpMaxP/100.0f)));;
 }
 
 /**
@@ -5475,7 +5573,7 @@ DWORD SceneNpc::getMaxHP()
  * \author fqnewman
  * \return 返回最大值
  */
-DWORD SceneNpc::getBaseMaxHP()
+uint64_t SceneNpc::getBaseMaxHP()
 {
     return npc->hp+(anpc?anpc->hp:0);
 }
@@ -5514,7 +5612,7 @@ bool SceneNpc::recover()
 	if (!npc->recover.num) return 0;
 
 	bool ret = false;
-	DWORD tMaxHP = getMaxHP();
+	uint64_t tMaxHP = getMaxHP();
 
 	if (!needRecover && (npc->recover.start*tMaxHP/100 > hp))
 		needRecover = true;

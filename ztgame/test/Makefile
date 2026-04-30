@@ -1,6 +1,6 @@
 # $Id: Makefile 6743 2006-06-05 10:14:54Z zjw $
 
-CXX = /opt/rh/devtoolset-8/root/usr/bin/g++
+CXX = /usr/bin/g++
 CXXFLAGS = $(ZEBRA_COMPILE_OPT) -g3 -I../base -Wall -D_GNU_SOURCE -D_REENTRANT `mysql_config --cflags` `xml2-config --cflags`
 CXXLFLAGS = $(ZEBRA_COMPILE_OPT) -Wall -L../base -lzebra -lencdec  -lpthread -lz `mysql_config --libs_r` `xml2-config --libs` -llog4cxx -lgd -ljpeg 
 LIB_ZEBRA = ../base/libzebra.a

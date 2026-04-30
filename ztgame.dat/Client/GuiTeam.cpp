@@ -316,7 +316,7 @@ void CGuiTeam::RefreshButtonState()
 * \param index : 种类
 * \return 
 */
-void CGuiTeam::RenderBar( CGuiTeam::stBarShowInfo& bar,size_t iCur,size_t iMax,int index ,int OffsetX,int OffsetY)
+void CGuiTeam::RenderBar( CGuiTeam::stBarShowInfo& bar,uint64_t iCur,uint64_t iMax,int index ,int OffsetX,int OffsetY)
 {
 	FUNCTION_BEGIN;
 
@@ -740,9 +740,11 @@ HRESULT CGuiTeam::OnRender(float fElapsedTime)
 						tips.AddText( m_aTeamMember[i].data.pstrName);
 						tips.SetCurColor( D3DCOLOR_ARGB(255,152,244,23) );
 						char szValue[80];
-						sprintf(szValue,"\n生命值：%u/%u",m_aTeamMember[i].data.dwHealth,m_aTeamMember[i].data.dwMaxHealth);
+						// by=>friday 使用FormatLargeNumber格式化显示生命值
+						sprintf(szValue,"\n生命值：%s/%s",FormatLargeNumber(m_aTeamMember[i].data.dwHealth).c_str(),FormatLargeNumber(m_aTeamMember[i].data.dwMaxHealth).c_str());
 						tips.AddText(szValue);
-						sprintf(szValue,"\n法术值：%u/%u",m_aTeamMember[i].data.dwMp,m_aTeamMember[i].data.dwMaxMp);
+						// by=>friday 使用FormatLargeNumber格式化显示法术值
+						sprintf(szValue,"\n法术值：%s/%s",FormatLargeNumber(m_aTeamMember[i].data.dwMp).c_str(),FormatLargeNumber(m_aTeamMember[i].data.dwMaxMp).c_str());
 						tips.AddText(szValue);
 
 						

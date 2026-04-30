@@ -33,8 +33,6 @@
 #include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/preprocessor/repetition/enum_trailing_binary_params.hpp>
 
-#include <stdexcept>
-
 namespace luabind
 {
 	namespace detail
@@ -123,12 +121,6 @@ namespace luabind
 			m_self.get(L);
 			assert(!lua_isnil(L, -1));
 			detail::do_call_member_selection(L, name);
-
-			if (lua_isnil(L, -1))
-			{
-				lua_pop(L, 1);
-				throw std::runtime_error("Attempt to call nonexistent function");
-			}
 
 			// push the self reference as the first parameter
 			m_self.get(L);

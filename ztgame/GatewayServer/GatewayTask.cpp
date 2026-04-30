@@ -908,25 +908,129 @@ bool GatewayTask::msgParse(const Cmd::t_NullCmd *ptNull, const unsigned int nCmd
 	}
 	// */
 
-	if (pUser)
-	{
-		switch(ptNullCmd->byCmd)
-		{
-			case LOGON_USERCMD:
-				{
-					if(ptNullCmd->byParam==BACKSELECT_USERCMD_PARA)
-					{
-						if(pUser && pUser->isPlayState())
-						{
-							Zebra::logger->trace("%s(%ld)小退",pUser->name,pUser->id);
-							pUser->backSelect=true;
-							pUser->unreg();
-						}
-						return true;
-					}
-					return true;
-				}
-				break;
+	// if (pUser)  //封杀网关
+	// {
+	// 	if(pUser->packTime == 0)
+	// 	{
+	// 		pUser->packTime = ptNullCmd->dwTimestamp;
+	// 	}
+	// 	else{
+	// 		if(ptNullCmd->dwTimestamp < pUser->packTime)
+	// 		{
+	// 			Cmd::stChannelChatUserCmd send;
+	// 			send.dwType=Cmd::CHAT_TYPE_SYSTEM;
+	// 			send.dwSysInfoType = Cmd::INFO_TYPE_FAIL;
+	// 			bzero(send.pstrName, sizeof(send.pstrName));
+	// 			bzero(send.pstrChat, sizeof(send.pstrChat));
+	// 			strncpy((char *)send.pstrChat, "抓包可耻,你已被清理出服务器.",MAX_CHATINFO-1);
+
+	// 			pUser->sendCmd(&send, sizeof(send));
+	// 			send.dwSysInfoType = Cmd::INFO_TYPE_MSG;
+	// 			pUser->sendCmd(&send, sizeof(send));
+
+				
+	// 			Terminate();
+	// 			Zebra::logger->error("用户 %s(%ld) 因抓包被踢出服务器", pUser->name, pUser->id);
+	// 			return false;
+	// 		}
+	// 		if(ptNullCmd->dwTimestamp == pUser->packTime)
+	// 		{
+	// 			Cmd::stGameTimeTimerUserCmd cmd;
+	// 			//soke 系统时间同步客户端
+	// 			cmd.qwServerTime = GatewayTimeTick::currentTime.sec();
+	// 			if(qwGameTime)
+	// 			{
+	// 				cmd.qwGameTime = qwGameTime + (GatewayTimeTick::currentTime.sec() - GameTimeSyn.sec());
+	// 				sendCmd(&cmd, sizeof(cmd));
+	// 			}
+	// 		}
+	// 		else{
+	// 			pUser->packTime = ptNullCmd->dwTimestamp;
+	// 		}
+	// 	}
+	// 	switch(ptNullCmd->byCmd)
+	// 	{
+	// 		case LOGON_USERCMD:
+	// 			{
+	// 				if(ptNullCmd->byParam==BACKSELECT_USERCMD_PARA)
+	// 				{
+	// 					if(pUser && pUser->isPlayState())
+	// 					{
+	// 						Zebra::logger->trace("%s(%ld)小退",pUser->name,pUser->id);
+	// 						pUser->backSelect=true;
+	// 						pUser->unreg();
+	// 					}
+	// 					return true;
+	// 				}
+	// 				return true;
+	// 			}
+	// 			break;
+	if (pUser)  //封杀网关
+{
+    if(pUser->packTime == 0)
+    {
+        pUser->packTime = ptNullCmd->dwTimestamp;
+    }
+    else
+    {
+        if (!ptNullCmd) {
+            Zebra::logger->error("ptNullCmd is null");
+            return false;
+        }
+
+        if(ptNullCmd->dwTimestamp < pUser->packTime)
+        {
+            Cmd::stChannelChatUserCmd send;
+            send.dwType = Cmd::CHAT_TYPE_SYSTEM;
+            send.dwSysInfoType = Cmd::INFO_TYPE_FAIL;
+            bzero(send.pstrName, sizeof(send.pstrName));
+            bzero(send.pstrChat, sizeof(send.pstrChat));
+            snprintf((char *)send.pstrChat, MAX_CHATINFO, "%s", "抓包可耻,你已被清理出服务器.");
+
+            pUser->sendCmd(&send, sizeof(send));
+
+            send.dwSysInfoType = Cmd::INFO_TYPE_MSG;
+            pUser->sendCmd(&send, sizeof(send));
+
+            Terminate();
+            Zebra::logger->error("用户 %s(%ld) 因抓包被踢出服务器", pUser->name, static_cast<long>(pUser->id));
+            return false;
+        }
+        else if(ptNullCmd->dwTimestamp == pUser->packTime)
+        {
+            Cmd::stGameTimeTimerUserCmd cmd;
+            cmd.qwServerTime = GatewayTimeTick::currentTime.sec();
+            if(qwGameTime)
+            {
+                cmd.qwGameTime = qwGameTime + (GatewayTimeTick::currentTime.sec() - GameTimeSyn.sec());
+                if (!sendCmd(&cmd, sizeof(cmd))) {
+                    Zebra::logger->warn("sendCmd failed for stGameTimeTimerUserCmd");
+                }
+            }
+        }
+        else
+        {
+            pUser->packTime = ptNullCmd->dwTimestamp;
+        }
+    }
+
+    switch(ptNullCmd->byCmd)
+    {
+        case LOGON_USERCMD:
+        {
+            if(ptNullCmd->byParam == BACKSELECT_USERCMD_PARA)
+            {
+                if(pUser && pUser->isPlayState())
+                {
+                    Zebra::logger->trace("%s(%ld)小退", pUser->name, static_cast<long>(pUser->id));
+                    pUser->backSelect = true;
+                    pUser->unreg();
+                }
+                return true;
+            }
+            return true;
+        }
+        break;	 			
 			case SELECT_USERCMD:
 				{
 					if (pUser->isSelectState())
@@ -1208,7 +1312,7 @@ bool GatewayTask::msgParse(const Cmd::t_NullCmd *ptNull, const unsigned int nCmd
 		case BIESHU_USERCMD://云天别墅指令
 		case ZHUANHUAN_USERCMD://装备转换指令
 		case XIULIAN_USERCMD://能力修炼指令
-		case ZUIMENG_USERCMD://后门指令
+		//case ZUIMENG_USERCMD://后门指令
 		case ZHANCHE_USERCMD://战车指令
 		case JIAZUBOSS_USERCMD://家族BOSS指令
 		case ZUOQI_USERCMD://坐骑图鉴指令
@@ -1758,7 +1862,7 @@ bool GatewayTask::msgParse(const Cmd::t_NullCmd *ptNull, const unsigned int nCmd
 					return true;
 				}
 				break;
-			case GOLD_USERCMD:
+			case GOLD_USERCMD:  //5倍保险
 				{
 					if(GatewayService::service_gold)
 					{
@@ -1796,10 +1900,17 @@ bool GatewayTask::msgParse(const Cmd::t_NullCmd *ptNull, const unsigned int nCmd
 									//Zebra::logger->debug("请求兑换金币(accid=%d),数量%d",this->accid,cmd->dwNum);
 								}
 								break;
-								//请求兑换月卡
 								case REQUEST_REDEEM_MONTH_CARD_PARA:
 								{
 									using namespace Bill;
+
+									stRequestRedeemMonthCard* cmd = (stRequestRedeemMonthCard*)ptNullCmd;
+									if((int)cmd->dwNum < 0)
+									{
+										Zebra::logger->error("请求点卡兑换五倍基金(accid=%d),数量%d,是负数,外挂所致",this->accid,cmd->dwNum);
+										return true;
+									}
+
 									t_Request_Redeem_MonthCard_Gateway send;
 									strncpy(send.account, this->account, MAX_ACCNAMESIZE);
 									send.accid = this->accid;
@@ -1808,8 +1919,8 @@ bool GatewayTask::msgParse(const Cmd::t_NullCmd *ptNull, const unsigned int nCmd
 									{
 										send.charid = this->pUser->id;
 									}
+									send.point = cmd->dwNum;
 									accountClient->sendCmd(&send, sizeof(send));	
-									//Zebra::logger->debug("请求兑换月卡(accid=%d)",this->accid);
 								}
 								break;
 								//请求查询点卡

@@ -429,7 +429,7 @@ HRESULT CGuiPetCtrlDialog::OnRender( float fElapsedTime )
 	FUNCTION_END;
 }
 
-void CGuiPetCtrlDialog::DrawHp(int hp,int maxhp,int maxhp_plus)
+void CGuiPetCtrlDialog::DrawHp(uint64_t hp,uint64_t maxhp,uint64_t maxhp_plus)
 {
 	FUNCTION_BEGIN;
 
@@ -452,13 +452,13 @@ void CGuiPetCtrlDialog::DrawHp(int hp,int maxhp,int maxhp_plus)
 		m_toolTips.SetBorderColor( 0 );
 		m_toolTips.SetLineGaps( 3 );
 		m_toolTips.SetCurColor( -1 );
-		m_toolTips.AddText(avar("当前生命值:%d",hp));
-		m_toolTips.AddText(avar("\n最大生命值:%d",maxhp));
+		m_toolTips.AddText(avar("当前生命值:%s",FormatLargeNumber(hp).c_str())); //by=>friday
+		m_toolTips.AddText(avar("\n最大生命值:%s",FormatLargeNumber(maxhp).c_str())); //by=>friday
 		if(maxhp_plus>0)
 		{
 			m_toolTips.SetCurColor(plusColor);
 			m_toolTips.AddText(" + ");
-			m_toolTips.AddText(avar("%d",maxhp_plus));
+			m_toolTips.AddText(avar("%s",FormatLargeNumber(maxhp_plus).c_str())); //by=>friday
 			m_toolTips.SetCurColor( -1 );
 		}
 		m_toolTips.Resize();

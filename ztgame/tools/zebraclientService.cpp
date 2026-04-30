@@ -307,8 +307,10 @@ static char zebraclient_doc[] = "\nzebraclient\n" "\t测试客户端程序。";
  * \brief 程序的版本信息
  *
  */
-const char *argp_program_version = "Program version :\t" VERSION_STRING
-                                   "\nBuild version   :\t" BUILD_STRING;
+const char *argp_program_version = "Program version :\t" VERSION_STRING\
+	"\nBuild version   :\t" _S(BUILD_STRING);
+
+
 
 int main(int argc, char *argv[])
 {

@@ -186,6 +186,8 @@ class CRoleItem :
 	ObjectBase_t*	m_pObjectBase;
 	
 	CToolTips m_ToolTips;
+	CToolTips m_ToolTips_friday; //by=>friday,
+	CToolTips m_ToolTips_friday1; //by=>friday,
 	DWORD	  m_dwTipFlags;
 	bool	  m_bNeedUpdateTips;
 
@@ -335,11 +337,11 @@ public:
 	void UpdateM2axmdamage( DWORD m2axmdamage ) { m_object.m2axmdamage = m2axmdamage; UpdateToolTips(); }
 	void UpdateP2defence( DWORD p2defence ) { m_object.p2defence = p2defence; UpdateToolTips(); }
 	void UpdateM2defence( DWORD m2defence ) { m_object.m2defence = m2defence; UpdateToolTips(); }
-	void UpdateXstr( WORD xstr ) { m_object.xstr = xstr; UpdateToolTips(); }
-	void UpdateXinte( WORD xinte ) { m_object.xinte = xinte; UpdateToolTips(); }
-	void UpdateXdex( WORD xdex ) { m_object.xdex = xdex; UpdateToolTips(); }
-	void UpdateXspi( WORD xspi ) { m_object.xspi = xspi; UpdateToolTips(); }
-	void UpdateXcon( WORD xcon ) { m_object.xcon = xcon; UpdateToolTips(); }
+	void UpdateXstr( DWORD xstr ) { m_object.xstr = xstr; UpdateToolTips(); }
+	void UpdateXinte( DWORD xinte ) { m_object.xinte = xinte; UpdateToolTips(); }
+	void UpdateXdex( DWORD xdex ) { m_object.xdex = xdex; UpdateToolTips(); }
+	void UpdateXspi( DWORD xspi ) { m_object.xspi = xspi; UpdateToolTips(); }
+	void UpdateXcon( DWORD xcon ) { m_object.xcon = xcon; UpdateToolTips(); }
 	void UpdateDouhun( DWORD douhun ) { m_object.douhun = douhun; UpdateToolTips(); }
 	void UpdateM3axhp( DWORD m3axhp ) { m_object.m3axhp = m3axhp; UpdateToolTips(); }
 	void UpdateP3damage( DWORD p3damage ) { m_object.p3damage = p3damage; UpdateToolTips(); }
@@ -484,6 +486,8 @@ public:
 
 class CRoleSkill;//添加默认参数是为了装备比较，不影响原来的功能
 extern void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CToolTips& m_ToolTips, DWORD m_dwTipFlags );
+extern void UpdateMyObjectToolTips_friday( t_Object& m_object, ObjectBase_t* m_pObjectBase, CToolTips& m_ToolTips_friday, DWORD m_dwTipFlags ); //by=>friday,
+extern void UpdateMyObjectToolTips_friday1( t_Object& m_object, ObjectBase_t* m_pObjectBase, CToolTips& m_ToolTips_friday1, DWORD m_dwTipFlags ); //by=>friday,
 //extern void UpdateObjectToolTips( ObjectBase_t* pObject , CToolTips& m_ToolTips ,DWORD flags,DWORD num=1);
 extern void UpdateObjectToolTips( ObjectBase_t* pObject , CToolTips& m_ToolTips ,DWORD flags,DWORD num=1,DWORD level=1);
 extern void UpdateSkillUpItemToolTips( t_Object& pObject, CToolTips& m_ToolTips, DWORD m_dwTipFlags = -1 );
@@ -491,6 +495,7 @@ extern void UpdateSkillToolTips(SkillBase_t* pSkill,CToolTips & m_ToolTips,CRole
 extern DWORD GetObjectRepairMoney(t_Object*  m_pObject);
 extern DWORD GetObjectRepairByGold(t_Object*  m_pObject);
 extern const char* Money2String(DWORD dwMoney);
+extern const char* Money0String(DWORD dwMoney);  //5倍保险
 extern const char* Ticket2String(DWORD dwTicket); //积分
 extern const char* Chongzhi2String(DWORD dwChongzhi); //充值点
 

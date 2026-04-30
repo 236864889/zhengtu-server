@@ -206,7 +206,7 @@ private:
 		IBitmap* pBmp;
 	};
 	std::vector<stBarShowInfo> m_aBar;
-	void RenderBar(CGuiTeam::stBarShowInfo& bar,size_t iCur,size_t iMax,int index,int OffsetX,int OffsetY);
+	void RenderBar(CGuiTeam::stBarShowInfo& bar,uint64_t iCur,uint64_t iMax,int index,int OffsetX,int OffsetY);
 	//////////////////////////////////////////////////////////////////
 
 

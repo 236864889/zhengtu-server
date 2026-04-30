@@ -1,112 +1,121 @@
-// Copyright Daniel Wallin 2007. Use, modification and distribution is
-// subject to the Boost Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+// Copyright (c) 2003 Daniel Wallin and Arvid Norberg
 
-#ifndef LUABIND_ITERATOR_POLICY__071111_HPP
-# define LUABIND_ITERATOR_POLICY__071111_HPP
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the "Software"),
+// to deal in the Software without restriction, including without limitation
+// the rights to use, copy, modify, merge, publish, distribute, sublicense,
+// and/or sell copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following conditions:
 
-# include <luabind/config.hpp>
-# include <luabind/detail/policy.hpp>
-# include <luabind/detail/convert_to_lua.hpp>
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
 
-namespace luabind { namespace detail {
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF
+// ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+// TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+// PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
+// SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+// ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+// ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+// OR OTHER DEALINGS IN THE SOFTWARE.
 
-template <class Iterator>
-struct iterator
+
+#ifndef LUABIND_ITERATOR_POLICY_HPP_INCLUDED
+#define LUABIND_ITERATOR_POLICY_HPP_INCLUDED
+
+#include <luabind/config.hpp>
+#include <luabind/detail/policy.hpp>
+#include <luabind/detail/implicit_cast.hpp>
+#include <luabind/detail/convert_to_lua.hpp>
+#include <boost/mpl/bool.hpp>
+
+namespace luabind { namespace detail 
 {
-    static int next(lua_State* L)
-    {
-        iterator* self = static_cast<iterator*>(
-            lua_touserdata(L, lua_upvalueindex(1)));
+	template<class Iter>
+	struct iterator_state
+	{
+		typedef iterator_state<Iter> self_t;
 
-        if (self->first != self->last)
-        {
-            convert_to_lua(L, *self->first);
-            ++self->first;
-        }
-        else
-        {
-            lua_pushnil(L);
-        }
+		static int step(lua_State* L)
+		{
+			self_t& state = *static_cast<self_t*>(lua_touserdata(L, lua_upvalueindex(1)));
 
-        return 1;
-    }
+			if (state.start == state.end)
+			{
+				lua_pushnil(L);
+			}
+			else
+			{
+				convert_to_lua(L, *state.start);
+				++state.start;
+			}
 
-    static int destroy(lua_State* L)
-    {
-        iterator* self = static_cast<iterator*>(lua_touserdata(L, 1));
-        self->~iterator();
-        return 0;
-    }
+			return 1;
+		}
 
-    iterator(Iterator first, Iterator last)
-      : first(first)
-      , last(last)
-    {}
+		iterator_state(const Iter& s, const Iter& e)
+			: start(s)
+			, end(e)
+		{}
 
-    Iterator first;
-    Iterator last;
-};
+		Iter start;
+		Iter end;
+	};
 
-template <class Iterator>
-int make_range(lua_State* L, Iterator first, Iterator last)
+	struct iterator_converter
+	{
+		typedef boost::mpl::bool_<false> is_value_converter;
+		typedef iterator_converter type;
+
+		template<class T>
+		void apply(lua_State* L, const T& c)
+		{
+			typedef typename T::const_iterator iter_t;
+			typedef iterator_state<iter_t> state_t;
+
+			// note that this should be destructed, for now.. just hope that iterator
+			// is a pod
+			void* iter = lua_newuserdata(L, sizeof(state_t));
+			new (iter) state_t(c.begin(), c.end());
+			lua_pushcclosure(L, state_t::step, 1);
+		}
+
+		template<class T>
+		void apply(lua_State* L, T& c)
+		{
+			typedef typename T::iterator iter_t;
+			typedef iterator_state<iter_t> state_t;
+
+			// note that this should be destructed, for now.. just hope that iterator
+			// is a pod
+			void* iter = lua_newuserdata(L, sizeof(state_t));
+			new (iter) state_t(c.begin(), c.end());
+			lua_pushcclosure(L, state_t::step, 1);
+		}
+	};
+
+	struct iterator_policy : conversion_policy<0>
+	{
+		static void precall(lua_State*, const index_map&) {}
+		static void postcall(lua_State*, const index_map&) {}
+
+		template<class T, class Direction>
+		struct apply
+		{
+			typedef iterator_converter type;
+		};
+	};
+
+}}
+
+namespace luabind
 {
-    void* storage = lua_newuserdata(L, sizeof(iterator<Iterator>));
-    lua_newtable(L);
-    lua_pushcclosure(L, iterator<Iterator>::destroy, 0);
-    lua_setfield(L, -2, "__gc");
-    lua_setmetatable(L, -2);
-    lua_pushcclosure(L, iterator<Iterator>::next, 1);
-    new (storage) iterator<Iterator>(first, last);
-    return 1;
+	namespace
+	{
+		LUABIND_ANONYMOUS_FIX detail::policy_cons<detail::iterator_policy, detail::null_type> return_stl_iterator;
+	}
 }
 
-template <class Container>
-int make_range(lua_State* L, Container& container)
-{
-    return make_range(L, container.begin(), container.end());
-}
-
-struct iterator_converter
-{
-    typedef iterator_converter type;
-
-    template <class Container>
-    void apply(lua_State* L, Container& container)
-    {
-        make_range(L, container);
-    }
-
-    template <class Container>
-    void apply(lua_State* L, Container const& container)
-    {
-        make_range(L, container);
-    }
-};
-
-struct iterator_policy : conversion_policy<0>
-{
-    static void precall(lua_State*, index_map const&)
-    {}
-
-    static void postcall(lua_State*, index_map const&)
-    {}
-
-    template <class T, class Direction>
-    struct apply
-    {
-        typedef iterator_converter type;
-    };
-};
-
-}} // namespace luabind::detail
-
-namespace luabind { namespace {
-
-LUABIND_ANONYMOUS_FIX detail::policy_cons<
-    detail::iterator_policy, detail::null_type> return_stl_iterator;
-
-}} // namespace luabind::unnamed
-
-#endif // LUABIND_ITERATOR_POLICY__071111_HPP
+#endif // LUABIND_ITERATOR_POLICY_HPP_INCLUDED
 

@@ -103,10 +103,10 @@ struct CharBase
 	DWORD unionid;						/// 帮会ID
 	DWORD schoolid;						/// 门派ID
 	DWORD septid;						/// 家族ID
-	DWORD hp;							/// 当前生命值
+	uint64_t hp;							/// 当前生命值
 //	DWORD maxhp;						/// 最大生命值 *
 //	DWORD resumehp;						/// 生命值恢复 *
-	DWORD mp;							/// 当前法术值
+	uint64_t mp;							/// 当前法术值
 //	DWORD maxmp;						/// 最大法术值 *
 //	DWORD resumemp;						/// 法术值恢复 *
 	DWORD sp;							/// 当前体力值
@@ -147,13 +147,13 @@ struct CharBase
 	DWORD onlinetime;					/// 在线时间统计
 	union {
 		struct {
-			WORD wdCon;	//体质
-			WORD wdStr;	//体力
-			WORD wdDex;	//敏捷
-			WORD wdInt;	//智力
-			WORD wdMen;	//精神
+			DWORD wdCon;	//体质
+			DWORD wdStr;	//体力
+			DWORD wdDex;	//敏捷
+			DWORD wdInt;	//智力
+			DWORD wdMen;	//精神
 		};
-		WORD wdProperty[5];
+		DWORD wdProperty[5];
 	};
 	WORD reliveWeakTime;			/// 复活虚弱剩余时间
 	DWORD grace;				// 文采值
@@ -210,7 +210,9 @@ struct CharBase
 	DWORD round;                /// 转生次数
 	DWORD angel; 				/// 翅膀
 	DWORD hanbing; 				/// 寒冰
-	DWORD zhanli;				///add 2023-04-10 战力
+	DWORD goldsum;				/// 5倍保险
+	DWORD givenum;				/// 5倍保险
+	uint64_t zhanli;				///add 2023-04-10 战力
 	DWORD xhbbcount;            //鲜花榜单特效判定
     DWORD herocount;            //英雄榜单特效判定 
 	DWORD zhanlicount;          //战力榜单特效判定 
@@ -352,6 +354,7 @@ struct CharBase
 	DWORD pifeng_select;     //当前选择披风
 	DWORD chibang_select;     //当前选择披风
 	DWORD zuoqi_select;     //当前选择坐骑
+	DWORD jiemian_select;     //当前选择界面  魔盒界面
 
 
 
@@ -381,6 +384,7 @@ struct CharBase
 	char pifeng[5120+1];   	/// sky 时装魔盒
 	char chibang[5120+1];   	/// sky 时装魔盒
 	char zuoqi[5120+1];   	/// sky 时装魔盒
+	char jiemian[5120+1];   	/// sky 时装魔盒  魔盒界面
 	char KeyEquip[5120+1];   	/// sky 一键换装
 	DWORD m13axhp;			   //MYY 百兽图鉴 最大生命值
 	DWORD p13damage;		   //MYY 百兽图鉴 最小攻击力
@@ -393,19 +397,19 @@ struct CharBase
 
 struct CharState
 {
-	DWORD maxhp;						/// 最大生命值 *
+	uint64_t maxhp;						/// 最大生命值 *
 	DWORD resumehp;						/// 生命值恢复 *
-	DWORD maxmp;						/// 最大法术值 *
+	uint64_t maxmp;						/// 最大法术值 *
 	DWORD resumemp;						/// 法术值恢复 *
 	DWORD maxsp;                     /// 最大体力值 *
 	DWORD resumesp;                  /// 体力恢复值 *
 
-	DWORD pdamage;                   /// 最小物理攻击力 *
-	DWORD maxpdamage;					/// 最大物理攻击力 *
-	DWORD mdamage;						/// 最小法术攻击力 *
-	DWORD maxmdamage;					/// 最大法术攻击力 *
-	DWORD pdefence;						/// 物理防御力 *
-	DWORD mdefence;						/// 法术防御力 *
+	uint64_t pdamage;                   /// 最小物理攻击力 *
+	uint64_t maxpdamage;					/// 最大物理攻击力 *
+	uint64_t mdamage;						/// 最小法术攻击力 *
+	uint64_t maxmdamage;					/// 最大法术攻击力 *
+	uint64_t pdefence;						/// 物理防御力 *
+	uint64_t mdefence;						/// 法术防御力 *
 	uint64_t nextexp;				    ///sky 升级经验值 *
 	WORD  attackspeed;					/// 攻击速度 *
 	WORD  movespeed;					/// 移动速度 *
@@ -418,20 +422,26 @@ struct CharState
 	BYTE  defencefive;					/// 防御五行 *
 	union {
 		struct {
-			WORD wdCon;	//体质
-			WORD wdStr;	//体力
-			WORD wdDex;	//敏捷
-			WORD wdInt;	//智力
-			WORD wdMen;	//精神
+			DWORD wdCon;	//体质
+			DWORD wdStr;	//体力
+			DWORD wdDex;	//敏捷
+			DWORD wdInt;	//智力
+			DWORD wdMen;	//精神
 		};
-		WORD wdProperty[5];
+		DWORD wdProperty[5];
 	};
 
-	DWORD stdpdamage;					/// 标准物理攻击力
-	DWORD stdmdamage;					/// 标准法术攻击力
-	DWORD stdpdefence;					/// 标准物理防御力
-	DWORD stdmdefence;					/// 标准法术防御力
+	uint64_t stdpdamage;					/// 标准物理攻击力
+	uint64_t stdmdamage;					/// 标准法术攻击力
+	uint64_t stdpdefence;					/// 标准物理防御力
+	uint64_t stdmdefence;					/// 标准法术防御力
 	WORD  stdbang;						/// 标准重击率
+	
+	// 新增绝技和切割属性
+	uint64_t juejiattack;				/// 绝技攻击 (PVP专用)
+	uint64_t juejidefence;				/// 绝技防御 (PVP专用)
+	uint64_t qiegeattack;					/// 切割攻击 (PVE专用)
+	uint64_t qiegedefence;					/// 切割防御 (PVE专用)
 };
 #ifdef _TEST_DATA_LOG
 struct CharTest
@@ -491,6 +501,8 @@ enum BinaryArchiveType
 	BINARY_SAFETY,			/// 是否进行财产保护
 	BINARY_GIVE_MATARIAL_NUM,   //道具卡兑换材料的组数
 	BINARY_CARD_NUM,            //道具卡张数
+	BINARY_CRD_IAL_NUM,         ///5倍保险
+	BINARY_GIE_MAT_NUM,         ///5倍保险
 	BINARY_SAFETY_SETUP,	/// 保护设置
     BINARY_COUNTER_MANAGER,  ///soke 计数器管理器
 	BINARY_MAX,				///最大数值(占位用)

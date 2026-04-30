@@ -80,7 +80,7 @@ static char base64_doc[] = "\nbase64\n" "\tBase64±àÂë½âÂë¹¤¾ß¡£";
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
-									"\nBuild version   :\t" BUILD_STRING;
+									"\nBuild version   :\t" _S(BUILD_STRING);
 
 int main(int argc, char *argv[])
 {

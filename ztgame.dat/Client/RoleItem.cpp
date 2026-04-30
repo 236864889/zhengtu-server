@@ -71,6 +71,7 @@
 #include "./GuiAutoUse.h" //自动使用
 #include "./GuiJiazuboss.h" //家族BOSS
 #include "./GuiZuoqi.h" //坐骑图鉴
+#include "./DlgEquipBabyRecast.h" //by=>friday 孩子装备升级界面
 //功勋竞猜
 #include "./Guigongxun.h"
 
@@ -221,7 +222,7 @@ stTableContext  g_TableContext[] = {
 	{EQUIPCELLTYPE_SHOES,"脚","防御力"},
 	{EQUIPCELLTYPE_PACKAGE,"额外包裹",""},
 	{EQUIPCELLTYPE_MAKE,"道具",""},
-	{EQUIPCELLTYPE_ADORN,"饰品","防御力"},
+	{EQUIPCELLTYPE_ADORN,"寒冰麒麟","防御力"},
 	{EQUIPCELLTYPE_FASHION,"时装",""},
 	{EQUIPCELLTYPE_AMULET,"护身符",""},
 	{EQUIPCELLTYPE_HORSESHOE,"马脚",""},
@@ -231,7 +232,7 @@ stTableContext  g_TableContext[] = {
 	{EQUIPCELLTYPE_HORSEIRON,"马镫",""},
 	{EQUIPCELLTYPE_HORSEFASHION,"马牌",""},
 	{EQUIPCELLTYPE_CBAMULET,"翅膀",""},
-	{EQUIPCELLTYPE_XZAMULET,"勋章",""},
+	{EQUIPCELLTYPE_XZAMULET,"金箍咒",""},
 	{EQUIPCELLTYPE_SBAMULET,"神兵",""},
 	{EQUIPCELLTYPE_SSAMULET,"神兽",""},
 	{EQUIPCELLTYPE_SHANGFANGBAOJIAN,"尚方宝剑",""},
@@ -683,7 +684,35 @@ const char* Money2String(DWORD dwMoney)
 
 	FUNCTION_END;
 }
+const char* Money0String(DWORD dwMoney)  //5倍保险
+{
+	FUNCTION_BEGIN;
 
+	static char szText[MAX_PATH]={0};
+	char szMoney[MAX_PATH]={0};
+	char szTmp[MAX_NAMESIZE]={0};
+	const int nIngotRate = INGOT_RATE;
+	const int nLiangRate = TAEL_RATE;
+	int nIngot = (int)(dwMoney / nIngotRate);
+	int nLiang = (int)((dwMoney % nIngotRate) / nLiangRate);
+
+	if (nIngot>0)
+	{
+		sprintf(szTmp,"%d%s",nIngot,INGOT_TXT);
+		strncat(szMoney,szTmp,sizeof(szTmp));
+	}
+
+	if (nLiang>0||(strlen(szMoney)==0))
+	{
+		sprintf(szTmp,"%d%s",nLiang,TAEL_TXT);
+		strncat(szMoney,szTmp,sizeof(szTmp));
+	}
+
+	strncpy(szText,szMoney,MAX_PATH);
+	return szText;
+
+	FUNCTION_END;
+}
 ///////////////////////////star100511
 int Money2String_ReturnOneNumChr(DWORD dwMoney, WORD wType)
 {
@@ -1453,8 +1482,55 @@ CGuiTable* GetItemTable(const stObjectLocation & pos)
 					return GetGameGuiManager()->m_pDlgEquipAnnexpack->m_pTableMaterial1;
 				}
 			}
+		// 		// 添加对孩子装备升级界面的支持
+		// if (GetGameGuiManager()->m_pDlgEquipBabyRecast)
+		// {
+		//     switch(pos.y) 
+		//     {
+		//     case MAKECELLTYPE_EQUIP:
+		//         return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableFocusItem;
+		//     case MAKECELLTYPE_MATERIAL1:
+		//         return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableMaterial1;
+		//     }
+		// }
+		//  // 优先检查孩子装备升级界面-----------------------------
+		// if (GetGameGuiManager()->m_pDlgEquipBabyRecast && GetGameGuiManager()->m_pDlgEquipBabyRecast->IsVisible())
+		// {
+		//     switch(pos.y) 
+		//     {
+		//     case MAKECELLTYPE_EQUIP:
+		//         return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableFocusItem;
+		//     case MAKECELLTYPE_MATERIAL1:
+		//         return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableMaterial1;
+		//     }
+		// }
+		// // 如果孩子装备升级界面不可见，则使用普通附件升级界面
+		// else if (GetGameGuiManager()->m_pDlgEquipAnnexpack)
+		// {
+		//     switch(pos.y) 
+		//     {
+		//     case MAKECELLTYPE_EQUIP:
+		//         return GetGameGuiManager()->m_pDlgEquipAnnexpack->m_pTableFocusItem;
+		//     case MAKECELLTYPE_MATERIAL1:
+		//         return GetGameGuiManager()->m_pDlgEquipAnnexpack->m_pTableMaterial1;
+		//     }
+		// }
 		}
 		break;	
+	case OBJECTCELLTYPE_BABYRECAST: //by=>friday 孩子装备升级界面
+		{
+			if (GetGameGuiManager()->m_pDlgEquipBabyRecast)
+			{
+				switch(pos.y) 
+				{
+				case MAKECELLTYPE_EQUIP:
+					return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableFocusItem;
+				case MAKECELLTYPE_MATERIAL1:
+					return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableMaterial1;
+				}
+			}
+		}
+		break;
 	case OBJECTCELLTYPE_HANDBOOK: //图鉴助手
 		{
 			//功勋竞猜 借用2号table
@@ -1474,6 +1550,20 @@ CGuiTable* GetItemTable(const stObjectLocation & pos)
 			}
 	    }
 		break;	
+	// case OBJECTCELLTYPE_BABYRECAST: //by=>friday 孩子装备升级界面
+	// 	{
+	// 		if (GetGameGuiManager()->m_pDlgEquipBabyRecast)
+	// 		{
+	// 			switch(pos.y) 
+	// 			{
+	// 			case MAKECELLTYPE_EQUIP:
+	// 				return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableFocusItem;
+	// 			case MAKECELLTYPE_MATERIAL1:
+	// 				return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableMaterial1;
+	// 			}
+	// 		}
+	// 	}
+	// 	break;
 	case OBJECTCELLTYPE_FABAO: //法宝助手
 		{
 		    if (GetGameGuiManager()->m_pDlgEquipFabaoRecast)
@@ -1531,6 +1621,17 @@ CGuiTable* GetItemTable(const stObjectLocation & pos)
 					}
 				}
 			}
+
+			if (GetGameGuiManager()->m_pDlgEquipBabyRecast)
+    {
+        switch(pos.y) 
+        {
+        case MAKECELLTYPE_EQUIP:
+            return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableFocusItem;
+        case MAKECELLTYPE_MATERIAL1:
+            return GetGameGuiManager()->m_pDlgEquipBabyRecast->m_pTableMaterial1;
+        }
+    }
 
 			if (GetGameGuiManager()->m_guiMakeTo2)
 			{
@@ -2216,7 +2317,7 @@ void TableRender(CGuiTable* pTable,float fElapsedTime)
 						
 						if(pItem->GetObject()->retain35 >=1000){
 							IBitmaps* pBmp=NULL;
-							pBmp = GetDevice()->FindBitmaps(&(stResourceLocation("data\\interfaces1.gl",7,0)));
+							pBmp = GetDevice()->FindBitmaps(&(stResourceLocation("data\\interfaces1.gl",7,1)));
 							if (pBmp)
 							{
 								pBmp->RenderAni(tableRect.left-8,tableRect.top-6,xtimeGetTime(),-1,Blend_Null);
@@ -6445,6 +6546,13 @@ CRoleItem::CRoleItem(void)
 
 	m_ToolTips.SetAlignType( GUI_ALIGN_LEFT );
 	m_ToolTips.SetLineGaps(3);
+	
+	//by=>friday,
+	m_ToolTips_friday.SetAlignType( GUI_ALIGN_LEFT );
+	m_ToolTips_friday.SetLineGaps(3);
+	
+	m_ToolTips_friday1.SetAlignType( GUI_ALIGN_LEFT ); //by=>friday,
+	m_ToolTips_friday1.SetLineGaps(3); //by=>friday,
 
 	m_bIsImage = false;
 	m_pImageItem = NULL;
@@ -6467,7 +6575,9 @@ CRoleItem::~CRoleItem(void)
 	FUNCTION_BEGIN;
 
 	ClearItemImage();
-	m_ToolTips.Clear();	
+	m_ToolTips.Clear();
+	m_ToolTips_friday.Clear(); //by=>friday,
+	m_ToolTips_friday1.Clear(); //by=>friday,	
 
 	//如果本身是镜像,在自己析构的时候使主物品指向自己的指针为null
 	if ( m_pMasterItem )
@@ -6623,6 +6733,13 @@ bool CRoleItem::SetObject(t_Object* pObj)
 			GetGameGuiManager()->AddDlgEquipYuanshenRecast(false);
 		}
 	
+	}
+	if (m_object.pos.dwLocation == OBJECTCELLTYPE_BABYRECAST) //by=>friday 孩子装备升级界面
+	{
+		if (!GetGameGuiManager()->m_pDlgEquipBabyRecast)
+		{
+			GetGameGuiManager()->AddDlgEquipBabyRecast(false);
+		}
 	}
 	OnUpdate(-1);
 
@@ -8627,7 +8744,43 @@ void CRoleItem::ShowToolTips(POINT pt)
 	}
 
 	if (NULL == GetGuiManager()->GetToolTips() )
-		GetGuiManager()->SetToolTips(&m_ToolTips,pt);
+	{
+		//by=>friday, 智能位置调整：确保friday tooltip始终在主tooltip右侧
+		POINT ptMain = pt;  //主tooltip位置
+		POINT ptFriday;     //friday tooltip位置
+		
+		//计算friday tooltip的目标位置（主tooltip右侧）
+		ptFriday.x = ptMain.x + m_ToolTips.GetWidth() + 1;
+		ptFriday.y = ptMain.y;
+		
+		//检查右侧空间是否足够显示friday tooltip
+		int screenWidth = GetDevice()->GetWidth();
+		int totalWidth = ptFriday.x + m_ToolTips_friday.GetWidth();
+		
+		if(totalWidth > screenWidth)
+		{
+			//by=>friday, 右侧空间不够，将主tooltip往左移动
+			int overflow = totalWidth - screenWidth;
+			ptMain.x -= overflow;
+			
+			//确保主tooltip不会移出屏幕左边界
+			if(ptMain.x < 0)
+				ptMain.x = 0;
+				
+			//重新计算friday tooltip位置
+			ptFriday.x = ptMain.x + m_ToolTips.GetWidth() + 1;
+			ptFriday.y = ptMain.y;
+		}
+		
+		GetGuiManager()->SetToolTips(&m_ToolTips, ptMain);
+		GetGuiManager()->SetToolTips_friday(&m_ToolTips_friday, ptFriday);
+		
+		//by=>friday, 设置friday1 tooltip位置：始终在friday tooltip右侧，不检测边界
+		POINT ptFriday1;
+		ptFriday1.x = ptFriday.x + m_ToolTips_friday.GetWidth() + 1;
+		ptFriday1.y = ptFriday.y;
+		GetGuiManager()->SetToolTips_friday1(&m_ToolTips_friday1, ptFriday1);
+	}
 
 	//m_ToolTips.Render(pt.x,pt.y);
 
@@ -8731,13 +8884,75 @@ void CRoleItem::ShowToolTips(POINT pt)
 	_snprintf(szTemp,sizeof(szTemp),szFormat,nNum);\
 	szTemp[sizeof(szTemp)-1]=0;\
 	m_ToolTips.AddText(szTemp,0);\
-}\
+}
+
+//by=>friday, 专门用于m_ToolTips_friday的宏
+#define Tips_friday_AddNum1(szFormat,nNum)\
+	if(nNum){\
+	_snprintf(szTemp,sizeof(szTemp),szFormat,nNum);\
+	szTemp[sizeof(szTemp)-1]=0;\
+	m_ToolTips_friday.AddText(szTemp,0,60);\
+	}
+//by=>friday 添加宽版本的宏，用于装备属性显示，避免长文本换行
+#define Tips_friday_AddNum2_Wide(szFormat,nNum1,nNum2)\
+	if(nNum1 || nNum2){\
+	_snprintf(szTemp,sizeof(szTemp),szFormat,nNum1,nNum2);\
+	szTemp[sizeof(szTemp)-1]=0;\
+	m_ToolTips_friday.AddText(szTemp,0,60);\
+	}\
+//by=>friday, 专门用于m_ToolTips_friday1的宏
+#define Tips_friday1_AddNum1(szFormat,nNum)\
+	if(nNum){\
+	_snprintf(szTemp,sizeof(szTemp),szFormat,nNum);\
+	szTemp[sizeof(szTemp)-1]=0;\
+	m_ToolTips_friday1.AddText(szTemp,0);\
+	}
+
+//by=>friday 专门用于单个属性显示的宏，值大于0才显示
+#define Tips_friday_AddStringIf(nVal,szFormat,szStr)\
+	if(nVal > 0){\
+	_snprintf(szTemp,sizeof(szTemp),szFormat,szStr.c_str());\
+	szTemp[sizeof(szTemp)-1]=0;\
+	m_ToolTips_friday.AddText(szTemp,0,60);\
+	}\
+
+//by=>friday 添加字符串、数值、数值混合的宏
+#define Tips_friday_AddTextNumNum(szFormat,szStr,nNum1,nNum2)\
+	{\
+	_snprintf(szTemp,sizeof(szTemp),szFormat,szStr,nNum1,nNum2);\
+	szTemp[sizeof(szTemp)-1]=0;\
+	m_ToolTips_friday.AddText(szTemp,0,60);\
+	}\
 
 #define Tips_AddNum2(szFormat,nNum1,nNum2)\
 	if(nNum1 || nNum2){\
 	_snprintf(szTemp,sizeof(szTemp),szFormat,nNum1,nNum2);\
 	szTemp[sizeof(szTemp)-1]=0;\
 	m_ToolTips.AddText(szTemp,0);\
+	}\
+
+//by=>friday 添加宽版本的宏，用于装备属性显示，避免长文本换行
+#define Tips_AddNum2_Wide(szFormat,nNum1,nNum2)\
+	if(nNum1 || nNum2){\
+	_snprintf(szTemp,sizeof(szTemp),szFormat,nNum1,nNum2);\
+	szTemp[sizeof(szTemp)-1]=0;\
+	m_ToolTips.AddText(szTemp,0,60);\
+	}\
+
+#define Tips_AddString_Wide(szText) \
+	if( (szText)[0] ) {\
+	\
+	_snprintf(szTemp,sizeof(szTemp),"%s",szText);\
+	szTemp[sizeof(szTemp)-1]=0;\
+	m_ToolTips.AddText(szTemp,0,60);\
+	}\
+
+//by=>friday 添加宽版本的Tips_AddNum宏，用于装备属性显示
+#define Tips_AddNum_Wide(szFormat,nNum)\
+	if(nNum){\
+	_snprintf(szTemp,sizeof(szTemp),szFormat,nNum);\
+	szTemp[sizeof(szTemp)-1]=0;\
+	m_ToolTips.AddText(szTemp,0,60);\
 	}\
 
 /**
@@ -11900,6 +12115,9 @@ void CRoleItem::UpdateToolTips()
 	m_dwTipFlags |= ITEMTIPS_FLAG_PRICE | ITEMTIPS_FLAG_REPAIR_PRICE | ITEMTIPS_FLAG_REPAIR_PRICEBYGOLD;
 #endif
 	UpdateMyObjectToolTips( m_object, m_pObjectBase, m_ToolTips, m_dwTipFlags );
+	UpdateMyObjectToolTips_friday( m_object, m_pObjectBase, m_ToolTips_friday, m_dwTipFlags ); //by=>friday,
+	// UpdateMyObjectToolTips_friday1( m_object, m_pObjectBase, m_ToolTips_friday1, m_dwTipFlags ); //by=>friday,
+	
 	FUNCTION_END;
 }
 
@@ -12017,7 +12235,9 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 		m_ToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
 		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));
 		char szTemp[512];
-
+		
+		
+		
 		//Name
 	//soke 根据装备类型设置名字颜色
 	//	if ( m_object.kind == 8 )			//橙装
@@ -12026,9 +12246,10 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 //		if ( m_object.kind & 8 )		//set
 //		m_ToolTips.SetCurColor( COLOR_ARGB(255,146,77,22) );
 	if( m_object.kind & 16 )
-
-	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,137) );
+		//by=>friday 修复紫色装备名称颜色显示为紫色
+		m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,137) );
 	else if( m_object.kind & 4 )
+		//by=>friday 绿色装备名称颜色显示为绿色
 		m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,137) );
 	else if( m_object.kind &2 )
 		m_ToolTips.SetCurColor( COLOR_ARGB(255,255,222,3) );
@@ -12421,285 +12642,363 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 		}
 
 
-		//sky 龙星显示（上） 
-		if (m_object.drastar > 0)
-		{
-			Tips_AddStringDefFontNAME("\n");
-			if (((m_pObjectBase->dwType >= 101 && m_pObjectBase->dwType <= 118) || (m_pObjectBase->dwType >= 141 && m_pObjectBase->dwType <= 147)
-				|| (m_pObjectBase->dwType >= 130 && m_pObjectBase->dwType <= 134)|| (m_pObjectBase->dwType >= 136 && m_pObjectBase->dwType <= 138) || m_pObjectBase->dwType == 155 || m_pObjectBase->dwType == 156) && (m_object.upgrade > 0))
-			{
-				stResourceLocation rHole;
-				rHole.SetFileName("data\\interfaces1.gl");
-				rHole.group = 32;
-				if (m_object.dtrough == 1)
-				{
-					rHole.frame = 30;
-				}
-				else if (m_object.dtrough == 2)
-				{
-					rHole.frame = 30;
-				}
-				else if (m_object.dtrough == 3)
-				{
-					rHole.frame = 30;
-				}
-				else if (m_object.dtrough == 4)
-				{
-					rHole.frame = 32;
-				}
-				else if (m_object.dtrough == 5)
-				{
-					rHole.frame = 32;
-				}
-				else if (m_object.dtrough == 6)
-				{
-					rHole.frame = 32;
-				}
-				else if (m_object.dtrough == 7)
-				{
-					rHole.frame = 34;
-				}
-				else if (m_object.dtrough == 8)
-				{
-					rHole.frame = 34;
-				}
-				else if (m_object.dtrough == 9)
-				{
-					rHole.frame = 34;
-				}
-				else if (m_object.dtrough == 10)
-				{
-					rHole.frame = 36;
-				}
-				else if (m_object.dtrough == 11)
-				{
-					rHole.frame = 36;
-				}
-				else if (m_object.dtrough == 12)
-				{
-					rHole.frame = 36;
-				}
-				else if (m_object.dtrough == 13)
-				{
-					rHole.frame = 38;
-				}
-				else if (m_object.dtrough == 14)
-				{
-					rHole.frame = 38;
-				}
-				else if (m_object.dtrough > 14)
-				{
-					rHole.frame = 38;
-				}
-				for (int i = 0; i<m_object.drastar; i++)
+//sky 龙星显示（上）  修复龙槽错位
+        if (m_object.drastar > 0)
+        {
+            Tips_AddStringDefFontNAME("\n"); //此处换行可以让龙星显示在装备名的下面
+            if (((m_pObjectBase->dwType >= 101 && m_pObjectBase->dwType <= 118) || (m_pObjectBase->dwType >= 141 && m_pObjectBase->dwType <= 147)
+                || (m_pObjectBase->dwType >= 130 && m_pObjectBase->dwType <= 134)|| (m_pObjectBase->dwType >= 136 && m_pObjectBase->dwType <= 138) || m_pObjectBase->dwType == 155 || m_pObjectBase->dwType == 156) && (m_object.upgrade > 0))
+            {
+                stResourceLocation rHole;
+                rHole.SetFileName("data\\interfaces1.gl");
+                rHole.group = 32;
+                if (m_object.dtrough == 1)
+                {
+                    rHole.frame = 30;
+                }
+                else if (m_object.dtrough == 2)
+                {
+                    rHole.frame = 30;
+                }
+                else if (m_object.dtrough == 3)
+                {
+                    rHole.frame = 30;
+                }
+                else if (m_object.dtrough == 4)
+                {
+                    rHole.frame = 32;
+                }
+                else if (m_object.dtrough == 5)
+                {
+                    rHole.frame = 32;
+                }
+                else if (m_object.dtrough == 6)
+                {
+                    rHole.frame = 32;
+                }
+                else if (m_object.dtrough == 7)
+                {
+                    rHole.frame = 34;
+                }
+                else if (m_object.dtrough == 8)
+                {
+                    rHole.frame = 34;
+                }
+                else if (m_object.dtrough == 9)
+                {
+                    rHole.frame = 34;
+                }
+                else if (m_object.dtrough == 10)
+                {
+                    rHole.frame = 36;
+                }
+                else if (m_object.dtrough == 11)
+                {
+                    rHole.frame = 36;
+                }
+                else if (m_object.dtrough == 12)
+                {
+                    rHole.frame = 36;
+                }
+                else if (m_object.dtrough == 13)
+                {
+                    rHole.frame = 38;
+                }
+                else if (m_object.dtrough == 14)
+                {
+                    rHole.frame = 38;
+                }
+                else if (m_object.dtrough > 14)
+                {
+                    rHole.frame = 38;
+                }
+                int aa=0;
+                int i=0;
+                for (int i = 0; i<m_object.drastar; i++)
+                {
+                    if(i > 0 && i % 17 == 0)
+                    {
+                        Tips_AddString("\n");  //第二行龙星换行（执行龙星升级后的），不是龙星没升的龙槽
+                        aa+=20;
+                    }
+                    if(aa==0)
+                    {
+                        m_ToolTips.AddAnimation4(&rHole, false);
+                    }
+                    else
+                    {
+                        m_ToolTips.AddAnimation4_new(&rHole, false,aa);
 
-				// //sky 大于10就要调整宽度了
-				// if (m_object.dtrough < 10)
-				// 	m_ToolTips.AddAnimation3(&rHole, false);
-				// else
-					m_ToolTips.AddAnimation4(&rHole, false);
-			}
-		}
-		//sky 龙槽显示（下）
-		if (m_object.dtrough > 0)
-		{
-			//sky 有龙星九不要换行了
-			if (m_object.drastar > 0)
-			{
-			    Tips_AddStringDefFontNAME("");
-			}
-			else
-			{
-				Tips_AddStringDefFontNAME("\n");
-			}
+                    }
 
-			if (((m_pObjectBase->dwType >= 101 && m_pObjectBase->dwType <= 118) || (m_pObjectBase->dwType >= 141 && m_pObjectBase->dwType <= 147)
-				|| (m_pObjectBase->dwType >= 130 && m_pObjectBase->dwType <= 134)|| (m_pObjectBase->dwType >= 136 && m_pObjectBase->dwType <= 138) || m_pObjectBase->dwType == 155 || m_pObjectBase->dwType == 156) && (m_object.upgrade > 0))
-			{
-				stResourceLocation rHole;
-				rHole.SetFileName("data\\interfaces1.gl");
-				rHole.group = 32;
-				if (m_object.dtrough == 1) //1-3 31
-				{
-					rHole.frame = 31;
-				}
-				else if (m_object.dtrough == 2)
-				{
-					rHole.frame = 31;
-				}
-				else if (m_object.dtrough == 3)
-				{
-					rHole.frame = 31;
-				}
-				else if (m_object.dtrough == 4)
-				{
-					rHole.frame = 33;
-				}
-				else if (m_object.dtrough == 5)
-				{
-					rHole.frame = 33;
-				}
-				else if (m_object.dtrough == 6)
-				{
-					rHole.frame = 33;
-				}
-				else if (m_object.dtrough == 7)
-				{
-					rHole.frame = 35;
-				}
-				else if (m_object.dtrough == 8)// 35
-				{
-					rHole.frame = 35;
-				}
-				else if (m_object.dtrough == 9)//35
-				{
-					rHole.frame = 35;
-				}
-				else if (m_object.dtrough == 10) //37
-				{
-					rHole.frame = 37;
-				}
-				else if (m_object.dtrough == 11) //37
-				{
-					rHole.frame = 37;
-				}
-				else if (m_object.dtrough == 12) //37
-				{
-					rHole.frame = 37;
-				}
-				else if (m_object.dtrough == 13) //39
-				{
-					rHole.frame = 39;
-				}
-				else if (m_object.dtrough == 14)
-				{
-					rHole.frame = 39;
-				}
-				else if (m_object.dtrough > 14)
-				{
-					rHole.frame = 39;
-				}
-				if (m_object.drastar > 0) //sky 龙星判断
-				{
-					for (int i = m_object.drastar; i<m_object.dtrough; i++)
-					
-					//sky 大于10就要调整了
-					// if (m_object.dtrough < 10)
-					// m_ToolTips.AddAnimation3(&rHole, false);
-					// else
-					
-						m_ToolTips.AddAnimation4(&rHole, false);
-				}
-				else
-				{   
-					//sky 龙槽
-					for (int i = 0; i<m_object.dtrough; i++)
+                }
+                    
+            }
+        }
+        //sky 龙槽显示（下）
+        if (m_object.dtrough > 0)
+        {
+            //sky 有龙星九不要换行了
+            if (m_object.drastar > 0)
+            {
+                Tips_AddStringDefFontNAME("");
+            }
+            else
+            {
+                Tips_AddStringDefFontNAME("\n");
+            }
 
-					// //sky 大于10就要调整了
-					// if (m_object.dtrough < 10)
-					// 	m_ToolTips.AddAnimation3(&rHole, false);
-					// else
-						m_ToolTips.AddAnimation4(&rHole, false);
-				}
-			}
-		}
+            if (((m_pObjectBase->dwType >= 101 && m_pObjectBase->dwType <= 118) || (m_pObjectBase->dwType >= 141 && m_pObjectBase->dwType <= 147)
+                || (m_pObjectBase->dwType >= 130 && m_pObjectBase->dwType <= 134)|| (m_pObjectBase->dwType >= 136 && m_pObjectBase->dwType <= 138) || m_pObjectBase->dwType == 155 || m_pObjectBase->dwType == 156) && (m_object.upgrade > 0))
+            {
+                stResourceLocation rHole;
+                rHole.SetFileName("data\\interfaces1.gl");
+                rHole.group = 32;
+                if (m_object.dtrough == 1) //1-3 31
+                {
+                    rHole.frame = 31;
+                }
+                else if (m_object.dtrough == 2)
+                {
+                    rHole.frame = 31;
+                }
+                else if (m_object.dtrough == 3)
+                {
+                    rHole.frame = 31;
+                }
+                else if (m_object.dtrough == 4)
+                {
+                    rHole.frame = 33;
+                }
+                else if (m_object.dtrough == 5)
+                {
+                    rHole.frame = 33;
+                }
+                else if (m_object.dtrough == 6)
+                {
+                    rHole.frame = 33;
+                }
+                else if (m_object.dtrough == 7)
+                {
+                    rHole.frame = 35;
+                }
+                else if (m_object.dtrough == 8)// 35
+                {
+                    rHole.frame = 35;
+                }
+                else if (m_object.dtrough == 9)//35
+                {
+                    rHole.frame = 35;
+                }
+                else if (m_object.dtrough == 10) //37
+                {
+                    rHole.frame = 37;
+                }
+                else if (m_object.dtrough == 11) //37
+                {
+                    rHole.frame = 37;
+                }
+                else if (m_object.dtrough == 12) //37
+                {
+                    rHole.frame = 37;
+                }
+                else if (m_object.dtrough == 13) //39
+                {
+                    rHole.frame = 39;
+                }
+                else if (m_object.dtrough == 14)
+                {
+                    rHole.frame = 39;
+                }
+                else if (m_object.dtrough > 14)
+                {
+                    rHole.frame = 39;
+                }
+                int aa=0;
+                int i=0;
+                int drastar =m_object.drastar;
+                bool b=true;
+                if (m_object.drastar > 0) 
+                {
+                    //by=>friday 这里是有龙星时的 龙槽
+                    //by=>friday 这里有龙星了，分两种情况龙星小于18 说明是第一行 大于17说明是第二行显示
+                    for (int i = m_object.drastar; i<m_object.dtrough; i++)
+                    {
+                        if(m_object.drastar <= 17)//第一行
+                        {
+                            if(i==17)
+                            {
+                                Tips_AddString("\n");
+                                aa += 20;
+                            }
+                            if(aa==0)
+                                m_ToolTips.AddAnimation4( &rHole, false );
+                            else
+                                m_ToolTips.AddAnimation4_new( &rHole, false ,aa); //激活上行龙星时，下行龙槽的位置
+                        }
+                        else//第二行显示
+                        {
+                            if(b)
+                            {
+                                // Tips_AddString("\n");
+                                aa += 20;
+                                b=false;
+                            }
+                            m_ToolTips.AddAnimation4_new( &rHole, false ,aa );
+                        }
+                    }
+                }
+                else
+                {   
+                    //by=>friday 这是没有龙星时的 龙槽
+                    
+                        for( int i=0;i<m_object.dtrough;i++ )
+                        {
+                            if(i > 0 && i % 17 == 0) // 每17个星星换行 //by=>friday
+                            {
+                                Tips_AddString("\n");
+                                aa += 20;
+                            }
+                            if(aa==0)
+                                {m_ToolTips.AddAnimation4( &rHole, false );}
+                            else
+                                {m_ToolTips.AddAnimation4_new( &rHole, false ,aa );}
+                        }
+                }
+            }
+        }
 
-		//sky 正常的紫装星星
-		if (m_object.upgrade > 0)
-		{
-			Tips_AddStringDefFontNAME( "\n" );
-			if ( ((m_pObjectBase->dwType >= 101 && m_pObjectBase->dwType <= 118) || (m_pObjectBase->dwType >= 141 && m_pObjectBase->dwType <= 147)
-				|| (m_pObjectBase->dwType >= 130 && m_pObjectBase->dwType <= 134)|| (m_pObjectBase->dwType >= 136 && m_pObjectBase->dwType <= 138) || m_pObjectBase->dwType == 155 || m_pObjectBase->dwType == 156) && (m_object.upgrade > 0))
-			{
-				stResourceLocation rHole;
-				rHole.SetFileName( "data\\interfaces.gl" );
-				rHole.group = 4;						
-				if (m_object.upgrade == 1)
-				{
-					rHole.frame = 500;
-				}
-				else if (m_object.upgrade == 2)
-				{
-					rHole.frame = 500;
-				}
-				else if (m_object.upgrade == 3)
-				{
-					rHole.frame = 500;
-				}
-				else if (m_object.upgrade == 4)
-				{
-					rHole.frame = 500;
-				}
-				else if (m_object.upgrade == 5)
-				{
-					rHole.frame = 500;
-				}
-				else if (m_object.upgrade == 6)
-				{
-					rHole.frame = 501;
-				}
-				else if (m_object.upgrade == 7)
-				{
-					rHole.frame = 501;
-				}
-				else if (m_object.upgrade == 8)
-				{
-					rHole.frame = 501;
-				}
-				else if (m_object.upgrade == 9)
-				{
-					rHole.frame = 501;
-				}
-				else if (m_object.upgrade == 10)
-				{
-					rHole.frame = 501;
-				}
-				else if (m_object.upgrade == 11)
-				{
-					rHole.frame = 502;
-				}
-				else if (m_object.upgrade == 12)
-				{
-					rHole.frame = 503;
-				}
-				else if (m_object.upgrade == 13)
-				{
-					rHole.frame = 504;
-				}
-				else if (m_object.upgrade == 14)
-				{
-					rHole.frame = 505;
-				}
-				else if (m_object.upgrade > 14)
-				{
-					rHole.frame = 506;
-				}
-				if (m_object.dtrough > 0)
-				{
-				    for (int i = 0; i< m_object.dtrough; i++)
+        //sky 正常的紫装星星
+        if (m_object.upgrade > 0)
+        {
+            Tips_AddStringDefFontNAME( "\n" );
+            if ( ((m_pObjectBase->dwType >= 101 && m_pObjectBase->dwType <= 118) || (m_pObjectBase->dwType >= 141 && m_pObjectBase->dwType <= 147)
+                || (m_pObjectBase->dwType >= 130 && m_pObjectBase->dwType <= 134)|| (m_pObjectBase->dwType >= 136 && m_pObjectBase->dwType <= 138) || m_pObjectBase->dwType == 155 || m_pObjectBase->dwType == 156) && (m_object.upgrade > 0))
+            {
+                stResourceLocation rHole;
+                rHole.SetFileName( "data\\interfaces.gl" );
+                rHole.group = 4;                        
+                if (m_object.upgrade == 1)
+                {
+                    rHole.frame = 500;
+                }
+                else if (m_object.upgrade == 2)
+                {
+                    rHole.frame = 500;
+                }
+                else if (m_object.upgrade == 3)
+                {
+                    rHole.frame = 500;
+                }
+                else if (m_object.upgrade == 4)
+                {
+                    rHole.frame = 500;
+                }
+                else if (m_object.upgrade == 5)
+                {
+                    rHole.frame = 500;
+                }
+                else if (m_object.upgrade == 6)
+                {
+                    rHole.frame = 501;
+                }
+                else if (m_object.upgrade == 7)
+                {
+                    rHole.frame = 501;
+                }
+                else if (m_object.upgrade == 8)
+                {
+                    rHole.frame = 501;
+                }
+                else if (m_object.upgrade == 9)
+                {
+                    rHole.frame = 501;
+                }
+                else if (m_object.upgrade == 10)
+                {
+                    rHole.frame = 501;
+                }
+                else if (m_object.upgrade == 11)
+                {
+                    rHole.frame = 502;
+                }
+                else if (m_object.upgrade == 12)
+                {
+                    rHole.frame = 503;
+                }
+                else if (m_object.upgrade == 13)
+                {
+                    rHole.frame = 504;
+                }
+                else if (m_object.upgrade == 14)
+                {
+                    rHole.frame = 505;
+                }
+                else if (m_object.upgrade > 14)
+                {
+                    rHole.frame = 506;
+                }
+                if (m_object.dtrough > 0)
+                {
+                    int aa = 0;
+                    for (int i = 0; i< m_object.dtrough; i++)
+                    {
+                        
+                        if(i > 0 && (i) % 17 == 0) // 每17个星星换行 //by=>friday
+                        {
+                            Tips_AddString("\n");
+                            aa+=10;
+                        }
+                        // m_ToolTips.AddAnimation6(&rHole, false);
+                        if(aa== 10)  
+                        {
+                            m_ToolTips.AddAnimation6_new(&rHole, false, 1); // 下行向上偏移8像素
+                        //m_ToolTips.AddAnimation6_new(&rHole, false, 1); // 向上偏移8像素
+                        }
+                        else
+                        {
+                            if (m_object.dtrough<=17)
+                            m_ToolTips.AddAnimation6_new(&rHole, false, 1); // 上行向下偏移1像素
+                            else
+                            m_ToolTips.AddAnimation6_new(&rHole, false, -9); // 下行向上偏移9像素
+                        }    
+                        
+                    }
+                    
+                    //for (int i = m_object.dtrough; i<m_object.upgrade; i++)
+                    
+                    for( int i=m_object.dtrough;i<m_object.upgrade;i++ )
+                    {
+                         
+                        if(i > 0 && i % 17 == 0) // 每17个星星换行
+                         //if(i > m_object.dtrough && (i - m_object.dtrough) % 17 == 0)
+                         {
+                             Tips_AddString("\n");
+                         }
+                        m_ToolTips.AddAnimation(&rHole, false); 
+                        
+                        //m_ToolTips.AddAnimation_new( &rHole, false -3);
+                        // m_ToolTips.AddAnimation_new(&rHole, false,-20);
 
-					//sky 大于10就要调整了
-					// if (m_object.dtrough < 10)
-					// {
-					// 	m_ToolTips.AddAnimation5(&rHole, false);
-					// }
-					// else
-					// {
-						m_ToolTips.AddAnimation6(&rHole, false);
-					// }
-				
-					for (int i = m_object.dtrough; i<m_object.upgrade; i++)
-					m_ToolTips.AddAnimation(&rHole, false);
-				}
-				else
-				{
-					//sky 这里才是装备的星星
-				    for (int i = 0; i < m_object.upgrade; i++)
-					m_ToolTips.AddAnimation(&rHole, false);
-				}
-			}
-		}
-	}
+                    }
+                }
+                else
+                {
+                    //sky 这里才是装备的星星
+                    // for (int i = 0; i < m_object.upgrade; i++)
+                    // m_ToolTips.AddAnimation(&rHole, false);
+                    for( int i=0;i<m_object.upgrade;i++ )
+                    {
+                        if(i > 0 && i % 17 == 0) // 每17个星星换行
+                        {
+                            Tips_AddString("\n");
+                        }
+                        m_ToolTips.AddAnimation( &rHole, false );
+                    }
+                }
+            }
+        }
+    }
 	else if ( 16 & m_object.kind && (m_pObjectBase->dwType >= 130 && m_pObjectBase->dwType <= 134 || m_pObjectBase->dwType == 140 ) )	//神圣祝福马匹装备道具
 	{
 	  //soke 未转生紫装15星特效
@@ -12899,6 +13198,15 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 				}
 				for( int i=0;i<m_object.upgrade;i++ )
 					m_ToolTips.AddAnimation( &rHole, false );
+					//by=>friday
+					// for( int i=0;i<m_object.upgrade;i++ )
+					// {
+					// 	if(i > 0 && i % 17 == 0) // 每17个星星换行
+					// 	{
+					// 		Tips_AddString("\n");
+					// 	}
+					// 	m_ToolTips.AddAnimation( &rHole, false );
+					// }
 			}
 			else
 				Tips_AddStringDefFont( szUpgrade );
@@ -18953,24 +19261,113 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 			Tips_AddStringDefFont( szTmp );
 		}
 	}
+	//by=>friday 孩子装备
 	else if ( m_pObjectBase->dwType>=ItemType_BABYFJ1 && m_pObjectBase->dwType<=ItemType_BABYFJ6) //宝宝
 	{
+		 // 先添加背景图 //by=>friday
+		//  stResourceLocation rlBabyBg;
+		//  rlBabyBg.SetFileName("data\\interfaces1.gl");  // 使用interfaces5.gl
+		//  rlBabyBg.group = 18;
+		//  rlBabyBg.frame = 1;  // 您可以根据需要修改frame号
+		//  m_ToolTips.AddAnimation2(&rlBabyBg, false);
+
 		//soke 自定义补丁物品的颜色
-		m_ToolTips.SetCurColor( COLOR_ARGB(255,255,0,0));
-		
-			Tips_AddStringDefFont( "儿女装备·" );
-		
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,255,0,0));
+			
+			Tips_AddStringDefFont( "孩子装备·" );
+			
 			
 		
 		Tips_AddStringDefFont( namePartOne );	//soke 物品名
 
-		if ( m_object.retain22 >= 0 )
+		if ( m_object.retain35 >= 0 )
 		{
 			char szTmp[512];
 			m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
 			sprintf(szTmp, "【强化 %u 阶】", m_object.retain35);
 			Tips_AddStringDefFont( szTmp );
 		}
+		//////////////////////////////////////////////////////
+		//by=>friday 孩子装备属性显示
+    m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
+    if (m_object.pdamage > 0 )
+    {
+        Tips_AddNum("\n最小物理攻击 +%u",m_object.pdamage);
+    }
+    else
+    {
+        Tips_AddString("\n最小物理攻击 +0");
+    }
+    if (m_object.maxpdamage > 0 )
+    {
+        Tips_AddNum("\n最大物理攻击 +%u",m_object.maxpdamage);
+    }
+    else
+    {
+        Tips_AddString("\n最大物理攻击 +0");
+    }
+    if (m_object.mdamage > 0 )
+    {
+        Tips_AddNum("\n最小魔法攻击 +%u",m_object.mdamage);
+    }
+    else
+    {
+        Tips_AddString("\n最小魔法攻击 +0");
+    }
+    if (m_object.maxmdamage > 0 )
+    {
+        Tips_AddNum("\n最大魔法攻击 +%u",m_object.maxmdamage);
+    }
+    else
+    {
+        Tips_AddString("\n最大魔法攻击 +0");
+    }
+    if (m_object.pdefence > 0 )
+    {
+        Tips_AddNum("\n物理防御 +%u",m_object.pdefence);
+    }
+    else
+    {
+        Tips_AddString("\n物理防御 +0");
+    }
+    if (m_object.mdefence > 0 )
+    {
+        Tips_AddNum("\n魔法防御 +%u",m_object.mdefence);
+    }
+    else
+    {
+        Tips_AddString("\n魔法防御 +0");
+    }
+    if (m_object.maxhp > 0 )
+    {
+        Tips_AddNum("\n生命上限 +%u",m_object.maxhp);
+    }
+    else
+    {
+        Tips_AddString("\n生命上限 +0");
+    }
+    if (m_object.qiegeattack > 0 )
+    {
+		m_ToolTips.SetCurColor(COLOR_ARGB(255,160,32,240));
+        Tips_AddNum("\n切割攻击 +%u",m_object.qiegeattack);
+    }
+    else
+    {
+		m_ToolTips.SetCurColor(COLOR_ARGB(255,160,32,240));
+        Tips_AddString("\n切割攻击 +0");
+    }
+    // if (m_object.juejidefence > 0 )
+    // {
+    //     Tips_AddNum("\n绝技防御 +%u",m_object.juejidefence);
+    // }
+    // else
+    // {
+    //     Tips_AddString("\n绝技防御 +0");
+    // }
+
+
+
+	///////////////////////////////////////////////
 	}
 	else if ( m_pObjectBase->dwType == ItemType_Shenshou1 || m_pObjectBase->dwType == ItemType_Shenshou2 
 	|| m_pObjectBase->dwType == ItemType_ShangfangBaojian || m_pObjectBase->dwType == ItemType_ZijinLongpao) //神兽
@@ -19436,6 +19833,7 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 
 	//桃子 取消显示打造的套装 
 	{
+		//by=>friday
 		if( (m_object.dwObjectID != c_nHuoYunFu) &&
 			(m_object.dwObjectID != c_nXianTianFu) &&
 			(m_object.dwObjectID != c_nXuanYuanFu) &&	
@@ -19443,27 +19841,34 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 			(m_object.dwObjectID != 676) &&
 			(m_object.dwObjectID != 786) &&  // 小护身符
 			(m_object.dwObjectID != 787))    // 大护身符
-		{
-			
-			m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
-			Tips_AddText("\n%s打造",m_object.maker );
-		}
+			{
+				if (m_object.dtrough > 17)
+				{
+					m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+					Tips_AddText("\n\n%s打造",m_object.maker );
+				}
+				else 
+				{
+					m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+					Tips_AddText("\n%s打造",m_object.maker );
+				}
+			}
 	}
 
 	// Bind state
 	if ( 1 == m_object.bind && (m_pObjectBase->dwType != ItemType_Amulets) )
 	{
 		//sky 龙槽判断
-		if (m_object.dtrough > 0)
-		{
-			m_ToolTips.SetCurColor( COLOR_ARGB(255,122,210,58) );
-			Tips_AddString( "\n\n已绑定" );
-		}
-		else
-		{
+		// if (m_object.dtrough > 0)
+		// {
+		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,122,210,58) );
+		// 	Tips_AddString( "\n\n已绑定" );
+		// }
+		// else
+		// {
 			m_ToolTips.SetCurColor(COLOR_ARGB(255, 122, 210, 58));
 			Tips_AddString("\n已绑定");
-		}
+		// }
 	}
 	
 	//soke 护身符绑定
@@ -19950,6 +20355,7 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 			Tips_AddNum2("%u/%u",(m_object.dur+49)/50,(m_object.maxdur+49)/50);			//m_pObjectBase->dwMaxDur/25
 		}
 
+
 	//For Mask
 	if ( m_pObjectBase->dwType == ItemType_MASK )
 	{
@@ -20138,27 +20544,28 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 		if ( (m_object.maxpdamage  || m_object.pdamage) && !bVessalType && !(m_pObjectBase->dwType == ItemType_HorseFashion) && !(m_pObjectBase->dwType == ItemType_Amulets) && !( m_pObjectBase->dwType >= ItemType_handbookitem1 && m_pObjectBase->dwType <= ItemType_handbookitem10)&& !(m_pObjectBase->dwType >=ItemType_Fabao && m_pObjectBase->dwType<=ItemType_Fabaofj12)&& !(m_pObjectBase->dwType >=ItemType_SEXX1 && m_pObjectBase->dwType<=ItemType_SEXX12)&& !(m_pObjectBase->dwType >=ItemType_YUANSHEN && m_pObjectBase->dwType<=ItemType_YUANSHENFJ6)&& !(m_pObjectBase->dwType >=ItemType_BABYFJ1 && m_pObjectBase->dwType<=ItemType_BABYFJ6))
 	    {
 		   m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));
-		   Tips_AddString( "\n物理攻击力 " );
+		   //by=>friday 使用宽版本宏，避免物理攻击力文本换行
+		   Tips_AddString_Wide( "\n物理攻击力 " );
 		   if ( ( (m_object.maxpdamage > m_pObjectBase->maxpdam) || (m_object.pdamage > m_pObjectBase->pdam) ) )
 			   m_ToolTips.SetCurColor(COLOR_ARGB(255,0,86,234));
-		   Tips_AddNum2("%u - %u",m_object.pdamage, m_object.maxpdamage);
+		   Tips_AddNum2_Wide("%u - %u",m_object.pdamage, m_object.maxpdamage);
 		   
-		   //soke 升星物理攻击力加成紫色显示
+		   //soke 升星物理攻击力加成紫色显示 //by=>friday 使用宽版本宏避免换行
 		   if ( m_object.p2damage > 0 )
 		   {
 			   m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
-		       Tips_AddNum(" + %u",m_object.p2damage);
+		       Tips_AddNum_Wide(" + %u",m_object.p2damage);
 		   }
-		   //soke 升星物理攻击力加成绿色显示
+		   //soke 升星物理攻击力加成绿色显示 //by=>friday 使用宽版本宏避免换行
 		   else if ( m_object.p1damage > 0)
 		   {
 			   m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
-		       Tips_AddNum(" + %u",m_object.p1damage);
+		       Tips_AddNum_Wide(" + %u",m_object.p1damage);
 		   }
-		   if ( m_object.p4damage > 0) //龙x
+		   if ( m_object.p4damage > 0) //龙x //by=>friday 使用宽版本宏避免换行
 		   {
 			   m_ToolTips.SetCurColor(COLOR_ARGB(255,255,97,0));
-			   Tips_AddNum(" + %u",(m_object.maxpdamage * (m_object.m4axpdamage+m_object.m5axpdamage)/100));
+			   Tips_AddNum_Wide(" + %u",(m_object.maxpdamage * (m_object.m4axpdamage+m_object.m5axpdamage)/100));
 		   }
 	    }
 	}
@@ -20184,27 +20591,28 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 	  if ( ( m_object.maxmdamage || m_object.mdamage ) && !bVessalType && !(m_pObjectBase->dwType == ItemType_HorseFashion) && !(m_pObjectBase->dwType == ItemType_Amulets) && !( m_pObjectBase->dwType >= ItemType_handbookitem1 && m_pObjectBase->dwType <= ItemType_handbookitem10)&& !(m_pObjectBase->dwType >=ItemType_Fabao && m_pObjectBase->dwType<=ItemType_Fabaofj12)&& !(m_pObjectBase->dwType >=ItemType_SEXX1 && m_pObjectBase->dwType<=ItemType_SEXX12)&& !(m_pObjectBase->dwType >=ItemType_YUANSHEN && m_pObjectBase->dwType<=ItemType_YUANSHENFJ6) && !(m_pObjectBase->dwType >=ItemType_BABYFJ1 && m_pObjectBase->dwType<=ItemType_BABYFJ6))
 	  {
 		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));
-		Tips_AddString( "\n魔法攻击力 " );
+		//by=>friday 使用宽版本宏，避免魔法攻击力文本换行
+		Tips_AddString_Wide( "\n魔法攻击力 " );
 		if ( (m_object.maxmdamage > m_pObjectBase->maxmdam) || (m_object.mdamage > m_pObjectBase->mdam) )
 			m_ToolTips.SetCurColor(COLOR_ARGB(255,0,86,234));
-		Tips_AddNum2("%u - %u",m_object.mdamage,m_object.maxmdamage);
+		Tips_AddNum2_Wide("%u - %u",m_object.mdamage,m_object.maxmdamage);
 
-		   //soke 升星魔法攻击力加成紫色显示
+		   //soke 升星魔法攻击力加成紫色显示 //by=>friday 使用宽版本宏避免换行
 		   if ( m_object.m2damage > 0 )
 		   {
 			   m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
-		       Tips_AddNum(" + %u",m_object.m2damage);
+		       Tips_AddNum_Wide(" + %u",m_object.m2damage);
 		   }
-		   //soke 升星魔法攻击力加成绿色显示
+		   //soke 升星魔法攻击力加成绿色显示 //by=>friday 使用宽版本宏避免换行
 		   else if ( m_object.m1damage > 0 )
 		   {
 			   m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
-		       Tips_AddNum(" + %u",m_object.m1damage);
+		       Tips_AddNum_Wide(" + %u",m_object.m1damage);
 		   }
-		   if ( m_object.m4axmdamage > 0) //龙x
+		   if ( m_object.m4axmdamage > 0) //龙x //by=>friday 使用宽版本宏避免换行
 		   {
 			   m_ToolTips.SetCurColor(COLOR_ARGB(255,255,97,0));
-			   Tips_AddNum(" + %u", (m_object.maxmdamage  * (m_object.m4axmdamage+m_object.m5axmdamage)/100));
+			   Tips_AddNum_Wide(" + %u", (m_object.maxmdamage  * (m_object.m4axmdamage+m_object.m5axmdamage)/100));
 		   }
 	   }
 	}
@@ -20213,27 +20621,28 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 	if (m_object.pdefence > 0 && !(m_pObjectBase->dwType == ItemType_HorseFashion) && !(m_pObjectBase->dwType == ItemType_Amulets) && !( m_pObjectBase->dwType >= ItemType_handbookitem1 && m_pObjectBase->dwType <= ItemType_handbookitem10)&& !(m_pObjectBase->dwType >=ItemType_Fabao && m_pObjectBase->dwType<=ItemType_Fabaofj12)&& !(m_pObjectBase->dwType >=ItemType_SEXX1 && m_pObjectBase->dwType<=ItemType_SEXX12) && !(m_pObjectBase->dwType >=ItemType_YUANSHEN && m_pObjectBase->dwType<=ItemType_YUANSHENFJ6) && !(m_pObjectBase->dwType >=ItemType_BABYFJ1 && m_pObjectBase->dwType<=ItemType_BABYFJ6))
 	{
 		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));
-		Tips_AddString( "\n物理防御力 " );
+		//by=>friday 使用宽版本宏，避免物理防御力文本换行
+		Tips_AddString_Wide( "\n物理防御力 " );
 		if ( m_object.pdefence > m_pObjectBase->pDef )
 			m_ToolTips.SetCurColor(COLOR_ARGB(255,0,86,234));
 		Tips_AddNum("%u",m_object.pdefence);
 
-		///soke 升星物理防御力加成紫色显示
+		///soke 升星物理防御力加成紫色显示 //by=>friday 使用宽版本宏避免换行
 		if ( m_object.p2defence > 0 )
 		{
 			 m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
-		     Tips_AddNum(" + %u",m_object.p2defence);
+		     Tips_AddNum_Wide(" + %u",m_object.p2defence);
 		}
-		//soke 升星物理防御力加成绿色显示
+		//soke 升星物理防御力加成绿色显示 //by=>friday 使用宽版本宏避免换行
 		else if ( m_object.p1defence > 0 )
 		{
 			 m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
-		     Tips_AddNum(" + %u",m_object.p1defence);
+		     Tips_AddNum_Wide(" + %u",m_object.p1defence);
 		}
-		if ( m_object.p4defence > 0) //龙x
+		if ( m_object.p4defence > 0) //龙x //by=>friday 使用宽版本宏避免换行
 		{
 			m_ToolTips.SetCurColor(COLOR_ARGB(255,255,97,0));
-			Tips_AddNum(" + %u",(m_object.pdefence * (m_object.p4defence+m_object.p5defence)/100));
+			Tips_AddNum_Wide(" + %u",(m_object.pdefence * (m_object.p4defence+m_object.p5defence)/100));
 		}
 	}
 
@@ -20241,27 +20650,28 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 	if ( m_object.mdefence > 0 && !(m_pObjectBase->dwType == ItemType_HorseFashion) && !(m_pObjectBase->dwType == ItemType_Amulets) && !( m_pObjectBase->dwType >= ItemType_handbookitem1 && m_pObjectBase->dwType <= ItemType_handbookitem10)&& !(m_pObjectBase->dwType >=ItemType_Fabao && m_pObjectBase->dwType<=ItemType_Fabaofj12)&& !(m_pObjectBase->dwType >=ItemType_SEXX1 && m_pObjectBase->dwType<=ItemType_SEXX12)&& !(m_pObjectBase->dwType >=ItemType_YUANSHEN && m_pObjectBase->dwType<=ItemType_YUANSHENFJ6)  && !(m_pObjectBase->dwType >=ItemType_BABYFJ1 && m_pObjectBase->dwType<=ItemType_BABYFJ6))
 	{
 		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));
-		Tips_AddString( "\n魔法防御力 " );
+		//by=>friday 使用宽版本宏，避免魔法防御力文本换行
+		Tips_AddString_Wide( "\n魔法防御力 " );
 		if ( m_object.mdefence  > m_pObjectBase->mDef )
 			m_ToolTips.SetCurColor(COLOR_ARGB(255,0,86,234));
 		Tips_AddNum("%u",m_object.mdefence);
 
-	//soke 升星魔法防御力加成紫色显示
+	//soke 升星魔法防御力加成紫色显示 //by=>friday 使用宽版本宏避免换行
 		if ( m_object.m2defence > 0 )
 		{
 			 m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
-		     Tips_AddNum(" + %u",m_object.m2defence);
+		     Tips_AddNum_Wide(" + %u",m_object.m2defence);
 		}
-		//soke 升星魔法防御力加成绿色显示
+		//soke 升星魔法防御力加成绿色显示 //by=>friday 使用宽版本宏避免换行
 		else if ( m_object.m1defence > 0 )
 		{
 			 m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
-		     Tips_AddNum(" + %u",m_object.m1defence);
+		     Tips_AddNum_Wide(" + %u",m_object.m1defence);
 		}
-		if ( m_object.m4defence > 0) //龙x
+		if ( m_object.m4defence > 0) //龙x //by=>friday 使用宽版本宏避免换行
 		{
 			m_ToolTips.SetCurColor(COLOR_ARGB(255,255,97,0));
-			Tips_AddNum(" + %u",(m_object.mdefence * (m_object.m4defence+m_object.m5defence)/100));
+			Tips_AddNum_Wide(" + %u",(m_object.mdefence * (m_object.m4defence+m_object.m5defence)/100));
 		}
 	}
 
@@ -21461,110 +21871,110 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 		    }							
 	        }
 			///////////////////勋章字纹石字纹结束////////////////////														
-		// if (m_object.syxqgrade21 >= 0 && m_object.syxqgrade21 <= 799 )
-		// {	
-		// 	Tips_AddString( "\n" );
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
-		// 	Tips_AddString( "\n强化技能：未激活" );
-		// 	m_ToolTips.AddText( "\n" );			
-	    //     stResourceLocation rl;
-	    //     rl.SetFileName( "data\\icons.gl" );
-	    //     rl.group = 1;
-	    //     rl.frame = 3685;	//未激活
-		// 	m_ToolTips.AddAnimation( &rl, false );
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
-		// 	Tips_AddString( "\n【定心真言】" );	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
-		// 	Tips_AddString3( "\n状态技能，主动施放，使九屏范围内无法使用任何技能，药水，道具。" );				
-		// }	
-		// if (m_object.syxqgrade21 >= 800 && m_object.syxqgrade21 <= 10000 )
-		// {	
-		// 	Tips_AddString( "\n" );
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
-		// 	Tips_AddString( "\n强化技能：已激活" );
-		// 	m_ToolTips.AddText( "\n" );			
-	    //     stResourceLocation rl;
-	    //     rl.SetFileName( "data\\icons.gl" );
-	    //     rl.group = 1;
-	    //     rl.frame = 3683;	//激活
-		// 	m_ToolTips.AddAnimation( &rl, false );
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
-		// 	Tips_AddString( "\n【定心真言】" );	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
-		// 	Tips_AddString3( "\n状态技能，主动施放，使九屏范围内无法使用任何技能，药水，道具。" );				
-		// }			
-		// 	//-----------------------------------------------------------------
-		// if (m_object.syxqgrade22 >= 0 && m_object.syxqgrade22 <= 799 )
-		// {			
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
-        //     m_ToolTips.AddText( "\n" );
-		// 	Tips_AddString( "\n字纹技能：未激活" );
-		// 	m_ToolTips.AddText( "\n" );
-		// 	//////////////////////////
-		// 	stResourceLocation rl;
-	    //     rl.SetFileName( "data\\icons.gl" );
-	    //     rl.group = 1;
-	    //     rl.frame = 1340;	//未激活
-		// 	m_ToolTips.AddAnimation( &rl, false );	
-		// 	//////////////////////////
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
-		// 	Tips_AddString( "\n【碎震直拳】" );	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
-		// 	Tips_AddString3( "\n状态技能，主动施放，使目标敌人进入眩晕状态。" );
-		// }
-		// if (m_object.syxqgrade22 >= 800 && m_object.syxqgrade22 <= 10000 )
-		// {	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
-        //     m_ToolTips.AddText( "\n" );
-		// 	Tips_AddString( "\n字纹技能：已激活" );
-		// 	m_ToolTips.AddText( "\n" );
-		// 	//////////////////////////
-		// 	stResourceLocation rl;
-	    //     rl.SetFileName( "data\\icons.gl" );
-	    //     rl.group = 1;
-	    //     rl.frame = 1338;	//未激活
-		// 	m_ToolTips.AddAnimation( &rl, false );	
-		// 	//////////////////////////
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
-		// 	Tips_AddString( "\n【碎震直拳】" );	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
-		// 	Tips_AddString3( "\n状态技能，主动施放，使目标敌人进入眩晕状态。" );					
-		// }						
-		// //-----------------------------------------------------------------
-		// if (m_object.syxqgrade23 >= 0 && m_object.syxqgrade23 <= 79 )
-		// {			
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
-        //     m_ToolTips.AddText( "\n" );
-		// 	Tips_AddString( "\n淬炼技能：未激活" );
-		// 	m_ToolTips.AddText( "\n" );
-		// 	stResourceLocation rl;
-	    //     rl.SetFileName( "data\\icons.gl" );
-	    //     rl.group = 1;
-	    //     rl.frame = 1208;	//激活
-		// 	m_ToolTips.AddAnimation( &rl, false );	
-		// 	//////////////////////////
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
-		// 	Tips_AddString( "\n【裂地震波】" );	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
-		// 	Tips_AddString3( "\n状态技能，主动施放，使九屏范围内敌人进入眩晕状态。" );
-		// }
-		// if (m_object.syxqgrade23 >= 80 && m_object.syxqgrade23 <= 10000 )
-		// {	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
-        //     m_ToolTips.AddText( "\n" );
-		// 	Tips_AddString( "\n淬炼技能：已激活" );
-		// 	m_ToolTips.AddText( "\n" );
-		// 	stResourceLocation rl;
-	    //     rl.SetFileName( "data\\icons.gl" );
-	    //     rl.group = 1;
-	    //     rl.frame = 1206;	//激活
-		// 	m_ToolTips.AddAnimation( &rl, false );	
-		// 	//////////////////////////
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
-		// 	Tips_AddString( "\n【裂地震波】" );	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
-		// 	Tips_AddString3( "\n状态技能，主动施放，使九屏范围内敌人进入眩晕状态。" );
-		// }		
+		if (m_object.syxqgrade21 >= 0 && m_object.syxqgrade21 <= 799 )
+		{	
+			Tips_AddString( "\n" );
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
+			Tips_AddString( "\n强化技能：未激活" );
+			m_ToolTips.AddText( "\n" );			
+	        stResourceLocation rl;
+	        rl.SetFileName( "data\\icons.gl" );
+	        rl.group = 1;
+	        rl.frame = 3685;	//未激活
+			m_ToolTips.AddAnimation( &rl, false );
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
+			Tips_AddString( "\n【定心真言】" );	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
+			Tips_AddString3( "\n状态技能，主动施放，使九屏范围内无法使用任何技能，药水，道具。" );				
+		}	
+		if (m_object.syxqgrade21 >= 800 && m_object.syxqgrade21 <= 10000 )
+		{	
+			Tips_AddString( "\n" );
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
+			Tips_AddString( "\n强化技能：已激活" );
+			m_ToolTips.AddText( "\n" );			
+	        stResourceLocation rl;
+	        rl.SetFileName( "data\\icons.gl" );
+	        rl.group = 1;
+	        rl.frame = 3683;	//激活
+			m_ToolTips.AddAnimation( &rl, false );
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
+			Tips_AddString( "\n【定心真言】" );	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
+			Tips_AddString3( "\n状态技能，主动施放，使九屏范围内无法使用任何技能，药水，道具。" );				
+		}			
+			//-----------------------------------------------------------------
+		if (m_object.syxqgrade22 >= 0 && m_object.syxqgrade22 <= 799 )
+		{			
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
+            m_ToolTips.AddText( "\n" );
+			Tips_AddString( "\n字纹技能：未激活" );
+			m_ToolTips.AddText( "\n" );
+			//////////////////////////
+			stResourceLocation rl;
+	        rl.SetFileName( "data\\icons.gl" );
+	        rl.group = 1;
+	        rl.frame = 1340;	//未激活
+			m_ToolTips.AddAnimation( &rl, false );	
+			//////////////////////////
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
+			Tips_AddString( "\n【碎震直拳】" );	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
+			Tips_AddString3( "\n状态技能，主动施放，使目标敌人进入眩晕状态。" );
+		}
+		if (m_object.syxqgrade22 >= 800 && m_object.syxqgrade22 <= 10000 )
+		{	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
+            m_ToolTips.AddText( "\n" );
+			Tips_AddString( "\n字纹技能：已激活" );
+			m_ToolTips.AddText( "\n" );
+			//////////////////////////
+			stResourceLocation rl;
+	        rl.SetFileName( "data\\icons.gl" );
+	        rl.group = 1;
+	        rl.frame = 1338;	//未激活
+			m_ToolTips.AddAnimation( &rl, false );	
+			//////////////////////////
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
+			Tips_AddString( "\n【碎震直拳】" );	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
+			Tips_AddString3( "\n状态技能，主动施放，使目标敌人进入眩晕状态。" );					
+		}						
+		//-----------------------------------------------------------------
+		if (m_object.syxqgrade23 >= 0 && m_object.syxqgrade23 <= 79 )
+		{			
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
+            m_ToolTips.AddText( "\n" );
+			Tips_AddString( "\n淬炼技能：未激活" );
+			m_ToolTips.AddText( "\n" );
+			stResourceLocation rl;
+	        rl.SetFileName( "data\\icons.gl" );
+	        rl.group = 1;
+	        rl.frame = 1208;	//激活
+			m_ToolTips.AddAnimation( &rl, false );	
+			//////////////////////////
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
+			Tips_AddString( "\n【裂地震波】" );	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
+			Tips_AddString3( "\n状态技能，主动施放，使九屏范围内敌人进入眩晕状态。" );
+		}
+		if (m_object.syxqgrade23 >= 80 && m_object.syxqgrade23 <= 10000 )
+		{	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
+            m_ToolTips.AddText( "\n" );
+			Tips_AddString( "\n淬炼技能：已激活" );
+			m_ToolTips.AddText( "\n" );
+			stResourceLocation rl;
+	        rl.SetFileName( "data\\icons.gl" );
+	        rl.group = 1;
+	        rl.frame = 1206;	//激活
+			m_ToolTips.AddAnimation( &rl, false );	
+			//////////////////////////
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
+			Tips_AddString( "\n【裂地震波】" );	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
+			Tips_AddString3( "\n状态技能，主动施放，使九屏范围内敌人进入眩晕状态。" );
+		}		
 		if (m_object.syxqgrade22 >= 0) //等级
 		{		
 		m_ToolTips.AddText("\n");
@@ -22379,67 +22789,67 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 	        {			
 			//-----------------------------------------------------------------				
 			///////////////////寒冰字纹石字纹结束////////////////////	
-		// if (m_object.syxqgrade25 >= 0 && m_object.syxqgrade25 <= 499)
-		// {
-        //     m_ToolTips.AddText( "\n" );
-		// 	stResourceLocation imguserinfo1;
-		// 	imguserinfo1.SetFileName( "data\\interfaces7.gl");
-		// 	imguserinfo1.group = 400;
-		//     imguserinfo1.frame = 2;
-		//     m_ToolTips.AddAnimation( &imguserinfo1, false );
-		// 	m_ToolTips.Resize();			
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
-        //     Tips_AddString( "\n字纹技能：未激活" );
-		// 	m_ToolTips.AddText( "\n" );
-		// 	stResourceLocation rl;
-	    //     rl.SetFileName( "data\\icons.gl" );
-	    //     rl.group = 1;
-	    //     rl.frame = 3823;	//未激活
-		// 	m_ToolTips.AddAnimation( &rl, false );	
-		// 	//////////////////////////
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
-		// 	Tips_AddString( "\n【麒麟真身】" );	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,255,255,0) );
-		// 	Tips_AddString3( "\n使自身和九屏内友军获得生命值额外加成并且血量回复满血，生命值加成数" );	
-		// 	m_ToolTips.AddText3( "\n" );
-		// 	m_ToolTips.AddText3( "\n" );
-		// 	m_ToolTips.AddText3( "\n" );
-		// 	m_ToolTips.AddText3( "\n" );			
-		// 	Tips_AddString3( "\n值为最大生命值的30%，持续60秒。" );
-		// 	//////////////////////////		
-		// 	//-----------------------------------------------------------------		
-		// }		
+		if (m_object.syxqgrade25 >= 0 && m_object.syxqgrade25 <= 499)
+		{
+            m_ToolTips.AddText( "\n" );
+			stResourceLocation imguserinfo1;
+			imguserinfo1.SetFileName( "data\\interfaces7.gl");
+			imguserinfo1.group = 400;
+		    imguserinfo1.frame = 2;
+		    m_ToolTips.AddAnimation( &imguserinfo1, false );
+			m_ToolTips.Resize();			
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,128,128,128) );
+            Tips_AddString( "\n字纹技能：未激活" );
+			m_ToolTips.AddText( "\n" );
+			stResourceLocation rl;
+	        rl.SetFileName( "data\\icons.gl" );
+	        rl.group = 1;
+	        rl.frame = 3823;	//未激活
+			m_ToolTips.AddAnimation( &rl, false );	
+			//////////////////////////
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
+			Tips_AddString( "\n【麒麟真身】" );	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,255,255,0) );
+			Tips_AddString3( "\n使自身和九屏内友军获得生命值额外加成并且血量回复满血，生命值加成数" );	
+			m_ToolTips.AddText3( "\n" );
+			m_ToolTips.AddText3( "\n" );
+			m_ToolTips.AddText3( "\n" );
+			m_ToolTips.AddText3( "\n" );			
+			Tips_AddString3( "\n值为最大生命值的30%，持续60秒。" );
+			//////////////////////////		
+			//-----------------------------------------------------------------		
+		}		
 
-		// if (m_object.syxqgrade25 >= 500)
-		// {
-        //     m_ToolTips.AddText( "\n" );
-		// 	stResourceLocation imguserinfo1;
-		// 	imguserinfo1.SetFileName( "data\\interfaces7.gl");
-		// 	imguserinfo1.group = 400;
-		//     imguserinfo1.frame = 2;
-		//     m_ToolTips.AddAnimation( &imguserinfo1, false );
-		// 	m_ToolTips.Resize();			
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
-		// 	Tips_AddString( "\n字纹技能：已激活" );
-		// 	m_ToolTips.AddText( "\n" );
-		// 	stResourceLocation rl;
-	    //     rl.SetFileName( "data\\icons.gl" );
-	    //     rl.group = 1;
-	    //     rl.frame = 3821;	//已激活
-		// 	m_ToolTips.AddAnimation( &rl, false );	
-		// 	//////////////////////////
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
-		// 	Tips_AddString( "\n【麒麟真身】" );	
-		// 	m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
-		// 	Tips_AddString3( "\n使自身和九屏内友军获得生命值额外加成并且血量回复满血，生命值加成数" );
-		// 	m_ToolTips.AddText3( "\n" );
-		// 	m_ToolTips.AddText3( "\n" );
-		// 	m_ToolTips.AddText3( "\n" );
-		// 	m_ToolTips.AddText3( "\n" );	
-		// 	Tips_AddString3( "\n值为最大生命值的30%，持续60秒。" );
-		// 	//////////////////////////		
-		// 	//-----------------------------------------------------------------		
-		// }							
+		if (m_object.syxqgrade25 >= 500)
+		{
+            m_ToolTips.AddText( "\n" );
+			stResourceLocation imguserinfo1;
+			imguserinfo1.SetFileName( "data\\interfaces7.gl");
+			imguserinfo1.group = 400;
+		    imguserinfo1.frame = 2;
+		    m_ToolTips.AddAnimation( &imguserinfo1, false );
+			m_ToolTips.Resize();			
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
+			Tips_AddString( "\n字纹技能：已激活" );
+			m_ToolTips.AddText( "\n" );
+			stResourceLocation rl;
+	        rl.SetFileName( "data\\icons.gl" );
+	        rl.group = 1;
+	        rl.frame = 3821;	//已激活
+			m_ToolTips.AddAnimation( &rl, false );	
+			//////////////////////////
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
+			Tips_AddString( "\n【麒麟真身】" );	
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,214,0,239) );
+			Tips_AddString3( "\n使自身和九屏内友军获得生命值额外加成并且血量回复满血，生命值加成数" );
+			m_ToolTips.AddText3( "\n" );
+			m_ToolTips.AddText3( "\n" );
+			m_ToolTips.AddText3( "\n" );
+			m_ToolTips.AddText3( "\n" );	
+			Tips_AddString3( "\n值为最大生命值的30%，持续60秒。" );
+			//////////////////////////		
+			//-----------------------------------------------------------------		
+		}							
 		if (m_object.syxqgrade25 >= 0) //等级
 		{		
 		m_ToolTips.AddText("\n");
@@ -23768,12 +24178,27 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 				{
 					rHole.frame = 3;
 				}
-				if (m_object.douhun <= 12)
-				for (int i = 0; i<m_object.douhun; i++)
-					m_ToolTips.AddAnimation( &rHole, false );
+				if (m_object.douhun <= 34)
+				{
+					if (m_object.douhun > 17)
+					{
+						for (int i = 0; i < 17; i++)
+							m_ToolTips.AddAnimation( &rHole, false );
+						m_ToolTips.AddText("\n");
+						for (int i = 17; i < m_object.douhun; i++)
+							m_ToolTips.AddAnimation( &rHole, false );
+					}
+					else
+					{
+						for (int i = 0; i < m_object.douhun; i++)
+							m_ToolTips.AddAnimation( &rHole, false );
+					}
+				}
 				else
-						for (int i = 0; i<12; i++)
-					m_ToolTips.AddAnimation( &rHole, false );		
+				{
+					for (int i = 0; i<12; i++)
+						m_ToolTips.AddAnimation( &rHole, false );
+				}		
 			}
 			else
 				Tips_AddStringDefFontNAME( szUdouhun );
@@ -23842,27 +24267,27 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 	if (m_object.m4axhp > 0)
 	{
 		m_ToolTips.SetCurColor(COLOR_ARGB(255, 255, 113, 0));
-		Tips_AddNum2("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.m4axhp + m_object.m5axhp), m_object.m4axhp);
+		Tips_AddNum2_Wide("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.m4axhp + m_object.m5axhp), m_object.m4axhp);
 	}
 	else if (m_object.m4axpdamage > 0)
 	{
 		m_ToolTips.SetCurColor(COLOR_ARGB(255, 255, 113, 0));
-		Tips_AddNum2("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.m4axpdamage + m_object.m5axpdamage), m_object.m4axpdamage);
+		Tips_AddNum2_Wide("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.m4axpdamage + m_object.m5axpdamage), m_object.m4axpdamage);
 	}
 	else if (m_object.m4axmdamage > 0)
 	{
 		m_ToolTips.SetCurColor(COLOR_ARGB(255, 255, 113, 0));
-		Tips_AddNum2("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.m4axmdamage + m_object.m5axmdamage), m_object.m4axmdamage);
+		Tips_AddNum2_Wide("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.m4axmdamage + m_object.m5axmdamage), m_object.m4axmdamage);
 	}
 	else if (m_object.p4defence > 0)
 	{
 		m_ToolTips.SetCurColor(COLOR_ARGB(255, 255, 113, 0));
-		Tips_AddNum2("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.p4defence + m_object.p5defence), m_object.p4defence);
+		Tips_AddNum2_Wide("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.p4defence + m_object.p5defence), m_object.p4defence);
 	}
 	else if (m_object.m4defence > 0)
 	{
 		m_ToolTips.SetCurColor(COLOR_ARGB(255, 255, 113, 0));
-		Tips_AddNum2("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.m4defence + m_object.m5defence), m_object.m4defence);
+		Tips_AddNum2_Wide("\n龙槽龙星提升装备属性 %u%%(龙槽加成%u%%)", (m_object.m4defence + m_object.m5defence), m_object.m4defence);
 	}
 
 	
@@ -23950,16 +24375,16 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 		}
 
 
-		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
-		Tips_AddNum( "\n    物理攻击增加 + %u",m_object.m24axpdamage );
-		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
-		Tips_AddNum( "\n    魔法攻击增加 + %u",m_object.m24axmdamage );
-		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
-		Tips_AddNum( "\n    物理防御增加 + %u",m_object.p24defence );
-		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
-		Tips_AddNum( "\n    魔法防御增加 + %u",m_object.m24defence );
-		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
-		Tips_AddNum( "\n    生命值增加 + %u",m_object.m24axhp );
+		m_ToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));
+		Tips_AddNum_Wide( "    物攻 + %u",m_object.m24axpdamage );
+		// m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
+		Tips_AddNum_Wide( "    魔攻 + %u",m_object.m24axmdamage );
+		// m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
+		Tips_AddNum_Wide( "    物防 + %u",m_object.p24defence );
+		// m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
+		Tips_AddNum_Wide( "    魔防 + %u",m_object.m24defence );
+		// m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
+		Tips_AddNum_Wide( "    生命 + %u",m_object.m24axhp );
 
 	}
 
@@ -25465,6 +25890,7 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 	if ( (m_pObjectBase->dwType >= 101 && m_pObjectBase->dwType <= 118) || (m_pObjectBase->dwType >= 130 && m_pObjectBase->dwType <= 134) || (m_pObjectBase->dwType >= 136 && m_pObjectBase->dwType <= 138)
 		|| (m_pObjectBase->dwType >= 141 && m_pObjectBase->dwType <= 147) || m_pObjectBase->dwType == 155 || m_pObjectBase->dwType == 156 )
 	{
+		Engine_WriteLogF("星星=%d\n",m_object.xingshu);
 		if ( m_object.xingshu <= 0)
 		{
 			//soke 0星目前不显示
@@ -25541,10 +25967,111 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
 		    Tips_AddString( "\n历史最高星数：14星" );
 		}
-		else if ( m_object.xingshu >= 15)
+		else if ( m_object.xingshu == 15)
 		{
 		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
 		    Tips_AddString( "\n历史最高星数：15星" );
+		}
+		//by=>friday 添加16-34星显示
+		else if ( m_object.xingshu == 16)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：16星" );
+		}
+		else if ( m_object.xingshu == 17)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：17星" );
+		}
+		else if ( m_object.xingshu == 18)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：18星" );
+		}
+		else if ( m_object.xingshu == 19)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：19星" );
+		}
+		else if ( m_object.xingshu == 20)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：20星" );
+		}
+		else if ( m_object.xingshu == 21)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：21星" );
+		}
+		else if ( m_object.xingshu == 22)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：22星" );
+		}
+		else if ( m_object.xingshu == 23)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：23星" );
+		}
+		else if ( m_object.xingshu == 24)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：24星" );
+		}
+		else if ( m_object.xingshu == 25)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：25星" );
+		}
+		else if ( m_object.xingshu == 26)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：26星" );
+		}
+		else if ( m_object.xingshu == 27)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：27星" );
+		}
+		else if ( m_object.xingshu == 28)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：28星" );
+		}
+		else if ( m_object.xingshu == 29)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：29星" );
+		}
+		else if ( m_object.xingshu == 30)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：30星" );
+		}
+		else if ( m_object.xingshu == 31)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：31星" );
+		}
+		else if ( m_object.xingshu == 32)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：32星" );
+		}
+		else if ( m_object.xingshu == 33)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：33星" );
+		}
+		else if ( m_object.xingshu == 34)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：34星" );
+		}
+		else if ( m_object.xingshu >= 35)
+		{
+		    m_ToolTips.SetCurColor( COLOR_ARGB(255,255,113,0) );
+		    Tips_AddString( "\n历史最高星数：35星+" );
 		}
 	}
 
@@ -30315,7 +30842,54 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 		Tips_AddNum("\n补天石增加魔法防御力 %u",m_object.m6defence);
 		Tips_AddNum("\n补天石增加最大生命值 %u",m_object.m6axhp);
 	}
-	//暗影宝石加成展示
+	//by=>friday 新增暗影宝石加成展示
+	if (m_object.aystonelv > 0) 
+	{
+		Tips_AddString( "\n" );
+		stResourceLocation rl;
+		rl.SetFileName( "data\\interfaces.gl");
+		rl.group = 301;
+		
+		int level = m_object.aystonelv;
+		
+		//by=>friday 显示皇冠（每16个显示1个皇冠）
+		if (level >= 16) {
+			rl.frame = 40; // 皇冠图标
+			int crownCount = level / 16;
+			for (int i = 0; i < crownCount; i++) {
+				m_ToolTips.AddAnimation( &rl, false );
+			}
+			level = level % 16;
+		}
+		
+		//by=>friday 显示太阳（每8个显示1个太阳）
+		if (level >= 8) {
+			rl.frame = 38; // 太阳图标
+			int sunCount = level / 8;
+			for (int i = 0; i < sunCount; i++) {
+				m_ToolTips.AddAnimation( &rl, false );
+			}
+			level = level % 8;
+		}
+		
+		//by=>friday 显示月亮（每4个显示1个月亮）
+		if (level >= 4) {
+			rl.frame = 36; // 月亮图标
+			int moonCount = level / 4;
+			for (int i = 0; i < moonCount; i++) {
+				m_ToolTips.AddAnimation( &rl, false );
+			}
+			level = level % 4;
+		}
+		
+		//by=>friday 显示剩余的星星
+		if (level > 0) {
+			rl.frame = 35; // 星星图标
+			for (int i = 0; i < level; i++) {
+				m_ToolTips.AddAnimation( &rl, false );
+			}
+		}
+	}
     if (m_object.aystonelv > 0) 
 	{		
 		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0));
@@ -30595,6 +31169,11 @@ void UpdateMyObjectToolTips( t_Object& m_object, ObjectBase_t* m_pObjectBase, CT
 			m_ToolTips.SetCurColor( COLOR_ARGB(255,0,255,0) );
 			Tips_AddString( "\n可用于字纹镶嵌系统！" );
 		}	
+		else if( (m_pObjectBase->dwID >= 51000) && (m_pObjectBase->dwID <= 51039))//by=>friday 装备升心
+		{
+			m_ToolTips.SetCurColor( COLOR_ARGB(255,255,0,255) );
+			Tips_AddString( "\n可用于装备升心系统！" );
+		}
 	    //结束 ---------------------------------
 		//开始 ---------------------------------
 		else if( (m_pObjectBase->dwID == 5314 ))//桃子 增加特定道具ID显示额外颜色字体
@@ -31180,6 +31759,384 @@ inline bool CRoleItem::IsCanUse()
 		|| GetItemType() == 60;
 }		
 
+/**
+ * \brief 专门处理m_ToolTips_friday的函数
+ * 
+ * 详细描述 更新friday版tooltip的详细信息
+ * 
+ * \param m_object : 物品
+ * \param m_pObjectBase : 物品基础信息
+ * \param m_ToolTips_friday : friday tooltip
+ * \param m_dwTipFlags : 标志
+ * \return 返回值的描述
+ */
+void UpdateMyObjectToolTips_friday( t_Object& m_object, ObjectBase_t* m_pObjectBase, CToolTips& m_ToolTips_friday, DWORD m_dwTipFlags )
+{
+	FUNCTION_BEGIN;
+//by=>friday
+	if(m_object.retain100>0)
+	{
+		m_ToolTips_friday.Clear();
+		m_ToolTips_friday.SetBorderColor(0);
+		m_ToolTips_friday.SetBkColor(COLOR_ARGB(128,0,0,0));
+		m_ToolTips_friday.SetUseCustomeBkColor(true);
+		m_ToolTips_friday.SetCurColor(COLOR_ARGB(255,255,255,255));
+
+		///////////////
+		stResourceLocation rl;
+		rl.SetFileName( "data\\interfaces7.gl");
+		rl.group = 5;
+		rl.frame = 17;
+		m_ToolTips_friday.AddAnimation( &rl, false );
+		m_ToolTips_friday.SetCurColor(COLOR_ARGB(255,255,165,0));
+		m_ToolTips_friday.AddText("    额外属性    ");
+		rl.frame = 18;
+		m_ToolTips_friday.AddAnimation( &rl, false );
+		/////////////////////////////////////
+
+		char szTemp[512];
+		
+		DWORD godScore = 0;
+		DWORD baseScore = (m_object.retain100 > 100) ? 20 : (m_object.retain100 * 20 / 100);
+		
+		DWORD heartScore = 0;
+		if (m_object.retain101 <= 20) {
+			heartScore = m_object.retain101 * 2;
+		} else if (m_object.retain101 <= 40) {
+			heartScore = 20 + (m_object.retain101 - 20);
+		} else if (m_object.retain101 <= 60) {
+			heartScore = 40 + (m_object.retain101 - 40) / 2;
+		} else if (m_object.retain101 <= 80) {
+			heartScore = 50 + (m_object.retain101 - 60) / 4;
+		} else {
+			heartScore = 55 + (m_object.retain101 - 80) / 8;
+		}
+		if (heartScore > 40) heartScore = 40;
+		
+		DWORD loveScore = (m_object.retain102 > 100) ? 25 : (m_object.retain102 * 25 / 100);
+		DWORD advanceScore = (m_object.retain103 > 300) ? 15 : (m_object.retain103 * 15 / 300);
+		
+		godScore = baseScore + heartScore + loveScore + advanceScore;
+		if (godScore < 1) godScore = 1;
+		if (godScore > 100) godScore = 100;
+		
+		m_ToolTips_friday.SetCurColor(COLOR_ARGB(255,255,255,255));
+		Tips_friday_AddNum1( "\n神佑属性评分:%u ", godScore );
+
+		DWORD heartMaxHistory = m_object.retain104;
+		
+		const char* heartColorText = "";
+		DWORD heartColorARGB = COLOR_ARGB(255,255,255,255);
+		
+		DWORD currentHeartNum = m_object.retain101 % 20;
+		DWORD heartColorLevel = m_object.retain101 / 20;
+		DWORD currentHeartNum_tp = m_object.retain103 / 50;
+		
+		WORD TP =0 ;
+		WORD TPSZ =0;
+		
+		DWORD displayHeartNum = currentHeartNum;
+		DWORD displayColorLevel = heartColorLevel;
+		if(currentHeartNum == 0 && heartColorLevel > 0)
+		{
+			displayHeartNum = 20;
+			displayColorLevel = heartColorLevel - 1;
+		}
+		int heartFrame = 100;
+		
+		if(displayColorLevel == 0)
+		{
+			heartColorText = "白色";
+			heartColorARGB = COLOR_ARGB(255,255,255,255);
+		}
+		else if(displayColorLevel == 1)
+		{
+			heartColorText = "蓝色";
+			heartColorARGB = COLOR_ARGB(255,0,191,255);
+			heartFrame = 101;
+		}
+		else if(displayColorLevel == 2)
+		{
+			heartColorText = "黄色";
+			heartColorARGB = COLOR_ARGB(255,255,255,0);
+			heartFrame = 102;
+		}
+		else if(displayColorLevel == 3)
+		{
+			heartColorText = "绿色";
+			heartColorARGB = COLOR_ARGB(255,0,255,0);
+			heartFrame = 103;
+		}
+		else if(displayColorLevel == 4)
+		{
+			heartColorText = "紫色";
+			heartColorARGB = COLOR_ARGB(255,128,0,128);
+			heartFrame = 104;
+		}
+		else if(displayColorLevel >= 5)
+		{
+			heartColorText = "金色";
+			heartColorARGB = COLOR_ARGB(255,255,215,0);
+			heartFrame = 105;
+		}
+
+	/////////////////背景///////////////////
+	rl.SetFileName( "data\\interfaces4.gl");
+	rl.group = 47;
+	rl.frame = heartFrame;
+	m_ToolTips_friday.AddAnimation2( &rl, true );
+
+	rl.group = 9;
+	WORD equipKind = m_object.kind;
+	if (equipKind == 104 || equipKind == 108 || equipKind == 109 || equipKind == 110 || 
+	    equipKind == 111 || equipKind == 136 || equipKind == 137 || equipKind == 155)
+	{
+		rl.frame = 100;
+	}
+	else if (equipKind == 101 || equipKind == 102 || equipKind == 103)
+	{
+		rl.frame = 114;
+	}
+	else if (equipKind == 113)
+	{
+		rl.frame = 116;
+	}
+	else if (equipKind == 117)
+	{
+		rl.frame = 110;
+	}
+	else if (equipKind == 114)
+	{
+		rl.frame = 102;
+	}
+	else if (equipKind == 118)
+	{
+		rl.frame = 104;
+	}
+	else if (equipKind == 116)
+	{
+		rl.frame = 106;
+	}
+	else if (equipKind == 115)
+	{
+		rl.frame = 108;
+	}
+	else if (equipKind == 112 || equipKind == 138 || equipKind == 156 || equipKind == 141 || 
+	         equipKind == 142 || equipKind == 143 || equipKind == 144 || equipKind == 145)
+	{
+		rl.frame = 112;
+	}
+	else
+	{
+		rl.frame = 100;
+	}
+	m_ToolTips_friday.AddAnimation1s( &rl ,-370,10,0,0);
+	//////////////////////////
+	int firstResourceFrame = 0;
+	if (currentHeartNum_tp >= 5)
+	{
+		firstResourceFrame = 5;
+	}
+	else
+	{
+		firstResourceFrame = currentHeartNum_tp;
+	}
+	DWORD numberValue = m_object.retain103 % 50; //by=>friday 显示相对于当前颜色等级的突破值
+	if(numberValue == 0 && firstResourceFrame > 0 )
+	{
+		numberValue = 50 ;
+		firstResourceFrame = firstResourceFrame -1;
+	}
+	stResourceLocation rl1;
+	rl1.SetFileName("data\\interfaces4.gl");
+	rl1.group = 47;
+	rl1.frame = firstResourceFrame;
+	m_ToolTips_friday.AddAnimation1s(&rl1, -260, 85, 0, 0);
+	int baseFrameOffset = firstResourceFrame * 10 + 10;
+
+	if (numberValue == 0) 
+	{
+		
+		stResourceLocation rlDigit;
+		rlDigit.SetFileName("data\\interfaces4.gl");
+		rlDigit.group = 47;
+		rlDigit.frame = baseFrameOffset + 0;
+		m_ToolTips_friday.AddAnimation1s(&rlDigit, -265, 85, 0, 0);
+	}
+	else
+	{
+		DWORD tempNum = numberValue;
+		int digitCount = 0;
+		while (tempNum > 0)
+		{
+			digitCount++;
+			tempNum /= 10;
+		}
+		for (int i = digitCount - 1; i >= 0; i--)
+		{
+			DWORD divisor = 1;
+			for (int j = 0; j < i; j++)
+			{
+				divisor *= 10;
+			}
+			int digitValue = (numberValue / divisor) % 10;
+			
+			stResourceLocation rlDigit;
+			rlDigit.SetFileName("data\\interfaces4.gl");
+			rlDigit.group = 47;
+			rlDigit.frame = baseFrameOffset + digitValue;
+			m_ToolTips_friday.AddAnimation1s(&rlDigit, -265, 85, 0, 0);
+		}
+	}
+	m_ToolTips_friday.AddText("\n");
+	m_ToolTips_friday.AddText("            ");
+	rl.group = 7;
+	
+	if(m_object.retain101 < 20)
+	{
+		for(int i = 0; i < (int)m_object.retain101; i++)
+		{
+			m_ToolTips_friday.AddAnimation1s( &rl, -26, 5, 0, 0 );
+		}
+	}
+	else
+	{
+		for(int i = 0; i < (int)displayHeartNum; i++)
+		{
+			rl.frame = heartFrame;
+			m_ToolTips_friday.AddAnimation1s( &rl, -26, 5, 0, 0 );
+		}
+		
+		int remainingHearts = 20 - displayHeartNum;
+		if(remainingHearts > 0)
+		{
+			int prevFrame = heartFrame - 1;
+			if(prevFrame < 100) prevFrame = 100;
+			
+			for(int j = 0; j < remainingHearts; j++)
+			{
+				rl.frame = prevFrame;
+				m_ToolTips_friday.AddAnimation1s( &rl, -26, 5, 0, 0);
+			}
+		}
+	}
+	
+	uint64_t totalAttack = m_object.m26axpdamage + m_object.m27axpdamage + m_object.m28axpdamage + m_object.m29axpdamage;
+	uint64_t totalDefence = m_object.p26defence + m_object.p27defence + m_object.p28defence + m_object.p29defence;
+	uint64_t totalHP = m_object.m26axhp + m_object.m27axhp + m_object.m28axhp + m_object.m29axhp;
+	uint64_t totalJJAttack = m_object.jj26_attack + m_object.jj27_attack + m_object.jj28_attack + m_object.jj29_attack;
+	uint64_t totalJJDefence = m_object.jj26_defence + m_object.jj27_defence + m_object.jj28_defence + m_object.jj29_defence;
+	uint64_t totalMagicAttack = m_object.m26axmdamage + m_object.m27axmdamage + m_object.m28axmdamage + m_object.m29axmdamage;
+	uint64_t totalMagicDefence = m_object.m26defence + m_object.m27defence + m_object.m28defence + m_object.m29defence;
+
+	std::string formattedAttack = FormatLargeNumber(totalAttack);
+	std::string formattedDefence = FormatLargeNumber(totalDefence);
+	std::string formattedHP = FormatLargeNumber(totalHP);
+	std::string formattedJJAttack = FormatLargeNumber(totalJJAttack);
+	std::string formattedJJDefence = FormatLargeNumber(totalJJDefence);
+	std::string formattedMagicAttack = FormatLargeNumber(totalMagicAttack);
+	std::string formattedMagicDefence = FormatLargeNumber(totalMagicDefence);
+
+
+	DWORD historyHeartNum = heartMaxHistory % 20;
+	DWORD historyColorLevel = heartMaxHistory / 20;
+	
+	DWORD historyDisplayHeartNum = historyHeartNum;
+	DWORD historyDisplayColorLevel = historyColorLevel;
+	if(historyHeartNum == 0 && historyColorLevel > 0)
+	{
+		historyDisplayHeartNum = 20;
+		historyDisplayColorLevel = historyColorLevel - 1;
+	}
+	
+	const char* historyColorText = "";
+	DWORD historyColorARGB = COLOR_ARGB(255,255,255,255);
+	
+	if(historyDisplayColorLevel == 0)
+	{
+		historyColorText = "白色";
+		historyColorARGB = COLOR_ARGB(255,255,255,255);
+	}
+	else if(historyDisplayColorLevel == 1)
+	{
+		historyColorText = "蓝色";
+		historyColorARGB = COLOR_ARGB(255,0,191,255);
+	}
+	else if(historyDisplayColorLevel == 2)
+	{
+		historyColorText = "黄色";
+		historyColorARGB = COLOR_ARGB(255,255,255,0);
+	}
+	else if(historyDisplayColorLevel == 3)
+	{
+		historyColorText = "绿色";
+		historyColorARGB = COLOR_ARGB(255,0,255,0);
+	}
+	else if(historyDisplayColorLevel == 4)
+	{
+		historyColorText = "紫色";
+		historyColorARGB = COLOR_ARGB(255,128,0,128);
+	}
+	else if(historyDisplayColorLevel >= 5)
+	{
+		historyColorText = "金色";
+		historyColorARGB = COLOR_ARGB(255,255,215,0);
+	}
+	
+	m_ToolTips_friday.SetCurColor(historyColorARGB);
+	Tips_friday_AddTextNumNum("\n                         历史最高心数: %s%u心", historyColorText, historyDisplayHeartNum, 0);
+	
+	m_ToolTips_friday.SetCurColor(heartColorARGB);
+	Tips_friday_AddTextNumNum("\n                         心意等级: %s%u心 情谊等级: %u级", heartColorText, displayHeartNum, m_object.retain102);
+
+	// Tips_friday_AddStringIf(totalAttack, "\n                         攻击: %s", formattedAttack);
+	// Tips_friday_AddStringIf(totalDefence, totalAttack > 0 ? " 防御: %s" : "\n                         防御: %s", formattedDefence);
+	// Tips_friday_AddStringIf(totalHP, (totalAttack > 0 || totalDefence > 0) ? " 生命: %s" : "\n                         生命: %s", formattedHP);
+	
+	// Tips_friday_AddStringIf(totalJJAttack, "\n                         绝技攻: %s", formattedJJAttack);
+	// Tips_friday_AddStringIf(totalJJDefence, totalJJAttack > 0 ? " 绝技防: %s" : "\n                         绝技防: %s", formattedJJDefence);
+	//by=>friday, 第一行：物理攻击、法术攻击、物理防御、魔法防御
+	Tips_friday_AddStringIf(totalAttack, "\n                         物理攻击: %s", formattedAttack);
+	Tips_friday_AddStringIf(totalMagicAttack, totalAttack > 0 ? " 魔法攻击: %s" : "\n                         魔法攻击: %s", formattedMagicAttack);
+	Tips_friday_AddStringIf(totalDefence, (totalAttack > 0 || totalMagicAttack > 0) ? " 物理防御: %s" : "\n                         物理防御: %s", formattedDefence);
+	Tips_friday_AddStringIf(totalMagicDefence, (totalAttack > 0 || totalMagicAttack > 0 || totalDefence > 0) ? " 魔法防御: %s" : "\n                         魔法防御: %s", formattedMagicDefence);
+	
+	//by=>friday, 第二行：生命值、绝技攻、绝技防
+	Tips_friday_AddStringIf(totalHP, (totalAttack > 0 || totalMagicAttack > 0 || totalDefence > 0 || totalMagicDefence > 0) ? " 生命值: %s" : "\n                         生命值: %s", formattedHP);
+	Tips_friday_AddStringIf(totalJJAttack, "\n                         绝技攻击: %s", formattedJJAttack);
+	Tips_friday_AddStringIf(totalJJDefence, totalJJAttack > 0 ? " 绝技防御: %s" : "\n                         绝技防御: %s", formattedJJDefence);
+
+	/////////////////////////////
+m_ToolTips_friday.AddText("\n\n\n");
+
+	}
+	else
+		return ;
+	
+	m_ToolTips_friday.Resize();
+	
+	FUNCTION_END;
+}
+
+//by=>friday, 新增friday1 tooltip更新函数
+void UpdateMyObjectToolTips_friday1( t_Object& m_object, ObjectBase_t* m_pObjectBase, CToolTips& m_ToolTips_friday1, DWORD m_dwTipFlags )
+{
+	FUNCTION_BEGIN;
+	//by=>friday, 设置friday1 tooltip内容
+	m_ToolTips_friday1.Clear();
+	m_ToolTips_friday1.SetBorderColor(0);
+	m_ToolTips_friday1.SetBkColor(COLOR_ARGB(128,255,0,0)); //by=>friday, 红色背景区分
+	m_ToolTips_friday1.SetUseCustomeBkColor(true); //by=>friday, 启用自定义背景色
+	m_ToolTips_friday1.SetCurColor(COLOR_ARGB(255,255,255,255));
+	
+	//by=>friday, 添加friday1测试文字
+	char szTemp[512];
+	m_ToolTips_friday1.AddText("Friday1 Tips");
+	Tips_friday1_AddNum1( "\n测试数值: %u", 123 ); //by=>friday, 使用friday1专用宏
+	
+	m_ToolTips_friday1.Resize(); //by=>friday, 调用Resize()计算tooltip的宽高
+	FUNCTION_END;
+}
 
 /**
 * \brief 简短描述

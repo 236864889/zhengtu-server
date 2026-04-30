@@ -26,8 +26,6 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/apply_wrap.hpp>
-#include <boost/preprocessor/repetition/enum_trailing.hpp>
-#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <luabind/detail/other.hpp>
 #include <luabind/raw_policy.hpp>
@@ -335,7 +333,7 @@ namespace luabind {
         s << x;
 #endif
         return s.str();
-    }
+    };
     
     LUABIND_UNARY_OPERATOR(tostring, tostring_operator, tostring)
     LUABIND_UNARY_OPERATOR(unm, -, operator-)

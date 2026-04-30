@@ -8,7 +8,7 @@
 #include "GuiNpcMake.h"
 #include "GuiNpcDialog.h"
 #include "MyTimer.h"
-
+#include "DlgEquipAnnexpack.h"  // 包含附件装备头文件 //by=>friday
 #include "DlgEquipRecast.h"
 
 namespace
@@ -41,10 +41,12 @@ namespace
 	const int TIM_EQUIP_COMPOSE17 = 145;    //龙凤吟
 	const int TIM_EQUIP_COMPOSE18 = 146;    //轰天宝石镶嵌
 	const int TIM_EQUIP_COMPOSE19 = 147;    //王者升级
+	const int TIM_EQUIP_COMPOSE20 = 30;     //装备升心 //by=>friday
+	const int BTN_SWITCH_TO_ANNEXPACK = 150;    //切换到附件装备按钮 //by=>friday
 
 	const int BUTTONGROUP_EQUIPRECAST	= 11;
 
-	const int MAX_PAGE_NUM				= 19;// tab的分页数
+	const int MAX_PAGE_NUM				= 24;// tab的分页数 //by=>friday
 //	const int DISPLAY_TABLE_ROWNUM		= 2;// table显示的行数
 //	const int DISPLAY_TABLE_COLNUM		= 5;// table现实的列数
 
@@ -68,13 +70,14 @@ namespace
 		std::string("暗影进阶")	,	
 		std::string("龙凤吟镶(202级)"),		
 		std::string("轰天镶嵌(190级)"),	
-		std::string("无双武器(190级)")	,							
+		std::string("无双武器(190级)")	,
+		std::string("装备升心")	,												//by=>friday
 
 	};
 
 	const std::string RES_PACK_NAME = std::string("data\\interfaces1.gl");
 	const int RES_GROUP = 8;
-	int PAGE_BG_MAP[MAX_PAGE_NUM] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0}; // 页数和背景图片frame的映射
+	int PAGE_BG_MAP[MAX_PAGE_NUM] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0}; // 页数和背景图片frame的映射 //by=>friday
 
 	const int MONEY_SIGNATURE = 20000; // 添加（修改）签名需要的金钱（文）
 }
@@ -89,6 +92,8 @@ CDlgEquipRecast::CDlgEquipRecast()
 	m_pTimerProcess = NULL;
 	m_bPutFocusItem = true;
 	m_unSoulMountNeedMoney = 0;
+	m_pBtnSwitchToAnnexpack = NULL; //by=>friday
+	m_nEquipCompose20SubType = 1; //默认为定情信物镶嵌 //by=>friday
 	for (int i = 0; i < TOTAL_MATERIAL_TABLE; ++i)
 	{
 		m_pTableMaterials[i] = NULL;
@@ -139,7 +144,11 @@ void CDlgEquipRecast::OnResult(stResponsePropertyUserCmd* pCmd)
 	case EQUIP_COMPOSE26:   //暗影石镶嵌		
 	case EQUIP_COMPOSE27:   //龙凤吟		
 	case EQUIP_COMPOSE28:   //轰天宝石镶嵌		
-	case EQUIP_COMPOSE29:   //王者升级	
+	case EQUIP_COMPOSE29:   //王者升级
+	case EQUIP_COMPOSE30:   //装备升心 //by=>friday
+	case EQUIP_COMPOSE31:   //心意提升 //by=>friday
+	case EQUIP_COMPOSE32:   //情谊提升 //by=>friday
+	case EQUIP_COMPOSE33:   //定情信物突破/进阶 //by=>friday
 		{
 			DWORD dwColor = 0;
 			if (pCmd->status == 0) //	123
@@ -248,6 +257,14 @@ bool CDlgEquipRecast::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 					SetVisible(false);
 				}
 				break;
+				case 3: // 人物装备按钮（当前界面，不可点击） //by=>friday
+				return true; // 直接返回，不做任何操作 //by=>friday
+				break;
+			}
+			if (nID == 200) // 附件装备按钮 //by=>friday
+			{
+				OnSwitchToAnnexpack(); //by=>friday
+				return true; //by=>friday
 			}
 			if (nID >= BUTTONGROUP_EQUIPRECAST && nID < BUTTONGROUP_EQUIPRECAST + MAX_PAGE_NUM)
 			{
@@ -392,6 +409,81 @@ bool CDlgEquipRecast::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 				if (this->CanComposeEquip19())
 				{
 				    this->SendEquipRecastMsg(RECAST_ITEM_COMPOSE29);
+				}
+			}
+			
+			//装备升心子功能按钮处理 //by=>friday
+			else if (nID == 148) ///<定情信物镶嵌 //by=>friday
+			{
+				m_nEquipCompose20SubType = 1; //设置子功能类型
+				m_pTabEquipRecast->SetCurItem(20); //切换到定情信物镶嵌Tab页面
+				m_eCurPage = EQUIPRECAST_COMPOSE31; //设置当前页面为定情信物镶嵌
+				this->GetButton(148)->SetChecked(true); //设置按钮选中状态
+				this->GetButton(149)->SetChecked(false);
+				this->GetButton(150)->SetChecked(false);
+				this->GetButton(151)->SetChecked(false);
+				this->RefreshPage(); //刷新页面
+			}
+			else if (nID == 149) ///<心意提升 //by=>friday
+			{
+				m_nEquipCompose20SubType = 2; //设置子功能类型
+				m_pTabEquipRecast->SetCurItem(21); //切换到心意提升Tab页面
+				m_eCurPage = EQUIPRECAST_COMPOSE32; //设置当前页面为心意提升
+				this->GetButton(148)->SetChecked(false);
+				this->GetButton(149)->SetChecked(true); //设置按钮选中状态
+				this->GetButton(150)->SetChecked(false);
+				this->GetButton(151)->SetChecked(false);
+				this->RefreshPage(); //刷新页面
+			}
+			else if (nID == 150) ///<情谊提升 //by=>friday
+			{
+				m_nEquipCompose20SubType = 3; //设置子功能类型
+				m_pTabEquipRecast->SetCurItem(22); //切换到情谊提升Tab页面
+				m_eCurPage = EQUIPRECAST_COMPOSE33; //设置当前页面为情谊提升
+				this->GetButton(148)->SetChecked(false);
+				this->GetButton(149)->SetChecked(false);
+				this->GetButton(150)->SetChecked(true); //设置按钮选中状态
+				this->GetButton(151)->SetChecked(false);
+				this->RefreshPage(); //刷新页面
+			}
+			else if (nID == 151) ///<定情信物突破/进阶 //by=>friday
+			{
+				m_nEquipCompose20SubType = 4; //设置子功能类型
+				m_pTabEquipRecast->SetCurItem(23); //切换到定情信物突破/进阶Tab页面
+				m_eCurPage = EQUIPRECAST_COMPOSE34; //设置当前页面为定情信物突破/进阶
+				this->GetButton(148)->SetChecked(false);
+				this->GetButton(149)->SetChecked(false);
+				this->GetButton(150)->SetChecked(false);
+				this->GetButton(151)->SetChecked(true); //设置按钮选中状态
+				this->RefreshPage(); //刷新页面面
+			}
+			//装备升心子功能操作按钮处理 //by=>friday
+			else if (nID == 152) ///<定情信物镶嵌操作按钮 //by=>friday
+			{
+				if (this->CanComposeEquip21()) //调用定情信物镶嵌独立条件验证 //by=>friday
+				{
+					this->SendEquipRecastMsg(RECAST_ITEM_COMPOSE30);
+				}
+			}
+			else if (nID == 153) ///<心意提升操作按钮 //by=>friday
+			{
+				if (this->CanComposeEquip22()) //调用心意提升独立条件验证 //by=>friday
+				{
+					this->SendEquipRecastMsg(RECAST_ITEM_COMPOSE31);
+				}
+			}
+			else if (nID == 154) ///<情谊提升操作按钮 //by=>friday
+			{
+				if (this->CanComposeEquip23()) //调用情谊提升独立条件验证 //by=>friday
+				{
+					this->SendEquipRecastMsg(RECAST_ITEM_COMPOSE32);
+				}
+			}
+			else if (nID == 155) ///<定情信物突破/进阶操作按钮 //by=>friday
+			{
+				if (this->CanComposeEquip24()) //调用定情信物突破/进阶独立条件验证 //by=>friday
+				{
+					this->SendEquipRecastMsg(RECAST_ITEM_COMPOSE33);
 				}
 			}
 
@@ -575,7 +667,7 @@ bool CDlgEquipRecast::CanComposeEquip2()
 			continue;
 		}
 
-		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0) &&(14 > vecMaterialItems[i]->GetObject()->douhun))
+		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0) &&(35 > vecMaterialItems[i]->GetObject()->douhun))
 		{
 			++nItemUp;
 			pItemUp = vecMaterialItems[i];
@@ -620,7 +712,7 @@ bool CDlgEquipRecast::CanComposeEquip2()
 		return false;
 	}
 
-	if (pItemUp->GetObject()->douhun >= 15)
+	if (pItemUp->GetObject()->douhun >= 34)
 	{
 		m_pStaResult->SetText("            斗魂等级已经最高，不能再升级");
 		return false;
@@ -1295,7 +1387,7 @@ bool CDlgEquipRecast::CanComposeEquip8()
 			continue;
 		}	
 
-		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0) &&(17 > vecMaterialItems[i]->GetObject()->dtrough))
+		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0) &&(35 > vecMaterialItems[i]->GetObject()->dtrough))
 		{
 			++nItemUp;
 			pItemUp = vecMaterialItems[i];
@@ -1335,12 +1427,12 @@ bool CDlgEquipRecast::CanComposeEquip8()
 		else
 		{
 			//sky 根据龙槽等级判断需要的解封材料
-			if (pItemUp->GetObject()->dtrough == 15)
+			if (pItemUp->GetObject()->dtrough == 34)
 			{
 				m_pStaResult->SetText("当前装备不需要解封龙槽等级");
 				return false;
 			}
-			else if (pItemUp->GetObject()->dtrough <= 14 && nItemUPMAX == 0)
+			else if (pItemUp->GetObject()->dtrough <= 34 && nItemUPMAX == 0)
 			{
 				m_pStaResult->SetText("当前装备解封需要龙槽解封石");
 				return false;
@@ -1355,10 +1447,10 @@ bool CDlgEquipRecast::CanComposeEquip8()
 		return false;
 	}
 
-	//sky 龙槽最高等级
-	if (pItemUp->GetObject()->dtrough >= 15)
+	//by=>friday 修改龙星最大等级为34星
+	if (pItemUp->GetObject()->dtrough >= 34)
 	{
-		m_pStaResult->SetText("当前装备已经达到15龙槽");
+		m_pStaResult->SetText("当前装备已经达到34龙槽");
 		return false;
 	}
 
@@ -1422,7 +1514,7 @@ bool CDlgEquipRecast::CanComposeEquip9()
 			continue;
 		}
 
-		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0) &&(17 > vecMaterialItems[i]->GetObject()->drastar))
+		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0) &&(35	> vecMaterialItems[i]->GetObject()->drastar))
 		{
 			++nItemUp;
 			pItemUp = vecMaterialItems[i];
@@ -1474,8 +1566,8 @@ bool CDlgEquipRecast::CanComposeEquip9()
 		m_pStaResult->SetText("单件装备配合龙星升级宝石才能升级");
 		return false;
 	}
-
-	if (pItemUp->GetObject()->drastar >= 15)
+//by=>friday 修改龙星最大等级为34星
+	if (pItemUp->GetObject()->drastar >= 34)
 	{
 		m_pStaResult->SetText("龙星等级已经最高，不能再升级");
 		return false;
@@ -6941,6 +7033,7 @@ bool CDlgEquipRecast::CanComposeEquip18()
 
 
 
+//soke 装备升心 //by=>friday
 //soke 王者升级
 bool CDlgEquipRecast::CanComposeEquip19()
 {
@@ -7122,26 +7215,31 @@ void CDlgEquipRecast::RefreshPage()
 
 	case EQUIPRECAST_COMPOSE11: // 装备祝福
 		{
+			this->HideEquipCompose20SubButtons(); //隐藏装备升心子功能按钮 //by=>friday
 			this->RefreshEquipCompose1();
 		}
 		break;
 	case EQUIPRECAST_COMPOSE12: // 斗魂升级
 		{
+			this->HideEquipCompose20SubButtons(); //隐藏装备升心子功能按钮 //by=>friday
 			this->RefreshEquipCompose2();
 		}
 		break;
 	case EQUIPRECAST_COMPOSE13: // 神石镶嵌
 		{
+			this->HideEquipCompose20SubButtons(); //隐藏装备升心子功能按钮 //by=>friday
 			this->RefreshEquipCompose3();
 		}
 		break;
 	case EQUIPRECAST_COMPOSE14: // 装备栏激活
 		{
+			this->HideEquipCompose20SubButtons(); //隐藏装备升心子功能按钮 //by=>friday
 			this->RefreshEquipCompose4();
 		}
 		break;
 	case EQUIPRECAST_COMPOSE15: // 装备栏进阶
 		{
+			this->HideEquipCompose20SubButtons(); //隐藏装备升心子功能按钮 //by=>friday
 			this->RefreshEquipCompose5();
 		}
 		break;
@@ -7212,12 +7310,44 @@ void CDlgEquipRecast::RefreshPage()
 		break;	
 	case EQUIPRECAST_COMPOSE29:  //王者升级
 		{
+			this->HideEquipCompose20SubButtons(); //隐藏装备升心子功能按钮 //by=>friday
 			this->RefreshEquipCompose19();
 		}
-		break;									
+		break;
+	case EQUIPRECAST_COMPOSE30:  //装备升心 //by=>friday
+		{
+			// this->RefreshEquipCompose20();
+		}
+		break;
+	case EQUIPRECAST_COMPOSE31:  //定情信物镶嵌 //by=>friday
+		{
+			this->RefreshEquipCompose21(); //调用定情信物镶嵌独立刷新函数
+		}
+		break;
+	case EQUIPRECAST_COMPOSE32:  //心意提升 //by=>friday
+		{
+			this->RefreshEquipCompose22(); //调用心意提升独立刷新函数
+		}
+		break;
+	case EQUIPRECAST_COMPOSE33:  //情谊提升 //by=>friday
+		{
+			this->RefreshEquipCompose23(); //调用情谊提升独立刷新函数
+		}
+		break;
+	case EQUIPRECAST_COMPOSE34:  //定情信物突破/进阶 //by=>friday
+		{
+			this->RefreshEquipCompose24(); //调用定情信物突破/进阶独立刷新函数
+		}
+		break;													
 	}
 	
 	this->SetBGImage();
+	m_pBtnSwitchToAnnexpack = this->GetButton(200); // 切换到附件装备按钮 //by=>friday
+	    // 设置切换按钮状态 //by=>friday
+		CGuiButton* pBtnRecast = this->GetButton(3); // 人物装备按钮 //by=>friday
+		CGuiButton* pBtnAnnex = this->GetButton(200); // 附件装备按钮 //by=>friday
+		if (pBtnRecast) pBtnRecast->SetEnabled(false); // 当前界面按钮不可点击 //by=>friday
+		if (pBtnAnnex) pBtnAnnex->SetEnabled(true); // 切换按钮可点击 //by=>friday
 }
 
 //soke 装备祝福
@@ -7786,3 +7916,636 @@ void CDlgEquipRecast::RefreshEquipCompose19()
 		}
 	}
 }
+
+//soke 装备升心 //by=>friday
+//soke 装备升心 //by=>friday
+// bool CDlgEquipRecast::CanComposeEquip20()
+// {
+// 	int nMaterialNum = 0;
+// 	std::vector<CRoleItem*> vecMaterialItems;
+// 	CRoleItem* pRoleItem = this->GetFocusItem();
+// 	if (pRoleItem)
+// 	{
+// 		vecMaterialItems.push_back(pRoleItem);
+// 		nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum;
+// 	}
+
+// 	for (int i = 0; i < TOTAL_MATERIAL_TABLE; ++i)
+// 	{
+// 		pRoleItem = this->GetMaterialItem(i);
+// 		if (pRoleItem)
+// 		{
+// 			vecMaterialItems.push_back(pRoleItem);
+// 			nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum;
+// 		}
+// 	}
+
+// 	if (vecMaterialItems.size() == 0)
+// 	{
+// 		DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 255);
+// 		m_pStaResult->SetTextColor(dwColor);
+// 		m_pStaResult->SetText("装备升心需要:升心石");
+// 		return false;
+// 	}
+
+// 	CRoleItem* pItemUp = NULL;
+// 	int nItemUp = 0;
+// 	int nItemChange = 0;
+// 	DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 0);
+// 	m_pStaResult->SetTextColor(dwColor);
+
+// 	for (int i = 0; i < vecMaterialItems.size(); ++i)
+// 	{
+// 		if (vecMaterialItems[i]->GetObjectID() == 50130) //升心石
+// 		{
+// 			nItemChange++;
+// 			continue;
+// 		}
+
+// 		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0))
+// 		{
+// 			++nItemUp;
+// 			pItemUp = vecMaterialItems[i];
+// 			continue;
+// 		}
+
+// 		m_pStaResult->SetText("存在非升级类道具");
+// 		return false;
+// 	}
+
+// 	if (nItemUp == 1)
+// 	{
+// 		if (pItemUp->GetObject()->needlevel < 100)
+// 		{
+// 			m_pStaResult->SetText("100级以下的装备不能进行装备升心");
+// 			return false;
+// 		}
+// 	}
+
+// 	if ((nItemUp != 1) || (nItemChange < 1))
+// 	{
+// 		m_pStaResult->SetText("单件装备配合升心石才能进行装备升心");
+// 		return false;
+// 	}
+
+// 	char szInfo[MAX_PATH] = {0};
+// 	sprintf(szInfo, "消耗银子：5锭");
+// 	m_pStaNeedMoney->SetText(szInfo);
+
+// 	return true;
+// }
+
+/**
+ * @brief 定情信物镶嵌条件验证函数 //by=>friday
+ * @return bool 返回true表示可以进行定情信物镶嵌，false表示不满足条件
+ * 
+ * 功能说明：
+ * 1. 检查装备格子和材料格子中的物品
+ * 2. 验证是否有定情信物材料（物品ID: 50131）
+ * 3. 验证是否有符合条件的装备（100级以上，可升级类型）
+ * 4. 确保只有一件装备和至少一个定情信物
+ * 5. 在界面上显示相应的提示信息
+ */
+bool CDlgEquipRecast::CanComposeEquip21()
+{
+	// 初始化变量
+	int nMaterialNum = 0;                           // 材料总数量（暂未使用）
+	std::vector<CRoleItem*> vecMaterialItems;       // 存储所有参与验证的物品
+	
+	// 第一步：获取装备格子中的物品
+	CRoleItem* pRoleItem = this->GetFocusItem();    // 获取装备格子(ID=80)中的物品
+	if (pRoleItem)
+	{
+		vecMaterialItems.push_back(pRoleItem);       // 将装备添加到验证列表
+		nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum; // 累计数量
+	}
+
+	// 第二步：获取材料格子中的物品
+	for (int i = 0; i < TOTAL_MATERIAL_TABLE; ++i)  // 遍历所有材料格子（目前只有1个）
+	{
+		pRoleItem = this->GetMaterialItem(i);        // 获取材料格子(ID=120)中的物品
+		if (pRoleItem)
+		{
+			vecMaterialItems.push_back(pRoleItem);   // 将材料添加到验证列表
+			nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum; // 累计数量
+		}
+	}
+
+	// 第三步：检查是否有任何物品
+	if (vecMaterialItems.size() == 0)
+	{
+		DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 255); // 设置紫色文字
+		m_pStaResult->SetTextColor(dwColor);              // 设置提示文字颜色
+		m_pStaResult->SetText("定情信物镶嵌需要:定情信物");  // 显示提示信息
+		return false;                                     // 返回验证失败
+	}
+
+	// 第四步：分类检查物品类型
+	CRoleItem* pItemUp = NULL;      // 用于存储装备物品指针
+	int nItemUp = 0;                // 装备物品数量计数
+	int nItemChange = 0;            // 定情信物材料数量计数
+	DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 0); // 设置红色文字（错误提示）
+	m_pStaResult->SetTextColor(dwColor);
+
+	// 遍历所有物品，分类统计
+	for (int i = 0; i < vecMaterialItems.size(); ++i)
+	{
+		// 检查是否为定情信物材料 //by=>friday
+		if (vecMaterialItems[i]->GetObjectID() >= 51000 && vecMaterialItems[i]->GetObjectID() <= 51009) // 定情信物的物品ID范围
+		{
+			nItemChange++;          // 定情信物数量+1
+			continue;               // 继续检查下一个物品
+		}
+
+		// 检查是否为可升级装备（dwUp > 0 表示可升级）
+		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0))
+		{
+			++nItemUp;              // 装备数量+1
+			pItemUp = vecMaterialItems[i]; // 保存装备指针
+			continue;               // 继续检查下一个物品
+		}
+
+		// 如果物品既不是定情信物，也不是可升级装备，则验证失败
+		m_pStaResult->SetText("存在非升级类道具");
+		return false;
+	}
+
+	// 第五步：检查装备等级要求
+	if (nItemUp == 1) // 确保只有一件装备
+	{
+		if (pItemUp->GetObject()->needlevel < 100) // 检查装备等级
+		{
+			m_pStaResult->SetText("100级以下的装备不能进行定情信物镶嵌");
+			return false;
+		}
+	}
+
+	// 第六步：最终条件检查
+	if ((nItemUp != 1) || (nItemChange < 1)) // 必须是：1件装备 + 至少1个定情信物
+	{
+		m_pStaResult->SetText("单件装备配合定情信物才能进行镶嵌");
+		return false;
+	}
+
+	return true;
+}
+
+//心意提升条件验证 //by=>friday
+bool CDlgEquipRecast::CanComposeEquip22()
+{
+	int nMaterialNum = 0;
+	std::vector<CRoleItem*> vecMaterialItems;
+	CRoleItem* pRoleItem = this->GetFocusItem();
+	if (pRoleItem)
+	{
+		vecMaterialItems.push_back(pRoleItem);
+		nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum;
+	}
+
+	for (int i = 0; i < TOTAL_MATERIAL_TABLE; ++i)
+	{
+		pRoleItem = this->GetMaterialItem(i);
+		if (pRoleItem)
+		{
+			vecMaterialItems.push_back(pRoleItem);
+			nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum;
+		}
+	}
+
+	if (vecMaterialItems.size() == 0)
+	{
+		DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 255);
+		m_pStaResult->SetTextColor(dwColor);
+		m_pStaResult->SetText("心意提升需要:心意石");
+		return false;
+	}
+
+	CRoleItem* pItemUp = NULL;
+	int nItemUp = 0;
+	int nItemChange = 0;
+	DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 0);
+	m_pStaResult->SetTextColor(dwColor);
+
+	for (int i = 0; i < vecMaterialItems.size(); ++i)
+	{
+		if (vecMaterialItems[i]->GetObjectID() >= 51010 && vecMaterialItems[i]->GetObjectID() <= 51019) //心意石 //by=>friday
+		{
+			nItemChange++;
+			continue;
+		}
+
+		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0))
+		{
+			++nItemUp;
+			pItemUp = vecMaterialItems[i];
+			continue;
+		}
+
+		m_pStaResult->SetText("存在非升级类道具");
+		return false;
+	}
+
+	if (nItemUp == 1)
+	{
+		if (pItemUp->GetObject()->needlevel < 100)
+		{
+			m_pStaResult->SetText("100级以下的装备不能进行心意提升");
+			return false;
+		}
+	}
+
+	if ((nItemUp != 1) || (nItemChange < 1))
+	{
+		m_pStaResult->SetText("单件装备配合心意石才能进行心意提升");
+		return false;
+	}
+
+	return true;
+}
+
+//情谊提升条件验证 //by=>friday
+bool CDlgEquipRecast::CanComposeEquip23()
+{
+	int nMaterialNum = 0;
+	std::vector<CRoleItem*> vecMaterialItems;
+	CRoleItem* pRoleItem = this->GetFocusItem();
+	if (pRoleItem)
+	{
+		vecMaterialItems.push_back(pRoleItem);
+		nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum;
+	}
+
+	for (int i = 0; i < TOTAL_MATERIAL_TABLE; ++i)
+	{
+		pRoleItem = this->GetMaterialItem(i);
+		if (pRoleItem)
+		{
+			vecMaterialItems.push_back(pRoleItem);
+			nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum;
+		}
+	}
+
+	if (vecMaterialItems.size() == 0)
+	{
+		DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 255);
+		m_pStaResult->SetTextColor(dwColor);
+		m_pStaResult->SetText("情谊提升需要:情谊石");
+		return false;
+	}
+
+	CRoleItem* pItemUp = NULL;
+	int nItemUp = 0;
+	int nItemChange = 0;
+	DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 0);
+	m_pStaResult->SetTextColor(dwColor);
+
+	for (int i = 0; i < vecMaterialItems.size(); ++i)
+	{
+		if (vecMaterialItems[i]->GetObjectID() >= 51020 && vecMaterialItems[i]->GetObjectID() <= 51029) //情谊石 //by=>friday
+		{
+			nItemChange++;
+			continue;
+		}
+
+		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0))
+		{
+			++nItemUp;
+			pItemUp = vecMaterialItems[i];
+			continue;
+		}
+
+		m_pStaResult->SetText("存在非升级类道具");
+		return false;
+	}
+
+	if (nItemUp == 1)
+	{
+		if (pItemUp->GetObject()->needlevel < 100)
+		{
+			m_pStaResult->SetText("100级以下的装备不能进行情谊提升");
+			return false;
+		}
+	}
+
+	if ((nItemUp != 1) || (nItemChange < 1))
+	{
+		m_pStaResult->SetText("单件装备配合情谊石才能进行情谊提升");
+		return false;
+	}
+
+	return true;
+}
+
+//定情信物突破/进阶条件验证 //by=>friday
+bool CDlgEquipRecast::CanComposeEquip24()
+{
+	int nMaterialNum = 0;
+	std::vector<CRoleItem*> vecMaterialItems;
+	CRoleItem* pRoleItem = this->GetFocusItem();
+	if (pRoleItem)
+	{
+		vecMaterialItems.push_back(pRoleItem);
+		nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum;
+	}
+
+	for (int i = 0; i < TOTAL_MATERIAL_TABLE; ++i)
+	{
+		pRoleItem = this->GetMaterialItem(i);
+		if (pRoleItem)
+		{
+			vecMaterialItems.push_back(pRoleItem);
+			nMaterialNum += vecMaterialItems.back()->GetObject()->dwNum;
+		}
+	}
+
+	if (vecMaterialItems.size() == 0)
+	{
+		DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 255);
+		m_pStaResult->SetTextColor(dwColor);
+		m_pStaResult->SetText("定情信物突破/进阶需要:信物突破石");
+		return false;
+	}
+
+	CRoleItem* pItemUp = NULL;
+	int nItemUp = 0;
+	int nItemChange = 0;
+	DWORD dwColor = D3DCOLOR_ARGB(255, 255, 0, 0);
+	m_pStaResult->SetTextColor(dwColor);
+
+	for (int i = 0; i < vecMaterialItems.size(); ++i)
+	{
+		if (vecMaterialItems[i]->GetObjectID() >= 51030 && vecMaterialItems[i]->GetObjectID() <= 51039) //突破石 //by=>friday
+		{
+			nItemChange++;
+			continue;
+		}
+
+		if ((vecMaterialItems[i]->GetObjectBase()->dwUp > 0))
+		{
+			++nItemUp;
+			pItemUp = vecMaterialItems[i];
+			continue;
+		}
+
+		m_pStaResult->SetText("存在非升级类道具");
+		return false;
+	}
+
+	if (nItemUp == 1)
+	{
+		if (pItemUp->GetObject()->needlevel < 120)
+		{
+			m_pStaResult->SetText("120级以下的装备不能进行突破/进阶");
+			return false;
+		}
+	}
+
+	if ((nItemUp != 1) || (nItemChange < 1))
+	{
+		m_pStaResult->SetText("单件装备配合突破石才能进行突破/进阶");
+		return false;
+	}
+
+	return true;
+}
+
+//隐藏装备升心子功能按钮 //by=>friday
+void CDlgEquipRecast::HideEquipCompose20SubButtons()
+{
+	CGuiButton* pBtn148 = this->GetButton(148); //定情信物镶嵌
+	CGuiButton* pBtn149 = this->GetButton(149); //心意提升
+	CGuiButton* pBtn150 = this->GetButton(150); //情谊提升
+	CGuiButton* pBtn151 = this->GetButton(151); //定情信物突破/进阶
+	CGuiButton* pBtn152 = this->GetButton(152); //操作按钮
+	CGuiStatic* pSta1555 = this->GetStatic(1555); //说明文本
+	
+	if (pBtn148) pBtn148->SetVisible(false);
+	if (pBtn149) pBtn149->SetVisible(false);
+	if (pBtn150) pBtn150->SetVisible(false);
+	if (pBtn151) pBtn151->SetVisible(false);
+	if (pBtn152) pBtn152->SetVisible(false);
+	if (pSta1555) pSta1555->SetVisible(false);
+}
+
+// void CDlgEquipRecast::RefreshEquipCompose20()
+// {
+// 	bool bShow = false;
+// 	CRoleItem* pRoleItem = this->GetFocusItem();
+// 	if (pRoleItem && m_bPutFocusItem)
+// 	{
+// 		bShow = true;
+// 	}
+
+// 	//重置子功能类型为未选择状态 //by=>friday
+// 	m_nEquipCompose20SubType = 0;
+
+// 	//设置子功能按钮显示状态 //by=>friday
+// 	CGuiButton* pBtn148 = this->GetButton(148); //定情信物镶嵌
+// 	CGuiButton* pBtn149 = this->GetButton(149); //心意提升
+// 	CGuiButton* pBtn150 = this->GetButton(150); //情谊提升
+// 	CGuiButton* pBtn151 = this->GetButton(151); //定情信物突破/进阶
+// 	CGuiButton* pBtn152 = this->GetButton(152); //操作按钮
+// 	CGuiStatic* pSta1555 = this->GetStatic(1555); //说明文本
+	
+// 	//显示装备升心相关按钮和文本，初始状态都不选中 //by=>friday
+// 	if (pBtn148) { pBtn148->SetVisible(true); pBtn148->SetChecked(false); }
+// 	if (pBtn149) { pBtn149->SetVisible(true); pBtn149->SetChecked(false); }
+// 	if (pBtn150) { pBtn150->SetVisible(true); pBtn150->SetChecked(false); }
+// 	if (pBtn151) { pBtn151->SetVisible(true); pBtn151->SetChecked(false); }
+// 	if (pBtn152) pBtn152->SetVisible(false); //主页面时隐藏操作按钮 //by=>friday
+// 	if (pSta1555) pSta1555->SetVisible(true);
+
+// 	m_pStaNeedMoney->SetVisible(bShow);
+// 	if (bShow)
+// 	{
+// 	  bool bEnable = this->CanComposeEquip20();
+// 	  this->GetButton(152)->SetEnabled(bEnable); //操作按钮
+
+// 		if (bEnable)
+// 		{
+// 			std::stringstream ss;
+// 			//根据子功能类型显示不同内容 //by=>friday
+// 			switch(m_nEquipCompose20SubType)
+// 			{
+// 			case 1: //定情信物镶嵌
+// 				ss << "需要银子：5锭";
+// 				m_pStaResult->SetText("定情信物镶嵌功能：提升装备属性");
+// 				break;
+// 			case 2: //心意提升
+// 				ss << "需要银子：10锭";
+// 				m_pStaResult->SetText("心意提升功能：增强装备心意值");
+// 				break;
+// 			case 3: //情谊提升
+// 				ss << "需要银子：15锭";
+// 				m_pStaResult->SetText("情谊提升功能：增强装备情谊值");
+// 				break;
+// 			case 4: //定情信物突破/进阶
+// 				ss << "需要银子：20锭";
+// 				m_pStaResult->SetText("定情信物突破/进阶功能：装备品质提升");
+// 				break;
+// 			default:
+// 				ss << "需要银子：5锭";
+// 				m_pStaResult->SetText("装备升心功能说明：选择对应的子功能进行操作");
+// 				break;
+// 			}
+// 			m_pStaNeedMoney->SetText(ss.str().c_str());
+// 		}
+// 		else
+// 		{
+// 			m_pStaNeedMoney->SetText("");
+// 			m_pStaResult->SetText("请放入正确的装备和材料");
+// 		}
+// 	}
+// }
+
+//定情信物镶嵌独立刷新函数 //by=>friday
+void CDlgEquipRecast::RefreshEquipCompose21()
+{
+	bool bShow = false;
+	CRoleItem* pRoleItem = this->GetFocusItem();
+	if (pRoleItem && m_bPutFocusItem)
+	{
+		bShow = true;
+	}
+
+	//显示独立界面，保持按钮可见 //by=>friday
+
+	m_pStaNeedMoney->SetVisible(bShow);
+	if (bShow)
+	{
+		bool bEnable = this->CanComposeEquip21(); //调用定情信物镶嵌独立条件验证 //by=>friday
+		this->GetButton(152)->SetEnabled(bEnable); //操作按钮
+
+		if (bEnable)
+		{
+			std::stringstream ss;
+			ss << "需要银子：5锭";
+			m_pStaNeedMoney->SetText(ss.str().c_str());
+			m_pStaResult->SetText("定情信物镶嵌功能：提升装备属性，增强装备基础数值");
+		}
+		else
+		{
+			m_pStaNeedMoney->SetText("");
+			m_pStaResult->SetText("请放入正确的装备和定情信物材料");
+		}
+	}
+}
+
+//心意提升独立刷新函数 //by=>friday
+void CDlgEquipRecast::RefreshEquipCompose22()
+{
+	bool bShow = false;
+	CRoleItem* pRoleItem = this->GetFocusItem();
+	if (pRoleItem && m_bPutFocusItem)
+	{
+		bShow = true;
+	}
+
+	//显示独立界面，保持按钮可见 //by=>friday
+
+	m_pStaNeedMoney->SetVisible(bShow);
+	if (bShow)
+	{
+		bool bEnable = this->CanComposeEquip22(); //调用心意提升独立条件验证 //by=>friday
+		this->GetButton(153)->SetEnabled(bEnable); //心意提升操作按钮 //by=>friday
+
+		if (bEnable)
+		{
+			std::stringstream ss;
+			ss << "需要银子：10锭";
+			m_pStaNeedMoney->SetText(ss.str().c_str());
+			m_pStaResult->SetText("心意提升功能：增强装备心意值，提升装备特殊属性");
+		}
+		else
+		{
+			m_pStaNeedMoney->SetText("");
+			m_pStaResult->SetText("请放入正确的装备和心意石材料");
+		}
+	}
+}
+
+//情谊提升独立刷新函数 //by=>friday
+void CDlgEquipRecast::RefreshEquipCompose23()
+{
+	bool bShow = false;
+	CRoleItem* pRoleItem = this->GetFocusItem();
+	if (pRoleItem && m_bPutFocusItem)
+	{
+		bShow = true;
+	}
+
+	//显示独立界面，保持按钮可见 //by=>friday
+
+	m_pStaNeedMoney->SetVisible(bShow);
+	if (bShow)
+	{
+		bool bEnable = this->CanComposeEquip23(); //调用情谊提升独立条件验证 //by=>friday
+		this->GetButton(154)->SetEnabled(bEnable); //情谊提升操作按钮 //by=>friday
+
+		if (bEnable)
+		{
+			std::stringstream ss;
+			ss << "需要银子：15锭";
+			m_pStaNeedMoney->SetText(ss.str().c_str());
+			m_pStaResult->SetText("情谊提升功能：增强装备情谊值，提升装备缘分属性");
+		}
+		else
+		{
+			m_pStaNeedMoney->SetText("");
+			m_pStaResult->SetText("请放入正确的装备和情谊石材料");
+		}
+	}
+}
+
+//定情信物突破/进阶独立刷新函数 //by=>friday
+void CDlgEquipRecast::RefreshEquipCompose24()
+{
+	bool bShow = false;
+	CRoleItem* pRoleItem = this->GetFocusItem();
+	if (pRoleItem && m_bPutFocusItem)
+	{
+		bShow = true;
+	}
+
+	//显示独立界面，保持按钮可见 //by=>friday
+
+	m_pStaNeedMoney->SetVisible(bShow);
+	if (bShow)
+	{
+		bool bEnable = this->CanComposeEquip24(); //调用定情信物突破/进阶独立条件验证 //by=>friday
+		this->GetButton(155)->SetEnabled(bEnable); //定情信物突破/进阶操作按钮 //by=>friday
+
+		if (bEnable)
+		{
+			std::stringstream ss;
+			ss << "需要银子：20锭";
+			m_pStaNeedMoney->SetText(ss.str().c_str());
+			m_pStaResult->SetText("定情信物突破/进阶功能：装备品质提升，大幅增强装备能力");
+		}
+		else
+		{
+			m_pStaNeedMoney->SetText("");
+			m_pStaResult->SetText("请放入正确的装备和突破石材料");
+		}
+	}
+}
+
+	// 切换到附件装备界面 //by=>friday
+// 切换到附件装备界面 //by=>friday
+void CDlgEquipRecast::OnSwitchToAnnexpack()
+{
+    // 获取当前界面位置 //by=>friday
+    stPointI currentPos = this->GetLocation(); //by=>friday
+    
+    this->Hide(); // 隐藏当前界面 //by=>friday
+    // 检查附件装备界面是否已创建，如果没有则创建 //by=>friday
+    CDlgEquipAnnexpack* pDlg = GetGameGuiManager()->AddDlgEquipAnnexpack(true); //by=>friday
+    if (pDlg) //by=>friday
+    {
+        // 设置新界面位置与当前界面相同 //by=>friday
+        pDlg->SetLocation(currentPos.x, currentPos.y); //by=>friday
+        pDlg->SetVisible(true); // 显示附件装备界面 //by=>friday
+    }
+}
+
+

@@ -17,7 +17,7 @@ function kill_15003(npc)
 	print(1);
 	
 	if s == 1 and id==npc:id() and type == 4 then
-			--sys(player, 5, "鎴愬姛鍑绘潃鐩爣");
+			--sys(player, 5, "成功击杀目标");
 			if(math.random(1,10) <5) then
 				player:add_ob(2054, 1, 0, 0);
 			end

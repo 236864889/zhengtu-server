@@ -1,18 +1,18 @@
---visit_npc_list = { {"æ¸…æºæ‘çš„56001", 56001}, {"æ¸…æºæ‘çš„56003", 56003}, {"æ¸…æºæ‘çš„56006", 56006} };
---kill_npc_list = { {"åŠ¨ç‰©50007", 50007}, {"åŠ¨ç‰©50021", 50021}, {"åŠ¨ç‰©10038", 10038} };
---get_item_list = { {"å…½è€³", 1800}, {"ç¾½æ¯›", 1801}, {"å…½æ¯›", 1802} };
---kill_get_list = { {"æ€50007è·å¾—1800å…½è€³", 50007, 1800}, {"æ€50021è·å¾—1801ç¾½æ¯›", 50021, 1801}, {"æ€10038è·å¾—1802å…½è€³", 10038, 1802} };
+--visit_npc_list = { {"ÇåÔ´´åµÄ56001", 56001}, {"ÇåÔ´´åµÄ56003", 56003}, {"ÇåÔ´´åµÄ56006", 56006} };
+--kill_npc_list = { {"¶¯Îï50007", 50007}, {"¶¯Îï50021", 50021}, {"¶¯Îï10038", 10038} };
+--get_item_list = { {"ÊŞ¶ú", 1800}, {"ÓğÃ«", 1801}, {"ÊŞÃ«", 1802} };
+--kill_get_list = { {"É±50007»ñµÃ1800ÊŞ¶ú", 50007, 1800}, {"É±50021»ñµÃ1801ÓğÃ«", 50021, 1801}, {"É±10038»ñµÃ1802ÊŞ¶ú", 10038, 1802} };
 
 menu_247_1 = [[
 function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("è¿™æ˜¯ä¸€ä¸ªç¯å¼ä»»åŠ¡ï¼Œä¸€æ—¦æ¥äº†å°±ä¸èƒ½åˆ é™¤ï¼Œå®Œæˆä»»åŠ¡åå¯ä»¥æ‰¾æ¥ä»»åŠ¡çš„NPCé¢†å–å¥–åŠ±ï¼Œæ¯å¤©åªèƒ½æ¥ä¸€æ¬¡ï¼Œä½ æ˜¯å¦è¦å¼€å§‹ä»Šå¤©çš„ä»»åŠ¡ã€‚");
-this:AddTaskCmdItem("æ¥å—ä»»åŠ¡", "accept_247", 21101, 1)
+this:AddTalk("ÕâÊÇÒ»¸ö»·Ê½ÈÎÎñ£¬Ò»µ©½ÓÁË¾Í²»ÄÜÉ¾³ı£¬Íê³ÉÈÎÎñºó¿ÉÒÔÕÒ½ÓÈÎÎñµÄNPCÁìÈ¡½±Àø£¬Ã¿ÌìÖ»ÄÜ½ÓÒ»´Î£¬ÄãÊÇ·ñÒª¿ªÊ¼½ñÌìµÄÈÎÎñ¡£");
+this:AddTaskCmdItem("½ÓÊÜÈÎÎñ", "accept_247", 21101, 1)
 end
 function Dialog45()
-this:AddTalk("å¸®æˆ‘æŠŠè¿™å°ä¿¡äº¤ç»™#place#ï¼Œç„¶åå›æ¥æˆ‘å›ç»™ä½ å¥–åŠ±çš„ã€‚");
+this:AddTalk("°ïÎÒ°ÑÕâ·âĞÅ½»¸ø#place#£¬È»ºó»ØÀ´ÎÒ»Ø¸øÄã½±ÀøµÄ¡£");
 end
 function MoveCanClose()
 	return false
@@ -25,11 +25,11 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("è¿™æ˜¯ä¸€ä¸ªç¯å¼ä»»åŠ¡ï¼Œä¸€æ—¦æ¥äº†å°±ä¸èƒ½åˆ é™¤ï¼Œå®Œæˆä»»åŠ¡åå¯ä»¥æ‰¾æ¥ä»»åŠ¡çš„NPCé¢†å–å¥–åŠ±ï¼Œæ¯å¤©åªèƒ½æ¥ä¸€æ¬¡ï¼Œä½ æ˜¯å¦è¦å¼€å§‹ä»Šå¤©çš„ä»»åŠ¡ã€‚");
-this:AddTaskCmdItem("æ¥å—ä»»åŠ¡", "accept_247", 21101, 2)
+this:AddTalk("ÕâÊÇÒ»¸ö»·Ê½ÈÎÎñ£¬Ò»µ©½ÓÁË¾Í²»ÄÜÉ¾³ı£¬Íê³ÉÈÎÎñºó¿ÉÒÔÕÒ½ÓÈÎÎñµÄNPCÁìÈ¡½±Àø£¬Ã¿ÌìÖ»ÄÜ½ÓÒ»´Î£¬ÄãÊÇ·ñÒª¿ªÊ¼½ñÌìµÄÈÎÎñ¡£");
+this:AddTaskCmdItem("½ÓÊÜÈÎÎñ", "accept_247", 21101, 2)
 end
 function Dialog45()
-this:AddTalk("å¸®æˆ‘æ€#npc#æ€ªç‰©5åªï¼Œç„¶åå›æ¥å‘Šè¯‰æˆ‘ã€‚");
+this:AddTalk("°ïÎÒÉ±#npc#¹ÖÎï5Ö»£¬È»ºó»ØÀ´¸æËßÎÒ¡£");
 end
 function MoveCanClose()
 	return false
@@ -43,11 +43,11 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("è¿™æ˜¯ä¸€ä¸ªç¯å¼ä»»åŠ¡ï¼Œä¸€æ—¦æ¥äº†å°±ä¸èƒ½åˆ é™¤ï¼Œå®Œæˆä»»åŠ¡åå¯ä»¥æ‰¾æ¥ä»»åŠ¡çš„NPCé¢†å–å¥–åŠ±ï¼Œæ¯å¤©åªèƒ½æ¥ä¸€æ¬¡ï¼Œä½ æ˜¯å¦è¦å¼€å§‹ä»Šå¤©çš„ä»»åŠ¡ã€‚");
-this:AddTaskCmdItem("æ¥å—ä»»åŠ¡", "accept_247", 21101, 3)
+this:AddTalk("ÕâÊÇÒ»¸ö»·Ê½ÈÎÎñ£¬Ò»µ©½ÓÁË¾Í²»ÄÜÉ¾³ı£¬Íê³ÉÈÎÎñºó¿ÉÒÔÕÒ½ÓÈÎÎñµÄNPCÁìÈ¡½±Àø£¬Ã¿ÌìÖ»ÄÜ½ÓÒ»´Î£¬ÄãÊÇ·ñÒª¿ªÊ¼½ñÌìµÄÈÎÎñ¡£");
+this:AddTaskCmdItem("½ÓÊÜÈÎÎñ", "accept_247", 21101, 3)
 end
 function Dialog45()
-this:AddTalk("æˆ‘éœ€è¦3ä¸ª#name#ï¼Œç‰©å“IDä¸º#id#ï¼Œå…¨éƒ¨æ‰¾åˆ°åæ‹¿æ¥ç»™æˆ‘ã€‚");
+this:AddTalk("ÎÒĞèÒª3¸ö#name#£¬ÎïÆ·IDÎª#id#£¬È«²¿ÕÒµ½ºóÄÃÀ´¸øÎÒ¡£");
 end
 function MoveCanClose()
 	return false
@@ -60,8 +60,8 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("è¿™æ˜¯ä¸€ä¸ªç¯å¼ä»»åŠ¡ï¼Œä¸€æ—¦æ¥äº†å°±ä¸èƒ½åˆ é™¤ï¼Œå®Œæˆä»»åŠ¡åå¯ä»¥æ‰¾æ¥ä»»åŠ¡çš„NPCé¢†å–å¥–åŠ±ï¼Œæ¯å¤©åªèƒ½æ¥ä¸€æ¬¡ï¼Œä½ æ˜¯å¦è¦å¼€å§‹ä»Šå¤©çš„ä»»åŠ¡ã€‚");
-this:AddTaskCmdItem("æ¥å—ä»»åŠ¡", "accept_247", 21101, 13)
+this:AddTalk("ÕâÊÇÒ»¸ö»·Ê½ÈÎÎñ£¬Ò»µ©½ÓÁË¾Í²»ÄÜÉ¾³ı£¬Íê³ÉÈÎÎñºó¿ÉÒÔÕÒ½ÓÈÎÎñµÄNPCÁìÈ¡½±Àø£¬Ã¿ÌìÖ»ÄÜ½ÓÒ»´Î£¬ÄãÊÇ·ñÒª¿ªÊ¼½ñÌìµÄÈÎÎñ¡£");
+this:AddTaskCmdItem("½ÓÊÜÈÎÎñ", "accept_247", 21101, 13)
 end
 function MoveCanClose()
 	return false
@@ -74,7 +74,7 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("#name#ï¼Œè¦æ€çš„æ€ªç‰©ä¸º#kill#ï¼Œæ‹¿åˆ°3ä¸ª#item#åç»™æˆ‘ã€‚");
+this:AddTalk("#name#£¬ÒªÉ±µÄ¹ÖÎïÎª#kill#£¬ÄÃµ½3¸ö#item#ºó¸øÎÒ¡£");
 end
 
 ]]
@@ -84,7 +84,7 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("æˆ‘éœ€è¦3ä¸ª#name#ï¼Œç‰©å“IDä¸º#id#ï¼Œå…¨éƒ¨æ‰¾åˆ°åæ‹¿æ¥ç»™æˆ‘ã€‚");
+this:AddTalk("ÎÒĞèÒª3¸ö#name#£¬ÎïÆ·IDÎª#id#£¬È«²¿ÕÒµ½ºóÄÃÀ´¸øÎÒ¡£");
 end
 
 ]]
@@ -94,7 +94,7 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("å¸®æˆ‘æŠŠè¿™å°ä¿¡äº¤ç»™#place#ï¼Œç„¶åå›æ¥æˆ‘å›ç»™ä½ å¥–åŠ±çš„ã€‚");
+this:AddTalk("°ïÎÒ°ÑÕâ·âĞÅ½»¸ø#place#£¬È»ºó»ØÀ´ÎÒ»Ø¸øÄã½±ÀøµÄ¡£");
 end
 
 ]]
@@ -104,7 +104,7 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("å¸®æˆ‘æ€#npc#æ€ªç‰©5åªï¼Œç„¶åå›æ¥å‘Šè¯‰æˆ‘ã€‚");
+this:AddTalk("°ïÎÒÉ±#npc#¹ÖÎï5Ö»£¬È»ºó»ØÀ´¸æËßÎÒ¡£");
 end
 
 ]]
@@ -115,7 +115,7 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("æ­å–œä½ å®Œæˆäº†ä»»åŠ¡ï¼Œè¿™æ˜¯ä½ çš„å¥–åŠ±");
+this:AddTalk("¹§Ï²ÄãÍê³ÉÁËÈÎÎñ£¬ÕâÊÇÄãµÄ½±Àø");
 end
 
 ]]
@@ -125,8 +125,8 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("3ä¸ª#name#ï¼Œç‰©å“IDä¸º#id#ï¼Œä½ å·²ç»æ”¶é›†å¥½äº†ä¹ˆï¼Ÿ");
-this:AddTaskCmdItem("äº¤å‡ºç‰©å“", "accept_247", 21101, 8)
+this:AddTalk("3¸ö#name#£¬ÎïÆ·IDÎª#id#£¬ÄãÒÑ¾­ÊÕ¼¯ºÃÁËÃ´£¿");
+this:AddTaskCmdItem("½»³öÎïÆ·", "accept_247", 21101, 8)
 end
 
 ]]
@@ -137,7 +137,7 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddTalk("ä¿¡æ€»ç®—é€æ¥äº†ï¼Œä½ å›å»å‘Šè¯‰ä»–æˆ‘çŸ¥é“äº†ã€‚");
+this:AddTalk("ĞÅ×ÜËãËÍÀ´ÁË£¬Äã»ØÈ¥¸æËßËûÎÒÖªµÀÁË¡£");
 end
 
 ]]
@@ -217,7 +217,7 @@ function kill_npc(npc)
 		else		
 			v:set("kills", kill+1);
 			if (kill+1) >= 3 then
-				sys(player, 1, "æ­å–œä½ å®Œæˆäº†ä¸€ä¸ªä»»åŠ¡");
+				sys(player, 1, "¹§Ï²ÄãÍê³ÉÁËÒ»¸öÈÎÎñ");
 				v:set("state", -3);
 				local tempid = v:get("npc");
 				refresh_npc(tempid);
@@ -256,12 +256,12 @@ function get_object(object)
 			--print(2);
 			if not get then 
 				v:set("item_nums", 1); 
-				--sys(player, 1, "åˆæ‹¿åˆ°äº†");
+				--sys(player, 1, "ÓÖÄÃµ½ÁË");
 			else		
 				v:set("item_nums", get+1);
-				--sys(player, 1, "åˆæ‹¿åˆ°äº†");
+				--sys(player, 1, "ÓÖÄÃµ½ÁË");
 				if get >= 2 then
-					sys(player, 1, "æ­å–œä½ æ”¶é›†äº†è¶³å¤Ÿçš„ç‰©å“");
+					sys(player, 1, "¹§Ï²ÄãÊÕ¼¯ÁË×ã¹»µÄÎïÆ·");
 					v:set("state", -3);
 					local tempid = v:get("id");
 					refresh_npc(tempid);
@@ -291,12 +291,12 @@ function get_object(object)
 			--print(2);
 			if not get then 
 				v:set("item_nums", 1); 
-				sys(player, 5, "æ‹¿åˆ°äº†");
+				sys(player, 5, "ÄÃµ½ÁË");
 			else		
 				v:set("item_nums", get+1);
-				sys(player, 5, "æ‹¿åˆ°äº†");
+				sys(player, 5, "ÄÃµ½ÁË");
 				if get >= 2 then
-					sys(player, 1, "æ­å–œä½ æ”¶é›†äº†è¶³å¤Ÿçš„ç‰©å“");
+					sys(player, 1, "¹§Ï²ÄãÊÕ¼¯ÁË×ã¹»µÄÎïÆ·");
 					v:set("state", -3);
 					player:remove_ob(item, 3, 0);
 					local tempid = v:get("item");

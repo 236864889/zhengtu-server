@@ -34,12 +34,12 @@
 #endif
 
 #define _TY(x) #x
-#define STR(x) _TY(x)
+#define _S(x) _TY(x)
 
 #ifndef VS
-#define VERSION_STRING	STR(MAJOR_VERSION)"."STR(MINOR_VERSION)"."STR(MICRO_VERSION)
+#define VERSION_STRING	_S(MAJOR_VERSION)"."_S(MINOR_VERSION)"."_S(MICRO_VERSION)
 #else
-#define VERSION_STRING STR(VS)
+#define VERSION_STRING _S(VS)
 #endif
 
 #endif

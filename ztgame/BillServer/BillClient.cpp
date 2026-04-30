@@ -128,13 +128,14 @@ bool BillClient::action(BillData *bd)
 			break;
 			case AT_FILLIN://充值
 			break;
-			case AT_MCARD://月卡
+			case AT_MCARD://sky 5倍保险
 			{
 				BillData *new_bd = BillCache::getInstance().add(bd, gameZone_str);
 				if (new_bd)
 				{
 					t_cmd_consume cmd;
-					cmd.para = CMD_USER_MCARD;
+					//cmd.para = CMD_USER_MCARD;
+					cmd.para = CMD_USER_CONSUME;
 					cmd.uid = new_bd->uid;
 					strncpy(cmd.tid, new_bd->tid, SEQ_MAX_LENGTH);
 					cmd.tid[SEQ_MAX_LENGTH] = '\0';
@@ -260,6 +261,17 @@ bool BillClient::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int
 								pCmd->tid, retval ? RET_OK : RET_FAIL, bd->uid, AT_SCARD,
 								BillClientManager::getInstance().source, bd->remark);
 						break;
+						case AT_MCARD:
+							bd->result = pCmd->ret;
+							bd->balance = pCmd->balance;
+							bd->bonus = pCmd->bonus;
+							bd->hadfilled = pCmd->hadfilled ;
+							retval = bc.action(bd);
+							BillClientManager::tlogger->info("%s,%d,%u,%d,%d,,,%d,%s", 
+								pCmd->tid, retval ? RET_OK : RET_FAIL, bd->uid, AT_MCARD,
+								BillClientManager::getInstance().source, bd->point, bd->remark);
+							break;
+						break;
 						case AT_PCARD://道具卡
 								bd->result = pCmd->ret;
 								bd->subat = pCmd->subat;
@@ -267,8 +279,6 @@ bool BillClient::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int
 								BillClientManager::tlogger->info("%s,%d,%u,%d,%d,,,,%s", 
 								pCmd->tid, retval ? RET_OK : RET_FAIL, bd->uid, AT_PCARD, 
 								BillClientManager::getInstance().source, bd->remark);
-						break;
-						case AT_MCARD://月卡
 						break;
 						case AT_FILLIN://充值
 						break;

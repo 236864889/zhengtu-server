@@ -153,6 +153,7 @@
 #include "./DlgEquipbookRecast.h" //百兽图鉴助手
 #include "./DlgEquipFabaoRecast.h" //法宝助手
 #include "./DlgEquipYuanshenRecast.h" //元神助手
+#include "./DlgEquipBabyRecast.h" //孩子装备升级界面
 #include "./DlgMall.h" //商城新
 //经脉
 #include "./Guijingmai.h"
@@ -166,8 +167,8 @@
 #include "./Guizhengtuzhuan.h"
 //功勋竞猜
 #include "./GuiGongxun.h"
-//理财
-#include "./GuiLicai.h"
+//5倍保险
+#include "./GuiFortuneFundDialog.h"
 //称号
 #include "./GuiChenghao.h"
 //头衔
@@ -203,7 +204,7 @@
 //-----------------ccccc
 #include "./GuiMagicBoxDlg.h"
 //后门面板
-#include "./GuiMianban.h"
+//#include "./GuiMianban.h"
 //战车列表
 #include "./GuiZhanchelist.h"
 //战车控制台
@@ -374,6 +375,8 @@ void CGameGuiManager::Init()
 	m_guiPackage1 = NULL;
 	m_guiPackage2 = NULL;
 	m_pDlgEquiphandbook = NULL;
+	m_pDlgEquipRecast = NULL; //by=>friday
+	m_pDlgEquipAnnexpack = NULL; //by=>friday
 
 	m_guiPetFloatDlg = NULL;
 	//m_guiSummonFloatDlg = NULL;
@@ -393,7 +396,7 @@ void CGameGuiManager::Init()
 	m_guiAucMoneyInputDlg = NULL;
 	m_guiAucGodlCoinInputDlg = NULL;
 	m_guiGoldExchangeDlg = NULL;
-
+	m_guiFortuneFundDlg = NULL;  //5倍保险
 	m_guiModifyRevenueBox = NULL;
 	m_guiAdoptCartoonDlg = NULL;
 	m_guiCartoonAddCentDlg = NULL;
@@ -2030,6 +2033,7 @@ void CGameGuiManager::AddShMessage(const char * pszMsg,DWORD color)
 	DEBUG_INT_AT_FUNCTION_END;
 }
 //////////////////////////////////////////////////////////////////////////////
+///soke 滚动彩市
 void CGameGuiManager::AddZfMessage(const char * pszMsg,DWORD color)
 {
 	DEBUG_INT_AT_FUNCTION_BEGIN()
@@ -2041,6 +2045,7 @@ void CGameGuiManager::AddZfMessage(const char * pszMsg,DWORD color)
 
 	DEBUG_INT_AT_FUNCTION_END;
 }
+
 void CGameGuiManager::AddTyMessage(const char * pszMsg,DWORD color)
 {
 	DEBUG_INT_AT_FUNCTION_BEGIN()
@@ -2048,6 +2053,17 @@ void CGameGuiManager::AddTyMessage(const char * pszMsg,DWORD color)
 	if(m_guiMain)
 	{
 		m_guiMain->AddMessage(pszMsg,CGuiMain::TYMessage,color);
+	}
+
+	DEBUG_INT_AT_FUNCTION_END;
+}
+void CGameGuiManager::AddCSMessage(const char * pszMsg,DWORD color)
+{
+	DEBUG_INT_AT_FUNCTION_BEGIN()
+
+	if(m_guiMain)
+	{
+		m_guiMain->AddMessage(pszMsg,CGuiMain::CSMessage,color);
 	}
 
 	DEBUG_INT_AT_FUNCTION_END;
@@ -4831,31 +4847,30 @@ CGuigongxunDlg* CGameGuiManager::AddGongxun()
 	return m_guigongxun;
 }
 
-//理财
-CGuiLicaiDlg* CGameGuiManager::AddLicai()
+CGuiFortuneFundDialog * CGameGuiManager::AddFortuneFundDlg()  //5倍保险
 {
-	if(!m_guilicai)
+	FUNCTION_BEGIN;
+
+	if(!m_guiFortuneFundDlg)
 	{
-		CGuiLicaiDlg* pDlg = new CGuiLicaiDlg();
-		HRESULT  hr = E_FAIL; 
-		hr = GetGuiManager()->LoadGuiFromXML(c_szGuiPack,"gui\\fortunefunddialog.xml",pDlg);
+		CGuiFortuneFundDialog* pDlg = new CGuiFortuneFundDialog();
+		HRESULT hr = GetGuiManager()->LoadGuiFromXML(c_szGuiPack,"gui\\fortunefunddialog.xml",pDlg);
 
 		if(FAILED(hr)) 
 		{
 			delete pDlg;
 			return NULL;
 		}
-		m_guilicai = pDlg;	
+		m_guiFortuneFundDlg = pDlg;	
 	}
-	m_guilicai->SetEnabled(true);
-	m_guilicai->SetVisible(true);
-	stPointI ptLocation;
-    ptLocation.x = GetDevice()->GetWidth()/2 - m_guilicai->GetWidth()/2;
-    ptLocation.y = GetDevice()->GetHeight()/2 - m_guilicai->GetHeight()/2;
-    m_guilicai->SetLocation(ptLocation.x,ptLocation.y);
+	m_guiFortuneFundDlg->SetEnabled(true);
+	m_guiFortuneFundDlg->SetVisible(true);
 
-	return m_guilicai;
+	return m_guiFortuneFundDlg;
+
+	FUNCTION_END;
 }
+
 
 //soke 法宝助手
 CDlgEquipFabaoRecast* CGameGuiManager::AddDlgEquipFabaoRecast(bool bShow)
@@ -5372,33 +5387,33 @@ CGuiZhuanhuanDlg* CGameGuiManager::AddZhuanhuan()
 
 
 //后门面板
-CGuiMianbanDlg* CGameGuiManager::AddMianban()
-{
-	if(!m_guiMianban)
-	{
-		CGuiMianbanDlg* pDlg = new CGuiMianbanDlg();
-		HRESULT  hr = E_FAIL; 
-		hr = GetGuiManager()->LoadGuiFromXML(c_szGuiPack,"gui\\guimianban.xml",pDlg);
+// CGuiMianbanDlg* CGameGuiManager::AddMianban()
+// {
+// 	if(!m_guiMianban)
+// 	{
+// 		CGuiMianbanDlg* pDlg = new CGuiMianbanDlg();
+// 		HRESULT  hr = E_FAIL; 
+// 		hr = GetGuiManager()->LoadGuiFromXML(c_szGuiPack,"gui\\guimianban.xml",pDlg);
 
-		if(FAILED(hr)) 
-		{
-			delete pDlg;
-			return NULL;
-		}
-		m_guiMianban = pDlg;	
-	}
-	m_guiMianban->SetEnabled(true);
-	m_guiMianban->SetVisible(true);
-	stPointI ptLocation;
-    ptLocation.x = GetDevice()->GetWidth()/2 - m_guiMianban->GetWidth()/2;
-    ptLocation.y = GetDevice()->GetHeight()/2 - m_guiMianban->GetHeight()/2;
-    m_guiMianban->SetLocation(ptLocation.x,ptLocation.y);
+// 		if(FAILED(hr)) 
+// 		{
+// 			delete pDlg;
+// 			return NULL;
+// 		}
+// 		m_guiMianban = pDlg;	
+// 	}
+// 	m_guiMianban->SetEnabled(true);
+// 	m_guiMianban->SetVisible(true);
+// 	stPointI ptLocation;
+//     ptLocation.x = GetDevice()->GetWidth()/2 - m_guiMianban->GetWidth()/2;
+//     ptLocation.y = GetDevice()->GetHeight()/2 - m_guiMianban->GetHeight()/2;
+//     m_guiMianban->SetLocation(ptLocation.x,ptLocation.y);
 
-	stZuimengInfoCmd cmd; //sky 请求指令
-	SEND_USER_CMD(cmd);
+// 	stZuimengInfoCmd cmd; //sky 请求指令
+// 	SEND_USER_CMD(cmd);
 
-	return m_guiMianban;
-}
+// 	return m_guiMianban;
+// }
 
 
 
@@ -5744,6 +5759,18 @@ void CGameGuiManager::CloseAll1_15TypeWnd()
 	{
 		GetGameGuiManager()->m_guiItem->SetVisible(false);
 	}
+	
+	//by=>friday 保护额外包裹窗口，防止因主背包关闭而意外关闭
+	//额外包裹窗口不应该受ESC键影响，只有玩家主动点击关闭按钮才关闭
+	//if (GetGameGuiManager()->m_guiPackage1 && GetGameGuiManager()->m_guiPackage1->IsVisible())
+	//{
+	//	GetGameGuiManager()->m_guiPackage1->SetVisible(false);
+	//}
+	//if (GetGameGuiManager()->m_guiPackage2 && GetGameGuiManager()->m_guiPackage2->IsVisible())
+	//{
+	//	GetGameGuiManager()->m_guiPackage2->SetVisible(false);
+	//}
+	
 	//14 坐骑界面（宠物）//桃子处理ESC状态下坐骑装备消失的问题
 	/* if (GetGameGuiManager()->m_guiPetDlg)
 	{
@@ -5779,4 +5806,27 @@ void CGameGuiManager::CloseAll1_15TypeWnd()
 	}
 
 	GetGameApplication()->m_bESCHook = false;
+}
+
+//孩子装备升级界面
+CDlgEquipBabyRecast* CGameGuiManager::AddDlgEquipBabyRecast(bool bShow)
+{
+	//by=>friday
+	if(!m_pDlgEquipBabyRecast)
+	{
+		CDlgEquipBabyRecast* pDlg = new CDlgEquipBabyRecast();
+		HRESULT  hr = E_FAIL; 
+		hr = GetGuiManager()->LoadGuiFromXML(c_szGuiPack,"gui\\DlgEquipBabyRecast.xml",pDlg);
+
+		if(FAILED(hr)) 
+		{
+			delete pDlg;
+			return NULL;
+		}
+		m_pDlgEquipBabyRecast = pDlg;	
+	}
+	m_pDlgEquipBabyRecast->SetEnabled(bShow);
+	m_pDlgEquipBabyRecast->SetVisible(bShow);
+
+	return m_pDlgEquipBabyRecast;
 }

@@ -801,10 +801,15 @@ Package::Package(WORD type,DWORD id, WORD w, WORD h):_type(type),_id(id), _width
 	memset(container, 0, sizeof(zObject*)*cap);
 }
 
+// Package::~Package()
+// {
+// 	removeAll();
+// 	SAFE_DELETE_VEC(container);
+// }
 Package::~Package()
 {
-	removeAll();
-	SAFE_DELETE_VEC(container);
+    removeAll();
+    if(container) { delete [] container; container = NULL; } //by=>friday
 }
 
 bool Package::checkAdd(SceneUser *pUser,zObject *object,WORD x,WORD y)
@@ -1029,7 +1034,8 @@ MultiPack::~MultiPack()
 	for(std::set<zObject *>::iterator it=allset.begin();it!=allset.end();it++)
 	{
 		zObject *o = *it;
-		SAFE_DELETE(o);
+		// SAFE_DELETE(o);
+	if(o) { zObject::destroy(o); } //by=>friday
 	}
 	allset.clear();
 	for(int i = 0; i < height; i++)
@@ -1280,6 +1286,35 @@ EquipPack::EquipPack(SceneUser* user):Package(Cmd::OBJECTCELLTYPE_EQUIP,0, 1, Cm
 	effect25star=0; //桃子 帝王套装
 	effect26star=0; //桃子 弑天套装
 	effect27star=0; //桃子 永恒套装
+
+	// 永恒星级套装初始化 //by=>friday
+    effectjj16star=0; //by=>friday 永恒16星套装
+    effectjj18star=0; //by=>friday 永恒18星套装
+    effectjj20star=0; //by=>friday 永恒20星套装
+    effectjj22star=0; //by=>friday 永恒22星套装
+    effectjj24star=0; //by=>friday 永恒24星套装
+    effectjj26star=0; //by=>friday 永恒26星套装
+    effectjj28star=0; //by=>friday 永恒28星套装
+    effectjj30star=0; //by=>friday 永恒30星套装
+    effectjj32star=0; //by=>friday 永恒32星套装
+    effectjj34star=0; //by=>friday 永恒34星套装
+
+    //by=>friday 心意等级套装计数器初始化
+    effectheartwhite=0;   //by=>friday 白色20心套装(10件)
+    effectheartblue=0;    //by=>friday 蓝色20心套装(10件)
+    effectheartyellow=0;  //by=>friday 黄色20心套装(10件)
+    effectheartgreen=0;   //by=>friday 绿色20心套装(10件)
+    effectheartpurple=0;  //by=>friday 紫色20心套装(10件)
+    effectheartorange=0;  //by=>friday 橙色20心套装(10件)
+
+    //by=>friday 突破等级套装计数器初始化
+    effectbreakwhite=0;   //by=>friday 白色50级套装(10件)
+    effectbreakblue=0;    //by=>friday 蓝色50级套装(10件)
+    effectbreakgreen=0;   //by=>friday 绿色50级套装(10件)
+    effectbreakyellow=0;  //by=>friday 黄色50级套装(10件)
+    effectbreakpurple=0;  //by=>friday 紫色50级套装(10件)
+    effectbreakorange=0;  //by=>friday 橙色50级套装(10件)
+
     // 图鉴套装
 	effecttj1star=0; //桃子 白图鉴套装
 	effecttj2star=0; //桃子 蓝图鉴套装
@@ -1307,11 +1342,35 @@ EquipPack::EquipPack(SceneUser* user):Package(Cmd::OBJECTCELLTYPE_EQUIP,0, 1, Cm
 	effect12douhun=0;  //斗魂12星套
 	effect15douhun=0;  //斗魂15星套
 
+	// 高级斗魂套装效果初始化 //by=>friday
+	effectdh16star=0;  //by=>friday 斗魂16星套装
+	effectdh18star=0;  //by=>friday 斗魂18星套装
+	effectdh20star=0;  //by=>friday 斗魂20星套装
+	effectdh22star=0;  //by=>friday 斗魂22星套装
+	effectdh24star=0;  //by=>friday 斗魂24星套装
+	effectdh26star=0;  //by=>friday 斗魂26星套装
+	effectdh28star=0;  //by=>friday 斗魂28星套装
+	effectdh30star=0;  //by=>friday 斗魂30星套装
+	effectdh32star=0;  //by=>friday 斗魂32星套装
+	effectdh34star=0;  //by=>friday 斗魂34星套装
+
 	effect5longx=0;
 	effect8longx=0;
 	effect11longx=0;
 	effect13longx=0;
 	effect15longx=0;
+
+	// 高级龙星套装效果初始化 //by=>friday
+	effectlx16star=0;  //by=>friday 龙星16星套装
+	effectlx18star=0;  //by=>friday 龙星18星套装
+	effectlx20star=0;  //by=>friday 龙星20星套装
+	effectlx22star=0;  //by=>friday 龙星22星套装
+	effectlx24star=0;  //by=>friday 龙星24星套装
+	effectlx26star=0;  //by=>friday 龙星26星套装
+	effectlx28star=0;  //by=>friday 龙星28星套装
+	effectlx30star=0;  //by=>friday 龙星30星套装
+	effectlx32star=0;  //by=>friday 龙星32星套装
+	effectlx34star=0;  //by=>friday 龙星34星套装
 
 	effect1butian=0;
 	effect2butian=0;
@@ -2004,6 +2063,13 @@ void EquipPack::calcAll()
 	//soke 这个是时装装备的位置数，真实有效的
 	for (int i=0;i<Cmd::EQUIPCELLTYPE_MAX;i++)
 	{
+		//by=>friday 孩子装备属性日志
+// if (container[i]!=NULL &&container[i]->base->kind >= ItemType_BABYFJ1 && container[i]->base->kind <= ItemType_BABYFJ6)
+// {
+//     Zebra::logger->info("[孩子装备调试] 位置=%d 装备ID=%u 等级=%u pdam=%u mdam=%u pdef=%u mdef=%u maxhp=%u", 
+//         i, container[i]->base->id, container[i]->data.retain35, 
+//         container[i]->data.pdam, container[i]->data.mdam, container[i]->data.pdef, container[i]->data.mdef, container[i]->data.maxhp); //by=>friday
+// }
 		if(container[i]!=NULL && container[i]->data.dur != 0)
 		{
 			//soke 时装直接增加百分比
@@ -2140,7 +2206,7 @@ void EquipPack::calcAll()
 			}
 
 			//sky 龙凤吟镶嵌效果加成
-			if ((container[i]->base->kind >= 101 && container[i]->base->kind <= 108) || (container[i]->base->kind >= 130 && container[i]->base->kind <= 138)
+			if ((container[i]->base->kind >= 101 && container[i]->base->kind <= 118) || (container[i]->base->kind >= 130 && container[i]->base->kind <= 138)
 				|| (container[i]->base->kind >= 141 && container[i]->base->kind <= 147) || container[i]->base->kind == 155 || container[i]->base->kind == 156)
 			{
 				equips.pdamage += (DWORD)(container[i]->data.p24damage);           //最小物理攻击力
@@ -2204,6 +2270,65 @@ void EquipPack::calcAll()
 				equips.pdefence += (DWORD)(container[i]->data.p16defence);    //物防
 				equips.mdefence += (DWORD)(container[i]->data.m16defence);    //魔防
 				equips.maxhp += (DWORD)(container[i]->data.m16axhp);           //最大生命值
+			}
+			//by=friday 定情信物镶嵌
+			if ((container[i]->base->kind >= 101 && container[i]->base->kind <= 118) || (container[i]->base->kind >= 130 && container[i]->base->kind <= 138)
+				|| (container[i]->base->kind >= 140 && container[i]->base->kind <= 147) || container[i]->base->kind == 155 || container[i]->base->kind == 156)
+			{
+                equips.pdamage += (DWORD)(container[i]->data.p26damage);   //最小物理攻击力
+				equips.maxpdamage += (DWORD)(container[i]->data.m26axpdamage);  //最大物理攻击力
+				equips.mdamage += (DWORD)(container[i]->data.m26damage);         //最小魔法攻击力
+				equips.maxmdamage += (DWORD)(container[i]->data.m26axmdamage);  //最大魔法攻击力
+				equips.pdefence += (DWORD)(container[i]->data.p26defence);    //物防
+				equips.mdefence += (DWORD)(container[i]->data.m26defence);    //魔防
+				equips.maxhp += (DWORD)(container[i]->data.m26axhp);           //最大生命值
+				equips.juejiattack += container[i]->data.jj26_attack; //绝技攻击
+				equips.juejidefence += container[i]->data.jj26_defence; //绝技防御
+			}
+
+			//by=friday 心意
+			if ((container[i]->base->kind >= 101 && container[i]->base->kind <= 118) || (container[i]->base->kind >= 130 && container[i]->base->kind <= 138)
+				|| (container[i]->base->kind >= 140 && container[i]->base->kind <= 147) || container[i]->base->kind == 155 || container[i]->base->kind == 156)
+			{				
+                equips.pdamage += (DWORD)(container[i]->data.p27damage);   //最小物理攻击力
+				equips.maxpdamage += (DWORD)(container[i]->data.m27axpdamage);  //最大物理攻击力
+				equips.mdamage += (DWORD)(container[i]->data.m27damage);         //最小魔法攻击力
+				equips.maxmdamage += (DWORD)(container[i]->data.m27axmdamage);  //最大魔法攻击力
+				equips.pdefence += (DWORD)(container[i]->data.p27defence);    //物防
+				equips.mdefence += (DWORD)(container[i]->data.m27defence);    //魔防
+				equips.maxhp += (DWORD)(container[i]->data.m27axhp);           //最大生命值
+				equips.juejiattack += container[i]->data.jj27_attack; //绝技攻击
+				equips.juejidefence += container[i]->data.jj27_defence; //绝技防御
+			}
+
+			//by=friday 情谊
+			if ((container[i]->base->kind >= 101 && container[i]->base->kind <= 118) || (container[i]->base->kind >= 130 && container[i]->base->kind <= 138)
+				|| (container[i]->base->kind >= 140 && container[i]->base->kind <= 147) || container[i]->base->kind == 155 || container[i]->base->kind == 156)
+			{
+                equips.pdamage += (DWORD)(container[i]->data.p28damage);   //最小物理攻击力
+				equips.maxpdamage += (DWORD)(container[i]->data.m28axpdamage);  //最大物理攻击力
+				equips.mdamage += (DWORD)(container[i]->data.m28damage);         //最小魔法攻击力
+				equips.maxmdamage += (DWORD)(container[i]->data.m28axmdamage);  //最大魔法攻击力
+				equips.pdefence += (DWORD)(container[i]->data.p28defence);    //物防
+				equips.mdefence += (DWORD)(container[i]->data.m28defence);    //魔防
+				equips.maxhp += (DWORD)(container[i]->data.m28axhp);           //最大生命值
+				equips.juejiattack += container[i]->data.jj28_attack; //绝技攻击
+				equips.juejidefence += container[i]->data.jj28_defence; //绝技防御
+			}
+
+			//by=friday 定情进阶
+			if ((container[i]->base->kind >= 101 && container[i]->base->kind <= 118) || (container[i]->base->kind >= 130 && container[i]->base->kind <= 138)
+				|| (container[i]->base->kind >= 140 && container[i]->base->kind <= 147) || container[i]->base->kind == 155 || container[i]->base->kind == 156)
+			{
+                equips.pdamage += (DWORD)(container[i]->data.p29damage);   //最小物理攻击力
+				equips.maxpdamage += (DWORD)(container[i]->data.m29axpdamage);  //最大物理攻击力
+				equips.mdamage += (DWORD)(container[i]->data.m29damage);         //最小魔法攻击力
+				equips.maxmdamage += (DWORD)(container[i]->data.m29axmdamage);  //最大魔法攻击力
+				equips.pdefence += (DWORD)(container[i]->data.p29defence);    //物防
+				equips.mdefence += (DWORD)(container[i]->data.m29defence);    //魔防
+				equips.maxhp += (DWORD)(container[i]->data.m29axhp);           //最大生命值
+				equips.juejiattack += container[i]->data.jj29_attack; //绝技攻击
+				equips.juejidefence += container[i]->data.jj29_defence; //绝技防御
 			}
 
 			//sky 暗影宝石加成
@@ -3472,6 +3597,11 @@ void EquipPack::calcAll()
 			CALCUTE(mpleech.odds) 			//x%吸收生命值y
 			CALCUTE(mpleech.effect) 		//x%吸收法术值y
 
+			CALCUTE(qiegeattack)			// 切割攻击力 //by=>friday
+			CALCUTE(qiegedefence)			// 切割防御力 //by=>friday
+			CALCUTE(juejiattack)			// 绝技攻击力 //by=>friday
+			CALCUTE(juejidefence)			// 绝技防御力 //by=>friday
+
 			CALCUTE(hptomp)					//转换生命值为法术值x％
 			CALCUTE(dhpp) 					//物理伤害减少x%	
 			CALCUTE(dmpp)					//法术伤害值减少x%		
@@ -3695,6 +3825,9 @@ void EquipPack::calcAll()
 			break;
 	}
 	//Zebra::logger->debug("装备攻击五行属性(%d:%d)，防御五行(%d:%d)", equips.aftype, equips.afpoint, equips.dftype, equips.dfpoint);
+		// Zebra::logger->info("[call属性调试] pdamage=%llu mdamage=%llu pdefence=%llu mdefence=%llu maxhp=%llu maxmp=%llu", 
+		// equips.pdamage, equips.mdamage, equips.pdefence, equips.mdefence, equips.maxhp, equips.maxmp); //by=>friday
+// printf("绝技攻击=%d--切割攻击=%d\n", equips.juejiattack,equips.qiegeattack);
 }
 
 /*
@@ -4074,677 +4207,315 @@ bool EquipPack::add(zObject *object ,bool find)
 			}
 		}
 
-		//soke 永恒套装效果
-		if (owner && object && (object->data.needlevel >= 220) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect27star++;	
-			//soke 永恒显示的效果 不计入星星套装
-		     if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		 	//	Zebra::logger->debug("永恒套装x=%d,effect18star);
-			Zebra::logger->debug("----------激活永恒套装效果----------");
-		   }
-		}
-		
-		//soke 弑天套装效果
-		if (owner && object && (object->data.needlevel >= 215) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect26star++;	
-			//soke 弑天显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-			  Zebra::logger->debug("----------激活弑天套装效果----------");
-		   }
-		}	
-		
-		//soke 帝王套装效果
-		if (owner && object && (object->data.needlevel >= 210) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect25star++;	
-			//soke 帝王显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-			  Zebra::logger->debug("----------激活帝王套装效果----------");
-		   }
-		}
-		
-		//soke 战神套装效果
-		if (owner && object && (object->data.needlevel >= 205) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect24star++;	
-			//soke 战神显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-			  Zebra::logger->debug("----------激活战神套装效果----------");
-		   }
-		}
-		
-		//soke 圣者套装效果
-		if (owner && object && (object->data.needlevel >= 202) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect23star++;	
-			//soke 圣者显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-		   }
-		   else if (10<=effect23star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHENGZHE, true); // 更新圣者套装状态
-			  Zebra::logger->debug("----------激活圣者套装效果----------");
-		   }
-		}
-		
-		//soke 英雄套装效果
-		if (owner && object && (object->data.needlevel >= 197) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect22star++;	
-			//soke 英雄显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-		   }
-		   else if (10<=effect23star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHENGZHE, true); // 更新圣者套装状态
-		   }
-		   else if (10<=effect22star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YINGXIONG, true); // 更新英雄套装状态
-			  Zebra::logger->debug("----------激活英雄套装效果----------");
-		   }
-		}
-		
-		//soke 天尊套装效果
-		if (owner && object && (object->data.needlevel >= 190) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect21star++;	
-			//soke 天尊显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-		   }
-		   else if (10<=effect23star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHENGZHE, true); // 更新圣者套装状态
-		   }
-		   else if (10<=effect22star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YINGXIONG, true); // 更新英雄套装状态
-		   }
-		   else if (10<=effect21star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_TIANZUN, true); // 更新天尊套装状态
-			  Zebra::logger->debug("----------激活天尊套装效果----------");
-		   }
-		}
-		
-		//soke 传说套装效果
-		if (owner && object && (object->data.needlevel >= 185) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect20star++;	
-			//soke 传说显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-		   }
-		   else if (10<=effect23star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHENGZHE, true); // 更新圣者套装状态
-		   }
-		   else if (10<=effect22star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YINGXIONG, true); // 更新英雄套装状态
-		   }
-		   else if (10<=effect21star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_TIANZUN, true); // 更新天尊套装状态
-		   }
-		   else if (10<=effect20star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_CHUANSHUO, true); // 更新传说套装状态
-			  Zebra::logger->debug("----------激活传说套装效果----------");
-		   }
-		}
-		
-		//soke 卓越套装效果
-		if (owner && object && (object->data.needlevel >= 180) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect19star++;	
-			//soke 卓越套显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-		   }
-		   else if (10<=effect23star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHENGZHE, true); // 更新圣者套装状态
-		   }
-		   else if (10<=effect22star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YINGXIONG, true); // 更新英雄套装状态
-		   }
-		   else if (10<=effect21star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_TIANZUN, true); // 更新天尊套装状态
-		   }
-		   else if (10<=effect20star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_CHUANSHUO, true); // 更新传说套装状态
-		   }		   
-		   else if (10<=effect19star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHUOYUE, true); // 更新卓越套装状态
-			  Zebra::logger->debug("----------激活卓越套装效果----------");
-		   }
-		}
-		
-		//soke 轩辕套装效果
-		if (owner && object && (object->data.needlevel >= 175) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			effect18star++;	
-			//soke 轩辕套显示的效果 不计入星星套装
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-		   }
-		   else if (10<=effect23star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHENGZHE, true); // 更新圣者套装状态
-		   }
-		   else if (10<=effect22star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YINGXIONG, true); // 更新英雄套装状态
-		   }
-		   else if (10<=effect21star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_TIANZUN, true); // 更新天尊套装状态
-		   }
-		   else if (10<=effect20star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_CHUANSHUO, true); // 更新传说套装状态
-		   }		   
-		   else if (10<=effect19star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHUOYUE, true); // 更新卓越套装状态
-		   }		   
-		   else if (10<=effect18star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_XUANYUAN, true); // 更新轩辕套装状态
-			  Zebra::logger->debug("----------激活轩辕套装效果----------");
-		   }
-		}
-		
-		//soke 炙天套装效果
-		if (owner && object && (object->data.needlevel >= 170) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-		   effect17star++;	
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-		   }
-		   else if (10<=effect23star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHENGZHE, true); // 更新圣者套装状态
-		   }
-		   else if (10<=effect22star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YINGXIONG, true); // 更新英雄套装状态
-		   }
-		   else if (10<=effect21star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_TIANZUN, true); // 更新天尊套装状态
-		   }
-		   else if (10<=effect20star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_CHUANSHUO, true); // 更新传说套装状态
-		   }		   
-		   else if (10<=effect19star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHUOYUE, true); // 更新卓越套装状态
-		   }		   
-		   else if (10<=effect18star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_XUANYUAN, true); // 更新轩辕套装状态
-		   }
-		   else if (10<=effect17star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHITIAN, true);   // 更新炙天套装状态
-			  Zebra::logger->debug("----------激活炙天套装效果----------");
-		   }
-		}
-		
-		//soke 乾坤套装效果
-		if (owner && object && (object->data.needlevel >= 165) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-		   effect16star++;	
-		   
-		   if (10<=effect27star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YONGHENG, true); // 更新永恒套装状态
-		   }
-		   else if (10<=effect26star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHITIAN, true); // 更新弑天套装状态
-		   }		   
-		   else if (10<=effect25star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_DIWANG, true); // 更新帝王套装状态
-		   }		   
-		    else if (10<=effect24star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHANSHEN, true); // 更新战神套装状态
-		   }
-		   else if (10<=effect23star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_SHENGZHE, true); // 更新圣者套装状态
-		   }
-		   else if (10<=effect22star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_YINGXIONG, true); // 更新英雄套装状态
-		   }
-		   else if (10<=effect21star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_TIANZUN, true); // 更新天尊套装状态
-		   }
-		   else if (10<=effect20star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_CHUANSHUO, true); // 更新传说套装状态
-		   }		   
-		   else if (10<=effect19star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHUOYUE, true); // 更新卓越套装状态
-		   }		   
-		   else if (10<=effect18star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_XUANYUAN, true); // 更新轩辕套装状态
-		   }
-		   else if (10<=effect17star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_ZHITIAN, true);   // 更新炙天套装状态
-		   }
-		   else if (10<=effect16star)
-		   {
-			  owner->showCurrentEffect(Cmd::USTATE_USER_TZ_QIANKUN, true); // 更新乾坤套装状态
-		      //Zebra::logger->debug("乾坤套装x=%d,effect16star);
-			  Zebra::logger->debug("----------激活乾坤套装效果----------");
-		   }
-		}			
-		//soke 星星套装效果 start
-		if (owner && object && (object->data.needlevel >= 70) && (object->data.bind) && (!object->data.kind & 4 || object->data.kind & 16) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
-		{
-			if (owner && object && (15 <= object->data.upgrade))
-			{
-				effect15star++;
-				if (10<=effect15star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING, true); // 更新15星状态
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING2, true); // 更新15星状态
+			
+        
+        //by=>friday 优化永恒星级套装效果处理 - 支持向后兼容扩展
+        if (owner && object && (object->data.needlevel >= 215) &&
+            ((object->base->kind >= 101 && object->base->kind <= 111) ||
+             (object->base->kind >= 113 && object->base->kind <= 118) ||
+             object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) &&
+            (!object->data.kind & 4 || object->data.kind & 16))
+        {
+            // 永恒星级套装配置表 - 按星级从高到低排序以确保优先级
+            struct EternalStarSuitConfig {
+                int minUpgrade;
+                int* effectCounter;
+                int stateId;
+                const char* logName;
+            };
 
-					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
-					Zebra::logger->debug("----------激活15星套装效果----------");
+            // 配置表：支持轻松添加新星级（如36、38、40星等）
+            EternalStarSuitConfig eternalConfigs[] = {
+                // 未来扩展预留位置 - 添加新星级时在这里插入
+                // {40, &effectjj40star, Cmd::USTATE_USER_TZ_JJ40, "永恒40星"},  // 预留
+                // {38, &effectjj38star, Cmd::USTATE_USER_TZ_JJ38, "永恒38星"},  // 预留
+                // {36, &effectjj36star, Cmd::USTATE_USER_TZ_JJ36, "永恒36星"},  // 预留
+
+                // 当前已实现的星级
+                {34, &effectjj34star, Cmd::USTATE_USER_TZ_JJ34, "永恒34星"},
+                {32, &effectjj32star, Cmd::USTATE_USER_TZ_JJ32, "永恒32星"},
+                {30, &effectjj30star, Cmd::USTATE_USER_TZ_JJ30, "永恒30星"},
+                {28, &effectjj28star, Cmd::USTATE_USER_TZ_JJ28, "永恒28星"},
+                {26, &effectjj26star, Cmd::USTATE_USER_TZ_JJ26, "永恒26星"},
+                {24, &effectjj24star, Cmd::USTATE_USER_TZ_JJ24, "永恒24星"},
+                {22, &effectjj22star, Cmd::USTATE_USER_TZ_JJ22, "永恒22星"},
+                {20, &effectjj20star, Cmd::USTATE_USER_TZ_JJ20, "永恒20星"},
+                {18, &effectjj18star, Cmd::USTATE_USER_TZ_JJ18, "永恒18星"},
+                {16, &effectjj16star, Cmd::USTATE_USER_TZ_JJ16, "永恒16星"}
+            };
+
+            const int configCount = sizeof(eternalConfigs) / sizeof(eternalConfigs[0]);
+
+            // 更新对应星级的计数器
+            for (int i = 0; i < configCount; i++) {
+                if (object->data.upgrade >= eternalConfigs[i].minUpgrade) {
+                    (*(eternalConfigs[i].effectCounter))++;
+                }
+            }
+            // 检查并激活最高级别的套装效果（按优先级从高到低）
+            for (int i = 0; i < configCount; i++) {
+                if (*(eternalConfigs[i].effectCounter) >= 10) {
+                    owner->showCurrentEffect(eternalConfigs[i].stateId, true);
+                    Zebra::logger->debug("----------激活%s套装效果----------", eternalConfigs[i].logName);
+                    break; // 只激活最高级别的效果
+                }
+            }
+        }
+
+		//by=>friday 优化等级套装效果处理 - 支持向后兼容扩展
+		if (owner && object && (object->data.bind) &&
+		    (object->data.kind & 4 || object->data.kind & 16) &&
+		    ((object->base->kind >= 101 && object->base->kind <= 111) ||
+		     (object->base->kind >= 113 && object->base->kind <= 118) ||
+		     object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
+		{
+		    // 等级套装配置表 - 按等级从高到低排序以确保优先级
+		    struct LevelSuitConfig {
+		        int minNeedLevel;
+		        int* effectCounter;
+		        int stateId;
+		        const char* logName;
+		    };
+
+		    // 配置表：支持轻松添加新等级套装（如225、230等）
+		    LevelSuitConfig levelConfigs[] = {
+		        // 未来扩展预留位置 - 添加新等级套装时在这里插入
+		        // {230, &effect29star, Cmd::USTATE_USER_TZ_XXXX, "XXX套装"},  // 预留
+		        // {225, &effect28star, Cmd::USTATE_USER_TZ_YYYY, "YYY套装"},  // 预留
+
+		        // 当前已实现的等级套装
+		        {220, &effect27star, Cmd::USTATE_USER_TZ_YONGHENG, "永恒套装"},
+		        {215, &effect26star, Cmd::USTATE_USER_TZ_SHITIAN, "弑天套装"},
+		        {210, &effect25star, Cmd::USTATE_USER_TZ_DIWANG, "帝王套装"},
+		        {205, &effect24star, Cmd::USTATE_USER_TZ_ZHANSHEN, "战神套装"},
+		        {202, &effect23star, Cmd::USTATE_USER_TZ_SHENGZHE, "圣者套装"},
+		        {197, &effect22star, Cmd::USTATE_USER_TZ_YINGXIONG, "英雄套装"},
+		        {190, &effect21star, Cmd::USTATE_USER_TZ_TIANZUN, "天尊套装"},
+		        {185, &effect20star, Cmd::USTATE_USER_TZ_CHUANSHUO, "传说套装"},
+		        {180, &effect19star, Cmd::USTATE_USER_TZ_ZHUOYUE, "卓越套装"},
+		        {175, &effect18star, Cmd::USTATE_USER_TZ_XUANYUAN, "轩辕套装"},
+		        {170, &effect17star, Cmd::USTATE_USER_TZ_ZHITIAN, "炙天套装"},
+		        {165, &effect16star, Cmd::USTATE_USER_TZ_QIANKUN, "乾坤套装"}
+		    };
+
+		    const int configCount = sizeof(levelConfigs) / sizeof(levelConfigs[0]);
+
+		    // 更新对应等级的计数器
+		    for (int i = 0; i < configCount; i++) {
+		        if (object->data.needlevel >= levelConfigs[i].minNeedLevel) {
+		            (*(levelConfigs[i].effectCounter))++;
+		        }
+		    }
+
+		    // 检查并激活最高级别的套装效果（按优先级从高到低）
+		    for (int i = 0; i < configCount; i++) {
+		        if (*(levelConfigs[i].effectCounter) >= 10) {
+		            owner->showCurrentEffect(levelConfigs[i].stateId, true);
+		            Zebra::logger->debug("----------激活%s效果----------", levelConfigs[i].logName);
+		            break; // 只激活最高级别的效果
+		        }
+		    }
+		}
+
+		//by=>friday 心意等级套装效果处理
+		if (owner && object && (object->data.needlevel >= 215) &&
+		    ((object->base->kind >= 101 && object->base->kind <= 118) ||
+		    //  (object->base->kind >= 113 && object->base->kind <= 118) ||
+		     (object->base->kind >= 136 && object->base->kind <= 138) || 
+			 (object->base->kind >= 155 && object->base->kind <= 156) || 
+			 (object->base->kind >= 141 && object->base->kind <= 145)) &&
+		    (!object->data.kind & 4 || object->data.kind & 16))
+		{
+		    // 心意等级套装配置表 - 按心意等级从高到低排序以确保优先级
+		    struct HeartSuitConfig {
+		        int minHeartLevel;
+		        int* effectCounter;
+		        int stateId;
+		        const char* logName;
+		    };
+
+		    // 配置表：心意等级套装
+		    HeartSuitConfig heartConfigs[] = {
+		        {120, &effectheartorange, Cmd::USTATE_USER_TZ_HEART_ORANGE, "橙色20心套装"},
+		        {100, &effectheartpurple, Cmd::USTATE_USER_TZ_HEART_PURPLE, "紫色20心套装"},
+		        {80,  &effectheartgreen,  Cmd::USTATE_USER_TZ_HEART_GREEN,  "绿色20心套装"},
+		        {60,  &effectheartyellow, Cmd::USTATE_USER_TZ_HEART_YELLOW, "黄色20心套装"},
+		        {40,  &effectheartblue,   Cmd::USTATE_USER_TZ_HEART_BLUE,   "蓝色20心套装"},
+		        {20,  &effectheartwhite,  Cmd::USTATE_USER_TZ_HEART_WHITE,  "白色20心套装"}
+		    };
+
+		    const int configCount = sizeof(heartConfigs) / sizeof(heartConfigs[0]);
+		    // 更新对应心意等级的计数器
+		    for (int i = 0; i < configCount; i++) {
+		        if (object->data.retain101 >= heartConfigs[i].minHeartLevel) {
+		            (*(heartConfigs[i].effectCounter))++;
+		        }
+		    }
+
+		    // 检查并激活最高级别的套装效果（按优先级从高到低）
+		    for (int i = 0; i < configCount; i++) {
+		        if (*(heartConfigs[i].effectCounter) >= 11) {
+		            owner->showCurrentEffect(heartConfigs[i].stateId, true);
+		            Zebra::logger->debug("----------激活%s效果----------", heartConfigs[i].logName);
+		            break; // 只激活最高级别的效果
+		        }
+		    }
+		}
+
+		//by=>friday 突破等级套装效果处理
+	    if (owner && object && (object->data.needlevel >= 215) &&
+		    ((object->base->kind >= 101 && object->base->kind <= 118) ||
+		    //  (object->base->kind >= 113 && object->base->kind <= 118) ||
+		     (object->base->kind >= 136 && object->base->kind <= 138) || 
+			 (object->base->kind >= 155 && object->base->kind <= 156) || 
+			 (object->base->kind >= 141 && object->base->kind <= 145)) &&
+		    (!object->data.kind & 4 || object->data.kind & 16))
+		{
+		    // 突破等级套装配置表 - 按突破等级从高到低排序以确保优先级
+		    struct BreakSuitConfig {
+		        int minBreakLevel;
+		        int* effectCounter;
+		        int stateId;
+		        const char* logName;
+		    };
+
+		    // 配置表：突破等级套装
+		    BreakSuitConfig breakConfigs[] = {
+		        {300, &effectbreakorange, Cmd::USTATE_USER_TZ_BREAK_ORANGE, "橙色50级套装"},
+		        {250, &effectbreakpurple, Cmd::USTATE_USER_TZ_BREAK_PURPLE, "紫色50级套装"},
+		        {200, &effectbreakyellow, Cmd::USTATE_USER_TZ_BREAK_YELLOW, "黄色50级套装"},
+		        {150, &effectbreakgreen,  Cmd::USTATE_USER_TZ_BREAK_GREEN,  "绿色50级套装"},
+		        {100, &effectbreakblue,   Cmd::USTATE_USER_TZ_BREAK_BLUE,   "蓝色50级套装"},
+		        {50,  &effectbreakwhite,  Cmd::USTATE_USER_TZ_BREAK_WHITE,  "白色50级套装"}
+		    };
+
+		    const int configCount = sizeof(breakConfigs) / sizeof(breakConfigs[0]);
+
+		    // 更新对应突破等级的计数器
+		    for (int i = 0; i < configCount; i++) {
+		        if (object->data.retain103 >= breakConfigs[i].minBreakLevel) {
+		            (*(breakConfigs[i].effectCounter))++;
+		        }
+		    }
+
+		    // 检查并激活最高级别的套装效果（按优先级从高到低）
+		    for (int i = 0; i < configCount; i++) {
+		        if (*(breakConfigs[i].effectCounter) >= 11) {
+		            owner->showCurrentEffect(breakConfigs[i].stateId, true);
+		            Zebra::logger->debug("----------激活%s效果----------", breakConfigs[i].logName);
+		            break; // 只激活最高级别的效果
+		        }
+		    }
+		}
+
+		//soke 星星套装效果 start
+		//by=>friday 优化星级套装效果处理
+		if (owner && object && (object->data.needlevel >= 70) && (object->data.bind) &&
+		    (!object->data.kind & 4 || object->data.kind & 16) &&
+		    ((object->base->kind >= 101 && object->base->kind <= 111) ||
+		     (object->base->kind >= 113 && object->base->kind <= 118) ||
+		     object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
+		{
+			// 星级套装配置表
+			struct StarSuitConfig {
+				int minUpgrade;
+				int* effectCounter;
+				int stateId1;
+				int stateId2;
+				const char* logName;
+			};
+
+			StarSuitConfig starConfigs[] = {
+				{15, &effect15star, Cmd::USTATE_ULTRA_FIF_XING, Cmd::USTATE_ULTRA_FIF_XING2, "15星"},
+				{14, &effect14star, Cmd::USTATE_ULTRA_FOU_XING, 0, "14星"},
+				{13, &effect13star, Cmd::USTATE_ULTRA_THI_XING, 0, "13星"},
+				{12, &effect12star, Cmd::USTATE_ULTRA_TWE_XING, 0, "12星"},
+				{10, &effect10star, Cmd::USTATE_ULTRA_TEN_XING, 0, "10星"},
+				{8,  &effect8star,  Cmd::USTATE_ULTRA_EIG_XING, 0, "8星"},
+				{5,  &effect5star,  Cmd::USTATE_ULTRA_FIV_XING, 0, "5星"},
+				{3,  &effect3star,  Cmd::USTATE_ULTRA_THR_XING, 0, "3星"}
+			};
+
+			// 更新对应星级的计数器
+			for (int i = 0; i < 8; i++) {
+				if (object->data.upgrade >= starConfigs[i].minUpgrade) {
+					(*(starConfigs[i].effectCounter))++;
 				}
 			}
-			if (owner && object && (14 <= object->data.upgrade))
-			{
-				effect14star++;
-				if (10<=effect15star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING, true); // 更新15星状态
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING2, true); // 更新15星状态
-				}
-				else if (10<=effect14star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FOU_XING, true); // 更新14星状态
-					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
-					Zebra::logger->debug("----------激活14星套装效果----------");
-				}
-			}
-			if (owner && object && (13 <= object->data.upgrade))
-			{
-				effect13star++;		
-				if (10<=effect15star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING, true); // 更新15星状态
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING2, true); // 更新15星状态
-				}
-				else if (10<=effect14star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FOU_XING, true); // 更新14星状态
-				}
-				else if (10<=effect13star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_THI_XING, true); // 更新13星状态
-					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
-					Zebra::logger->debug("----------激活13星套装效果----------");
-				}
-			}
-			if (owner && object && (12 <= object->data.upgrade))
-			{
-				effect12star++;		
-				if (10<=effect15star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING, true); // 更新15星状态
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING2, true); // 更新15星状态
-				}
-				else if (10<=effect14star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FOU_XING, true); // 更新14星状态
-				}
-				else if (10<=effect13star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_THI_XING, true); // 更新13星状态
-				}
-				else if (10<=effect12star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TWE_XING, true); // 更新12星状态
-					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
-					Zebra::logger->debug("----------激活12星套装效果----------");
-				}
-			}
-			if (owner && object && (10 <= object->data.upgrade))
-			{
-				effect10star++;	
-				if (10<=effect15star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING, true); // 更新15星状态
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING2, true); // 更新15星状态
-				}
-				else if (10<=effect14star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FOU_XING, true); // 更新14星状态
-				}
-				else if (10<=effect13star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_THI_XING, true); // 更新13星状态
-				}
-				else if (10<=effect12star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TWE_XING, true); // 更新12星状态
-				}
-				else if (10<=effect10star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TEN_XING, true); // 更新10星状态
-					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
-					Zebra::logger->debug("----------激活10星套装效果----------");
-				}
-			}
-			if (owner && object && (8 <= object->data.upgrade))
-			{
-				effect8star++;	
-				if (10<=effect15star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING, true); // 更新15星状态
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING2, true); // 更新15星状态
-				}
-				else if (10<=effect14star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FOU_XING, true); // 更新14星状态
-				}
-				else if (10<=effect13star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_THI_XING, true); // 更新13星状态
-				}
-				else if (10<=effect12star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TWE_XING, true); // 更新12星状态
-				}
-				else if (10<=effect10star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TEN_XING, true); // 更新10星状态
-				}
-				else if (10<=effect8star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_EIG_XING, true); // 更新8星状态
-					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
-					Zebra::logger->debug("----------激活8星套装效果----------");
-				}
-			}
-			if (owner && object && (5 <= object->data.upgrade))
-			{
-				effect5star++;		
-				if (10<=effect15star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING, true); // 更新15星状态
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING2, true); // 更新15星状态
-				}
-				else if (10<=effect14star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FOU_XING, true); // 更新14星状态
-				}
-				else if (10<=effect13star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_THI_XING, true); // 更新13星状态
-				}
-				else if (10<=effect12star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TWE_XING, true); // 更新12星状态
-				}
-				else if (10<=effect10star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TEN_XING, true); // 更新10星状态
-				}
-				else if (10<=effect8star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_EIG_XING, true); // 更新8星状态
-				}
-				else if (10<=effect5star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIV_XING, true); // 更新5星状态
-					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
-					Zebra::logger->debug("----------激活5星套装效果----------");
-				}
-			}
-			if (owner && object && (3 <= object->data.upgrade))
-			{
-				effect3star++;	
-				if (10<=effect15star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING, true); // 更新15星状态
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIF_XING2, true); // 更新15星状态
-				}
-				else if (10<=effect14star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FOU_XING, true); // 更新14星状态
-				}
-				else if (10<=effect13star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_THI_XING, true); // 更新13星状态
-				}
-				else if (10<=effect12star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TWE_XING, true); // 更新12星状态
-				}
-				else if (10<=effect10star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_TEN_XING, true); // 更新10星状态
-				}
-				else if (10<=effect8star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_EIG_XING, true); // 更新8星状态
-				}
-				else if (10<=effect5star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_FIV_XING, true); // 更新5星状态
-				}
-				else if (10<=effect3star)
-				{
-					owner->showCurrentEffect(Cmd::USTATE_ULTRA_THR_XING, true); // 更新3星状态
-					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
-					Zebra::logger->debug("----------激活3星套装效果----------");
+
+			// 检查并激活最高级别的套装效果
+			for (int i = 0; i < 8; i++) {
+				if (*(starConfigs[i].effectCounter) >= 10) {
+					owner->showCurrentEffect(starConfigs[i].stateId1, true);
+					if (starConfigs[i].stateId2 != 0) {
+						owner->showCurrentEffect(starConfigs[i].stateId2, true);
+					}
+
+					Zebra::logger->debug("3x=%d,5x=%d,8x=%d,10x=%d,12x=%d,13x=%d,14x=%d,15x=%d",
+						effect3star,effect5star,effect8star,effect10star,effect12star,effect13star,effect14star,effect15star);
+					Zebra::logger->debug("----------激活%s套装效果----------", starConfigs[i].logName);
+					break; // 只激活最高级别的效果
 				}
 			}
 		}
 		
-		// //soke 第二灵魂系统 开始-------------------------------------------------------------
-		// if (owner&&object && (object->data.bind && object->data.kind & 16 && 60 == object->data.addpdef && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
-		// { //物理防御力增强
-		// 	effect21linghun++;	
-		// 	if (8<=effect21linghun)
-		//     {
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 物理防御力增强
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN1, true); // 物理防御力加成
-		//        //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun);
-		// 	   Zebra::logger->debug("----------激活第二灵魂系统-物理防御力增强----------");
-		//     }
-		// }
-		// if (owner&&object && (object->data.bind && object->data.kind & 16 && 60 == object->data.addmdef && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
-		// { //魔法防御力增强
-		// 	effect22linghun++;	
-		//     if (8<=effect22linghun)
-		//     {
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 魔法防御力增强
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN2, true); // 魔法防御力加成
-		//        //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun);
-		// 	   Zebra::logger->debug("----------激活第二灵魂系统-魔法防御力增强----------");
-		//     }
-		// }
-		// if (owner&&object && (object->data.bind && object->data.kind & 16 && 120 == object->data.addpdam && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
-		// { //增加物理攻击力
-		// 	effect23linghun++;
-		//     if (8<=effect23linghun)
-		//     {
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 增加物理攻击力
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN3, true); // 增加物理攻击力加成
-		//        //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun;
-		// 	   Zebra::logger->debug("----------激活第二灵魂系统-增加物理攻击力----------");
-		//     }
-		// }
-		// if (owner&&object && (object->data.bind && object->data.kind & 16 && 120 == object->data.addmdam && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
-		// { //增加魔法攻击力
-		// 	effect24linghun++;		
-		//     if (8<=effect24linghun)
-		//     {
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 增加魔法攻击力
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN4, true); // 增加魔法攻击力加成
-		//        //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun);
-		// 	   Zebra::logger->debug("----------激活第二灵魂系统-增加魔法攻击力----------");
-		//     }
-		// }
-		// if (owner&&object && (object->data.bind && object->data.kind & 16 && 100 == object->data.addhp && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
-		// { //增加生命值
-		// 	effect25linghun++;	
-		//     if (8<=effect25linghun)
-		//     {
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 增加生命值
-		// 	   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN5, true); // 增加生命值加成
-		//        //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun);
-		// 	   Zebra::logger->debug("----------激活第二灵魂系统-增加生命值----------");
-		//     }
-		// }
-		// //soke 第二灵魂系统 结束-------------------------------------------------------------
+		//soke 第二灵魂系统 开始-------------------------------------------------------------
+		if (owner&&object && (object->data.bind && object->data.kind & 16 && 60 == object->data.addpdef && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
+		{ //物理防御力增强
+			effect21linghun++;	
+			if (8<=effect21linghun)
+		    {
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 物理防御力增强
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN1, true); // 物理防御力加成
+		       //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun);
+			   Zebra::logger->debug("----------激活第二灵魂系统-物理防御力增强----------");
+		    }
+		}
+		if (owner&&object && (object->data.bind && object->data.kind & 16 && 60 == object->data.addmdef && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
+		{ //魔法防御力增强
+			effect22linghun++;	
+		    if (8<=effect22linghun)
+		    {
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 魔法防御力增强
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN2, true); // 魔法防御力加成
+		       //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun);
+			   Zebra::logger->debug("----------激活第二灵魂系统-魔法防御力增强----------");
+		    }
+		}
+		if (owner&&object && (object->data.bind && object->data.kind & 16 && 120 == object->data.addpdam && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
+		{ //增加物理攻击力
+			effect23linghun++;
+		    if (8<=effect23linghun)
+		    {
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 增加物理攻击力
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN3, true); // 增加物理攻击力加成
+		       //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun;
+			   Zebra::logger->debug("----------激活第二灵魂系统-增加物理攻击力----------");
+		    }
+		}
+		if (owner&&object && (object->data.bind && object->data.kind & 16 && 120 == object->data.addmdam && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
+		{ //增加魔法攻击力
+			effect24linghun++;		
+		    if (8<=effect24linghun)
+		    {
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 增加魔法攻击力
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN4, true); // 增加魔法攻击力加成
+		       //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun);
+			   Zebra::logger->debug("----------激活第二灵魂系统-增加魔法攻击力----------");
+		    }
+		}
+		if (owner&&object && (object->data.bind && object->data.kind & 16 && 100 == object->data.addhp && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155)))
+		{ //增加生命值
+			effect25linghun++;	
+		    if (8<=effect25linghun)
+		    {
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN, true);  // 增加生命值
+			   owner->showCurrentEffect(Cmd::USTATE_DI_ER_LING_HUN5, true); // 增加生命值加成
+		       //Zebra::logger->debug("物理防御力增强=%d,魔法防御力增强=%d,增加物理攻击力=%d,增加魔法攻击力=%d,增加生命值=%d",effect21linghun,effect22linghun,effect23linghun,effect24linghun,effect25linghun);
+			   Zebra::logger->debug("----------激活第二灵魂系统-增加生命值----------");
+		    }
+		}
+		//soke 第二灵魂系统 结束-------------------------------------------------------------
 		
 		//soke 全套15星斗魂套装 （装备必须控制激活最大就是10件）
 	    if(owner && object && object->data.bind && (object->data.kind & 16) && ( (object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) )
@@ -4841,8 +4612,62 @@ bool EquipPack::add(zObject *object ,bool find)
 				owner->showCurrentEffect(Cmd::USTATE_ULTRA_DOUHUN3, true); // 更新全套3星斗魂套装
 				//Zebra::logger->debug("3x斗魂=%d","6x斗魂=%d","9x斗魂=%d","12x斗魂=%d","15x斗魂=%d",effect3douhun,effect6douhun,effect9douhun,effect12douhun,effect15douhun);
 				Zebra::logger->debug("----------激活3星斗魂套装效果----------");
-			   } 
+			   }
     		}
+        }
+
+        //by=>friday 优化高级斗魂星级套装效果处理 - 支持向后兼容扩展
+        if (owner && object && (object->data.needlevel >= 215) && object->data.bind &&
+            (object->data.kind & 16) &&
+            ((object->base->kind >= 101 && object->base->kind <= 111) ||
+             (object->base->kind >= 113 && object->base->kind <= 118) ||
+             object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
+        {
+            // 高级斗魂星级套装配置表 - 按星级从高到低排序以确保优先级
+            struct AdvancedDouHunSuitConfig {
+                int minDouHunStar;
+                int* effectCounter;
+                int stateId;
+                const char* logName;
+            };
+
+            // 配置表：支持轻松添加新星级（如36、38、40星等）
+            AdvancedDouHunSuitConfig advDouHunConfigs[] = {
+                // 未来扩展预留位置 - 添加新星级时在这里插入
+                // {40, &effectdh40star, Cmd::USTATE_USER_TZ_DH40, "斗魂40星"},  // 预留
+                // {38, &effectdh38star, Cmd::USTATE_USER_TZ_DH38, "斗魂38星"},  // 预留
+                // {36, &effectdh36star, Cmd::USTATE_USER_TZ_DH36, "斗魂36星"},  // 预留
+
+                // 当前已实现的星级
+                {34, &effectdh34star, Cmd::USTATE_USER_TZ_DH34, "斗魂34星"},
+                {32, &effectdh32star, Cmd::USTATE_USER_TZ_DH32, "斗魂32星"},
+                {30, &effectdh30star, Cmd::USTATE_USER_TZ_DH30, "斗魂30星"},
+                {28, &effectdh28star, Cmd::USTATE_USER_TZ_DH28, "斗魂28星"},
+                {26, &effectdh26star, Cmd::USTATE_USER_TZ_DH26, "斗魂26星"},
+                {24, &effectdh24star, Cmd::USTATE_USER_TZ_DH24, "斗魂24星"},
+                {22, &effectdh22star, Cmd::USTATE_USER_TZ_DH22, "斗魂22星"},
+                {20, &effectdh20star, Cmd::USTATE_USER_TZ_DH20, "斗魂20星"},
+                {18, &effectdh18star, Cmd::USTATE_USER_TZ_DH18, "斗魂18星"},
+                {16, &effectdh16star, Cmd::USTATE_USER_TZ_DH16, "斗魂16星"}
+            };
+
+            const int configCount = sizeof(advDouHunConfigs) / sizeof(advDouHunConfigs[0]);
+
+            // 更新对应星级的计数器
+            for (int i = 0; i < configCount; i++) {
+                if (object->data.douhun >= advDouHunConfigs[i].minDouHunStar) {
+                    (*(advDouHunConfigs[i].effectCounter))++;
+                }
+            }
+
+            // 检查并激活最高级别的套装效果（按优先级从高到低）
+            for (int i = 0; i < configCount; i++) {
+                if (*(advDouHunConfigs[i].effectCounter) >= 10) {
+                    owner->showCurrentEffect(advDouHunConfigs[i].stateId, true);
+                    Zebra::logger->debug("----------激活%s套装效果----------", advDouHunConfigs[i].logName);
+                    break; // 只激活最高级别的效果
+                }
+            }
         }
 
 		//soke 龙星套装效果 start
@@ -5004,6 +4829,60 @@ bool EquipPack::add(zObject *object ,bool find)
 				}
 			}
 		}
+
+        //by=>friday 优化高级龙星星级套装效果处理 - 支持向后兼容扩展
+        if (owner && object && (object->data.needlevel >= 215) && (object->data.bind) &&
+            (!object->data.kind & 4 || object->data.kind & 16) &&
+            ((object->base->kind >= 101 && object->base->kind <= 111) ||
+             (object->base->kind >= 113 && object->base->kind <= 118) ||
+             object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
+        {
+            // 高级龙星星级套装配置表 - 按星级从高到低排序以确保优先级
+            struct AdvancedLongXingSuitConfig {
+                int minDraStar;
+                int* effectCounter;
+                int stateId;
+                const char* logName;
+            };
+
+            // 配置表：支持轻松添加新星级（如36、38、40星等）
+            AdvancedLongXingSuitConfig advLongXingConfigs[] = {
+                // 未来扩展预留位置 - 添加新星级时在这里插入
+                // {40, &effectlx40star, Cmd::USTATE_USER_TZ_LX40, "龙星40星"},  // 预留
+                // {38, &effectlx38star, Cmd::USTATE_USER_TZ_LX38, "龙星38星"},  // 预留
+                // {36, &effectlx36star, Cmd::USTATE_USER_TZ_LX36, "龙星36星"},  // 预留
+
+                // 当前已实现的星级
+                {34, &effectlx34star, Cmd::USTATE_USER_TZ_LX34, "龙星34星"},
+                {32, &effectlx32star, Cmd::USTATE_USER_TZ_LX32, "龙星32星"},
+                {30, &effectlx30star, Cmd::USTATE_USER_TZ_LX30, "龙星30星"},
+                {28, &effectlx28star, Cmd::USTATE_USER_TZ_LX28, "龙星28星"},
+                {26, &effectlx26star, Cmd::USTATE_USER_TZ_LX26, "龙星26星"},
+                {24, &effectlx24star, Cmd::USTATE_USER_TZ_LX24, "龙星24星"},
+                {22, &effectlx22star, Cmd::USTATE_USER_TZ_LX22, "龙星22星"},
+                {20, &effectlx20star, Cmd::USTATE_USER_TZ_LX20, "龙星20星"},
+                {18, &effectlx18star, Cmd::USTATE_USER_TZ_LX18, "龙星18星"},
+                {16, &effectlx16star, Cmd::USTATE_USER_TZ_LX16, "龙星16星"}
+            };
+
+            const int configCount = sizeof(advLongXingConfigs) / sizeof(advLongXingConfigs[0]);
+
+            // 更新对应星级的计数器
+            for (int i = 0; i < configCount; i++) {
+                if (object->data.drastar >= advLongXingConfigs[i].minDraStar) {
+                    (*(advLongXingConfigs[i].effectCounter))++;
+                }
+            }
+
+            // 检查并激活最高级别的套装效果（按优先级从高到低）
+            for (int i = 0; i < configCount; i++) {
+                if (*(advLongXingConfigs[i].effectCounter) >= 10) {
+                    owner->showCurrentEffect(advLongXingConfigs[i].stateId, true);
+                    Zebra::logger->debug("----------激活%s套装效果----------", advLongXingConfigs[i].logName);
+                    break; // 只激活最高级别的效果
+                }
+            }
+        }
 
 		//soke 补天套装效果 start
 		if (owner && object && (object->data.needlevel >= 70) && (object->data.bind) && (!object->data.kind & 4 || object->data.kind & 16) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
@@ -5916,6 +5795,227 @@ bool EquipPack::remove(zObject *object)
 			}
 		}
 	}
+
+			//by=>friday 永恒星级套装效果清除 //by=>fridayby=>friday
+        //by=>friday 永恒34星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (34 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj34star>0)
+            {
+                effectjj34star--;	
+                if (9>=effectjj34star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒32星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (32 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj32star>0)
+            {
+                effectjj32star--;	
+                if (9>=effectjj32star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒30星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (30 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj30star>0)
+            {
+                effectjj30star--;	
+                if (9>=effectjj30star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒28星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (28 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj28star>0)
+            {
+                effectjj28star--;	
+                if (9>=effectjj28star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒26星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (26 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj26star>0)
+            {
+                effectjj26star--;	
+                if (9>=effectjj26star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒24星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (24 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj24star>0)
+            {
+                effectjj24star--;	
+                if (9>=effectjj24star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒22星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (22 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj22star>0)
+            {
+                effectjj22star--;	
+                if (9>=effectjj22star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒20星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (20 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj20star>0)
+            {
+                effectjj20star--;	
+                if (9>=effectjj20star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒18星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (18 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj18star>0)
+            {
+                effectjj18star--;	
+                if (9>=effectjj18star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
+        
+        //by=>friday 永恒16星装套装效果
+		if (owner && object && (object->data.needlevel >= 215) && (16 <= object->data.upgrade) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155) && (!object->data.kind & 4 || object->data.kind & 16) )
+        {
+            if (effectjj16star>0)
+            {
+                effectjj16star--;	
+                if (9>=effectjj16star)
+                {
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ34, false);     //by=>friday 清除永恒34星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ32, false);     //by=>friday 清除永恒32星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ30, false);     //by=>friday 清除永恒30星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ28, false);     //by=>friday 清除永恒28星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ26, false);     //by=>friday 清除永恒26星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ24, false);     //by=>friday 清除永恒24星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ22, false);     //by=>friday 清除永恒22星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ20, false);     //by=>friday 清除永恒20星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ18, false);     //by=>friday 清除永恒18星套装状态
+                   owner->showCurrentEffect(Cmd::USTATE_USER_TZ_JJ16, false);     //by=>friday 清除永恒16星套装状态
+                }
+            }
+        }
 	
   //soke 永恒装套装效果
 	if (owner && object && (object->data.needlevel >= 220) && (object->data.bind) && (object->data.kind & 4 || object->data.kind & 16)  && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
@@ -6198,6 +6298,111 @@ bool EquipPack::remove(zObject *object)
 		    }
 		}
 	}
+
+	//by=>friday 心意等级套装效果清除
+	if (owner && object && (object->data.needlevel >= 215) &&
+		    ((object->base->kind >= 101 && object->base->kind <= 118) ||
+		    //  (object->base->kind >= 113 && object->base->kind <= 118) ||
+		     (object->base->kind >= 136 && object->base->kind <= 138) || 
+			 (object->base->kind >= 155 && object->base->kind <= 156) || 
+			 (object->base->kind >= 141 && object->base->kind <= 145)) &&
+		    (!object->data.kind & 4 || object->data.kind & 16))
+	{
+	    // 心意等级套装配置表 - 按心意等级从高到低排序以确保优先级
+	    struct HeartSuitConfig {
+	        int minHeartLevel;
+	        int* effectCounter;
+	        int stateId;
+	        const char* logName;
+	    };
+
+	    // 配置表：心意等级套装
+	    HeartSuitConfig heartConfigs[] = {
+	        {120, &effectheartorange, Cmd::USTATE_USER_TZ_HEART_ORANGE, "橙色20心套装"},
+	        {100, &effectheartpurple, Cmd::USTATE_USER_TZ_HEART_PURPLE, "紫色20心套装"},
+	        {80,  &effectheartgreen,  Cmd::USTATE_USER_TZ_HEART_GREEN,  "绿色20心套装"},
+	        {60,  &effectheartyellow, Cmd::USTATE_USER_TZ_HEART_YELLOW, "黄色20心套装"},
+	        {40,  &effectheartblue,   Cmd::USTATE_USER_TZ_HEART_BLUE,   "蓝色20心套装"},
+	        {20,  &effectheartwhite,  Cmd::USTATE_USER_TZ_HEART_WHITE,  "白色20心套装"}
+	    };
+
+	    const int configCount = sizeof(heartConfigs) / sizeof(heartConfigs[0]);
+
+	    // 更新对应心意等级的计数器
+	    for (int i = 0; i < configCount; i++) {
+	        if (object->data.retain101 >= heartConfigs[i].minHeartLevel) {
+	            if (*(heartConfigs[i].effectCounter) > 0) {
+	                (*(heartConfigs[i].effectCounter))--;
+	            }
+	        }
+	    }
+
+	    // 检查并清除所有心意等级套装状态（当计数器降到9以下时）
+	    for (int i = 0; i < configCount; i++) {
+	        if (*(heartConfigs[i].effectCounter) <= 10) {
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_HEART_ORANGE, false);  // 清除橙色20心套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_HEART_PURPLE, false);  // 清除紫色20心套装状态  
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_HEART_GREEN, false);   // 清除绿色20心套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_HEART_YELLOW, false);  // 清除黄色20心套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_HEART_BLUE, false);    // 清除蓝色20心套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_HEART_WHITE, false);   // 清除白色20心套装状态
+	            break;
+	        }
+	    }
+	}
+
+	//by=>friday 突破等级套装效果清除
+	if (owner && object && (object->data.needlevel >= 215) &&
+		    ((object->base->kind >= 101 && object->base->kind <= 118) ||
+		    //  (object->base->kind >= 113 && object->base->kind <= 118) ||
+		     (object->base->kind >= 136 && object->base->kind <= 138) || 
+			 (object->base->kind >= 155 && object->base->kind <= 156) || 
+			 (object->base->kind >= 141 && object->base->kind <= 145)) &&
+		    (!object->data.kind & 4 || object->data.kind & 16))
+	{
+	    // 突破等级套装配置表 - 按突破等级从高到低排序以确保优先级
+	    struct BreakSuitConfig {
+	        int minBreakLevel;
+	        int* effectCounter;
+	        int stateId;
+	        const char* logName;
+	    };
+
+	    // 配置表：突破等级套装
+	    BreakSuitConfig breakConfigs[] = {
+	        {300, &effectbreakorange, Cmd::USTATE_USER_TZ_BREAK_ORANGE, "橙色50级套装"},
+	        {250, &effectbreakpurple, Cmd::USTATE_USER_TZ_BREAK_PURPLE, "紫色50级套装"},
+	        {200, &effectbreakyellow, Cmd::USTATE_USER_TZ_BREAK_YELLOW, "黄色50级套装"},
+	        {150, &effectbreakgreen,  Cmd::USTATE_USER_TZ_BREAK_GREEN,  "绿色50级套装"},
+	        {100, &effectbreakblue,   Cmd::USTATE_USER_TZ_BREAK_BLUE,   "蓝色50级套装"},
+	        {50,  &effectbreakwhite,  Cmd::USTATE_USER_TZ_BREAK_WHITE,  "白色50级套装"}
+	    };
+
+	    const int configCount = sizeof(breakConfigs) / sizeof(breakConfigs[0]);
+
+	    // 更新对应突破等级的计数器
+	    for (int i = 0; i < configCount; i++) {
+	        if (object->data.retain103 >= breakConfigs[i].minBreakLevel) {
+	            if (*(breakConfigs[i].effectCounter) > 0) {
+	                (*(breakConfigs[i].effectCounter))--;
+	            }
+	        }
+	    }
+
+	    // 检查并清除所有突破等级套装状态（当计数器降到9以下时）
+	    for (int i = 0; i < configCount; i++) {
+	        if (*(breakConfigs[i].effectCounter) <= 10) {
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_BREAK_ORANGE, false);  // 清除橙色50级套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_BREAK_PURPLE, false);  // 清除紫色50级套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_BREAK_YELLOW, false);  // 清除黄色50级套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_BREAK_GREEN, false);   // 清除绿色50级套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_BREAK_BLUE, false);    // 清除蓝色50级套装状态
+	            owner->showCurrentEffect(Cmd::USTATE_USER_TZ_BREAK_WHITE, false);   // 清除白色50级套装状态
+	            break;
+	        }
+	    }
+	}
+
     //soke 红色图鉴套装效果
 	if (owner && object && (object->base->kind >= 221 && object->base->kind <= 230))
 	{
@@ -7043,6 +7248,114 @@ bool EquipPack::remove(zObject *object)
 				}
 			}
 		}
+
+        //by=>friday 优化高级龙星星级套装效果清除处理 - 支持向后兼容扩展
+        if (owner && object && (object->data.needlevel >= 215) && (object->data.bind) &&
+            (!object->data.kind & 4 || object->data.kind & 16) &&
+            ((object->base->kind >= 101 && object->base->kind <= 111) ||
+             (object->base->kind >= 113 && object->base->kind <= 118) ||
+             object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
+        {
+            // 高级龙星星级套装配置表 - 按星级从高到低排序以确保优先级
+            struct AdvancedLongXingSuitConfig {
+                int minDraStar;
+                int* effectCounter;
+                int stateId;
+                const char* logName;
+            };
+
+            // 配置表：支持轻松添加新星级（如36、38、40星等）
+            AdvancedLongXingSuitConfig advLongXingConfigs[] = {
+                // 未来扩展预留位置 - 添加新星级时在这里插入
+                // {40, &effectlx40star, Cmd::USTATE_USER_TZ_LX40, "龙星40星"},  // 预留
+                // {38, &effectlx38star, Cmd::USTATE_USER_TZ_LX38, "龙星38星"},  // 预留
+                // {36, &effectlx36star, Cmd::USTATE_USER_TZ_LX36, "龙星36星"},  // 预留
+
+                // 当前已实现的星级
+                {34, &effectlx34star, Cmd::USTATE_USER_TZ_LX34, "龙星34星"},
+                {32, &effectlx32star, Cmd::USTATE_USER_TZ_LX32, "龙星32星"},
+                {30, &effectlx30star, Cmd::USTATE_USER_TZ_LX30, "龙星30星"},
+                {28, &effectlx28star, Cmd::USTATE_USER_TZ_LX28, "龙星28星"},
+                {26, &effectlx26star, Cmd::USTATE_USER_TZ_LX26, "龙星26星"},
+                {24, &effectlx24star, Cmd::USTATE_USER_TZ_LX24, "龙星24星"},
+                {22, &effectlx22star, Cmd::USTATE_USER_TZ_LX22, "龙星22星"},
+                {20, &effectlx20star, Cmd::USTATE_USER_TZ_LX20, "龙星20星"},
+                {18, &effectlx18star, Cmd::USTATE_USER_TZ_LX18, "龙星18星"},
+                {16, &effectlx16star, Cmd::USTATE_USER_TZ_LX16, "龙星16星"}
+            };
+
+            const int configCount = sizeof(advLongXingConfigs) / sizeof(advLongXingConfigs[0]);
+
+            // 清除对应星级的计数器和状态
+            for (int i = 0; i < configCount; i++) {
+                if (object->data.drastar >= advLongXingConfigs[i].minDraStar) {
+                    if (*(advLongXingConfigs[i].effectCounter) > 0) {
+                        (*(advLongXingConfigs[i].effectCounter))--;
+                        if (*(advLongXingConfigs[i].effectCounter) <= 9) {
+                            // 清除所有高级龙星套装状态
+                            for (int j = 0; j < configCount; j++) {
+                                owner->showCurrentEffect(advLongXingConfigs[j].stateId, false);
+                            }
+                            break; // 只需要清除一次
+                        }
+                    }
+                }
+            }
+        }
+
+        //by=>friday 优化高级斗魂星级套装效果清除处理 - 支持向后兼容扩展
+        if (owner && object && (object->data.needlevel >= 215) && object->data.bind &&
+            (object->data.kind & 16) &&
+            ((object->base->kind >= 101 && object->base->kind <= 111) ||
+             (object->base->kind >= 113 && object->base->kind <= 118) ||
+             object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
+        {
+            // 高级斗魂星级套装配置表 - 按星级从高到低排序以确保优先级
+            struct AdvancedDouHunSuitConfig {
+                int minDouHunStar;
+                int* effectCounter;
+                int stateId;
+                const char* logName;
+            };
+
+            // 配置表：支持轻松添加新星级（如36、38、40星等）
+            AdvancedDouHunSuitConfig advDouHunConfigs[] = {
+                // 未来扩展预留位置 - 添加新星级时在这里插入
+                // {40, &effectdh40star, Cmd::USTATE_USER_TZ_DH40, "斗魂40星"},  // 预留
+                // {38, &effectdh38star, Cmd::USTATE_USER_TZ_DH38, "斗魂38星"},  // 预留
+                // {36, &effectdh36star, Cmd::USTATE_USER_TZ_DH36, "斗魂36星"},  // 预留
+
+                // 当前已实现的星级
+                {34, &effectdh34star, Cmd::USTATE_USER_TZ_DH34, "斗魂34星"},
+                {32, &effectdh32star, Cmd::USTATE_USER_TZ_DH32, "斗魂32星"},
+                {30, &effectdh30star, Cmd::USTATE_USER_TZ_DH30, "斗魂30星"},
+                {28, &effectdh28star, Cmd::USTATE_USER_TZ_DH28, "斗魂28星"},
+                {26, &effectdh26star, Cmd::USTATE_USER_TZ_DH26, "斗魂26星"},
+                {24, &effectdh24star, Cmd::USTATE_USER_TZ_DH24, "斗魂24星"},
+                {22, &effectdh22star, Cmd::USTATE_USER_TZ_DH22, "斗魂22星"},
+                {20, &effectdh20star, Cmd::USTATE_USER_TZ_DH20, "斗魂20星"},
+                {18, &effectdh18star, Cmd::USTATE_USER_TZ_DH18, "斗魂18星"},
+                {16, &effectdh16star, Cmd::USTATE_USER_TZ_DH16, "斗魂16星"}
+            };
+
+            const int configCount = sizeof(advDouHunConfigs) / sizeof(advDouHunConfigs[0]);
+
+            // 清除对应星级的计数器和状态
+            for (int i = 0; i < configCount; i++) {
+                if (object->data.douhun >= advDouHunConfigs[i].minDouHunStar) {
+                    if (*(advDouHunConfigs[i].effectCounter) > 0) {
+                        (*(advDouHunConfigs[i].effectCounter))--;
+                        if (*(advDouHunConfigs[i].effectCounter) <= 9) {
+                            // 清除所有高级斗魂套装状态
+                            for (int j = 0; j < configCount; j++) {
+                                owner->showCurrentEffect(advDouHunConfigs[j].stateId, false);
+                            }
+                            break; // 只需要清除一次
+                        }
+                    }
+                }
+            }
+        }
 	}
 	//soke 清除神龙宝宝镶嵌套装效果 ///////////////////////////////////////////////////////////////////////////////////////////
 	if (owner && object && (object->data.needlevel >= 70) && (object->data.bind) && (!object->data.kind & 4 || object->data.kind & 16) && ((object->base->kind >= 101 && object->base->kind <= 111) || (object->base->kind >= 113 && object->base->kind <= 118) || object->base->kind == 136 || object->base->kind == 137 || object->base->kind == 155))
@@ -7484,7 +7797,7 @@ bool EquipPack::IsJobEquip(SceneUser *pUser,DWORD changejob, DWORD EquipType)
 	//soke 戒指或者项链是任何职业都可以装备的
 	//23包裹（无忧袋）、30活力之源、41月光宝盒、52双倍经验、53荣誉之星、61护身符、62补蓝、80护身符、101-103服装、113头盔、114腰带、115护腕、116靴子、117项链、
 	//118戒指、119低级时装、120采集手套、124高级时装、马脚、马绳、马鞍、马甲、马镫、马铃铛、80护身符 都没有职业限制 	法宝
-
+//by=>friday 修复孩子转装备穿戴限制
 	if(EquipType == ItemType_Pack || EquipType == ItemType_Tonic || EquipType == ItemType_Change || EquipType == ItemType_DoubleExp || EquipType == ItemType_Honor 
 	|| EquipType == ItemType_DoubleExp|| EquipType == ItemType_Amulet || EquipType == ItemType_GreatLeechdomMp || EquipType == ItemType_Amulet || EquipType == ItemType_ClothBody
 	|| EquipType == ItemType_FellBody || EquipType == ItemType_MetalBody || EquipType == ItemType_Helm || EquipType == ItemType_Caestus || EquipType ==  ItemType_Cuff 
@@ -7493,7 +7806,7 @@ bool EquipPack::IsJobEquip(SceneUser *pUser,DWORD changejob, DWORD EquipType)
 	|| EquipType == ItemType_HorseSafe|| EquipType == ItemType_HorseIron || EquipType == ItemType_HorseFashion || EquipType == ItemType_Amulets || EquipType == 72|| EquipType == 90
 	|| EquipType == 91 || EquipType == 99 || (EquipType >= 88 && EquipType <= 89)|| (EquipType >= 93 && EquipType <= 98)|| (EquipType >= ItemType_handbookitem1 && EquipType <= ItemType_handbookitem10)
 	|| (EquipType >= ItemType_Fabao && EquipType <= ItemType_Fabaofj12) || (EquipType >= ItemType_SEXX1 && EquipType <= ItemType_SEXX12) || EquipType == 71
-	|| (EquipType >= ItemType_YUANSHEN && EquipType <= ItemType_YUANSHENFJ6)|| EquipType == ItemType_Gift)
+	|| (EquipType >= ItemType_YUANSHEN && EquipType <= ItemType_YUANSHENFJ6) || (EquipType >= ItemType_BABYFJ1 && EquipType <= ItemType_BABYFJ6) || EquipType == ItemType_Gift)
 	{
 		return true;
 	}	
@@ -8025,11 +8338,14 @@ ObjectPack::ObjectPack(zObject* ob, int type, bool consume)	:
 /**
  * \brief 析构函数
  */
+// ObjectPack::~ObjectPack()
+// {
+// 	//SAFE_DELETE(_ob);
+// }
 ObjectPack::~ObjectPack()
 {
-	//SAFE_DELETE(_ob);
+    //if(_ob) { zObject::destroy(_ob); _ob = NULL; } //by=>friday
 }
-
 /*
 bool ObjectPack::add(zObject *object ,bool find)
 {
@@ -8453,6 +8769,8 @@ Package * Packages::getPackage(DWORD type,DWORD id)
 		case Cmd::OBJECTCELLTYPE_FUJIAN:
             return (Package *)&fujianPack;
 			//////////////////////////////////////////////
+		case Cmd::OBJECTCELLTYPE_BABYRECAST:
+       		return (Package *)&babyRecastPack;
 		case Cmd::OBJECTCELLTYPE_YUANSHEN:
             return (Package *)&yuanshenPack;
 		default:
@@ -8495,6 +8813,8 @@ Package** Packages::getPackage(int packs)
 	////////////////////////////////////////////////////////
 	if (packs & RECAST_PACK) p[i++] = (Package *)&annexPack;
 	////////////////////////////////////////////////////////	
+	if (packs & RECAST_PACK) p[i++] = (Package *)&babyRecastPack;  // 新增
+	
 	if (packs & RECAST_PACK) p[i++] = (Package *)&handbookPack;
 	////////////////////////////////////////////////////////	
 
@@ -10412,6 +10732,17 @@ AnnexPack::AnnexPack()
 }
 
 AnnexPack::~AnnexPack()
+{
+
+}
+
+BabyRecastPack::BabyRecastPack()
+:Package(Cmd::OBJECTCELLTYPE_BABYRECAST, 0, RECAST_PACK_WIDTH, RECAST_PACK_HEIGHT)
+{
+
+}
+
+BabyRecastPack::~BabyRecastPack()
 {
 
 }

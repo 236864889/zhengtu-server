@@ -75,7 +75,7 @@ function visit_247(npc)
 		v:set("state", 2);
 		v:set("npc", npc:tempid());
 		player.quest:add(21101, v, player, true);
---		sys(player, 1, "æ¥å—äº†ä¸€ä¸ªä»»åŠ¡");
+--		sys(player, 1, "½ÓÊÜÁËÒ»¸öÈÎÎñ");
 		npc:refresh();
 		return 1;
 	end
@@ -145,24 +145,24 @@ function visit_247(npc)
 			npc:refresh();
 		
 			if qs == 1 then
-				sys(player, 1, "æœ¬ç¯è¿˜æœ‰4ä¸ªä»»åŠ¡");
+				sys(player, 1, "±¾»·»¹ÓĞ4¸öÈÎÎñ");
 			end
 				
 			if qs == 2 then
-				sys(player, 1, "æœ¬ç¯è¿˜æœ‰3ä¸ªä»»åŠ¡");
+				sys(player, 1, "±¾»·»¹ÓĞ3¸öÈÎÎñ");
 			end
 				
 			if qs == 3 then
-				sys(player, 1, "æœ¬ç¯è¿˜æœ‰2ä¸ªä»»åŠ¡");
+				sys(player, 1, "±¾»·»¹ÓĞ2¸öÈÎÎñ");
 			end
 				
 			if qs == 4 then
-				sys(player, 1, "æœ¬ç¯è¿˜æœ‰æœ€å1ä¸ªä»»åŠ¡");
+				sys(player, 1, "±¾»·»¹ÓĞ×îºó1¸öÈÎÎñ");
 			end
 			
 			
 			if math.mod(qs+1, 5) == 0 then
-				sys(player, 1, "å®Œæˆäº†ä¸€ä¸ªç¯");
+				sys(player, 1, "Íê³ÉÁËÒ»¸ö»·");
 				v:set("qs", 0);
 				npc:refresh();
 			end
@@ -195,7 +195,7 @@ function accept_247(npc, id, flag)
 			menu = 	string.gsub(menu, "#npc#", visit_npc_list[r][2]);
 			show_dialog(npc, menu);
 			player:add_ob(2068, 1, 0, 0);
-			sys(player, 1, "æ¥å—äº†è¯¥ä»»åŠ¡");			
+			sys(player, 1, "½ÓÊÜÁË¸ÃÈÎÎñ");			
 			npc:refresh();
 			return 1;
 		end
@@ -206,7 +206,7 @@ function accept_247(npc, id, flag)
 			menu = string.gsub(menu_247_6, "#name#", kill_npc_list[r][1]);
 			menu = 	string.gsub(menu, "#npc#", kill_npc_list[r][2]);
 			show_dialog(npc, menu);
-			sys(player, 1, "æ¥å—äº†è¯¥ä»»åŠ¡");			
+			sys(player, 1, "½ÓÊÜÁË¸ÃÈÎÎñ");			
 			npc:refresh();
 			return 1;
 		end
@@ -217,7 +217,7 @@ function accept_247(npc, id, flag)
 			menu = string.gsub(menu_247_4, "#name#", get_item_list[r][1]);	
 			menu = 	string.gsub(menu, "#id#", get_item_list[r][2]);
 			show_dialog(npc, menu);
-			sys(player, 1, "æ¥å—äº†è¯¥ä»»åŠ¡");			
+			sys(player, 1, "½ÓÊÜÁË¸ÃÈÎÎñ");			
 			npc:refresh();
 			return 1;
 		end
@@ -228,7 +228,7 @@ function accept_247(npc, id, flag)
 			menu = string.gsub(menu_247_4, "#name#", get_item_list[r][1]);	
 			menu = 	string.gsub(menu, "#id#", get_item_list[r][2]);
 			show_dialog(npc, menu);
-			sys(player, 1, "æ¥å—äº†è¯¥ä»»åŠ¡");			
+			sys(player, 1, "½ÓÊÜÁË¸ÃÈÎÎñ");			
 			npc:refresh();
 			return 1;
 		end
@@ -241,7 +241,7 @@ function accept_247(npc, id, flag)
 			menu = 	string.gsub(menu, "#kill#", kill_get_list[r][2]);
 			menu = 	string.gsub(menu, "#item#", kill_get_list[r][3]);
 			show_dialog(npc, menu);
-			sys(player, 1, "æ¥å—äº†è¯¥ä»»åŠ¡");			
+			sys(player, 1, "½ÓÊÜÁË¸ÃÈÎÎñ");			
 			npc:refresh();
 			return 1;
 		end
@@ -258,10 +258,10 @@ function accept_247(npc, id, flag)
 			
 		if ( v:get("state") == 1) and type == 3 and flag == 8 and player:have_ob(id, 3, 0) then
 			print("accept3");
-			sys(player, 1, "å®Œæˆäº†æ”¶é›†ç‰©å“ä»»åŠ¡");		
+			sys(player, 1, "Íê³ÉÁËÊÕ¼¯ÎïÆ·ÈÎÎñ");		
 			player:remove_ob(id, 3, 0);
 		
-			print("äº¤ç‰©å“ä»»åŠ¡");
+			print("½»ÎïÆ·ÈÎÎñ");
 			show_dialog(npc, menu_247_11);
 			local qs = v:get("finish_quests");
 				if not qs then
@@ -277,24 +277,24 @@ function accept_247(npc, id, flag)
 			npc:refresh();
 		
 				if qs == 1 then
-					sys(player, 1, "æœ¬ç¯è¿˜æœ‰4ä¸ªä»»åŠ¡");
+					sys(player, 1, "±¾»·»¹ÓĞ4¸öÈÎÎñ");
 				end
 					
 				if qs == 2 then
-					sys(player, 1, "æœ¬ç¯è¿˜æœ‰3ä¸ªä»»åŠ¡");
+					sys(player, 1, "±¾»·»¹ÓĞ3¸öÈÎÎñ");
 				end
 					
 				if qs == 3 then
-					sys(player, 1, "æœ¬ç¯è¿˜æœ‰2ä¸ªä»»åŠ¡");
+					sys(player, 1, "±¾»·»¹ÓĞ2¸öÈÎÎñ");
 				end
 					
 				if qs == 4 then
-					sys(player, 1, "æœ¬ç¯è¿˜æœ‰æœ€å1ä¸ªä»»åŠ¡");
+					sys(player, 1, "±¾»·»¹ÓĞ×îºó1¸öÈÎÎñ");
 				end
 			
 			
 				if math.mod(qs+1, 5) == 0 then
-					sys(player, 1, "å®Œæˆäº†ä¸€ä¸ªç¯");
+					sys(player, 1, "Íê³ÉÁËÒ»¸ö»·");
 					v:set("qs", 0);
 					npc:refresh();
 				end
@@ -308,7 +308,7 @@ function accept_247(npc, id, flag)
 	
 		local s = v:get("state");
 		if s == -3 then
-			sys(player, 1, "å®Œæˆäº†è¯¥ä»»åŠ¡");		
+			sys(player, 1, "Íê³ÉÁË¸ÃÈÎÎñ");		
 			player:add_exp(100, false, 0, 0);	
 			v:set("state", -1);	
 			player.quest.refresh(id);	

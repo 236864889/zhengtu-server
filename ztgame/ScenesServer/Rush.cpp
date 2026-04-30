@@ -138,7 +138,7 @@ bool Rush::loadRushData(DWORD rushID, DWORD rushDelay, DWORD countryID)
 	zXMLParser xml;
 	if (!xml.initFile(Zebra::global["mapdir"] +"city_rush.xml"))
 	{
-		Zebra::logger->error("打开Rush配置文件失败 %s", (Zebra::global["mapdir"] + "city_rush.xml").c_str());
+		//Zebra::logger->error("打开Rush配置文件失败 %s", (Zebra::global["mapdir"] + "city_rush.xml").c_str());
 		return false;
 	}
 

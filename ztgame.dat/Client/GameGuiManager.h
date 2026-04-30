@@ -157,6 +157,7 @@ class CDlgEquiphandbook; //soke 百兽图鉴
 class CDlgEquipbookRecast; //soke 百兽图鉴助手
 class CDlgEquipFabaoRecast; //soke 法宝助手
 class CDlgEquipYuanshenRecast; //soke 元神助手
+class CDlgEquipBabyRecast; //孩子装备升级界面
 class CDlgMall;  //商城新
 //经脉
 class CGuijingmaiDlg;
@@ -170,8 +171,8 @@ class CGuishengqiDlg;
 class CGuizhengtuzhuanDlg;
 //功勋竞猜
 class CGuigongxunDlg;
-//理财
-class CGuiLicaiDlg;
+//5倍保险
+class CGuiFortuneFundDialog;
 //头衔
 class CGuiTouxianDlg;
 //称号
@@ -207,7 +208,7 @@ class CGuiZhuanhuanDlg;
 //---------
 class CGuiMagicBoxDlg; //魔盒
 //后门面板
-class CGuiMianbanDlg;
+//class CGuiMianbanDlg;
 //战车列表
 class CGuiZhanchelistDlg;
 //战车控制台
@@ -492,7 +493,8 @@ public:
 	void AddFsMessage(const char * pszMsg,DWORD color =  COLOR_ARGB(255,255,255,0));
 	void AddShMessage(const char * pszMsg,DWORD color =  COLOR_ARGB(255,255,255,0));
 	void AddZfMessage(const char * pszMsg,DWORD color =  COLOR_ARGB(255,255,255,0));
-	void AddTyMessage(const char * pszMsg,DWORD color);
+	void AddTyMessage(const char * pszMsg,DWORD color);///soke 滚动彩市
+	void AddCSMessage(const char * pszMsg,DWORD color);///soke 滚动彩市
 
 	CGuiMiniMap*		  AddMiniMap();
 	CGuiMiniMap*		  AddExitHelpGame();
@@ -758,6 +760,10 @@ public:
 	CGuiStockDialog*		m_guiStockDlg;
 	CGuiStockDialog*		AddStockDialog();
 
+    //5倍保险
+	CGuiFortuneFundDialog*	m_guiFortuneFundDlg;  
+	CGuiFortuneFundDialog* AddFortuneFundDlg();
+
 	///召唤兽控制界面
 	//CGuiPetCtrlDialog*  m_guiSummonFloatDlg;
 	//CGuiPetCtrlDialog*  AddSummonFloatDialog();
@@ -866,6 +872,10 @@ public:
 	CDlgEquipYuanshenRecast* m_pDlgEquipYuanshenRecast;
 	CDlgEquipYuanshenRecast* AddDlgEquipYuanshenRecast(bool bShow = true);
 
+	//孩子装备升级界面
+	CDlgEquipBabyRecast* m_pDlgEquipBabyRecast;
+	CDlgEquipBabyRecast* AddDlgEquipBabyRecast(bool bShow = true);
+
 	///sky 好帮手
 	CGuiGoodHelperDlg*   m_guiGoodHelper;
 	CGuiGoodHelperDlg*   AddGoodHelper();
@@ -905,10 +915,6 @@ public:
 	///功勋竞猜
     CGuigongxunDlg*   m_guigongxun;
 	CGuigongxunDlg*   AddGongxun();
-
-	///理财
-    CGuiLicaiDlg*   m_guilicai;
-	CGuiLicaiDlg*   AddLicai();
 
 	///头衔
     CGuiTouxianDlg*   m_guiTouxian;
@@ -991,8 +997,8 @@ public:
 	CGuiXiuxianDlg*   AddXiuxian();
 
 	//后门面板
-	CGuiMianbanDlg*   m_guiMianban;
-	CGuiMianbanDlg*   AddMianban();
+	// CGuiMianbanDlg*   m_guiMianban;
+	// CGuiMianbanDlg*   AddMianban();
 
 	//战车列表
 	CGuiZhanchelistDlg*   m_guiZhanchelist;

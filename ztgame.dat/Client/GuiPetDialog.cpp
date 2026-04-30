@@ -724,12 +724,12 @@ void CGuiPetDialog::UpdatePetTab()
 		{
 			char buf[32];
 			DWORD color = -1;
-#define _SetPetText(id,d) sprintf(buf,"%u",pData->d);Pet_SetStaticText(id,buf);
-#define _SetPetTextEx(id,d,dplus)	sprintf(buf,"%u",pData->d + pData->dplus);Pet_SetStaticText(id,buf);
-#define _SetPetTextRange(id,d1,d2) sprintf(buf,"%u/%u",pData->d1,pData->d2);Pet_SetStaticText(id,buf);
-#define _SetPetTextRangeEx(id,d1,d2,dplus) sprintf(buf,"%u/%u",pData->d1,pData->d2 + pData->dplus);Pet_SetStaticText(id,buf);
-#define _SetPetTextRange_(id,d1,d2) sprintf(buf,"%u-%u",pData->d1,pData->d2);Pet_SetStaticText(id,buf);
-#define _SetPetTextRange_Ex(id,d1,d1plus,d2,d2plus) sprintf(buf,"%u-%u",pData->d1 + pData->d1plus,pData->d2 + pData->d2plus);Pet_SetStaticText(id,buf);
+#define _SetPetText(id,d) { std::string s = FormatLargeNumber(static_cast<uint64_t>(pData->d)); strncpy(buf, s.c_str(), sizeof(buf)-1); buf[sizeof(buf)-1] = '\0'; Pet_SetStaticText(id,buf); }
+#define _SetPetTextEx(id,d,dplus) { uint64_t val = pData->d + pData->dplus; std::string s = FormatLargeNumber(val); strncpy(buf, s.c_str(), sizeof(buf)-1); buf[sizeof(buf)-1] = '\0'; Pet_SetStaticText(id,buf); }
+#define _SetPetTextRange(id,d1,d2) { std::string s1 = FormatLargeNumber(static_cast<uint64_t>(pData->d1)); std::string s2 = FormatLargeNumber(static_cast<uint64_t>(pData->d2)); _snprintf(buf, sizeof(buf), "%s/%s", s1.c_str(), s2.c_str()); Pet_SetStaticText(id,buf); }
+#define _SetPetTextRangeEx(id,d1,d2,dplus) { std::string s1 = FormatLargeNumber(pData->d1); std::string s2 = FormatLargeNumber(pData->d2 + pData->dplus); _snprintf(buf, sizeof(buf), "%s/%s", s1.c_str(), s2.c_str()); Pet_SetStaticText(id,buf); }
+#define _SetPetTextRange_(id,d1,d2) { std::string s1 = FormatLargeNumber(pData->d1); std::string s2 = FormatLargeNumber(pData->d2); _snprintf(buf, sizeof(buf), "%s-%s", s1.c_str(), s2.c_str()); Pet_SetStaticText(id,buf); }
+#define _SetPetTextRange_Ex(id,d1,d1plus,d2,d2plus) { uint64_t v1 = pData->d1 + pData->d1plus; uint64_t v2 = pData->d2 + pData->d2plus; std::string s1 = FormatLargeNumber(v1); std::string s2 = FormatLargeNumber(v2); _snprintf(buf, sizeof(buf), "%s-%s", s1.c_str(), s2.c_str()); Pet_SetStaticText(id,buf); }
 
 			//_SetPetTextRange(100,hp,maxhp);
 			_SetPetTextRangeEx(100,hp,maxhp,maxhp_plus);
@@ -829,26 +829,69 @@ void CGuiPetDialog::UpdateSummonTab()
 		if( pData )
 		{
 			char buf[32];
-#define _SetSummonText(id,d) sprintf(buf,"%u",pData->d);Pet_SetStaticText(id,buf);
-#define _SetSummonTextEx(id,d,dplus)	sprintf(buf,"%u",pData->d+pData->dplus);Pet_SetStaticText(id,buf);
-#define _SetSummonTextRangeEx(id,d1,d2,dplus) sprintf(buf,"%u / %u",pData->d1,pData->d2 + pData->dplus);Pet_SetStaticText(id,buf);
-#define _SetSummonTextRange(id,d1,d2) sprintf(buf,"%u / %u",pData->d1,pData->d2);Pet_SetStaticText(id,buf);
-#define _SetSummonTextRange_(id,d1,d2) sprintf(buf,"%u-%u",pData->d1,pData->d2);Pet_SetStaticText(id,buf);
-#define _SetSummonTextRange_Ex(id,d1,d1plus,d2,d2plus) sprintf(buf,"%u-%u",pData->d1+pData->d1plus,pData->d2+pData->d2plus);Pet_SetStaticText(id,buf);
+// 设置单个数值的文本显示 - 保持不变
+#define _SetSummonText(id,d) { \
+    std::string s = FormatLargeNumber(static_cast<uint64_t>(pData->d)); \
+    strncpy(buf, s.c_str(), sizeof(buf)-1); \
+    buf[sizeof(buf)-1] = '\0'; \
+    Pet_SetStaticText(id,buf); \
+}
 
+// 设置单个数值（基础值+加成值）的文本显示 - 保持不变
+#define _SetSummonTextEx(id,d,dplus) { \
+    uint64_t val = pData->d + pData->dplus; \
+    std::string s = FormatLargeNumber(val); \
+    strncpy(buf, s.c_str(), sizeof(buf)-1); \
+    buf[sizeof(buf)-1] = '\0'; \
+    Pet_SetStaticText(id,buf); \
+}
+
+// 设置范围显示（当前值/最大值），最大值有加成 - 修改为只显示最大值（含加成）
+#define _SetSummonTextRangeEx(id,d1,d2,dplus) { \
+    std::string s2 = FormatLargeNumber(pData->d2 + pData->dplus); \
+    strncpy(buf, s2.c_str(), sizeof(buf)-1); \
+    buf[sizeof(buf)-1] = '\0'; \
+    Pet_SetStaticText(id,buf); \
+}
+
+// 设置范围显示（当前值/最大值） - 修改为只显示最大值
+#define _SetSummonTextRange(id,d1,d2) { \
+    std::string s2 = FormatLargeNumber(static_cast<uint64_t>(pData->d2)); \
+    strncpy(buf, s2.c_str(), sizeof(buf)-1); \
+    buf[sizeof(buf)-1] = '\0'; \
+    Pet_SetStaticText(id,buf); \
+}
+
+// 设置范围显示（最小值-最大值） - 修改为只显示最大值
+#define _SetSummonTextRange_(id,d1,d2) { \
+    std::string s2 = FormatLargeNumber(pData->d2); \
+    strncpy(buf, s2.c_str(), sizeof(buf)-1); \
+    buf[sizeof(buf)-1] = '\0'; \
+    Pet_SetStaticText(id,buf); \
+}
+
+// 设置范围显示（基础值+加成值 到 最大值+加成值） - 修改为只显示最大值（含加成）
+#define _SetSummonTextRange_Ex(id,d1,d1plus,d2,d2plus) { \
+    uint64_t v2 = pData->d2 + pData->d2plus; \
+    std::string s2 = FormatLargeNumber(v2); \
+    strncpy(buf, s2.c_str(), sizeof(buf)-1); \
+    buf[sizeof(buf)-1] = '\0'; \
+    Pet_SetStaticText(id,buf); \
+}
 			//_SetSummonTextRange(200,hp,maxhp);
-			_SetSummonTextRangeEx(200,hp,maxhp,maxhp_plus);
-			_SetSummonText(201,str);
-			_SetSummonText(202,intel);
-			_SetSummonText(203,agi);
-			_SetSummonText(204,men);
-			_SetSummonText(205,vit);
-			_SetSummonTextRange(206,exp,maxexp);
-			_SetSummonTextRange_Ex(207,atk,atk_plus,maxatk,maxatk_plus);
-			_SetSummonTextRange_Ex(208,matk,atk_plus,maxmatk,maxatk_plus);
-			_SetSummonTextEx(209,def,pdef_plus);
-			_SetSummonTextEx(210,mdef,mdef_plus);
-			_SetSummonText(211,cri);
+			// 这些调用代码完全保持不变
+_SetSummonTextRangeEx(200,hp,maxhp,maxhp_plus);          // 只显示最大HP（含加成）
+_SetSummonText(201,str);                                // 显示力量
+_SetSummonText(202,intel);                              // 显示智力  
+_SetSummonText(203,agi);                                // 显示敏捷
+_SetSummonText(204,men);                                // 显示精神
+_SetSummonText(205,vit);                                // 显示体力
+_SetSummonTextRange(206,exp,maxexp);                    // 只显示最大经验
+_SetSummonTextRange_Ex(207,atk,atk_plus,maxatk,maxatk_plus); // 只显示最大物理攻击（含加成）
+_SetSummonTextRange_Ex(208,matk,matk_plus,maxmatk,maxmatk_plus); // 只显示最大魔法攻击（含加成）
+_SetSummonTextEx(209,def,pdef_plus);                    // 显示防御（含加成）
+_SetSummonTextEx(210,mdef,mdef_plus);                   // 显示魔法防御（含加成）
+_SetSummonText(211,cri);                                // 显示暴击率
 
 			if(pData->maxhp_plus>0)	
 			{
@@ -1207,16 +1250,35 @@ bool CGuiPetDialog::RenderText1(float fElapsedTime,petType type)
 				GetDevice()->DrawString(buf,rect,ColorBlend(-1,0xffffffff),DT_VCENTER|DT_CENTER);
 			}
 
-			const t_HorseData *hData = m_pCurHorse->GetHorseProperty();
+			// const t_HorseData *hData = m_pCurHorse->GetHorseProperty();
 
-            if( hData->horseXLlevel > 0 && hData->horseXLlevel < 5 )
-				{
-					GetButton(48)->SetVisible(true);
-				}					
-				else
-				{
-					GetButton(48)->SetVisible(false);
-				}
+            // if( hData->horseXLlevel > 0 && hData->horseXLlevel < 5 )
+			// 	{
+			// 		GetButton(48)->SetVisible(true);
+			// 	}					
+			// 	else
+			// 	{
+			// 		GetButton(48)->SetVisible(false);
+			// 	}
+
+			//by=>friday 添加对m_pCurHorse的NULL检查
+            if(m_pCurHorse != NULL)  // 修改添加这一行
+            {
+                const t_HorseData *hData = m_pCurHorse->GetHorseProperty();
+
+                if(hData->horseXLlevel > 0 && hData->horseXLlevel < 5)
+                {
+                    GetButton(48)->SetVisible(true);
+                }					
+                else
+                {
+                    GetButton(48)->SetVisible(false);
+                }
+            }
+            else  // 如果没有坐骑，默认隐藏按钮
+            {
+                GetButton(48)->SetVisible(false);
+            }
 
              //render tooltip
 			{
@@ -1269,10 +1331,10 @@ void CGuiPetDialog::RenderHorse(float fElapsedTime)
 	GetDevice()->SetFont(iOldFont);
 }
 
-#define RenderPetToolTips(title,num)	{char szText[32];		\
-	m_ToolTips.SetCurColor(-1);									\
-	m_ToolTips.AddText(title);									\
-	m_ToolTips.AddText(_itoa(num,szText,10));}
+#define RenderPetToolTips(title,num)	{							\
+	m_ToolTips.SetCurColor(-1);													\
+	m_ToolTips.AddText(title);													\
+	m_ToolTips.AddText(FormatLargeNumber(num).c_str());} //by=>friday 使用FormatLargeNumber格式化
 
 void CGuiPetDialog::RenderHorseToolTips(UINT nID)
 {	
@@ -1348,17 +1410,16 @@ void CGuiPetDialog::RenderToolTip(const t_PetData* pData,int index)
 			case 100:
 			case 200:
 				{
-					char szText[32];
 					m_ToolTips.SetCurColor(-1);
 					m_ToolTips.AddText("当前生命值 = ");
-					m_ToolTips.AddText(_itoa(pData->hp,szText,10));
+					m_ToolTips.AddText(FormatLargeNumber(pData->hp).c_str()); //by=>friday 使用FormatLargeNumber格式化
 					m_ToolTips.AddText("\n最大生命值 = ");
-					m_ToolTips.AddText(_itoa(pData->maxhp,szText,10));
+					m_ToolTips.AddText(FormatLargeNumber(pData->maxhp).c_str()); //by=>friday 使用FormatLargeNumber格式化
 					if(pData->maxhp_plus > 0)
 					{
 						m_ToolTips.SetCurColor(plusColor);
 						m_ToolTips.AddText(" + ");
-						m_ToolTips.AddText(_itoa(pData->maxhp_plus,szText,10));
+						m_ToolTips.AddText(FormatLargeNumber(pData->maxhp_plus).c_str()); //by=>friday 使用FormatLargeNumber格式化
 						m_ToolTips.SetCurColor(-1);
 					}
 				}
@@ -1403,24 +1464,23 @@ void CGuiPetDialog::RenderToolTip(const t_PetData* pData,int index)
 			case 107:
 			case 207:
 				{
-					char szText[32];
 					m_ToolTips.SetCurColor(-1);
 					m_ToolTips.AddText("当前攻击力 = ");
-					m_ToolTips.AddText(_itoa(pData->atk,szText,10));
+					m_ToolTips.AddText(FormatLargeNumber(pData->atk).c_str()); //by=>friday 使用FormatLargeNumber格式化
 					if(pData->atk_plus>0)
 					{
 						m_ToolTips.SetCurColor(plusColor);
 						m_ToolTips.AddText(" + ");
-						m_ToolTips.AddText(_itoa(pData->atk_plus,szText,10));
+						m_ToolTips.AddText(FormatLargeNumber(pData->atk_plus).c_str()); //by=>friday 使用FormatLargeNumber格式化
 						m_ToolTips.SetCurColor(-1);
 					}
 					m_ToolTips.AddText("\n最大攻击力 = ");
-					m_ToolTips.AddText(_itoa(pData->maxatk,szText,10));
+					m_ToolTips.AddText(FormatLargeNumber(pData->maxatk).c_str()); //by=>friday 使用FormatLargeNumber格式化
 					if(pData->maxatk_plus > 0)
 					{
 						m_ToolTips.SetCurColor(plusColor);
 						m_ToolTips.AddText(" + ");
-						m_ToolTips.AddText(_itoa(pData->maxatk_plus,szText,10));
+						m_ToolTips.AddText(FormatLargeNumber(pData->maxatk_plus).c_str()); //by=>friday 使用FormatLargeNumber格式化
 						m_ToolTips.SetCurColor(-1);
 					}
 				}
@@ -1428,24 +1488,23 @@ void CGuiPetDialog::RenderToolTip(const t_PetData* pData,int index)
 			case 108:
 			case 208:
 				{
-					char szText[32];
 					m_ToolTips.SetCurColor(-1);
 					m_ToolTips.AddText("当前魔法攻击力 = ");
-					m_ToolTips.AddText(_itoa(pData->matk,szText,10));
+					m_ToolTips.AddText(FormatLargeNumber(pData->matk).c_str()); //by=>friday 使用FormatLargeNumber格式化
 					if(pData->matk_plus>0)
 					{
 						m_ToolTips.SetCurColor(plusColor);
 						m_ToolTips.AddText(" + ");
-						m_ToolTips.AddText(_itoa(pData->matk_plus,szText,10));
+						m_ToolTips.AddText(FormatLargeNumber(pData->matk_plus).c_str()); //by=>friday 使用FormatLargeNumber格式化
 						m_ToolTips.SetCurColor(-1);
 					}
 					m_ToolTips.AddText("\n最大魔法攻击力 = ");
-					m_ToolTips.AddText(_itoa(pData->maxmatk,szText,10));
+					m_ToolTips.AddText(FormatLargeNumber(pData->maxmatk).c_str()); //by=>friday 使用FormatLargeNumber格式化
 					if(pData->maxmatk_plus > 0)
 					{
 						m_ToolTips.SetCurColor(plusColor);
 						m_ToolTips.AddText(" + ");
-						m_ToolTips.AddText(_itoa(pData->maxmatk_plus,szText,10));
+						m_ToolTips.AddText(FormatLargeNumber(pData->maxmatk_plus).c_str()); //by=>friday 使用FormatLargeNumber格式化
 						m_ToolTips.SetCurColor(-1);
 					}
 				}
@@ -1453,15 +1512,14 @@ void CGuiPetDialog::RenderToolTip(const t_PetData* pData,int index)
 			case 109:
 			case 209:
 				{
-					char szText[32];
 					m_ToolTips.SetCurColor(-1);
 					m_ToolTips.AddText("当前物理防御 = ");
-					m_ToolTips.AddText(_itoa(pData->def,szText,10));					
+					m_ToolTips.AddText(FormatLargeNumber(pData->def).c_str()); //by=>friday 使用FormatLargeNumber格式化
 					if(pData->pdef_plus > 0)
 					{
 						m_ToolTips.SetCurColor(plusColor);
 						m_ToolTips.AddText(" + ");
-						m_ToolTips.AddText(_itoa(pData->pdef_plus,szText,10));
+						m_ToolTips.AddText(FormatLargeNumber(pData->pdef_plus).c_str()); //by=>friday 使用FormatLargeNumber格式化
 						m_ToolTips.SetCurColor(-1);
 					}
 				}
@@ -1469,15 +1527,14 @@ void CGuiPetDialog::RenderToolTip(const t_PetData* pData,int index)
 			case 110:
 			case 210:
 				{
-					char szText[32];
 					m_ToolTips.SetCurColor(-1);
 					m_ToolTips.AddText("当前魔法防御 = ");
-					m_ToolTips.AddText(_itoa(pData->mdef,szText,10));					
+					m_ToolTips.AddText(FormatLargeNumber(pData->mdef).c_str()); //by=>friday 使用FormatLargeNumber格式化
 					if(pData->mdef_plus > 0)
 					{
 						m_ToolTips.SetCurColor(plusColor);
 						m_ToolTips.AddText(" + ");
-						m_ToolTips.AddText(_itoa(pData->mdef_plus,szText,10));
+						m_ToolTips.AddText(FormatLargeNumber(pData->mdef_plus).c_str()); //by=>friday 使用FormatLargeNumber格式化
 						m_ToolTips.SetCurColor(-1);
 					}
 				}

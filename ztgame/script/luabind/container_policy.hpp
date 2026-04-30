@@ -35,12 +35,7 @@ namespace luabind { namespace detail {
 	template<class Policies>
 	struct container_converter_lua_to_cpp
 	{
-        int const consumed_args(...)
-        {
-            return 1;
-        }
-
-        template<class T>
+		template<class T>
 		T apply(lua_State* L, by_const_reference<T>, int index)
 		{
 			typedef typename T::value_type value_type;

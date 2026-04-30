@@ -254,7 +254,10 @@ void CGuiTopDialog::RefreshZhanLiList()
 			}
 			////////////////////////////////////////////////
 			char szZhanLi[30] = {0};
-			sprintf(szZhanLi,"%d",info.zhanlilNum);
+			//by=>friday 用FormatLargeNumber格式化战力显示
+			std::string strZhanLi = FormatLargeNumber(info.zhanlilNum);
+			strncpy(szZhanLi, strZhanLi.c_str(), sizeof(szZhanLi)-1);
+			szZhanLi[sizeof(szZhanLi)-1] = '\0';
 			m_pListBoxZhanLi->SetItemText2(nIndex, 3, szZhanLi, 83); //战力值zhanli
 			////////////新增排行榜显示特殊战力值颜色
 			if( i == 0 )

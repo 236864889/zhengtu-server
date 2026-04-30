@@ -1583,7 +1583,7 @@ bool SceneNpc::doRandomChatAI()
 SceneEntryPk * SceneNpc::chooseEnemy(SceneEntryPk_vec& enemies)
 {
 	//非战斗npc
-	if (!canFight()) return NULL;
+	if (!canFight()) return false;
 
 	SceneEntryPk * ret = 0;
 
@@ -1647,8 +1647,8 @@ SceneEntryPk * SceneNpc::chooseEnemy(SceneEntryPk_vec& enemies)
 				unsigned int value = minValue;
 				if (!(aif&(AIF_ATK_PDEF|AIF_ATK_MDEF|AIF_ATK_HP)))
 				{
-					int x2 = labs((long)(getPos().x)-(long)(enemies[i]->getPos().x));
-					int y2 = labs((long)(getPos().y)-(long)(enemies[i]->getPos().y));
+					int x2 = abs(getPos().x-enemies[i]->getPos().x);
+					int y2 = abs(getPos().y-enemies[i]->getPos().y);
 					value = x2*x2+y2*y2;
 				}
 				else
@@ -1981,6 +1981,18 @@ int SceneNpc::isEnemy(SceneEntryPk * entry, bool notify, bool good)
 {
 	if (!entry) return -1;
 	if (this==entry) return 0;
+	
+	//by=>friday 战车载具模式保护 - 战车玩家不被NPC识别为敌人
+	if (entry->getType() == zSceneEntry::SceneEntry_Player)
+	{
+		SceneUser* targetUser = (SceneUser*)entry;
+		if (targetUser->zhanche_vehicle_mode)
+		{
+			// Zebra::logger->debug("[战车保护] NPC %s 不将战车载具模式玩家 %s 识别为敌人", this->name, targetUser->name);
+			return -1; // 不是敌人
+		}
+	}
+	
 	if ((entry->frenzy)||(frenzy)) return 1;
 
 	/*

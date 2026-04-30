@@ -14,6 +14,7 @@
 #include "TeamManager.h"
 #include "TimeTick.h"
 #include "SessionClient.h"
+#include <limits.h> //by=>friday 为了使用INT_MAX和INT_MIN
 
 #ifdef _DEBUGLOG
 #include "Chat.h"
@@ -61,45 +62,67 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 		return true;
 	}
 
-	int dwDam;
-	int nTempDam = 0; // add by snip3r
-	int nMempDam = 0; // add by snip3r
+	uint64_t dwDam; // by=>friday 修复32位溢出问题，改为无符号类型
+	uint64_t nTempDam = 0; // by=>friday 修复32位截断问题
+	uint64_t nMempDam = 0; // by=>friday 修复32位截断问题
 
 	if (physics) 
 	{
 		nTempDam = pAtt->pkValue.pdamage + pAtt->skillValue.physic_add; //soke 主动增加物理攻击力
-		dwDam = (int)nTempDam	- (this->pdeftozero?0:this->pkValue.pdefence);
+		dwDam = nTempDam > (this->pdeftozero?0:this->pkValue.pdefence) ? 
+		(nTempDam - (this->pdeftozero?0:this->pkValue.pdefence)) : 0; //by=>friday 修复64位计算，防止负数
+		//by=>friday 添加物理伤害计算详细日志
+		Zebra::logger->info("[物理伤害计算] 攻击者:%s 防御者:%s", pAtt->name, this->name);
+		Zebra::logger->info("[物理伤害计算] 基础攻击力:%llu + 技能加成:%d = 总攻击力:%llu", 
+			pAtt->pkValue.pdamage, pAtt->skillValue.physic_add, nTempDam);
+		Zebra::logger->info("[物理伤害计算] 防御力:%llu (防御清零:%s)", 
+			this->pkValue.pdefence, this->pdeftozero ? "是" : "否");
+		Zebra::logger->info("[物理伤害计算] 最终伤害 = %llu - %llu = %lld", 
+			nTempDam, (this->pdeftozero?0:this->pkValue.pdefence), dwDam);
+			Zebra::logger->info("[伤害数据类型调试] dwDam值=%lld, dwDam数据类型大小=%d字节", dwDam, sizeof(dwDam));
 #ifdef _DEBUGLOG
 		Zebra::logger->debug("攻击者[%s]---防御者[%s]----------------------------------------------------------", pAtt->name, this->name);
-		Zebra::logger->debug("物理攻击数值  =%d", (int)nTempDam);
-		Zebra::logger->debug("物理防御数值  =%d", (this->pdeftozero?0:this->pkValue.pdefence));
-		Zebra::logger->debug("物理伤害值为dwDam=%d", dwDam);
+		Zebra::logger->debug("物理攻击数值  =%llu", nTempDam); //by=>friday 修复64位显示
+		Zebra::logger->debug("物理防御数值  =%llu", (this->pdeftozero?0:this->pkValue.pdefence)); //by=>friday 修复64位显示
+		Zebra::logger->debug("物理伤害值为dwDam=%lld", dwDam); //by=>friday 修复64位显示
 #endif
 	}
 	else
 	{
 		nMempDam = pAtt->pkValue.mdamage + pAtt->skillValue.magic_add; //soke 主动增加魔法攻击力
-		dwDam = (int)nMempDam	- (this->mdeftozero?0:this->pkValue.mdefence); // snip3r modif *1.12f *0.6f
+		dwDam = nMempDam > (this->mdeftozero?0:this->pkValue.mdefence) ? 
+		(nMempDam - (this->mdeftozero?0:this->pkValue.mdefence)) : 0; //by=>friday 修复64位计算，防止负数
+		//by=>friday 添加法术伤害计算详细日志
+		Zebra::logger->info("[法术伤害计算] 攻击者:%s 防御者:%s", pAtt->name, this->name);
+		Zebra::logger->info("[法术伤害计算] 基础攻击力:%llu + 技能加成:%d = 总攻击力:%llu", 
+			pAtt->pkValue.mdamage, pAtt->skillValue.magic_add, nMempDam);
+		Zebra::logger->info("[法术伤害计算] 防御力:%llu (防御清零:%s)", 
+			this->pkValue.mdefence, this->mdeftozero ? "是" : "否");
+		Zebra::logger->info("[法术伤害计算] 最终伤害 = %llu - %llu = %lld", 
+			nMempDam, (this->mdeftozero?0:this->pkValue.mdefence), dwDam);
+
+			Zebra::logger->info("[伤害数据类型调试] dwDam值=%lld, dwDam数据类型大小=%d字节", dwDam, sizeof(dwDam));
 #ifdef _DEBUGLOG
 		Zebra::logger->debug("攻击者[%s]---防御者[%s]----------------------------------------------------------", pAtt->name, this->name);
-		Zebra::logger->debug("法术攻击数值  =%d", (int)nMempDam);
-		Zebra::logger->debug("法术防御数值  =%d", (this->mdeftozero?0:this->pkValue.mdefence));
-		Zebra::logger->debug("法术伤害值为%d", dwDam);
+		Zebra::logger->debug("法术攻击数值  =%llu", nMempDam); //by=>friday 修复64位显示
+		Zebra::logger->debug("法术防御数值  =%llu", (this->mdeftozero?0:this->pkValue.mdefence)); //by=>friday 修复64位显示
+		Zebra::logger->debug("法术伤害值为%lld", dwDam); //by=>friday 修复64位显示
 #endif
 	}
 	// dwDamSelf 表示反弹的伤害  dwDamDef 表示
-	int dwDamSelf = 0 , dwDamDef = 0, dwReduce = dwDam>=0?0:dwDam;
+	uint64_t dwDamSelf = 0 , dwDamDef = 0, dwReduce = 0; //by=>friday 修复64位类型，改为无符号
 	if (dwDam<0) dwDam = 0;
 
 		// 技能增加伤害值
 	// 对防御者的伤害 = 伤害值
 	dwDamDef += this->skillValue.dvalue;
+
 #ifdef _DEBUGLOG
-	Zebra::logger->debug("根据技能增加伤害值计算出来的结果累加值dwDamDef:%ld", dwDamDef);
+	Zebra::logger->debug("根据技能增加伤害值计算出来的结果累加值dwDamDef:%lld", dwDamDef); //by=>friday 修复64位显示
 #endif
-	dwDamDef += (int)(dwDam * ((this->skillValue.dvaluep>100?this->skillValue.dvaluep-100:0)/100.0f));
+	dwDamDef += (uint64_t)(dwDam * ((this->skillValue.dvaluep>100?this->skillValue.dvaluep-100:0)/100.0f)); //by=>friday 修复64位计算
 #ifdef _DEBUGLOG
-	Zebra::logger->debug("根据技能增加伤害率计算出来的结果累加值dwDamDef:%ld", dwDamDef);
+	Zebra::logger->debug("根据技能增加伤害率计算出来的结果累加值dwDamDef:%lld", dwDamDef); //by=>friday 修复64位显示
 #endif
 
 	
@@ -109,37 +132,33 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 
 	pAtt->processAddDam(dwDam,dwDamDef,physics);
 	//Zebra::logger->debug("增伤后伤害:%d",dwDamDef);
-
 #ifdef _DEBUGLOG
-	Zebra::logger->debug("中间值dwDamDef:%d", dwDamDef);
+	Zebra::logger->debug("中间值dwDamDef:%lld", dwDamDef); //by=>friday 修复64位显示
 #endif
 
 	if(dwDamDef <0)
 	{
 		dwDamDef = 0;
 	}
-
 	//最后处理技能的直接伤害
 	//soke 修复计算伤害加成有问题
 	WORD temp = pAtt->getDamageBonus();
 	if (temp>0)
 	{
-		dwDamDef = (int)(dwDamDef*((100-temp)/100.0f));
+		dwDamDef = (uint64_t)(dwDamDef*((100-temp)/100.0f)); //by=>friday 修复64位计算
 	}
-
 	if (pAtt->pkValue.damagebonus>0)
 	{
-		dwDamDef = (int)(dwDamDef*((100-pAtt->pkValue.damagebonus)/100.0f));
+		dwDamDef = (uint64_t)(dwDamDef*((100-pAtt->pkValue.damagebonus)/100.0f)); //by=>friday 修复64位计算
 	}
 
 	if (rangDamageBonus>0)
 	{
-		dwDamDef = (int)(dwDamDef*((100-rangDamageBonus)/100.0f));
+		dwDamDef = (uint64_t)(dwDamDef*((100-rangDamageBonus)/100.0f)); //by=>friday 修复64位计算
 	}
 ///////////////////////////////////////////////////////////
 	//加上攻击者的被动伤害
 	dwDamDef +=pAtt->skillValue.passdam;
-
 	if (dwDamDef >0)
 	{
 		//计算伤害随机转移----------------------------
@@ -153,12 +172,14 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 				dwDamDef -= temp;
 			}
 #ifdef _DEBUGLOG
-			Zebra::logger->debug("根据随机转移伤害率扣除后计算结果值dwDamDef:%d", dwDamDef);
+			Zebra::logger->debug("根据随机转移伤害率扣除后计算结果值dwDamDef:%lld", dwDamDef); //by=>friday 修复64位显示
 #endif
 		}
 		//--------------------------------------------
 		this->reflectDam(dwDamDef, dwDamSelf,physics);
+// this->reflectDam(dwDamDef, dwDamSelf, physics);
 		this->hp2mp(dwDamDef);
+// this->hp2mp(dwDamDef);
 		if (this->dmpbyhp >0)
 		{
 			if (this->getType()==zSceneEntry::SceneEntry_Player)
@@ -224,8 +245,20 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 
 	if (zSceneEntry::SceneEntry_NPC == this->getType())
 	{
-		dwDamDef -=((SceneNpc *)this)->dwReduceDam;
-		if (dwDamDef<0) dwDamDef=0;
+		// dwDamDef -=((SceneNpc *)this)->dwReduceDam;
+		// if (dwDamDef<0) dwDamDef=0;
+		if (dwDamDef > 0)  //by=>friday 只有有伤害时才减伤
+		{
+			uint64_t reduceDam = ((SceneNpc *)this)->dwReduceDam;
+			if (dwDamDef >= reduceDam)
+			{
+				dwDamDef -= reduceDam;
+			}
+			else
+			{
+				dwDamDef = 0;  //by=>friday 伤害小于减伤值时归零
+			}
+		}
 	}
 
 	if (this->skillValue.teamappend)
@@ -245,7 +278,7 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 		pAtt->leech(dwDamDef);
 	}
 #ifdef _DEBUGLOG
-	Zebra::logger->debug("最终值dwDamDef:%ld", dwDamDef);
+	Zebra::logger->debug("最终值dwDamDef:%lld", dwDamDef); //by=>friday 修复64位显示
 #endif	
 
 	if (pAtt->getType() == zSceneEntry::SceneEntry_Player && this->getType() == zSceneEntry::SceneEntry_Player)
@@ -255,27 +288,27 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 
 	if (pAtt->blazeflag&&pAtt->skillValue.blazeappend>0) // 提高火焰系法术伤害
 	{
-		dwDamDef = (int)(dwDamDef*(1+pAtt->skillValue.blazeappend/1000.0f));
+		dwDamDef = (uint64_t)(dwDamDef*(1+pAtt->skillValue.blazeappend/1000.0f)); //by=>friday 修复64位计算
 	}
 	else if (pAtt->blazeflag&&pAtt->skillValue.pblazeappend>0) // 提高火焰系法术伤害
 	{
-		dwDamDef = (int)(dwDamDef*(1+pAtt->skillValue.pblazeappend/1000.0f));
+		dwDamDef = (uint64_t)(dwDamDef*(1+pAtt->skillValue.pblazeappend/1000.0f)); //by=>friday 修复64位计算
 	}
 	else if (pAtt->levinflag&&pAtt->skillValue.levinappend>0) // 提高雷电系法术伤害
 	{
-		dwDamDef = (int)(dwDamDef*(1+pAtt->skillValue.levinappend/1000.0f));
+		dwDamDef = (uint64_t)(dwDamDef*(1+pAtt->skillValue.levinappend/1000.0f)); //by=>friday 修复64位计算
 	}
 	else if (pAtt->levinflag&&pAtt->skillValue.plevinappend>0) // 提高雷电系法术伤害
 	{
-		dwDamDef = (int)(dwDamDef*(1+pAtt->skillValue.plevinappend/1000.0f));
+		dwDamDef = (uint64_t)(dwDamDef*(1+pAtt->skillValue.plevinappend/1000.0f)); //by=>friday 修复64位计算
 	}
 	else if (pAtt->trapflag&&pAtt->skillValue.trapappend>0) // 提高陷阱系法术伤害
 	{
-		dwDamDef = (int)(dwDamDef*(1+pAtt->skillValue.trapappend/1000.0f));
+		dwDamDef = (uint64_t)(dwDamDef*(1+pAtt->skillValue.trapappend/1000.0f)); //by=>friday 修复64位计算
 	}
 	else if (pAtt->iceflag&&pAtt->skillValue.iceappend>0) // 提高陷阱系法术伤害
 	{
-		dwDamDef = (int)(dwDamDef*(1+pAtt->skillValue.iceappend/1000.0f));
+		dwDamDef = (uint64_t)(dwDamDef*(1+pAtt->skillValue.iceappend/1000.0f)); //by=>friday 修复64位计算
 	}
 
 	if (this->mhpd)
@@ -757,7 +790,6 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 	}
 
 
-
 	//怪物限制最高伤害 伤害固定 固定伤害 怪物固定伤害 醉梦
 	if ((zSceneEntry::SceneEntry_NPC==getType())  && (((SceneNpc *)this)->npc->id == 144001) )
 	{
@@ -969,14 +1001,14 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 		Zebra::logger->debug("技能加额外伤害appenddam:%d 猎手印记额外伤害%d", this->skillValue.appenddam, this->skillValue.brappenddam);
 #endif
 
-	SDWORD wdHP=0; //soke 突破怪物掉血
+	uint64_t wdHP=0; //by=>friday 修复64位伤害值类型，改为无符号64位支持超大伤害
 	SceneUser *pUser= NULL;
 	if (this->swapdamcharid>0 || this->swapdamcharid2>0)
 	{
 		pUser = SceneUserManager::getMe().getUserByTempID(this->swapdamcharid);
 		if (pUser&&(pUser->scene==this->scene)&&(pUser->getState()!=zSceneEntry::SceneEntry_Death))
 		{
-			wdHP = pUser->directDamage(pAtt,(int)(dwDamDef*1.2f));
+			wdHP = pUser->directDamage(pAtt,(uint64_t)(dwDamDef*1.2f)); //by=>friday 修复64位伤害转移
 			ScenePk::attackRTCmdToNine(rev , pAtt , pUser , wdHP , 0);
 			pUser->attackRTHpAndMp();
 		}
@@ -986,7 +1018,7 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 			pUser = SceneUserManager::getMe().getUserByTempID(this->swapdamcharid2);
 			if (pUser&&(pUser->scene==this->scene)&&(pUser->getState()!=zSceneEntry::SceneEntry_Death))
 			{
-				wdHP = pUser->directDamage(pAtt,(int)(dwDamDef));
+				wdHP = pUser->directDamage(pAtt,dwDamDef); //by=>friday 修复64位伤害转移
 				ScenePk::attackRTCmdToNine(rev , pAtt , pUser , wdHP , 0);
 				pUser->attackRTHpAndMp();
 			}
@@ -1021,9 +1053,108 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 			}
 			else
 			{
-				wdHP = this->directDamage(pAtt,dwDamDef);
+				//by=>friday 添加最终扣血日志
+				uint64_t hpBefore = 0;
+				uint64_t maxHp = 0;
+				if (this->getType() == zSceneEntry::SceneEntry_Player)
+				{
+					hpBefore = ((SceneUser*)this)->charbase.hp;
+					maxHp = ((SceneUser*)this)->charstate.maxhp;
+				}
+				else
+				{
+					hpBefore = ((SceneNpc*)this)->hp;
+					maxHp = ((SceneNpc*)this)->getMaxHP();
+				}
+				//by=>friday 防一击必杀逻辑：当前血量>=最大血量60%时，避免秒杀
+				uint64_t finalDamage = dwDamDef;
+				if (hpBefore >= (uint64_t)(maxHp * 0.6))
+				{
+					if ((uint64_t)dwDamDef >= hpBefore)
+					{
+						finalDamage = hpBefore - 1;
+						Zebra::logger->info("[防一击必杀修正] 原finalDamage = %lld, 修正后finalDamage = %lld", dwDamDef, finalDamage);
+						Zebra::logger->info("[防一击必杀] %s 原伤害:%lld 当前血量:%llu 修正为:%lld", 
+							this->name, dwDamDef, hpBefore, finalDamage);
+					}
+				}
+				//by=>friday 移除INT_MAX限制，直接使用64位伤害值，支持超大伤害
+				wdHP = this->directDamage(pAtt, finalDamage);
+				uint64_t hpAfter = 0;
+				if (this->getType() == zSceneEntry::SceneEntry_Player)
+					hpAfter = ((SceneUser*)this)->charbase.hp;
+				else
+					hpAfter = ((SceneNpc*)this)->hp;
+				
+				Zebra::logger->info("[最终扣血] %s 受到伤害:%lld, HP变化:%llu -> %llu, 实际扣血:%llu", 
+					this->name, finalDamage, hpBefore, hpAfter, hpBefore - hpAfter); //by=>friday 修复64位显示格式
+				
 				ScenePk::attackRTCmdToNine(rev , pAtt , this , wdHP , 0);
 				this->attackRTHpAndMp();
+				
+				//by=>friday 绝技伤害计算和处理 (PVP)
+				if (this->getType() == zSceneEntry::SceneEntry_Player && pAtt->getType() == zSceneEntry::SceneEntry_Player)
+				{
+					SceneUser* attacker = (SceneUser*)pAtt;
+					SceneUser* defender = (SceneUser*)this;
+					
+					//by=>friday 计算绝技伤害：攻击者的绝技攻击 - 防御者的绝技防御
+					uint64_t juejiattack = attacker->charstate.juejiattack;
+					uint64_t juejidefence = defender->charstate.juejidefence;
+					
+					if (juejiattack > juejidefence)
+					{
+						uint64_t ultimateDamage = juejiattack - juejidefence;
+						
+						//by=>friday 记录绝技伤害前的血量
+						uint64_t hpBeforeUltimate = defender->charbase.hp;
+						
+						//by=>friday 造成绝技伤害
+						uint64_t ultimateHP = defender->directDamage(pAtt, ultimateDamage);
+						
+						//by=>friday 记录绝技伤害后的血量
+						uint64_t hpAfterUltimate = defender->charbase.hp;
+						
+						// Zebra::logger->info("[绝技伤害] %s 对 %s 造成绝技伤害:%llu (绝技攻击:%llu - 绝技防御:%llu), HP变化:%llu -> %llu", 
+						// 	attacker->name, defender->name, ultimateDamage, juejiattack, juejidefence, hpBeforeUltimate, hpAfterUltimate);
+						
+								//by=>friday 发送绝技伤害数据到客户端，使用DAMAGE_TYPE_ULTIMATE标识绝技伤害
+						ScenePk::attackRTCmdToNine(rev, pAtt, this, ultimateHP, Cmd::DAMAGE_TYPE_ULTIMATE);
+						defender->attackRTHpAndMp();
+					}
+				}
+				
+				//by=>friday 切割伤害计算和处理 (PVE)
+				if (this->getType() == zSceneEntry::SceneEntry_NPC && pAtt->getType() == zSceneEntry::SceneEntry_Player)
+				{
+					SceneUser* attacker = (SceneUser*)pAtt;
+					SceneNpc* defender = (SceneNpc*)this;
+					
+					//by=>friday 计算切割伤害：攻击者的切割攻击 - 防御者的切割防御(NPC暂时没有切割防御，设为0)
+					uint64_t qiegeattack = attacker->charstate.qiegeattack;
+					uint64_t qiegedefence = 0; //by=>friday NPC暂时没有切割防御属性
+					
+					if (qiegeattack > qiegedefence)
+					{
+						uint64_t slashDamage = qiegeattack - qiegedefence;
+						
+						//by=>friday 记录切割伤害前的血量
+						uint64_t hpBeforeSlash = defender->hp;
+						
+						//by=>friday 造成切割伤害
+						uint64_t slashHP = defender->directDamage(pAtt, slashDamage);
+						
+						//by=>friday 记录切割伤害后的血量
+						uint64_t hpAfterSlash = defender->hp;
+						
+						Zebra::logger->info("[切割伤害] %s 对 %s 造成切割伤害:%llu (切割攻击:%llu - 切割防御:%llu), HP变化:%llu -> %llu", 
+							attacker->name, defender->name, slashDamage, qiegeattack, qiegedefence, hpBeforeSlash, hpAfterSlash);
+						
+						//by=>friday 发送切割伤害数据到客户端，使用DAMAGE_TYPE_SLASH标识切割伤害
+						ScenePk::attackRTCmdToNine(rev, pAtt, this, slashHP, Cmd::DAMAGE_TYPE_SLASH);
+						defender->attackRTHpAndMp();
+					}
+				}
 			}
 		}
 	}
@@ -1143,6 +1274,33 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 		{
 			DWORD value = (DWORD)(dwDamDef *(pAtt->damtohpvalper/100.0f));
 			pAtt->changeHP(value);
+		}
+	}
+
+	//by=>friday 添加攻击详细日志
+	if (pAtt->getType() == zSceneEntry::SceneEntry_Player || this->getType() == zSceneEntry::SceneEntry_Player)
+	{
+		Zebra::logger->info("[攻击日志] 攻击者:%s(%s) -> 被攻击者:%s(%s)", 
+			pAtt->name, 
+			pAtt->getType() == zSceneEntry::SceneEntry_Player ? "玩家" : "NPC",
+			this->name,
+			this->getType() == zSceneEntry::SceneEntry_Player ? "玩家" : "NPC");
+		
+		Zebra::logger->info("[攻击日志] 攻击方式:%s, 最终伤害值:%lld", 
+			physics ? "物理攻击" : "法术攻击", dwDamDef); //by=>friday 修复64位显示格式
+		
+		if (pAtt->getType() == zSceneEntry::SceneEntry_Player)
+		{
+			SceneUser* attUser = (SceneUser*)pAtt;
+			Zebra::logger->info("[攻击日志] 攻击者属性 - 物理攻击力:%llu, 法术攻击力:%llu", 
+				attUser->pkValue.pdamage, attUser->pkValue.mdamage);
+		}
+		
+		if (this->getType() == zSceneEntry::SceneEntry_Player)
+		{
+			SceneUser* defUser = (SceneUser*)this;
+			Zebra::logger->info("[攻击日志] 防御者属性 - 物理防御力:%llu, 法术防御力:%llu, 当前HP:%llu", 
+				defUser->pkValue.pdefence, defUser->pkValue.mdefence, defUser->charbase.hp);
 		}
 	}
 
@@ -1274,22 +1432,22 @@ bool SceneEntryPk::checkMagicFlyRoute(zSceneEntry *pTarget, BYTE aType)
 	{
 		case 0: // 近身
 			{
-				if(labs((long)(this->pos.x)-(long)(pTarget->getPos().x)) > 1 || labs((long)(this->pos.y)-(long)(pTarget->getPos().y)) > 1)
+				if(abs(this->pos.x - pTarget->getPos().x) > 1 || abs(this->pos.y - pTarget->getPos().y) > 1)
 				{
 #ifdef	_DEBUGLOG 
-					Zebra::logger->debug("超出攻击范围(%s(%ld) x间距=%u y间距=%u)" , this->name , this->id ,labs((long)(this->pos.x)-(long)(pTarget->getPos().x)),labs((long)(this->pos.y)-(long)(pTarget->getPos().y)));
+					Zebra::logger->debug("超出攻击范围(%s(%ld) x间距=%u y间距=%u)" , this->name , this->id ,abs(this->pos.x - pTarget->getPos().x),abs(this->pos.y - pTarget->getPos().y));
 					Channel::sendSys(tempid,Cmd::INFO_TYPE_GAME,"穿越方式：近身");
 #endif
-					if(labs((long)(this->pos.x)-(long)(pTarget->getOldPos1().x)) > 1 || labs((long)(this->pos.y)-(long)(pTarget->getOldPos1().y)) > 1)
+					if(abs(this->pos.x - pTarget->getOldPos1().x) > 1 || abs(this->pos.y - pTarget->getOldPos1().y) > 1)
 					{
 #ifdef	_DEBUGLOG 
-					Zebra::logger->debug("超出攻击范围(%s(%ld) oldx间距=%u oldy间距=%u)" , this->name , this->id ,labs((long)(this->pos.x)-(long)(pTarget->getOldPos1().x)),labs((long)(this->pos.y)-(long)(pTarget->getOldPos1().y)));
+					Zebra::logger->debug("超出攻击范围(%s(%ld) oldx间距=%u oldy间距=%u)" , this->name , this->id ,abs(this->pos.x - pTarget->getOldPos1().x),abs(this->pos.y - pTarget->getOldPos1().y));
 					Channel::sendSys(tempid,Cmd::INFO_TYPE_GAME,"穿越方式：近身");
 #endif
-						if(labs((long)(this->pos.x)-(long)(pTarget->getOldPos2().x)) > 1 || labs((long)(this->pos.y)-(long)(pTarget->getOldPos2().y)) > 1)
+						if(abs(this->pos.x - pTarget->getOldPos2().x) > 1 || abs(this->pos.y - pTarget->getOldPos2().y) > 1)
 						{
 #ifdef	_DEBUGLOG 
-					Zebra::logger->debug("超出攻击范围(%s(%ld) oldx间距=%u oldy间距=%u)" , this->name , this->id ,labs((long)(this->pos.x)-(long)(pTarget->getOldPos2().x)),labs((long)(this->pos.y)-(long)(pTarget->getOldPos2().y)));
+					Zebra::logger->debug("超出攻击范围(%s(%ld) oldx间距=%u oldy间距=%u)" , this->name , this->id ,abs(this->pos.x - pTarget->getOldPos2().x),abs(this->pos.y - pTarget->getOldPos2().y));
 					Channel::sendSys(tempid,Cmd::INFO_TYPE_GAME,"穿越方式：近身");
 #endif
 							return false;
@@ -1529,7 +1687,7 @@ bool SceneEntryPk::isRedNamed()
  *
  * \return 当前的hp
  */
-DWORD SceneEntryPk::getHp()
+uint64_t SceneEntryPk::getHp()
 {
 	switch (getType())
 	{
@@ -1549,7 +1707,7 @@ DWORD SceneEntryPk::getHp()
  *
  * \return 最大的hp
  */
-DWORD SceneEntryPk::getMaxHp()
+uint64_t SceneEntryPk::getMaxHp()
 {
 	switch (getType())
 	{
@@ -1856,7 +2014,7 @@ void SceneEntryPk::sendPetDataToNine()
  * \return 伤害值
  */
 //soke 属性突破 伤害越界（打怪掉血）
-SQWORD SceneEntryPk::directDamage(SceneEntryPk *pAtt, const SDWORD &dam, bool notify)
+uint64_t SceneEntryPk::directDamage(SceneEntryPk *pAtt, const uint64_t &dam, bool notify) //by=>friday 修改为支持64位无符号伤害
 {
 		pAtt->attackTarget = this;
 
@@ -1874,18 +2032,27 @@ SQWORD SceneEntryPk::directDamage(SceneEntryPk *pAtt, const SDWORD &dam, bool no
 		}
 		setEndBattleTime(SceneTimeTick::currentTime, 10*1000);
 	//soke 伤害吸收也在最上层计算下
-	SQWORD attHp = dam;
+	uint64_t attHp = dam; //by=>friday 修复类型不匹配，改为无符号类型
 	if (icedam >0)
 	{
 		//sky 计算吸收后的总伤害
-		attHp -= icedam;
-		if(attHp < 0)
+		if (dam >= icedam) //by=>friday 修复无符号下溢出
+		{
+			attHp = dam - icedam;
+		}
+		else
+		{
 			attHp = 0;
+		}
 
-		icedam -= dam;
-
-		if(icedam < 0)
+		if (icedam >= dam) //by=>friday 修复无符号下溢出
+		{
+			icedam -= dam;
+		}
+		else
+		{
 			icedam = 0; //破盾
+		}
 	}
 
 	return attHp;

@@ -254,6 +254,15 @@ class fjconfig
 		DWORD	jihuoNum;		// 物品类别
 		DWORD	npcNum;		// 物品类别
 		};
+		struct	JIEMIAN //魔盒界面
+		{
+		char	name[MAX_NAMESIZE];		// 物品名称
+		DWORD	exp;		// 经验
+		DWORD	jihuoID;		// 物品类别
+		DWORD	jihuoNum;		// 物品类别
+		DWORD	activityNum;		// 物品类别
+		DWORD	dongtai;		// 物品类别
+		};
 		static fjconfig &getInstance()
 		{
 			if (NULL == instance)
@@ -282,6 +291,7 @@ class fjconfig
 		std::vector<CHIBANG> chibanglist;
 		std::vector<CHIBANGLEVEL> chibanglevellist;
 		std::vector<ZUOQI2> zuoqi2list;
+		std::vector<JIEMIAN> jiemianlist;  //魔盒界面
 		~fjconfig()
 		{
 
@@ -306,6 +316,7 @@ class fjconfig
 		bool initChibang();
 		bool initChiBangLevel();
 		bool initZuoqi2();
+		bool initJiemian();  //魔盒界面
 		
 		
 	private:

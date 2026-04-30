@@ -989,7 +989,48 @@ bool fjconfig::initZuoqi2()
 	return true;	
 }
 
-
+//魔盒界面
+	bool fjconfig::initJiemian() 
+	{
+		jiemianlist.clear();
+		zXMLParser xml;
+		if (!xml.initFile(Zebra::global["MagicBoxJieMianConfig"]))
+		{
+			Zebra::logger->error("初始化魔盒【界面类】配置文件 %s 失败", Zebra::global["MagicBoxJieMianConfig"].c_str());
+			return false;
+		}
+		xmlNodePtr config = xml.getRootNode("config");
+		if(config)
+		{
+			xmlNodePtr meridianMap = xml.getChildNode(config,"meridianMap");
+			if(meridianMap)
+			{
+				xmlNodePtr meridian = xml.getChildNode(meridianMap,"meridian");
+				if(meridian)
+				{
+					xmlNodePtr pointMap = xml.getChildNode(meridian,"pointMap");
+					if(pointMap)
+					{
+						xmlNodePtr point = xml.getChildNode(pointMap,"point");
+						while (point)
+						{						
+							JIEMIAN sj;  
+							xml.getNodePropStr(point, "name", &sj.name, sizeof(sj.name));
+							xml.getNodePropNum(point, "exp", &sj.exp, sizeof(sj.exp));
+							xml.getNodePropNum(point, "jihuoID", &sj.jihuoID, sizeof(sj.jihuoID));
+							xml.getNodePropNum(point, "jihuoNum", &sj.jihuoNum, sizeof(sj.jihuoNum));
+							xml.getNodePropNum(point, "activityNum", &sj.activityNum, sizeof(sj.activityNum));
+							xml.getNodePropNum(point, "dongtai", &sj.dongtai, sizeof(sj.dongtai));
+							jiemianlist.push_back(sj);
+							point = xml.getNextNode(point,NULL);
+						}				
+					}
+				}
+			}
+		}
+		Zebra::logger->info("初始化魔盒【界面类】配置文件成功");
+		return true;	
+	}
 
 // bool fjconfig::initZuoQiLevel() 
 // {

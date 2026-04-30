@@ -68,6 +68,10 @@ public:
 		EQUIP_COMPOSE27 = 27,   //龙凤吟镶嵌
 		EQUIP_COMPOSE28 = 28,   //轰天宝石镶嵌
 		EQUIP_COMPOSE29 = 29,   //王者升级
+		EQUIP_COMPOSE30 = 30,   //装备升心 //by=>friday
+		EQUIP_COMPOSE31 = 31,   //心意提升 //by=>friday
+		EQUIP_COMPOSE32 = 32,   //情谊提升 //by=>friday
+		EQUIP_COMPOSE33 = 33,   //定情信物突破/进阶 //by=>friday
 
 		EQUIP_COMPOSE51 = 51,   //勋章升级
 		EQUIP_COMPOSE52 = 52,   //寒冰升级
@@ -100,6 +104,7 @@ public:
 		EQUIP_COMPOSE106 = 106,   //元神进阶
 		EQUIP_COMPOSE107 = 107,   //元神装备进阶		
 		EQUIP_COMPOSE108 = 108,   //元神宝石镶嵌	
+		EQUIP_COMPOSE109 = 109,   // 孩子装备升级
 	};
 	
 	static bool check_npc(SceneUser& user, zObjectB* base, int action);
@@ -116,6 +121,8 @@ public:
 	static bool response(SceneUser& user, int status, RebuildType type);
 		
 	static void refresh_pack(SceneUser& user, ObjectPack* pack);
+
+
     //回复合成等操作的结果
     static bool reply(SceneUser& user, int status, RebuildType type, const char *pattern, ...);
 };
@@ -253,6 +260,14 @@ public:
 	static bool heiyao_upgrade(SceneUser& user, zObject* ob, int extra_odds);
 	//精金
 	static bool jingjin_upgrade(SceneUser& user, zObject* ob, int extra_odds);
+	//定情信物镶嵌 //by=>friday
+	static bool dqxw_upgrade(SceneUser& user, zObject* ob, int extra_odds);
+	//心意提升 //by=>friday
+	static bool xyts_upgrade(SceneUser& user, zObject* ob, int extra_odds);
+	//情谊提升 //by=>friday
+	static bool qyts_upgrade(SceneUser& user, zObject* ob, int extra_odds);
+	//定情信物进阶 //by=>friday
+	static bool dqxwjj_upgrade(SceneUser& user, zObject* ob, int extra_odds);
 private:	
 	static bool do_handbook_upgrade(zObject* ob, zUhandbookObjectB* base);	  //百兽图鉴
 	static bool do_handbook_downgrade(zObject* ob, zUhandbookObjectB* base);   //百兽图鉴
@@ -356,6 +371,18 @@ private:
 	static bool do_hbzw_downgrade(zObject* ob, zUhbzwObjectB* base); //寒冰字纹	
 	static bool do_hbwz_upgrade(zObject* ob, zUhbwzObjectB* base);   //寒冰纹章
 	static bool do_hbwz_downgrade(zObject* ob, zUhbwzObjectB* base); //寒冰纹章	
+	//定情信物镶嵌 //by=>friday
+	static bool do_dqxw_upgrade(zObject* ob, zUdqxwxqObjectB* base);   
+	static bool do_dqxw_downgrade(zObject* ob, zUdqxwxqObjectB* base); 
+	//心意提升 //by=>friday
+	static bool do_xyts_upgrade(zObject* ob, zUxytsObjectB* base);   
+	static bool do_xyts_downgrade(zObject* ob, zUxytsObjectB* base); 
+	//情谊提升 //by=>friday
+	static bool do_qyts_upgrade(zObject* ob, zUqytsObjectB* base);   
+	static bool do_qyts_downgrade(zObject* ob, zUqytsObjectB* base); 
+	//定情信物进阶 //by=>friday
+	static bool do_dqxwjj_upgrade(zObject* ob, zUdqxwjjObjectB* base);   
+	static bool do_dqxwjj_downgrade(zObject* ob, zUdqxwjjObjectB* base); 
 };
 
 /**
@@ -2010,8 +2037,14 @@ public:
     bool equipCompose28(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
 	///王者升级
     bool equipCompose29(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
-
-
+	///装备升心 //by=>friday
+    bool equipCompose30(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
+	///心意提升 //by=>friday
+    bool equipCompose31(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
+	///情谊提升 //by=>friday
+    bool equipCompose32(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
+	///定情信物突破/进阶 //by=>friday
+    bool equipCompose33(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
 
     ///勋章升级
     bool equipCompose51(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
@@ -2072,6 +2105,8 @@ public:
 	///元神装备进阶
     bool equipCompose108(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
 
+	///孩子装备升级
+    bool equipCompose109(SceneUser &user,zObjectB *base, const Cmd::ItemRecastPropertyUserCmd *rev);
 
 	bool doZhuanhuanCmd(SceneUser &user,const Cmd::stZhuanhuanUserCmd *ptCmd,unsigned int cmdLen);//装备转换
 

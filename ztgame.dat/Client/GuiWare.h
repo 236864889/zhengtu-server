@@ -12,6 +12,8 @@ public:
 	void Show(bool bShow);
 	void SetPrice(const std::string& strPrice);
 	void SetName(const std::string& strName);
+	//by=>friday
+	void SetDescVisible(bool bVisible);
 
 public:
 	CGuiTable*  m_pTable;

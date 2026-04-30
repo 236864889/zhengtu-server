@@ -1745,6 +1745,31 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 						}
 					}
 
+					for (int i = 0; i < 100; i++)
+					{
+						if (pUser->packs.m_Jiemian[i].state == 1)  //魔盒界面
+						{
+							exp += fjconfig::getInstance().jiemianlist[i].exp;
+							// for (int j = 0; j <= packs.m_Jiemian[i].level; j++)
+							// {
+							// 	exp += fjconfig::getInstance().pifenglevellist[j].exp;
+							// }
+						}
+						Send.Jiemian[i].level = pUser->packs.m_Jiemian[i].level;
+						Send.Jiemian[i].state = pUser->packs.m_Jiemian[i].state;
+						Send.Jiemian[i].dongtai = fjconfig::getInstance().jiemianlist[i].dongtai;
+						if (fjconfig::getInstance().jiemianlist[i].name)
+						{
+							bcopy(fjconfig::getInstance().jiemianlist[i].name, Send.Jiemian[i].name, sizeof(Send.Jiemian[i].name));
+							Send.Jiemian[i].activityNum = fjconfig::getInstance().jiemianlist[i].activityNum;
+						}
+						else
+						{
+							bcopy("", Send.Jiemian[i].name, sizeof(Send.Jiemian[i].name));
+							Send.Jiemian[i].activityNum = 0;
+						}
+					}
+
 					//时装魔盒最高等级
 					for(int i=0;i<20;i++)
 					{
@@ -1783,6 +1808,7 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 					Send.pifeng_select = pUser->charbase.pifeng_select;
 					Send.chibang_select = pUser->charbase.chibang_select;
 					Send.zuoqi_select = pUser->charbase.zuoqi_select;
+					Send.jiemian_select = pUser->charbase.jiemian_select;  //魔盒界面
 					Send.mohelevel = pUser->charbase.mohelevel;
 					Send.moheexp = pUser->charbase.moheexp;
 					sendCmdToMe(&Send,sizeof(Send));
@@ -2458,6 +2484,104 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 					else{//升级
 	
 						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此坐骑已激活");
+						return true;	
+					}
+						
+				}
+			}
+			break;
+			case SETJIEMIAN_USERCMD: //魔盒界面
+			{
+				using namespace Cmd;
+				stSetJiemianUserCmd *equip = (stSetJiemianUserCmd *)(rev);
+				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
+				if(pUser)
+				{
+					if(equip->jiemianid>100)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"未找到该界面!");
+						return true;
+					}
+					if(pUser->packs.m_Jiemian[equip->jiemianid].state!=1)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此界面未激活，无法装备");
+						return true;
+					}
+					pUser->charbase.jiemian_select = equip->jiemianid;
+					pUser->setupCharBase();
+					Cmd::stAddUserMapScreenUserCmd cmd;
+					pUser->full_t_MapUserData(cmd.data);
+					pUser->sendCmdToMe(&cmd,sizeof(cmd));
+					Cmd::stMainUserDataUserCmd userinfo;
+					pUser->full_t_MainUserData(userinfo.data);
+					pUser->sendCmdToMe(&userinfo, sizeof(userinfo));
+					
+				}
+
+			}
+			break;
+		case SETNOTJIEMIAN_USERCMD: //魔盒界面
+			{
+				using namespace Cmd;
+				stSetNotJiemianUserCmd *equip = (stSetNotJiemianUserCmd *)(rev);
+				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
+				if(pUser)
+				{
+					pUser->charbase.jiemian_select = 9999;
+					// 刷新用户数据
+					pUser->setupCharBase();
+					Cmd::stAddUserMapScreenUserCmd cmd;
+					pUser->full_t_MapUserData(cmd.data);
+					pUser->sendCmdToMe(&cmd,sizeof(cmd));
+					Cmd::stMainUserDataUserCmd userinfo;
+					pUser->full_t_MainUserData(userinfo.data);
+					pUser->sendCmdToMe(&userinfo, sizeof(userinfo));
+				}
+			}
+			break;
+		case SETJIEMIANJIHUO_USERCMD: //魔盒界面
+			{
+				using namespace Cmd;
+				stSetJiemianJihuoUserCmd *equip = (stSetJiemianJihuoUserCmd *)(rev);
+				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
+				if(pUser)
+				{
+					if(pUser->packs.m_Jiemian[equip->jiemianid].state == 0)//激活 
+					{
+						SessionItemObjectComparet found;
+						found.dwObjectID = fjconfig::getInstance().jiemianlist[equip->jiemianid].jihuoID;
+						zObject *itemobj = pUser->packs.uom.getObject(found);// 查找道具
+						if(itemobj)
+						{
+							DWORD jihuoNum = fjconfig::getInstance().jiemianlist[equip->jiemianid].jihuoNum;
+							if(itemobj->data.dwNum < jihuoNum)
+							{
+								Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"缺少激活界面道具【界面碎片】");
+								return true;
+							}
+							if (itemobj->data.dwNum > jihuoNum) // soke 大于9朵直接-9
+							{
+									itemobj->data.dwNum-=jihuoNum;
+									Cmd::stRefCountObjectPropertyUserCmd send;
+									send.qwThisID = itemobj->data.qwThisID;
+									send.dwNum = itemobj->data.dwNum;
+									sendCmdToMe(&send, sizeof(send));
+							}
+							else
+							{
+								pUser->packs.removeObject(itemobj);
+							}
+							pUser->packs.m_Jiemian[equip->jiemianid].state=1;
+							pUser->packs.m_Jiemian[equip->jiemianid].level=0;
+							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"界面激活成功");
+					 	}
+						else{
+							Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"缺少激活界面道具【界面碎片】");
+						}
+					}
+					else{//升级
+	
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此界面已激活");
 						return true;	
 					}
 						

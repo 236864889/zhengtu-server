@@ -1313,7 +1313,7 @@ public:
 			}
 			return false;
 		}
-		if (labs((long)(user->getPos().x)-(long)(_PosX))<=2&&labs((long)(user->getPos().y)-(long)(_PosY))<=2)
+		if (abs(user->getPos().x-_PosX)<=2&&abs(user->getPos().y-_PosY)<=2)
 		{
 			return true;
 		}
@@ -1322,19 +1322,19 @@ public:
 
 			char s[256];
 			int  n=0;
-			if (labs((long)(user->getPos().x)-(long)(_PosX))==labs((long)(user->getPos().y)-(long)(_PosY)))//斜向
+			if (abs(user->getPos().x-_PosX)==abs(user->getPos().y-_PosY))//斜向
 			{
 				if (user->getPos().y<_PosY)//南
 				{
 					if (user->getPos().x<_PosX)//东
 					{
-						n=labs((long)(user->getPos().x)-(long)(_PosX))-2;
+						n=abs(user->getPos().x-_PosX)-2;
 						sprintf(s,"宝物在你的右下方%d步",n);
 						//sprintf(s,"宝物在你的东南方%d步",n);
 					}
 					if (user->getPos().x>_PosX)//西
 					{
-						n=labs((long)(user->getPos().x)-(long)(_PosX))-2;
+						n=abs(user->getPos().x-_PosX)-2;
 						sprintf(s,"宝物在你的左下方%d步",n);
 						//sprintf(s,"宝物在你的西南方%d步",n);
 					}
@@ -1343,13 +1343,13 @@ public:
 				{
 					if (user->getPos().x<_PosX)//东
 					{
-						n=labs((long)(user->getPos().x)-(long)(_PosX))-2;
+						n=abs(user->getPos().x-_PosX)-2;
 						sprintf(s,"宝物在你的右上方%d步",n);
 						//sprintf(s,"宝物在你的东北方%d步",n)
 					}
 					if (user->getPos().x>_PosX)//西
 					{
-						n=labs((long)(user->getPos().x)-(long)(_PosX))-2;
+						n=abs(user->getPos().x-_PosX)-2;
 						sprintf(s,"宝物在你的左上方%d步",n);
 						//sprintf(s,"宝物在你的西北方%d步",n);
 					}
@@ -1357,18 +1357,18 @@ public:
 			}
 			else//直向
 			{
-				if (labs((long)(user->getPos().x)-(long)(_PosX))>labs((long)(user->getPos().y)-(long)(_PosY)))//南北
+				if (abs(user->getPos().x-_PosX)>abs(user->getPos().y-_PosY))//南北
 				{
 
 					if (user->getPos().x<_PosX)
 					{
-						n=labs((long)(user->getPos().x)-(long)(_PosX))-2;
+						n=abs(user->getPos().x-_PosX)-2;
 						sprintf(s,"宝物在你的右方%d步",n);
 						//sprintf(s,"宝物在你的东方%d步",n);
 					}
 					if (user->getPos().x>_PosX)
 					{
-						n=labs((long)(user->getPos().x)-(long)(_PosX))-2;
+						n=abs(user->getPos().x-_PosX)-2;
 						sprintf(s,"宝物在你的左方%d步",n);
 						//sprintf(s,"宝物在你的西方%d步",n);
 					}
@@ -1377,13 +1377,13 @@ public:
 				{
 					if (user->getPos().y<_PosY)
 					{
-						n=labs((long)(user->getPos().y)-(long)(_PosY))-2;
+						n=abs(user->getPos().y-_PosY)-2;
 						sprintf(s,"宝物在你的下方%d步",n);
 						//sprintf(s,"宝物在你的南方%d步",n);
 					}
 					if (user->getPos().y>_PosY)
 					{
-						n=labs((long)(user->getPos().y)-(long)(_PosY))-2;
+						n=abs(user->getPos().y-_PosY)-2;
 						sprintf(s,"宝物在你的上方%d步",n);
 						//sprintf(s,"宝物在你的北方%d步",n);
 					}

@@ -58,9 +58,9 @@ struct zObject:zEntry
 		t_Object data;
 		zObjectB *base;
 
-		//only for RebuildObject::make, it's ugly, but .....sigh
-		WORD* _p1[5];
-		WORD* _p2[18];
+			//only for RebuildObject::make, it's ugly, but .....sigh
+	DWORD* _p1[5]; //by=>friday
+	WORD* _p2[18];
 		
 		static zObject *create(zObjectB *objbase, unsigned int num=1, BYTE level = 0);
 		static void destroy(zObject* ob);
@@ -98,8 +98,7 @@ struct zObject:zEntry
 		friend class luabind::detail::delete_s<zObject>;
 
 		zObject();
-public:
-	~zObject();
+		~zObject();
 
 		bool free() const;
 		void free(bool flag);
@@ -702,6 +701,12 @@ public:
 		RESET(m58axmdamage)    //ZM 装备预留功能 最大法术攻击力
 		RESET(p58defence)    //ZM 装备预留功能 物防
 		RESET(m58defence)    //ZM 装备预留功能 魔防 
+
+		// by=>friday 添加绝技攻击和绝技防御属性
+		RESET(juejiattack)    // 绝技攻击力
+		RESET(juejidefence)   // 绝技防御力 
+		RESET(qiegeattack)    // 切割攻击力
+		RESET(qiegedefence)   // 切割防御力 
 
 		RESET(m59axhp)     //ZM 装备预留功能 最大生命值
 		RESET(p59damage)    //ZM 装备预留功能 最小攻击力
@@ -1384,19 +1389,19 @@ public:
 		skills.clear();
 	}
 	
-	DECLARE( maxhp, DWORD )				// 最大生命值
-	DECLARE( maxmp, DWORD )				// 最大法术值
+	DECLARE( maxhp, uint64_t )				// 最大生命值
+	DECLARE( maxmp, uint64_t )				// 最大法术值
 	DECLARE( maxsp, DWORD )				// 最大体力值
 
-	DECLARE( pdamage, DWORD )			// 最小攻击力
-	DECLARE( maxpdamage, DWORD )		// 最大攻击力
-	DECLARE( mdamage, DWORD )			// 最小法术攻击力
-	DECLARE( maxmdamage, DWORD )		// 最大法术攻击力
+	DECLARE( pdamage, uint64_t )			// 最小攻击力
+	DECLARE( maxpdamage, uint64_t )		// 最大攻击力
+	DECLARE( mdamage, uint64_t )			// 最小法术攻击力
+	DECLARE( maxmdamage, uint64_t )		// 最大法术攻击力
 	DECLARE( appendminpet, DWORD )  // 最小宠物增强
 	DECLARE( appendmaxpet, DWORD )  // 最大宠物增强
 
-	DECLARE( pdefence, DWORD )			// 物防
-	DECLARE( mdefence, DWORD )			// 魔防
+	DECLARE( pdefence, uint64_t )			// 物防
+	DECLARE( mdefence, uint64_t )			// 魔防
 
 	DECLARE( m1axhp, DWORD )			// 升星最大生命值
 	DECLARE( p1damage, DWORD )			// 升星最小攻击力
@@ -2191,6 +2196,12 @@ public:
 	DECLARE(p99defence, DWORD)    //ZM 装备预留功能 物防
 	DECLARE(m99defence, DWORD)    //ZM 装备预留功能 魔防 
 
+	// by=>friday 添加绝技攻击和绝技防御属性
+	DECLARE(juejiattack, DWORD)    // 绝技攻击力
+	DECLARE(juejidefence, DWORD)   // 绝技防御力 
+	DECLARE(qiegeattack, DWORD)    // 切割攻击力
+	DECLARE(qiegedefence, DWORD)   // 切割防御力 
+
 	DECLARE(m100axhp, DWORD)     //ZM 装备预留功能 最大生命值
 	DECLARE(p100damage, DWORD)    //ZM 装备预留功能 最小攻击力
 	DECLARE(m100axpdamage, DWORD)    //ZM 装备预留功能 最大攻击力
@@ -2455,17 +2466,17 @@ public:
 	DECLARE( atrating, WORD )			// 命中率
 	DECLARE( akdodge, WORD )			// 躲避率
 
-	DECLARE( str, WORD )  				// 力量
-	DECLARE( inte, WORD ) 				// 智力
-	DECLARE( dex, WORD ) 				// 敏捷
-	DECLARE( spi, WORD )  				// 精神
-	DECLARE( con, WORD )  				// 体质
+	DECLARE( str, DWORD )  				// 力量 //by=>friday
+	DECLARE( inte, DWORD ) 				// 智力 //by=>friday
+	DECLARE( dex, DWORD ) 				// 敏捷 //by=>friday
+	DECLARE( spi, DWORD )  				// 精神 //by=>friday
+	DECLARE( con, DWORD )  				// 体质 //by=>friday
 
-	DECLARE( xstr, WORD )  				// 力量-魂魄
-	DECLARE( xinte, WORD ) 				// 智力-魂魄
-	DECLARE( xdex, WORD ) 				// 敏捷-魂魄
-	DECLARE( xspi, WORD )  				// 精神-魂魄
-	DECLARE( xcon, WORD )  				// 体质-魂魄
+	DECLARE( xstr, DWORD )  				// 力量-魂魄 //by=>friday
+	DECLARE( xinte, DWORD ) 				// 智力-魂魄 //by=>friday
+	DECLARE( xdex, DWORD ) 				// 敏捷-魂魄 //by=>friday
+	DECLARE( xspi, DWORD )  				// 精神-魂魄 //by=>friday
+	DECLARE( xcon, DWORD )  				// 体质-魂魄 //by=>friday
 	
 	DECLARE( hpr, WORD )  				// 生命值恢复
 	DECLARE( mpr, WORD )  				// 法术值恢复
@@ -2590,19 +2601,19 @@ public:
 
 private:
 	friend class EquipPack;
-	DWORD maxhp;					// 最大生命值
-	DWORD maxmp;					// 最大法术值
+	uint64_t maxhp;					// 最大生命值
+	uint64_t maxmp;					// 最大法术值
 	DWORD maxsp;					// 最大体力值
 
-	DWORD pdamage;				// 最小攻击力
-	DWORD maxpdamage;			// 最大攻击力
-	DWORD mdamage;				// 最小法术攻击力
-	DWORD maxmdamage;			// 最大法术攻击力
+	uint64_t pdamage;				// 最小攻击力
+	uint64_t maxpdamage;			// 最大攻击力
+	uint64_t mdamage;				// 最小法术攻击力
+	uint64_t maxmdamage;			// 最大法术攻击力
 	WORD appendminpet;         // 给宠召唤兽能力增强最小值
 	WORD appendmaxpet;         // 给宠召唤兽能力增强最大值
 
-	DWORD pdefence;				// 物防
-	DWORD mdefence;				// 魔防
+	uint64_t pdefence;				// 物防
+	uint64_t mdefence;				// 魔防
 	
 	DWORD m1axhp;				// 最大生命值
 	DWORD p1damage;				// 最小攻击力
@@ -2619,6 +2630,12 @@ private:
 	DWORD m2axmdamage;			// 最大法术攻击力
 	DWORD p2defence;			// 物防
 	DWORD m2defence;			// 魔防
+
+	// by=>friday 添加绝技攻击和绝技防御属性
+	DWORD juejiattack;			// 绝技攻击力 //by=>friday
+	DWORD juejidefence;			// 绝技防御力 //by=>friday
+	DWORD qiegeattack;			// 切割攻击力 //by=>friday
+	DWORD qiegedefence;			// 切割防御力 //by=>friday
 
 	DWORD m3axhp;				// 斗魂最大生命值
 	DWORD p3damage;				// 斗魂最小攻击力
@@ -3662,17 +3679,17 @@ private:
 	WORD atrating;				// 命中率
 	WORD akdodge;				// 躲避率
 
-	WORD str;  // 力量
-	WORD inte;  // 智力
-	WORD dex;  // 敏捷
-	WORD spi;  // 精神
-	WORD con;  // 体质
+	DWORD str;  // 力量
+	DWORD inte;  // 智力
+	DWORD dex;  // 敏捷
+	DWORD spi;  // 精神
+	DWORD con;  // 体质
 
-	WORD xstr;  // 力量-魂魄
-	WORD xinte; // 智力-魂魄
-	WORD xdex;  // 敏捷-魂魄
-	WORD xspi;  // 精神-魂魄
-	WORD xcon;  // 体质-魂魄
+	DWORD xstr;  // 力量-魂魄
+	DWORD xinte; // 智力-魂魄
+	DWORD xdex;  // 敏捷-魂魄
+	DWORD xspi;  // 精神-魂魄
+	DWORD xcon;  // 体质-魂魄
 	
 	
 //			WORD fivetype;  // 五行属性
@@ -3979,6 +3996,58 @@ class EquipPack : public Package
 		int effect25star; //桃子 帝王套装
 		int effect26star; //桃子 弑天套装
 		int effect27star; //桃子 永恒套装
+
+		// 永恒星级套装状态变量 //by=>friday
+		int effectjj16star; //by=>friday 永恒16星套装
+		int effectjj18star; //by=>friday 永恒18星套装
+		int effectjj20star; //by=>friday 永恒20星套装
+		int effectjj22star; //by=>friday 永恒22星套装
+		int effectjj24star; //by=>friday 永恒24星套装
+		int effectjj26star; //by=>friday 永恒26星套装
+		int effectjj28star; //by=>friday 永恒28星套装
+		int effectjj30star; //by=>friday 永恒30星套装
+		int effectjj32star; //by=>friday 永恒32星套装
+		int effectjj34star; //by=>friday 永恒34星套装
+
+		// 高级龙星套装效果初始化 //by=>friday
+		int effectlx16star;  //by=>friday 龙星16星套装
+		int effectlx18star;  //by=>friday 龙星18星套装
+		int effectlx20star;  //by=>friday 龙星20星套装
+		int effectlx22star;  //by=>friday 龙星22星套装
+		int effectlx24star;  //by=>friday 龙星24星套装
+		int effectlx26star;  //by=>friday 龙星26星套装
+		int effectlx28star;  //by=>friday 龙星28星套装
+		int effectlx30star;  //by=>friday 龙星30星套装
+		int effectlx32star;  //by=>friday 龙星32星套装
+		int effectlx34star;  //by=>friday 龙星34星套装
+		// 高级斗魂套装效果初始化 //by=>friday
+		int effectdh16star;  //by=>friday 斗魂16星套装
+		int effectdh18star;  //by=>friday 斗魂18星套装
+		int effectdh20star;  //by=>friday 斗魂20星套装
+		int effectdh22star;  //by=>friday 斗魂22星套装
+		int effectdh24star;  //by=>friday 斗魂24星套装
+		int effectdh26star;  //by=>friday 斗魂26星套装
+		int effectdh28star;  //by=>friday 斗魂28星套装
+		int effectdh30star;  //by=>friday 斗魂30星套装
+		int effectdh32star;  //by=>friday 斗魂32星套装
+		int effectdh34star;  //by=>friday 斗魂34星套装
+
+		//by=>friday 心意等级套装计数器
+		int effectheartwhite;   //by=>friday 白色20心套装(10件)
+		int effectheartblue;    //by=>friday 蓝色20心套装(10件)
+		int effectheartyellow;  //by=>friday 黄色20心套装(10件)
+		int effectheartgreen;   //by=>friday 绿色20心套装(10件)
+		int effectheartpurple;  //by=>friday 紫色20心套装(10件)
+		int effectheartorange;  //by=>friday 橙色20心套装(10件)
+
+		//by=>friday 突破等级套装计数器
+		int effectbreakwhite;   //by=>friday 白色50级套装(10件)
+		int effectbreakblue;    //by=>friday 蓝色50级套装(10件)
+		int effectbreakgreen;   //by=>friday 绿色50级套装(10件)
+		int effectbreakyellow;  //by=>friday 黄色50级套装(10件)
+		int effectbreakpurple;  //by=>friday 紫色50级套装(10件)
+		int effectbreakorange;  //by=>friday 橙色50级套装(10件)
+
 		int effecttj1star; //桃子 白色图鉴套装
 		int effecttj2star; //桃子 蓝色图鉴套装
 		int effecttj3star; //桃子 黄色图鉴套装
@@ -4222,6 +4291,24 @@ public:
 };
 
 /**
+ * \brief  孩子装备升级专用的随身容器，包裹格子视需求而定
+ * 
+ */
+class BabyRecastPack : public Package
+{
+public:
+    enum BABYRECAST_PACK_WH 
+    {
+        RECAST_PACK_WIDTH  = 1,
+        RECAST_PACK_HEIGHT = 5,
+    };
+
+    BabyRecastPack();
+    ~BabyRecastPack();
+
+};
+
+/**
  * \brief  打造百兽图鉴合成的随身容器，包裹格子视需求而定
  * 
  */
@@ -4347,14 +4434,21 @@ class Packages
 			DWORD level;
 			DWORD state;
 		};
+		struct Jiemian_pro  //魔盒界面
+		{
+			DWORD level;
+			DWORD state;
+		};
 	    jingcai_pro m_jingcai[28];
 		Chenghao_pro m_Chenghao[60];//称号
 		Shizhuang_pro m_Shizhuang[300];//时装魔盒
 		Pifeng_pro m_Pifeng[100];//时装魔盒
 		Chibang_pro m_Chibang[100];//时装魔盒
 		Zuoqi_pro m_Zuoqi[100];//时装魔盒
+		Jiemian_pro m_Jiemian[100];//时装魔盒  魔盒界面
 		RecastPack recastPack;
 		AnnexPack annexPack;
+		BabyRecastPack babyRecastPack;  // by=>friday 新增孩子装备升级包裹
 		HandbookPack handbookPack;
 		FabaoPack fabaoPack;
 		FujianPack fujianPack;

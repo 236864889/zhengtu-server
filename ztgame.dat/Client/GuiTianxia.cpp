@@ -19,6 +19,7 @@
 #include <sys/timeb.h>
 #include "./GameScene.h"
 #include "Maincharacter.h"
+#include "./GameTime.h"
 ///////////////////////////////////////////////////////////////////////////////
  
 #define ID_BUTTON_CLOSE       10000   //关闭
@@ -46,54 +47,105 @@ HRESULT CGuiTianxiaDlg::OnRender(float fElapsedTime)
 
 	
 	HRESULT hr = CGuiDialog::OnRender(fElapsedTime);
-	time_t cur_time = time(NULL);
-	struct tm* server_time = localtime(&cur_time);
+	
+	//by=>friday 修改为使用服务器时间进行秒级倒计时
+	struct tm server_time;
+	GetGameTime()->GetCurrentServerTimeTM(&server_time);
 
 	static char szTime[256];
-	if( server_time->tm_hour<22)
+	if(server_time.tm_hour < 22)
 	{
-		int fen = 0;
-		fen = (21-server_time->tm_hour)*60 + 60-server_time->tm_min;
-		sprintf(szTime, "距离比赛开始还剩 %d分钟",fen+10);
+		//计算到22:10的剩余秒数
+		int target_hour = 22;
+		int target_min = 10;
+		int target_sec = 0;
+		
+		int current_total_seconds = server_time.tm_hour * 3600 + server_time.tm_min * 60 + server_time.tm_sec;
+		int target_total_seconds = target_hour * 3600 + target_min * 60 + target_sec;
+		
+		int remain_seconds = target_total_seconds - current_total_seconds;
+		if(remain_seconds < 0) remain_seconds += 24 * 3600; //跨天处理
+		
+		int hours = remain_seconds / 3600;
+		int minutes = (remain_seconds % 3600) / 60;
+		int seconds = remain_seconds % 60;
+		
+		if(hours > 0)
+		{
+			sprintf(szTime, "距离比赛开始还剩 %d小时%d分%d秒", hours, minutes, seconds);
+		}
+		else if(minutes > 0)
+		{
+			sprintf(szTime, "距离比赛开始还剩 %d分%d秒", minutes, seconds);
+		}
+		else
+		{
+			sprintf(szTime, "距离比赛开始还剩 %d秒", seconds);
+		}
 		GetStatic(999)->SetText(szTime);
 	}
-	else{
-		if( server_time->tm_hour == 22)
+	else
+	{
+		if(server_time.tm_hour == 22)
 		{
-			if(server_time->tm_min <18)
+			if(server_time.tm_min < 18)
 			{
-				int fen = 0;
-				fen = 18 - server_time->tm_min;
-				sprintf(szTime, "距离海选始开始剩 %d分钟",fen);
+				//距离22:18海选开始的秒数
+				int current_total_seconds = server_time.tm_min * 60 + server_time.tm_sec;
+				int target_total_seconds = 18 * 60; //18分钟
+				int remain_seconds = target_total_seconds - current_total_seconds;
+				
+				int minutes = remain_seconds / 60;
+				int seconds = remain_seconds % 60;
+				sprintf(szTime, "距离海选开始还剩 %d分%d秒", minutes, seconds);
 				GetStatic(999)->SetText(szTime);
 			}
-			else if(server_time->tm_min <24)
+			else if(server_time.tm_min < 24)
 			{
-				int fen = 0;
-				fen = 24 - server_time->tm_min;
-				sprintf(szTime, "距离复选开始还剩 %d分钟",fen);
+				//距离22:24复选开始的秒数
+				int current_total_seconds = server_time.tm_min * 60 + server_time.tm_sec;
+				int target_total_seconds = 24 * 60; //24分钟
+				int remain_seconds = target_total_seconds - current_total_seconds;
+				
+				int minutes = remain_seconds / 60;
+				int seconds = remain_seconds % 60;
+				sprintf(szTime, "距离复选开始还剩 %d分%d秒", minutes, seconds);
 				GetStatic(999)->SetText(szTime);
 			}
-			else if(server_time->tm_min <32)
+			else if(server_time.tm_min < 32)
 			{
-				int fen = 0;
-				fen = 32 - server_time->tm_min;
-				sprintf(szTime, "距离半决赛开始还剩 %d分钟",fen);
+				//距离22:32半决赛开始的秒数
+				int current_total_seconds = server_time.tm_min * 60 + server_time.tm_sec;
+				int target_total_seconds = 32 * 60; //32分钟
+				int remain_seconds = target_total_seconds - current_total_seconds;
+				
+				int minutes = remain_seconds / 60;
+				int seconds = remain_seconds % 60;
+				sprintf(szTime, "距离半决赛开始还剩 %d分%d秒", minutes, seconds);
 				GetStatic(999)->SetText(szTime);
 			}
-			else if(server_time->tm_min <40)
+			else if(server_time.tm_min < 40)
 			{
-				int fen = 0;
-				fen = 40 - server_time->tm_min;
-				sprintf(szTime, "距离决赛开始还剩 %d分钟",fen);
+				//距离22:40决赛开始的秒数
+				int current_total_seconds = server_time.tm_min * 60 + server_time.tm_sec;
+				int target_total_seconds = 40 * 60; //40分钟
+				int remain_seconds = target_total_seconds - current_total_seconds;
+				
+				int minutes = remain_seconds / 60;
+				int seconds = remain_seconds % 60;
+				sprintf(szTime, "距离决赛开始还剩 %d分%d秒", minutes, seconds);
 				GetStatic(999)->SetText(szTime);
 			}
-
-			else if(server_time->tm_min >=40)
+			else if(server_time.tm_min >= 40)
 			{
-				sprintf(szTime, "  今日比赛已全部结束");
+				sprintf(szTime, "今日比赛已全部结束");
 				GetStatic(999)->SetText(szTime);
 			}
+		}
+		else //大于22点
+		{
+			sprintf(szTime, "今日比赛已全部结束");
+			GetStatic(999)->SetText(szTime);
 		}
 	}
 	return hr;

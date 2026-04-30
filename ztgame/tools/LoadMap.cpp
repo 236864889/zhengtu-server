@@ -1,5 +1,4 @@
 #include "LoadMap.h"
-#include <stdio.h>
 #include "Zebra.h"
 
 /**

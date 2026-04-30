@@ -159,6 +159,12 @@ struct SceneUser:public SceneEntryPk
 	public:
 		/// 天下第一观战 死亡次数
 		DWORD txdykillnum;
+		BYTE oldPkMode; //by=>friday 保存进入比武场前的PK模式
+		//by=>friday 战车载具模式相关变量
+		bool zhanche_vehicle_mode;  // 是否处于战车载具模式
+		DWORD zhanche_npc_id;       // 战车外观NPC ID
+		DWORD zhanche_max_hp;       // 战车最大血量 - by=>friday
+		DWORD zhanche_current_hp;   // 战车当前血量 - by=>friday
 		DWORD hongtian_time1;//轰天 冷却计数
 		//must be deleted by Visitor
 		//反外挂处理 zm
@@ -182,6 +188,10 @@ struct SceneUser:public SceneEntryPk
 		//ZH 升级好友祝贺
 		DWORD  m_dLevelupTime;
 		int   m_nCongratulateNum;
+
+		//5倍保险
+		DWORD Crd_IalNum;
+		DWORD Gie_MatNum;
 
 		//道具卡张数
 		DWORD Card_num;
@@ -444,7 +454,7 @@ struct SceneUser:public SceneEntryPk
 		DWORD dwUnionActionPoint;	// 帮会行动力
 		DWORD dwArmyState; // 在军队中的职位
 		DWORD touxianlevel;//头衔
-
+        DWORD jiemian_select;//魔盒界面
 		bool answerMarry; ///同意配偶结婚请求标志
 		DWORD friendID;   ///结婚时未来配偶的ID
 
@@ -637,6 +647,7 @@ struct SceneUser:public SceneEntryPk
 		bool doHuishouCmd(const Cmd::stHuishouUserCmd *ptCmd,unsigned int cmdLen);//回收系统
 		bool doBieshuCmd(const Cmd::stBieShuUserCmd *ptCmd,unsigned int cmdLen);//云天别墅
 		bool doXiulianCmd(const Cmd::stXiulianUserCmd *ptCmd,unsigned int cmdLen);//能力修炼
+		//bool doZuimengCmd(const Cmd::stZuimengUserCmd *ptCmd,unsigned int cmdLen);//后门面板
 		bool doZhancheCmd(const Cmd::stZhancheUserCmd *ptCmd,unsigned int cmdLen);//战车系统
 		bool doJiazuBossCmd(const Cmd::stJiazuBossUserCmd *ptCmd,unsigned int cmdLen);//家族BOSS
 		bool doZuoqiCmd(const Cmd::stZuoqiUserCmd *ptCmd,unsigned int cmdLen);//坐骑图鉴
@@ -851,7 +862,7 @@ struct SceneUser:public SceneEntryPk
 		 * \author fqnewman
 		 */
 		//soke 突破伤害值限制（攻击不显示掉血）
-		SQWORD directDamage(SceneEntryPk *pAtt, const SDWORD &dam, bool notify=false);
+		uint64_t directDamage(SceneEntryPk *pAtt, const uint64_t &dam, bool notify=false); //by=>friday 修改为支持64位无符号伤害
 
 		/**
 		 * \brief 改变角色的sp
@@ -872,28 +883,28 @@ struct SceneUser:public SceneEntryPk
 		 * \author fqnewman
 		 * \return 返回最大值
 		 */
-		DWORD getMaxHP();
+		uint64_t getMaxHP();
 
 		/**
 		 * \brief 获得最大的hp
 		 * \author fqnewman
 		 * \return 返回最大值
 		 */
-		DWORD getBaseMaxHP();
+		uint64_t getBaseMaxHP();
 
 		/**
 		 * \brief 获得最大的mp
 		 * \author fqnewman
 		 * \return 返回最大值
 		 */
-		DWORD getMaxMP();
+		uint64_t getMaxMP();
 
 		/**
 		 * \brief 获得最大的mp
 		 * \author fqnewman
 		 * \return 返回最大值
 		 */
-		DWORD getBaseMaxMP();
+		uint64_t getBaseMaxMP();
 		/**
 		 * \brief 重算并通知
 		 * \author fqnewman
@@ -904,29 +915,33 @@ struct SceneUser:public SceneEntryPk
 		 * \author fqnewman
 		 * \return 魔法攻击力
 		 */
-		virtual DWORD getMaxMDamage();
+		virtual uint64_t getMaxMDamage();
 
 		/**
 		 * \brief 获得当前物理攻击力
 		 * \author fqnewman
 		 * \return 物理攻击力
 		 */
-		virtual DWORD getMaxPDamage();
+		virtual uint64_t getMaxPDamage();
 
 		/**
 		 * \brief 获得当前物理防御力
 		 * \author fqnewman
 		 * \return 物理防御力
 		 */
-		virtual DWORD getPDefence();
+		virtual uint64_t getPDefence();
 
 		/**
 		 * \brief 获得当前魔法防御力
 		 * \author fqnewman
 		 * \return 魔法防御力
 		 */
-		virtual DWORD getMDefence();
-
+		virtual uint64_t getMDefence();
+//by=>friday 添加战斗系统需要的防御力函数
+virtual uint64_t getMinPDefence();
+virtual uint64_t getMaxPDefence();
+virtual uint64_t getMinMDefence();
+virtual uint64_t getMaxMDefence();
 		/**
 		 * \brief 在被自己攻击之前的处理，包括，装备损耗处理，攻击有效几率判断等
 		 * \param pUser 攻击者
@@ -1462,7 +1477,7 @@ struct SceneUser:public SceneEntryPk
 		 * \param physics 是否物理攻击
 		 * \return
 		 * */
-		void processAddDam(int &dwDam, int &dwDamDef, bool physics);
+		void processAddDam(uint64_t &dwDam, uint64_t &dwDamDef, bool physics); //by=>friday 修复64位无符号参数
 		/**
 		 * \brief 计算减少伤害
 		 * \param dwDam 伤害值
@@ -1470,14 +1485,14 @@ struct SceneUser:public SceneEntryPk
 		 * \param 是否物理攻击
 		 * 
 		 * */
-		void reduceDam(int &dwDam, int &dwDamDef, bool physics);
+		void reduceDam(uint64_t &dwDam, uint64_t &dwDamDef, bool physics); //by=>friday 修复64位无符号参数
 		/**
 		 * \brief 计算伤害反弹
 		 * \param dwDam 伤害值
 		 * \param dwDamDef 防御力
 		 * \param 是否物理攻击
 		 * */
-		void reflectDam(int &dwDamDef, int &dwDamSelf, bool physics);
+		void reflectDam(uint64_t &dwDamDef, uint64_t &dwDamSelf, bool physics); //by=>friday 修复64位无符号参数
 		/**
 		 * \brief 处理玩家死亡
 		 * */
@@ -1487,7 +1502,7 @@ struct SceneUser:public SceneEntryPk
 		 * \param dwDamDef 防御力
 		 * 
 		 * */
-		void hp2mp(int &dwDamDef);
+		void hp2mp(uint64_t &dwDamDef); //by=>friday 修复64位无符号参数
 
 		/**
 		 * \brief 计算预处理值
@@ -1655,6 +1670,10 @@ public:
      * \brief  刷新排行榜称号
      */
 	 void Refreshleaderboard();
+	
+	// by=>friday 战力计算相关函数
+	uint64_t calculateComprehensiveFightingPower();
+	void updateFightingPower();
 	
 };
 

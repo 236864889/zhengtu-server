@@ -1111,6 +1111,25 @@ void CMainCharacter::RunAttackEvent()
 
 	if ( pNpc && !pNpc->IsNpcType( NPC_TYPE_FUNCTION ) )
 	{
+		//by=>friday 战车攻击限制检查
+		if ( isset_state(GetState(), USTATE_USER_ZC) )
+		{
+			// 战车状态下只能攻击其他战车
+			if ( !pNpc->IsCharacter() || !isset_state(((CCharacter*)pNpc)->GetState(), USTATE_USER_ZC) )
+			{
+				GetGameGuiManager()->AddClientSystemMessage( "战车状态下只能攻击其他战车！" );
+				STOP_ATTACK_EVENT;
+			}
+		}
+		else
+		{
+			// 非战车状态下不能攻击战车
+			if ( pNpc->IsCharacter() && isset_state(((CCharacter*)pNpc)->GetState(), USTATE_USER_ZC) )
+			{
+				GetGameGuiManager()->AddClientSystemMessage( "只有战车才能攻击战车！" );
+				STOP_ATTACK_EVENT;
+			}
+		}
 		//When on ride can not attack without fight horse
 #ifndef _DEBUG
 		if ( IsRide() && !IsRideFightHorse() )
@@ -2986,7 +3005,7 @@ CMainCharacter::enumAttackNpcResult CMainCharacter::CastMagic(SkillBase_t* pSkil
 				rcmd.byTarget = MAPDATATYPE_NPC;
 				rcmd.dwSrcTempID = GetID();
 				rcmd.dwUserTempID = id;
-				rcmd.wdHP = 10;
+				rcmd.sdwHP = 10;
 				GetClient()->PushCommand(&rcmd,sizeof(rcmd));
 			}
 		}
@@ -3359,6 +3378,9 @@ CMainCharacter::enumAttackNpcResult CMainCharacter::AttackNpc(CNpc* pNpc,SkillBa
 		cmd->wdMagicType = SKILL_COMBIN_SIX_GHOST_NORMAL_SKILL;
 	if ( isset_state(GetState(), USTATE_COMBIN_THREE_DIM) && ((NULL == pSkill) || (pSkill->dwID == SERVER_SKILL_ATTACK_NORMAL)) )
 		cmd->wdMagicType = SKILL_COMBIN_THREE_DIM_NORMAL_SKILL;
+		//by=>friday 战车状态下使用专属攻击技能
+	if ( isset_state(GetState(), USTATE_USER_ZC) )
+		cmd->wdMagicType = SKILL_ZC_NORMAL_SKILL;
 	//End special treat
 
 	CNpc::enumCastMagicResult e = CNpc::CastMagic(cmd,ptObs,bServerLogic);
@@ -3393,6 +3415,9 @@ CMainCharacter::enumAttackNpcResult CMainCharacter::AttackNpc(CNpc* pNpc,SkillBa
 			cmd->wdMagicType = SERVER_SKILL_BOW_NORMAL;
 		if ( cmd->wdMagicType == SKILL_COMBIN_THREE_DIM_NORMAL_SKILL )
 			cmd->wdMagicType = SERVER_SKILL_BOW_NORMAL;
+		//by=>friday 战车专属攻击技能转换为普通攻击发送到服务端
+		if ( cmd->wdMagicType == SKILL_ZC_NORMAL_SKILL )
+			cmd->wdMagicType = SERVER_SKILL_ATTACK_NORMAL;
 		//End special treate
 
 		//For flower npc we send server normal attack
@@ -3420,7 +3445,7 @@ CMainCharacter::enumAttackNpcResult CMainCharacter::AttackNpc(CNpc* pNpc,SkillBa
 			rcmd.byTarget = MAPDATATYPE_NPC;
 			rcmd.dwSrcTempID = GetID();
 			rcmd.dwUserTempID = pNpc->GetID();
-			rcmd.wdHP = 10;
+			rcmd.sdwHP = 10;
 			GetClient()->PushCommand(&rcmd,sizeof(rcmd));
 		}
 		
@@ -7068,7 +7093,7 @@ void CMainCharacter::AddExp(QWORD exp,QWORD dwAbsExp)
 *	
 *	用途: 		设置生命魔法值
 */
-void CMainCharacter::SetHPAndMP(unsigned int nHP,unsigned int nMP,unsigned int nSP)
+void CMainCharacter::SetHPAndMP(uint64_t nHP,uint64_t nMP,unsigned int nSP)
 {
 	FUNCTION_BEGIN;
 

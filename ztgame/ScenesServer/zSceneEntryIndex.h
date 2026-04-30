@@ -194,7 +194,7 @@ class zSceneEntryIndex : private zNoncopyable
 			oneY = one / screenx;
 			twoX = two % screenx;
 			twoY = two / screenx;
-			if(labs((long)(oneX) - (long)(twoX)) <=1 && labs((long)(oneY) - (long)(twoY)) <=1)
+			if(abs(oneX - twoX) <=1 && abs(oneY - twoY) <=1)
 			{
 				return true;
 			}
@@ -209,8 +209,8 @@ class zSceneEntryIndex : private zNoncopyable
 		 */
 		const bool zPosShortRange(const zPos &pos1, const zPos &pos2, const int radius) const
 		{
-			if (labs((long)(pos1.x) - (long)(pos2.x)) <= radius
-					&& labs((long)(pos1.y) - (long)(pos2.y)) <= radius)
+			if (abs(pos1.x - pos2.x) <= radius
+					&& abs(pos1.y - pos2.y) <= radius)
 				return true;
 			else
 				return false;
@@ -225,8 +225,8 @@ class zSceneEntryIndex : private zNoncopyable
 		 */
 		const bool zPosShortRange(const zPos &pos1, const zPos &pos2, const int wide, const int height) const
 		{
-			if (labs((long)(pos1.x) - (long)(pos2.x)) <= wide
-					&& labs((long)(pos1.y) - (long)(pos2.y)) <= height)
+			if (abs(pos1.x - pos2.x) <= wide
+					&& abs(pos1.y - pos2.y) <= height)
 				return true;
 			else
 				return false;
@@ -238,7 +238,7 @@ class zSceneEntryIndex : private zNoncopyable
 		 * \param pos2 位置2
 		 * \return 距离
 		 */
-		unsigned int getDistance(zPos pos1, zPos pos2) const { return labs((long)(pos1.x) - (long)(pos2.x))+labs((long)(pos1.y) - (long)(pos2.y)); }
+		unsigned int getDistance(zPos pos1, zPos pos2) const { return abs(pos1.x-pos2.x)+abs(pos1.y-pos2.y); }
 		/**
 		 * \brief 方向取反
 		 * \param direct 方向
@@ -304,8 +304,8 @@ class zSceneEntryIndex : private zNoncopyable
 		{
 			int x = otherPos.x - myPos.x;
 			int y = otherPos.y - myPos.y;
-			int absx = labs((long)(x));
-			int absy = labs((long)(y));
+			int absx = abs(x);
+			int absy = abs(y);
 			if (absx > absy && absy < absx/2)
 				y = 0;
 			else if (absx < absy && absx < absy/2)

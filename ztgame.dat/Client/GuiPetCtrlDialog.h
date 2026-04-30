@@ -27,7 +27,7 @@ public:
 	void OnEndSelectAttack();
 	CPet* GetCurrentPet() { return m_pPet; }
 private:
-	void DrawHp(int hp,int maxhp,int maxhp_plus);
+	void DrawHp(uint64_t hp,uint64_t maxhp,uint64_t maxhp_plus);
 	void DrawName(const char* name,float fElapsedTime,DWORD color = -1);
 	void ResetControlBitmap(int group);
 private:

@@ -5,7 +5,7 @@ require "define5021"
 
 function check_time(npc,v)
 	player = me();
-	--print("æ—¶é—´æ£€æµ‹");
+	--print("Ê±¼ä¼ì²â");
 	local qs = v:get("finish_quests"); 
 	local qss = v:get("finish_rounds");
 	local qstime = v:get("qstime"); 
@@ -18,7 +18,7 @@ function check_time(npc,v)
 	  v:set("finish_rounds", 0); 
 	  v:set("state",2);
 	  show_dialog(npc, menu_5021_92);	
-	  sys(player, 5, "å¼€å§‹ä»Šå¤©ç¯ä»»åŠ¡");
+	  sys(player, 5, "¿ªÊ¼½ñÌì»·ÈÎÎñ");
 	  return 1;
 	end 
 end
@@ -26,7 +26,7 @@ end
 function select_quest70(npc,v)
 	player = me();
 	local tempnum = math.random(1, 100);
-	--print("40~50éšæœº");
+	--print("40~50Ëæ»ú");
 
 		if tempnum <= 20 then v:set("type", 1); end
 		if tempnum > 20 and tempnum <= 40 then v:set("type", 2); end
@@ -36,7 +36,7 @@ function select_quest70(npc,v)
 		--if tempnum > 90 and tempnum <= 100 then v:set("type", 6); end
 		
 		local type = v:get("type"); 	
-		--å½“ä¸Šä¸€ç¯ç±»å‹å’Œæœ¬ç¯ç›¸åŒæ—¶ï¼Œç±»å‹+1
+		--µ±ÉÏÒ»»·ÀàĞÍºÍ±¾»·ÏàÍ¬Ê±£¬ÀàĞÍ+1
 		local temptype = v:get("temptype"); 
 		if temptype == type then 
 			v:set("type", temptype+1);
@@ -69,9 +69,9 @@ function select_quest70(npc,v)
 		v:set("showexp", exp); 
 		local showexp = v:get("showexp");
 
---è®¿é—®ä»»åŠ¡1çº§ç¯æ—¶
+--·ÃÎÊÈÎÎñ1¼¶»·Ê±
 	if type == 1 then
-	--print("40~50è¯»è¡¨");
+	--print("40~50¶Á±í");
 
 	  if qss < 4 then 
 			r = math.random(1, table.getn(visit_npc_list70));
@@ -95,7 +95,7 @@ function select_quest70(npc,v)
 	end
 
 
---æ€æ€ªä»»åŠ¡1çº§ç¯æ—¶
+--É±¹ÖÈÎÎñ1¼¶»·Ê±
 	if type == 2 then
 	
 		if qss < 4 then 
@@ -120,7 +120,7 @@ function select_quest70(npc,v)
 		
 	end
 	
---æ”¶é›†ç‰©å“ä»»åŠ¡	
+--ÊÕ¼¯ÎïÆ·ÈÎÎñ	
 	if type == 3 then
 		if qss < 4 then 
 			r = math.random(1, table.getn(get_item_list70));
@@ -142,7 +142,7 @@ function select_quest70(npc,v)
 	  v:set("id", id);
 	end
 
---æ€æ€ªæ”¶é›†ç‰©å“ä»»åŠ¡
+--É±¹ÖÊÕ¼¯ÎïÆ·ÈÎÎñ
 	if type == 4 then
 		if qss < 4 then 
 			r = math.random(1, table.getn(kill_get_list70));
@@ -168,7 +168,7 @@ function select_quest70(npc,v)
 	  v:set("questkillobject", r);
 	end
 
---æ”¶é›†è£…å¤‡ä»»åŠ¡
+--ÊÕ¼¯×°±¸ÈÎÎñ
 	if type == 5 then
 		if qss < 4 then 
 			r = math.random(1, table.getn(get_weapon_list70));
@@ -194,10 +194,10 @@ function select_quest70(npc,v)
 	  v:set("weaponrequire", r);
 	end
 	
---æ€BOSSä»»åŠ¡	
-	--print("æ€BOSSåˆ¤æ–­");
+--É±BOSSÈÎÎñ	
+	--print("É±BOSSÅĞ¶Ï");
 	if type == 6 then
-	--print("æ€BOSSåˆ¤æ–­é€šè¿‡");
+	--print("É±BOSSÅĞ¶ÏÍ¨¹ı");
 		if qss < 4 then 
 			r = math.random(1, table.getn(kill_boss_list));
 			menu = string.gsub(menu_5021_17, "#name#", kill_boss_list[r][1]);	
@@ -212,7 +212,7 @@ function select_quest70(npc,v)
 			id = kill_boss_list2[r][2];
 			color = kill_boss_list2[r][3];
 		end
-		--print("æ€BOSSåˆ¤æ–­å®š");
+		--print("É±BOSSÅĞ¶Ï¶¨");
 		menu = string.gsub(menu, "#exp#", showexp);
 		menu = string.gsub(menu, "#qs#", (qs+1));
 		menu = string.gsub(menu, "#round#", (qss+1));
@@ -226,25 +226,25 @@ function select_quest70(npc,v)
 	return type, id;
 end
 
---è®¿é—®NPCå¼€å§‹
+--·ÃÎÊNPC¿ªÊ¼
 function visit_5021(npc)
---print("40~50è®¿é—®NPCå¼€å§‹");
+--print("40~50·ÃÎÊNPC¿ªÊ¼");
 
---ç­‰çº§åˆ¤æ–­
+--µÈ¼¶ÅĞ¶Ï
 	player = me();
-	--print("40~50ç­‰çº§åˆ¤æ–­2");
+	--print("40~50µÈ¼¶ÅĞ¶Ï2");
 	if player.charbase.level < 80 or player.charbase.level >= 90 then
 			return 0;
 	end
 
---ä»»åŠ¡åˆ¤æ–­
+--ÈÎÎñÅĞ¶Ï
 	local v = player.quest:vars(21102);
 	if not v then
 	--print("no vars");
 	v = Vars(21102);
 	end
 
---ç¯æ•°åˆ¤æ–­
+--»·ÊıÅĞ¶Ï
 	local qss = v:get("finish_rounds");
 	if not qss then
 		v:set("finish_rounds", 1);
@@ -254,28 +254,28 @@ function visit_5021(npc)
 		v:set("finish_quests", 1);
 	end
 
---å®¶æ—åˆ¤æ–­
+--¼Ò×åÅĞ¶Ï
 	if string.len(player.sept_name) == 0 then
 		show_dialog(npc, menu_5021_91);
 	  return 1;
 	end
 	
---è¯»å–å­˜æ¡£å¯¹è¯å¼•å¯¼
+--¶ÁÈ¡´æµµ¶Ô»°Òıµ¼
   local savegame = v:get("savegame");
 	if savegame == 1 then
 		show_dialog(npc, menu_5021_100);
 		return 1;
 	end
 
---å®¶æ—ç­‰çº§åˆ¤æ–­ç¯æ•°
+--¼Ò×åµÈ¼¶ÅĞ¶Ï»·Êı
 	local fl=player.sept_level * 2;
 	if  fl == 0 then
 		fl=1;
 	end
 	
---æ¯æ—¥ç¯æ•°ä¸Šé™
+--Ã¿ÈÕ»·ÊıÉÏÏŞ
 	local v = player.quest:vars(21102);
-	--è¯»å–ä¸ªäººå˜é‡
+	--¶ÁÈ¡¸öÈË±äÁ¿
 	local uv = player:get_uservar(99);
 
 	if v then
@@ -283,7 +283,7 @@ function visit_5021(npc)
 		local qs = v:get("finish_quests");
 		--print(qs);
 	
---é‡åšæœ¬æ—¥ç¯ä»»åŠ¡å¯¹è¯		
+--ÖØ×ö±¾ÈÕ»·ÈÎÎñ¶Ô»°		
 		local uv = player:get_uservar(99);
 		local todayagain = uv:get("todayagain");
 		--print(todayagain);
@@ -292,7 +292,7 @@ function visit_5021(npc)
 			return 1;
 		end
 		
---æœ¬æ—¥ç¯ç»“æŸæç¤º	
+--±¾ÈÕ»·½áÊøÌáÊ¾	
 		local uv = player:get_uservar(99);
 		local todayend = uv:get("todayend");
 		if todayend == 1 then 
@@ -300,7 +300,7 @@ function visit_5021(npc)
 			return 1;
 	  end
 
---ç¯æ•°åˆ°ä¸Šé™ï¼Œè®¾ç½®ä¸ªäººå˜é‡	
+--»·Êıµ½ÉÏÏŞ£¬ÉèÖÃ¸öÈË±äÁ¿	
 		local uv = player:get_uservar(99);
 		local todayend = uv:get("todayend");
 		if qss and qss >= fl and todayend ~= 1 then 
@@ -326,7 +326,7 @@ function visit_5021(npc)
 		v:set("state", 2);
 		v:set("npc", npc:tempid());
 		player.quest:add(21102, v, player, true);
---		sys(player, 1, "æ¥å—äº†ä¸€ä¸ªä»»åŠ¡");
+--		sys(player, 1, "½ÓÊÜÁËÒ»¸öÈÎÎñ");
 		npc:refresh();
 		return 1;
 	end
@@ -345,13 +345,13 @@ function visit_5021(npc)
 	v:refresh(player,"num")
 	player.quest:add(21102, v, player, true);
 	
---æ¯ä¸ªä»»åŠ¡30åˆ†é’Ÿå†…å®Œæˆåˆ¤æ–­	
+--Ã¿¸öÈÎÎñ30·ÖÖÓÄÚÍê³ÉÅĞ¶Ï	
 	--if (s == 1 or s == -3) and (time()-v:get("starttime")) >= 3600 then
 	--			show_dialog(npc, menu_5021_101);
 	--		return 1;	
 	--end		
 	
---è®¿é—®ä»»åŠ¡1çº§ç¯æç¤º
+--·ÃÎÊÈÎÎñ1¼¶»·ÌáÊ¾
 	if s == 1 and type == 1 then
 			local r=v:get("questnpc");
 			if qss < 4 then 
@@ -367,7 +367,7 @@ function visit_5021(npc)
 		return 1;	
 	end	
 
---æ€æ€ªä»»åŠ¡æç¤º
+--É±¹ÖÈÎÎñÌáÊ¾
 	if s == 1 and type == 2 then
 			local r=v:get("questkill");
 			if qss < 4 then 
@@ -382,7 +382,7 @@ function visit_5021(npc)
 		return 1;	
 	end	
 	
---ç‰©å“æ”¶é›†äº¤ä»»åŠ¡
+--ÎïÆ·ÊÕ¼¯½»ÈÎÎñ
 	if s == 1 and type == 3 then
 			local r=v:get("questobject");
 			if qss < 4 then 
@@ -397,7 +397,7 @@ function visit_5021(npc)
 		return 1;	
 	end	
 
---ç‰©å“æ”¶é›†æ¥ä»»åŠ¡	
+--ÎïÆ·ÊÕ¼¯½ÓÈÎÎñ	
 	if s == 1 and type == 3 then
 			local r=v:get("questobject");
 			if qss < 4 then 
@@ -412,7 +412,7 @@ function visit_5021(npc)
 		return 1;	
 	end	
 
---æ€æ€ªæ”¶é›†ç‰©å“æ¥ä»»åŠ¡
+--É±¹ÖÊÕ¼¯ÎïÆ·½ÓÈÎÎñ
 	if s == 1 and type == 4 then
 			local r=v:get("questkillobject");
 			if qss < 4 then 
@@ -429,7 +429,7 @@ function visit_5021(npc)
 		return 1;	
 	end	
 
---æ€æ€ªæ”¶é›†ç‰©å“äº¤ä»»åŠ¡	
+--É±¹ÖÊÕ¼¯ÎïÆ·½»ÈÎÎñ	
 	if s == -3 and type == 4 then
 			local r=v:get("questkillobject");
 			if qss < 4 then
@@ -446,7 +446,7 @@ function visit_5021(npc)
 		return 1;		
 	end
 	
---æ”¶é›†è£…å¤‡äº¤ä»»åŠ¡å¯¹è¯
+--ÊÕ¼¯×°±¸½»ÈÎÎñ¶Ô»°
 	local id = v:get("id");
 	local color = v:get("color");
 	local weapon = player:get_ob(id, color);
@@ -474,7 +474,7 @@ function visit_5021(npc)
 		end 
 	end		
 	
---æ”¶é›†è£…å¤‡æ¥ä»»åŠ¡å¯¹è¯
+--ÊÕ¼¯×°±¸½ÓÈÎÎñ¶Ô»°
 	if s == 1 and type == 5 then
 			local r=v:get("weaponrequire");
 			if qss < 4 then
@@ -491,10 +491,10 @@ function visit_5021(npc)
 		return 1;	
 	end	
 	
---æ€BOSSæ¥ä»»åŠ¡å¯¹è¯
-	--print("åˆ¤æ–­ï¼ï¼");
+--É±BOSS½ÓÈÎÎñ¶Ô»°
+	--print("ÅĞ¶Ï£¡£¡");
 	if type == 6 then
-	--print("åˆ¤æ–­é€šè¿‡ï¼ï¼");
+	--print("ÅĞ¶ÏÍ¨¹ı£¡£¡");
 			local r=v:get("killboss");
 			if qss < 4 then
 				menu = string.gsub(menu_5021_7, "#name#", kill_boss_list[r][1]);	
@@ -510,7 +510,7 @@ function visit_5021(npc)
 	end		
 	
 	
---æ€BOSSä»»åŠ¡æç¤º
+--É±BOSSÈÎÎñÌáÊ¾
 	if s == 1 and type == 6 then
 			local r=v:get("killboss");
 			if qss < 4 then 
@@ -544,7 +544,7 @@ function visit_5021(npc)
 	return 0;
 end
 
---******************å¯¹è¯åçš„åˆ¤æ–­é€‰é¡¹********************************
+--******************¶Ô»°ºóµÄÅĞ¶ÏÑ¡Ïî********************************
 
 function accept_5021(npc, id, flag)
 		player = me();
@@ -554,8 +554,8 @@ function accept_5021(npc, id, flag)
 				v:set("finish_rounds", 1);
 			end
 
---è®¿é—®ä»»åŠ¡1çº§æ¥ä»»åŠ¡åˆ¤æ–­
---print("40~50æ‰¾äººä»»åŠ¡");
+--·ÃÎÊÈÎÎñ1¼¶½ÓÈÎÎñÅĞ¶Ï
+--print("40~50ÕÒÈËÈÎÎñ");
 		if( v:get("state") == 2) and flag == 1 then
 			local r=v:get("questnpc");
 			
@@ -563,7 +563,7 @@ function accept_5021(npc, id, flag)
 				menu = string.gsub(menu_5021_5, "#place#", visit_npc_list70[r][1]);	
 				menu = 	string.gsub(menu, "#npc#", visit_npc_list70[r][2]);
 				show_dialog(npc, menu);
-				local xxxx="æŠŠä¿¡å¸¦ç»™#place#ç„¶åå‘å¤æºæ±‡æŠ¥";
+				local xxxx="°ÑĞÅ´ø¸ø#place#È»ºóÏò¹ÅÔ´»ã±¨";
 				xxxx = string.gsub(xxxx, "#place#", visit_npc_list70[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -573,7 +573,7 @@ function accept_5021(npc, id, flag)
 				menu = string.gsub(menu_5021_5, "#place#", visit_npc_list702[r][1]);	
 				menu = 	string.gsub(menu, "#npc#", visit_npc_list702[r][2]);
 				show_dialog(npc, menu);
-				local xxxx="æŠŠä¿¡å¸¦ç»™#place#ç„¶åå‘å¤æºæ±‡æŠ¥";
+				local xxxx="°ÑĞÅ´ø¸ø#place#È»ºóÏò¹ÅÔ´»ã±¨";
 				xxxx = string.gsub(xxxx, "#place#", visit_npc_list702[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -581,10 +581,10 @@ function accept_5021(npc, id, flag)
 			
 			v:set("state",1);
 			player:add_ob(2068, 1, 0, 0);
-			sys(player, 1, "æ¥å—äº†è¯¥ä»»åŠ¡");	
+			sys(player, 1, "½ÓÊÜÁË¸ÃÈÎÎñ");	
 			v:set("starttime", time());
 		
-			--ç¯å¼€å§‹æ—¶é—´è®¡æ—¶
+			--»·¿ªÊ¼Ê±¼ä¼ÆÊ±
 			local qs = v:get("finish_quests");
 			local qss = v:get("finish_rounds");
       if qs == 0 and qss == 0 then
@@ -597,14 +597,14 @@ function accept_5021(npc, id, flag)
 			return 1;
 		end
 	  
---æ€æ€ªä»»åŠ¡1çº§æ¥ä»»åŠ¡åˆ¤æ–­
+--É±¹ÖÈÎÎñ1¼¶½ÓÈÎÎñÅĞ¶Ï
 	  if( v:get("state") == 2) and flag == 2 then
 			local r=v:get("questkill");
 			
 			if qss < 4 then 
 				menu = string.gsub(menu_5021_6, "#name#", kill_npc_list70[r][1]);
 				menu = 	string.gsub(menu, "#npc#", kill_npc_list70[r][2]);
-				local xxxx="æ”»å‡»#name#30åªç„¶åå‘å¤æºæ±‡æŠ¥";
+				local xxxx="¹¥»÷#name#30Ö»È»ºóÏò¹ÅÔ´»ã±¨";
 				xxxx = string.gsub(xxxx, "#name#", kill_npc_list70[r][1]);
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -612,7 +612,7 @@ function accept_5021(npc, id, flag)
 			if qss >= 4 then 
 				menu = string.gsub(menu_5021_6, "#name#", kill_npc_list702[r][1]);
 				menu = 	string.gsub(menu, "#npc#", kill_npc_list702[r][2]);
-				local xxxx="æ”»å‡»#name#30åªç„¶åå‘å¤æºæ±‡æŠ¥";
+				local xxxx="¹¥»÷#name#30Ö»È»ºóÏò¹ÅÔ´»ã±¨";
 				xxxx = string.gsub(xxxx, "#name#", kill_npc_list702[r][1]);
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -620,10 +620,10 @@ function accept_5021(npc, id, flag)
 			
 			show_dialog(npc, menu);
 			v:set("state",1);
-			sys(player, 5, "æ¥å—äº†æ€æ€ªä»»åŠ¡");	
+			sys(player, 5, "½ÓÊÜÁËÉ±¹ÖÈÎÎñ");	
 			v:set("starttime", time());
 	
-			--ç¯å¼€å§‹æ—¶é—´è®¡æ—¶
+			--»·¿ªÊ¼Ê±¼ä¼ÆÊ±
 			local qs = v:get("finish_quests");
 			local qss = v:get("finish_rounds");
       if qs == 0 and qss == 0 then
@@ -636,8 +636,8 @@ function accept_5021(npc, id, flag)
 			return 1;
 		end
 		
---è®¿é—®ã€æ€æ€ªä»»åŠ¡äº¤ä»»åŠ¡		
---print("40~50æ‰¾äººäº¤ä»»åŠ¡");
+--·ÃÎÊ¡¢É±¹ÖÈÎÎñ½»ÈÎÎñ		
+--print("40~50ÕÒÈË½»ÈÎÎñ");
 
 		if ( v:get("state") == -3) and flag == 11 then
 		
@@ -654,7 +654,7 @@ function accept_5021(npc, id, flag)
 				end
 				
 				if math.mod(qs+1, 5) == 0 then
-					sys(player, 5, "æ­å–œä½ å®Œæˆäº†ä¸€ä¸ªç¯");
+					sys(player, 5, "¹§Ï²ÄãÍê³ÉÁËÒ»¸ö»·");
 						if not qss then
 							v:set("finish_rounds", 1);
 							v:set("finish_quests", 0);
@@ -675,13 +675,13 @@ function accept_5021(npc, id, flag)
 			return 1;		
 		end		
 		
---æ”¶é›†ç‰©å“1çº§æ¥ä»»åŠ¡åˆ¤æ–­	
+--ÊÕ¼¯ÎïÆ·1¼¶½ÓÈÎÎñÅĞ¶Ï	
 		if( v:get("state") == 2) and flag == 3 then
 			local r=v:get("questobject");
 			if qss < 4 then 
 				menu = string.gsub(menu_5021_4, "#name#", get_item_list70[r][1]);	
 				menu = 	string.gsub(menu, "#id#", get_item_list70[r][2]);
-				local xxxx="å»æ”¶é›†#name#5ä¸ªç»™å¤æº";
+				local xxxx="È¥ÊÕ¼¯#name#5¸ö¸ø¹ÅÔ´";
 				xxxx = string.gsub(xxxx, "#name#", get_item_list70[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -689,7 +689,7 @@ function accept_5021(npc, id, flag)
 			if qss >= 4 then 
 				menu = string.gsub(menu_5021_4, "#name#", get_item_list702[r][1]);	
 				menu = 	string.gsub(menu, "#id#", get_item_list702[r][2]);
-				local xxxx="å»æ”¶é›†#name#5ä¸ªç»™å¤æº";
+				local xxxx="È¥ÊÕ¼¯#name#5¸ö¸ø¹ÅÔ´";
 				xxxx = string.gsub(xxxx, "#name#", get_item_list702[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -697,10 +697,10 @@ function accept_5021(npc, id, flag)
 			
 			show_dialog(npc, menu);	
 			v:set("state",1);
-			sys(player, 1, "æ¥å—äº†æ”¶é›†ç‰©å“ä»»åŠ¡");	
+			sys(player, 1, "½ÓÊÜÁËÊÕ¼¯ÎïÆ·ÈÎÎñ");	
 			v:set("starttime", time());
 
-			--ç¯å¼€å§‹æ—¶é—´è®¡æ—¶
+			--»·¿ªÊ¼Ê±¼ä¼ÆÊ±
 			local qs = v:get("finish_quests");
 			local qss = v:get("finish_rounds");
       if qs == 0 and qss == 0 then
@@ -713,13 +713,13 @@ function accept_5021(npc, id, flag)
 			return 1;
 		end
 		
---æ”¶é›†ç‰©å“äº¤ä»»åŠ¡
+--ÊÕ¼¯ÎïÆ·½»ÈÎÎñ
 		local id = v:get("id"); 
 		local type = v:get("type"); 	
 		
 		if ( v:get("state") == 1) and type == 3 and flag == 8 and player:have_ob(id, 5, 0, 0) then
 		--if ( v:get("state") == 1) and type == 3 and flag == 8 then
-			sys(player, 1, "å®Œæˆäº†æ”¶é›†ç‰©å“ä»»åŠ¡");		
+			sys(player, 1, "Íê³ÉÁËÊÕ¼¯ÎïÆ·ÈÎÎñ");		
 			player:remove_ob(id, 5, 0);
 		
 			v:set("state", 2);
@@ -736,7 +736,7 @@ function accept_5021(npc, id, flag)
 				end
 				
 				if math.mod(qs+1, 5) == 0 then
-					sys(player, 5, "æ­å–œä½ å®Œæˆäº†ä¸€ä¸ªç¯");
+					sys(player, 5, "¹§Ï²ÄãÍê³ÉÁËÒ»¸ö»·");
 						if not qss then
 							v:set("finish_rounds", 1);
 							v:set("finish_quests", 0);
@@ -759,14 +759,14 @@ function accept_5021(npc, id, flag)
 			return 1;
 		end		
 		
---æ€æ€ªæ”¶é›†ç‰©å“æ¥ä»»åŠ¡åˆ¤æ–­  
+--É±¹ÖÊÕ¼¯ÎïÆ·½ÓÈÎÎñÅĞ¶Ï  
 		if( v:get("state") == 2) and flag == 13 then
 			local r=v:get("questkillobject");
 			if qss < 4 then
 				menu = string.gsub(menu_5021_23, "#name#", kill_get_list70[r][1]);	
 				menu = 	string.gsub(menu, "#kill#", kill_get_list70[r][2]);
 				menu = 	string.gsub(menu, "#item#", kill_get_list70[r][3]);
-				local xxxx="#name#ï¼Œç„¶åå‘å¤æºæ±‡æŠ¥";
+				local xxxx="#name#£¬È»ºóÏò¹ÅÔ´»ã±¨";
 				xxxx = string.gsub(xxxx, "#name#", kill_get_list70[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -775,18 +775,18 @@ function accept_5021(npc, id, flag)
 				menu = string.gsub(menu_5021_23, "#name#", kill_get_list702[r][1]);	
 				menu = 	string.gsub(menu, "#kill#", kill_get_list702[r][2]);
 				menu = 	string.gsub(menu, "#item#", kill_get_list702[r][3]);
-				local xxxx="#name#ï¼Œç„¶åå‘å¤æºæ±‡æŠ¥";
+				local xxxx="#name#£¬È»ºóÏò¹ÅÔ´»ã±¨";
 				xxxx = string.gsub(xxxx, "#name#", kill_get_list702[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
 			end
 			
 			show_dialog(npc, menu);
-			sys(player, 5, "æ¥å—æ”¶é›†ç‰©å“ä»»åŠ¡");		
+			sys(player, 5, "½ÓÊÜÊÕ¼¯ÎïÆ·ÈÎÎñ");		
 			v:set("state",1);
 			v:set("starttime", time());
 
-			--ç¯å¼€å§‹æ—¶é—´è®¡æ—¶
+			--»·¿ªÊ¼Ê±¼ä¼ÆÊ±
 			local qs = v:get("finish_quests");
 			local qss = v:get("finish_rounds");
       if qs == 0 and qss == 0 then
@@ -805,10 +805,10 @@ function accept_5021(npc, id, flag)
 		local type = v:get("type");
 		local id = v:get("id");
 
---æ€æ€ªæ”¶é›†ç‰©å“äº¤ä»»åŠ¡åˆ¤æ–­	
+--É±¹ÖÊÕ¼¯ÎïÆ·½»ÈÎÎñÅĞ¶Ï	
 		local item = v:get("item");
 		if ( v:get("state") == -3) and type == 4 and flag == 31 and player:have_ob(item, 6, 0, 0) then
-			sys(player, 5, "å®Œæˆäº†æ”¶é›†ç‰©å“ä»»åŠ¡");		
+			sys(player, 5, "Íê³ÉÁËÊÕ¼¯ÎïÆ·ÈÎÎñ");		
 			player:remove_ob(item, 10, 0);
 			v:set("state", 2);
 			v:set("kills", 0);
@@ -824,7 +824,7 @@ function accept_5021(npc, id, flag)
 				end
 				
 				if math.mod(qs+1, 5) == 0 then
-					sys(player, 5, "æ­å–œä½ å®Œæˆäº†ä¸€ä¸ªç¯");
+					sys(player, 5, "¹§Ï²ÄãÍê³ÉÁËÒ»¸ö»·");
 						if not qss then
 							v:set("finish_rounds", 1);
 							v:set("finish_quests", 0);
@@ -847,14 +847,14 @@ function accept_5021(npc, id, flag)
 			return 1;
 		end
 
---æ”¶é›†è£…å¤‡æ¥ä»»åŠ¡åˆ¤æ–­  
+--ÊÕ¼¯×°±¸½ÓÈÎÎñÅĞ¶Ï  
 		if( v:get("state") == 2) and type == 5 and flag == 15 then
 			local r=v:get("weaponrequire");
 		  if qss < 4 then 
 				menu = string.gsub(menu_5021_45, "#name#", get_weapon_list70[r][1]);	
 				menu = 	string.gsub(menu, "#id#", get_weapon_list70[r][2]);
 				menu = 	string.gsub(menu, "#color#", get_weapon_list70[r][3]);
-				local xxxx="æ”¶é›†ä¸€ä¸ª#name#äº¤ç»™å¤æº";
+				local xxxx="ÊÕ¼¯Ò»¸ö#name#½»¸ø¹ÅÔ´";
 				xxxx = string.gsub(xxxx, "#name#", get_weapon_list70[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -866,18 +866,18 @@ function accept_5021(npc, id, flag)
 				menu = 	string.gsub(menu, "#id#", get_weapon_list702[r][2]);
 				menu = 	string.gsub(menu, "#color#", get_weapon_list702[r][3]);
 				show_dialog(npc, menu);
-				local xxxx="æ”¶é›†ä¸€ä¸ª#name#äº¤ç»™å¤æº";
+				local xxxx="ÊÕ¼¯Ò»¸ö#name#½»¸ø¹ÅÔ´";
 				xxxx = string.gsub(xxxx, "#name#", get_weapon_list702[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
 			end
 			
 			show_dialog(npc, menu);
-			sys(player, 5, "æ¥å—äº†æ”¶é›†è£…å¤‡ä»»åŠ¡");	
+			sys(player, 5, "½ÓÊÜÁËÊÕ¼¯×°±¸ÈÎÎñ");	
 			v:set("starttime", time());
 			v:set("state",1);
 			
-			--ç¯å¼€å§‹æ—¶é—´è®¡æ—¶
+			--»·¿ªÊ¼Ê±¼ä¼ÆÊ±
 			local qs = v:get("finish_quests");
 			local qss = v:get("finish_rounds");
       if qs == 0 and qss == 0 then
@@ -890,13 +890,13 @@ function accept_5021(npc, id, flag)
 			return 1;
 		end
 		
---æ”¶é›†è£…å¤‡äº¤ä»»åŠ¡åˆ¤æ–­
+--ÊÕ¼¯×°±¸½»ÈÎÎñÅĞ¶Ï
 		local id = v:get("id");
 		local color = v:get("color");
 		local weapon = player:get_ob(id, color);
 		local weapon2 = player:get_ob((id+10000), color);
 		if ( v:get("state") == 1) and type == 5 and flag == 35 and (weapon ~= 0 or weapon2 ~= 0) then
-			sys(player, 5, "å®Œæˆäº†æ”¶é›†è£…å¤‡ä»»åŠ¡");		
+			sys(player, 5, "Íê³ÉÁËÊÕ¼¯×°±¸ÈÎÎñ");		
 			player:del_ob(weapon);
 			v:set("state", 2);
 			v:set("color", 0);
@@ -912,7 +912,7 @@ function accept_5021(npc, id, flag)
 				end
 				
 				if math.mod(qs+1, 5) == 0 then
-					sys(player, 5, "æ­å–œä½ å®Œæˆäº†ä¸€ä¸ªç¯");
+					sys(player, 5, "¹§Ï²ÄãÍê³ÉÁËÒ»¸ö»·");
 						if not qss then
 							v:set("finish_rounds", 1);
 							v:set("finish_quests", 0);
@@ -939,7 +939,7 @@ function accept_5021(npc, id, flag)
 	
 		local s = v:get("state");
 		--if s == -3 then
-		--	sys(player, 1, "å®Œæˆäº†è¯¥ä»»åŠ¡");		
+		--	sys(player, 1, "Íê³ÉÁË¸ÃÈÎÎñ");		
 		--	player:add_exp(100, false, 0, 0);	
 		--	v:set("state", -1);	
 		--	player.quest.refresh(id);	
@@ -947,7 +947,7 @@ function accept_5021(npc, id, flag)
 		--	return 1;
 		--end
 		
---æ€BOSSä»»åŠ¡æ¥ä»»åŠ¡åˆ¤æ–­
+--É±BOSSÈÎÎñ½ÓÈÎÎñÅĞ¶Ï
 		if( v:get("state") == 2) and type == 6 and flag == 17 then
 			local r=v:get("killboss");
 			
@@ -955,7 +955,7 @@ function accept_5021(npc, id, flag)
 				menu = string.gsub(menu_5021_17, "#name#", kill_boss_list[r][1]);	
 				menu = string.gsub(menu, "#id#", kill_boss_list[r][2]);
 				show_dialog(npc, menu);
-				local xxxx="å»æ€#name#ç„¶åå‘å¤æºæ±‡æŠ¥";
+				local xxxx="È¥É±#name#È»ºóÏò¹ÅÔ´»ã±¨";
 				xxxx = string.gsub(xxxx, "#name#", kill_boss_list[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
@@ -965,17 +965,17 @@ function accept_5021(npc, id, flag)
 				menu = string.gsub(menu_5021_17, "#name#", kill_boss_list2[r][1]);	
 				menu = string.gsub(menu, "#id#", kill_boss_list2[r][2]);
 				show_dialog(npc, menu);
-				local xxxx="å»æ€#name#ç„¶åå‘å¤æºæ±‡æŠ¥";
+				local xxxx="È¥É±#name#È»ºóÏò¹ÅÔ´»ã±¨";
 				xxxx = string.gsub(xxxx, "#name#", kill_boss_list2[r][1]);	
 				v:sets("text", xxxx);
 				v:refresh(player,"text")
 			end
 			
 			v:set("state",1);
-			sys(player, 1, "æ¥å—äº†è¯¥ä»»åŠ¡");	
+			sys(player, 1, "½ÓÊÜÁË¸ÃÈÎÎñ");	
 			v:set("starttime", time());
 		
-			--ç¯å¼€å§‹æ—¶é—´è®¡æ—¶
+			--»·¿ªÊ¼Ê±¼ä¼ÆÊ±
 			local qs = v:get("finish_quests");
 			local qss = v:get("finish_rounds");
       if qs == 0 and qss == 0 then
@@ -989,14 +989,14 @@ function accept_5021(npc, id, flag)
 		end		
 		
 		
---ç¯æ•°å­˜æ¡£		
+--»·Êı´æµµ		
 		if s > 0 and flag == 99 and player.charbase.honor < 900 then
-			sys(player, 5, "è£èª‰ç‚¹æ•°ä¸å¤Ÿï¼Œå­˜æ¡£å¤±è´¥");		
+			sys(player, 5, "ÈÙÓşµãÊı²»¹»£¬´æµµÊ§°Ü");		
 			return 1;
 		end
 
 		if s > 0 and flag == 99 and player.charbase.honor >= 900 then
-			sys(player, 5, "ç¯å¼ä»»åŠ¡å­˜æ¡£æˆåŠŸ");		
+			sys(player, 5, "»·Ê½ÈÎÎñ´æµµ³É¹¦");		
 			local qs = v:get("finish_quests");
 			local qss = v:get("finish_rounds");
 			v:set("saveqs", qs);	
@@ -1013,12 +1013,12 @@ function accept_5021(npc, id, flag)
 		end
 
 
---ç¯æ•°å–æ¡£	
+--»·ÊıÈ¡µµ	
 		local savegame = v:get("savegame");
 		local saveqs = v:get("saveqs");
 		local saveqss = v:get("saveqss");
 		if savegame == 1 and flag == 100 then
-			sys(player, 5, "æˆåŠŸå–å‡ºç¯å¼ä»»åŠ¡å­˜æ¡£");		
+			sys(player, 5, "³É¹¦È¡³ö»·Ê½ÈÎÎñ´æµµ");		
 			v:set("finish_quests", saveqs);	
 			v:set("finish_rounds", saveqss);	
 			v:set("savegame", 0);
@@ -1036,9 +1036,9 @@ function accept_5021(npc, id, flag)
 			return 1;
 		end
 	
---é‡ç½®ç¯ä»»åŠ¡	
+--ÖØÖÃ»·ÈÎÎñ	
 		if flag == 94 then
-			sys(player, 5, "é‡æ–°å¼€å§‹æœ¬æ—¥ç¯å¼ä»»åŠ¡");		
+			sys(player, 5, "ÖØĞÂ¿ªÊ¼±¾ÈÕ»·Ê½ÈÎÎñ");		
 
 			v:set("finish_rounds", 0);
 			v:set("finish_quests", 0);
@@ -1061,20 +1061,20 @@ function accept_5021(npc, id, flag)
 			return 1;
 		end		
 		
---è¶…æ—¶é‡æ¥ä»»åŠ¡
+--³¬Ê±ÖØ½ÓÈÎÎñ
     if flag == 101 then 
-  	  sys(player, 5, "é‡æ¥æœ¬ä»»åŠ¡");
-    	--ç¯å¼€å§‹æ—¶é—´è®¡æ—¶
+  	  sys(player, 5, "ÖØ½Ó±¾ÈÎÎñ");
+    	--»·¿ªÊ¼Ê±¼ä¼ÆÊ±
 			v:set("starttime", time());
 			v:set("state", 2);
 			visit_5021(npc);
 			return 1;
 		end
 		
---ç»“æŸæœ¬æ—¥ä»»åŠ¡
+--½áÊø±¾ÈÕÈÎÎñ
     if flag == 102 then 
-  	  sys(player, 5, "æ‚¨ç»“æŸäº†ä»Šå¤©çš„ä»»åŠ¡ï¼Œè¯·æ˜å¤©ç»§ç»­");
-    	--ç¯å¼€å§‹æ—¶é—´è®¡æ—¶
+  	  sys(player, 5, "Äú½áÊøÁË½ñÌìµÄÈÎÎñ£¬ÇëÃ÷Ìì¼ÌĞø");
+    	--»·¿ªÊ¼Ê±¼ä¼ÆÊ±
     	
     	local uv = player:get_uservar(98);
 				if not todayend then 	
@@ -1094,7 +1094,7 @@ end
 function state_5021(npc)
 	player = me();
 		if not player then return 0; end
-		--print("40~50ç­‰çº§åˆ¤æ–­1");
+		--print("40~50µÈ¼¶ÅĞ¶Ï1");
 		if player.charbase.level < 80 or player.charbase.level >= 90 then
 			return 0;
 		end

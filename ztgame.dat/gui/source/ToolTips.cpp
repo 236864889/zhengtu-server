@@ -79,6 +79,24 @@ void CToolTips::st6TipImageCell::Render(int x,int y)
 	image.Render(x+3,y);
 }
 
+//by=>friday 支持Y轴偏移的龙槽渲染
+void CToolTips::st4TipImageCellOffset::Render(int x,int y)
+{
+	image.Render(x-5, y + yOffset); // 支持Y轴偏移
+}
+
+//by=>friday 支持Y轴偏移的星星渲染
+void CToolTips::st6TipImageCellOffset::Render(int x,int y)
+{
+	image.Render(x+3, y + yOffset); // 支持Y轴偏移，与st6TipImageCell保持一致的x+3偏移
+}
+
+//by=>friday 支持Y轴偏移的普通图片渲染
+void CToolTips::stTipImageCellOffset::Render(int x,int y)
+{
+	image.Render(x, y + yOffset); // 支持Y轴偏移，与stTipImageCell保持一致的x偏移
+}
+
 //角色套装界面线条调整
 void CToolTips::st10TipImageCell::Render(int x,int y)
 {
@@ -341,7 +359,8 @@ const char* str_split_begin1(const char *pszSrc, char *pszDest,int nLineLen)
  * \param iFont : 描述
  * \return 返回值的描述
  */
-void CToolTips::AddText(const char* pszText,int iFont)
+//by=>friday 添加动态宽度参数，支持根据需要调整tooltip宽度
+void CToolTips::AddText(const char* pszText,int iFont, int maxWidth)
 {
 	size_t icharnum = 0;
 	stTipLine* pLine = NULL;
@@ -352,7 +371,6 @@ void CToolTips::AddText(const char* pszText,int iFont)
 	}
 	pLine = m_lines.back();
 
-	const int maxWidth=40;
 	const int iFontWidth = 6;
 	//*
 	SetFrameAllocator fa;
@@ -387,7 +405,8 @@ void CToolTips::AddText(const char* pszText,int iFont)
 }
 
 
-void CToolTips::AddText1(const char* pszText,int iFont)
+//by=>friday 添加动态宽度参数，支持根据需要调整tooltip宽度
+void CToolTips::AddText1(const char* pszText,int iFont, int maxWidth)
 {
 	size_t icharnum = 0;
 	stTipLine* pLine = NULL;
@@ -398,7 +417,6 @@ void CToolTips::AddText1(const char* pszText,int iFont)
 	}
 	pLine = m_lines.back();
 
-	const int maxWidth=40;
 	const int iFontWidth = 6;
 	//*
 	SetFrameAllocator fa;
@@ -432,7 +450,8 @@ void CToolTips::AddText1(const char* pszText,int iFont)
 	//*/
 }
 
-void CToolTips::AddText2(const char* pszText,int iFont)
+//by=>friday 添加动态宽度参数，支持根据需要调整tooltip宽度
+void CToolTips::AddText2(const char* pszText,int iFont, int maxWidth)
 {
 	size_t icharnum = 0;
 	stTipLine* pLine = NULL;
@@ -443,7 +462,6 @@ void CToolTips::AddText2(const char* pszText,int iFont)
 	}
 	pLine = m_lines.back();
 
-	const int maxWidth=40;
 	const int iFontWidth = 6;
 	//*
 	SetFrameAllocator fa;
@@ -478,8 +496,8 @@ void CToolTips::AddText2(const char* pszText,int iFont)
 }
 
 
-//桃子新增框
-void CToolTips::AddText3(const char* pszText,int iFont)
+//桃子新增框 //by=>friday 添加动态宽度参数，支持根据需要调整tooltip宽度
+void CToolTips::AddText3(const char* pszText,int iFont, int maxWidth)
 {
 	size_t icharnum = 0;
 	stTipLine* pLine = NULL;
@@ -490,7 +508,6 @@ void CToolTips::AddText3(const char* pszText,int iFont)
 	}
 	pLine = m_lines.back();
 
-	const int maxWidth=40;
 	const int iFontWidth = 6;
 	//*
 	SetFrameAllocator fa;
@@ -542,6 +559,17 @@ void CToolTips::AddAnimation(const stResourceLocation *rl,bool bNextLine)
 	}
 	stTipLine* pLine = m_lines.back();
 	pLine->AddAnimation(rl);
+}
+
+//by=>friday 支持Y轴偏移的普通图片显示
+void CToolTips::AddAnimation_new(const stResourceLocation *rl, bool bNextLine, int yOffset)
+{
+	if(bNextLine || m_lines.empty())
+	{
+		m_lines.push_back(new stTipLine);
+	}
+	stTipLine* pLine = m_lines.back();
+	pLine->AddAnimation_new(rl, yOffset);
 }
 void CToolTips::AddAnimations(const stResourceLocation *rl,int x,int y,int xs,int ys)
 {
@@ -652,6 +680,28 @@ void CToolTips::AddAnimation6(const stResourceLocation *rl,bool bNextLine)
 	pLine->AddAnimation6(rl);
 }
 
+//by=>friday 支持Y轴偏移的龙槽显示
+void CToolTips::AddAnimation4_new(const stResourceLocation *rl, bool bNextLine, int yOffset)
+{
+	if(bNextLine || m_lines.empty())
+	{
+		m_lines.push_back(new stTipLine);
+	}
+	stTipLine* pLine = m_lines.back();
+	pLine->AddAnimation4_new(rl, yOffset);
+}
+
+//by=>friday 支持Y轴偏移的星星显示
+void CToolTips::AddAnimation6_new(const stResourceLocation *rl, bool bNextLine, int yOffset)
+{
+	if(bNextLine || m_lines.empty())
+	{
+		m_lines.push_back(new stTipLine);
+	}
+	stTipLine* pLine = m_lines.back();
+	pLine->AddAnimation6_new(rl, yOffset);
+}
+
 //ZM 装备套装效果 线条高度 宽度
 void CToolTips::AddAnimation10(const stResourceLocation *rl,bool bNextLine)
 {
@@ -732,7 +782,29 @@ void CToolTips::RenderTopLeftPrefer( stRectI rcBBox, int devWidth, int devHeight
 		GetGuiManager()->SetToolTips( this, stPointI(x,y) );
 }
 
+// 新增方法：RenderTopLeftPreferDirect - 使用m_ToolTips的位置进行固定渲染 //by=>friday
+void CToolTips::RenderTopLeftPreferDirect( stRectI rcBBox, int devWidth, int devHeight )
+{
+    // 获取m_ToolTips当前的渲染位置，如果GuiManager中有ToolTips的话 //by=>friday
+    CToolTips* pMainToolTips = GetGuiManager()->GetToolTips();
+    int renderX, renderY;
 
+    if (pMainToolTips != NULL) {
+        // 使用主ToolTips的位置作为基准 //by=>friday
+        renderX = pMainToolTips->x;
+        renderY = pMainToolTips->y;
+
+        // 可以在这里添加偏移量，比如显示在主Tips右侧 //by=>friday
+        renderX += pMainToolTips->GetWidth() + 3; // 右侧偏移10像素
+    } else {
+        // 如果没有主ToolTips，则使用默认位置 //by=>friday
+        renderX = rcBBox.right + 3;
+        renderY = rcBBox.top;
+    }
+
+    // 直接渲染到指定位置，不做边界检测 //by=>friday
+    Render( renderX, renderY );
+}
 
 /**
  * \brief 简短描述

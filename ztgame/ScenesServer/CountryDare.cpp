@@ -21,11 +21,11 @@ void CountryDareM::timer()
 {
 	for (unsigned int i=0; i<dares.size(); i++)
 	{
-		int time_diff = labs((long)(SceneTimeTick::currentTime.sec())-(long)(dares[i].last_attack_time));
-		int king_time_diff = labs((long)(SceneTimeTick::currentTime.sec())-(long)(dares[i].last_king_attack_time));
+		int time_diff = abs(SceneTimeTick::currentTime.sec() - dares[i].last_attack_time);
+		int king_time_diff = abs(SceneTimeTick::currentTime.sec() - dares[i].last_king_attack_time);
 
-		int gen_time_diff = labs((long)(SceneTimeTick::currentTime.sec())-(long)(dares[i].last_gen_attack_time));
-		int gen_att_time_diff  = labs((long)(SceneTimeTick::currentTime.sec())-(long)(dares[i].last_att_gen_attack_time));
+		int gen_time_diff = abs(SceneTimeTick::currentTime.sec() - dares[i].last_gen_attack_time);
+		int gen_att_time_diff  = abs(SceneTimeTick::currentTime.sec() - dares[i].last_att_gen_attack_time);
 		
 		if (dares[i].last_attack_time!=0 && time_diff < 120)
 		{

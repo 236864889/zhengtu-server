@@ -48,6 +48,8 @@ zDataBM<zHeadListB , HeadList> &headlistbm = zDataBM<zHeadListB , HeadList>::get
 zDataBM<zPetB , PetBase> &petbm = zDataBM<zPetB , PetBase>::getMe();
 //百兽图鉴进阶
 zDataBM<zUhandbookObjectB,UhandbookObjectBase> &uhandbookobjectbm=zDataBM<zUhandbookObjectB,UhandbookObjectBase>::getMe();
+//by=>friday 孩子装备升级
+zDataBM<zBabyEquipUpgradeB,BabyEquipUpgradeBase> &babyequipupgradebm=zDataBM<zBabyEquipUpgradeB,BabyEquipUpgradeBase>::getMe();
 
 zDataBM<zUlongwanglvObjectB,UlongwanglvObjectBase> &ulongwanglvobjectbm=zDataBM<zUlongwanglvObjectB,UlongwanglvObjectBase>::getMe();
 zDataBM<zUnitianlvObjectB,UnitianlvObjectBase> &unitianlvobjectbm=zDataBM<zUnitianlvObjectB,UnitianlvObjectBase>::getMe();
@@ -69,12 +71,18 @@ zDataBM<zUjgzclObjectB,UjgzclObjectBase> &ujgzclobjectbm=zDataBM<zUjgzclObjectB,
 zDataBM<zUhbslObjectB,UhbslObjectBase> &uhbslobjectbm=zDataBM<zUhbslObjectB,UhbslObjectBase>::getMe();  //寒冰神炼
 zDataBM<zUhbzwObjectB,UhbzwObjectBase> &uhbzwobjectbm=zDataBM<zUhbzwObjectB,UhbzwObjectBase>::getMe();  //寒冰字纹
 zDataBM<zUhbwzObjectB,UhbwzObjectBase> &uhbwzobjectbm=zDataBM<zUhbwzObjectB,UhbwzObjectBase>::getMe();  //寒冰纹章
+
+//by=>friday 定情信物相关功能
+zDataBM<zUdqxwjjObjectB,UdqxwjjObjectBase> &udqxwjjobjectbm=zDataBM<zUdqxwjjObjectB,UdqxwjjObjectBase>::getMe();  //定情信物进阶
+zDataBM<zUdqxwxqObjectB,UdqxwxqObjectBase> &udqxwxqobjectbm=zDataBM<zUdqxwxqObjectB,UdqxwxqObjectBase>::getMe();  //定情信物镶嵌
+zDataBM<zUqytsObjectB,UqytsObjectBase> &uqytsobjectbm=zDataBM<zUqytsObjectB,UqytsObjectBase>::getMe();  //情谊提升
+zDataBM<zUxytsObjectB,UxytsObjectBase> &uxytsobjectbm=zDataBM<zUxytsObjectB,UxytsObjectBase>::getMe();  //心意提升
 bool loadAllBM()
 {
 	//Zebra::logger->debug("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
 	//基本表
-	if(!npcbm.refresh((Zebra::global["tbldir"] + "/NpcBase_New.tbl").c_str())) return false;
+	if(!npcbm.refresh((Zebra::global["tbldir"] + "/NpcBase.tbl").c_str())) return false;
 	if(!objectbm.refresh((Zebra::global["tbldir"] + "/ObjectBase.tbl").c_str())) return false;
 	if(!fivesetbm.refresh((Zebra::global["tbldir"] + "/FiveSetBase.tbl").c_str())) return false; 
 	if(!setobjectbm.refresh((Zebra::global["tbldir"] + "/SetObjectBase.tbl").c_str())) return false;	
@@ -156,10 +164,22 @@ bool loadAllBM()
 	
 	//if(!characterbm.refresh((Zebra::global["tbldir"] + "/CharacterBase.tbl").c_str())) return false;
 	//characterbm.listAll();
-	
 
-
+	//孩子装备升级表
+	if(!babyequipupgradebm.refresh((Zebra::global["tbldir"] + "/BabyEquipUpgradeBase.tbl").c_str())) return false; //孩子装备升级
+			
+	//by=>friday 定情信物相关功能表
+	if(!udqxwjjobjectbm.refresh((Zebra::global["tbldir"] + "/OBjectdqxwjj.tbl").c_str())) return false;  //定情信物进阶
+	if(!udqxwxqobjectbm.refresh((Zebra::global["tbldir"] + "/OBjectdqxwxq.tbl").c_str())) return false;  //定情信物镶嵌
+	if(!uqytsobjectbm.refresh((Zebra::global["tbldir"] + "/OBjectqyts.tbl").c_str())) return false;  //情谊提升
+	if(!uxytsobjectbm.refresh((Zebra::global["tbldir"] + "/OBjectxyts.tbl").c_str())) return false;  //心意提升
 		
+
+	//装备升星基本表
+	if(!upgradeobjectbm.refresh((Zebra::global["tbldir"] + "/UpgradeObjectBase.tbl").c_str())) return false;
+	if(!upgradeobject2bm.refresh((Zebra::global["tbldir"] + "/UpgradeObjectBase.tbl").c_str())) return false;
+	if(!upgradepurplebm.refresh((Zebra::global["tbldir"] + "/UpgradePurpleBase.tbl").c_str())) return false;
+
 	return true;
 
 }
@@ -170,7 +190,7 @@ bool loadAllBM2()
 	//Zebra::logger->debug("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 
 	//基本表
-	if(!npcbm.refresh((Zebra::global["tbldir"] + "/NpcBase_New.tbl").c_str())) return false;
+	if(!npcbm.refresh((Zebra::global["tbldir"] + "/NpcBase.tbl").c_str())) return false;
 	if(!objectbm.refresh((Zebra::global["tbldir"] + "/ObjectBase.tbl").c_str())) return false;
 	if(!fivesetbm.refresh((Zebra::global["tbldir"] + "/FiveSetBase.tbl").c_str())) return false; 
 	if(!setobjectbm.refresh((Zebra::global["tbldir"] + "/SetObjectBase.tbl").c_str())) return false;	
@@ -187,13 +207,7 @@ bool loadAllBM2()
 	if(!zhuangoldobjectbm.refresh((Zebra::global["tbldir"] + "/ZhuanGoldObjectBase.tbl").c_str())) return false;
 
 
-	//装备升星基本表
-	if(!upgradeobjectbm.refresh((Zebra::global["tbldir"] + "/UpgradeObjectBase.tbl").c_str())) return false;
-	if(!upgradeobject2bm.refresh((Zebra::global["tbldir"] + "/UpgradeObjectBase.tbl").c_str())) return false;
-	if(!upgradepurplebm.refresh((Zebra::global["tbldir"] + "/UpgradePurpleBase.tbl").c_str())) return false;
 	
-	
-		
 	return true;
 
 }

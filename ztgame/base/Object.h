@@ -449,6 +449,11 @@ typedef struct _Object
 	DWORD pdefence;			// 物防
 	DWORD mdefence;			// 魔防
 
+	DWORD juejiattack;			// 绝技攻击 //by=>friday
+	DWORD juejidefence;			// 绝技防御 //by=>friday
+	DWORD qiegeattack;			// 切割攻击 //by=>friday
+	DWORD qiegedefence;			// 切割防御 //by=>friday
+
 	DWORD m1axhp;			//sky 绿装升星 最大生命值
 	DWORD p1damage;			//sky 绿装升星 最小攻击力
 	DWORD m1axpdamage;		//sky 绿装升星 最大攻击力
@@ -1509,17 +1514,27 @@ typedef struct _Object
 
 	DWORD color;				// 颜色	
 
-	WORD str;  // 力量
-	WORD inte;  // 智力
-	WORD dex;  // 敏捷
-	WORD spi;  // 精神
-	WORD con;  // 体质
+	DWORD str;  // 力量 //by=>friday
+	DWORD inte;  // 智力 //by=>friday
+	DWORD dex;  // 敏捷 //by=>friday
+	DWORD spi;  // 精神 //by=>friday
+	DWORD con;  // 体质 //by=>friday
 
-	WORD xstr;  // 力量-魂魄
-	WORD xinte; // 智力-魂魄
-	WORD xdex;  // 敏捷-魂魄
-	WORD xspi;  // 精神-魂魄
-	WORD xcon;  // 体质-魂魄
+	DWORD xstr;  // 力量-魂魄 //by=>friday
+	DWORD xinte; // 智力-魂魄 //by=>friday
+	DWORD xdex;  // 敏捷-魂魄 //by=>friday
+	DWORD xspi;  // 精神-魂魄 //by=>friday
+	DWORD xcon;  // 体质-魂魄 //by=>friday
+	
+	// 绝技攻防系列 //by=>friday
+	DWORD jj26_attack;    // 定情信物镶嵌绝技攻击 //by=>friday
+	DWORD jj26_defence;   // 定情信物镶嵌绝技防御 //by=>friday
+	DWORD jj27_attack;    // 心意提升绝技攻击 //by=>friday
+	DWORD jj27_defence;   // 心意提升绝技防御 //by=>friday
+	DWORD jj28_attack;    // 情谊提升绝技攻击 //by=>friday
+	DWORD jj28_defence;   // 情谊提升绝技防御 //by=>friday
+	DWORD jj29_attack;    // 定情信物进阶绝技攻击 //by=>friday
+	DWORD jj29_defence;   // 定情信物进阶绝技防御 //by=>friday
 	
 	WORD fivetype;  // 五行属性
 	WORD fivepoint; // 五行属性

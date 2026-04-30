@@ -323,7 +323,7 @@ BYTE SkillStatus_7(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(0.5f*pUser->charstate.wdMen);
+			value= (DWORD)(0.5f*pUser->charstate.wdMen);
 		}
 	}
 
@@ -379,7 +379,7 @@ BYTE SkillStatus_8(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					SDWORD value = (SDWORD)(pEntry->getMaxMP()*(sse.value/100.0f));
+					uint64_t value = (uint64_t)(pEntry->getMaxMP()*(sse.value/100.0f)); //by=>friday ÐÞ¸´MP¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 					pEntry->changeMP(value);
 					return SKILL_RECOVERY;
 				}
@@ -389,7 +389,7 @@ BYTE SkillStatus_8(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				SDWORD value = (SDWORD)(pEntry->getMaxMP()*(sse.value/100.0f));
+				uint64_t value = (uint64_t)(pEntry->getMaxMP()*(sse.value/100.0f)); //by=>friday ÐÞ¸´MP¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 				pEntry->changeMP(value);
 				return SKILL_RETURN;
 			}
@@ -417,14 +417,14 @@ BYTE SkillStatus_9(SceneEntryPk *pEntry, SkillStatusElement &sse)
 	sse.byGoodnessType = SKILL_BAD;
 	sse.byMutexType = 5;
 
-	WORD value=0;
+	DWORD value=0;
 	if (sse.attacktype == zSceneEntry::SceneEntry_Player)
 	{
 		SceneUser *pUser = NULL;
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(1*pUser->charstate.wdMen);
+			value= (DWORD)(1*pUser->charstate.wdMen);
 		}
 	}
 
@@ -530,7 +530,7 @@ BYTE SkillStatus_10(SceneEntryPk *pEntry, SkillStatusElement &sse)
 
 				if (pAtt)
 				{
-					SDWORD value = (SDWORD)(pEntry->getMaxHP()*(sse.value/100.0f));
+					uint64_t value = (uint64_t)(pEntry->getMaxHP()*(sse.value/100.0f)); //by=>friday ÐÞ¸´¼¼ÄÜÉËº¦¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 					pEntry->directDamage(pAtt, value, true);
 					pEntry->processDeath(pAtt);
 				}
@@ -795,7 +795,7 @@ BYTE SkillStatus_16(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(0.1f*pUser->charstate.wdMen);
+			value= (DWORD)(0.1f*pUser->charstate.wdMen);
 		//	value= (WORD)(0.1f*pUser->charstate.movespeed); //soke ÐÞ¸ÄÒÆ¶¯ËÙ¶È
 		}
 	}
@@ -1355,7 +1355,7 @@ BYTE SkillStatus_28(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxhp = (SWORD)(pEntry->getBaseMaxHP()*(sse.value/100.0f));
+				pEntry->skillValue.maxhp = (uint64_t)(pEntry->getBaseMaxHP()*(sse.value/100.0f)); //by=>friday ÐÞ¸´¼¼ÄÜHP¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1392,7 +1392,7 @@ BYTE SkillStatus_29(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxmp = (SWORD)(pEntry->getBaseMaxMP()+sse.value);
+				pEntry->skillValue.maxmp = (uint64_t)(pEntry->getBaseMaxMP()+sse.value); //by=>friday ÐÞ¸´¼¼ÄÜMP¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1428,7 +1428,7 @@ BYTE SkillStatus_30(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxmp = (SWORD)(pEntry->getBaseMaxMP()*(sse.value/100.0f));
+				pEntry->skillValue.maxmp = (uint64_t)(pEntry->getBaseMaxMP()*(sse.value/100.0f)); //by=>friday ÐÞ¸´¼¼ÄÜMP¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1811,7 +1811,7 @@ BYTE SkillStatus_39(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(0.000001f*pUser->charstate.wdMen);
+			value= (DWORD)(0.000001f*pUser->charstate.wdMen);
 		}
 	}
 	value +=sse.value;
@@ -1825,7 +1825,7 @@ BYTE SkillStatus_39(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->changeHP((SDWORD)(pEntry->getMaxHP()*(value/100.0f)));
+					pEntry->changeHP((uint64_t)(pEntry->getMaxHP()*(value/100.0f))); //by=>friday ÐÞ¸´¼¼ÄÜ»ØÑª¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 					return SKILL_ACTIVE;
 				}
 				else
@@ -1834,7 +1834,7 @@ BYTE SkillStatus_39(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->changeHP((SDWORD)(pEntry->getMaxHP()*(value/100.0f)));
+				pEntry->changeHP((uint64_t)(pEntry->getMaxHP()*(value/100.0f))); //by=>friday ÐÞ¸´¼¼ÄÜ»ØÑª¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 				return SKILL_RETURN;
 			}
 			break;
@@ -1913,7 +1913,7 @@ BYTE SkillStatus_41(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->changeMP((SDWORD)(pEntry->getMaxMP()*(sse.value/100.0f)));
+					pEntry->changeMP((uint64_t)(pEntry->getMaxMP()*(sse.value/100.0f))); //by=>friday ÐÞ¸´MP¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 					return SKILL_ACTIVE;
 				}
 				else
@@ -1922,7 +1922,7 @@ BYTE SkillStatus_41(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->changeMP((SDWORD)(pEntry->getMaxMP()*(sse.value/100.0f)));
+				pEntry->changeMP((uint64_t)(pEntry->getMaxMP()*(sse.value/100.0f))); //by=>friday ÐÞ¸´MP¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 				return SKILL_RETURN;
 			}
 			break;
@@ -2771,14 +2771,14 @@ BYTE SkillStatus_57(SceneEntryPk *pEntry, SkillStatusElement &sse)
 	sse.byMutexType = 40;
 	pEntry->reSendData = true;
 
-	WORD value=0;
+	DWORD value=0;
 	if (sse.attacktype == zSceneEntry::SceneEntry_Player)
 	{
 		SceneUser *pUser = NULL;
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(0.3f*pUser->charstate.wdMen);
+			value= (DWORD)(0.3f*pUser->charstate.wdMen);
 		}
 	}
 
@@ -2828,14 +2828,14 @@ BYTE SkillStatus_58(SceneEntryPk *pEntry, SkillStatusElement &sse)
 	sse.byMutexType = 40;
 	pEntry->reSendData = true;
 
-	WORD value=0;
+	DWORD value=0;
 	if (sse.attacktype == zSceneEntry::SceneEntry_Player)
 	{
 		SceneUser *pUser = NULL;
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(0.04f*pUser->charstate.wdMen);
+			value= (DWORD)(0.04f*pUser->charstate.wdMen);
 		}
 	}
 	value+=sse.value;
@@ -2887,14 +2887,14 @@ BYTE SkillStatus_59(SceneEntryPk *pEntry, SkillStatusElement &sse)
 	sse.byMutexType = 41;
 	pEntry->reSendData = true;
 
-	WORD value=0;
+	DWORD value=0;
 	if (sse.attacktype == zSceneEntry::SceneEntry_Player)
 	{
 		SceneUser *pUser = NULL;
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(0.3f*pUser->charstate.wdMen);
+			value= (DWORD)(0.3f*pUser->charstate.wdMen);
 		}
 	}
 
@@ -2944,14 +2944,14 @@ BYTE SkillStatus_60(SceneEntryPk *pEntry, SkillStatusElement &sse)
 	sse.byMutexType = 41;
 	pEntry->reSendData = true;
 
-	WORD value=0;
+	DWORD value=0;
 	if (sse.attacktype == zSceneEntry::SceneEntry_Player)
 	{
 		SceneUser *pUser = NULL;
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(0.04f*pUser->charstate.wdMen);
+			value= (DWORD)(0.04f*pUser->charstate.wdMen);
 		}
 	}
 	value+=sse.value;
@@ -4196,14 +4196,14 @@ BYTE SkillStatus_90(SceneEntryPk *pEntry, SkillStatusElement &sse)
 	sse.byMutexType = 56;
 	pEntry->reSendData = true;
 
-	WORD value=0;
+	DWORD value=0;
 	if (sse.attacktype == zSceneEntry::SceneEntry_Player)
 	{
 		SceneUser *pUser = NULL;
 		pUser = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
 		if (pUser)
 		{
-			value= (WORD)(0.02f*pUser->charstate.wdMen);
+			value= (DWORD)(0.02f*pUser->charstate.wdMen);
 		}
 	}
 	value+=sse.value;
@@ -6821,7 +6821,7 @@ BYTE SkillStatus_161(SceneEntryPk *pEntry, SkillStatusElement &sse)
 							break;
 					}
 					if (!pAtt) return SKILL_RETURN;
-					pEntry->skillValue.appenddam += (SWORD)(pAtt->getMaxHP()*(sse.value/100.0f));
+					pEntry->skillValue.appenddam += (uint64_t)(pAtt->getMaxHP()*(sse.value/100.0f)); //by=>friday ÐÞ¸´¼¼ÄÜÉËº¦¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 					return SKILL_ACTIVE;
 				}
 				else
@@ -7197,13 +7197,13 @@ BYTE SkillStatus_173(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if (pEntry->summon && ((pEntry->summon->id >= (DWORD)sse.percent)&&(pEntry->summon->id < (DWORD)sse.percent+10)))
 				{
-					pEntry->skillValue.introject_maxmdam = (DWORD)(pEntry->summon->getMaxMDamage()*sse.value/100.0f); // ÕÙ»½ºÏÌåÔö¼ÓÄ§·¨¹¥»÷
-					pEntry->skillValue.introject_maxpdam = (DWORD)(pEntry->summon->getMaxPDamage()*sse.value/100.0f); // ÕÙ»½ºÏÌåÔö¼ÓÎïÀí¹¥»÷
-					pEntry->skillValue.introject_mdam	 = (DWORD)(pEntry->summon->getMinMDamage()*sse.value/100.0f); // ÕÙ»½ºÏÌåÔö¼ÓÄ§·¨¹¥»÷
-					pEntry->skillValue.introject_pdam	 = (DWORD)(pEntry->summon->getMinPDamage()*sse.value/100.0f); // ÕÙ»½ºÏÌåÔö¼ÓÎïÀí¹¥»÷
-					pEntry->skillValue.introject_mdef	 = (DWORD)((pEntry->summon->getMaxMDefence()*sse.value/100.0f)*0.5f); // ÕÙ»½ºÏÌåÔö¼ÓÄ§·¨·ÀÓù
-					pEntry->skillValue.introject_pdef	 = (DWORD)((pEntry->summon->getMaxPDefence()*sse.value/100.0f)*0.5f); // ÕÙ»½ºÏÌåÔö¼ÓÎïÀí·ÀÓù
-					pEntry->skillValue.introject_maxhp	 = (DWORD)((pEntry->summon->getMaxHP()*sse.value/100.0f)); // ÕÙ»½ºÏÌåÔö¼ÓÎïÀí·ÀÓù
+					pEntry->skillValue.introject_maxmdam = (uint64_t)(pEntry->summon->getMaxMDamage()*sse.value/100.0f); // ÕÙ»½ºÏÌåÔö¼ÓÄ§·¨¹¥»÷
+					pEntry->skillValue.introject_maxpdam = (uint64_t)(pEntry->summon->getMaxPDamage()*sse.value/100.0f); // ÕÙ»½ºÏÌåÔö¼ÓÎïÀí¹¥»÷
+					pEntry->skillValue.introject_mdam	 = (uint64_t)(pEntry->summon->getMinMDamage()*sse.value/100.0f); // ÕÙ»½ºÏÌåÔö¼ÓÄ§·¨¹¥»÷
+					pEntry->skillValue.introject_pdam	 = (uint64_t)(pEntry->summon->getMinPDamage()*sse.value/100.0f); // ÕÙ»½ºÏÌåÔö¼ÓÎïÀí¹¥»÷
+					pEntry->skillValue.introject_mdef	 = (uint64_t)((pEntry->summon->getMaxMDefence()*sse.value/100.0f)*0.5f); // ÕÙ»½ºÏÌåÔö¼ÓÄ§·¨·ÀÓù
+					pEntry->skillValue.introject_pdef	 = (uint64_t)((pEntry->summon->getMaxPDefence()*sse.value/100.0f)*0.5f); // ÕÙ»½ºÏÌåÔö¼ÓÎïÀí·ÀÓù
+					pEntry->skillValue.introject_maxhp	 = (uint64_t)((pEntry->summon->getMaxHP()*sse.value/100.0f)); // ÕÙ»½ºÏÌåÔö¼ÓÎïÀí·ÀÓù //by=>friday ÐÞ¸´¼¼ÄÜÉËº¦¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 					pEntry->killSummon();
 					if (pEntry->getType() == zSceneEntry::SceneEntry_Player)
 					{
@@ -7826,7 +7826,7 @@ BYTE SkillStatus_189(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.pdeftodam = (DWORD)(SKPDefence *(cevalue/100.0f));
+					pEntry->skillValue.pdeftodam = (uint64_t)(SKPDefence *(cevalue/100.0f)); //by=>friday ÐÞ¸´·ÀÓùÁ¦×ª¹¥»÷Á¦¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 					//Zebra::logger->debug("SkillStatus_189×´Ì¬¶ÔÏó½ÇÉ«[%s] ×´Ì¬×ÜÊýÖµ: %d [»ñÈ¡µ±Ç°ÎïÀí·ÀÓù:%d °Ù·Ö±ÈÊýÖµ:%d]",pEntry->name,pEntry->skillValue.pdeftodam,SKPDefence,cevalue);
 					return SKILL_RECOVERY;
 				
@@ -7883,7 +7883,7 @@ BYTE SkillStatus_190(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 	            if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.mdeftodam = (DWORD)(SKMDefence *(cevalue/100.0f));
+					pEntry->skillValue.mdeftodam = (uint64_t)(SKMDefence *(cevalue/100.0f)); //by=>friday ÐÞ¸´·ÀÓùÁ¦×ª¹¥»÷Á¦¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 					//Zebra::logger->debug("SkillStatus_190×´Ì¬¶ÔÏó½ÇÉ«[%s] [1]×´Ì¬×ÜÊýÖµ: %d [»ñÈ¡µ±Ç°Ä§·¨·ÀÓù:%d °Ù·Ö±ÈÊýÖµ:%d]",pEntry->name,pEntry->skillValue.mdeftodam,SKMDefence,cevalue);
 					return SKILL_RECOVERY;
 					
@@ -11333,7 +11333,7 @@ BYTE SkillStatus_263(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.protectdam = (WORD)(pEntry->getMaxHP()*(sse.percent/100.0f));
+				pEntry->skillValue.protectdam = (uint64_t)(pEntry->getMaxHP()*(sse.percent/100.0f)); //by=>friday ÐÞ¸´¼¼ÄÜÉËº¦¼ÆËã£¬Ê¹ÓÃ64Î»ÎÞ·ûºÅÀàÐÍ·ÀÖ¹Òç³ö
 				pEntry->skillValue.protectUpAtt = sse.value;
 				return SKILL_ACTIVE;
 			}
@@ -17629,11 +17629,6 @@ void SkillStatusManager::clearActiveSkillStatus()
 void SkillStatusManager::clearActiveSkillStatusOnlyUseToStatus48()
 {
 	std::map<DWORD, SkillStatusElement>::iterator tIterator, delIterator;
-	// æ·»åŠ NULLæ£€æŸ¥
-	if (!this || !entry) {
-		return;
-	}
-
 
 	for(tIterator = _activeElement.begin() ; tIterator !=_activeElement.end() ; )
 	{

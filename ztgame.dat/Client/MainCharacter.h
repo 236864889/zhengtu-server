@@ -486,10 +486,11 @@ public:
 
 	bool AttackAttackingNpc();
 
-    size_t GetZhan1(){ return m_data.maxpdamage; }
+    	size_t GetZhan1(){ return m_data.maxpdamage; }
 	size_t GetZhan2(){ return m_data.maxmdamage; }
 	size_t GetZhan3(){ return m_data.pdefence; }
 	size_t GetZhan4(){ return m_data.mdefence; }
+	uint64_t GetZhanli(){ return m_data.zhanli; } //by=>friday 获取战力
 	size_t GetCharvip(){ return m_data.charvip; } //vip点数
 	size_t GetChangejob(){ return m_data.changejob; }
 	size_t GetHonor(){ return m_data.honor; }
@@ -501,8 +502,8 @@ public:
 	size_t GetRound(){ return m_data.round; }
 	size_t GetSP() { return m_data.sp;}			// 当前体力值
 	size_t GetMaxSP(){ return m_data.maxsp;}	// 最大体力值
-	size_t GetMP() { return m_data.mp;}
-	size_t GetMaxMP(){ return m_data.maxmp;}
+	unsigned __int64 GetMP() { return m_data.mp;}
+	unsigned __int64 GetMaxMP(){ return m_data.maxmp;}
 	uint64_t GetExp() { return m_data.exp;} //sky
 	uint64_t GetNextexp() { return m_data.nextexp;} //sky
 	WORD GetTire() { return m_data.wdTire; }
@@ -512,7 +513,7 @@ public:
 
 	void OnNpcDeath(CNpc* pNpc);
 
-	void SetHPAndMP(unsigned int nHP,unsigned int nMP,unsigned int nSP);
+	void SetHPAndMP(uint64_t nHP,uint64_t nMP,unsigned int nSP);
 	bool CanAttackCharacter(CCharacter* pChar);
 	bool CanAttackNpc(CNpc* pNpc);
 

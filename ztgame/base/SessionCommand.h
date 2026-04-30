@@ -193,6 +193,7 @@ namespace Cmd
 	    const BYTE GM_COMMAND_LOADGIFTBOX = 22; // 刷新箱子配置
         const BYTE GM_COMMAND_LOAD_FUBEN_CONFIG = 23; // 刷新副本配置
 		const BYTE GM_COMMAND_LOADTBL2 = 24;		 //soke 重新加载TBL文件2
+		const BYTE GM_COMMAND_LOADPEIZHI = 25;		 //soke 重新加载配置文件
 
 		const BYTE GM_COMMAND_STATE_REQ = 1;  //指令状态req表示请求
 		const BYTE GM_COMMAND_STATE_RET = 2;  //指令状态ret表示返回结果

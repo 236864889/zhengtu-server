@@ -49,7 +49,7 @@ struct t_PetState
 
 struct t_expRec
 {
-	DWORD wdHP;
+	uint64_t wdHP; //by=>friday 修改为支持64位无符号伤害
 	zTime  attack_time;
 
 	t_expRec()
@@ -139,10 +139,10 @@ class SceneNpc : public SceneEntryPk, public zAStar<>, public zAStar<2>
 	 * \brief npc当前生命值
 	 *
 	 */
-	DWORD hp;
+	uint64_t hp;
 
 	///上次发送时的hp
-	DWORD lasthp;
+	uint64_t lasthp;
 
 	///回血标记
 	bool needRecover;
@@ -228,7 +228,7 @@ class SceneNpc : public SceneEntryPk, public zAStar<>, public zAStar<2>
 	bool canBeAttack();
 	void death(const zRTime &ct);
 	void backoff(const int direct, const int step);
-	void reduceHP(SceneUser *pAtt, DWORD wdHP);
+	void reduceHP(SceneUser *pAtt, uint64_t wdHP); //by=>friday 修改为支持64位无符号伤害
 	void distributeExp();
 	void distributeMoney(DWORD money);
 	void clearStateToNine(WORD state);
@@ -241,10 +241,10 @@ class SceneNpc : public SceneEntryPk, public zAStar<>, public zAStar<2>
 
 	DWORD catchme; ///吸引怪物攻击自己
 	int boostupPet; /// 增强比例
-	DWORD boostupPetMDef; //增强宠物的法术防御
-	DWORD boostupSummon; ///召唤兽攻击加强
-	DWORD boostupHpMaxP;  ///增加生命值上限
-	DWORD dwReduceDam;  /// 召唤兽伤害扣减
+	uint64_t boostupPetMDef; //增强宠物的法术防御
+	uint64_t boostupSummon; ///召唤兽攻击加强
+	uint64_t boostupHpMaxP;  ///增加生命值上限
+	uint64_t dwReduceDam;  /// 召唤兽伤害扣减
 	DWORD giddy;   ///攻击的时候使对方眩晕的几率
 
 	BYTE notifystep; //绿BOSS通知步骤
@@ -301,7 +301,7 @@ class SceneNpc : public SceneEntryPk, public zAStar<>, public zAStar<2>
 	 * \author fqnewman
 	 */
 	//soke 属性突破 伤害越界（打怪掉血）
-	SQWORD directDamage(SceneEntryPk *pAtt, const SDWORD &dam, bool notify=false);
+	uint64_t directDamage(SceneEntryPk *pAtt, const uint64_t &dam, bool notify=false); //by=>friday 修改为支持64位无符号伤害
 
 	/**
 	 * \brief 改变角色的sp
@@ -602,17 +602,17 @@ class SceneNpc : public SceneEntryPk, public zAStar<>, public zAStar<2>
 	virtual Cmd::petType getPetType();
 	virtual void setPetType(Cmd::petType){}
 	virtual void setAppendDamage(DWORD mindamage, DWORD maxdamage);
-	virtual DWORD getMinMDamage();
-	virtual	DWORD getMaxMDamage(); 
-	virtual DWORD getMinPDamage();
-	virtual	DWORD getMaxPDamage();
+	virtual uint64_t getMinMDamage();
+	virtual	uint64_t getMaxMDamage(); 
+	virtual uint64_t getMinPDamage();
+	virtual	uint64_t getMaxPDamage();
 	virtual DWORD getMasterMana(){return 0;}
-	virtual DWORD getMinMDefence();
-	virtual DWORD getMaxMDefence(); 
-	virtual DWORD getMinPDefence();
-	virtual DWORD getMaxPDefence();
-	virtual DWORD getMaxHP();
-	virtual DWORD getBaseMaxHP();
+	virtual uint64_t getMinMDefence();
+	virtual uint64_t getMaxMDefence(); 
+	virtual uint64_t getMinPDefence();
+	virtual uint64_t getMaxPDefence();
+	virtual uint64_t getMaxHP();
+	virtual uint64_t getBaseMaxHP();
 
 	///次攻击目标
 	DWORD secondTargetType;

@@ -275,9 +275,13 @@ typedef std::string String;
 * \return ·µ»ØÖµµÄÃèÊö
 */
 #define SAFE_RELEASE(p)  if(p) { (p)->Release(); (p) = NULL; }
-#define SAFE_DELETE(p) { delete (p); (p) = NULL; }
-#define SAFE_DELETEARRAY(p) { delete [] (p); (p) = NULL; }
-#define SAFE_FREE(p) { free(p); (p) = NULL; }
+// #define SAFE_DELETE(p) { delete (p); (p) = NULL; }
+// #define SAFE_DELETEARRAY(p) { delete [] (p); (p) = NULL; }
+// #define SAFE_FREE(p) { free(p); (p) = NULL; }
+#define SAFE_DELETE(p) { if(p) { delete (p); (p) = NULL; } } //by=>friday
+#define SAFE_DELETEARRAY(p) { if(p) { delete [] (p); (p) = NULL; } } //by=>friday
+#define SAFE_FREE(p) { if(p) { free(p); (p) = NULL; } } //by=>friday
+#define SAFE_DELETE_VEC(p) SAFE_DELETEARRAY(p) //by=>friday
 
 #define _file_line_ __FILE__,__LINE__
 #define Debug_Bool(b) {if(b) TRACE("%s(%d)\t%s\ttrue\n",_file_line_,#b);else TRACE("%s(%d)\t%s\tfalse\n",_file_line_,#b);}

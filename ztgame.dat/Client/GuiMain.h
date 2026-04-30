@@ -50,7 +50,16 @@ class CGuiMain :
 
 	CAnimation     m_jingcai;
 
+	///soke 滚动彩市
+	CAnimation     gundongbeijing;
+	CAnimation     gundongbeijing2;
+	CAnimation     gundongbeijing2s;
 	CAnimation     gundongbeijing3;
+
+	int            m_showX2;
+	int            m_showY2;
+	int            m_showX3;
+	int            m_showY3;	
 	int            m_showX;
 	int            m_showY;
 	int            m_showX4;
@@ -176,7 +185,7 @@ public:
 	/// 鼠标是否在背景图片的有效区域
 	bool	m_bMouseInBackground;
 
-	// bool isBoxAni;
+	 bool isBoxAni;
 public:
 	enum enumActiveAccessType{
 		ActiveAccessSkill,
@@ -204,13 +213,14 @@ public:
 		ShMessage = 13,//soke 粉红-送花
 		XShMessage = 14,//soke 粉红-送花
 		ZfMessage = 15,//soke 深红-好友膜拜
-		TYMessage = 16,//soke 通用
+		TYMessage = 16,///soke 滚动彩市
+		CSMessage = 17,///soke 滚动彩市
 	};
 
-	int password1;
-	int password2;
-	int password3;
-	int password4;
+	// int password1;
+	// int password2;
+	// int password3;
+	// int password4;
 	//连斩
 	CGuiStatic* m_lianzhaninfo;
 	//功勋竞猜
@@ -232,7 +242,7 @@ public:
 	~CGuiMain();
 	void OnCreate();
 	void OnClose(void);
-	void password(int i);//敬请期待密码
+	//void password(int i);//敬请期待密码
 	void OnInitScript();
 	void InitIcon();
 	bool MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
@@ -335,7 +345,8 @@ public:
 	void AddSGMTextMessage(const char * pchar,DWORD clr); //soke （粉红-送花）
 	void AddXSGMTextMessage(const char * pchar, DWORD clr); //soke （蓝色-送蓝色妖姬）
 	void AddYGMTextMessage(const char * pchar,DWORD clr); //soke （深红-好友膜拜）
-	void AddTYTextMessage(const char * pchar,DWORD clr); //soke （通用）
+	void AddTYTextMessage(const char * pchar,DWORD clr); ///soke 滚动彩市
+    void AddCSTextMessage(const char * pchar,DWORD clr); ///soke 滚动彩市
 	
 	//sky 好帮手
 	void AddbangsBtn(bool nShow = true);
@@ -361,6 +372,7 @@ private:
 	std::auto_ptr<CGMTextEffect> xms_pTextSprite;//soke （蓝色-送蓝色妖姬）
 	std::auto_ptr<CGMTextEffect> my_pTextSprite;//soke （深红-好友膜拜）
 	std::auto_ptr<CGMTextEffect> my_pTextSprite2;//soke （深红-好友膜拜）
+	std::auto_ptr<CGMTextEffect> cs_pTextSprite;///soke 滚动彩市
 	struct stHelpButton
 	{
 		CGuiButton		*pBtn;
@@ -570,7 +582,7 @@ extern void OnOffSysDialog();
 extern void OnOffAutoAttackDlg(); /////////star100515
 extern void OnOffAutoAttack(bool,WORD wTxtShow = 0);/////////star100515
 extern void OnRunSiRenBieShuDialog(); //云天别墅
-extern void OnUserClickButton1(); //敬请期待
-extern void OnUserClickButton2(); //敬请期待
-extern void OnUserClickButton3(); //敬请期待
-extern void OnUserClickButton4(); //敬请期待
+// extern void OnUserClickButton1(); //敬请期待
+// extern void OnUserClickButton2(); //敬请期待
+// extern void OnUserClickButton3(); //敬请期待
+// extern void OnUserClickButton4(); //敬请期待

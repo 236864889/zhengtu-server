@@ -171,15 +171,24 @@ void CGuiMessageBox::OnTimeOut(float fElapsedTime)
 			}
 		}
 		break;
-	case eAction_AnswerTeam_Normal:
+		case eAction_AnswerTeam_Normal:
 		{
-			if (m_fTime>10.0f) //soke 组队时间改成10秒，超过时间自动拒绝 if (m_fTime>30.0f)
+			if (m_fTime>0.0f) //soke 组队时间改成0秒，不弹出对话组队秒进 防止卡经验 if (m_fTime>30.0f)
 			{
-				ProcessAnswerTeam(GUI_IDCANCEL,TEAM_NORMAL);
+				ProcessAnswerTeam(GUI_IDOK, TEAM_NORMAL);
 				Close();
 			}
 		}
-		break;
+		break;		
+	// case eAction_AnswerTeam_Normal:
+	// 	{
+	// 		if (m_fTime>10.0f) //soke 组队时间改成10秒，超过时间自动拒绝 if (m_fTime>30.0f)
+	// 		{
+	// 			ProcessAnswerTeam(GUI_IDCANCEL,TEAM_NORMAL);
+	// 			Close();
+	// 		}
+	// 	}
+	// 	break;
 	case eAction_BuyMonthCard:
 		{
 			//请求兑换月卡

@@ -119,7 +119,7 @@ class SessionTask : public zEntry, public zTCPTask , public MessageQueue
 		 * \param dwUserID : 更换国籍的用户ID
 		 *
 		 */
-		bool change_country(const Cmd::Session::t_changeCountry_SceneSession* cmd);
+		bool SessionTask::change_country(const Cmd::Session::t_changeCountry_SceneSession* cmd);
 		bool msgParse_Scene(const Cmd::t_NullCmd *cmd, const unsigned int cmdLen);
 		bool msgParse_Gate(const Cmd::t_NullCmd *cmd, const unsigned int cmdLen);
 		bool msgParse_Forward(const Cmd::t_NullCmd *ptNullCmd, const unsigned int cmdLen);

@@ -337,11 +337,11 @@ void CGuiFloatControl::OnInitScript()
 		def("OnSitDown",&OnSitDown),
 		def("OnOffSysDialog",&OnOffSysDialog),
 		def("OnOffAutoAttackDlg",&OnOffAutoAttackDlg),
-		def("OnRunSiRenBieShuDialog",&OnRunSiRenBieShuDialog),//云天别墅
-		def("OnUserClickButton1",&OnUserClickButton1),//敬请期待
-		def("OnUserClickButton2",&OnUserClickButton2),//敬请期待
-		def("OnUserClickButton3",&OnUserClickButton3),//敬请期待
-		def("OnUserClickButton4",&OnUserClickButton4)//敬请期待
+		def("OnRunSiRenBieShuDialog",&OnRunSiRenBieShuDialog)//云天别墅
+		// def("OnUserClickButton1",&OnUserClickButton1),//敬请期待
+		// def("OnUserClickButton2",&OnUserClickButton2),//敬请期待
+		// def("OnUserClickButton3",&OnUserClickButton3),//敬请期待
+		// def("OnUserClickButton4",&OnUserClickButton4)//敬请期待
 
 	];
 

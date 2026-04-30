@@ -46,6 +46,13 @@ public:
 	bool   m_fAniToWait;
 	int    m_iAni;
 //////////end
+	// 装备颜色过滤
+	bool    m_fFilter_WhiteEquip;  // 过滤白色装备
+	bool    m_fFilter_BlueEquip;   // 过滤蓝色装备
+	bool    m_fFilter_GoldEquip;   // 过滤金色装备
+	bool    m_fFilter_GreenEquip;  // 过滤绿色装备
+	//by=>friday
+
 	CGuiEditBox* m_pEditBox_PutX;		
 	CGuiEditBox* m_pEditBox_PutY;		
 	CGuiEditBox* m_pEditBox_Range;			
@@ -109,6 +116,14 @@ public:
 /////////////////end
 	bool    OnBegin(bool);//////////star100716
 	
+	// 新增装备颜色过滤函数
+	bool OnFilterWhiteEquip();
+	bool OnFilterBlueEquip();
+	bool OnFilterGoldEquip();
+	bool OnFilterGreenEquip();
+
+	void OnOffAutoAttack(bool flag,int index = -1);
+
 private:
 
 	CGuiTab* m_tab;

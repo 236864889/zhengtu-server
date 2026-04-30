@@ -1141,8 +1141,8 @@ bool CNpc::IsCanAutoAttackNpc()
 	if ( IsPet() )
 		return false;
 
-    //桃子 0 1 32类型怪物可自动打怪或采集
-	return ((GetNpcTypeItem() == NpcTypeItem_Normal) || (GetNpcTypeItem() == NpcTypeItem_Human) || (GetNpcTypeItem() == NpcTypeItem_Resource))
+       //ZM 0 1 32类型怪物可自动打怪或采集
+	return ((GetNpcTypeItem() == NpcTypeItem_Normal) || (GetNpcTypeItem() == NpcTypeItem_Human) || (GetNpcTypeItem() == NpcTypeItem_Resource) || (GetNpcTypeItem() == NpcTypeItem_Boss) || (GetNpcTypeItem() == NpcTypeItem_SmBoss) || (GetNpcTypeItem() == NpcTypeItem_ExGold) || (GetNpcTypeItem() == NpcTypeItem_Extract) || (GetNpcTypeItem() == NpcTypeItem_Gold) || (GetNpcTypeItem() == NpcTypeItem_RedBoss))
 
 	FUNCTION_END;
 }
@@ -1371,7 +1371,7 @@ bool CNpc::HandleCommand(stNullUserCmd* pCmd)
 				SetHP(cmd->dwHP);
 				SetMaxHP(cmd->dwMaxHP);
 				//TRACE("-------------hp = %d,maxHp=%d\n",cmd->dwHP,cmd->dwMaxHP);
-				TRACE("-------------hp = %llu,maxHp=%llu\n",cmd->dwHP,cmd->dwMaxHP);
+				TRACE("-------------hp = %I64u,maxHp=%I64u\n",cmd->dwHP,cmd->dwMaxHP); //by=>friday
 				bHandle =true;
 			}
 			break;
@@ -3711,13 +3711,33 @@ void CNpc::DrawHurt(POINT ptMapPixelOffset)
 	for (tListNumColor::iterator it = m_listNumColor.begin(); it != m_listNumColor.end(); ++it)
 	{		
 		stNumColor& t = (*it);	
-		pt.y = ptText.y - 40;	
-		pt.y -= (t.height + imageHeight);
+		
+		// 每个伤害数字都从固定的基础位置开始，然后根据自己的height向上移动
+		pt.y = ptText.y - 40 - imageHeight;
+		// 每个伤害数字独立地根据自己的height向上移动
+		pt.y -= t.height;
+		
+		// 根据伤害类型设置不同的X坐标偏移，避免重叠
+		pt.x = ptText.x - 30; // 默认位置
+		if (strstr(t.szNum, "切割") != NULL) {
+			// 切割伤害显示在左侧
+			// pt.y = ptText.y + 8;
+			pt.y += 32;
+		} else if (strstr(t.szNum, "绝技") != NULL) {
+			// 绝技伤害显示在右侧
+			// pt.y = ptText.y + 20;
+			pt.y += 32;
+		}
+		
 		if(t.height > c_nHigh) continue;
+		
+		// 计算透明度，随着高度增加而减少
 		int alpha = (c_nHigh-t.height)*255 / c_nHigh;
 		t.color &= 0x00ffffff;
 		t.color |= alpha << 24;
-		t.height += 1.2f;
+		
+		// 缓慢上移效果
+		t.height += 0.8f;
 
 		//如果是经验值
 		if(t.byIsExp > 0) 
@@ -3725,7 +3745,6 @@ void CNpc::DrawHurt(POINT ptMapPixelOffset)
 			GetBmpTextout()->DrawString(pt,t.szNum,strlen(t.szNum),t.color,&(t.scale));
 			continue;
 		}
-		//if(size > 3) t.height += (0.8f * size);
 
 		//如果是幸运攻击(特殊效果显示)
 		if(t.byLuck != 0)
@@ -3749,11 +3768,12 @@ void CNpc::DrawHurt(POINT ptMapPixelOffset)
 		else
 		{			
 			GetBmpTextout()->DrawString(pt,t.szNum,strlen(t.szNum),t.color,&CommScale);
-		}		
+		}
 	}
 
 	tListNumColor::iterator it1;
 
+	// 移除已经完全淡出的伤害数字
 	for(it1 = m_listNumColor.begin() ; it1 != m_listNumColor.end() && (*it1).height >= c_nHigh ; ++it1)
 	{}
 
@@ -3782,7 +3802,7 @@ bool CNpc::IsValidHurt(stRTMagicUserCmd* pCmd)
 	case RTMAGIC_SUCCESS:	// 攻击成功
 	case RTMAGIC_VAMPIRE:	// 吸血
 	case RTMAGIC_ATTACKED:	// 被击
-		return pCmd->wdHP != 0;
+		return pCmd->sdwHP != 0;
 	case RTMAGIC_VAMPIREMAGIC:	// 吸魔
 		return true;
 	default:
@@ -3984,44 +4004,80 @@ void CNpc::OnHurtAddHint(stRTMagicUserCmd* pCmd)
 	case RTMAGIC_VAMPIRE:	// 吸血
 	case RTMAGIC_ATTACKED:	// 被击
 		{		
-			t.byLuck = 0;
-			int num = pCmd->wdHP;
-			if(num != 0)
+					t.byLuck = 0;
+				unsigned __int64 num = (unsigned __int64)pCmd->sdwHP; //by=>friday 修复64位伤害显示，使用VS2003兼容的无符号64位类型
+		if(num != 0)
+		{
+			//by=>friday 根据伤害类型设置不同的颜色和消息
+			switch(pCmd->byLuck)
 			{
-				if( pCmd->byLuck != 0 )
+			case DAMAGE_TYPE_PHYSICAL_CRIT:
+				t.color = COLOR_ARGB(255,0,244,0);
+				t.byLuck = 1;
+				break;
+			case DAMAGE_TYPE_HOLY_CRIT:
+				t.color = COLOR_ARGB(255,0,244,0);
+				t.byLuck = 1;
+				if (GetGameGuiManager()->m_guiMain)
 				{
-					t.color = COLOR_ARGB(255,0,244,0);
-					t.byLuck = 1;
-					if ( pCmd->byLuck == 2 && GetGameGuiManager()->m_guiMain)
-					{
-						GetGameGuiManager()->m_guiMain->AddMessage("神圣一击",CGuiMain::LuckAttackMessage,COLOR_ARGB(255,0,244,0));
-					}
+					GetGameGuiManager()->m_guiMain->AddMessage("神圣一击",CGuiMain::LuckAttackMessage,COLOR_ARGB(255,0,244,0));
+				}
+				break;
+			case DAMAGE_TYPE_ULTIMATE:
+				t.color = COLOR_ARGB(255,255,215,0); // 金色
+				t.byLuck = 1;
+				break;
+			case DAMAGE_TYPE_SLASH:
+				t.color = COLOR_ARGB(255,160,32,240); // 数字保持红橙色
+				t.byLuck = 1;
+				break;
+			default: // DAMAGE_TYPE_NORMAL
+				if(IsMainRole() || IsMyPet() )
+				{
+					t.color = COLOR_ARGB(255,255,0,30);
 				}
 				else
-				{
-					if(IsMainRole() || IsMyPet() )
-					{
-						t.color = COLOR_ARGB(255,255,0,30);						
-					}
-					else
-						t.color = COLOR_ARGB(255,255,72,24);
-				}
-				_snprintf(t.szNum,16,"%d",num);
-				t.szNum[15] = 0;
+					t.color = COLOR_ARGB(255,255,72,24);
+				break;
+			}
+			//by=>friday 根据伤害类型设置显示文本
+			// 使用FormatLargeNumber格式化数字，使大数值更易读
+			std::string formattedNum = FormatLargeNumber(num);
+			
+			if (pCmd->byLuck == DAMAGE_TYPE_SLASH) {
+				// 使用特殊格式显示"切割"和数字，确保紧密对齐
+				// 将"切割"和数字作为一个整体显示，使用特效动画
+				// 通过设置byLuck=1启用特效显示，并使用更大的缩放比例
+				sprintf(t.szNum, "切割%s", formattedNum.c_str());
+				t.color = COLOR_ARGB(255,148,0,211); // 亮粉色，更醒目
+				t.scale = stPointF(1.1f,1.1f); // 更大的缩放
+				t.byLuck = 1; // 确保使用特效显示
+			} else if (pCmd->byLuck == DAMAGE_TYPE_ULTIMATE) {
+				// 使用特殊格式显示"绝技"和数字，确保紧密对齐
+				// 将"绝技"和数字作为一个整体显示，使用特效动画
+				// 通过设置byLuck=1启用特效显示，并使用更大的缩放比例
+				sprintf(t.szNum, "绝技%s", formattedNum.c_str());
+				t.color = COLOR_ARGB(255,255,215,0); // 金色
+				t.scale = stPointF(1.1f,1.1f); // 更大的缩放
+				t.byLuck = 1; // 确保使用特效显示
+			} else {
+				// 普通伤害直接使用格式化后的数字
+				strncpy(t.szNum, formattedNum.c_str(), sizeof(t.szNum)-1);
+				t.szNum[sizeof(t.szNum)-1] = 0; // 确保字符串以null结尾
+			}
 
-				for(size_t i = 0;i < m_listNumColor.size();++i)
-				{
-					if(m_listNumColor[i].byIsExp <= 0) m_listNumColor[i].height += 25.0f;
-				}
+				// 不再强制调整现有伤害数字的高度，让它们自然上移
+				// 这样新的伤害数字不会影响旧的伤害数字的显示
 				PushBackNumColor(t);
 			}
 		}
 		break;
 	case RTMAGIC_VAMPIREMAGIC:	// 吸魔
-		if (pCmd->wdHP != 0)
+		if (pCmd->sdwHP != 0)
 		{
 			t.color = 0xff808080;
-			itoa(pCmd->wdHP,t.szNum,10);
+			_ui64toa((unsigned __int64)pCmd->sdwHP,t.szNum,10); //by=>friday 使用VS2003兼容的无符号64位转字符串函数
+			t.szNum[15] = 0;
 			PushBackNumColor(t);
 		}
 		break;
@@ -5048,10 +5104,17 @@ void CNpc::AddPetData(const t_MapPetData* pData)
 
 void CNpc::PushBackNumColor(const stNumColor& nc)
 {	
-	if( m_listNumColor.size() > 20 )
+	// 限制最大显示数量，但保留更多的伤害数字以实现更好的视觉效果
+	if( m_listNumColor.size() > 30 ) // 增加上限，允许更多伤害数字同时显示
 	{
+		// 只移除最旧的几个伤害数字，保留更多的最近伤害
 		tListNumColor::iterator it = m_listNumColor.begin();
-        m_listNumColor.erase(it,it+15);
+        m_listNumColor.erase(it,it+10);
 	}
-	m_listNumColor.push_back(nc);
+	
+	// 为新的伤害数字设置初始高度，确保它们从正确的位置开始显示
+	stNumColor newNC = nc;
+	
+	// 添加新的伤害数字到列表末尾
+	m_listNumColor.push_back(newNC);
 }

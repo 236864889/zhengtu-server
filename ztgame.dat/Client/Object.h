@@ -201,135 +201,6 @@ struct oskill
 	BYTE other;
 };
 
-//typedef struct _Object
-//{
-//	DWORD qwThisID;   //物品唯一id
-//	DWORD dwObjectID;  ////物品类别id
-//	char strName[MAX_NAMESIZE]; //名称
-//	
-//	stObjectLocation pos;	// 位置
-//	DWORD dwNum;	// 数量
-//	BYTE upgrade;//物品升级等级
-//	WORD kind;	//物品类型, 0普通, 1蓝色, 2金色, 4神圣, 8套装
-//	DWORD exp;  //道具经验
-//	
-//	WORD needlevel;				// 需要等级
-//
-//	WORD maxhp;					// 最大生命值
-//	WORD maxmp;					// 最大法术值
-//	WORD maxsp;					// 最大体力值
-//
-//	WORD pdamage;				// 最小攻击力
-//	WORD maxpdamage;			// 最大攻击力
-//	WORD mdamage;				// 最小法术攻击力
-//	WORD maxmdamage;			// 最大法术攻击力
-//
-//	WORD pdefence;				// 物防
-//	WORD mdefence;				// 魔防
-//	WORD damagebonus;			// 伤害加成
-//	
-//	WORD akspeed;				// 攻击速度
-//	WORD mvspeed;				// 移动速度
-//	WORD atrating;				// 命中率
-//	WORD akdodge;				// 躲避率
-//
-//	DWORD color;				// 颜色	
-//
-//	WORD str;  // 力量
-//	WORD inte;  // 智力
-//	WORD dex;  // 敏捷
-//	WORD spi;  // 精神
-//	WORD con;  // 体质
-//	
-//	WORD fivetype;  // 五行属性
-//	WORD fivepoint; // 五行属性
-//	
-//	WORD hpr;  // 生命值恢复
-//	WORD mpr;  // 法术值恢复
-//	WORD spr;  // 体力值恢复
-//
-//	WORD holy;  //神圣一击	
-//	WORD bang;  //重击
-//	WORD pdam;  // 增加物理攻击力
-//	WORD pdef;  // 增加物理防御力
-//	WORD mdam;  // 增加魔法攻击力
-//	WORD mdef;  // 增加魔法防御力
-//	
-//	WORD poisondef; //抗毒增加
-//	WORD lulldef; //抗麻痹增加
-//	WORD reeldef; //抗眩晕增加
-//	WORD evildef; //抗噬魔增加
-//	WORD bitedef; //抗噬力增加
-//	WORD chaosdef; //抗混乱增加
-//	WORD colddef; //抗冰冻增加
-//	WORD petrifydef; //抗石化增加
-//	WORD blinddef; //抗失明增加
-//	WORD stabledef; //抗定身增加
-//	WORD slowdef; //抗减速增加
-//	WORD luredef; //抗诱惑增加
-//		
-//	WORD durpoint; //恢复装备耐久度点数
-//	WORD dursecond; //恢复装备耐久度时间单位
-//
-//	struct skillbonus {
-//		WORD id; //技能 id
-//		WORD point; // 技能点数
-//	} skill[10]; //技能加成
-//
-//	struct skillsbonus {
-//		WORD id; //技能 id
-//		WORD point; // 技能点数
-//	} skills;	//全系技能加成
-//
-//	WORD poison; //中毒增加
-//	WORD lull; //麻痹增加
-//	WORD reel; //眩晕增加
-//	WORD evil; //噬魔增加
-//	WORD bite; //噬力增加
-//	WORD chaos; //混乱增加
-//	WORD cold; //冰冻增加
-//	WORD petrify; //石化增加
-//	WORD blind; //失明增加
-//	WORD stable; //定身增加
-//	WORD slow; //减速增加
-//	WORD lure; //诱惑增加
-//	
-//	struct leech
-//	{
-//		BYTE odds;    //x
-//		WORD effect;	//y
-//	};
-//	leech hpleech; //x%吸收生命值y
-//	leech mpleech; //x%吸收法术值y
-//	
-//	BYTE hptomp; //转换生命值为法术值x％
-//	BYTE dhpp; //物理伤害减少x%	
-//	BYTE dmpp; //法术伤害值减少x%		
-//
-//	BYTE incgold; //增加银子掉落x%
-//	BYTE doublexp; //x%双倍经验		
-//	BYTE mf; //增加掉宝率x%
-//
-//	//五行套装相关属性
-//	BYTE dpdam; //物理伤害减少%x
-//	BYTE dmdam; //法术伤害减少%x
-//	BYTE bdam; //增加伤害x%
-//	BYTE rdam; //伤害反射%x
-//	BYTE ignoredef; //%x忽视目标防御
-//
-//	WORD fiveset[5]; //五行套装, 按顺序排列
-//
-//	//...
-//	BYTE width;  //宽度
-//	BYTE height; //高度
-//	WORD dur;    //当前耐久
-//	WORD maxdur; //最大耐久
-//	
-//	DWORD socket[6]; //孔
-//	DWORD price;     //价格
-//	DWORD cardpoint; //点卡
-//	char maker[MAX_NAMESIZE]; //打造者
-//}t_Object;
 typedef struct _Object
 {
 	DWORD qwThisID;   //物品唯一id
@@ -353,6 +224,8 @@ typedef struct _Object
 	WORD drastar;			    // 龙星等级
 	WORD dmedalt;			    // 勋章等级
 	WORD retain1;			    // 寒冰等级
+
+
 
 	WORD retain2;			    // 装备栏
 	WORD retain3;			    // 神器
@@ -500,6 +373,11 @@ typedef struct _Object
 
 	DWORD pdefence;				// 物防
 	DWORD mdefence;				// 魔防
+
+	DWORD juejiattack;      // 绝技攻击 //by=>friday
+	DWORD juejidefence;     // 绝技防御 //by=>friday
+	DWORD qiegeattack;			// 切割攻击 //by=>friday
+	DWORD qiegedefence;			// 切割防御 //by=>friday
 
 	DWORD m1axhp;			   //sky 绿装升星 最大生命值
 	DWORD p1damage;			   //sky 绿装升星 最小攻击力
@@ -1558,17 +1436,27 @@ typedef struct _Object
 
 	DWORD color;				// 颜色	 
 
-	WORD str;  // 力量
-	WORD inte; // 智力
-	WORD dex;  // 敏捷
-	WORD spi;  // 精神
-	WORD con;  // 体质
+	DWORD str;  // 力量 //by=>friday
+	DWORD inte; // 智力 //by=>friday
+	DWORD dex;  // 敏捷 //by=>friday
+	DWORD spi;  // 精神 //by=>friday
+	DWORD con;  // 体质 //by=>friday
 
-	WORD xstr;  // 力量-魂魄
-	WORD xinte; // 智力-魂魄
-	WORD xdex;  // 敏捷-魂魄
-	WORD xspi;  // 精神-魂魄
-	WORD xcon;  // 体质-魂魄
+	DWORD xstr;  // 力量-魂魄 //by=>friday
+	DWORD xinte; // 智力-魂魄 //by=>friday
+	DWORD xdex;  // 敏捷-魂魄 //by=>friday
+	DWORD xspi;  // 精神-魂魄 //by=>friday
+	DWORD xcon;  // 体质-魂魄 //by=>friday
+
+	// 绝技攻防系列 //by=>friday
+	DWORD jj26_attack;    // 定情信物镶嵌绝技攻击 //by=>friday
+	DWORD jj26_defence;   // 定情信物镶嵌绝技防御 //by=>friday
+	DWORD jj27_attack;    // 心意提升绝技攻击 //by=>friday
+	DWORD jj27_defence;   // 心意提升绝技防御 //by=>friday
+	DWORD jj28_attack;    // 情谊提升绝技攻击 //by=>friday
+	DWORD jj28_defence;   // 情谊提升绝技防御 //by=>friday
+	DWORD jj29_attack;    // 定情信物进阶绝技攻击 //by=>friday
+	DWORD jj29_defence;   // 定情信物进阶绝技防御 //by=>friday
 
 	WORD fivetype;  // 五行属性
 	WORD fivepoint; // 五行属性

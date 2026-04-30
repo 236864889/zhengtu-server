@@ -1112,50 +1112,65 @@ void zTCPTaskPool::addSync(zTCPTask *task)
  */
 bool zTCPTaskPool::addOkay(zTCPTask *task)
 {
-    Zebra::logger->trace("zTCPTaskPool::addOkay");
-    zOkayThread *min = NULL, *nostart = NULL;
+	Zebra::logger->trace("zTCPTaskPool::addOkay");
+	//首先便利所有的线程，找出运行的并且连接数最少的线程，再找出没有启动的线程
+	zOkayThread *min = NULL, *nostart = NULL;
+	for(int i = 0; i < maxThreadCount; i++)
+	{
+		zOkayThread *pOkayThread = (zOkayThread *)okayThreads.getByIndex(i);
+		if (pOkayThread)
+		{
+			if (pOkayThread->isAlive())
+			{
+				if (NULL == min || min->size() > pOkayThread->size())
+					min = pOkayThread;
+			}
+			else
+			{
+				nostart = pOkayThread;
+				break;
+			}
+		}
+	}
+	if (min && min->size() < zOkayThread::connPerThread)
+	{
+		// state_sync -> state_okay
+		/*
+		 * whj
+		 * 先设置状态再添加容器,
+		 * 否则会导致一个task同时在两个线程中的危险情况
+		 */
+		task->getNextState();
+		//这个线程同时处理的连接数还没有到达上限
+		min->add(task);
+		return true;
+	}
+	if (nostart)
+	{
+		//线程还没有运行，需要创建线程，再把添加到这个线程的处理队列中
+		if (nostart->start())
+		{
+			Zebra::logger->debug("zTCPTaskPool创建工作线程");
+			// state_sync -> state_okay
+			/*
+			 * whj
+			 * 先设置状态再添加容器,
+			 * 否则会导致一个task同时在两个线程中的危险情况
+			 */
+			task->getNextState();
+			//这个线程同时处理的连接数还没有到达上限
+			nostart->add(task);
+			return true;
+		}
+		else
+			Zebra::logger->fatal("zTCPTaskPool不能创建工作线程");
+	}
 
-    for(int i = 0; i < maxThreadCount; i++)
-    {
-        zOkayThread *pOkayThread = (zOkayThread *)okayThreads.getByIndex(i);
-        if (!pOkayThread) continue;
-
-        if (pOkayThread->isAlive())
-        {
-            if (NULL == min || min->size() > pOkayThread->size())
-                min = pOkayThread;
-        }
-        else if (nostart == NULL)
-        {
-            nostart = pOkayThread;
-        }
-    }
-
-    if (min && min->size() < zOkayThread::connPerThread)
-    {
-        task->getNextState();
-        min->add(task);
-        return true;
-    }
-
-    if (nostart)
-    {
-        if (nostart->start())
-        {
-            Zebra::logger->debug("zTCPTaskPool创建工作线程");
-            task->getNextState();
-            nostart->add(task);
-            return true;
-        }
-        else
-        {
-            Zebra::logger->fatal("zTCPTaskPool不能创建工作线程");
-        }
-    }
-
-    Zebra::logger->fatal("zTCPTaskPool没有找到合适的线程来处理连接");
-    return false;
+	Zebra::logger->fatal("zTCPTaskPool没有找到合适的线程来处理连接");
+	//没有找到线程来处理这个连接，需要回收关闭连接
+	return false;
 }
+
 /**
  * \brief 把一个TCP连接添加到回收处理队列中
  *
@@ -1204,9 +1219,9 @@ bool zTCPTaskPool::init()
 		zOkayThread *pOkayThread = new zOkayThread(this, name.str());
 		if (NULL == pOkayThread)
 			return false;
-if (!pOkayThread->start())
-    return false;
-okayThreads.add(pOkayThread);
+		if (i < minThreadCount && !pOkayThread->start())
+			return false;
+		okayThreads.add(pOkayThread);
 	}
 
 	//创建初始化回收线程池

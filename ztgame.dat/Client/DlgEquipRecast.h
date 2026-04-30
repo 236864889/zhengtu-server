@@ -32,6 +32,11 @@ enum EQUIPRECAST_PAGE
 	EQUIPRECAST_COMPOSE27,   //龙凤吟	
 	EQUIPRECAST_COMPOSE28,   //轰天宝石镶嵌	
 	EQUIPRECAST_COMPOSE29,   //王者武器	
+	EQUIPRECAST_COMPOSE30,   //装备升心 //by=>friday
+	EQUIPRECAST_COMPOSE31,   //定情信物镶嵌 //by=>friday
+	EQUIPRECAST_COMPOSE32,   //心意提升 //by=>friday
+	EQUIPRECAST_COMPOSE33,   //情谊提升 //by=>friday
+	EQUIPRECAST_COMPOSE34,   //定情信物突破/进阶 //by=>friday
 
 };
 
@@ -44,7 +49,7 @@ class CDlgEquipRecast :
 	enum
 	{
 		TOTAL_MATERIAL_TABLE = 1,// 材料格子的总数
-		TOTAL_PAGE_NUM = 19,	 // 装备改造总分页数
+		TOTAL_PAGE_NUM = 24,	 // 装备改造总分页数
 	};
 
 public:
@@ -53,6 +58,7 @@ public:
 
 	void OnPutFocusItem(bool bPut);
 	void OnResult(stResponsePropertyUserCmd* pCmd);
+	void OnSwitchToAnnexpack(); // 切换到附件装备界面 //by=>friday
 	
 public:
 	CGuiTable*	m_pTableFocusItem; // 待操作的item
@@ -86,7 +92,12 @@ private:
 	bool CanComposeEquip16();    //是否可以进行装备暗影石镶嵌	
 	bool CanComposeEquip17();   //是否可以进行龙凤吟镶嵌		
 	bool CanComposeEquip18();   //是否可以进行轰天宝石镶嵌
-	bool CanComposeEquip19();    //是否可以进行王者升级						
+	bool CanComposeEquip19();    //是否可以进行王者升级
+	bool CanComposeEquip20();    //是否可以进行装备升心 //by=>friday
+	bool CanComposeEquip21();    //是否可以进行定情信物镶嵌 //by=>friday
+	bool CanComposeEquip22();    //是否可以进行心意提升 //by=>friday
+	bool CanComposeEquip23();    //是否可以进行情谊提升 //by=>friday
+	bool CanComposeEquip24();    //是否可以进行定情信物突破/进阶 //by=>friday
 
 	CRoleItem* GetFocusItem();
 	CRoleItem* GetMaterialItem(int index); // 根据格子索引得到CRoleItem（索引为0,1,2,3）
@@ -118,6 +129,12 @@ private:
 	void RefreshEquipCompose17();   //刷新龙凤吟镶嵌页面信息
 	void RefreshEquipCompose18();   //刷新轰天宝石镶嵌页面信息
 	void RefreshEquipCompose19();    //刷新装备王者升级页面信息
+	void RefreshEquipCompose20();    //刷新装备升心页面信息 //by=>friday
+	void RefreshEquipCompose21();    //刷新定情信物镶嵌页面信息 //by=>friday
+	void RefreshEquipCompose22();    //刷新心意提升页面信息 //by=>friday
+	void RefreshEquipCompose23();    //刷新情谊提升页面信息 //by=>friday
+	void RefreshEquipCompose24();    //刷新定情信物突破/进阶页面信息 //by=>friday
+	void HideEquipCompose20SubButtons(); //隐藏装备升心子功能按钮 //by=>friday
 					
 
 
@@ -131,6 +148,9 @@ private:
 	CGuiButton*			m_pBtnPages[TOTAL_PAGE_NUM];
 	CGuiTable*			m_pTableMaterials[TOTAL_MATERIAL_TABLE];
 	EQUIPRECAST_PAGE	m_eCurPage;
+
+	CGuiButton* 		m_pBtnSwitchToAnnexpack; // 切换到附件装备按钮 //by=>friday
+	int				m_nEquipCompose20SubType; // 装备升心子功能类型 //by=>friday
 
 	CMakeData	m_MakeData; // 打造数据类
 	CMyTimer*	m_pTimerProcess;

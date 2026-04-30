@@ -236,7 +236,7 @@ static char account_doc[] = "\nMiniServer\n" "\t小游戏服务器。";
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
-									"\nBuild version   :\t" STR(BUILD_STRING)\
+									"\nBuild version   :\t" _S(BUILD_STRING)\
 									"\nBuild time      :\t" __DATE__ ", " __TIME__;
 
 /**

@@ -674,7 +674,7 @@ bool Scene::randzPosByZoneType(const int type, zPos &pos , const zPos orign)
 		{
 			//soke 比较并保存最近的该特殊类型区域的坐标
 			if (NULL == near
-					|| labs((long)((*it).pos.x)-(long)(orign.x)) + labs((long)((*it).pos.y)-(long)(orign.y)) < labs((long)(near->pos.x)-(long)(orign.x)) + labs((long)(near->pos.y)-(long)(orign.y)))
+					|| abs((*it).pos.x - orign.x) + abs((*it).pos.y - orign.y) < abs(near->pos.x - orign.x) + abs(near->pos.y - orign.y))
 			{
 				near = &(*it);
 			}
@@ -1543,7 +1543,7 @@ struct findPosInNine : public zSceneEntryCallBack
 	 */
 	bool exec(zSceneEntry *entry)
 	{
-		if ((labs((long)(_pos.x)-(long)(entry->getPos().x)) <=SCREEN_WIDTH) && (labs((long)(_pos.y)-(long)(entry->getPos().y)) <=SCREEN_HEIGHT))
+		if ((abs(_pos.x - entry->getPos().x) <=SCREEN_WIDTH) && (abs(_pos.y - entry->getPos().y) <=SCREEN_HEIGHT))
 		{
 			_range.push_back(entry->getPos());
 		}

@@ -140,7 +140,7 @@ bool BillClient::msgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int nC
 		return false;
 	}
 	
-	if (CMD_REDEEM == ptNullCmd->cmd)
+	if (CMD_REDEEM == ptNullCmd->cmd)  //5倍保险
 	{
 		switch(ptNullCmd->para)
 		{
@@ -168,14 +168,9 @@ bool BillClient::msgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int nC
 					{
 						stRedeemMonthCard rd;
 						rd.byReturn = ptCmd->byReturn;
-						rd.dwNum = ptCmd->dwNum;
+						rd.dwNum = ptCmd->dwGold;
 						rd.dwBalance = ptCmd->dwBalance;
 						pUser->forwardScene(&rd,sizeof(rd));
-						if(ptCmd->byReturn ==Cmd::REDEEM_SUCCESS) 
-						{
-							pUser->setVip(ptCmd->dwNum>0?true:false);
-						}
-						//Zebra::logger->debug("Bill转发到场景的兑换月卡指令");
 					}
 					return true;
 				}
@@ -271,4 +266,5 @@ bool BillClient::msgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int nC
 	Zebra::logger->error("%s(%u, %u, %u)", __PRETTY_FUNCTION__, ptNullCmd->cmd, ptNullCmd->para, nCmdLen);
 	return false;
 }
+
 

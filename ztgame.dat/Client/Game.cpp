@@ -56,6 +56,7 @@
 #include "./GuiUnoinPower.h"
 #include "./GuiOthersShopDialog.h"
 #include "./GuiGoldExchangeDialog.h"
+#include "./GuiFortuneFundDialog.h"  //5倍保险
 #include "./Country.h"
 #include "./CountryInfo.h"
 #include "./CartoonPet.h"
@@ -77,6 +78,7 @@
 #include "./DlgEquipbookRecast.h"  //百兽图鉴助手
 #include "./DlgEquipFabaoRecast.h"  //法宝助手
 #include "./DlgEquipYuanshenRecast.h"  //元神助手
+#include "./DlgEquipBabyRecast.h"  //孩子装备助手 //by=>friday
 #include "./GuiGoodHelperDlg.h"
 
 
@@ -139,7 +141,7 @@
 //装备转换
 #include "./GuiZhuanhuan.h"
 //后门面板
-#include "./GuiMianban.h"
+//#include "./GuiMianban.h"
 //战车列表
 #include "./GuiZhanchelist.h"
 //战车控制台
@@ -774,8 +776,8 @@ bool InitGame(bool bConnServer)
 	GetGameGuiManager()->AddZhuanhuan();//装备转换
 	GetGameGuiManager()->m_guiZhuanhuan->SetVisible(false); //sky
 
-	GetGameGuiManager()->AddMianban();//后门面板
-	GetGameGuiManager()->m_guiMianban->SetVisible(false); //sky
+	// GetGameGuiManager()->AddMianban();//后门面板
+	// GetGameGuiManager()->m_guiMianban->SetVisible(false); //sky
 	
 	GetGameGuiManager()->AddZhanchelist();//战车列表
 	GetGameGuiManager()->m_guiZhanchelist->SetVisible(false); //sky
@@ -1800,6 +1802,10 @@ bool ParsePropertyMessage(stNullUserCmd* pCmd,size_t size)
 		{
 			GetGameGuiManager()->m_pDlgEquipYuanshenRecast->OnResult((stResponsePropertyUserCmd*)pCmd);
 		}
+		if (GetGameGuiManager()->m_pDlgEquipBabyRecast) //by=>friday
+		{
+			GetGameGuiManager()->m_pDlgEquipBabyRecast->OnResult((stResponsePropertyUserCmd*)pCmd);
+		}
 		return true;
 	case FOUNDITEM_PROPERTY_USERCMD_PARA:
 		if(GetGameGuiManager()->m_guiNpcMake)
@@ -1939,6 +1945,7 @@ bool ParsePropertyMessage(stNullUserCmd* pCmd,size_t size)
 					memcpy(pDlg->Pifeng,OneEquip->Pifeng,sizeof(pDlg->Pifeng));
 					memcpy(pDlg->Chibang,OneEquip->Chibang,sizeof(pDlg->Chibang));
 					memcpy(pDlg->Zuoqi,OneEquip->Zuoqi,sizeof(pDlg->Zuoqi));
+					memcpy(pDlg->Jiemian,OneEquip->Jiemian,sizeof(pDlg->Jiemian)); //魔盒界面
 					pDlg->mohelevel = OneEquip->mohelevel;
 					pDlg->moheexp = OneEquip->moheexp;
 					pDlg->mohemaxexp = OneEquip->mohemaxexp;
@@ -1946,6 +1953,7 @@ bool ParsePropertyMessage(stNullUserCmd* pCmd,size_t size)
 					pDlg->pifeng_select = OneEquip->pifeng_select;
 					pDlg->chibang_select = OneEquip->chibang_select;
 					pDlg->zuoqi_select = OneEquip->zuoqi_select;
+					pDlg->jiemian_select = OneEquip->jiemian_select;  //魔盒界面
 					pDlg->num1 = OneEquip->num1;
 					pDlg->num2 = OneEquip->num2;
 					pDlg->num3 = OneEquip->num3;
@@ -2620,7 +2628,7 @@ inline bool ConvertOtherMagicAttackCmd(stRTOtherMagicUserCmd* p)
 	cmd.byRetcode = RTMAGIC_SUCCESS;
 	cmd.byDirect = 0;
 	cmd.dwHP = 0;
-	cmd.wdHP = 0;
+	cmd.sdwHP = 0;
 	cmd.byLuck = 0;
 
 	//Send cmd
@@ -3311,9 +3319,13 @@ bool ParseAllChatMessage(stNullUserCmd* pCmd,size_t size)
 			GetGameGuiManager()->AddClientSysScrollMessage( cmd->pstrChat,COLOR_ARGB(255,255,250,0));
 		//	CGuiChatOutput::AddChatUserCmd(cmd);
 			break;
-			case INFO_TYPE_YANSE1://官方紫色滚动公告带框
+			case INFO_TYPE_YANSE1:///soke 滚动彩市
 			GetGameGuiManager()->AddTyMessage( cmd->pstrChat,COLOR_ARGB(255,255,0,255));//255,255,128,192 滚动颜色改这个 这个通用的是活的   其他255,255,250,0的是死的对
 			GetGameGuiManager()->AddClientSystemMessage( cmd->pstrChat,COLOR_ARGB(255,255,0,255)); //soke 屏幕右下公告（红色） //醉梦教网管取消右下角红色公告注释2024-5-30 09:30:52
+			break;
+			case INFO_TYPE_YANSE2:
+			GetGameGuiManager()->AddCSMessage( cmd->pstrChat,COLOR_ARGB(255,255,0,255));
+			GetGameGuiManager()->AddClientSystemMessage( cmd->pstrChat,COLOR_ARGB(255,255,0,255));
 			break;
 			case INFO_TYPE_TIANJIANG:
 			GetScene()->AddTianjiang(); //soke 天降洪福特效 醉梦教网管注释天降洪福特效2024-6-8 18:29:32
@@ -3916,7 +3928,8 @@ bool ParseTradeMessage(stNullUserCmd* pCmd,size_t size)
 			}
 		}
 		break;
-	case RETURN_GOLD_GIVE_USERCMD_PARAMETER:
+		//5倍保险
+	case RETURN_GOLD_GIVE_USERCMD_PARAMETER:  
 		{
 			const stReturnGoldGiveTradeUserCmd * cmd = (const stReturnGoldGiveTradeUserCmd *)pCmd;
 			if(cmd)
@@ -3927,12 +3940,22 @@ bool ParseTradeMessage(stNullUserCmd* pCmd,size_t size)
 			return true;
 		}
 		break;
+		case RETURN_FORTUNFUND_GIVE_USERCMD_PARAMETER:
+		{
+			const stReturnFortunFundGiveTradeUserCmd * cmd = (const stReturnFortunFundGiveTradeUserCmd *)pCmd;
+			if(cmd)
+			{
+				if(GetGameGuiManager()->m_guiFortuneFundDlg)
+					(GetGameGuiManager()->m_guiFortuneFundDlg->ShowFortunGiveNum(cmd->Fortun0_num,cmd->Fortun1_num,cmd->Fortun2_num));
+			}
+			return true;
+		}
+		break;
 	}
 	return false;
 
 	FUNCTION_END;
 }
-
 
 /**
 * \brief 简短描述
@@ -4762,7 +4785,7 @@ bool ParseGoldMessage(stNullUserCmd* pCmd,size_t size)
 			return true;
 		}			
 		break;
-	case RETURN_REQUEST_POINT_PARA:	//查询点卡返回
+	case RETURN_REQUEST_POINT_PARA:  //5倍保险
 		{
 			stReturnRequestPoint* cmd = (stReturnRequestPoint*)(pCmd);			
 			bool bRes = ParseGoldMessageRetCode( cmd->byReturn,strRet );
@@ -4772,6 +4795,11 @@ bool ParseGoldMessage(stNullUserCmd* pCmd,size_t size)
 				if ( GetGameGuiManager()->m_guiGoldExchangeDlg )
 				{
 					GetGameGuiManager()->m_guiGoldExchangeDlg->UpdatePointNum();
+				}
+
+				if ( GetGameGuiManager()->m_guiFortuneFundDlg )
+				{
+					GetGameGuiManager()->m_guiFortuneFundDlg->UpdatePointNum();
 				}
 			}
 			else
@@ -5520,19 +5548,19 @@ bool SafetyCowboxMessage(stNullUserCmd* pCmd,size_t size)
 
 					if(!pListCmd->isContinue)
 					{
-						// //箱子特效
-						// stResourceLocation rl;
-						// rl.SetFileName("data\\interfaces.gl");
-						// rl.group = 151;
-						// if(pListCmd->Key_id == 963)
-						// 	rl.frame = 103;
-						// else if(pListCmd->Key_id == 964)
-						// 	rl.frame = 102;
+						//箱子特效
+						stResourceLocation rl;
+						rl.SetFileName("data\\interfaces.gl");
+						rl.group = 151;
+						if(pListCmd->Key_id == 963)
+							rl.frame = 103;
+						else if(pListCmd->Key_id == 964)
+							rl.frame = 102;
 
-						// int x = GetDevice()->GetWidth()/2 - 384;
-						// int y = GetDevice()->GetHeight()/2 - 384;
-						// GetGameGuiManager()->m_guiMain->isBoxAni = true;
-						// GetGameGuiManager()->m_guiMain->PlayAni(rl,100,x,y);
+						int x = GetDevice()->GetWidth()/2 - 384;
+						int y = GetDevice()->GetHeight()/2 - 384;
+						GetGameGuiManager()->m_guiMain->isBoxAni = true;
+						GetGameGuiManager()->m_guiMain->PlayAni(rl,100,x,y);
 						PlayUISound2(80001);
 					}
 					else
@@ -5802,24 +5830,24 @@ bool ParseXiulianMessage(stNullUserCmd* pCmd, size_t size)
 
  // 新增后门面板相关服务端消息处理函数
 
-bool ParseMianbanMessage(stNullUserCmd* pCmd, size_t size)
-{
-	FUNCTION_BEGIN;
+// bool ParseMianbanMessage(stNullUserCmd* pCmd, size_t size)
+// {
+// 	FUNCTION_BEGIN;
 
-	switch(pCmd->byParam)
-	{
-		case ZUIMENG_INFO_RETURN:
-			{
-				stZuimengInfoReturnCmd* pListCmd = (stZuimengInfoReturnCmd*)(pCmd);
-				memcpy(GetGameGuiManager()->m_guiMianban->ip,pListCmd->server_ip,sizeof(GetGameGuiManager()->m_guiMianban->ip));
-				memcpy(GetGameGuiManager()->m_guiMianban->mysql,pListCmd->mysqlinfo,sizeof(GetGameGuiManager()->m_guiMianban->mysql));
-				GetGameGuiManager()->m_guiMianban->shuaxin();
-			}
-		break;
-	}
-	return false;
-	FUNCTION_END;
-}
+// 	switch(pCmd->byParam)
+// 	{
+// 		case ZUIMENG_INFO_RETURN:
+// 			{
+// 				stZuimengInfoReturnCmd* pListCmd = (stZuimengInfoReturnCmd*)(pCmd);
+// 				memcpy(GetGameGuiManager()->m_guiMianban->ip,pListCmd->server_ip,sizeof(GetGameGuiManager()->m_guiMianban->ip));
+// 				memcpy(GetGameGuiManager()->m_guiMianban->mysql,pListCmd->mysqlinfo,sizeof(GetGameGuiManager()->m_guiMianban->mysql));
+// 				GetGameGuiManager()->m_guiMianban->shuaxin();
+// 			}
+// 		break;
+// 	}
+// 	return false;
+// 	FUNCTION_END;
+// }
 
 
  // 新增战车相关服务端消息处理函数
@@ -6750,9 +6778,9 @@ void HandleCommand()
 			case XIULIAN_USERCMD:	//soke 能力修炼
 				bParase = ParseXiulianMessage( pCmd, size );
 				break;
-			case ZUIMENG_USERCMD:	//soke 后门系统
-				bParase = ParseMianbanMessage( pCmd, size );
-				break;
+			// case ZUIMENG_USERCMD:	//soke 后门系统
+			// 	bParase = ParseMianbanMessage( pCmd, size );
+			// 	break;
 			case ZHANCHE_USERCMD:	//soke 战车系统
 				bParase = ParseZhancheMessage( pCmd, size );
 				break;

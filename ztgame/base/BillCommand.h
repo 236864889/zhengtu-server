@@ -131,26 +131,31 @@ namespace Cmd
 			char account[Cmd::UserServer::ID_MAX_LENGTH+1];      		/// 帐号     
 			DWORD accid;			        /// 账号编号
 			DWORD charid;				/// 角色ID
+			DWORD point;				/// 5倍保险
 			t_Request_Redeem_MonthCard_Gateway()
 				: t_NullCmd(CMD_REDEEM, PARA_REQUEST_GATE_REDEEM_MONTH_CARD)
 				{
 					bzero(account , sizeof(account));
 				};
 		};
-		/// 兑换月卡
+		/// 5倍保险
 		const BYTE PARA_GATE_REDEEM_MONTH_CARD = 8;
 		struct t_Redeem_MonthCard_Gateway : t_NullCmd
 		{
 			char account[Cmd::UserServer::ID_MAX_LENGTH+1];      		/// 帐号     
 			DWORD accid;			        /// 账号编号
-			DWORD charid;				/// 角色ID
-			DWORD dwNum;	//冲值后的到期时间(time_t)
-			DWORD dwBalance;			/// 点卡余额
+			DWORD charid;				    /// 角色ID
+			DWORD dwGold;				    /// 当前拥有金币数
+			DWORD dwBalance;			    /// 点卡余额
 			BYTE byReturn;	//返回类型
 			t_Redeem_MonthCard_Gateway()
 				: t_NullCmd(CMD_REDEEM, PARA_GATE_REDEEM_MONTH_CARD)
 				{
 					bzero(account , sizeof(account));
+					charid=0;
+					dwGold=0;
+					dwBalance=0;
+					byReturn=0;
 				};
 		};
 

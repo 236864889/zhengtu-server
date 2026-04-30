@@ -279,6 +279,15 @@ extern zDataBM<zUjgzclObjectB,UjgzclObjectBase> &ujgzclobjectbm;  //金箍咒淬炼
 extern zDataBM<zUhbslObjectB,UhbslObjectBase> &uhbslobjectbm;  //寒冰神炼
 extern zDataBM<zUhbzwObjectB,UhbzwObjectBase> &uhbzwobjectbm;  //寒冰字纹
 extern zDataBM<zUhbwzObjectB,UhbwzObjectBase> &uhbwzobjectbm;  //寒冰纹章
+//by=>friday 孩子装备升级
+extern zDataBM<zBabyEquipUpgradeB,BabyEquipUpgradeBase> &babyequipupgradebm; // 孩子装备升级表
+
+//by=>friday 定情信物相关功能
+extern zDataBM<zUdqxwjjObjectB,UdqxwjjObjectBase> &udqxwjjobjectbm;  //定情信物进阶
+extern zDataBM<zUdqxwxqObjectB,UdqxwxqObjectBase> &udqxwxqobjectbm;  //定情信物镶嵌
+extern zDataBM<zUqytsObjectB,UqytsObjectBase> &uqytsobjectbm;  //情谊提升
+extern zDataBM<zUxytsObjectB,UxytsObjectBase> &uxytsobjectbm;  //心意提升
+
 
 extern bool loadAllBM();
 

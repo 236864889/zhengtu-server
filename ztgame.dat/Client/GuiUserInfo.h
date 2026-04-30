@@ -468,6 +468,7 @@ class CGuiUserInfo :
 	bool                   m_bMainUser;
 	CGuiImage*              m_pImage[5];
 	CToolTips               m_ToolTips;
+	CToolTips 				m_JJSuitToolTips;  //by=>friday 永恒星级套装专用Tips
 	WORD                   m_LevelNum;
 	
 	stUserData              m_UserData;
@@ -513,6 +514,7 @@ class CGuiUserInfo :
 	void ShowUserInfoText2();
 	void ShowUserInfoText3();
 	void ShowUserInfoText4();
+	void ShowJJSuitStatus();  //by=>friday 显示永恒星级套装状态
 	void ControlImage(byte pos);
 	void ShowEquipByName();
 	void RefreshGoodnessOnXiXinGeMianState();

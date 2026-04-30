@@ -258,6 +258,7 @@ struct Gm
 	static bool loadTbl(SceneUser *pUser, const char * para);
 	static bool loadTbl2(SceneUser *pUser, const char * para);
 	static bool loadSystem(SceneUser *pUser, const char * para);
+	static bool loadPeizhi(SceneUser *pUser, const char * para);
 	static bool loadGameConfig(SceneUser *pUser, const char * para);
 	static bool setFylevel(SceneUser* pUser, const char* para);
 	static bool setMaxlevel(SceneUser* pUser, const char* para);

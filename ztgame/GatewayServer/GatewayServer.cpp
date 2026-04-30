@@ -63,7 +63,7 @@ bool GatewayService::init()
 			|| "maintain" == Zebra::global["initThreadPoolState"])
 		state = state_maintain;
 
-	taskPool = new zTCPTaskPool(512/*atoi(Zebra::global["threadPoolCapacity"].c_str())*/, state, 65000);
+	taskPool = new zTCPTaskPool(4096/*atoi(Zebra::global["threadPoolCapacity"].c_str())*/, state, 65000);
 	if (NULL == taskPool
 			|| !taskPool->init())
 		return false;
@@ -417,7 +417,7 @@ static char gateway_doc[] = "\nGatewayServer\n" "\tÍø¹Ø·þÎñÆ÷¡£";
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
-									"\nBuild version   :\t" BUILD_STRING\
+									"\nBuild version   :\t" _S(BUILD_STRING)\
 									"\nBuild time      :\t" __DATE__ ", " __TIME__;
 
 /**

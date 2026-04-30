@@ -11,7 +11,7 @@ public:
 
 	CGuiMagicBoxDlg();
 	~CGuiMagicBoxDlg();
-
+	CGuiTab * m_pTab;
 	int type;
 
 	//时装
@@ -51,6 +51,17 @@ public:
 		DWORD state;
 	};
 	struct one_zuoqi Zuoqi[100]; 
+
+	//魔盒界面
+	struct one_jiemian
+	{
+		char name[MAX_NAMESIZE];
+		DWORD activityNum;
+		DWORD dongtai;
+		DWORD level;
+		DWORD state;
+	};
+	struct one_jiemian Jiemian[100]; 
 	DWORD mohelevel;
 	DWORD moheexp;
 	DWORD mohemaxexp;
@@ -58,10 +69,12 @@ public:
 	DWORD pifeng_select;
 	DWORD chibang_select;
 	DWORD zuoqi_select;
+	DWORD jiemian_select;
 	int shizhuangshu;
 	int pifengshu;
 	int chibangshu;
 	int zuoqishu;
+	int jiemianshu;
 	DWORD num1;
 	DWORD num2;
 	DWORD num3;

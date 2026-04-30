@@ -1,155 +1,465 @@
-#include <stdio.h>
-#include <stdarg.h>
-#include <time.h>
-#include <string.h>
+/**
+ * \file
+ * \version  $Id: zLogger.cpp  $
+ * \author  
+ * \date 
+ * \brief ZebraÏîÄ¿ÈÕÖ¾ÏµÍ³¶¨ÒåÎÄ¼ş
+ *
+ */
+
 #include "zLogger.h"
+#include "zTime.h"
+#include <stdarg.h>
+#include <log4cxx/patternlayout.h>
+#include <log4cxx/consoleappender.h>
+#include <log4cxx/helpers/dateformat.h>
+#include <log4cxx/net/syslogappender.h>
+#include <sys/stat.h>
+#include <time.h>
 
-const zLogger::zLevel* zLogger::zLevel::OFF = NULL;
-const zLogger::zLevel* zLogger::zLevel::FATAL = NULL;
-const zLogger::zLevel* zLogger::zLevel::ERROR = NULL;
-const zLogger::zLevel* zLogger::zLevel::ALARM = NULL;
-const zLogger::zLevel* zLogger::zLevel::WARN = NULL;
-const zLogger::zLevel* zLogger::zLevel::IFFY = NULL;
-const zLogger::zLevel* zLogger::zLevel::INFO = NULL;
-const zLogger::zLevel* zLogger::zLevel::TRACE = NULL;
-const zLogger::zLevel* zLogger::zLevel::DEBUG = NULL;
-const zLogger::zLevel* zLogger::zLevel::GBUG = NULL;
-const zLogger::zLevel* zLogger::zLevel::ALL = NULL;
+using namespace log4cxx::net;
 
-const LevelPtr zLogger::zLevel::LEVELALARM;
-const LevelPtr zLogger::zLevel::LEVELIFFY;
-const LevelPtr zLogger::zLevel::LEVELTRACE;
-const LevelPtr zLogger::zLevel::LEVELGBUG;
+const LevelPtr zLogger::zLevel::LEVELALARM(new Level(ALARM_INT,_T("ALARM"),3));
+const LevelPtr zLogger::zLevel::LEVELIFFY(new Level(IFFY_INT,_T("IFFY"),3));
+const LevelPtr zLogger::zLevel::LEVELTRACE(new Level(TRACE_INT,_T("TRACE"),3));
+const LevelPtr zLogger::zLevel::LEVELGBUG(new Level(GBUG_INT,_T("GBUG"),3));
 
-zLogger::zLevel::zLevel(LevelPtr level) : zlevel(level) {}
+const zLogger::zLevel *  zLogger::zLevel::OFF=new zLevel(Level::OFF);
+const zLogger::zLevel *  zLogger::zLevel::FATAL=new zLevel(Level::FATAL);
+const zLogger::zLevel *  zLogger::zLevel::ALARM=new zLevel(LEVELALARM);
+const zLogger::zLevel *  zLogger::zLevel::ERROR=new zLevel(Level::ERROR);
+const zLogger::zLevel *  zLogger::zLevel::IFFY=new zLevel(LEVELIFFY);
+const zLogger::zLevel *  zLogger::zLevel::WARN=new zLevel(Level::WARN);
+const zLogger::zLevel *  zLogger::zLevel::TRACE=new zLevel(LEVELTRACE);
+const zLogger::zLevel *  zLogger::zLevel::INFO=new zLevel(Level::INFO);
+const zLogger::zLevel *  zLogger::zLevel::GBUG=new zLevel(LEVELGBUG);
+const zLogger::zLevel *  zLogger::zLevel::DEBUG=new zLevel(Level::DEBUG);
+const zLogger::zLevel *  zLogger::zLevel::ALL=new zLevel(Level::ALL);
 
-zLogger::zLoggerLocalFileAppender::zLoggerLocalFileAppender() {}
-zLogger::zLoggerLocalFileAppender::~zLoggerLocalFileAppender() {}
-void zLogger::zLoggerLocalFileAppender::activateOptions() {}
-
-zLogger::zLogger(const log4cxx::LogString& name) {
-    bzero(message, sizeof(message));
+/**
+ * \brief zLevel¹¹Ôìº¯Êı
+ * \param  level µÈ¼¶Êı×Ö£¬ÀàÄÚ²¿¶¨Òå
+ */
+zLogger::zLevel::zLevel(LevelPtr level):zlevel(level)
+{
 }
 
-zLogger::~zLogger() {}
 
-void zLogger::setName(const log4cxx::LogString& name) {}
+TimeZonePtr zLogger::zLoggerLocalFileAppender::tz(TimeZone::getDefault());
 
-bool zLogger::addConsoleLog() { return true; }
-void zLogger::removeConsoleLog() {}
-
-bool zLogger::addLocalFileLog(const log4cxx::LogString& filename) { return true; }
-void zLogger::removeLocalFileLog(const log4cxx::LogString& filename) {}
-
-bool zLogger::addSysLog(const log4cxx::LogString& facility) { return true; }
-void zLogger::removeSysLog(const log4cxx::LogString& facility) {}
-
-static void printLog(const char* level, const char* fmt, va_list ap) {
-    time_t now = time(NULL);
-    struct tm* tm_info = localtime(&now);
-    char time_str[26];
-    strftime(time_str, 26, "%Y-%m-%d %H:%M:%S", tm_info);
-    char msg[4096];
-    vsnprintf(msg, sizeof(msg), fmt, ap);
-    printf("[%s] %s: %s\n", time_str, level, msg);
+/**
+ * \brief ¹¹ÔìÒ»¸ö±¾µØÎÄ¼şAppender 
+ */
+zLogger::zLoggerLocalFileAppender::zLoggerLocalFileAppender()
+{
 }
 
-bool zLogger::log(const zLevel* level, const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("LOG", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief Îö¹¹Ê±£¬»ØÊÕDateFormatÄÚ´æ
+ */
+zLogger::zLoggerLocalFileAppender::~zLoggerLocalFileAppender()
+{
+	SAFE_DELETE(df);
 }
 
-bool zLogger::forceLog(const zLevel* level, const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("FORCE", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief ÉèÖÃÊ±Çø
+ *
+ * \param timeZone Ê±Çø×Ö·û´® 
+ */
+void zLogger::zLoggerLocalFileAppender::setTimeZone(const String &timeZone)
+{
+	tz=TimeZone::getTimeZone(timeZone);
 }
 
-bool zLogger::fatal(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("FATAL", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief ¼¤»îËùÉèÖÃµÄÑ¡Ïî
+ */
+void zLogger::zLoggerLocalFileAppender::activateOptions()
+{
+	//ÉèÖÃÊ±ÇøºÍÔ¤¶¨ÎÄ¼ş
+	rc.setTimeZone(tz);
+	String ss;
+	zRTime::getLocalTZ(ss);
+	char tzstr[64];
+	strncpy(tzstr,"TZ=",3);
+	strncpy(tzstr+3,ss.c_str(),60);
+	DailyRollingFileAppender::activateOptions();
+	//ÓÉÓÚDailyRollingFileAppender::activateOptions()»áĞŞ¸ÄÊ±Çø»·¾³±äÁ¿£¬¹ÊÖ´ĞĞÍêºóÔÙĞŞ¸Ä»ØÀ´ 
+	putenv(tzstr);
+	tzset();
+	if (!datePattern.empty() && !fileName.empty())
+	{
+		SAFE_DELETE(df);
+		df=new helpers::DateFormat(datePattern,tz);
+
+		int64_t lastModified = 0;
+		struct stat fileStats;
+		if (::stat(T2A(fileName.c_str()), &fileStats) == 0)
+			lastModified = (int64_t)fileStats.st_mtime * 1000; 
+
+		scheduledFilename = fileName + df->format(lastModified);
+	} 
 }
 
-bool zLogger::error(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("ERROR", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief ¹¹ÔìÒ»¸özLogger 
+ *
+ * \param  name zLoggerµÄÃû×Ö£¬½«»á³öÏÖÔÚÊä³öµÄÈÕÖ¾ÖĞµÄÃ¿Ò»ĞĞ
+ */
+zLogger::zLogger(const String &name)
+{
+	///std::cout << __PRETTY_FUNCTION__ << std::endl;
+	bzero(message, sizeof(message));
+	logger = Logger::getLogger(name);
+	logger->setLevel(Level::DEBUG);
+
+	addConsoleLog();
 }
 
-bool zLogger::error_out(const char* str) {
-    time_t now = time(NULL);
-    struct tm* tm_info = localtime(&now);
-    char time_str[26];
-    strftime(time_str, 26, "%Y-%m-%d %H:%M:%S", tm_info);
-    printf("[%s] ERROR: %s\n", time_str, str);
-    return true;
+/**
+ * \brief Îö¹¹º¯Êı
+ */
+zLogger::~zLogger()
+{
 }
 
-bool zLogger::warn(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("WARN", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief µÃµ½LoggerµÄÃû×Ö£¬Ëü³öÏÖÔÚÃ¿ÌõÈÕÖ¾ĞÅÏ¢ÖĞ
+ * \return	LoggerÃû×Ö
+ */
+const String & zLogger::getName()
+{
+	return logger->getName();
 }
 
-bool zLogger::info(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("INFO", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief ÉèÖÃLoggerµÄÃû×Ö£¬Ëü³öÏÖÔÚÃ¿ÌõÈÕÖ¾ĞÅÏ¢ÖĞ
+ * \param Òª±»ÉèÖÃµÄÃû×Ö
+ */
+void zLogger::setName(const String & setName)
+{
+	//PowerLogger *log=(PowerLogger *)logger;
+	//PowerLogger * pl=logger.p;
+	((PowerLogger *)logger.p)->setName(setName);
 }
 
-bool zLogger::debug(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("DEBUG", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief Ìí¼Ó¿ØÖÆÌ¨Êä³öLog
+ * \return	³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse 
+ */
+bool zLogger::addConsoleLog()
+{
+	PatternLayoutPtr cpl = new PatternLayout("\%d{\%y\%m\%d-\%H:\%M:\%S }%c %5p: %m%n");
+	std::string s;
+	cpl->setTimeZone(zRTime::getLocalTZ(s));
+	cpl->activateOptions();
+
+	ConsoleAppenderPtr carp = new ConsoleAppender(cpl);
+	carp->setName("console");
+
+	logger->addAppender(carp);
+	return true;
 }
 
-bool zLogger::alarm(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("ALARM", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief ÒÆ³ı¿ØÖÆÌ¨LogÊä³ö
+ */
+void zLogger::removeConsoleLog()
+{
+	AppenderPtr ap=logger->getAppender("console");
+	logger->removeAppender(ap);
+	ap->close();
 }
 
-bool zLogger::iffy(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("IFFY", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief ¼ÓÒ»¸ö±¾µØÎÄ¼şLogÊä³ö
+ *
+ * \param file ÒªÊä³öµÄÎÄ¼şÃû£¬Logger»á×Ô¶¯µØÌí¼ÓÊ±¼äºó×º 
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::addLocalFileLog(const String &file)
+{
+	PatternLayoutPtr fpl = new PatternLayout("\%d{\%y\%m\%d-\%H:\%M:\%S }%c %5p: %m%n");
+	String s;
+	fpl->setTimeZone(zRTime::getLocalTZ(s));
+	fpl->activateOptions();
+
+	zLoggerLocalFileAppender * farp = new  zLoggerLocalFileAppender();
+	farp->setDatePattern(".\%y\%m\%d-\%H");
+	farp->setTimeZone(s);
+	farp->setFile(file);
+	farp->setLayout(fpl);
+	farp->activateOptions();
+	farp->setName("localfile:"+file);
+
+	logger->addAppender(farp);
+	return true;
 }
 
-bool zLogger::trace(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("TRACE", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief ÒÆ³öÒ»¸ö±¾µØÎÄ¼şLogÊä³ö
+ * \param file ÒªÒÆ³ıµÄLogÎÄ¼şÃû 
+ */
+void zLogger::removeLocalFileLog(const String &file)
+{
+	AppenderPtr ap=logger->getAppender("localfile:"+file);
+	logger->removeAppender(ap);
+	ap->close();
 }
 
-bool zLogger::gbug(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-    printLog("GBUG", fmt, ap);
-    va_end(ap);
-    return true;
+/**
+ * \brief Ìí¼ÓÒ»¸öSyslogÊä³ö
+ * \param host Syslog·şÎñÆ÷µØÖ·,Ä¬ÈÏÎª±¾Ö÷»ú
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::addSysLog(const String & host="127.0.0.1")
+{
+	PatternLayoutPtr pls = new PatternLayout("%c %5p: %m%n");
+	SyslogAppenderPtr sarp=new SyslogAppender(pls,SyslogAppender::getFacility("user"));
+	sarp->setName(host);
+	sarp->setSyslogHost (host);
+	sarp->activateOptions();
+	logger->addAppender(sarp);
+	return true;
 }
-void zLogger::setLevel(const std::string& level) {
-    // ç®€åŒ–å®ç°
+
+/**
+ * \brief ÒÆ³ıÒ»¸öSyslogÊä³ö
+ * \param host ÒªÒÆ³ıµÄSyslog·şÎñÆ÷µØÖ·,Ä¬ÈÏÎª±¾Ö÷»ú
+ */
+void zLogger::removeSysLog(const String & host="127.0.0.1")
+{
+	AppenderPtr ap=logger->getAppender(host);
+	logger->removeAppender(ap);
+	ap->close();
+}
+
+#define getMessage(msg,msglen,pat)	\
+do	\
+{	\
+	va_list ap;	\
+	bzero(msg, msglen);	\
+	va_start(ap, pat);		\
+	vsnprintf(msg, msglen - 1, pat, ap);	\
+	va_end(ap);	\
+}while(false)
+
+/**
+ * \brief ÉèÖÃĞ´ÈÕÖ¾µÈ¼¶
+ * \param  zLevelPtr ÈÕÖ¾µÈ¼¶.²Î¼û #zLogger::zLevel
+ */
+void zLogger::setLevel(const zLevel * zLevelPtr)
+{
+	logger->setLevel(zLevelPtr->zlevel);
+}
+
+/**
+ * \brief ÉèÖÃĞ´ÈÕÖ¾µÈ¼¶
+ * \param  level ÈÕÖ¾µÈ¼¶
+ */
+void zLogger::setLevel(const std::string &level)
+{
+	if ("off" == level)
+		setLevel(zLevel::OFF);
+	else if ("fatal" == level)
+		setLevel(zLevel::FATAL);
+	else if ("alarm" == level)
+		setLevel(zLevel::ALARM);
+	else if ("error" == level)
+		setLevel(zLevel::ERROR);
+	else if ("iffy" == level)
+		setLevel(zLevel::IFFY);
+	else if ("warn" == level)
+		setLevel(zLevel::WARN);
+	else if ("trace" == level)
+		setLevel(zLevel::TRACE);
+	else if ("info" == level)
+		setLevel(zLevel::INFO);
+	else if ("gbug" == level)
+		setLevel(zLevel::GBUG);
+	else if ("debug" == level)
+		setLevel(zLevel::DEBUG);
+	else if ("all" == level)
+		setLevel(zLevel::ALL);
+}
+
+/**
+ * \brief Ğ´ÈÕÖ¾
+ * \param  zLevelPtr ÈÕÖ¾µÈ¼¶²Î¼û #zLogger::zLevel
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::log(const zLevel * zLevelPtr,const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->log(zLevelPtr->zlevel,message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ç¿ÖÆĞ´ÈÕÖ¾,²»ÊÜÈÕÖ¾µÈ¼¶ÏŞÖÆ
+ * \param  zLevelPtr ÈÕÖ¾µÈ¼¶²Î¼û #zLogger::zLevel
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::forceLog(const zLevel * zLevelPtr,const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->forcedLog(zLevelPtr->zlevel,message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´fatal³ÌĞòÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::fatal(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->fatal(message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´error³ÌĞòÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::error(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->error(message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´error³ÌĞòÈÕÖ¾
+ * \param  buf Êä³öÄÚÈİ
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::error_out(const char * buf)
+{
+	msgMut.lock();
+	logger->error(buf);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´warn³ÌĞòÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::warn(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->warn(message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´info³ÌĞòÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::info(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->info(message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´debug³ÌĞòÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::debug(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->debug(message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´alarmÓÎÏ·ÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::alarm(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->log(zLevel::ALARM->zlevel,message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´iffyÓÎÏ·ÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::iffy(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->log(zLevel::IFFY->zlevel,message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´traceÓÎÏ·ÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::trace(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->log(zLevel::TRACE->zlevel,message);
+	msgMut.unlock();
+	return true;
+}
+
+/**
+ * \brief Ğ´gbugÓÎÏ·ÈÕÖ¾
+ * \param  pattern Êä³ö¸ñÊ½·¶Àı£¬ÓëprintfÒ»Ñù
+ * \return ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+ */
+bool zLogger::gbug(const char * pattern, ...)
+{
+	msgMut.lock();
+	getMessage(message,MSGBUF_MAX,pattern);
+
+	logger->log(zLevel::GBUG->zlevel,message);
+	msgMut.unlock();
+	return true;
 }

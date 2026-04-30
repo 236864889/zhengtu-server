@@ -1083,33 +1083,42 @@ bool SessionTask::msgParse_Scene(const Cmd::t_NullCmd *cmd, const unsigned int c
 						if (recordset)
 						{
 							BUFFER_CMD(Cmd::stZhancheListReturnCmd ,pSend , zSocket::MAX_USERDATASIZE);
-							int pnum=0;
+							//by=>friday 修复数据包大小计算错误，这是导致TANKINFO表有数据时掉场景的根本原因
 							for (unsigned int i=0; i<20; i++)
 							{
 								if(i>=recordset->size())
 								{
-									(pSend->zhanche + pnum )->id = 0;
-									(pSend->zhanche + pnum )->septid = 0;
-									bcopy("", (pSend->zhanche + pnum)->name, MAX_NAMESIZE);
-									(pSend->zhanche + pnum )->type = 0;
-									(pSend->zhanche + pnum )->lingyongid = 0;
-									bcopy("", (pSend->zhanche + pnum)->lingyongname, MAX_NAMESIZE);
-									pnum+=1;
+									(pSend->zhanche + i )->id = 0;
+									(pSend->zhanche + i )->septid = 0;
+									bcopy("", (pSend->zhanche + i)->name, MAX_NAMESIZE);
+									(pSend->zhanche + i )->type = 0;
+									(pSend->zhanche + i )->lingyongid = 0;
+									bcopy("", (pSend->zhanche + i)->lingyongname, MAX_NAMESIZE);
 								}
 								else{
 									Record* rec = recordset->get(i);
-									(pSend->zhanche + pnum )->id = rec->get("ID");
-									(pSend->zhanche + pnum )->septid = rec->get("SEPTID");
-									bcopy((const char*)rec->get("NAME"), (pSend->zhanche + pnum)->name, MAX_NAMESIZE);
-									(pSend->zhanche + pnum )->type = rec->get("TYPE");
-									(pSend->zhanche + pnum )->lingyongid = rec->get("LINGYONGID");
-									bcopy((const char*)rec->get("LINGYONGNAME"), (pSend->zhanche + pnum)->lingyongname, MAX_NAMESIZE);
-									pnum+=1;
+									(pSend->zhanche + i )->id = rec->get("ID");
+									(pSend->zhanche + i )->septid = rec->get("SEPTID");
+									//by=>friday 修复字符串字段的获取方式，防止数据异常
+									const char* name = (const char*)rec->get("NAME");
+									if(name != NULL) {
+										bcopy(name, (pSend->zhanche + i)->name, MAX_NAMESIZE);
+									} else {
+										bcopy("", (pSend->zhanche + i)->name, MAX_NAMESIZE);
+									}
+									(pSend->zhanche + i )->type = rec->get("TYPE");
+									(pSend->zhanche + i )->lingyongid = rec->get("LINGYONGID");
+									//by=>friday 修复字符串字段的获取方式，防止数据异常
+									const char* lingyongname = (const char*)rec->get("LINGYONGNAME");
+									if(lingyongname != NULL) {
+										bcopy(lingyongname, (pSend->zhanche + i)->lingyongname, MAX_NAMESIZE);
+									} else {
+										bcopy("", (pSend->zhanche + i)->lingyongname, MAX_NAMESIZE);
 								}
-								
+								}
 							}
-
-							pUser->sendCmdToMe(pSend, sizeof(Cmd::stZhancheListReturnCmd) + pnum * sizeof(pSend->zhanche[0]));
+							//by=>friday 正确的数据包大小计算：sizeof已经包含整个zhanche[20]数组
+							pUser->sendCmdToMe(pSend, sizeof(Cmd::stZhancheListReturnCmd));
 						}					
 						return true;	
 			}
@@ -1131,7 +1140,8 @@ bool SessionTask::msgParse_Scene(const Cmd::t_NullCmd *cmd, const unsigned int c
 							Record where;                           
 					
 							oss << "ID = " << rev->zhancheid;
-							where.put("id",oss.str());
+								//by=>friday 修复数据库字段名大小写问题
+								where.put("ID",oss.str());
 							if ((connHandleID)-1 != handle)
 							{
 								recordset = SessionService::dbConnPool->exeSelect(handle, city, NULL,&where);
@@ -1210,7 +1220,8 @@ bool SessionTask::msgParse_Scene(const Cmd::t_NullCmd *cmd, const unsigned int c
 							Record where;                           
 					
 							oss << "ID = " << rev->zhancheid;
-							where.put("id",oss.str());
+								//by=>friday 修复数据库字段名大小写问题
+								where.put("ID",oss.str());
 							if ((connHandleID)-1 != handle)
 							{
 								recordset = SessionService::dbConnPool->exeSelect(handle, city, NULL,&where);
@@ -1926,6 +1937,7 @@ bool SessionTask::msgParse_Scene(const Cmd::t_NullCmd *cmd, const unsigned int c
                                 break;
 						case Cmd::Session::GM_COMMAND_LOADNPCTRADE://soke 刷新npctrade
 						case Cmd::Session::GM_COMMAND_LOADTBL:     //soke 刷新tbl
+						case Cmd::Session::GM_COMMAND_LOADPEIZHI:     //soke 刷新tbl
 								return SessionTaskManager::getInstance().broadcastScene(cmd, cmdLen);
                                 break;
 						/////////////////////////////////////////////////////		

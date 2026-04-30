@@ -662,7 +662,7 @@ void CGuiUserInfo::OnCreate()
 	GetButton(6)->SetButtonGroup(1);	
 	GetButton(8)->SetButtonGroup(1);
 	GetButton(9)->SetButtonGroup(1);
-	GetButton(1023)->SetButtonGroup(1);
+	// GetButton(1023)->SetButtonGroup(1);
 
     //soke 如果不是观察,关闭坐骑显示
 	if( m_bMainUser )
@@ -710,6 +710,16 @@ void CGuiUserInfo::OnCreate()
 	m_pTab->AddControl(0,(CGuiControl*)GetTable(119)); //soke 上方宝剑
 	m_pTab->AddControl(0,(CGuiControl*)GetTable(120)); //soke 紫金龙袍
 	m_pTab->AddControl(0,(CGuiControl*)GetTable(121)); //soke 披风
+
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(152)); //soke 时装
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(153)); //soke 护身符
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(154)); //soke 勋章
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(155)); //soke 翅膀
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(156)); //soke 神兵
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(157)); //soke 神兽
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(158)); //soke 神兵
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(159)); //soke 神兽
+
 	m_pTab->AddControl(0,(CGuiControl*)GetImage(2));
 	m_pTab->AddControl(0,(CGuiControl*)GetImage(3));
 	m_pTab->AddControl(0,(CGuiControl*)GetImage(4));
@@ -723,8 +733,8 @@ void CGuiUserInfo::OnCreate()
 	{
 		
 	m_pTab->AddControl(0,(CGuiControl*)GetButton(126)); //装备助手	
-	m_pTab->AddControl(0,(CGuiControl*)GetButton(1800)); //附件助手	
-	// m_pTab->AddControl(0,(CGuiControl*)GetButton(1801)); //儿女
+	// m_pTab->AddControl(0,(CGuiControl*)GetButton(1800)); //附件助手	
+	m_pTab->AddControl(0,(CGuiControl*)GetButton(1801)); //儿女
   	m_pTab->AddControl(0,(CGuiControl*)GetButton(1300)); //百兽图鉴
 	m_pTab->AddControl(0,(CGuiControl*)GetButton(128)); //翅膀封印
 	m_pTab->AddControl(0,(CGuiControl*)GetButton(131)); //寒冰麒麟 
@@ -739,8 +749,8 @@ void CGuiUserInfo::OnCreate()
 	else
 	{
 	GetButton(126)->SetVisible(false);    // 装备助手关闭
-	GetButton(1800)->SetVisible(false);    // 附件助手关闭
-	// GetButton(1801)->SetVisible(false);    // 儿女关闭
+	// GetButton(1800)->SetVisible(false);    // 附件助手关闭
+	GetButton(1801)->SetVisible(false);    // 儿女关闭
 	GetButton(1300)->SetVisible(false);    // 百兽图鉴关闭
 	GetButton(128)->SetVisible(false);    // 翅膀封印关闭
 	GetButton(131)->SetVisible(false);    // 寒冰麒麟关闭
@@ -752,14 +762,7 @@ void CGuiUserInfo::OnCreate()
 	}
 
 
-	m_pTab->AddControl(0,(CGuiControl*)GetImage(152)); //soke 时装
-	m_pTab->AddControl(0,(CGuiControl*)GetImage(153)); //soke 护身符
-	m_pTab->AddControl(0,(CGuiControl*)GetImage(154)); //soke 勋章
-	m_pTab->AddControl(0,(CGuiControl*)GetImage(155)); //soke 翅膀
-	m_pTab->AddControl(0,(CGuiControl*)GetImage(156)); //soke 神兵
-	m_pTab->AddControl(0,(CGuiControl*)GetImage(157)); //soke 神兽
-	m_pTab->AddControl(0,(CGuiControl*)GetImage(158)); //soke 神兵
-	m_pTab->AddControl(0,(CGuiControl*)GetImage(159)); //soke 神兽
+
 	
 	
 	m_pTab->AddControl(1,(CGuiControl*)GetButton(200));
@@ -972,7 +975,7 @@ void CGuiUserInfo::OnCreate()
 	m_pTab->AddControl(5,(CGuiControl*)GetButton(1612));
 	m_pTab->AddControl(5,(CGuiControl*)GetImage(1613));
 
-	m_pTab->AddControl(5,(CGuiControl*)GetProcess(1800));
+	// m_pTab->AddControl(5,(CGuiControl*)GetProcess(1800));
 	m_pTab->AddControl(5,(CGuiControl*)GetProcess(1801));
 	
 
@@ -1122,7 +1125,7 @@ void CGuiUserInfo::SetTitleList()
 	}
 }
 
-#define  AddShowTitle(str,total,base,unit) \
+/*#define AddShowTitle(str,total,base,unit) \
 	{\
 		m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));\
 		char szTxt[16]={0};\
@@ -1133,10 +1136,32 @@ void CGuiUserInfo::SetTitleList()
 		if (total!=base){\
 			m_ToolTips.SetCurColor(GETSHOWCOLOR(total,base));\
 			m_ToolTips.AddText(total>base?" + ":" - ");\
-			m_ToolTips.AddText(_itoa(abs((int)(total-base)),szTxt,10)); \
+			m_ToolTips.AddText(_itoa((int)abs((int)(total-base)),szTxt,10)); \
 			m_ToolTips.AddText(unit);\
 			m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));}\
-	}\
+	} //by=>friday
+*/
+#define AddShowTitle(str, total, base, unit_text_ignored) \
+{ \
+    /* by=>friday 使用 FormatLargeNumber 来格式化Tips中的数值 */ \
+    m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255)); \
+    std::string baseFormattedStr = FormatLargeNumber(static_cast<uint64_t>(base)); \
+    m_ToolTips.AddText(str); \
+    m_ToolTips.AddText(" = "); \
+    m_ToolTips.AddText(baseFormattedStr.c_str()); \
+    /*原来的 unit_text_ignored 参数不再直接使用，因为单位已包含在格式化后的字符串中 */ \
+    if (static_cast<uint64_t>(total) != static_cast<uint64_t>(base)) { \
+        m_ToolTips.SetCurColor(GETSHOWCOLOR(total,base)); \
+        m_ToolTips.AddText(static_cast<uint64_t>(total) > static_cast<uint64_t>(base) ? " + " : " - "); \
+        uint64_t diff_val = (static_cast<uint64_t>(total) > static_cast<uint64_t>(base)) ? \
+                            (static_cast<uint64_t>(total) - static_cast<uint64_t>(base)) : \
+                            (static_cast<uint64_t>(base) - static_cast<uint64_t>(total)); \
+        std::string diffFormattedStr = FormatLargeNumber(diff_val); \
+        m_ToolTips.AddText(diffFormattedStr.c_str()); \
+        /*原来的 unit_text_ignored 参数不再直接使用 */ \
+        m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255)); \
+    } \
+}
 
 void CGuiUserInfo::TipsRender()
 {
@@ -1561,8 +1586,353 @@ HRESULT CGuiUserInfo::OnRender(float fElapsedTime)
 {
 	FUNCTION_BEGIN;
 
+	//魔盒界面
+	if(m_UserData.pMapUserData->jiemian_select != 9999 && (m_UserData.pMapUserData->jiemian_select >= 0 && m_UserData.pMapUserData->jiemian_select < 100) )
+	{
+		if(GetGameGuiManager()->m_guiMagicBox->Jiemian[m_UserData.pMapUserData->jiemian_select].dongtai == 0)
+		{
+			
+			int activityNum = GetGameGuiManager()->m_guiMagicBox->Jiemian[m_UserData.pMapUserData->jiemian_select].activityNum;
+			GetButton(5)->SetLocation(43,495);
+			GetButton(5)->SetText("装 备");
+			GetButton(5)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);
+
+			GetButton(6)->SetLocation(113,495);
+			GetButton(6)->SetText("属 性");
+			GetButton(6)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);
+
+			GetButton(8)->SetLocation(183,495);
+			GetButton(8)->SetText("马 匹");
+			GetButton(8)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);
+
+			GetButton(9)->SetLocation(183,495);
+			GetButton(9)->SetText("一键换装");
+			GetButton(9)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);
+			
+			GetButton(1023)->SetLocation(253,495);
+			GetButton(1023)->SetText("元 神");
+			GetButton(1023)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//元神
+
+			GetButton(1500)->SetLocation(323,495);
+			GetButton(1500)->SetText("法 宝");
+			GetButton(1500)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//法宝
+
+			// GetButton(1821)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+			// GetButton(126)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+			// GetButton(1800)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+			// GetButton(2501)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+			// GetButton(1722)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+
+			GetButton(1821)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//头衔
+
+			GetButton(126)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//装备助手
+			GetButton(1800)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//附件助手
+			GetButton(1801)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//附件助手
+			GetButton(2501)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//五附件
+
+			GetButton(1722)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//等级封印
+
+			//附件框处理
+			GetImage(152)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(153)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(154)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(155)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(159)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+
+			GetImage(702)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(703)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(704)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(705)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(709)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+
+		
+			if(m_pTab->GetCurItem() == 0)
+			{
+				SetBackImage(stResourceLocation("data\\activity.gl",activityNum,4),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				stResourceLocation rl;
+				rl.SetFileName("data\\activity.gl");
+				rl.group = activityNum;
+				rl.frame = 10;
+				IBitmap * pBitmap = GetDevice()->FindBitmap(&rl);
+				if( pBitmap->GetWidth() >100)
+				{
+					GetButton( 25 )->SetLocation( 0, 0 );   //soke 有新的邮件
+				}
+				else{
+					GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+				}
+				GetStatic(900)->SetVisible(true);
+				GetStatic(901)->SetVisible(true);
+				GetStatic(902)->SetVisible(true);
+				GetStatic(903)->SetVisible(true);
+			}
+			if(m_pTab->GetCurItem() == 1)
+			{
+				SetBackImage(stResourceLocation("data\\activity.gl",activityNum,5),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+				GetStatic(900)->SetVisible(false);
+				GetStatic(901)->SetVisible(false);
+				GetStatic(902)->SetVisible(false);
+				GetStatic(903)->SetVisible(false);
+			}
+			if(m_pTab->GetCurItem() == 2)
+			{
+				SetBackImage(stResourceLocation("data\\activity.gl",activityNum,8),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+				GetStatic(900)->SetVisible(false);
+				GetStatic(901)->SetVisible(false);
+				GetStatic(902)->SetVisible(false);
+				GetStatic(903)->SetVisible(false);
+			}
+			if(m_pTab->GetCurItem() == 3)
+			{
+				
+				SetBackImage(stResourceLocation("data\\activity.gl",activityNum,6),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+				GetStatic(900)->SetVisible(false);
+				GetStatic(901)->SetVisible(false);
+				GetStatic(902)->SetVisible(false);
+				GetStatic(903)->SetVisible(false);
+			}
+			if(m_pTab->GetCurItem() == 6)
+			{
+				SetBackImage(stResourceLocation("data\\activity.gl",activityNum,4),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				stResourceLocation rl;
+				rl.SetFileName("data\\activity.gl");
+				rl.group = activityNum;
+				rl.frame = 10;
+				IBitmap * pBitmap = GetDevice()->FindBitmap(&rl);
+				if( pBitmap->GetWidth() >100)
+				{
+					GetButton( 25 )->SetLocation( 0, 0 );   //soke 有新的邮件
+				}
+				else{
+					GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+				}
+				GetStatic(900)->SetVisible(true);
+				GetStatic(901)->SetVisible(true);
+				GetStatic(902)->SetVisible(true);
+				GetStatic(903)->SetVisible(true);
+			}
+		}
+		//动态界面单独处理
+		else{
+			int activityNum = GetGameGuiManager()->m_guiMagicBox->Jiemian[m_UserData.pMapUserData->jiemian_select].activityNum;  //魔盒界面
+			GetButton(5)->SetLocation(-20,-10);
+			GetButton(5)->SetText("");
+			GetButton(5)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1510),3);
+
+			GetButton(6)->SetLocation(-20,-10);
+			GetButton(6)->SetText("");
+			GetButton(6)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1513),3);
+
+			GetButton(8)->SetLocation(-20,-10);
+			GetButton(8)->SetText("");
+			GetButton(8)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1526),3);
+
+			GetButton(9)->SetLocation(-20,-10);
+			GetButton(9)->SetText("");
+			GetButton(9)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1516),3);
+			
+			GetButton(1023)->SetLocation(-20,-10);
+			GetButton(1023)->SetText("");
+			GetButton(1023)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1519),3);//元神
+
+			GetButton(1500)->SetLocation(-20,-10);
+			GetButton(1500)->SetText("");
+			GetButton(1500)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1523),3);//法宝
+
+			// GetButton(1821)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+			// GetButton(126)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+			// GetButton(1800)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+			// GetButton(2501)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+			// GetButton(1722)->SetButtonType(CGuiButton::ButtonType_Bitmap);
+
+			// GetButton(1821)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//头衔
+
+			// GetButton(126)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//装备助手
+			// GetButton(1800)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//附件助手
+			// GetButton(2501)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//五附件
+
+			// GetButton(1722)->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,1),1);//等级封印
+
+			//附件框处理
+			GetImage(152)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(153)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(154)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(155)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(159)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+
+			GetImage(702)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(703)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(704)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(705)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+			GetImage(709)->SetImage(stResourceLocation("data\\activity.gl",activityNum,9));
+
+		
+			if(m_pTab->GetCurItem() == 0)
+			{
+				if ( GetBackImage() && (GetBackImage()->GetImgGroup() != activityNum || GetBackImage()->GetImgFrame() != 4))
+				{
+					SetBackImage(stResourceLocation("data\\activity.gl",activityNum,4),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				}
+				GetButton( 25 )->SetLocation(-20,-10);
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				GetStatic(900)->SetVisible(false);
+				GetStatic(901)->SetVisible(false);
+				GetStatic(902)->SetVisible(false);
+				GetStatic(903)->SetVisible(false);
+			}
+			if(m_pTab->GetCurItem() == 1)
+			{
+				if ( GetBackImage() && (GetBackImage()->GetImgGroup() != activityNum || GetBackImage()->GetImgFrame() != 5))
+				{
+					SetBackImage(stResourceLocation("data\\activity.gl",activityNum,5),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				}
+				GetButton( 25 )->SetLocation(-20,-10);
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				GetStatic(900)->SetVisible(false);
+				GetStatic(901)->SetVisible(false);
+				GetStatic(902)->SetVisible(false);
+				GetStatic(903)->SetVisible(false);
+			}
+			if(m_pTab->GetCurItem() == 2)
+			{
+				if ( GetBackImage() && (GetBackImage()->GetImgGroup() != activityNum || GetBackImage()->GetImgFrame() != 8))
+				{
+					SetBackImage(stResourceLocation("data\\activity.gl",activityNum,8),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				}
+				GetButton( 25 )->SetLocation(-20,-10);
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				GetStatic(900)->SetVisible(false);
+				GetStatic(901)->SetVisible(false);
+				GetStatic(902)->SetVisible(false);
+				GetStatic(903)->SetVisible(false);
+			}
+			if(m_pTab->GetCurItem() == 3)
+			{	
+				if ( GetBackImage() && (GetBackImage()->GetImgGroup() != activityNum || GetBackImage()->GetImgFrame() != 6))
+				{
+					SetBackImage(stResourceLocation("data\\activity.gl",activityNum,6),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				}
+				GetButton( 25 )->SetLocation(-20,-10);
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				GetStatic(900)->SetVisible(false);
+				GetStatic(901)->SetVisible(false);
+				GetStatic(902)->SetVisible(false);
+				GetStatic(903)->SetVisible(false);
+			}
+			if(m_pTab->GetCurItem() == 6)
+			{
+				if ( GetBackImage() && (GetBackImage()->GetImgGroup() != activityNum || GetBackImage()->GetImgFrame() != 4))
+				{
+					SetBackImage(stResourceLocation("data\\activity.gl",activityNum,4),NULL,-1,-372,-193);//soke 角色界面 哪吒
+				}
+				GetButton( 25 )->SetLocation(-20,-10);
+				GetButton( 25 )->SetBitmap(stResourceLocation("data\\activity.gl",activityNum,10),1);//界面按钮
+				GetStatic(900)->SetVisible(false);
+				GetStatic(901)->SetVisible(false);
+				GetStatic(902)->SetVisible(false);
+				GetStatic(903)->SetVisible(false);
+			}
+		}
+		
+		
+	}
+	else{
+
+		GetStatic(900)->SetVisible(false);
+		GetStatic(901)->SetVisible(false);
+		GetStatic(902)->SetVisible(false);
+		GetStatic(903)->SetVisible(false);
+		//普通素材
+		if(m_pTab->GetCurItem() == 0)
+		{
+			SetBackImage(stResourceLocation("data\\interfaces.gl",3,0));//soke 角色界面
+			GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+		}
+		if(m_pTab->GetCurItem() == 1)
+		{
+			SetBackImage(stResourceLocation("data\\interfaces.gl",3,57));//soke 属性界面
+			GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+		}
+		if(m_pTab->GetCurItem() == 2)
+		{
+			SetBackImage(stResourceLocation("data\\interfaces.gl",25,0)); //他人观看马匹装备界面
+			GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+		}
+		if(m_pTab->GetCurItem() == 3)
+		{
+			SetBackImage(stResourceLocation("data\\interfaces.gl",3,600)); //31 soke 一键换装
+			GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+			
+		}
+		if(m_pTab->GetCurItem() == 6)
+		{
+			SetBackImage(stResourceLocation("data\\interfaces.gl",3,0));//soke 角色界面
+			GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+		}
+		
+		
+		
+		GetButton( 25 )->SetBitmap(stResourceLocation("data\\interfaces.gl",3,4),3);//界面按钮
+
+		GetButton(5)->SetLocation(0,0);
+		GetButton(5)->SetText("");
+		GetButton(5)->SetBitmap(stResourceLocation("data\\interfaces.gl",3,51),3);
+
+		GetButton(6)->SetLocation(0,0);
+		GetButton(6)->SetText("");
+		GetButton(6)->SetBitmap(stResourceLocation("data\\interfaces.gl",3,54),3);
+
+		GetButton(8)->SetLocation(0,0);
+		GetButton(8)->SetText("");
+		GetButton(8)->SetBitmap(stResourceLocation("data\\interfaces.gl",3,58),3);
+
+		GetButton(9)->SetLocation(0,0);
+		GetButton(9)->SetText("");
+		GetButton(9)->SetBitmap(stResourceLocation("data\\interfaces.gl",3,61),3);
+		
+		GetButton(1023)->SetLocation(0,0);
+		GetButton(1023)->SetText("");
+		GetButton(1023)->SetBitmap(stResourceLocation("data\\interfaces.gl",3,70),3);//元神
+
+		GetButton(1500)->SetLocation(0,0);
+		GetButton(1500)->SetText("");
+		GetButton(1500)->SetBitmap(stResourceLocation("data\\interfaces.gl",80,50),3);//法宝
 
 
+	
+		GetButton(1821)->SetBitmap(stResourceLocation("data\\activity.gl",0,3),3);
+		GetButton(126)->SetBitmap(stResourceLocation("data\\activity.gl",0,3),3);
+		GetButton(1800)->SetBitmap(stResourceLocation("data\\activity.gl",0,3),3);
+		GetButton(1801)->SetBitmap(stResourceLocation("data\\activity.gl",0,3),3);
+		GetButton(2501)->SetBitmap(stResourceLocation("data\\activity.gl",0,3),3);
+		GetButton(1722)->SetBitmap(stResourceLocation("data\\activity.gl",0,3),3);
+		
+
+		
+		//附件框处理
+		GetImage(152)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+		GetImage(153)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+		GetImage(154)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+		GetImage(155)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+		GetImage(159)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+
+		GetImage(702)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+		GetImage(703)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+		GetImage(704)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+		GetImage(705)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+		GetImage(709)->SetImage(stResourceLocation("data\\interfaces.gl",3,155));
+			
+	}
+
+	
 	// GetButton( 25 )->SetLocation( 361, 96 ); //关闭按钮
 
 	GetButton( 128 )->SetLocation( 300,380 );//soke 翅膀内形按钮位置
@@ -1585,14 +1955,7 @@ HRESULT CGuiUserInfo::OnRender(float fElapsedTime)
 	GetDevice()->DrawString(m_UserData.pMapUserData->name,rect,ColorBlend(GetNameColor(m_UserData.pMapUserData->goodness),0xffffffff),DT_VCENTER|DT_CENTER);
 
 
-	//寒冰麒麟处理
-	if(m_UserData.pMainUserData->hanbing == 1)
-	{
-		hanbing_state=1;
-	}
-	else{
-		hanbing_state=0;
-	}
+	
 	
 	switch(m_pTab->GetCurItem())
 	{
@@ -1624,9 +1987,22 @@ HRESULT CGuiUserInfo::OnRender(float fElapsedTime)
 			ShowUserInfoText3();
 		}
 		break;
-	case 4: //soke 签名档
+	// case 4: //soke 签名档
+	// 	{
+	// 		ShowUserInfoText4();
+	// 	}
+	// 	break;
+	case 6://地元界面
 		{
-			ShowUserInfoText4();
+			ShowUserInfoText1();
+			m_pImage[3]->Render(fElapsedTime);
+			m_pImage[4]->Render(fElapsedTime);
+			m_pImage[0]->Render(fElapsedTime);
+
+			BodyRender(GetLocation());
+
+			m_pImage[1]->Render(fElapsedTime);
+			m_pImage[2]->Render(fElapsedTime);
 		}
 		break;
 	}
@@ -1812,7 +2188,12 @@ HRESULT CGuiUserInfo::OnRender(float fElapsedTime)
 		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 255, 255, 255));
 		pToolTips2->AddText("\n坐骑拥有数量：",0);
 		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 0, 255, 0));
-		sprintf(msg, "[%d] 套\n\n", GetGameGuiManager()->m_guiMagicBox->zuoqishu);
+		sprintf(msg, "[%d] 套\n", GetGameGuiManager()->m_guiMagicBox->zuoqishu);
+		pToolTips2->AddText(msg,0);
+		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 255, 255, 255));
+		pToolTips2->AddText("\n界面拥有数量：",0);
+		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 0, 255, 0));
+		sprintf(msg, "[%d] 套\n\n", GetGameGuiManager()->m_guiMagicBox->jiemianshu);  //魔盒界面
 		pToolTips2->AddText(msg,0);
 
 		stResourceLocation r2;
@@ -2181,9 +2562,11 @@ void CGuiUserInfo::ShowEquipByName()
 					{
 					case 1:  //身体装备
 						{
+							stRectI rect ;
+							bool friday =false;
 							if ( (m_equipByMakerType > EquipByMaker_T_NONE) && (m_equipByMakerType <= EquipByMaker_T_WONDER_PURPLE) )
 							{
-                                stRectI rect = m_equipList[i].rect;
+                              	rect  = m_equipList[i].rect;
 								rect.OffsetRect(GetX()+30,GetY());
 								m_ToolTips.Clear();
 								m_ToolTips.SetBorderColor(0);
@@ -2196,6 +2579,19 @@ void CGuiUserInfo::ShowEquipByName()
 								m_ToolTips.SetAlignType(GUI_ALIGN_LEFT);
 								m_ToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
 								m_ToolTips.SetCurColor(COLOR_ARGB(255,255,100,25));
+
+								m_JJSuitToolTips.Clear();
+								m_JJSuitToolTips.SetBorderColor(0);
+			                    imguserinfo.SetFileName( "data\\interfaces2.gl");
+			                    imguserinfo.group = 400;
+		                        imguserinfo.frame = 1;
+		                        m_JJSuitToolTips.AddAnimation( &imguserinfo, false );
+								m_JJSuitToolTips.AddText("\n");
+								m_JJSuitToolTips.SetAlignType(GUI_ALIGN_LEFT);
+								m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+								m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,100,25));
+
+							
 
 								static const int value[8][4] = { {2,4,4,4},{2,4,4,4},{2,4,4,4},{5,8,8,8},{5,8,8,8},{10,8,8,8},{10,10,12,12},{15,10,15,15} };
 								static const char* strSetName[] = { "地之侠义", "地之神佑", "地之圣威", "天之英雄", "天之屠魔", "天之圣尊", "神之圣尊", "魔之至尊" };
@@ -2215,7 +2611,9 @@ void CGuiUserInfo::ShowEquipByName()
 		                        imguserinfo1.frame = 2;
 		                        m_ToolTips.AddAnimation( &imguserinfo1, false );
 								m_ToolTips.Resize();
+								friday = true ;
 								m_ToolTips.RenderTopLeftPrefer(rect,GetDevice()->GetWidth(),GetDevice()->GetHeight());		
+	
 
 							}
                             //绿装15星套装效果、绿装套装效果
@@ -2264,11 +2662,17 @@ void CGuiUserInfo::ShowEquipByName()
 								Tips_AddNum1( " 双防 +%u% ", value[m2_equipByMakerType][1] );
 								Tips_AddNum1( " 生命值 +%u% ", value[m2_equipByMakerType][2] );
 								
-								// //星套压制系统
-								// static const char* jianshang[] = { "受到来自3星套以下的伤害减伤2%", "受到来自5星套以下的伤害减伤4%", "受到来自8星套以下的伤害减伤6%", "受到来自10星套以下的伤害减伤8%", "受到来自12星套以下的伤害减伤10%", "受到来自13星套以下的伤害减伤12%", "受到来自14星套以下的伤害减伤15%", "受到来自15星套以下的伤害减伤20%" };
-								// static const char* zengshang[] = { "攻击3星套以下的玩家伤害增伤2%", "攻击5星套以下的玩家伤害增伤4%", "攻击8星套以下的玩家伤害增伤6%", "攻击10星套以下的玩家伤害增伤8%", "攻击12星套以下的玩家伤害增伤10%", "攻击13星套以下的玩家伤害增伤12%", "攻击14星套以下的玩家伤害增伤15%", "攻击15星套以下的玩家伤害增伤20%" };
+                             // 星套压制系统
+                             static const char* jianshang[] = { "受到来自3星套以下的伤害减伤2%", "受到来自5星套以下的伤害减伤4%", "受到来自8星套以下的伤害减伤6%", "受到来自10星套以下的伤害减伤8%", "受到来自12星套以下的伤害减伤10%", "受到来自13星套以下的伤害减伤12%", "受到来自14星套以下的伤害减伤15%", "受到来自15星套以下的伤害减伤20%" };
+                             static const char* zengshang[] = { "攻击3星套以下的玩家伤害增伤2%", "攻击5星套以下的玩家伤害增伤4%", "攻击8星套以下的玩家伤害增伤6%", "攻击10星套以下的玩家伤害增伤8%", "攻击12星套以下的玩家伤害增伤10%", "攻击13星套以下的玩家伤害增伤12%", "攻击14星套以下的玩家伤害增伤15%", "攻击15星套以下的玩家伤害增伤20%" };
 
-							
+                             // 添加星套压制内容
+                             m_ToolTips.AddText( "\n\n" );
+                             m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0)); // 设置不同颜色突出显示
+                             m_ToolTips.AddText( jianshang[m2_equipByMakerType] );
+                             m_ToolTips.AddText( "\n" );
+                             m_ToolTips.AddText( zengshang[m2_equipByMakerType] );	
+							 					
 								m_ToolTips.AddText( "\n\n" );
 								stResourceLocation imguserinfo1;
 			                    imguserinfo1.SetFileName( "data\\interfaces2.gl");
@@ -2326,6 +2730,1096 @@ void CGuiUserInfo::ShowEquipByName()
 		                        m_ToolTips.AddAnimation10( &imguserinfo1, false );
 								m_ToolTips.Resize();
 							}
+							/////////////////////////////////////////////////////
+							////////////////////////////////////////////////////
+							//////by=>friday////////////////////////////////////
+							////////////////////////////////////////////////////
+							///////////////////////////////////////////////////
+							// 永恒星级套装效果显示 //by=>friday
+// 永恒星级套装效果显示 //by=>friday
+if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ34))
+{
+    // 显示已激活的34星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒34星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+5120万 双防+2560万 生命值+51200万 绝技攻防+3072万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ32))
+{
+    // 显示已激活的32星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒32星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+2560万 双防+1280万 生命值+25600万 绝技攻防+1536万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的34星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒34星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+5120万 双防+2560万 生命值+51200万 绝技攻防+3072万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ30))
+{
+    // 显示已激活的30星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒30星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+1280万 双防+640万 生命值+12800万 绝技攻防+768万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的32星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒32星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+2560万 双防+1280万 生命值+25600万 绝技攻防+1536万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ28))
+{
+    // 显示已激活的28星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒28星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+640万 双防+320万 生命值+6400万 绝技攻防+384万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的30星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒30星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+1280万 双防+640万 生命值+12800万 绝技攻防+768万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ26))
+{
+    // 显示已激活的26星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒26星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+320万 双防+160万 生命值+3200万 绝技攻防+192万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的28星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒28星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+640万 双防+320万 生命值+6400万 绝技攻防+384万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ24))
+{
+    // 显示已激活的24星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒24星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+160万 双防+80万 生命值+1600万 绝技攻防+96万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的26星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒26星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+320万 双防+160万 生命值+3200万 绝技攻防+192万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ22))
+{
+    // 显示已激活的22星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒22星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+80万 双防+40万 生命值+800万 绝技攻防+48万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的24星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒24星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+160万 双防+80万 生命值+1600万 绝技攻防+96万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ20))
+{
+    // 显示已激活的20星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒20星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+40万 双防+20万 生命值+400万 绝技攻防+24万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的22星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒22星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+80万 双防+40万 生命值+800万 绝技攻防+48万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ18))
+{
+    // 显示已激活的18星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒18星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+20万 双防+10万 生命值+200万 绝技攻防+12万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的20星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒20星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+40万 双防+20万 生命值+400万 绝技攻防+24万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_JJ16))
+{
+    // 显示已激活的16星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒16星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+10万 双防+5万 生命值+100万 绝技攻防+6万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的18星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒18星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+20万 双防+10万 生命值+200万 绝技攻防+12万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else
+{
+    // 如果一个都没激活，显示16星套装（灰色）
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    
+    m_JJSuitToolTips.AddText("永恒16星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+10万 双防+5万 生命值+100万 绝技攻防+6万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+
+////////////////////////////////
+if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX34))
+{
+    // 显示已激活的34星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒34星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+5120万 双防+2560万 生命值+51200万 绝技攻防+3072万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX32))
+{
+    // 显示已激活的32星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒32星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+2560万 双防+1280万 生命值+25600万 绝技攻防+1536万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的34星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒34星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+5120万 双防+2560万 生命值+51200万 绝技攻防+3072万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX30))
+{
+    // 显示已激活的30星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒30星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+1280万 双防+640万 生命值+12800万 绝技攻防+768万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的32星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒32星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+2560万 双防+1280万 生命值+25600万 绝技攻防+1536万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX28))
+{
+    // 显示已激活的28星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒28星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+640万 双防+320万 生命值+6400万 绝技攻防+384万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的30星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒30星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+1280万 双防+640万 生命值+12800万 绝技攻防+768万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX26))
+{
+    // 显示已激活的26星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒26星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+320万 双防+160万 生命值+3200万 绝技攻防+192万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的28星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒28星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+640万 双防+320万 生命值+6400万 绝技攻防+384万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX24))
+{
+    // 显示已激活的24星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒24星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+160万 双防+80万 生命值+1600万 绝技攻防+96万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的26星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒26星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+320万 双防+160万 生命值+3200万 绝技攻防+192万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX22))
+{
+    // 显示已激活的22星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒22星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+80万 双防+40万 生命值+800万 绝技攻防+48万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的24星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒24星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+160万 双防+80万 生命值+1600万 绝技攻防+96万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX20))
+{
+    // 显示已激活的20星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒20星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+40万 双防+20万 生命值+400万 绝技攻防+24万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的22星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒22星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+80万 双防+40万 生命值+800万 绝技攻防+48万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX18))
+{
+    // 显示已激活的18星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒18星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+20万 双防+10万 生命值+200万 绝技攻防+12万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的20星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒20星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+40万 双防+20万 生命值+400万 绝技攻防+24万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_LX16))
+{
+    // 显示已激活的16星龙星套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒16星龙星套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+10万 双防+5万 生命值+100万 绝技攻防+6万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的18星龙星套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒18星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+20万 双防+10万 生命值+200万 绝技攻防+12万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else
+{
+    // 如果一个都没激活，显示16星龙星套装（灰色）
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    
+    m_JJSuitToolTips.AddText("永恒16星龙星套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+10万 双防+5万 生命值+100万 绝技攻防+6万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+///////////////////////
+if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH34))
+{
+    // 显示已激活的34星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒34星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+5120万 双防+2560万 生命值+51200万 绝技攻防+3072万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH32))
+{
+    // 显示已激活的32星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒32星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+2560万 双防+1280万 生命值+25600万 绝技攻防+1536万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的34星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒34星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+5120万 双防+2560万 生命值+51200万 绝技攻防+3072万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH30))
+{
+    // 显示已激活的30星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒30星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+1280万 双防+640万 生命值+12800万 绝技攻防+768万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的32星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒32星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+2560万 双防+1280万 生命值+25600万 绝技攻防+1536万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH28))
+{
+    // 显示已激活的28星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒28星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+640万 双防+320万 生命值+6400万 绝技攻防+384万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的30星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒30星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+1280万 双防+640万 生命值+12800万 绝技攻防+768万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH26))
+{
+    // 显示已激活的26星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒26星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+320万 双防+160万 生命值+3200万 绝技攻防+192万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的28星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒28星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+640万 双防+320万 生命值+6400万 绝技攻防+384万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH24))
+{
+    // 显示已激活的24星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒24星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+160万 双防+80万 生命值+1600万 绝技攻防+96万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的26星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒26星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+320万 双防+160万 生命值+3200万 绝技攻防+192万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH22))
+{
+    // 显示已激活的22星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒22星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+80万 双防+40万 生命值+800万 绝技攻防+48万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的24星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒24星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+160万 双防+80万 生命值+1600万 绝技攻防+96万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH20))
+{
+    // 显示已激活的20星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒20星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+40万 双防+20万 生命值+400万 绝技攻防+24万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的22星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒22星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+80万 双防+40万 生命值+800万 绝技攻防+48万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH18))
+{
+    // 显示已激活的18星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒18星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+20万 双防+10万 生命值+200万 绝技攻防+12万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的20星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒20星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+40万 双防+20万 生命值+400万 绝技攻防+24万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_DH16))
+{
+    // 显示已激活的16星斗魂套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,20,147));  // 粉色
+    
+    m_JJSuitToolTips.AddText("永恒16星斗魂套装效果(10件)");
+    m_JJSuitToolTips.AddText2("\n双攻+10万 双防+5万 生命值+100万 绝技攻防+6万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的18星斗魂套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n永恒18星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+20万 双防+10万 生命值+200万 绝技攻防+12万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else
+{
+    // 如果一个都没激活，显示16星斗魂套装（灰色）
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    
+    m_JJSuitToolTips.AddText("永恒16星斗魂套装效果(10件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+10万 双防+5万 生命值+100万 绝技攻防+6万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+/////////////////////////////////
+//by=>friday 心意等级套装UI显示逻辑
+if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_HEART_ORANGE))
+{
+    // 显示已激活的橙色20心套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,140,0));  // 橙色
+    
+    m_JJSuitToolTips.AddText("橙色心意20心套装(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+3200万 双防+1600万 生命值+9600万 绝技攻防+320万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_HEART_PURPLE))
+{
+    // 显示已激活的紫色20心套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,0,128));  // 紫色
+    
+    m_JJSuitToolTips.AddText("紫色心意20心套装(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+1600万 双防+800万 生命值+4800万 绝技攻防+160万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的橙色20心套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n橙色心意20心套装(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+3200万 双防+1600万 生命值+9600万 绝技攻防+320万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_HEART_GREEN))
+{
+    // 显示已激活的绿色20心套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));  // 绿色
+    
+    m_JJSuitToolTips.AddText("绿色心意20心套装(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+800万 双防+400万 生命值+2400万 绝技攻防+80万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的紫色20心套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n紫色心意20心套装(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+1600万 双防+800万 生命值+4800万 绝技攻防+160万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_HEART_YELLOW))
+{
+    // 显示已激活的黄色20心套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,255,0));  // 黄色
+    
+    m_JJSuitToolTips.AddText("黄色心意20心套装(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+400万 双防+200万 生命值+1200万 绝技攻防+40万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的绿色20心套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n绿色心意20心套装(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+800万 双防+400万 生命值+2400万 绝技攻防+80万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_HEART_BLUE))
+{
+    // 显示已激活的蓝色20心套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,0,0,255));  // 蓝色
+    
+    m_JJSuitToolTips.AddText("蓝色心意20心套装(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+200万 双防+100万 生命值+600万 绝技攻防+20万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的黄色20心套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n黄色心意20心套装(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+400万 双防+200万 生命值+1200万 绝技攻防+40万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_HEART_WHITE))
+{
+    // 显示已激活的白色20心套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));  // 白色
+    
+    m_JJSuitToolTips.AddText("白色心意20心套装(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+100万 双防+50万 生命值+300万 绝技攻防+10万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的蓝色20心套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n蓝色心意20心套装(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+200万 双防+100万 生命值+600万 绝技攻防+20万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else
+{
+    // 如果心意等级套装一个都没激活，显示白色20心套装（灰色）
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    
+    m_JJSuitToolTips.AddText("白色心意20心套装(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+100万 双防+50万 生命值+300万 绝技攻防+10万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+///////////////////////////////////////////////////
+//by=>friday 突破等级套装UI显示逻辑
+if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_BREAK_ORANGE))
+{
+    // 显示已激活的橙色50级套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,140,0));  // 橙色
+    
+    m_JJSuitToolTips.AddText("定情物突破达到橙色+50(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+3200万 双防+1600万 生命值+9600万 绝技攻防+320万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_BREAK_PURPLE))
+{
+    // 显示已激活的紫色50级套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,0,128));  // 紫色
+    
+    m_JJSuitToolTips.AddText("定情物突破达到紫色+50(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+1600万 双防+800万 生命值+4800万 绝技攻防+160万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的橙色50级套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n定情物突破达到橙色+50(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+3200万 双防+1600万 生命值+9600万 绝技攻防+320万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_BREAK_YELLOW))
+{
+    // 显示已激活的黄色50级套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,255,0));  // 黄色
+    
+    m_JJSuitToolTips.AddText("定情物突破达到黄色+50(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+800万 双防+400万 生命值+2400万 绝技攻防+80万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的紫色50级套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n定情物突破达到紫色+50(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+1600万 双防+800万 生命值+4800万 绝技攻防+160万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_BREAK_GREEN))
+{
+    // 显示已激活的绿色50级套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,0,255,0));  // 绿色
+    
+    m_JJSuitToolTips.AddText("定情物突破达到绿色+50(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+400万 双防+200万 生命值+1200万 绝技攻防+40万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的黄色50级套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n定情物突破达到黄色+50(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+800万 双防+400万 生命值+2400万 绝技攻防+80万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_BREAK_BLUE))
+{
+    // 显示已激活的蓝色50级套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,0,0,255));  // 蓝色
+    
+    m_JJSuitToolTips.AddText("定情物突破达到蓝色+50(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+200万 双防+100万 生命值+600万 绝技攻防+20万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的绿色50级套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n定情物突破达到绿色+50(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+400万 双防+200万 生命值+1200万 绝技攻防+40万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else if (isset_state(m_UserData.pMapUserData->state, USTATE_USER_TZ_BREAK_WHITE))
+{
+    // 显示已激活的白色50级套装
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));  // 白色
+    
+    m_JJSuitToolTips.AddText("定情物突破达到白色+50(11件)");
+    m_JJSuitToolTips.AddText2("\n双攻+100万 双防+50万 生命值+300万 绝技攻防+10万");
+    m_JJSuitToolTips.AddText2("\n");
+    
+    // 显示下一级未激活的蓝色50级套装（灰色）
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    m_JJSuitToolTips.AddText("\n定情物突破达到蓝色+50(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+200万 双防+100万 生命值+600万 绝技攻防+20万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+else
+{
+    // 如果突破等级套装一个都没激活，显示白色50级套装（灰色）
+    m_JJSuitToolTips.SetBorderColor(0);
+    m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+    m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,128,128,128));  // 灰色
+    
+    m_JJSuitToolTips.AddText("定情物突破达到白色+50(11件)-(未激活)");
+    m_JJSuitToolTips.AddText2("\n双攻+100万 双防+50万 生命值+300万 绝技攻防+10万");
+    m_JJSuitToolTips.AddText2("\n\n");
+    
+    stResourceLocation imguserinfo1;
+    imguserinfo1.SetFileName("data\\interfaces2.gl");
+    imguserinfo1.group = 400;
+    imguserinfo1.frame = 2;
+    m_JJSuitToolTips.AddAnimation10(&imguserinfo1, false);
+    m_JJSuitToolTips.Resize();
+}
+/////////////////////////////////////
+ m_JJSuitToolTips.SetBorderColor(0);
+ m_JJSuitToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+ m_JJSuitToolTips.SetCurColor(COLOR_ARGB(255,86,255,0));  
+ 
+ m_JJSuitToolTips.AddText("\n绝技针对PVP 切割针对PVE 真实伤害");
+
+ m_JJSuitToolTips.Resize();
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+///////////////////////by=>friday==end/////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
                             //soke 斗魂套装显示效果
 							if ( (m3_equipByMakerType > EquipByMaker3_T_NONE) && (m3_equipByMakerType <= EquipByMaker104_T_WONDER_PURPLE) )
 							{  
@@ -2607,6 +4101,8 @@ void CGuiUserInfo::ShowEquipByName()
 								m_ToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
 								m_ToolTips.SetCurColor(COLOR_ARGB(255,244,249,168));
 								Tips_AddNum1( "\n 双攻 +%u% ", value[m24_equipByMakerType][0] );
+								Tips_AddNum1( " 双防 +%u% ", value[m24_equipByMakerType][1] );
+								Tips_AddNum1( " 生命值 +%u% ", value[m24_equipByMakerType][2] );
 							
 								m_ToolTips.AddText( "\n\n" );				
 								stResourceLocation imguserinfo1;
@@ -2624,7 +4120,12 @@ void CGuiUserInfo::ShowEquipByName()
 							// m_ToolTips.AddText2( "\n\n此效果持续至2024年12月31日"); //AddText2为小字体
 							m_ToolTips.SetCurColor(COLOR_ARGB(255,86,255,0));				
 							m_ToolTips.AddText("\n盾牌、战旗不计入套装系统");
-							m_ToolTips.Resize();							
+							m_ToolTips.Resize();			
+							
+							
+							// m_JJSuitToolTips.Render(newTipsX, newTipsY);
+							if(friday)
+								m_JJSuitToolTips.RenderTopLeftPreferDirect(rect, GetDevice()->GetWidth(), GetDevice()->GetHeight());
 						}
 						break;
 					case 2:  //右手装备
@@ -2875,28 +4376,42 @@ void CGuiUserInfo::ShowUserInfoText2()
 
 	ptText = stPointI(145,333) + GetLocation();
 
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->points),ptText,0xffffffff );
+	// by=>friday 使用FormatLargeNumber格式化显示属性点
+	std::string strPoints = FormatLargeNumber(m_UserData.pMainUserData->points);
+	GetDevice()->DrawString(strPoints.c_str(),ptText,0xffffffff );
 
     ptText = stPointI(125,339) + GetLocation();
 	dy=20;
 	//ptText.x=138;
 	ptText.y += dy;
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->wdStr),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdStr,m_UserData.pMainUserData->wdStdStr));
+	// by=>friday 使用FormatLargeNumber格式化显示力量
+	std::string strStr = FormatLargeNumber(m_UserData.pMainUserData->wdStr);
+	GetDevice()->DrawString(strStr.c_str(),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdStr,m_UserData.pMainUserData->wdStdStr));
 
 	ptText.y += dy;
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->wdInt),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdInt,m_UserData.pMainUserData->wdStdInt));
+	// by=>friday 使用FormatLargeNumber格式化显示智力
+	std::string strInt = FormatLargeNumber(m_UserData.pMainUserData->wdInt);
+	GetDevice()->DrawString(strInt.c_str(),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdInt,m_UserData.pMainUserData->wdStdInt));
 
 	ptText.y += dy;
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->wdDex),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdDex,m_UserData.pMainUserData->wdStdDex));
+	// by=>friday 使用FormatLargeNumber格式化显示敏捷
+	std::string strDex = FormatLargeNumber(m_UserData.pMainUserData->wdDex);
+	GetDevice()->DrawString(strDex.c_str(),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdDex,m_UserData.pMainUserData->wdStdDex));
 
 	ptText.y += dy;
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->wdMen),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdMen,m_UserData.pMainUserData->wdStdMen));
+	// by=>friday 使用FormatLargeNumber格式化显示精神
+	std::string strMen = FormatLargeNumber(m_UserData.pMainUserData->wdMen);
+	GetDevice()->DrawString(strMen.c_str(),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdMen,m_UserData.pMainUserData->wdStdMen));
 
 	ptText.y += dy;
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->wdCon),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdCon,m_UserData.pMainUserData->wdStdCon));
+	// by=>friday 使用FormatLargeNumber格式化显示体质
+	std::string strCon = FormatLargeNumber(m_UserData.pMainUserData->wdCon);
+	GetDevice()->DrawString(strCon.c_str(),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->wdCon,m_UserData.pMainUserData->wdStdCon));
 
 	ptText.y += dy;
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->bang),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->bang,m_UserData.pMainUserData->stdbang) );
+	// by=>friday 使用FormatLargeNumber格式化显示重击
+	std::string strBang = FormatLargeNumber(m_UserData.pMainUserData->bang);
+	GetDevice()->DrawString(strBang.c_str(),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->bang,m_UserData.pMainUserData->stdbang) );
 
 
 	ptText = stPointI(270,333) + GetLocation();
@@ -2913,65 +4428,121 @@ void CGuiUserInfo::ShowUserInfoText2()
 	if (m_UserData.pMainUserData->changejob==0 || m_UserData.pMainUserData->changejob==3 || m_UserData.pMainUserData->changejob==4 || m_UserData.pMainUserData->changejob==5|| m_UserData.pMainUserData->changejob==6)
 	{
 	    // 物理攻击
-	    GetDevice()->DrawString(avar("%u - %u",m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->maxpdamage),ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage));
+	    GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxpdamage),ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage));
 	}
 	else
 	{
 		// 物理攻击
-	    GetDevice()->DrawString(avar("%u - %u",m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->maxpdamage),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage));
+	    GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxpdamage),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage));
 	}
+	// by=>friday 使用新的格式化函数显示物理攻击
+	// std::string pdamageMinStr_s2 = FormatLargeNumber(m_UserData.pMainUserData->pdamage);
+	// std::string pdamageMaxStr_s2 = FormatLargeNumber(m_UserData.pMainUserData->maxpdamage);
+	// char pdamageBuffer_s2[128];
+	// _snprintf(pdamageBuffer_s2, sizeof(pdamageBuffer_s2)-1, "%s - %s", pdamageMinStr_s2.c_str(), pdamageMaxStr_s2.c_str());
+	// pdamageBuffer_s2[sizeof(pdamageBuffer_s2)-1] = '\0';
+
+	// if (m_UserData.pMainUserData->changejob==0 || m_UserData.pMainUserData->changejob==3 || m_UserData.pMainUserData->changejob==4 || m_UserData.pMainUserData->changejob==5|| m_UserData.pMainUserData->changejob==6)
+	// {
+	//     GetDevice()->DrawString(pdamageBuffer_s2,ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage)); //by=>friday
+	// }
+	// else
+	// {
+	//     GetDevice()->DrawString(pdamageBuffer_s2,ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage)); //by=>friday
+	// }
 	ptText.y += dy;
 	//soke 如果是物攻职业，那么属性界面的魔法攻击灰色显示
 	if (m_UserData.pMainUserData->changejob==0 || m_UserData.pMainUserData->changejob==1 || m_UserData.pMainUserData->changejob==2)
 	{
 	   // 魔法攻击
-	   GetDevice()->DrawString(avar("%u - %u",m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->maxmdamage),ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage));
+	   GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxmdamage),ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage));
 	}
 	else
 	{
 	   // 魔法攻击
-	   GetDevice()->DrawString(avar("%u - %u",m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->maxmdamage),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage));
+	   GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxmdamage),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage));
 	}
+	// by=>friday 使用新的格式化函数显示魔法攻击
+	// std::string mdamageMinStr_s2 = FormatLargeNumber(m_UserData.pMainUserData->mdamage);
+	// std::string mdamageMaxStr_s2 = FormatLargeNumber(m_UserData.pMainUserData->maxmdamage);
+	// char mdamageBuffer_s2[128];
+	// _snprintf(mdamageBuffer_s2, sizeof(mdamageBuffer_s2)-1, "%s - %s", mdamageMinStr_s2.c_str(), mdamageMaxStr_s2.c_str());
+	// mdamageBuffer_s2[sizeof(mdamageBuffer_s2)-1] = '\0';
+
+	// if (m_UserData.pMainUserData->changejob==0 || m_UserData.pMainUserData->changejob==1 || m_UserData.pMainUserData->changejob==2)
+	// {
+	//    GetDevice()->DrawString(mdamageBuffer_s2,ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage)); //by=>friday
+	// }
+	// else
+	// {
+	//    GetDevice()->DrawString(mdamageBuffer_s2,ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage)); //by=>friday
+	// }
 	ptText.y += dy;
 
 	// 物理防御
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->pdefence),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdefence,m_UserData.pMainUserData->stdpdefence));
+	GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->pdefence),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdefence,m_UserData.pMainUserData->stdpdefence));
+		// by=>friday 使用新的格式化函数显示物理防御
+	// std::string pdefenceStr_s2 = FormatLargeNumber(m_UserData.pMainUserData->pdefence);
+	// GetDevice()->DrawString(pdefenceStr_s2.c_str(),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdefence,m_UserData.pMainUserData->stdpdefence)); //by=>friday
+
 	ptText.y += dy;
 	// 魔法防御
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->mdefence),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdefence,m_UserData.pMainUserData->stdmdefence));
+	GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->mdefence),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdefence,m_UserData.pMainUserData->stdmdefence));
+	// by=>friday 使用新的格式化函数显示魔法防御
+	// std::string mdefenceStr_s2 = FormatLargeNumber(m_UserData.pMainUserData->mdefence);
+	// GetDevice()->DrawString(mdefenceStr_s2.c_str(),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdefence,m_UserData.pMainUserData->stdmdefence)); //by=>friday
 	ptText.y += dy;
 	// 生命
 	if ( m_UserData.pMainUserData->maxhp < 10000)
     {
-	   GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->maxhp),ptText,0xffffffff );
+	   GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxhp),ptText,0xffffffff );
 	}
 	else
 	{
-	   GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->maxhp),ptText,0xff00ff00 );
+	   GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxhp),ptText,0xff00ff00 );
 	}
+		// by=>friday 生命值也使用新的格式化函数
+	// 	std::string maxhpStr_s2 = FormatLargeNumber(m_UserData.pMainUserData->maxhp);
+	// if ( m_UserData.pMainUserData->maxhp < 10000) // 这个颜色判断条件可以保留
+	// 	{
+	//    GetDevice()->DrawString(maxhpStr_s2.c_str(), ptText,0xffffffff ); //by=>friday
+	// 	}
+	// 	else
+	// 	{
+	//    GetDevice()->DrawString(maxhpStr_s2.c_str(), ptText,0xff00ff00 ); //by=>friday 绿色显示
+	// }
 
-	ptText = stPointI(250,338) + GetLocation();
-	dy = 121;
+
+	ptText = stPointI(250,338) + GetLocation();//by=>friday ptText 重新赋值，为战力显示准备
+	dy = 121;// 战力Y坐标的特殊dy值
 	//ptText.x -= 30;
 	ptText.y += dy;
 
 	// 战力
 	char zhanli[256];
-	int nZhanli = m_UserData.pMainUserData->maxpdamage + m_UserData.pMainUserData->maxmdamage + m_UserData.pMainUserData->pdefence + m_UserData.pMainUserData->mdefence;
-	int nZhanli2 = nZhanli/18;
+	// by=>friday 直接读取服务端同步的战力值
+	uint64_t nZhanli = m_UserData.pMainUserData->zhanli;
 
-	if ( nZhanli2 <= 1)
+	if ( nZhanli <= 0)
     {
 	    sprintf( zhanli, " 0" );
 	}
-	else if ( nZhanli2 > 1 )
+	else
     {
-	    sprintf( zhanli, " %d", nZhanli2 );
+	    sprintf( zhanli, " %s", FormatLargeNumber(nZhanli).c_str() );
 	}
 
+	// by=>friday 修改为左对齐显示，避免战力数值变大时向左偏移
+	SIZE stringSize = GetBxmpTextout()->GetStringSize(zhanli, strlen(zhanli));
 	stPointF CommScale(0.8f,0.8f);
+	
+	// 计算左对齐的位置：让字符串左边界固定在合适位置
+	// 由于DrawString以传入点为中心，所以传入点应该是：期望左边界 + 字符串宽度的一半
+	POINT ptTextAdjusted = ptText;
+	int leftBorder = ptText.x - 30;  // 设定一个合适的左边界位置
+	ptTextAdjusted.x = leftBorder + (long)(stringSize.cx/2 * CommScale.x);
 
-	GetBxmpTextout()->DrawString(ptText,zhanli,strlen(zhanli),0xffffffff,&CommScale, Blend_Null);
+	GetBxmpTextout()->DrawString(ptTextAdjusted,zhanli,strlen(zhanli),0xffffffff,&CommScale, Blend_Null);
 
 	/*
 	// 生命值
@@ -3027,36 +4598,98 @@ void CGuiUserInfo::ShowUserInfoText1()
 	if (m_UserData.pMainUserData->changejob==0 || m_UserData.pMainUserData->changejob==3 || m_UserData.pMainUserData->changejob==4 || m_UserData.pMainUserData->changejob==5 || m_UserData.pMainUserData->changejob==6)
 	{
 	   // 物理攻击
-	   GetDevice()->DrawString(avar("%u - %u",m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->maxpdamage),ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage));
+	   GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxpdamage),ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage));
 	
 	}
 	else
 	{
 	   // 物理攻击
-	   GetDevice()->DrawString(avar("%u - %u",m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->maxpdamage),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage));
+	   GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxpdamage),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage));
 	}
 	ptText.y += 16;
 	//soke 如果是物攻职业，那么装备界面的物魔法击灰色显示
 	if (m_UserData.pMainUserData->changejob==0 || m_UserData.pMainUserData->changejob==1 || m_UserData.pMainUserData->changejob==2)
 	{
 	   // 魔法攻击
-	   GetDevice()->DrawString(avar("%u - %u",m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->maxmdamage),ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage));
+	   GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxmdamage),ptText,GETSHOWCOLOR2(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage));
     }
 	else
 	{
 	   // 魔法攻击
-	   GetDevice()->DrawString(avar("%u - %u",m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->maxmdamage),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage));
+	   GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->maxmdamage),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage));
     }
 
 	ptText = stPointI(275,454) + GetLocation();
 	
 	// 物理防御
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->pdefence),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdefence,m_UserData.pMainUserData->stdpdefence));
+	GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->pdefence),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->pdefence,m_UserData.pMainUserData->stdpdefence));
 	ptText.y += 16;
 	// 魔法防御
-	GetDevice()->DrawString(avar("%u",m_UserData.pMainUserData->mdefence),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdefence,m_UserData.pMainUserData->stdmdefence));
+	GetDevice()->DrawString(avar("%I64u",m_UserData.pMainUserData->mdefence),ptText,GETSHOWCOLOR(m_UserData.pMainUserData->mdefence,m_UserData.pMainUserData->stdmdefence));
 
 }
+
+
+
+// void CGuiUserInfo::ShowUserInfoText1()
+// {
+// 	stPointI ptText ;
+
+// 	if (m_bMainUser==false)
+// 		return;
+
+// 	GetDevice()->SetFont(0);
+// 	ptText = stPointI(88,451) + GetLocation();
+
+// 	// by=>friday 使用新的格式化函数显示物理攻击
+// 	std::string pdamageMinStr = FormatLargeNumber(m_UserData.pMainUserData->pdamage);
+// 	std::string pdamageMaxStr = FormatLargeNumber(m_UserData.pMainUserData->maxpdamage);
+// 	char pdamageBuffer[128]; 
+// 	_snprintf(pdamageBuffer, sizeof(pdamageBuffer)-1, "%s-%s", pdamageMinStr.c_str(), pdamageMaxStr.c_str());
+// 	pdamageBuffer[sizeof(pdamageBuffer)-1] = '\0'; // 确保null结尾
+
+// 	//soke  如果是魔攻职业，那么装备界面的物理攻击灰色显示
+// 	if (m_UserData.pMainUserData->changejob==0 || m_UserData.pMainUserData->changejob==3 || m_UserData.pMainUserData->changejob==4 || m_UserData.pMainUserData->changejob==5 || m_UserData.pMainUserData->changejob==6)
+// 	{
+// 	   GetDevice()->DrawString(pdamageBuffer, ptText, GETSHOWCOLOR2(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage)); //by=>friday
+// 	}
+// 	else
+// 	{
+// 	   GetDevice()->DrawString(pdamageBuffer, ptText, GETSHOWCOLOR(m_UserData.pMainUserData->pdamage,m_UserData.pMainUserData->stdpdamage)); //by=>friday
+// 	}
+	
+// 	ptText.y += 18;
+
+// 	// by=>friday 使用新的格式化函数显示魔法攻击
+// 	std::string mdamageMinStr = FormatLargeNumber(m_UserData.pMainUserData->mdamage);
+// 	std::string mdamageMaxStr = FormatLargeNumber(m_UserData.pMainUserData->maxmdamage);
+// 	char mdamageBuffer[128]; 
+// 	_snprintf(mdamageBuffer, sizeof(mdamageBuffer)-1, "%s-%s", mdamageMinStr.c_str(), mdamageMaxStr.c_str());
+// 	mdamageBuffer[sizeof(mdamageBuffer)-1] = '\0'; // 确保null结尾
+
+// 	//soke 如果是物攻职业，那么装备界面的物魔法击灰色显示
+// 	if (m_UserData.pMainUserData->changejob==0 || m_UserData.pMainUserData->changejob==1 || m_UserData.pMainUserData->changejob==2)
+// 	{
+// 	   GetDevice()->DrawString(mdamageBuffer, ptText, GETSHOWCOLOR2(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage)); //by=>friday
+//     }
+// 	else
+// 	{
+// 	   GetDevice()->DrawString(mdamageBuffer, ptText, GETSHOWCOLOR(m_UserData.pMainUserData->mdamage,m_UserData.pMainUserData->stdmdamage)); //by=>friday
+//     }
+
+// 	ptText = stPointI(270,452) + GetLocation();
+	
+// 	// 物理防御 // by=>friday 使用新的格式化函数显示物理防御
+// 	std::string pdefenceStr = FormatLargeNumber(m_UserData.pMainUserData->pdefence);
+// 	GetDevice()->DrawString(pdefenceStr.c_str(), ptText, GETSHOWCOLOR(m_UserData.pMainUserData->pdefence,m_UserData.pMainUserData->stdpdefence)); //by=>friday
+	
+// 	ptText.y += 18;
+	
+// 	// 魔法防御 // by=>friday 使用新的格式化函数显示魔法防御
+// 	std::string mdefenceStr = FormatLargeNumber(m_UserData.pMainUserData->mdefence);
+// 	GetDevice()->DrawString(mdefenceStr.c_str(), ptText, GETSHOWCOLOR(m_UserData.pMainUserData->mdefence,m_UserData.pMainUserData->stdmdefence)); //by=>friday
+// }
+
 
 /**
  * \brief 简短描述
@@ -3385,7 +5018,7 @@ void CGuiUserInfo::SetEquipByName( CRoleItem* pItem, bool bMainCharacter /* = tr
 		//Set set num
 		if ( pItem->GetObject()->bind == 1 )
 		{
-			if ( (pItem->GetObject()->kind & 4 || pItem->GetObject()->kind & 16) && pItem->GetObject()->needlevel >=220 ) //桃子 永恒 等级显示限制
+			if ( (pItem->GetObject()->kind & 4 || pItem->GetObject()->kind & 16) && pItem->GetObject()->needlevel >=220 ) //by=>friday 永恒 等级显示限制
 			{
 				(*itor).numSetList.num220Purple++ ;
 			}
@@ -6396,8 +8029,8 @@ bool CGuiUserInfo::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 			case 5:
 				m_pTab->SetCurItem(0);
 				GetButton(5)->SetChecked(true);
-				SetBackImage(stResourceLocation("data\\interfaces3.gl",60,0));//soke 角色界面
-				// SetBackImage(stResourceLocation("data\\interfaces.gl",3,0));//soke 角色界面
+				// SetBackImage(stResourceLocation("data\\interfaces3.gl",60,0));//soke 角色界面
+				SetBackImage(stResourceLocation("data\\interfaces.gl",3,0));//by=>friday 角色界面
 				RefreshButtonState();
 				GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
 				break;
@@ -6426,17 +8059,18 @@ bool CGuiUserInfo::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 				    RefreshGetBoxGeMianState();
 				}
 				break;
-			case 1023: //soke 签名档
-				{
-					m_pTab->SetCurItem(4);
-					GetButton(1023)->SetChecked(true);
-					SetBackImage(stResourceLocation("data\\interfaces1.gl",27,23));
-					RefreshGetBoxQianming();
-					GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
-				}
-				break;
+			// case 1023: //soke 签名档
+			// 	{
+			// 		m_pTab->SetCurItem(4);
+			// 		GetButton(1023)->SetChecked(true);
+			// 		SetBackImage(stResourceLocation("data\\interfaces1.gl",27,23));
+			// 		RefreshGetBoxQianming();
+			// 		GetButton( 25 )->SetLocation( 361, 96 );   //soke 有新的邮件
+			// 	}
+			// 	break;
 			case 1500: //法宝
 				{
+					
 					if(GetScene()->GetMainCharacter()->GetLevel()<190)
 					{
 						GameMessageBox( "190级开放法宝功能" );
@@ -7320,7 +8954,7 @@ void CGuiUserInfo::OnPutFocusItem(int index,CRoleItem* pRoleItem)
 			sprintf(msg,"%u/12000\n",fbfjlevel);
 			GetStatic(1803)->SetText(msg);	
 
-			GetProcess(1800)->SetPos(fblevel);
+			// GetProcess(1800)->SetPos(fblevel);
 			GetProcess(1801)->SetPos(fbfjlevel);
 			
 			

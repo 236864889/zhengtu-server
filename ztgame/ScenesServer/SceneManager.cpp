@@ -276,7 +276,7 @@ class GetSceneByFileName:public SceneCallBack
 			if(strncmp(scene->getFileName(),name,MAX_NAMESIZE)==0)
 			{
 				ret=scene;
-				return NULL;
+				return false;
 			}
 			else
 				return true;
@@ -366,7 +366,7 @@ Scene * SceneManager::loadScene( Scene::SceneType type,DWORD countryid , DWORD m
 		default:
 			{ 
 				Zebra::logger->error("未知场景类型");
-				return NULL;
+				return false;
 			}
 	}
     ((Scene *)s)->type = type;
@@ -419,7 +419,7 @@ Scene * SceneManager::cloneScene( Scene::SceneType type, DWORD countryID, DWORD 
      default:
          {
              Zebra::logger->error("未知场景类型");
-             return NULL;
+             return false;
          }
      }
     
@@ -488,7 +488,7 @@ Scene * SceneManager::loadScene2( Scene::SceneType type,DWORD septid,DWORD count
 		default:
 			{ 
 				Zebra::logger->error("未知场景类型");
-				return NULL;
+				return false;
 			}
 	}
     ((Scene *)s)->type = type;
@@ -541,7 +541,7 @@ Scene * SceneManager::cloneScene2( Scene::SceneType type,DWORD septid, DWORD cou
      default:
          {
              Zebra::logger->error("未知场景类型");
-             return NULL;
+             return false;
          }
      }
     
@@ -611,7 +611,7 @@ Scene * SceneManager::loadScene3( Scene::SceneType type,DWORD charid,DWORD count
 		default:
 			{ 
 				Zebra::logger->error("未知场景类型");
-				return NULL;
+				return false;
 			}
 	}
     ((Scene *)s)->type = type;
@@ -664,7 +664,7 @@ Scene * SceneManager::cloneScene3( Scene::SceneType type,DWORD charid, DWORD cou
      default:
          {
              Zebra::logger->error("未知场景类型");
-             return NULL;
+             return false;
          }
      }
     
@@ -947,7 +947,7 @@ bool SceneManager::buildMapName(DWORD countryid , DWORD mapid,char *out)
 		sprintf(out,"%s·%s",c,m);
 		return true;
 	}
-	return NULL;
+	return false;
 }
  
 
@@ -963,7 +963,7 @@ bool SceneManager::buildMapName(DWORD countryid , const char *in ,char *out)
 		sprintf(out,"%s·%s",c,in);
 		return true;
 	}
-	return NULL;
+	return false;
 }
 /**
  * \brief 根据国家id和地图id组成场景id

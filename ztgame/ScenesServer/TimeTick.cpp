@@ -3006,30 +3006,30 @@ void SceneTimeTick::run()
 		EverySceneEntryAction esea(step);
 		//对所有地图调用回调函数
 		SceneManager::getInstance().execEveryScene(esea);
-		if (atoi(Zebra::global["daoban"].c_str()) != 0)
-		{	
-			Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1,"太特么惨了，居然是个盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEJROLL,"玩到盗版服这可咋整，老G也不愿意花大钱，就知道割你们韭菜！！");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-			for (SceneManager::CountryMap_iter iter = SceneManager::getInstance().country_info.begin(); iter != SceneManager::getInstance().country_info.end();
-				 iter++)
-			{
-				Cmd::Session::t_countryNotify_SceneSession send;
-				bzero(send.info, sizeof(send.info));
-				sprintf(send.info, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
-				send.dwCountryID = iter->second.id;\
-				send.infoType = Cmd::INFO_TYPE_FAIL;
-				sessionClient->sendCmd(&send, sizeof(send));
-			}
-		}
+		// if (atoi(Zebra::global["daoban"].c_str()) != 0)
+		// {	
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1,"太特么惨了，居然是个盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEJROLL,"玩到盗版服这可咋整，老G也不愿意花大钱，就知道割你们韭菜！！");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 	for (SceneManager::CountryMap_iter iter = SceneManager::getInstance().country_info.begin(); iter != SceneManager::getInstance().country_info.end();
+		// 		 iter++)
+		// 	{
+		// 		Cmd::Session::t_countryNotify_SceneSession send;
+		// 		bzero(send.info, sizeof(send.info));
+		// 		sprintf(send.info, "此服为盗版服，未经授权，随时关服，你们被坑了！！！！太惨了");
+		// 		send.dwCountryID = iter->second.id;\
+		// 		send.infoType = Cmd::INFO_TYPE_FAIL;
+		// 		sessionClient->sendCmd(&send, sizeof(send));
+		// 	}
+		// }
 
 #if 0
 		if (0==step)
@@ -3404,6 +3404,17 @@ void SceneTimeTick::run()
 									//设置玩家全体状态
 									pUserA->pkMode = 1;
 									pUserB->pkMode = 1;
+									// //by=>friday 发送PK模式更新命令到客户端
+									// Cmd::stPKModeUserCmd retA;
+									// retA.byParam = Cmd::PKMODE_USERCMD_PARA; //设置命令参数
+									// retA.byPKMode = 1;
+									// pUserA->sendCmdToMe(&retA, sizeof(retA));
+									
+									// Cmd::stPKModeUserCmd retB;
+									// retB.byParam = Cmd::PKMODE_USERCMD_PARA; //设置命令参数
+									// retB.byPKMode = 1;
+									// pUserB->sendCmdToMe(&retB, sizeof(retB));
+
 									Channel::sendSys(pUserA , Cmd::INFO_TYPE_STATE, "PK切换模式为:全体模式.");
 									Channel::sendSys(pUserB , Cmd::INFO_TYPE_STATE, "PK切换模式为:全体模式.");
 									
@@ -6467,7 +6478,7 @@ void SceneTimeTick::run()
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 3 || ScenesService::getInstance().tianxia[bb].saidian == 3 || ScenesService::getInstance().tianxia[cc].saidian == 3 || ScenesService::getInstance().tianxia[dd].saidian == 3
 						|| ScenesService::getInstance().tianxia[ee].saidian == 3 || ScenesService::getInstance().tianxia[ff].saidian == 3 || ScenesService::getInstance().tianxia[gg].saidian == 3 || ScenesService::getInstance().tianxia[hh].saidian == 3)
-					{
+						{
 							int B=0;
 							int BChar = 0;
 							
@@ -6545,7 +6556,7 @@ void SceneTimeTick::run()
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 3 || ScenesService::getInstance().tianxia[bb].saidian == 3 || ScenesService::getInstance().tianxia[cc].saidian == 3 || ScenesService::getInstance().tianxia[dd].saidian == 3
 						|| ScenesService::getInstance().tianxia[ee].saidian == 3 || ScenesService::getInstance().tianxia[ff].saidian == 3 || ScenesService::getInstance().tianxia[gg].saidian == 3 || ScenesService::getInstance().tianxia[hh].saidian == 3)
-					{
+						{
 							int A=0;
 							int B=0;
 							int AChar = 0;
@@ -6713,7 +6724,7 @@ void SceneTimeTick::run()
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 3 || ScenesService::getInstance().tianxia[bb].saidian == 3 || ScenesService::getInstance().tianxia[cc].saidian == 3 || ScenesService::getInstance().tianxia[dd].saidian == 3
 						|| ScenesService::getInstance().tianxia[ee].saidian == 3 || ScenesService::getInstance().tianxia[ff].saidian == 3 || ScenesService::getInstance().tianxia[gg].saidian == 3 || ScenesService::getInstance().tianxia[hh].saidian == 3)
-					{
+						{
 							int B=0;
 							int BChar = 0;
 							
@@ -6813,7 +6824,7 @@ void SceneTimeTick::run()
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 3 || ScenesService::getInstance().tianxia[bb].saidian == 3 || ScenesService::getInstance().tianxia[cc].saidian == 3 || ScenesService::getInstance().tianxia[dd].saidian == 3
 						|| ScenesService::getInstance().tianxia[ee].saidian == 3 || ScenesService::getInstance().tianxia[ff].saidian == 3 || ScenesService::getInstance().tianxia[gg].saidian == 3 || ScenesService::getInstance().tianxia[hh].saidian == 3)
-					{
+						{
 							int A=0;
 							int B=0;
 							int AChar = 0;
@@ -7181,7 +7192,7 @@ void SceneTimeTick::run()
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 3 || ScenesService::getInstance().tianxia[bb].saidian == 3 || ScenesService::getInstance().tianxia[cc].saidian == 3 || ScenesService::getInstance().tianxia[dd].saidian == 3
 						|| ScenesService::getInstance().tianxia[ee].saidian == 3 || ScenesService::getInstance().tianxia[ff].saidian == 3 || ScenesService::getInstance().tianxia[gg].saidian == 3 || ScenesService::getInstance().tianxia[hh].saidian == 3)
-					{
+						{
 							int A=0;
 							int B=0;
 							int AChar = 0;
@@ -8270,7 +8281,7 @@ void SceneTimeTick::run()
 						|| ScenesService::getInstance().tianxia[ee].saidian == 4 || ScenesService::getInstance().tianxia[ff].saidian == 4 || ScenesService::getInstance().tianxia[gg].saidian == 4 || ScenesService::getInstance().tianxia[hh].saidian == 4
 						||ScenesService::getInstance().tianxia[ii].saidian == 4 || ScenesService::getInstance().tianxia[jj].saidian == 4 || ScenesService::getInstance().tianxia[kk].saidian == 4 || ScenesService::getInstance().tianxia[ll].saidian == 4
 						|| ScenesService::getInstance().tianxia[mm].saidian == 4 || ScenesService::getInstance().tianxia[nn].saidian == 4 || ScenesService::getInstance().tianxia[oo].saidian == 4 || ScenesService::getInstance().tianxia[pp].saidian == 4)
-					{
+						{
 							int A=0;
 							int B=0;
 							int AChar = 0;

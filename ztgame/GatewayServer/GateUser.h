@@ -132,6 +132,7 @@ class GateUser:public zUser,public GateSelectUserSession
 		SYSTEM_WAIT_STATE_UNREG		/// 等待退出角色流程
 	};
 	volatile Systemstate systemstate;
+	time_t packTime;
 
 	bool quiz;
 	/// 验证码

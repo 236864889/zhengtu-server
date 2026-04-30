@@ -360,8 +360,8 @@ struct ColorObjectBase{
 //一个范围值得描述
 struct rangeValue
 {
-	WORD min;
-	WORD max;
+	DWORD min;
+	DWORD max;
 };
 
 struct luckRangeValue
@@ -2310,6 +2310,76 @@ struct zEquipObjectB:public zEntry
 	}
 };
 
+// 孩子装备升级基础表
+struct BabyEquipUpgradeBase
+{
+    const DWORD getUniqueID() const
+    {
+        return dwField0;
+    }
+    DWORD dwField0;        // 编号 (等级*100000 + 装备ID)
+    DWORD dwField1;        // 孩子装备ID
+    char strField2[64];    // 名称
+    DWORD dwField3;        // 升级材料ID
+    DWORD dwField4;        // 升级材料数量 //by=>friday
+    DWORD dwField5;        // 需要银子
+    DWORD dwField6;        // 成功率
+    DWORD dwField7;        // 最小物攻增加
+    DWORD dwField8;        // 最大物攻增加
+    DWORD dwField9;        // 最小魔攻增加
+    DWORD dwField10;       // 最大魔攻增加
+    DWORD dwField11;       // 物防增加
+    DWORD dwField12;       // 魔防增加
+    DWORD dwField13;       // 生命值增加
+    DWORD dwField14;       // 绝技攻击
+    DWORD dwField15;       // 绝技防御
+};
+
+// 孩子装备升级配置表
+struct zBabyEquipUpgradeB : public zEntry
+{
+    DWORD dwObjectID;      // 孩子装备ID
+    WORD level;            // 强化等级 (从编号计算得出)
+    DWORD stuff;           // 升级材料
+    DWORD materialCount;   // 升级材料数量 //by=>friday
+    DWORD gold;            // 需要银子
+    WORD odds;             // 成功率
+    DWORD pdamage;         // 最小物攻增加
+    DWORD maxpdamage;      // 最大物攻增加
+    DWORD mdamage;         // 最小魔攻增加
+    DWORD maxmdamage;      // 最大魔攻增加
+    DWORD pdefence;        // 物防增加
+    DWORD mdefence;        // 魔防增加
+    DWORD maxhp;           // 生命值增加
+    DWORD juejiattack;     // 绝技攻击 //by=>friday
+    DWORD juejidefence;    // 绝技防御 //by=>friday
+
+    void fill(BabyEquipUpgradeBase &data)
+    {
+        id = data.dwField0;  // 编号 = 等级*100000 + 装备ID
+        dwObjectID = data.dwField1;
+        strncpy(name, data.strField2, MAX_NAMESIZE);
+        level = data.dwField0 / 100000;  // 从编号计算等级
+        stuff = data.dwField3;
+        materialCount = data.dwField4; //by=>friday
+        gold = data.dwField5;
+        odds = data.dwField6;
+        pdamage = data.dwField7;
+        maxpdamage = data.dwField8;
+        mdamage = data.dwField9;
+        maxmdamage = data.dwField10;
+        pdefence = data.dwField11;
+        mdefence = data.dwField12;
+        maxhp = data.dwField13;
+        juejiattack = data.dwField14; //by=>friday
+        juejidefence = data.dwField15; //by=>friday
+    }
+
+    zBabyEquipUpgradeB() : zEntry()
+    {
+        bzero(this, sizeof(zBabyEquipUpgradeB));
+    }
+};
 
 //------------------------------------
 // refineObjectBase-马牌精炼
@@ -3394,6 +3464,309 @@ struct zUdouzhansflvObjectB:public zEntry
 
 
 //------------------------------------
+// UdqxwjjObjectBase-定情信物进阶 //by=>friday
+struct UdqxwjjObjectBase
+{
+	const DWORD getUniqueID() const
+	{
+		return dwField0;
+	}
+	DWORD	dwField0;		// 编号
+	DWORD	dwField1;		// 物品编号
+	char	strField2[64];	// 名称
+	DWORD	dwField3;		// 类型
+	DWORD 	dwField4;		// 进阶原料
+	DWORD	dwField5;		// 需要银子
+	DWORD	dwField6;		// 对应成功率
+	DWORD	dwField7;		// 最小物攻增加
+	DWORD	dwField8;		// 最大物攻增加
+	DWORD	dwField9;		// 最小魔攻增加
+	DWORD	dwField10;		// 最大魔攻增加
+	DWORD	dwField11;		// 物防增加
+	DWORD	dwField12;		// 魔防增加
+	DWORD	dwField13;		// 生命值增加
+	DWORD	dwField14;		// 绝技攻击
+	DWORD	dwField15;		// 绝技防御
+};
+
+struct zUdqxwjjObjectB:public zEntry
+{
+	DWORD dwObjectID;		// 物品编号
+	WORD level;		     // 类型
+	
+	DWORD stuff;		// 进阶原料
+	DWORD gold;		// 需要银子
+	
+	WORD odds;		    // 对应成功率
+	
+	DWORD p29damage;		    // 最小物攻增加
+	DWORD m29axpdamage;			// 最大物攻增加
+	DWORD m29damage;			// 最小魔攻增加
+	DWORD m29axmdamage;			// 最大魔攻增加
+
+	DWORD p29defence;			// 物防增加
+	DWORD m29defence;			// 魔防增加
+	DWORD m29axhp;				// 生命值增加
+	DWORD jj29_attack;			// 绝技攻击 //by=>friday
+	DWORD jj29_defence;			// 绝技防御 //by=>friday
+	
+	void fill(UdqxwjjObjectBase  &data)
+	{
+		id = data.dwField0;
+		dwObjectID = data.dwField1;
+		strncpy(name, data.strField2, MAX_NAMESIZE);
+		level = data.dwField3;
+
+		stuff = data.dwField4;
+		gold = data.dwField5;
+		odds = data.dwField6;
+		
+		p29damage = data.dwField7;
+		m29axpdamage = data.dwField8;
+		m29damage = data.dwField9;
+		m29axmdamage = data.dwField10;
+		
+		p29defence = data.dwField11;
+		m29defence = data.dwField12;
+		
+		m29axhp = data.dwField13;
+		jj29_attack = data.dwField14;
+		jj29_attack = data.dwField15;
+	}
+
+	zUdqxwjjObjectB():zEntry()
+	{
+		bzero(this,sizeof(zUdqxwjjObjectB));
+	}
+};
+
+//------------------------------------
+// UdqxwxqObjectBase-定情信物镶嵌 //by=>friday
+struct UdqxwxqObjectBase
+{
+	const DWORD getUniqueID() const
+	{
+		return dwField0;
+	}
+	DWORD	dwField0;		// 物品编号
+	char	strField1[64];	// 名称
+	DWORD	dwField2;		// 升级原料
+	DWORD	dwField3;		// 需要银子
+	DWORD	dwField4;		// 对应成功率
+	DWORD	dwField5;		// 最小物攻增加
+	DWORD	dwField6;		// 最大物攻增加
+	DWORD	dwField7;		// 最小魔攻增加
+	DWORD	dwField8;		// 最大魔攻增加
+	DWORD	dwField9;		// 物防增加
+	DWORD	dwField10;		// 魔防增加
+	DWORD	dwField11;		// 生命值增加
+	DWORD	dwField12;		// 绝技攻击
+	DWORD	dwField13;		// 绝技防御
+};
+
+struct zUdqxwxqObjectB:public zEntry
+{
+	DWORD dwObjectID;		// 物品编号
+	
+	DWORD stuff;		// 升级原料
+	DWORD gold;		// 需要银子
+	
+	WORD odds;		    // 对应成功率
+	
+	DWORD p26damage;		    // 最小物攻增加
+	DWORD m26axpdamage;			// 最大物攻增加
+	DWORD m26damage;			// 最小魔攻增加
+	DWORD m26axmdamage;			// 最大魔攻增加
+
+	DWORD p26defence;			// 物防增加
+	DWORD m26defence;			// 魔防增加
+	DWORD m26axhp;				// 生命值增加
+	DWORD jj26_attack;			// 绝技攻击 //by=>friday
+	DWORD jj26_defence;			// 绝技防御 //by=>friday
+	
+	void fill(UdqxwxqObjectBase  &data)
+	{
+		id = data.dwField0;
+		strncpy(name, data.strField1, MAX_NAMESIZE);
+
+		stuff = data.dwField2;
+		gold = data.dwField3;
+		odds = data.dwField4;
+		
+		p26damage = data.dwField5;
+		m26axpdamage = data.dwField6;
+		m26damage = data.dwField7;
+		m26axmdamage = data.dwField8;
+		
+		p26defence = data.dwField9;
+		m26defence = data.dwField10;
+		
+		m26axhp = data.dwField11;
+		jj26_attack = data.dwField12;
+		jj26_defence = data.dwField13;
+	}
+
+	zUdqxwxqObjectB():zEntry()
+	{
+		bzero(this,sizeof(zUdqxwxqObjectB));
+	}
+};
+
+//------------------------------------
+// UqytsObjectBase-情谊提升 //by=>friday
+struct UqytsObjectBase
+{
+	const DWORD getUniqueID() const
+	{
+		return dwField0;
+	}
+	DWORD	dwField0;		// 编号
+	DWORD	dwField1;		// 物品编号
+	char	strField2[64];	// 名称
+	DWORD	dwField3;		// 类型
+	DWORD 	dwField4;		// 进阶原料
+	DWORD	dwField5;		// 需要银子
+	DWORD	dwField6;		// 对应成功率
+	DWORD	dwField7;		// 最小物攻增加
+	DWORD	dwField8;		// 最大物攻增加
+	DWORD	dwField9;		// 最小魔攻增加
+	DWORD	dwField10;		// 最大魔攻增加
+	DWORD	dwField11;		// 物防增加
+	DWORD	dwField12;		// 魔防增加
+	DWORD	dwField13;		// 生命值增加
+	DWORD	dwField14;		// 绝技攻击
+	DWORD	dwField15;		// 绝技防御
+};
+
+struct zUqytsObjectB:public zEntry
+{
+	DWORD dwObjectID;		// 物品编号
+	WORD level;		     // 类型
+	
+	DWORD stuff;		// 进阶原料
+	DWORD gold;		// 需要银子
+	
+	WORD odds;		    // 对应成功率
+	
+	DWORD p28damage;		    // 最小物攻增加
+	DWORD m28axpdamage;			// 最大物攻增加
+	DWORD m28damage;			// 最小魔攻增加
+	DWORD m28axmdamage;			// 最大魔攻增加
+
+	DWORD p28defence;			// 物防增加
+	DWORD m28defence;			// 魔防增加
+	DWORD m28axhp;				// 生命值增加
+	DWORD jj28_attack;			// 绝技攻击 //by=>friday
+	DWORD jj28_defence;			// 绝技防御 //by=>friday
+	
+	void fill(UqytsObjectBase  &data)
+	{
+		id = data.dwField0;
+		dwObjectID = data.dwField1;
+		strncpy(name, data.strField2, MAX_NAMESIZE);
+		level = data.dwField3;
+
+		stuff = data.dwField4;
+		gold = data.dwField5;
+		odds = data.dwField6;
+		
+		p28damage = data.dwField7;
+		m28axpdamage = data.dwField8;
+		m28damage = data.dwField9;
+		m28axmdamage = data.dwField10;
+		
+		p28defence = data.dwField11;
+		m28defence = data.dwField12;
+		
+		m28axhp = data.dwField13;
+		jj28_attack = data.dwField14;
+		jj28_defence = data.dwField15;
+	}
+
+	zUqytsObjectB():zEntry()
+	{
+		bzero(this,sizeof(zUqytsObjectB));
+	}
+};
+
+//------------------------------------
+// UxytsObjectBase-心意提升 //by=>friday
+struct UxytsObjectBase
+{
+	const DWORD getUniqueID() const
+	{
+		return dwField0;
+	}
+	DWORD	dwField0;		// 编号
+	DWORD	dwField1;		// 物品编号
+	char	strField2[64];	// 名称
+	DWORD	dwField3;		// 类型
+	DWORD 	dwField4;		// 进阶原料
+	DWORD	dwField5;		// 需要银子
+	DWORD	dwField6;		// 对应成功率
+	DWORD	dwField7;		// 最小物攻增加
+	DWORD	dwField8;		// 最大物攻增加
+	DWORD	dwField9;		// 最小魔攻增加
+	DWORD	dwField10;		// 最大魔攻增加
+	DWORD	dwField11;		// 物防增加
+	DWORD	dwField12;		// 魔防增加
+	DWORD	dwField13;		// 生命值增加
+	DWORD	dwField14;		// 绝技攻击
+	DWORD	dwField15;		// 绝技防御
+};
+
+struct zUxytsObjectB:public zEntry
+{
+	DWORD dwObjectID;		// 物品编号
+	WORD level;		     // 类型
+	
+	DWORD stuff;		// 进阶原料
+	DWORD gold;		// 需要银子
+	
+	WORD odds;		    // 对应成功率
+	
+	DWORD p27damage;		    // 最小物攻增加
+	DWORD m27axpdamage;			// 最大物攻增加
+	DWORD m27damage;			// 最小魔攻增加
+	DWORD m27axmdamage;			// 最大魔攻增加
+
+	DWORD p27defence;			// 物防增加
+	DWORD m27defence;			// 魔防增加
+	DWORD m27axhp;				// 生命值增加
+	DWORD jj27_attack;			// 绝技攻击 //by=>friday
+	DWORD jj27_defence;			// 绝技防御 //by=>friday
+	
+	void fill(UxytsObjectBase  &data)
+	{
+		id = data.dwField0;
+		dwObjectID = data.dwField1;
+		strncpy(name, data.strField2, MAX_NAMESIZE);
+		level = data.dwField3;
+
+		stuff = data.dwField4;
+		gold = data.dwField5;
+		odds = data.dwField6;
+		
+		p27damage = data.dwField7;
+		m27axpdamage = data.dwField8;
+		m27damage = data.dwField9;
+		m27axmdamage = data.dwField10;
+		
+		p27defence = data.dwField11;
+		m27defence = data.dwField12;
+		
+		m27axhp = data.dwField13;
+		jj27_attack = data.dwField14;
+		jj27_defence = data.dwField15;
+	}
+
+	zUxytsObjectB():zEntry()
+	{
+		bzero(this,sizeof(zUxytsObjectB));
+	}
+};
+
+//------------------------------------
 // UaystonelvObjectBase-暗影宝石镶嵌进阶
 //------------------------------------
 struct UaystonelvObjectBase
@@ -3627,7 +4000,7 @@ struct NpcBase
 	char	strField1[32];		// 名称
 	DWORD	dwField2;		// 类型
 	DWORD	dwField3;		// 等级
-	DWORD	dwField4;		// 生命值
+	uint64_t	dwField4;		// 生命值
 	DWORD	dwField5;		// 经验值
 
 	DWORD	dwField6;		// 力
@@ -3641,17 +4014,17 @@ struct NpcBase
 	DWORD	dwField13;		// ai
 	DWORD	dwField14;		// 移动间隔
 	DWORD	dwField15;		// 攻击间隔
-	DWORD	dwField16;		// 最小物理防御力
-	DWORD	dwField17;		// 最大物理防御力
-	DWORD	dwField18;		// 最小法术防御力
-	DWORD	dwField19;		// 最大法术防御力
+	uint64_t	dwField16;		// 最小物理防御力
+	uint64_t	dwField17;		// 最大物理防御力
+	uint64_t	dwField18;		// 最小法术防御力
+	uint64_t	dwField19;		// 最大法术防御力
 	DWORD	dwField20;		// 五行属性
 	DWORD	dwField21;		// 五行点数
 	char	strField22[1024];		// 攻击类型
-	DWORD	dwField23;		// 最小法术攻击
-	DWORD	dwField24;		// 最大法术攻击
-	DWORD	dwField25;		// 最小攻击力
-	DWORD	dwField26;		// 最大攻击力
+	uint64_t	dwField23;		// 最小法术攻击
+	uint64_t	dwField24;		// 最大法术攻击
+	uint64_t	dwField25;		// 最小攻击力
+	uint64_t	dwField26;		// 最大攻击力
 	DWORD	dwField27;		// 技能
 	char	strField28[4096];		// 携带物品
 	DWORD	dwField29;		// 魂魄之石几率
@@ -3945,17 +4318,17 @@ struct zNpcB : public zEntry
 	DWORD	ai;					// ai
 	DWORD	distance;			// 移动间隔
 	DWORD	adistance;			// 攻击间隔
-	DWORD	pdefence;			// 最小物理防御力
-	DWORD	maxpdefence;		// 最大物理防御力
-	DWORD	mdefence;			// 最小法术防御力
-	DWORD	maxmdefence;		// 最大法术防御力
+	uint64_t	pdefence;			// 最小物理防御力
+	uint64_t	maxpdefence;		// 最大物理防御力
+	uint64_t	mdefence;			// 最小法术防御力
+	uint64_t	maxmdefence;		// 最大法术防御力
 	DWORD	five;				// 五行属性
 	DWORD   fivepoint;			// 五行点数
 	std::vector<aTypeS> atypelist;	// 攻击类型
-	DWORD	mdamage;			// 最小法术攻击
-	DWORD	maxmdamage;			// 最大法术攻击
-	DWORD	damage;				// 最小攻击力
-	DWORD	maxdamage;			// 最大攻击力
+	uint64_t	mdamage;			// 最小法术攻击
+	uint64_t	maxmdamage;			// 最大法术攻击
+	uint64_t	damage;				// 最小攻击力
+	uint64_t	maxdamage;			// 最大攻击力
 	DWORD	skill;				// 技能
 	//char	object[1024 + 1];	// 携带物品
 	NpcCarryObject nco;
@@ -4181,7 +4554,7 @@ struct zNpcB : public zEntry
 		level=				npc.dwField3;
 		hp=					npc.dwField4;
 #ifdef _DEBUGLOG
-		Zebra::logger->error("npc加载name=%s hp=%u", name, hp);
+		Zebra::logger->error("npc加载name=%s hp=%llu", name, hp);
 #endif
 		exp=				npc.dwField5;
 		str=				npc.dwField6;
@@ -4827,11 +5200,11 @@ struct SoulStoneBase{
 	char	strField31[16];		// 减速增加
 	char	strField32[16];		// 诱惑增加
 	DWORD	dwField33;		// 需求等级
-	char	strField34[16];		// 力量
-	char	strField35[16];		// 智力
-	char	strField36[16];		// 敏捷
-	char	strField37[16];		// 精神
-	char	strField38[16];		// 体质 	
+	char	strField34[20];		// 力量
+	char	strField35[20];		// 智力
+	char	strField36[20];		// 敏捷
+	char	strField37[20];		// 精神
+	char	strField38[20];		// 体质 	
 };//导出 SoulStoneBase 成功，共 40 条记录
 
 

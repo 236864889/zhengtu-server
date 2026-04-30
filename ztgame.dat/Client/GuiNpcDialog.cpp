@@ -46,8 +46,6 @@
 #include "./GuiHalofFameTop.h"
 //功勋竞猜
 #include "./Guigongxun.h"
-//理财
-#include "./GuiLicai.h"
 //天下第一
 #include "./GuiTianxia.h"
 //战车列表
@@ -95,6 +93,7 @@ void CGuiNpcDialog::bind_npc_dlg_lua(lua_State* L)
 			.def("AddApplyConn",&CGuiNpcDialog::AddApplyConn)
 			.def("AddTalk",&CGuiNpcDialog::AddTalk)
 			// [Conglin modify]
+			.def("AddForTuneFundDlg",&CGuiNpcDialog::AddForTuneFundDlg)	  //5倍保险
 			.def("AddSalaryDialog",&CGuiNpcDialog::AddSalaryDialog) //领取工资
 			.def( "AddRenascenceDlg", &CGuiNpcDialog::AddRenascenceDlg )
 			.def( "AddGraceChangeToExp", &CGuiNpcDialog::AddGraceChangeToExp )
@@ -3287,6 +3286,21 @@ void CGuiNpcDialog::OnNpcAction(int index)
 			Close();
 		}
 		break;	
+		case eAddForTuneFund:  //5倍保险
+		{
+			//sky 查询点数
+			OnActionBegin();
+			GetScene()->GetMainCharacter()->SetPointNum( 0 );
+			stRequestPoint cmd;
+			SEND_USER_CMD(cmd);
+
+			stRequestFortunGiveTradeUserCmd cmd2;
+			SEND_USER_CMD(cmd2);
+
+			GetGameGuiManager()->AddFortuneFundDlg();
+			Close();
+		}
+		break;
 	case eSeptTownExp:
 		{
 			//If cur player has right
@@ -3795,19 +3809,7 @@ void CGuiNpcDialog::OnNpcAction(int index)
 			}
 		}
 		break;
-	case eLicai://理財
-		{
-			
-			if( GetGameGuiManager()->m_guilicai && GetGameGuiManager()->m_guilicai->IsVisible() )
-			{
-				GetGameGuiManager()->m_guilicai->SetVisible(false);
-			}	
-			else	
-			{
-				GetGameGuiManager()->AddLicai();
-			}
-		}
-		break;
+
 	case eMiGong://迷宫
 		{
 			stMigongNextCmd cmd;
@@ -5221,23 +5223,6 @@ int CGuiNpcDialog::NextBikeGame(const char* text1,const char* text2)
 	FUNCTION_END;
 }
 
-//理财
-int CGuiNpcDialog::AddForTuneFundDlg(const char* pszLabel)
-{
-	FUNCTION_BEGIN;
-
-	m_actions.resize(m_actions.size()+1);
-	CGuiNpcDialog::stAction &st = m_actions.back();
-	st.actionid = AddButtonItem(pszLabel);
-	st.action = CGuiNpcDialog::eLicai;
-	return st.actionid;
-
-
-	return st.actionid;
-
-	FUNCTION_END;
-}
-
 //天下第一
 int CGuiNpcDialog::AddTianxiaDlg(const char* pszLabel)
 {
@@ -6271,6 +6256,16 @@ int CGuiNpcDialog::AddSalaryDialog( const char* pzText )
 	CGuiNpcDialog::stAction& st = m_actions.back();
 	st.actionid = AddButtonItem( pzText );
 	st.action = CGuiNpcDialog::eAddSalary;
+	return st.actionid;
+}
+
+//5倍保险
+int CGuiNpcDialog::AddForTuneFundDlg( const char* pzText )
+{
+	m_actions.resize( m_actions.size() + 1 );
+	CGuiNpcDialog::stAction& st = m_actions.back();
+	st.actionid = AddButtonItem( pzText );
+	st.action = CGuiNpcDialog::eAddForTuneFund;
 	return st.actionid;
 }
 

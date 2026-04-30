@@ -38,7 +38,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include "FuBenMgr.h" //副本
+#include "FuBenMgr.h" //副本  
+#include "MallTrade.h" //新商城  魔盒界面
+#include "fjconfig.h"//五附件  魔盒界面
 SessionClient *sessionClient = NULL;
 
 /**
@@ -2070,8 +2072,8 @@ bool SessionClient::cmdMsgParse_Other(const Cmd::t_NullCmd *ptNullCmd, const uns
 
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(rev->dwUserID);
 
-				if (rev->dwMoney<=0 || (pUser->packs.checkMoney(labs((long)(rev->dwMoney))) 
-							&& pUser->packs.removeMoney(labs((long)(rev->dwMoney)),"国战传送"))) 
+				if (rev->dwMoney<=0 || (pUser->packs.checkMoney(abs(rev->dwMoney)) 
+							&& pUser->packs.removeMoney(abs(rev->dwMoney),"国战传送"))) 
 				{
 					Cmd::Session::t_changeScene_SceneSession cmd;
 					pUser->charbase.gomaptype = ZoneTypeDef::ZONE_PRIVATE_DARE; // 国战跳转区域
@@ -4524,6 +4526,132 @@ bool SessionClient::doGmCmd(const Cmd::t_NullCmd *ptNullCmd, const unsigned int 
 		case Cmd::Session::GM_COMMAND_LOADTBL2: //soke 重新加载TBL文件
 			{
 				loadAllBM2();
+			}
+			break;
+		case Cmd::Session::GM_COMMAND_LOADPEIZHI: //soke 重新加载配置
+			{
+				
+				if(!MallTrade::getInstance().init()){
+					Zebra::logger->error("初始化商城配置文件失败");
+					return false;
+				}
+	
+				if(!fjconfig::getInstance().init()){
+					Zebra::logger->error("初始化剑冢配置文件失败");
+					return false;
+				}
+				if(!fjconfig::getInstance().initztz()){
+					Zebra::logger->error("初始化征途传配置文件失败");
+					return false;
+				}
+				if(!fjconfig::getInstance().initshengxiao()){
+					Zebra::logger->error("初始化生肖配置文件失败");
+					return false;
+				}
+				if(!fjconfig::getInstance().initshengqi()){
+					Zebra::logger->error("初始化圣器配置文件失败");
+					return false;
+				}
+				
+				if(! fjconfig::getInstance().initjingmai()){
+					Zebra::logger->error("初始化经脉配置文件失败");
+					return false;
+				}
+
+				if(! fjconfig::getInstance().initTouxian()){
+					Zebra::logger->error("初始化头衔配置文件失败");
+					return false;
+				}
+
+				if(! fjconfig::getInstance().initChenghao()){
+					Zebra::logger->error("初始化称号配置文件失败");
+					return false;
+				}
+
+				//儿女
+				if(! fjconfig::getInstance().initErnv()){
+					Zebra::logger->error("初始化生儿育女配置文件失败");
+					return false;
+				}
+
+				//回收系統
+				if(! fjconfig::getInstance().initHuishou()){
+					Zebra::logger->error("初始化回收系统配置文件失败");
+					return false;
+				}
+
+				//云天别墅
+				if(! fjconfig::getInstance().initBieshu()){
+					Zebra::logger->error("初始化云天别墅配置文件失败");
+					return false;
+				}
+				
+				//能力修炼
+				if(! fjconfig::getInstance().initXiulian()){
+					Zebra::logger->error("初始化能力修炼配置文件失败");
+					return false;
+				}
+
+				//坐骑图鉴
+				if(! fjconfig::getInstance().initZuoqi()){
+					Zebra::logger->error("初始化坐骑图鉴配置文件失败");
+					return false;
+				}
+
+				//时装魔盒
+				if(! fjconfig::getInstance().initMohe()){
+					Zebra::logger->error("初始化魔盒配置文件失败");
+					return false;
+				}
+
+				//时装魔盒
+				if(! fjconfig::getInstance().initShizhuang()){
+					Zebra::logger->error("初始化魔盒【时装类】配置文件失败");
+					return false;
+				}
+				
+				//时装魔盒
+				if(! fjconfig::getInstance().initShiZhuangLevel()){
+					Zebra::logger->error("初始化魔盒【时装进阶类】配置文件失败");
+					return false;
+				}
+
+				//时装魔盒
+				if(! fjconfig::getInstance().initPifeng()){
+					Zebra::logger->error("初始化魔盒【披风类】配置文件失败");
+					return false;
+				}
+
+				//时装魔盒
+				if(! fjconfig::getInstance().initPiFengLevel()){
+					Zebra::logger->error("初始化魔盒【披风进阶类】配置文件失败");
+					return false;
+				}
+
+				//时装魔盒
+				if(! fjconfig::getInstance().initChibang()){
+					Zebra::logger->error("初始化魔盒【翅膀类】配置文件失败");
+					return false;
+				}
+
+				//时装魔盒
+				if(! fjconfig::getInstance().initChiBangLevel()){
+					Zebra::logger->error("初始化魔盒【翅膀进阶类】配置文件失败");
+					return false;
+				}
+
+				//时装魔盒
+				if(! fjconfig::getInstance().initZuoqi2()){
+					Zebra::logger->error("初始化魔盒【坐骑类】配置文件失败");
+					return false;
+				}
+
+				//时装魔盒  魔盒界面
+				if(! fjconfig::getInstance().initJiemian()){
+					Zebra::logger->error("初始化魔盒【界面类】配置文件失败");
+					return false;
+				}
+
 			}
 			break;
 		case Cmd::Session::GM_COMMAND_LOAD_GAME_CONFIG: //soke 温泉

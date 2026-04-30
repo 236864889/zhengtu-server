@@ -51,12 +51,37 @@ bool SceneUser::doZhancheCmd(const Cmd::stZhancheUserCmd *ptCmd, unsigned int cm
 				Channel::sendSys(this, Cmd::INFO_TYPE_FAIL,"你已经召唤了战车");	
 			}
 			else{
-				this->showCurrentEffect(1409, true ); 
-				Channel::sendSys(this, Cmd::INFO_TYPE_EXP5,"正在召唤战车....");	
-				Channel::sendSys(this, Cmd::INFO_TYPE_GAME,"正在召唤战车....");	
+				//by=>friday 简化战车载具模式实现
+				if (this->charbase.zhancheid != 0)
+				{
+					// 进入战车载具模式
+					// this->showCurrentEffect(1409, true); 
+					// this->showCurrentEffect(Cmd::USTATE_USER_ZC, true);
+					this->showCurrentEffect(1410, true);  //by=>friday 修复状态同步问题
+					this->showCurrentEffect(Cmd::USTATE_USER_ZC, true);
+					
+					//by=>friday 设置战车载具状态标记
+					this->zhanche_vehicle_mode = true;
+					
+					// 设置对应等级的战车外观ID(用于攻击判断)
+					switch(this->charbase.zhancheid)
+					{
+						case 1: this->zhanche_npc_id = 50001; break; // 1级战车
+						case 2: this->zhanche_npc_id = 50002; break; // 2级战车
+						case 3: this->zhanche_npc_id = 50003; break; // 3级战车
+						case 4: this->zhanche_npc_id = 50004; break; // 4级战车
+						case 5: this->zhanche_npc_id = 50005; break; // 5级战车
+						default: this->zhanche_npc_id = 50001; break;
+					}
+					
+					Channel::sendSys(this, Cmd::INFO_TYPE_GAME, "战车召唤成功！你现在处于战车模式");
+					Zebra::logger->debug("[战车系统] 玩家%s进入战车载具模式，战车ID:%u", this->name, this->zhanche_npc_id);
+				}
+				else
+				{
+					Channel::sendSys(this, Cmd::INFO_TYPE_FAIL,"你没有战车");
 			}
-			
-			
+			}
 		}
 		break;
 		case ZHANCHE_GUIHUAN://归还战车
@@ -78,7 +103,11 @@ bool SceneUser::doZhancheCmd(const Cmd::stZhancheUserCmd *ptCmd, unsigned int cm
 			if(this->issetUState(1410) )
 			{
 				this->showCurrentEffect(1410, false ); 
+				//by=>friday 清理战车载具模式状态
+				this->zhanche_vehicle_mode = false;
+				this->zhanche_npc_id = 0;
 				Channel::sendSys(this, Cmd::INFO_TYPE_GAME,"脱离战车成功");	
+				Zebra::logger->debug("[战车系统] 玩家%s脱离战车载具模式", this->name);
 			}
 			else{
 				Channel::sendSys(this, Cmd::INFO_TYPE_FAIL,"你已经脱离了战车");	

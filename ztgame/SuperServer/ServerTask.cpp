@@ -208,25 +208,25 @@ static __gnu_cxx::hash_map<int, std::vector<int> > serverSequence;
    gcc 
  *
  */
-static void initServerSequence()
+static void initServerSequence() __attribute__ ((constructor));
+void initServerSequence()
 {
-	serverSequence.clear();
-
-	serverSequence[UNKNOWNSERVER] = std::vector<int>();
-	serverSequence[SUPERSERVER]   = std::vector<int>();
-	serverSequence[LOGINSERVER]   = std::vector<int>();
-	serverSequence[RECORDSERVER]  = std::vector<int>();
-	serverSequence[MINISERVER]    = std::vector<int>();
+	//printf("initServerSequence\r\n");
+	serverSequence[UNKNOWNSERVER]	=	std::vector<int>();
+	serverSequence[SUPERSERVER]	=	std::vector<int>();
+	serverSequence[LOGINSERVER]	=	std::vector<int>();
+	serverSequence[RECORDSERVER]	=	std::vector<int>();
+	serverSequence[MINISERVER]	=	std::vector<int>();
 
 	int data0[] = { RECORDSERVER };
-	serverSequence[SESSIONSERVER] = std::vector<int>(data0, data0 + sizeof(data0) / sizeof(int));
-
-	int data1[] = { RECORDSERVER, SESSIONSERVER, MINISERVER };
-	serverSequence[SCENESSERVER] = std::vector<int>(data1, data1 + sizeof(data1) / sizeof(int));
-
-	int data2[] = { RECORDSERVER, BILLSERVER, SESSIONSERVER, SCENESSERVER, MINISERVER };
-	serverSequence[GATEWAYSERVER] = std::vector<int>(data2, data2 + sizeof(data2) / sizeof(int));
+	serverSequence[SESSIONSERVER]	=	std::vector<int>(data0, data0 + sizeof(data0) / sizeof(int));
+	int data1[] = { RECORDSERVER, SESSIONSERVER , MINISERVER};
+	serverSequence[SCENESSERVER]	=	std::vector<int>(data1, data1 + sizeof(data1) / sizeof(int));
+	int data2[] = { RECORDSERVER, BILLSERVER, SESSIONSERVER, SCENESSERVER ,MINISERVER};
+	serverSequence[GATEWAYSERVER]	=	std::vector<int>(data2, data2 + sizeof(data2) / sizeof(int));
+	
 }
+
 /**
  * \brief 验证某种类型的所有服务器是否完全启动完成
  *
@@ -425,19 +425,12 @@ bool ServerTask::notifyMe()
 bool ServerTask::processSequence()
 {
 	if (hasprocessSequence) return true;
-
-	static bool sequenceInited = false;
-	if (!sequenceInited)
-	{
-		initServerSequence();
-		sequenceInited = true;
-	}
-
-	Zebra::logger->trace("ServerTask::processSequence(wdServerType=%u)", wdServerType);
+	
+	Zebra::logger->trace("ServerTask::processSequence(wdServerType=%u)",wdServerType,wdServerType);
 	using namespace Cmd::Super;
 
 	ses.clear();
-
+	
 	std::vector<int> sequence = serverSequence[wdServerType];
 	for(std::vector<int>::const_iterator it = sequence.begin(); it != sequence.end(); it++)
 	{		
@@ -520,39 +513,33 @@ int ServerTask::waitSync()
 		}
 	}
 	
-bool blntime = checkSequenceTime();
-bool blnseq = processSequence();
-bool blnother = false;
+	bool blntime = checkSequenceTime();
+	bool blnseq = processSequence();
+	bool blnother = notifyOther();
 
-if (blnseq)
-{
-	blnother = notifyOther();
-}
-else
-{
-	Zebra::logger->debug("检查处理启动顺序processSequence()=false，继续等待依赖服务器完成启动");
-}
-
-if (!blntime)
-{
-	Zebra::logger->debug("检查处理启动顺序checkSequenceTime()=false，继续等待");
-}
-
-if (blnseq && !blnother)
-{
-	Zebra::logger->debug("检查处理启动顺序notifyOther()=false，继续等待依赖服务器响应");
-}
-
-// 只有全部真实通过，才允许进入 sequenceOK
-if (blntime && blnseq && blnother)
-{
-	sequenceOK = true;
-}
-
-if (sequenceOK)
-{
-	notifyMe();
-}	//等待超时
+	if (!blntime) 
+	{
+		Zebra::logger->debug("检查处理启动顺序checkSequenceTime()=false");
+		blntime = true;
+	}
+	if (!blnseq)
+	{
+		Zebra::logger->debug("检查处理启动顺序processSequence()=false");
+		blnseq = true;
+	}
+	if (!blnother)
+	{
+		Zebra::logger->debug("检查处理启动顺序notifyOther()=false");
+		blnother = true;
+	}
+	//首先检查处理启动顺序
+	if (blntime && blnseq	&& blnother)
+		sequenceOK = true;	
+	if (sequenceOK)
+	{
+		notifyMe();		
+	}
+	//等待超时
 	return 0;
 }
 

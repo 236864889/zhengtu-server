@@ -9,6 +9,9 @@
 #include "table.h"
 #include <stack>
  
+#include <string> // 需要 std::string
+#include <cstdio>  // 需要 _snprintf
+
 #ifndef radian2angle
 #define radian2angle(X) ( (X) * 180.f/ PI )
 #endif
@@ -166,6 +169,53 @@ inline void _Yjt_Monitoring_Bool(bool b,const char *FileName,int Line,const char
 
 extern bool GetFontPointList(const WORD& cName, stPointI* pPointList, int& numPoint);
  
+ 
+ 
+ // by=>friday 大数值格式化函数，带单位，自动去除末尾无效的0
+ inline std::string FormatLargeNumber(uint64_t num){
+    char buffer[80];
+    
+    if (num < 10000ULL) { // 小于1万
+        _snprintf(buffer, sizeof(buffer)-1, "%I64u", num);
+    } else {
+        double val;
+        const char* unit;
+        
+        // by=>friday 确定单位和除数
+        if (num < 100000000ULL) { // 1万 到 1亿-1
+            val = static_cast<double>(num) / 10000.0;
+            unit = "万";
+        } else if (num < 1000000000000ULL) { // 1亿 到 1兆-1 (1万亿)
+            val = static_cast<double>(num) / 100000000.0;
+            unit = "亿";
+        } else if (num < 10000000000000000ULL) { // 1兆 到 1京-1 (1万兆)
+            val = static_cast<double>(num) / 1000000000000.0;
+            unit = "兆";
+        } else { // 大于等于1京
+            val = static_cast<double>(num) / 10000000000000000.0;
+            unit = "京";
+        }
+        
+        // by=>friday 格式化并去除末尾无效的0
+        _snprintf(buffer, sizeof(buffer)-1, "%.4f", val);
+        char* p = buffer + strlen(buffer) - 1;
+        while (p > buffer && *p == '0') {
+            *p = '\0';
+            p--;
+        }
+        if (p > buffer && *p == '.') { // 如果小数点后全是0，去除小数点
+            *p = '\0';
+        }
+        strcat(buffer, unit); // 添加单位
+    }
+    
+    buffer[sizeof(buffer)-1] = '\0'; // 确保字符串以null结尾
+    return std::string(buffer);
+}
+
+
+
+
 //#include "Game.h"
 #include "../gui/include/guiTypes.h"
 #include "GameGuiManager.h"

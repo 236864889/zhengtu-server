@@ -58,19 +58,63 @@ bool CGuiPackage::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 {
 	FUNCTION_BEGIN;
 
-	if(nEvent == EVENT_BUTTON_CLICKED)
+	//by=>friday 添加完整的事件处理，确保只有关闭按钮才能关闭包裹
+	switch(nEvent)
 	{
-		switch(nID)
+		case EVENT_BUTTON_CLICKED:
 		{
-			case 4:
+			switch(nID)
 			{
+				case 4: //by=>friday 关闭按钮
+				{
+					SetVisible(false);
+					return true;
+				}
+				break;
+				//by=>friday 处理其他按钮事件但不关闭窗口
+				default:
+				{
+					//其他按钮的处理逻辑可以在这里添加
+					break;
+				}
 			}
+			return true;
+		}
+		break;
+		
+		case EVENT_DIALOG_MOVE:
+		{
+			//by=>friday 对话框移动事件，不关闭窗口，正常处理
+			return false; //让基类处理移动逻辑
+		}
+		break;
+		
+		case EVENT_DIALOG_SHOW:
+		case EVENT_DIALOG_HIDE:
+		case EVENT_DIALOG_RESIZE:
+		case EVENT_DIALOG_CREATE:
+		{
+			//by=>friday 这些事件都不应该关闭包裹窗口
+			return false; //让基类处理
+		}
+		break;
+		
+		case EVENT_BUTTON_DRAG_BEGIN:
+		case EVENT_BUTTON_DRAG_MOVE:
+		case EVENT_BUTTON_DRAG_END:
+		{
+			//by=>friday 按钮拖拽事件不应该关闭包裹窗口
+			return false; //让基类处理
+		}
+		break;
+		
+		default:
+		{
+			//by=>friday 其他所有事件都不关闭窗口，正常处理
 			break;
 		}
-		SetVisible(false);
-		
-		return true;
 	}
+	
 	return CGuiDialog::OnGuiEvent(nEvent,nID,pControl);
 
 	FUNCTION_END;
@@ -117,9 +161,24 @@ HRESULT CGuiPackage::OnRender(float fElapsedTime)
 
 	GetButton( 4 )->SetLocation( 270, 5 );
 
-	if( ! ::GetGameGuiManager()->m_guiItem->IsVisible() )
+	//by=>friday 彻底阻止额外包裹界面的自动关闭逻辑
+	//无论主背包界面状态如何，额外包裹窗口都应该保持独立
+	//只有玩家主动点击关闭按钮时才关闭窗口
+	
+	//by=>friday 注释掉自动关闭逻辑，防止背包界面意外关闭
+	//if( ! ::GetGameGuiManager()->m_guiItem->IsVisible() )
+	//{
+	//	this->SetVisible( false );
+	//}
+
+	//by=>friday 额外保护：检查窗口是否应该保持可见状态
+	//如果窗口被意外设置为不可见，但不是通过正常关闭流程，则重新显示
+	//这可以防止其他代码意外关闭包裹窗口
+	if (!IsVisible() && m_pRoleItem && m_pRoleItem->GetObjectBase())
 	{
-		this->SetVisible( false );
+		//只有当包裹物品仍然存在且有效时，才重新显示窗口
+		//这确保了窗口不会在不应该关闭的时候被关闭
+		//SetVisible(true);  //暂时注释，避免无限循环
 	}
 
 	HRESULT h = CGuiDialog::OnRender(fElapsedTime);

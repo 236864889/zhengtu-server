@@ -45,7 +45,7 @@
 #include "GameConfigMgrX.h"
 
 #include <math.h>
-#include <unistd.h>
+
 SessionService *SessionService::instance = NULL;
 
 zDBConnPool *SessionService::dbConnPool = NULL;
@@ -97,20 +97,14 @@ bool SessionService::init()
 	}
 
 	//初始化连接线程池
-	int poolCap = atoi(Zebra::global["threadPoolCapacity"].c_str());
-	Zebra::logger->debug("SessionServer threadPoolCapacity raw=[%s], parsed=%d",
-			Zebra::global["threadPoolCapacity"].c_str(), poolCap);
-	if (poolCap <= 0)
-		poolCap = 2048;
-
 	int state = state_none;
 	Zebra::to_lower(Zebra::global["initThreadPoolState"]);
 	if ("repair" == Zebra::global["initThreadPoolState"]
 			|| "maintain" == Zebra::global["initThreadPoolState"])
 		state = state_maintain;
-
-	taskPool = new zTCPTaskPool(poolCap, state);
-	if (NULL == taskPool || !taskPool->init())
+	taskPool = new zTCPTaskPool(atoi(Zebra::global["threadPoolCapacity"].c_str()), state);
+	if (NULL == taskPool
+			|| !taskPool->init())
 		return false;
 
 	/////////////////////////////////////////////////////////////////////
@@ -185,59 +179,27 @@ bool SessionService::init()
 	const Cmd::Super::ServerEntry *serverEntry = NULL;
 	//Zebra::logger->debug(__PRETTY_FUNCTION__);
 
-	// 等待档案服务器在 SuperServer 中注册完成
-	for (int i = 0; i < 30; ++i)
-	{
-		serverEntry = getServerEntryByType(RECORDSERVER);
-		if (NULL != serverEntry)
-		{
-			Zebra::logger->info("找到档案服务器信息(%s:%u), 等待次数=%d",
-					serverEntry->pstrExtIP, serverEntry->wdExtPort, i);
-			break;
-		}
-
-		Zebra::logger->warn("第%d次未找到档案服务器信息，1秒后重试", i + 1);
-		sleep(1);
-	}
-
+	//连接档案服务器
+	serverEntry = getServerEntryByType(RECORDSERVER);
 	if (NULL == serverEntry)
 	{
-		Zebra::logger->error("等待30秒后仍不能找到档案服务器相关信息，不能连接档案服务器");
+		Zebra::logger->error("不能找到档案服务器相关信息，不能连接档案服务器");
 		return false;
 	}
-
 	recordClient = new RecordClient("档案服务器", serverEntry->pstrExtIP, serverEntry->wdExtPort);
 	if (NULL == recordClient)
 	{
 		Zebra::logger->error("没有足够内存，不能建立档案服务器客户端实例");
 		return false;
 	}
-
-	bool recordConnected = false;
-	for (int i = 0; i < 10; ++i)
-	{
-		if (recordClient->connectToRecordServer())
-		{
-			recordConnected = true;
-			break;
-		}
-
-		Zebra::logger->warn("第%d次连接档案服务器失败(%s:%u)，1秒后重试",
-				i + 1, serverEntry->pstrExtIP, serverEntry->wdExtPort);
-		sleep(1);
-	}
-
-	if (!recordConnected)
+	if (!recordClient->connectToRecordServer())
 	{
 		Zebra::logger->error("连接档案服务器失败 %s", __PRETTY_FUNCTION__);
-		SAFE_DELETE(recordClient);
 		return false;
 	}
+	if(recordClient->start())
+		Zebra::logger->info("初始化Record服务器模块(%s:%ld)...成功",serverEntry->pstrExtIP,serverEntry->wdExtPort);
 
-	if (recordClient->start())
-		Zebra::logger->info("初始化Record服务器模块(%s:%ld)...成功",
-				serverEntry->pstrExtIP, serverEntry->wdExtPort);
-				
 //	if(SessionTimeTick::getInstance().start())
 //		Zebra::logger->info("初始化TimeTick模块...成功");
 
@@ -800,7 +762,7 @@ static char session_doc[] = "\nSessionServer\n" "\tSession服务器。";
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
-									"\nBuild version   :\t" BUILD_STRING\
+									"\nBuild version   :\t" _S(BUILD_STRING)\
 									"\nBuild time      :\t" __DATE__ ", " __TIME__;
 
 /**

@@ -1,20 +1,20 @@
---天降鸿福开始时间(小时)
+--�콵�踣��ʼʱ��(Сʱ)
 local hongfu_time = 19
-local hongfu_obj_1 = {{795,"银子[一锭]"},
-                    {795,"金子[十两]"},
-                    {795,"工资[一锭]"},
-                    {963,"密银之匙"},
-                    {795,"朱雀绿装碎片"}
+local hongfu_obj_1 = {{795,"����[һ��]"},
+                    {795,"����[ʮ��]"},
+                    {795,"����[һ��]"},
+                    {963,"����֮��"},
+                    {795,"��ȸ��װ��Ƭ"}
                     }
 
-local hongfu_obj_2 = {{795,"龙印升级宝石"},
-                    {795,"会员积分"},
-                    {795,"白虎绿装碎片"},
-                    {795,"青龙绿装碎片"}
+local hongfu_obj_2 = {{795,"��ӡ������ʯ"},
+                    {795,"��Ա����"},
+                    {795,"�׻���װ��Ƭ"},
+                    {795,"������װ��Ƭ"}
 }
 
-local hongfu_obj_3 = {{795,"至尊绿装碎片"},
-                    {795,"紫薇绿装碎片"}
+local hongfu_obj_3 = {{795,"������װ��Ƭ"},
+                    {795,"��ޱ��װ��Ƭ"}
 }
 
 
@@ -41,15 +41,15 @@ function tian_jiang_hong_fu()
                 if jilv < 7000 then
                     local obj_index = math.random(1,table.getn(hongfu_obj_1))
                     player:add_ob(hongfu_obj_1[obj_index][1],1,0,0,1)
-                    sys_player_list("恭喜玩家"..player.charbase.name.."在天降鸿福活动中获得物品:"..hongfu_obj_1[obj_index][2],5)
+                    sys_player_list("��ϲ���"..player.charbase.name.."���콵�踣��л����Ʒ:"..hongfu_obj_1[obj_index][2],5)
                 elseif jilv > 7000 and jiange < 9000 then
                     local obj_index = math.random(1,table.getn(hongfu_obj_2))
                     player:add_ob(hongfu_obj_2[obj_index][1],1,0,0,1)
-                    sys_player_list("恭喜玩家"..player.charbase.name.."在天降鸿福活动中获得物品:"..hongfu_obj_2[obj_index][2],5)
+                    sys_player_list("��ϲ���"..player.charbase.name.."���콵�踣��л����Ʒ:"..hongfu_obj_2[obj_index][2],5)
                 else
                     local obj_index = math.random(1,table.getn(hongfu_obj_3))
                     player:add_ob(hongfu_obj_3[obj_index][1],1,0,0,1)
-                    sys_player_list("恭喜玩家"..player.charbase.name.."在天降鸿福活动中获得物品:"..hongfu_obj_3[obj_index][2],5)
+                    sys_player_list("��ϲ���"..player.charbase.name.."���콵�踣��л����Ʒ:"..hongfu_obj_3[obj_index][2],5)
                 end
 
                 jiangli[player_index] = time()

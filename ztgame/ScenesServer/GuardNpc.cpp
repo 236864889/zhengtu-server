@@ -172,7 +172,7 @@ void GuardNpc::check()
 
 	if (_status == 0)
 	{
-		if (!_owner || labs((long)(pos.x)-(long)(_owner->getPos().x))>SCREEN_WIDTH || labs((long)(pos.y)-(long)(_owner->getPos().y))>SCREEN_HEIGHT)
+		if (!_owner || abs(pos.x-_owner->getPos().x)>SCREEN_WIDTH || abs(pos.y-_owner->getPos().y)>SCREEN_HEIGHT)
 		{
 			if (_owner)
 			{
@@ -198,7 +198,7 @@ void GuardNpc::check()
 	
 	if (_status == 1)
 	{
-		if (_owner && _owner->scene==scene && (labs((long)(pos.x)-(long)(_owner->getPos().x)) < SCREEN_WIDTH && labs((long)(pos.y)-(long)(_owner->getPos().y)) < SCREEN_HEIGHT))
+		if (_owner && _owner->scene==scene && (abs(pos.x-_owner->getPos().x) < SCREEN_WIDTH && abs(pos.y-_owner->getPos().y) < SCREEN_HEIGHT))
 		{
 			if (_owner->getState() == zSceneEntry::SceneEntry_Normal)
 				masterIsAlive = true;
@@ -228,13 +228,13 @@ void GuardNpc::check()
 		}
 	}
 	/*
-	if (_status == 1 && _owner && _owner->scene==scene && (labs((long)(pos.x)-(long)(_owner->getPos().x)) < SCREEN_WIDTH && labs((long)(pos.y)-(long)(_owner->getPos().y)) < SCREEN_HEIGHT)) {
+	if (_status == 1 && _owner && _owner->scene==scene && (abs(pos.x-_owner->getPos().x) < SCREEN_WIDTH && abs(pos.y-_owner->getPos().y) < SCREEN_HEIGHT)) {
 		moveAction = true;
 		_status = 0;
 	}
 
 
-	if (_status != 1  && _owner && (labs((long)(pos.x)-(long)(_owner->getPos().x)) > SCREEN_WIDTH || labs((long)(pos.y)-(long)(_owner->getPos().y)) > SCREEN_HEIGHT)) {
+	if (_status != 1  && _owner && (abs(pos.x-_owner->getPos().x) > SCREEN_WIDTH || abs(pos.y-_owner->getPos().y) > SCREEN_HEIGHT)) {
 		Channel::sendSys(_owner, Cmd::INFO_TYPE_GAME, "你离护送目标太远了，会有危险的!");
 		Channel::sendSys(_owner, Cmd::INFO_TYPE_EXP, "你离护送目标太远了");
 		moveAction = false;
@@ -243,7 +243,7 @@ void GuardNpc::check()
 	*/
 
 	/*
-	if (_status !=2 && _owner && (labs((long)(pos.x)-(long)(_owner->getPos().x)) > 2*SCREEN_WIDTH || labs((long)(pos.y)-(long)(_owner->getPos().y)) > 2*SCREEN_HEIGHT)) {
+	if (_status !=2 && _owner && (abs(pos.x-_owner->getPos().x) > 2*SCREEN_WIDTH || abs(pos.y-_owner->getPos().y) > 2*SCREEN_HEIGHT)) {
 		Channel::sendSys(_owner, Cmd::INFO_TYPE_GAME, "由于你离镖车太远了，这次护镖失败了");
 		OnOther event(2);
 		EventTable::instance().execute(*_owner, event);
@@ -265,7 +265,7 @@ void GuardNpc::check()
 			ok = true;
 		}
 	}
-	if (_status == 0 && ok && labs((long)(pos.x)-(long)(_dest.x)) < (SCREEN_WIDTH>>1) && labs((long)(pos.y)-(long)(_dest.y)) < (SCREEN_HEIGHT >> 1) ) {
+	if (_status == 0 && ok && abs(pos.x-_dest.x) < (SCREEN_WIDTH>>1) && abs(pos.y-_dest.y) < (SCREEN_HEIGHT >> 1) ) {
 		on_reached();
 	}
 	//_time = SceneTimeTick::currentTime;

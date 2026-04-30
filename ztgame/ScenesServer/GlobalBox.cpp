@@ -59,7 +59,7 @@ void globalBox::addBoxItem(boxItem _boxItem)
 bool globalBox::init()
 {
 	zXMLParser configParser;
-	Zebra::logger->trace("-------------------梦加载宝盒数据成功!-------------------");
+	Zebra::logger->trace("-------------------加载宝盒数据成功!-------------------");
 	if(!configParser.initFile("./GiftBoxConfig.xml"))
 		return false;
 

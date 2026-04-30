@@ -180,8 +180,13 @@ int SendAllInfoAction::done (SceneUser* user, Vars* vars)
 		Channel::sendAllInfo(Cmd::INFO_TYPE_EXP3, " %s的%s%s", SceneManager::getInstance().getCountryNameByCountryID(user->charbase.country),user->name, _info.c_str());
     }
 
+	if (_kind == 46) ///soke 滚动彩市
+	{
+		Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE2, " %s的%s%s", SceneManager::getInstance().getCountryNameByCountryID(user->charbase.country),user->name, _info.c_str());
+    }
 
-	if (_kind == 66) //soke 滚动
+
+	if (_kind == 66) ///soke 滚动彩市
 	{
 		Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1, " %s的%s%s", SceneManager::getInstance().getCountryNameByCountryID(user->charbase.country),user->name, _info.c_str());
     }

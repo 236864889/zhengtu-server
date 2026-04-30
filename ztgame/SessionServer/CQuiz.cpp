@@ -451,7 +451,7 @@ int CQuizWorld::answer(Cmd::stAnswerQuiz* pCmd, DWORD dwUserID)
 		if ((this->cur_subject>=0) && (this->cur_subject<100))
 		{
 			CSubject temp = subjects[this->cur_subject];
-			int cur_score = labs((long)(pCmd->dwScore))>15?15:labs((long)(pCmd->dwScore));
+			int cur_score = abs(pCmd->dwScore)>15?15:abs(pCmd->dwScore);
 
 			if (pCmd->byLuck==1 && pothunters[hunterpos].dwLuck<3)
 			{// Ê¹ÓÃÐÒÔËÐÇ
@@ -784,7 +784,7 @@ int CQuizPersonal::answer(Cmd::stAnswerQuiz* pCmd, DWORD dwUserID)
 		{
 			CSubject temp = subjects[this->cur_subject];
 //			CSubject temp = CSubjectM::getMe().gsubjects[subjects[cur_subject]];
-			int cur_score = labs((long)(pCmd->dwScore))>15?15:labs((long)(pCmd->dwScore));
+			int cur_score = abs(pCmd->dwScore)>15?15:abs(pCmd->dwScore);
 			//int cur_sec =  question_count>?10;
 			//int cur_score = cur_sec<25 ? (25-cur_sec) : 0;
 		

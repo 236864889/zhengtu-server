@@ -52,240 +52,240 @@ sq:add(ScriptQuest.NPC_KILL, 30132)
 sq:add(ScriptQuest.NPC_KILL, 30133)
 
 function kill_3010(npc)
-    ç»¿è‰²BOOSçˆ†ç‰©(npc)
+    ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_3008(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30002(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30008(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30012(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30014(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30015(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30019(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30020(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30023(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30025(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30027(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30028(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30029(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30030(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30031(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30032(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30033(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30035(npc)
-	ç»¿è‰²BOOSçˆ†ç‰©(npc)
+	ÂÌÉ«BOOS±¬Îï(npc)
 	return 0
 end
 
---ç´«è‰²BOOS
+--×ÏÉ«BOOS
 function kill_30003(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30026(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30034(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30101(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30102(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30036(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30037(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30038(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30039(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30040(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30104(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30106(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30107(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30108(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30109(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30111(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30112(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30113(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30114(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30115(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30116(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30117(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30118(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30119(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30122(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30125(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30126(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30127(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30130(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30131(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30132(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 function kill_30133(npc)
-	ç´«è‰²BOOSçˆ†ç‰©(npc)
+	×ÏÉ«BOOS±¬Îï(npc)
 	return 0
 end
 
-local ç‰©å“åˆ—è¡¨ = {é‡‘å¸=1398,ç²¾è‡´å‡çº§å®çŸ³=795,æ— æš‡å‡çº§å®çŸ³=799,æ–—é­‚ä¸¹=3810,å®šæ˜ŸçŸ³=550,æ®µä½å‹‹ç« ç»éªŒä¸¹=3831,éº’éºŸä¸¹=3866,é­”æ³•ç¾½æ¯›=3906,
-ç¥ç¿¼ç™½ç¾½=3095,é¾™æ˜Ÿå‡çº§å®çŸ³=1153}
-function ç»¿è‰²BOOSçˆ†ç‰©(npc)
+local ÎïÆ·ÁĞ±í = {½ğ±Ò=1398,¾«ÖÂÉı¼¶±¦Ê¯=795,ÎŞÏ¾Éı¼¶±¦Ê¯=799,¶·»êµ¤=3810,¶¨ĞÇÊ¯=550,¶ÎÎ»Ñ«ÕÂ¾­Ñéµ¤=3831,÷è÷ëµ¤=3866,Ä§·¨ÓğÃ«=3906,
+ÉñÒí°×Óğ=3095,ÁúĞÇÉı¼¶±¦Ê¯=1153}
+function ÂÌÉ«BOOS±¬Îï(npc)
     for i = 1, 5, 1 do
-        if å–ç™¾åˆ†ä¹‹å‡ ç‡(70) then
-            npc:æ‰è½ç‰©å“(ç‰©å“åˆ—è¡¨.é‡‘å¸,1,0,0)
+        if È¡°Ù·ÖÖ®¼¸ÂÊ(70) then
+            npc:µôÂäÎïÆ·(ÎïÆ·ÁĞ±í.½ğ±Ò,1,0,0)
         end
     end
     for i = 1, 5, 1 do
-        if å–ç™¾åˆ†ä¹‹å‡ ç‡(70) then
-            npc:æ‰è½ç‰©å“(ç‰©å“åˆ—è¡¨.æ— æš‡å‡çº§å®çŸ³,1,0,0)
+        if È¡°Ù·ÖÖ®¼¸ÂÊ(70) then
+            npc:µôÂäÎïÆ·(ÎïÆ·ÁĞ±í.ÎŞÏ¾Éı¼¶±¦Ê¯,1,0,0)
         end
     end
     for i = 1, 10, 1 do
-        if å–ç™¾åˆ†ä¹‹å‡ ç‡(70) then
-            npc:æ‰è½ç‰©å“(ç‰©å“åˆ—è¡¨.ç²¾è‡´å‡çº§å®çŸ³,1,0,0)
+        if È¡°Ù·ÖÖ®¼¸ÂÊ(70) then
+            npc:µôÂäÎïÆ·(ÎïÆ·ÁĞ±í.¾«ÖÂÉı¼¶±¦Ê¯,1,0,0)
         end
     end
     for i = 1, 5, 1 do
-        if å–ç™¾åˆ†ä¹‹å‡ ç‡(70) then
-            npc:æ‰è½ç‰©å“(ç‰©å“åˆ—è¡¨.æ–—é­‚ä¸¹,1,0,0)
+        if È¡°Ù·ÖÖ®¼¸ÂÊ(70) then
+            npc:µôÂäÎïÆ·(ÎïÆ·ÁĞ±í.¶·»êµ¤,1,0,0)
         end
     end
-    if å–ç™¾åˆ†ä¹‹å‡ ç‡(70) then
-        npc:æ‰è½ç‰©å“(ç‰©å“åˆ—è¡¨.å®šæ˜ŸçŸ³,1,0,5)
+    if È¡°Ù·ÖÖ®¼¸ÂÊ(70) then
+        npc:µôÂäÎïÆ·(ÎïÆ·ÁĞ±í.¶¨ĞÇÊ¯,1,0,5)
     end
 end
 
-function ç´«è‰²BOOSçˆ†ç‰©(npc)
+function ×ÏÉ«BOOS±¬Îï(npc)
 
 end

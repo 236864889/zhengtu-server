@@ -50,6 +50,10 @@ CGuiManager::CGuiManager(void)
 , m_pToolTips(NULL)
 , m_pPopupDlg(NULL)
 , m_ptToolTips(0,0)
+, m_pToolTips_friday(NULL) //by=>friday,
+, m_ptToolTips_friday(0,0) //by=>friday,
+, m_pToolTips_friday1(NULL) //by=>friday,
+, m_ptToolTips_friday1(0,0) //by=>friday,
 , m_pEditMenu(NULL)
 , m_bEnableIme(true)
 {
@@ -472,6 +476,38 @@ void CGuiManager::Render(float fElapsedTime)
 
 		m_pToolTips->Render(m_ptToolTips.x,m_ptToolTips.y);
 		m_pToolTips = NULL;
+	}
+	
+	//by=>friday, 渲染friday tooltip，独立显示在主tooltip右侧
+	if(m_pToolTips_friday) 
+	{
+		//根据主tooltip的位置计算friday tooltip位置
+		int fridayX = m_ptToolTips_friday.x;
+		int fridayY = m_ptToolTips_friday.y;
+		
+		//边界检测，确保不超出屏幕
+		if(fridayX < 0) 
+			fridayX = 0;
+		else if(fridayX + m_pToolTips_friday->GetWidth() > GetDevice()->GetWidth())
+			fridayX = GetDevice()->GetWidth() - m_pToolTips_friday->GetWidth();
+		
+		if(fridayY < 0) 
+			fridayY = 0;
+		else if(fridayY + m_pToolTips_friday->GetHeight() > GetDevice()->GetHeight())
+			fridayY = GetDevice()->GetHeight() - m_pToolTips_friday->GetHeight();
+
+		m_pToolTips_friday->Render(fridayX, fridayY);
+		m_pToolTips_friday = NULL;
+	}
+	
+	//by=>friday, 渲染friday1 tooltip，始终显示在friday tooltip右侧，不做边界检测
+	if(m_pToolTips_friday1) 
+	{
+		int friday1X = m_ptToolTips_friday1.x;
+		int friday1Y = m_ptToolTips_friday1.y;
+		
+		m_pToolTips_friday1->Render(friday1X, friday1Y);
+		m_pToolTips_friday1 = NULL;
 	}
 
 	if(IsShowCursor())

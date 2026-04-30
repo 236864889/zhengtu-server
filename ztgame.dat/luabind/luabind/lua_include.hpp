@@ -28,13 +28,5 @@ extern "C"
 	#include "lua.h"
 }
 
-// Lua 5.0 compatibility: define missing constants
-#ifndef LUA_NOREF
-#define LUA_NOREF (-2)
 #endif
 
-#ifndef LUA_REFNIL
-#define LUA_REFNIL (-1)
-#endif
-
-#endif

@@ -98,6 +98,7 @@ public:
 		eChangeCountryBySalary,	    // 使用工资移民
 		eAddSalary,		            // 领取工资
 		eAddChoujiang,		        // 抽奖
+		eAddForTuneFund,		    //5倍保险
 		eSeptTownExp,			//家族占城获得经验
 		eBuyItem,				//购买物品
 		eHonorToPk,				//荣誉点换PK值
@@ -242,7 +243,6 @@ public:
 		eAddEquipMaklv,			// 装备升级改造
 
 		eGongxunjingcai,//功勋竞猜
-		eLicai,//理财
 		eTianxia,//天下第一
 		eBikeGame,//自行车
 		eDelBikeGame,//自行车
@@ -597,12 +597,12 @@ public:
 
 	int AddQuestOccupierList(const char* pszLabel,int type);
 	int AddSalaryDialog(const char* pszLabel); //soke 领取工资
+	int AddForTuneFundDlg(const char* pszLabel);  //5倍保险
 	int AddChouJiang(const char* pszLabel);
 	int AddExpGame(const char* text1,const char* text2,const char* text3);
 	int StartBikeGame(const char* pszLabel);//自行车
 	int DeleteBikeRance(const char* pszLabel);//自行车
 	int NextBikeGame(const char* text1,const char* text2);//自行车
-	int AddForTuneFundDlg(const char* pszLabel);
 	int AddTianxiaDlg(const char* pszLabel);//天下第一
 	int AddTianxiaLingquDlg(const char* pszLabel);//天下第一
 	int AddZhanCheListDlg(const char* pszLabel);//战车列表

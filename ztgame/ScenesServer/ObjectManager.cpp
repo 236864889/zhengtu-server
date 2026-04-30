@@ -45,7 +45,7 @@ bool GlobalObjectIndex::addObject(zObject * o)
 			else if(ret->createtime==o->createtime && ret->data.dwObjectID==o->data.dwObjectID && ret->data.qwThisID == o->data.qwThisID)
 			{
 				Zebra::logger->alarm("复制物品:%s 创建时间:%llu",ret->name,ret->createid);
-				ret=NULL;
+				ret=false;
 			}
 			else
 			{

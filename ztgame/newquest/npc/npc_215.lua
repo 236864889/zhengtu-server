@@ -6,11 +6,11 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddDialogItem("demoä»»åŠ¡", "Dialog45")
+this:AddDialogItem("demoÈÎÎñ", "Dialog45")
 end
 function Dialog45()
-this:AddTalk("å»æ€æ­»....");
-this:AddTaskCmdItem("æ¥å—ä»»åŠ¡", "accept_215", 20270, 1)
+this:AddTalk("È¥É±ËÀ....");
+this:AddTaskCmdItem("½ÓÊÜÈÎÎñ", "accept_215", 20270, 1)
 end
 
 ]]
@@ -20,11 +20,11 @@ function IsHasTask()
 return true
 end
 function TaskDialog()
-this:AddDialogItem("demoä»»åŠ¡", "Dialog45")
+this:AddDialogItem("demoÈÎÎñ", "Dialog45")
 end
 function Dialog45()
-this:AddTalk("æ­å–œã€‚ã€‚ã€‚ã€‚");
-this:AddTaskCmdItem("å®Œæˆä»»åŠ¡", "accept_215", 20270, 2)
+this:AddTalk("¹§Ï²¡£¡£¡£¡£");
+this:AddTaskCmdItem("Íê³ÉÈÎÎñ", "accept_215", 20270, 2)
 end
 
 ]]
@@ -54,14 +54,14 @@ function accept_215(npc, id, flag)
 		v:set("state", 1);
 		v:set("npc", npc:tempid());
 		player.quest:add(20270, v, player, true);
-		sys(player, 1, "æ¥å—äº†è¯¥ä»»åŠ¡");			
+		sys(player, 1, "½ÓÊÜÁË¸ÃÈÎÎñ");			
 		npc:refresh();
 		return 1;
 	end
 	
 	local s = v:get("state");
 	if s == -3 then
-		sys(player, 1, "å®Œæˆäº†è¯¥ä»»åŠ¡");		
+		sys(player, 1, "Íê³ÉÁË¸ÃÈÎÎñ");		
 		player:add_exp(100, false, 0, 0);	
 		v:set("state", -1);	
 		player.quest.refresh(id);	

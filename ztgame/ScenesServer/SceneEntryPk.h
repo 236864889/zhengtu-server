@@ -232,7 +232,7 @@ struct SceneEntryPk: public zSceneEntry
 		 * \return 伤害值
 		 */
 		//soke 属性突破 伤害越界（打怪掉血）
-		virtual SQWORD directDamage(SceneEntryPk *pAtt, const SDWORD &dam, bool notify=false);
+		virtual uint64_t directDamage(SceneEntryPk *pAtt, const uint64_t &dam, bool notify=false); //by=>friday 修改为支持64位无符号伤害
 
 		/**
 		 * \brief 改变角色的hp
@@ -260,28 +260,28 @@ struct SceneEntryPk: public zSceneEntry
 		 * \author fqnewman
 		 * \return 返回最大值
 		 */
-		virtual DWORD getMaxHP(){return 0;}
+		virtual uint64_t getMaxHP(){return 0;}
 
 		/**
 		 * \brief 获得最大的hp
 		 * \author fqnewman
 		 * \return 返回最大值
 		 */
-		virtual DWORD getBaseMaxHP(){return 0;}
+		virtual uint64_t getBaseMaxHP(){return 0;}
 
 		/**
 		 * \brief 获得最大的mp
 		 * \author fqnewman
 		 * \return 返回最大值
 		 */
-		virtual DWORD getMaxMP(){return 0;}
+		virtual uint64_t getMaxMP(){return 0;}
 
 		/**
 		 * \brief 获得最大的mp
 		 * \author fqnewman
 		 * \return 返回最大值
 		 */
-		virtual DWORD getBaseMaxMP(){return 0;}
+		virtual uint64_t getBaseMaxMP(){return 0;}
 
 		/**
 		 * \brief 获得最大的sp
@@ -295,28 +295,28 @@ struct SceneEntryPk: public zSceneEntry
 		 * \author fqnewman
 		 * \return 魔法攻击力
 		 */
-		virtual DWORD getMaxMDamage(){return 0;}
+		virtual uint64_t getMaxMDamage(){return 0;}
 
 		/**
 		 * \brief 获得当前物理攻击力
 		 * \author fqnewman
 		 * \return 物理攻击力
 		 */
-		virtual DWORD getMaxPDamage(){return 0;}
+		virtual uint64_t getMaxPDamage(){return 0;}
 
 		/**
 		 * \brief 获得当前物理防御力
 		 * \author fqnewman
 		 * \return 物理防御力
 		 */
-		virtual DWORD getPDefence(){return 0;}
+		virtual uint64_t getPDefence(){return 0;}
 
 		/**
 		 * \brief 获得当前魔法防御力
 		 * \author fqnewman
 		 * \return 魔法防御力
 		 */
-		virtual DWORD getMDefence(){return 0;}
+		virtual uint64_t getMDefence(){return 0;}
 
 		/**
 		 * \brief 重置最大的hp
@@ -740,8 +740,8 @@ struct SceneEntryPk: public zSceneEntry
 		void petLevelUp(ScenePet *);
 
 		virtual bool isRedNamed(bool allRedMode=true) const = 0;
-		DWORD getHp();
-		DWORD getMaxHp();
+		uint64_t getHp();
+		uint64_t getMaxHp();
 		bool isFighting();
 		///脱离战斗状态的时间
 		zRTime endBattleTime;
@@ -791,10 +791,10 @@ struct SceneEntryPk: public zSceneEntry
 	private:
 		virtual void processMaskOnAttack(SceneEntryPk *){};
 		virtual void processMaskOnDefence(){};
-		virtual void processAddDam(int &dwDam, int &dwDamDef, bool physics){};
-		virtual void reduceDam(int &dwDam, int &dwDamDef, bool physics){};
-		virtual void reflectDam(int &dwDamDef, int &dwDamSelf, bool physics){};
-		virtual void hp2mp(int &dwDamDef){};
+		virtual void processAddDam(uint64_t &dwDam, uint64_t &dwDamDef, bool physics){}; //by=>friday 修复64位无符号参数
+		virtual void reduceDam(uint64_t &dwDam, uint64_t &dwDamDef, bool physics){}; //by=>friday 修复64位无符号参数
+		virtual void reflectDam(uint64_t &dwDamDef, uint64_t &dwDamSelf, bool physics){}; //by=>friday 修复64位无符号参数
+		virtual void hp2mp(uint64_t &dwDamDef){}; //by=>friday 修复64位无符号参数
 		virtual void reflectSkill(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev){};
 };
 

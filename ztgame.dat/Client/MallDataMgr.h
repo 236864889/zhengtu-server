@@ -9,6 +9,10 @@ enum WAREREGION_CLASS
 	WAREREGION_RIDE,	 // 坐骑系列区
 	WAREREGION_MATERIAL, // 精品材料区
 	WAREREGION_OTHER,	 // 其他商品区
+	WAREREGION_VIP,      // VIP专区 //by=>friday
+	WAREREGION_FASHION,  // 时装专区 //by=>friday
+	WAREREGION_WEAPON,   // 武器专区 //by=>friday
+	WAREREGION_PET,      // 宠物专区 //by=>friday
 	WAREREGION_COUNT,
 };
 

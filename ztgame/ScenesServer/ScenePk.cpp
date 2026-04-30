@@ -28,6 +28,7 @@
 #include "SceneManager.h"
 #include "CartoonPet.h"
 #include "Dice.h"
+#include <stddef.h> //by=>friday 为了使用offsetof宏
 
 
 #define NOTE
@@ -120,11 +121,50 @@ bool SceneUser::attackMagic(const Cmd::stAttackMagicUserCmd *rev, const unsigned
 		Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你正在进行自行车比赛");
 		return true;
 	}
-	if (this->isZC())
+	//by=>friday 修复战车攻击系统 - 战车只能攻击战车
+	if (this->zhanche_vehicle_mode)
 	{
-		ScenePk::attackFailToMe(rev , this);
-		Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "你正处于战车状态");
-		return true;
+		Zebra::logger->debug("[战车攻击] 攻击者处于战车载具模式，检查目标...");
+		// 检查目标是否是战车
+		SceneEntryPk* target = NULL;
+		if (Cmd::ATTACKTYPE_U2U == rev->byAttackType)
+		{
+			SceneUser* targetUser = scene->getUserByTempID(rev->dwDefenceTempID);
+			if (!targetUser || !targetUser->zhanche_vehicle_mode)
+			{
+				Zebra::logger->debug("[战车攻击] 目标不是战车，攻击失败");
+				ScenePk::attackFailToMe(rev, this);
+				Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "战车状态下只能攻击其他战车");
+				return true;
+			}
+			else
+			{
+				Zebra::logger->debug("[战车攻击] 战车攻击战车，允许");
+			}
+		}
+		else
+		{
+			// 战车不能攻击NPC
+			Zebra::logger->debug("[战车攻击] 战车尝试攻击NPC，攻击失败");
+			ScenePk::attackFailToMe(rev, this);
+			Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "战车状态下只能攻击其他战车");
+			return true;
+		}
+	}
+	else
+	{
+		// 非战车状态下，如果目标是战车，则不能攻击
+		if (Cmd::ATTACKTYPE_U2U == rev->byAttackType)
+		{
+			SceneUser* targetUser = scene->getUserByTempID(rev->dwDefenceTempID);
+			if (targetUser && targetUser->zhanche_vehicle_mode)
+			{
+				Zebra::logger->debug("[战车攻击] 普通玩家尝试攻击战车，攻击失败");
+				ScenePk::attackFailToMe(rev, this);
+					Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "只有战车才能攻击战车");
+				return true;
+			}
+		}
 	}
 	// 检查可否攻击标志
 	if (!attackAction)
@@ -150,7 +190,7 @@ bool SceneUser::attackMagic(const Cmd::stAttackMagicUserCmd *rev, const unsigned
 		this->skillStatusM.clearRecoveryElement(121);
 		this->reSendMyMapData();
 	}
-	else if(!ScenePk::checkAttackSpeed(this , rev)) 
+	else if(!this->zhanche_vehicle_mode && !ScenePk::checkAttackSpeed(this , rev)) 
 	{
 		ScenePk::attackFailToMe(rev , this, true, true);
 		return true;
@@ -3054,7 +3094,7 @@ void ScenePk::attackRTHpAndMp(SceneUser *pUser)
  *
  * \return 广播是否成功
  */
-bool ScenePk::attackRTCmdToNine(const Cmd::stAttackMagicUserCmd *rev , SceneEntryPk *pAtt , SceneEntryPk *pDef , const SDWORD sdwHP , BYTE byLuck)
+bool ScenePk::attackRTCmdToNine(const Cmd::stAttackMagicUserCmd *rev , SceneEntryPk *pAtt , SceneEntryPk *pDef , const uint64_t sdwHP , BYTE byLuck) //by=>friday 修改为支持64位无符号伤害值
 {
 	Cmd::stRTMagicUserCmd ret;
 	Cmd::stRTOtherMagicUserCmd ret1;
@@ -3105,34 +3145,43 @@ bool ScenePk::attackRTCmdToNine(const Cmd::stAttackMagicUserCmd *rev , SceneEntr
 			break;
 	}
 
-	if (pDef->isPhysics)
+	//by=>friday 如果传入的byLuck是特殊伤害类型（绝技或切割），直接使用
+	if (byLuck == Cmd::DAMAGE_TYPE_ULTIMATE || byLuck == Cmd::DAMAGE_TYPE_SLASH)
 	{
-		if (pAtt->isPhysicBang)
-		{
-			ret.byLuck = 1;
-		}
-		else if (pAtt->isHPhysicBang)
-		{
-			ret.byLuck = 2;
-		}
-		else
-		{
-			ret.byLuck = 0;
-		}
+		ret.byLuck = byLuck;
 	}
 	else
 	{
-		if (pAtt->isMagicBang)
+		//by=>friday 否则按原有逻辑处理爆击类型
+		if (pDef->isPhysics)
 		{
-			ret.byLuck = 1;
-		}
-		else if (pAtt->isHMagicBang)
-		{
-			ret.byLuck = 2;
+			if (pAtt->isPhysicBang)
+			{
+				ret.byLuck = Cmd::DAMAGE_TYPE_PHYSICAL_CRIT;
+			}
+			else if (pAtt->isHPhysicBang)
+			{
+				ret.byLuck = Cmd::DAMAGE_TYPE_HOLY_CRIT;
+			}
+			else
+			{
+				ret.byLuck = Cmd::DAMAGE_TYPE_NORMAL;
+			}
 		}
 		else
 		{
-			ret.byLuck = 0;
+			if (pAtt->isMagicBang)
+			{
+				ret.byLuck = Cmd::DAMAGE_TYPE_PHYSICAL_CRIT;
+			}
+			else if (pAtt->isHMagicBang)
+			{
+				ret.byLuck = Cmd::DAMAGE_TYPE_HOLY_CRIT;
+			}
+			else
+			{
+				ret.byLuck = Cmd::DAMAGE_TYPE_NORMAL;
+			}
 		}
 	}
 #ifdef _DEBUGLOG
@@ -3143,7 +3192,23 @@ bool ScenePk::attackRTCmdToNine(const Cmd::stAttackMagicUserCmd *rev , SceneEntr
 	pAtt->isHPhysicBang=false;
 	pAtt->isHMagicBang=false;
 	ret.byDirect = rev?rev->byDirect:pAtt->getDir();
-	ret.sdwHP = sdwHP;
+	ret.sdwHP = sdwHP; //by=>friday 直接使用64位伤害值，无需限制
+	
+	//by=>friday 添加发送到客户端的攻击伤害日志，现在支持完整64位伤害显示和伤害类型识别
+	if (pAtt->getType() == zSceneEntry::SceneEntry_Player || pDef->getType() == zSceneEntry::SceneEntry_Player)
+	{
+		const char* damageTypeName = "未知";
+		switch(ret.byLuck) {
+			case Cmd::DAMAGE_TYPE_NORMAL: damageTypeName = "普通攻击"; break;
+			case Cmd::DAMAGE_TYPE_PHYSICAL_CRIT: damageTypeName = "物理爆击"; break;
+			case Cmd::DAMAGE_TYPE_HOLY_CRIT: damageTypeName = "神圣爆击"; break;
+			case Cmd::DAMAGE_TYPE_ULTIMATE: damageTypeName = "绝技伤害"; break;
+			case Cmd::DAMAGE_TYPE_SLASH: damageTypeName = "切割伤害"; break;
+		}
+		Zebra::logger->info("[客户端伤害] 攻击者:%s -> 被攻击者:%s, 传入参数sdwHP:%llu, 赋值后ret.sdwHP:%llu, 伤害类型:%s(%u), 剩余HP:%llu", 
+			pAtt->name, pDef->name, sdwHP, ret.sdwHP, damageTypeName, ret.byLuck, 
+			pDef->getType() == zSceneEntry::SceneEntry_Player ? ((SceneUser*)pDef)->charbase.hp : ((SceneNpc*)pDef)->hp);
+	}
 	if(ret.sdwHP >= 0)
 	{
 		ret.byRetcode = Cmd::RTMAGIC_SUCCESS;
@@ -3618,12 +3683,12 @@ pAtt->isPhysicBang = false;\
 pAtt->isHPhysicBang = false;\
 if(zMisc::selectByPercent(pAtt->charstate.bang))\
 {\
-	pAtt->pkValue.pdamage = (DWORD)(pAtt->pkValue.pdamage * 1.5f);\
+	pAtt->pkValue.pdamage = (uint64_t)(pAtt->pkValue.pdamage * 1.5f);\
 	pAtt->isPhysicBang = true;\
 }\
 if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))\
 {\
-	pAtt->pkValue.pdamage = (DWORD)(pAtt->pkValue.pdamage * 1.5f);\
+	pAtt->pkValue.pdamage = (uint64_t)(pAtt->pkValue.pdamage * 1.5f);\
 	pAtt->isHPhysicBang = true;\
 }
 
@@ -3633,12 +3698,12 @@ pAtt->isMagicBang = false;\
 pAtt->isHMagicBang = false;\
 if(zMisc::selectByPercent(pAtt->charstate.bang))\
 {\
-	pAtt->pkValue.mdamage = (DWORD)(pAtt->pkValue.mdamage * 1.5f);\
+	pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);\
 	pAtt->isMagicBang = true;\
 }\
 if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))\
 {\
-	pAtt->pkValue.mdamage = (DWORD)(pAtt->pkValue.mdamage * 1.5f);\
+	pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);\
 	pAtt->isHMagicBang = true;\
 }
 
@@ -3668,11 +3733,19 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->pkpreValue.fivedam+(pAtt->pkpreValue.fivemaxdam-pAtt->pkpreValue.fivedam)*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.fivedam+(pAtt->pkpreValue.fivemaxdam-pAtt->pkpreValue.fivedam)*percent);
+				//by=>friday 添加物理攻击计算日志
+				Zebra::logger->info("[物理攻击计算] %s 五行相克1 最小物攻:%llu 最大物攻:%llu 随机系数:%.2f 计算攻击力:%llu", 
+					pAtt->name, pAtt->pkpreValue.fivedam, pAtt->pkpreValue.fivemaxdam, percent, pAtt->pkValue.pdamage);
 				checkholyp(percent);
+				//by=>friday 添加爆击后日志
+				Zebra::logger->info("[物理攻击计算] %s 爆击处理后攻击力:%llu 物理爆击:%s", 
+					pAtt->name, pAtt->pkValue.pdamage, pAtt->isPhysicBang ? "是" : "否");
 				//pAtt->pkValue.pdamage= (DWORD)(pAtt->pkValue.pdamage*(1.0f+pAtt->packs.equip.getEquips().getAttFivePoint()/100.0f));
 
 				pDef->pkValue.pdefence = pDef->pkpreValue.nofivedef;
+				//by=>friday 添加防御力日志
+				Zebra::logger->info("[物理防御计算] %s 防御力:%llu", pDef->name, pDef->pkValue.pdefence);
 			}
 			break;
 		case 2:
@@ -3682,7 +3755,7 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
 
 				checkholyp(percent);
 
@@ -3698,7 +3771,7 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
 
 				checkholyp(percent);
 
@@ -3738,12 +3811,20 @@ void ScenePk::calmdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的魔法攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->pkpreValue.fivemdam+(pAtt->pkpreValue.fivemaxmdam-pAtt->pkpreValue.fivemdam)*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkpreValue.fivemdam+(pAtt->pkpreValue.fivemaxmdam-pAtt->pkpreValue.fivemdam)*percent);
+				//by=>friday 添加法术攻击计算日志
+				Zebra::logger->info("[法术攻击计算] %s 五行相克1 最小法攻:%llu 最大法攻:%llu 随机系数:%.2f 计算攻击力:%llu", 
+					pAtt->name, pAtt->pkpreValue.fivemdam, pAtt->pkpreValue.fivemaxmdam, percent, pAtt->pkValue.mdamage);
 				checkholym(percent);
+				//by=>friday 添加爆击后日志
+				Zebra::logger->info("[法术攻击计算] %s 爆击处理后攻击力:%llu 法术爆击:%s", 
+					pAtt->name, pAtt->pkValue.mdamage, pAtt->isMagicBang ? "是" : "否");
 				//pAtt->pkValue.mdamage= (DWORD)(pAtt->pkValue.mdamage*(1.0f+pAtt->packs.equip.getEquips().getAttFivePoint()/100.0f));
 
 				/// 计算防御者的魔法攻击力受五行点数的影响
 				pDef->pkValue.mdefence = pDef->pkpreValue.nofivemdef;
+				//by=>friday 添加法术防御力日志
+				Zebra::logger->info("[法术防御计算] %s 防御力:%llu", pDef->name, pDef->pkValue.mdefence);
 			}
 			break;
 		case 2: // 对方克pAtt
@@ -3753,7 +3834,7 @@ void ScenePk::calmdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的魔法攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
 
 				checkholym(percent);
 
@@ -3769,7 +3850,7 @@ void ScenePk::calmdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的魔法攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
 
 				checkholym(percent);
 
@@ -3808,7 +3889,7 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->pkpreValue.fivedam+(pAtt->pkpreValue.fivemaxdam-pAtt->pkpreValue.fivedam)*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.fivedam+(pAtt->pkpreValue.fivemaxdam-pAtt->pkpreValue.fivedam)*percent);
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("1-----------------------------------------------------------");
 					Zebra::logger->info("pkpreValue.fivedam=%u, pkpreValue.fivemaxdam=%u", pAtt->pkpreValue.fivedam, pAtt->pkpreValue.fivemaxdam);
@@ -3822,9 +3903,9 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 
 				/// 计算防御者的物理防御力
 				pDef->pkValue.pdefence= 
-					zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence());
-				if (pDef->pkValue.pdefence > (DWORD)pDef->skillValue.dpdef)
-					pDef->pkValue.pdefence -= (DWORD)pDef->skillValue.dpdef;
+					static_cast<uint64_t>(zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence()));
+				if (pDef->pkValue.pdefence > (uint64_t)pDef->skillValue.dpdef)
+					pDef->pkValue.pdefence -= (uint64_t)pDef->skillValue.dpdef;
 				else
 					pDef->pkValue.pdefence = 0;
 			}
@@ -3836,7 +3917,7 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("1-----------------------------------------------------------");
 					Zebra::logger->info("pkpreValue.nofivedam=%u, pkpreValue.nofivemaxdam=%u", pAtt->pkpreValue.nofivedam, pAtt->pkpreValue.nofivemaxdam);
@@ -3850,11 +3931,11 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 
 				/// 计算防御者的物理防御力
 				pDef->pkValue.pdefence= 
-					zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence());
+					static_cast<uint64_t>(zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence()));
 
-				pDef->pkValue.pdefence = (DWORD)(pDef->pkValue.pdefence*(1.0f +pDef->npc->fivepoint/100.0f));
-				if (pDef->pkValue.pdefence > (DWORD)pDef->skillValue.dpdef)
-					pDef->pkValue.pdefence -=(DWORD) pDef->skillValue.dpdef;
+				pDef->pkValue.pdefence = (uint64_t)(pDef->pkValue.pdefence*(1.0f +pDef->npc->fivepoint/100.0f));
+				if (pDef->pkValue.pdefence > (uint64_t)pDef->skillValue.dpdef)
+					pDef->pkValue.pdefence -=(uint64_t) pDef->skillValue.dpdef;
 				else
 					pDef->pkValue.pdefence = 0;
 			}
@@ -3866,7 +3947,7 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)((float)pAtt->pkpreValue.nofivedam+((float)(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam))*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>((float)pAtt->pkpreValue.nofivedam+((float)(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam))*percent);
 
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("1-----------------------------------------------------------");
@@ -3881,9 +3962,9 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 
 				/// 计算防御者的物理防御力
 				pDef->pkValue.pdefence= 
-					zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence());
-				if (pDef->pkValue.pdefence > (DWORD)pDef->skillValue.dpdef)
-					pDef->pkValue.pdefence -= (DWORD)pDef->skillValue.dpdef;
+					static_cast<uint64_t>(zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence()));
+				if (pDef->pkValue.pdefence > (uint64_t)pDef->skillValue.dpdef)
+					pDef->pkValue.pdefence -= (uint64_t)pDef->skillValue.dpdef;
 				else
 					pDef->pkValue.pdefence = 0;
 			}
@@ -3919,7 +4000,7 @@ void ScenePk::calmdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的魔法攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->pkpreValue.fivemdam+(pAtt->pkpreValue.fivemaxmdam-pAtt->pkpreValue.fivemdam)*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkpreValue.fivemdam+(pAtt->pkpreValue.fivemaxmdam-pAtt->pkpreValue.fivemdam)*percent);
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("1-----------------------------------------------------------");
 			        Zebra::logger->info("预处理pkValue.mdamage=[%u]" , pAtt->pkValue.mdamage);
@@ -3932,7 +4013,7 @@ void ScenePk::calmdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 
 				/// 计算防御者的魔法防御力
 				pDef->pkValue.mdefence= 
-					zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence());
+					static_cast<uint64_t>(zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence()));
 			}
 			break;
 		case 2:
@@ -3942,7 +4023,7 @@ void ScenePk::calmdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的魔法攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
 
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("2------------------------------------------------[%u]-----------",pDef->npc->five);
@@ -3955,9 +4036,9 @@ void ScenePk::calmdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 
 				/// 计算防御者的魔法防御力
 				pDef->pkValue.mdefence= 
-					zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence());
+					static_cast<uint64_t>(zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence()));
 
-				pDef->pkValue.mdefence = (DWORD)(pDef->pkValue.mdefence*(1.0f +pDef->npc->fivepoint/100.0f));
+				pDef->pkValue.mdefence = (uint64_t)(pDef->pkValue.mdefence*(1.0f +pDef->npc->fivepoint/100.0f));
 			}
 			break;
 		case 0:
@@ -3967,7 +4048,7 @@ void ScenePk::calmdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				if (pAtt->attacklow) percent = 0.0f;
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 				/// 计算攻击者的魔法攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
 
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("0-----------------------------------------------------------");
@@ -3980,7 +4061,7 @@ void ScenePk::calmdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 
 				/// 计算防御者的魔法防御力
 				pDef->pkValue.mdefence= 
-					zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence());
+					static_cast<uint64_t>(zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence()));
 			}
 			break;
 		default:
@@ -4016,8 +4097,8 @@ void ScenePk::calpdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 
 				/// 计算攻击者的物理攻击力
 
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->pkValue.pdamage*(1.0f +pAtt->npc->fivepoint/100.0f));
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkValue.pdamage*(1.0f +pAtt->npc->fivepoint/100.0f));
 
 				/// 计算防御者的物理防御击力受五行点数的影响
 				pDef->pkValue.pdefence = pDef->pkpreValue.nofivedef;
@@ -4031,7 +4112,7 @@ void ScenePk::calpdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
 
 				/// 计算防御者的物理防御力受五行点数的影响
 				pDef->pkValue.pdefence = pDef->pkpreValue.fivedef;
@@ -4046,7 +4127,7 @@ void ScenePk::calpdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
 
 				/// 计算防御者的物理防御力受五行点数的影响
 				pDef->pkValue.pdefence = pDef->pkpreValue.nofivedef;
@@ -4084,8 +4165,8 @@ void ScenePk::calmdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的法术攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->pkValue.mdamage*(1.0f +pAtt->npc->fivepoint/100.0f));
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkValue.mdamage*(1.0f +pAtt->npc->fivepoint/100.0f));
 
 				/// 计算五行对法术防御力的影响
 				pDef->pkValue.mdefence = pDef->pkpreValue.nofivemdef;
@@ -4099,7 +4180,7 @@ void ScenePk::calmdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的法术攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
 
 				/// 计算五行对法术防御力的影响
 				pDef->pkValue.mdefence = pDef->pkpreValue.fivemdef;
@@ -4114,7 +4195,7 @@ void ScenePk::calmdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的法术攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
 
 				/// 计算五行对法术防御力的影响
 				pDef->pkValue.mdefence = pDef->pkpreValue.nofivemdef;
@@ -4153,17 +4234,34 @@ void ScenePk::calmdamN2N(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的法术攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->pkValue.mdamage*(1.0f +pAtt->npc->fivepoint/100.0f));
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkValue.mdamage*(1.0f +pAtt->npc->fivepoint/100.0f));
 
 
 				/// 计算防御者的魔法防御力
-				pDef->pkValue.mdefence= 
-					zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence());
-				if (pDef->pkValue.pdefence > (DWORD)pDef->skillValue.dpdef)
-					pDef->pkValue.pdefence -= (DWORD)pDef->skillValue.dpdef;
+				//by=>friday 修复大数值防御力被截断问题：对于召唤兽直接使用防御值，避免randBetween的int截断
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					// 召唤兽防御力通常很大，直接使用最小防御值避免randBetween的int截断
+					pDef->pkValue.mdefence = pDef->getMinMDefence();
+				}
 				else
-					pDef->pkValue.pdefence = 0;
+				{
+					// 普通NPC使用原有逻辑
+					pDef->pkValue.mdefence=
+						static_cast<uint64_t>(zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence()));
+				}
+				//by=>friday 修复错误：应该减少魔法防御力而不是物理防御力
+				if (pDef->pkValue.mdefence > static_cast<uint64_t>(pDef->skillValue.dmdef))
+					pDef->pkValue.mdefence -= static_cast<uint64_t>(pDef->skillValue.dmdef);
+				else
+					pDef->pkValue.mdefence = 0;
+				//by=>friday 添加召唤兽防御力调试日志
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					Zebra::logger->info("[召唤兽防御力调试] %s 物理防御:%llu 魔法防御:%llu",
+						pDef->name, pDef->pkValue.pdefence, pDef->pkValue.mdefence);
+				}
 			}
 			break;
 		case 1:
@@ -4174,16 +4272,27 @@ void ScenePk::calmdamN2N(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的法术攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
 
 				/// 计算防御者的魔法防御力
-				pDef->pkValue.mdefence= 
-					zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence());
-				pDef->pkValue.mdefence = (DWORD)(pDef->pkValue.mdefence*(1.0f +pDef->npc->fivepoint/100.0f));
-				if (pDef->pkValue.pdefence > (DWORD)pDef->skillValue.dpdef)
-					pDef->pkValue.pdefence -= (DWORD)pDef->skillValue.dpdef;
+				//by=>friday 修复大数值防御力被截断问题：对于召唤兽直接使用防御值，避免randBetween的int截断
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					// 召唤兽防御力通常很大，直接使用最小防御值避免randBetween的int截断
+					pDef->pkValue.mdefence = pDef->getMinMDefence();
+				}
 				else
-					pDef->pkValue.pdefence = 0;
+				{
+					// 普通NPC使用原有逻辑
+					pDef->pkValue.mdefence=
+						static_cast<uint64_t>(zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence()));
+					pDef->pkValue.mdefence = static_cast<uint64_t>(pDef->pkValue.mdefence*(1.0f +pDef->npc->fivepoint/100.0f));
+				}
+				//by=>friday 修复错误：应该减少魔法防御力而不是物理防御力
+				if (pDef->pkValue.mdefence > static_cast<uint64_t>(pDef->skillValue.dmdef))
+					pDef->pkValue.mdefence -= static_cast<uint64_t>(pDef->skillValue.dmdef);
+				else
+					pDef->pkValue.mdefence = 0;
 			}
 			break;
 		case 0:
@@ -4194,15 +4303,26 @@ void ScenePk::calmdamN2N(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的法术攻击力
-				pAtt->pkValue.mdamage = (DWORD)(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
+				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->getMinMDamage()+(pAtt->getMaxMDamage()-pAtt->getMinMDamage())*percent);
 
 				/// 计算防御者的魔法防御力
-				pDef->pkValue.mdefence= 
-					zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence());
-				if (pDef->pkValue.pdefence > (DWORD)pDef->skillValue.dpdef)
-					pDef->pkValue.pdefence -= (DWORD)pDef->skillValue.dpdef;
+				//by=>friday 修复大数值防御力被截断问题：对于召唤兽直接使用防御值，避免randBetween的int截断
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					// 召唤兽防御力通常很大，直接使用最小防御值避免randBetween的int截断
+					pDef->pkValue.mdefence = pDef->getMinMDefence();
+				}
 				else
-					pDef->pkValue.pdefence = 0;
+				{
+					// 普通NPC使用原有逻辑
+					pDef->pkValue.mdefence=
+						static_cast<uint64_t>(zMisc::randBetween(pDef->getMinMDefence() , pDef->getMaxMDefence()));
+				}
+				//by=>friday 修复错误：应该减少魔法防御力而不是物理防御力
+				if (pDef->pkValue.mdefence > static_cast<uint64_t>(pDef->skillValue.dmdef))
+					pDef->pkValue.mdefence -= static_cast<uint64_t>(pDef->skillValue.dmdef);
+				else
+					pDef->pkValue.mdefence = 0;
 			}
 			break;
 		default:
@@ -4238,12 +4358,36 @@ void ScenePk::calpdamN2N(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->pkValue.pdamage*(1.0f +pAtt->npc->fivepoint/100.0f));
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkValue.pdamage*(1.0f +pAtt->npc->fivepoint/100.0f));
 
 				/// 计算防御者的物理防御力
-				pDef->pkValue.pdefence= 
-					zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence());
+				//by=>friday 添加召唤兽防御力详细调试
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					uint64_t minDef = pDef->getMinPDefence();
+					uint64_t maxDef = pDef->getMaxPDefence();
+					Zebra::logger->info("[召唤兽防御力详细调试] %s MinPDefence:%llu MaxPDefence:%llu",
+						pDef->name, minDef, maxDef);
+				}
+				//by=>friday 修复大数值防御力被截断问题：对于召唤兽直接使用防御值，避免randBetween的int截断
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					// 召唤兽防御力通常很大，直接使用最小防御值避免randBetween的int截断
+					pDef->pkValue.pdefence = pDef->getMinPDefence();
+				}
+				else
+				{
+					// 普通NPC使用原有逻辑
+					pDef->pkValue.pdefence=
+						static_cast<uint64_t>(zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence()));
+				}
+				//by=>friday 添加召唤兽防御力调试日志
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					Zebra::logger->info("[召唤兽防御力调试] %s 物理防御:%llu 魔法防御:%llu",
+						pDef->name, pDef->pkValue.pdefence, pDef->pkValue.mdefence);
+				}
 			}
 			break;
 		case 1:
@@ -4254,12 +4398,22 @@ void ScenePk::calpdamN2N(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
 
 				/// 计算防御者的物理防御力
-				pDef->pkValue.pdefence= 
-					zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence());
-				pDef->pkValue.pdefence = (DWORD)(pDef->pkValue.pdefence*(1.0f +pDef->npc->fivepoint/100.0f));
+				//by=>friday 修复大数值防御力被截断问题：对于召唤兽直接使用防御值，避免randBetween的int截断
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					// 召唤兽防御力通常很大，直接使用最小防御值避免randBetween的int截断
+					pDef->pkValue.pdefence = pDef->getMinPDefence();
+				}
+				else
+				{
+					// 普通NPC使用原有逻辑
+					pDef->pkValue.pdefence=
+						static_cast<uint64_t>(zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence()));
+					pDef->pkValue.pdefence = static_cast<uint64_t>(pDef->pkValue.pdefence*(1.0f +pDef->npc->fivepoint/100.0f));
+				}
 			}
 			break;
 		case 0:
@@ -4270,11 +4424,21 @@ void ScenePk::calpdamN2N(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 				if (rev&&(rev->wdMagicType == NORMALBOW)&&pDef->huntermark) percent=1.0f;
 
 				/// 计算攻击者的物理攻击力
-				pAtt->pkValue.pdamage = (DWORD)(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
+				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->getMinPDamage()+(pAtt->getMaxPDamage()-pAtt->getMinPDamage())*percent);
 
 				/// 计算防御者的物理防御力
-				pDef->pkValue.pdefence= 
-					zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence());
+				//by=>friday 修复大数值防御力被截断问题：对于召唤兽直接使用防御值，避免randBetween的int截断
+				if (pDef->getPetType() != Cmd::PET_TYPE_NOTPET)
+				{
+					// 召唤兽防御力通常很大，直接使用最小防御值避免randBetween的int截断
+					pDef->pkValue.pdefence = pDef->getMinPDefence();
+				}
+				else
+				{
+					// 普通NPC使用原有逻辑
+					pDef->pkValue.pdefence=
+						static_cast<uint64_t>(zMisc::randBetween(pDef->getMinPDefence() , pDef->getMaxPDefence()));
+				}
 			}
 			break;
 		default:
@@ -4663,9 +4827,9 @@ bool SceneUser::relive(const int relive_type , const int delaytime , const int d
 	if(bret)
 	{
 	    //soke 取消了突破属性限制，这里也要取消
-		charbase.hp = (DWORD)(charstate.maxhp);  //修复原地没血问题
-		charbase.mp = (DWORD)(charstate.maxmp*percent/100.0f);
-		charbase.sp = (DWORD)(charstate.maxsp*percent/100.0f);
+		charbase.hp = static_cast<uint64_t>(charstate.maxhp);  //by=>friday 修复32位截断问题
+		charbase.mp = static_cast<uint64_t>(charstate.maxmp*percent/100.0f); //by=>friday 修复32位截断问题
+		charbase.sp = static_cast<uint64_t>(charstate.maxsp*percent/100.0f); //by=>friday 修复32位截断问题
 		showCurrentEffect(Cmd::USTATE_DEATH,false);
 
 		if (relive_type == Cmd::ReliveMoney)

@@ -45,6 +45,7 @@ public:
 
 	void OnPutFocusItem(bool bPut);
 	void OnResult(stResponsePropertyUserCmd* pCmd);
+	void OnSwitchToRecast(); // 切换到人物装备界面 //by=>friday
 	
 public:
 	CGuiTable*	m_pTableFocusItem; // 待操作的item
@@ -125,4 +126,5 @@ private:
 	CAnimation	m_aniSuccess;
 	bool		m_bPutFocusItem;
 	UINT		m_unSoulMountNeedMoney;
+	CGuiButton* 		m_pBtnSwitchToRecast; // 切换到人物装备按钮 //by=>friday
 };

@@ -281,7 +281,7 @@ CGuiMain::CGuiMain(void)
     //soke 
 	m_bShowSystemMessage = true;
 
-	// isBoxAni = false;
+	 isBoxAni = false;
 
 	//醉梦 快捷图标隐藏
 	yincang = false;
@@ -373,10 +373,10 @@ void CGuiMain::OnCreate()
 	lianzhantime = 0;
 	
 	//敬请期待密码
-	password1 = 0;
-	password2 = 0;
-	password3 = 0;
-	password4 = 0;
+	// password1 = 0;
+	// password2 = 0;
+	// password3 = 0;
+	// password4 = 0;
 	//功勋竞猜
 	m_gxbossinfo =GetStatic(903);
 	pigtime = 0;
@@ -797,75 +797,75 @@ inline void OnRunSiRenBieShuDialog()/////////云天别墅
 }
 
 //敬请期待密码
-void CGuiMain::password(int i)
-{
-	if(i==1)
-	{
-		password1 += 1;
-	}
-	else if(i==2)
-	{
-		if(password1==13)
-		{
-			password2+=1;
-		}
-	}
-	else if(i==3)
-	{
-		if(password2==14)
-		{
-			password3+=1;
-		}
-	}
-	else if(i==4)
-	{
-		if(password3==5 && password4!=21)
-		{
-			password4+=1;
-		}
+// void CGuiMain::password(int i)
+// {
+// 	if(i==1)
+// 	{
+// 		password1 += 1;
+// 	}
+// 	else if(i==2)
+// 	{
+// 		if(password1==13)
+// 		{
+// 			password2+=1;
+// 		}
+// 	}
+// 	else if(i==3)
+// 	{
+// 		if(password2==14)
+// 		{
+// 			password3+=1;
+// 		}
+// 	}
+// 	else if(i==4)
+// 	{
+// 		if(password3==5 && password4!=21)
+// 		{
+// 			password4+=1;
+// 		}
 
-		if(password4==21)
-		{
-			GetGameGuiManager()->AddMianban();
-		}
+// 		if(password4==21)
+// 		{
+// 			GetGameGuiManager()->AddMianban();
+// 		}
 
-	}
-}
+// 	}
+// }
 
-inline void OnUserClickButton1()//敬请期待密码
-{
-	FUNCTION_BEGIN;
+// inline void OnUserClickButton1()//敬请期待密码
+// {
+// 	FUNCTION_BEGIN;
 	
-	GetGameGuiManager()->m_guiMain->password(1);
+// 	GetGameGuiManager()->m_guiMain->password(1);
 
-	FUNCTION_END;
-}
-inline void OnUserClickButton2()/////////敬请期待密码
-{
-	FUNCTION_BEGIN;
+// 	FUNCTION_END;
+// }
+// inline void OnUserClickButton2()/////////敬请期待密码
+// {
+// 	FUNCTION_BEGIN;
 	
-	GetGameGuiManager()->m_guiMain->password(2);
+// 	GetGameGuiManager()->m_guiMain->password(2);
 
-	FUNCTION_END;
-}
+// 	FUNCTION_END;
+// }
 
-inline void OnUserClickButton3()/////////敬请期待密码
-{
-	FUNCTION_BEGIN;
+// inline void OnUserClickButton3()/////////敬请期待密码
+// {
+// 	FUNCTION_BEGIN;
 	
-	GetGameGuiManager()->m_guiMain->password(3);
+// 	GetGameGuiManager()->m_guiMain->password(3);
 
-	FUNCTION_END;
-}
+// 	FUNCTION_END;
+// }
 
-inline void OnUserClickButton4()/////////敬请期待密码
-{
-	FUNCTION_BEGIN;
+// inline void OnUserClickButton4()/////////敬请期待密码
+// {
+// 	FUNCTION_BEGIN;
 
-	GetGameGuiManager()->m_guiMain->password(4);
+// 	GetGameGuiManager()->m_guiMain->password(4);
 	
-	FUNCTION_END;
-}
+// 	FUNCTION_END;
+// }
 
 
 
@@ -1971,9 +1971,15 @@ inline void OnEveryVipDlg()
 }
 
 //soke 每日奖励 (501)OnEveryMingrenDialog
-inline void OnEveryLoginDlg()
+// inline void OnEveryLoginDlg()
+// {
+// 	GetGameGuiManager()->AddLoginGame(); 
+// }
+
+//soke 我要变强 (126)OnEveryMingrenDialog
+inline void OnRecastDialog()
 {
-	GetGameGuiManager()->AddLoginGame(); 
+	GetGameGuiManager()->AddDlgEquipRecast(); 
 }
 
 //TZ 商城新 （510）
@@ -2117,7 +2123,7 @@ void CGuiMain::OnInitScript()
 		def("OnOffAutoAttackDlg",&OnOffAutoAttackDlg),
 		def("OnRunSiRenBieShuDialog",&OnRunSiRenBieShuDialog),//云天别墅
 		def("OnEveryVipDlg",&OnEveryVipDlg),
-		def("OnEveryLoginDlg",&OnEveryLoginDlg),  //MYY 每日奖励 （501）
+		//def("OnEveryLoginDlg",&OnEveryLoginDlg),  //MYY 每日奖励 （501）
 	    def("OnEveryMallDialog",&OnEveryMallDialog), //MYY 商城新 （510）
 		def("OnEveryMingrenDialog",&OnEveryMingrenDialog),  //MYY 名人榜单 （511）
         def("OnEveryVipDialog",&OnEveryVipDialog),//MYY 会员服务 （511）
@@ -2126,11 +2132,12 @@ void CGuiMain::OnInitScript()
 		def("OnFubenDialog",&OnFubenDialog),
 		def("OnRenwuDialog",&OnRenwuDialog),
 		def("OnEveryBossListDialog",&OnEveryBossListDialog),
-		def("OnTabSuoDi",&OnTab), //TAB索敌
-		def("OnUserClickButton1",&OnUserClickButton1),//敬请期待
-		def("OnUserClickButton2",&OnUserClickButton2),//敬请期待
-		def("OnUserClickButton3",&OnUserClickButton3),//敬请期待
-		def("OnUserClickButton4",&OnUserClickButton4)//敬请期待
+		def("OnRecastDialog",&OnRecastDialog),  //装备助手
+		def("OnTabSuoDi",&OnTab) //TAB索敌
+		// def("OnUserClickButton1",&OnUserClickButton1),//敬请期待
+		// def("OnUserClickButton2",&OnUserClickButton2),//敬请期待
+		// def("OnUserClickButton3",&OnUserClickButton3),//敬请期待
+		// def("OnUserClickButton4",&OnUserClickButton4)//敬请期待
 	];
 
 	FUNCTION_END;
@@ -2749,16 +2756,20 @@ void CGuiMain::RenderBar(CGuiMain::stBarShowInfo& bar,uint64_t iCur,uint64_t iMa
 	switch( index )
 	{
 	case 0:
-		sprintf( strValue, "\n( %I64u / %I64u )", iCur, iMax );
+		// sprintf( strValue, "\n( %I64u / %I64u )", iCur, iMax );
+		sprintf( strValue, "\n( %s / %s )", FormatLargeNumber(iCur).c_str(), FormatLargeNumber(iMax).c_str() ); //by=>friday 使用FormatLargeNumber函数格式化血量显示
 		break;
 	case 1:
-		sprintf( strValue, "\n( %I64u / %I64u )", iCur, iMax );
+		// sprintf( strValue, "\n( %I64u / %I64u )", iCur, iMax );
+		sprintf( strValue, "\n( %s / %s )", FormatLargeNumber(iCur).c_str(), FormatLargeNumber(iMax).c_str() ); //by=>friday 使用FormatLargeNumber函数格式化魔法值显示
 		break;
 	case 2:
-		sprintf( strValue, "\n( %I64u / %I64u )", iCur, iMax );
+		// sprintf( strValue, "\n( %I64u / %I64u )", iCur, iMax );
+		sprintf( strValue, "\n( %s / %s )", FormatLargeNumber(iCur).c_str(), FormatLargeNumber(iMax).c_str() ); //by=>friday 使用FormatLargeNumber函数格式化体力值显示
 		break;
 	case 3:
-		sprintf( strValue, "%I64u / %I64u", iCur, iMax );
+		// sprintf( strValue, "%I64u / %I64u", iCur, iMax );
+		sprintf( strValue, "%s / %s", FormatLargeNumber(iCur).c_str(), FormatLargeNumber(iMax).c_str() ); //by=>friday 使用FormatLargeNumber函数格式化经验值显示
 		break;
 	}
 	pt.x += 5;
@@ -3665,23 +3676,28 @@ HRESULT CGuiMain::OnRender( float fElapsedTime )
 	POINT px;
 
 	char zhanli[256];
-	int nZhanli = (pMainChar->GetZhan1() + pMainChar->GetZhan2() + pMainChar->GetZhan3() + pMainChar->GetZhan4());	
+	// by=>friday 直接读取服务端同步的战力值
+	uint64_t nZhanli = pMainChar->GetProperty()->zhanli;
 	
-	int nZhanli2 = nZhanli/18;
 	//int iFont = GetDevice()->SetFont(1);  //soke 改变字体开始
-	if ( nZhanli2 <= 1)
+	if ( nZhanli <= 0)
     {
 	    sprintf( zhanli, " 0" );
 	}
-	else if ( nZhanli2 > 1 )
+	else
     {
-	    sprintf( zhanli, " %d", nZhanli2 );
+	    sprintf( zhanli, " %s", FormatLargeNumber(nZhanli).c_str() );
 	}
 
-	px.x = 190;
-	px.y = 9;
-
+	// by=>friday 修改为左对齐显示，避免战力数值变大时向左偏移
+	SIZE stringSize = GetBxmpTextout()->GetStringSize(zhanli, strlen(zhanli));
 	stPointF CommScale(0.85f,0.85f);
+	
+	// 计算左对齐的位置：让字符串左边界固定在合适位置
+	// 由于DrawString以传入点为中心，所以传入点应该是：期望左边界 + 字符串宽度的一半
+	int leftBorder = 160;  // 向左移动15像素，让战力显示位置更合适
+	px.x = leftBorder + (long)(stringSize.cx/2 * CommScale.x);
+	px.y = 9;
 
 	GetBxmpTextout()->DrawString(px,zhanli,strlen(zhanli),0xffffffff,&CommScale, Blend_Null);
 
@@ -4101,7 +4117,7 @@ HRESULT CGuiMain::OnRender( float fElapsedTime )
 				CMainCharacter* pMainChar = GetScene()->GetMainCharacter();
 
 				char szValue[80];
-				if( pMainChar->IsDie() )
+				/*if( pMainChar->IsDie() )
 				{
 					sprintf(szValue,"生命值：%u/%u",0,pMainChar->GetMaxHP());
 					tips.AddText(szValue);
@@ -4113,6 +4129,26 @@ HRESULT CGuiMain::OnRender( float fElapsedTime )
 					sprintf(szValue,"生命值：%u/%u",pMainChar->GetHP(),pMainChar->GetMaxHP());
 					tips.AddText(szValue);
 					sprintf(szValue,"\n法术值：%u/%u",pMainChar->GetMP(),pMainChar->GetMaxMP());
+					tips.AddText(szValue);
+				}*/
+				if( pMainChar->IsDie() )
+				{
+					// sprintf(szValue,"生命值：%d/%s",0,pMainChar->GetMaxHP());
+					sprintf(szValue,"生命值：%d/%s",0,FormatLargeNumber(pMainChar->GetMaxHP()).c_str());
+
+					tips.AddText(szValue);
+					// sprintf(szValue,"\n法术值：%d/%s",0,pMainChar->GetMaxMP());
+					sprintf(szValue,"\n法术值：%d/%s",0,FormatLargeNumber(pMainChar->GetMaxMP()).c_str());
+
+					tips.AddText(szValue);
+				}
+				else
+				{
+					sprintf(szValue,"生命值：%I64u/%I64u",pMainChar->GetHP(),pMainChar->GetMaxHP()); //by=>friday
+					// sprintf(szValue,"生命值：%s/%s",FormatLargeNumber(pMainChar->GetHP()).c_str(),FormatLargeNumber(pMainChar->GetMaxHP()).c_str());
+					tips.AddText(szValue);
+					sprintf(szValue,"\n法术值：%I64u/%I64u",pMainChar->GetMP(),pMainChar->GetMaxMP()); //by=>friday
+					// sprintf(szValue,"\n法术值：%s/%s",FormatLargeNumber(pMainChar->GetMP()).c_str(),FormatLargeNumber(pMainChar->GetMaxMP()).c_str());
 					tips.AddText(szValue);
 				}
 
@@ -4137,6 +4173,16 @@ HRESULT CGuiMain::OnRender( float fElapsedTime )
 		if( my_pTextSprite2->IsPlaying() )
 		{
 			gundongbeijing3.Render(m_showX4,m_showY4);	
+
+		}
+	}
+	///soke 滚动彩市
+	if(cs_pTextSprite.get() != NULL)
+	{
+		if( cs_pTextSprite->IsPlaying() )
+		{
+			gundongbeijing2.Render(m_showX3,m_showY3);	
+			gundongbeijing2s.Render(m_showX3,m_showY3);	
 
 		}
 	}
@@ -4220,28 +4266,27 @@ HRESULT CGuiMain::OnRender( float fElapsedTime )
 	/////////////////////////////////////////
 		
 	/////////////////////////////////////////
-    //soke中间公告滚动显示（深红色-好友膜拜）
-	if( my_pTextSprite.get() != NULL )
-	{
-		my_pTextSprite->UpdateSprite(fElapsedTime);
-		my_pTextSprite->RenderSprite();
-	}
-
-	//soke中间公告滚动显示（深红色-好友膜拜）
+   //soke中间公告滚动显示（深红色-好友膜拜）
 	if( my_pTextSprite2.get() != NULL )
 	{
 		my_pTextSprite2->UpdateSprite(fElapsedTime);
 		my_pTextSprite2->RenderSprite();
 	}
+	    //滚动彩市
+	if( cs_pTextSprite.get() != NULL )
+	{
+		cs_pTextSprite->UpdateSprite(fElapsedTime);
+		cs_pTextSprite->RenderSprite();
+	}
 	/////////////////////////////////////////
 
 	m_aniMain.Render(m_showX,m_showY);
-	// if(!m_aniMain.IsPlaying() && isBoxAni == true)
-	// {
-	// 	isBoxAni = false;
-	// 	GetGameGuiManager()->m_guiCowrybox->SetEnabled(true);
-	// 	GetGameGuiManager()->m_guiCowrybox->SetVisible(true);
-	// }
+	 if(!m_aniMain.IsPlaying() && isBoxAni == true)
+	 {
+	 	isBoxAni = false;
+	 	GetGameGuiManager()->m_guiCowrybox->SetEnabled(true);
+	 	GetGameGuiManager()->m_guiCowrybox->SetVisible(true);
+	 }
 	stPointF a;
 	m_lianzhan1.SetColor(COLOR_ARGB(255,255,0,0));
 
@@ -4900,9 +4945,15 @@ void CGuiMain::OnResetScreenSize()
 		}
 
 		//myy 每日奖励位置
-		if (GetButton(501))
+		// if (GetButton(501))
+		// {
+		// 	GetButton( 501 )->SetLocation(GetDevice()->GetWidth()/2 - 150, -m_y + 30);
+		// }
+
+		//myy 我要变强
+		if (GetButton(126))
 		{
-			GetButton( 501 )->SetLocation(GetDevice()->GetWidth()/2 - 150, -m_y + 30);
+			GetButton( 126 )->SetLocation(GetDevice()->GetWidth()/2 - 150, -m_y + 30);
 		}
 	}
 	else{
@@ -4967,10 +5018,10 @@ void CGuiMain::OnResetScreenSize()
 		}
 
 		//myy 每日奖励位置
-		if (GetButton(501))
-		{
-			GetButton( 501 )->SetLocation(GetDevice()->GetWidth()/2 - 9999, -m_y + 9999);
-		}
+		// if (GetButton(501))
+		// {
+		// 	GetButton( 501 )->SetLocation(GetDevice()->GetWidth()/2 - 9999, -m_y + 9999);
+		// }
 	}
 	
 	
@@ -6399,14 +6450,20 @@ bool CGuiMain::GetResourceLocation(DWORD iAconID, stResourceLocation & rl)
 * \param pControl : 
 * \return 
 */
-bool CGuiMain::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
+bool CGuiMain::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl* pControl)  //攻击模式禁止拖拽
 {
-	FUNCTION_BEGIN;
+    FUNCTION_BEGIN;
 
-	switch( nEvent )
-	{
-	case EVENT_BUTTON_DRAG_MOVE:
-		if((nID >= 30) && (nID <= 37))
+    switch(nEvent)
+    {
+    case EVENT_BUTTON_DRAG_MOVE:
+        // 当ID在30-37范围内时，完全禁止拖拽操作
+        if((nID >= 30) && (nID <= 37))
+        {
+            // 直接返回，不执行任何拖拽相关操作
+            return true; // 或者返回false，取决于事件处理约定
+        }
+        break;
 				{
 					if ( !GetGameCursor()->IsDrag()
 						&& !(GetGameCursor()->GetCursorImageType() == eCursorSetAccess)
@@ -8697,6 +8754,12 @@ void CGuiMain::__AddMessage(const char* msg,enumMessageType type,DWORD color)
             AddTYTextMessage(msg,color);
 		}
 		break;
+		//滚动彩市
+		case CSMessage:
+		{ 
+			AddCSTextMessage(msg,color);
+		}
+		break;	
 	}
 }
 
@@ -9283,7 +9346,7 @@ void CGuiMain::AddTYTextMessage(const char * pMsg,DWORD clr)
 	gundongbeijing3.Create(&rl);
 	gundongbeijing3.SetSpeed(100);
 	int x = GetDevice()->GetWidth()/2 - 550;
-	int y = 90+550;
+	int y = 90+550-70;
 	m_showX4 = x;
 		
 	m_showY4 = y;
@@ -9308,7 +9371,7 @@ void CGuiMain::AddTYTextMessage(const char * pMsg,DWORD clr)
 		my_pTextSprite2->SetSpeed(stPointF(-60,0)); //soke 字体移动速度
 		//soke                                  背景对应位置                     背景高度+文字位置
 		// my_pTextSprite->SetRenderRect(stRectI( 100,50+490, GetDevice()->GetWidth() - 190, 90+490) );//(+490)微调滚动条位置 + 往xia  - 往上
-		my_pTextSprite2->SetRenderRect(stRectI( GetDevice()->GetWidth()/2 - 370,50+715, GetDevice()->GetWidth() - 550, 90+715) );//(+250)微调滚动条位置 + 往xia  - 往上
+		my_pTextSprite2->SetRenderRect(stRectI( GetDevice()->GetWidth()/2 - 370,50+715-70, GetDevice()->GetWidth() - 550, 90+715-70));//by=>friday,向上移动70像素，避免被UI元素遮挡
 		
 		
 	}
@@ -9317,6 +9380,64 @@ void CGuiMain::AddTYTextMessage(const char * pMsg,DWORD clr)
 	if( !my_pTextSprite2->IsPlaying() )
 	{
 		my_pTextSprite2->BeginSprite(false);
+	}
+
+	FUNCTION_END;
+}
+//滚动彩市
+//soke 屏幕带特效滚动(上)
+void CGuiMain::AddCSTextMessage(const char * pMsg,DWORD clr)
+{
+	FUNCTION_BEGIN;
+
+	gundongbeijing2.SetStop(true);
+	gundongbeijing2s.SetStop(true);
+
+	stResourceLocation rl;
+	rl.SetFileName("data\\interfaces3.gl");
+	rl.group = 116;
+	rl.frame = 0;
+	gundongbeijing2.Create(&rl);
+	gundongbeijing2.SetSpeed(100);
+
+	rl.SetFileName("data\\interfaces3.gl");
+	rl.group = 116;
+	rl.frame = 1;
+	gundongbeijing2s.Create(&rl);
+	gundongbeijing2s.SetSpeed(100);
+	//int x = GetDevice()->GetWidth()/2-375;
+	//int y = 200; //红高粱 调整位置
+	int x = GetDevice()->GetWidth()/2-395; //左右
+	int y = 235; //红高粱 调整位置 上下
+	m_showX3 = x;	
+	m_showY3 = y;
+	gundongbeijing2.SetLoopPlay(true);	
+	gundongbeijing2s.SetLoopPlay(true);	
+
+	BOOL bFirst = FALSE;
+	if( cs_pTextSprite.get() == NULL)
+	{
+		cs_pTextSprite = std::auto_ptr<CGMTextEffect>(new CGMTextEffect);
+		if (!cs_pTextSprite.get())  return;
+		bFirst = TRUE;
+	}
+
+	cs_pTextSprite->AddText(pMsg);
+
+	if( bFirst )
+	{
+		cs_pTextSprite->SetTextColor(clr);//soke 显示的字体颜色（粉色-通用）
+		cs_pTextSprite->SetBkColor(COLOR_ARGB(0,0,0,0)); //显示的背景颜色透明度
+		cs_pTextSprite->SetFont(2); //字体默认2
+		cs_pTextSprite->SetBackGround(TRUE);
+		cs_pTextSprite->SetSpeed(stPointF(-60,0)); //soke 字体移动速度
+		//soke                                  背景对应位置                     背景高度+文字位置
+		cs_pTextSprite->SetRenderRect(stRectI(GetDevice()->GetWidth()/2 - 375,20, GetDevice()->GetWidth() - 550, 20+500) );//(+250)微调滚动条位置 + 往xia  - 往上
+	}
+
+	if( !cs_pTextSprite->IsPlaying() )
+	{
+		cs_pTextSprite->BeginSprite(false);
 	}
 
 	FUNCTION_END;

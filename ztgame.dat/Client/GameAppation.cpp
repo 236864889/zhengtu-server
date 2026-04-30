@@ -606,6 +606,7 @@ bool CGameAppation::InitInstance()
 	GetDevice()->FindResource("data\\interfaces7.gl",0,Usage_Interface);
 	GetDevice()->FindResource("data\\interfaces_cz.gl",0,Usage_Interface);
 	GetDevice()->FindResource("data\\interfaces1.gl",0,Usage_Interface);
+	GetDevice()->FindResource("data\\activity.gl",0,Usage_Interface); //魔盒界面
 	GetDevice()->FindResource("data\\items.gl",IBitmapList::flag_AlwaysOpen ,Usage_Interface);
 	GetDevice()->FindResource("data\\cursor.gl",0,Usage_Interface);
 	GetDevice()->FindResource("data\\icons.gl",0,Usage_Interface);
@@ -613,7 +614,7 @@ bool CGameAppation::InitInstance()
 	GetDevice()->FindResource("data\\logo.gl",0,Usage_Interface);
 	GetDevice()->FindResource("data\\other.gl",IBitmapList::flag_AlwaysOpen ,Usage_Interface);
 	GetDevice()->FindResource("data\\Minimap.gl",0 ,Usage_Interface);
-	GetDevice()->FindResource("data\\MallUI.gl",0,Usage_Interface); //商城新页面读取pak
+	GetDevice()->FindResource("data\\MallUI.gl",0,Usage_Interface);  //魔盒界面
 	GetGameGuiManager()->InitCreate( );
 	GetGameGuiManager()->Init( );
 	GetGameCursor( )->SetCursor(CCursor::CursorType_Normal,eCursorNormal);

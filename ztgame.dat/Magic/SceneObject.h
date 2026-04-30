@@ -1,7 +1,6 @@
 #pragma once
 #include "objectbase.h"
 #include "map.h"
-#include <stdint.h>
 
 // -------------------- 场景物体类型定义 ------------------//
 enum enumSceneObjectType
@@ -31,21 +30,21 @@ protected:
 	stPointI	m_ptPixelOffset;	// 在地图上的像素偏移
 	DWORD		m_dwSceneObjectType;
 
-	DWORD		m_dwHP;
-	DWORD		m_dwMaxHP;
+	unsigned __int64 m_dwHP;
+	unsigned __int64 m_dwMaxHP;
 
-	DWORD		m_dwMP;
-	DWORD		m_dwMaxMP;
+	unsigned __int64 m_dwMP;
+	unsigned __int64 m_dwMaxMP;
 public:
-	DWORD GetHP(){ return m_dwHP;}
-	DWORD GetMaxHP(){ return m_dwMaxHP;}
-	void  SetHP(DWORD dwHP) { m_dwHP = dwHP;}
-	void  SetMaxHP(DWORD dwHP) { (m_dwMaxHP == 0) ? m_dwMaxHP = 1 : m_dwMaxHP = dwHP; }
+	unsigned __int64 GetHP(){ return m_dwHP;}
+	unsigned __int64 GetMaxHP(){ return m_dwMaxHP;}
+	void  SetHP(unsigned __int64 dwHP) { m_dwHP = dwHP;}
+	void  SetMaxHP(unsigned __int64 dwHP) { (m_dwMaxHP == 0) ? m_dwMaxHP = 1 : m_dwMaxHP = dwHP; }
 
-	virtual size_t GetMP() { return m_dwMP; }
-	virtual size_t GetMaxMP() { return m_dwMaxMP; }
-	void SetMP(DWORD dwMP) { m_dwMP = dwMP; }
-	void SetMaxMP(DWORD dwMP) { (m_dwMaxMP == 0) ? m_dwMaxMP = 1 : m_dwMaxMP = dwMP; }
+	virtual unsigned __int64 GetMP() { return m_dwMP; }
+	virtual unsigned __int64 GetMaxMP() { return m_dwMaxMP; }
+	void SetMP(unsigned __int64 dwMP) { m_dwMP = dwMP; }
+	void SetMaxMP(unsigned __int64 dwMP) { (m_dwMaxMP == 0) ? m_dwMaxMP = 1 : m_dwMaxMP = dwMP; }
 	
 	virtual void Die(){}
 public:

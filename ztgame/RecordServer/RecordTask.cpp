@@ -443,10 +443,10 @@ const dbCol RecordTask::charbase_define[] = {
 	{ "`UNIONID`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },
 	{ "`SCHOOLID`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) }, 
 	{ "`SEPTID`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) }, 
-	{ "`HP`",					zDBConnPool::DB_DWORD,	sizeof(DWORD) },
+	{ "`HP`",					zDBConnPool::DB_QWORD,	sizeof(QWORD) },
 //	{ "`MAXHP`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },
 //	{ "`RESUMEHP`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },
-	{ "`MP`",					zDBConnPool::DB_DWORD,	sizeof(DWORD) },
+	{ "`MP`",					zDBConnPool::DB_QWORD,	sizeof(QWORD) },
 //	{ "`MAXMP`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },
 //	{ "`RESUMEMP`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },
 	{ "`SP`",					zDBConnPool::DB_DWORD,	sizeof(DWORD) },
@@ -470,11 +470,11 @@ const dbCol RecordTask::charbase_define[] = {
 	{ "`FORBIDTALK`",			zDBConnPool::DB_QWORD,	sizeof(QWORD) },
 	{ "`BITMASK`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) }, 
 	{ "`ONLINETIME`",			zDBConnPool::DB_DWORD,	sizeof(DWORD) }, 
-	{ "`CON`",					zDBConnPool::DB_WORD,	sizeof(WORD) }, 
-	{ "`STR`",					zDBConnPool::DB_WORD,	sizeof(WORD) }, 
-	{ "`DEX`",					zDBConnPool::DB_WORD,	sizeof(WORD) }, 
-	{ "`INT`",					zDBConnPool::DB_WORD,	sizeof(WORD) }, 
-	{ "`MEN`",					zDBConnPool::DB_WORD,	sizeof(WORD) }, 
+	{ "`CON`",					zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //by=>friday
+	{ "`STR`",					zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //by=>friday
+	{ "`DEX`",					zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //by=>friday
+	{ "`INT`",					zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //by=>friday
+	{ "`MEN`",					zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //by=>friday
 	{ "`RELIVEWEAKTIME`",		zDBConnPool::DB_WORD,	sizeof(WORD) }, 
 	{ "`GRACE`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) }, 
 	{ "`EXPLOIT`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) }, 
@@ -531,7 +531,9 @@ const dbCol RecordTask::charbase_define[] = {
 	{ "`ROUND`",                zDBConnPool::DB_DWORD,  sizeof(DWORD) },
 	{ "`ANGEL`",                zDBConnPool::DB_DWORD,  sizeof(DWORD) },
 	{ "`HANBING`",              zDBConnPool::DB_DWORD,  sizeof(DWORD) },
-	{ "`ZHANLI`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },
+	{ "`GOLDSUM`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },  //5倍保险
+	{ "`GIVENUM`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },  //5倍保险
+	{ "`ZHANLI`",				zDBConnPool::DB_QWORD,	sizeof(QWORD) },
 	{ "`XHBBCOUNT`",	        zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //鲜花榜特效
 	{ "`HEROCOUNT`",	        zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //护国榜特效
 	{ "`ZHANLICOUNT`",	        zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //护国榜特效
@@ -651,6 +653,7 @@ const dbCol RecordTask::charbase_define[] = {
 	{ "`PIFENG_SELECT`",                zDBConnPool::DB_DWORD,sizeof(DWORD) },
 	{ "`CHIBANG_SELECT`",                zDBConnPool::DB_DWORD,sizeof(DWORD) },
 	{ "`ZUOQI_SELECT`",                zDBConnPool::DB_DWORD,sizeof(DWORD) },
+	{ "`JIEMIAN_SELECT`",                zDBConnPool::DB_DWORD,sizeof(DWORD) },  //魔盒界面
 	{ "`TIANJIANGTIME`",                zDBConnPool::DB_DWORD,sizeof(DWORD) },
 	{ "`MIGONGCS`",                zDBConnPool::DB_DWORD,sizeof(DWORD) },
 	{ "`TIANXIACOUNT`",	        zDBConnPool::DB_DWORD,	sizeof(DWORD) }, //护国榜特效 这里是 sql查询语句 也要加 OK到这里 我们就成功加了一个角色字段 只需要在需要的时候调用就行了
@@ -662,6 +665,7 @@ const dbCol RecordTask::charbase_define[] = {
 	{ "`PIFENG`",			    zDBConnPool::DB_BIN,	sizeof(char[5120+1]) }, 
 	{ "`CHIBANG`",			    zDBConnPool::DB_BIN,	sizeof(char[5120+1]) }, 
 	{ "`ZUOQI`",			    zDBConnPool::DB_BIN,	sizeof(char[5120+1]) }, 
+	{ "`JIEMIAN`",			    zDBConnPool::DB_BIN,	sizeof(char[5120+1]) },   //魔盒界面
 	{ "`KEYEQUIP`",			    zDBConnPool::DB_BIN,	sizeof(char[5120+1]) }, 
 	{ "`M13AXHP`",				zDBConnPool::DB_DWORD,	sizeof(DWORD) },
 	{ "`P13DAMAGE`",			zDBConnPool::DB_DWORD,	sizeof(DWORD) },

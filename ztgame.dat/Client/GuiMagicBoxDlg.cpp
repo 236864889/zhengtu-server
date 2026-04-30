@@ -19,8 +19,8 @@
 #define MAX_PAGE 32	 // 时装最大页数
 #define MAX_PAGE2 12 // 披风最大页数
 #define MAX_PAGE3 4 // 披风最大页数
-#define MAX_PAGE4 12 // 坐骑最大页数
-//这里有个最大页数 改一下就行了 比如现在是24个坐骑 你加了6个 那这里改成5就行了
+#define MAX_PAGE4 6 // 坐骑最大页数
+#define MAX_PAGE5 4 // 界面最大页数
 ///////////////////////////////////////////////////////////////////////////////
 
 CGuiMagicBoxDlg::CGuiMagicBoxDlg()
@@ -45,6 +45,82 @@ void CGuiMagicBoxDlg::OnCreate(void)
 	FUNCTION_BEGIN;
 
 	CGuiDialog::OnCreate();
+	m_pTab = GetTab(10);
+	m_pTab->AddItem("",NULL);
+	m_pTab->AddItem("",NULL);
+
+	
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(11));
+	m_pTab->AddControl(0,(CGuiControl*)GetTable(12));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(13));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(14));
+	m_pTab->AddControl(0,(CGuiControl*)GetCheckBox(15));
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(16));
+	m_pTab->AddControl(0,(CGuiControl*)GetButton(17));
+
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(21));
+	m_pTab->AddControl(0,(CGuiControl*)GetTable(22));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(23));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(24));
+	m_pTab->AddControl(0,(CGuiControl*)GetCheckBox(25));
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(26));
+	m_pTab->AddControl(0,(CGuiControl*)GetButton(27));
+	
+
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(31));
+	m_pTab->AddControl(0,(CGuiControl*)GetTable(32));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(33));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(34));
+	m_pTab->AddControl(0,(CGuiControl*)GetCheckBox(35));
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(36));
+	m_pTab->AddControl(0,(CGuiControl*)GetButton(37));
+
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(41));
+	m_pTab->AddControl(0,(CGuiControl*)GetTable(42));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(43));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(44));
+	m_pTab->AddControl(0,(CGuiControl*)GetCheckBox(45));
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(46));
+	m_pTab->AddControl(0,(CGuiControl*)GetButton(47));
+
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(51));
+	m_pTab->AddControl(0,(CGuiControl*)GetTable(52));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(53));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(54));
+	m_pTab->AddControl(0,(CGuiControl*)GetCheckBox(55));
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(56));
+	m_pTab->AddControl(0,(CGuiControl*)GetButton(57));
+
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(61));
+	m_pTab->AddControl(0,(CGuiControl*)GetTable(62));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(63));
+	m_pTab->AddControl(0,(CGuiControl*)GetStatic(64));
+	m_pTab->AddControl(0,(CGuiControl*)GetCheckBox(65));
+	m_pTab->AddControl(0,(CGuiControl*)GetImage(66));
+	m_pTab->AddControl(0,(CGuiControl*)GetButton(67));
+
+
+	//界面
+	m_pTab->AddControl(1,(CGuiControl*)GetImage(101));
+	m_pTab->AddControl(1,(CGuiControl*)GetTable(102));
+	m_pTab->AddControl(1,(CGuiControl*)GetStatic(103));
+	m_pTab->AddControl(1,(CGuiControl*)GetStatic(104));
+	m_pTab->AddControl(1,(CGuiControl*)GetCheckBox(105));
+	m_pTab->AddControl(1,(CGuiControl*)GetImage(106));
+	m_pTab->AddControl(1,(CGuiControl*)GetButton(107));
+
+	m_pTab->AddControl(1,(CGuiControl*)GetImage(201));
+	m_pTab->AddControl(1,(CGuiControl*)GetTable(202));
+	m_pTab->AddControl(1,(CGuiControl*)GetStatic(203));
+	m_pTab->AddControl(1,(CGuiControl*)GetStatic(204));
+	m_pTab->AddControl(1,(CGuiControl*)GetCheckBox(205));
+	m_pTab->AddControl(1,(CGuiControl*)GetImage(206));
+	m_pTab->AddControl(1,(CGuiControl*)GetButton(207));
+
+	m_pTab->SetVisible(false);
+
+	m_pTab->SetCurItem(0);
+	
 	type = 0; // 默认时装页
 	page = 1;
 
@@ -55,6 +131,7 @@ void CGuiMagicBoxDlg::OnCreate(void)
 	pifengshu = 0;
 	chibangshu = 0;
 	zuoqishu = 0;
+	jiemianshu = 0;
 	shuaxin();
 	FUNCTION_END;
 }
@@ -952,6 +1029,89 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 				GetCheckBox(55)->SetChecked(false);
 			}
 		}
+		else if (type == 4) // 界面
+		{
+
+			if (!GetCheckBox(nID)->GetChecked())
+			{
+				// 请求取消佩戴界面
+				stSetNotJiemianUserCmd cmd1;
+				CMainCharacter *pMainRole = (CMainCharacter *)GetScene()->GetMainCharacter();
+				if (pMainRole)
+					cmd1.dwOldTempID = pMainRole->GetProperty()->userid;
+				else
+					cmd1.dwOldTempID = 0;
+				cmd1.jiemianid = (page - 1) * 2 + (nID / 100) - 1;
+				SEND_USER_CMD(cmd1);
+
+				stGetShizhuangPropertyUserCmd cmd2;
+				if (pMainRole)
+					cmd2.dwOldTempID = pMainRole->GetProperty()->userid;
+				else
+					cmd2.dwOldTempID = 0;
+				SEND_USER_CMD(cmd2);
+				return false;
+			}
+			if (GetCheckBox(105)->GetChecked() && nID == 105)
+			{
+				if (Jiemian[(page - 1) * 2 + (nID / 100) - 1].state != 1)
+				{
+					GameMessageBox("您未激活此界面无法穿戴！");
+					GetCheckBox(nID)->SetChecked(false);
+					return false;
+				}
+				else
+				{
+					// 请求佩戴称号
+					stSetJiemianUserCmd cmd1;
+					CMainCharacter *pMainRole = (CMainCharacter *)GetScene()->GetMainCharacter();
+					if (pMainRole)
+						cmd1.dwOldTempID = pMainRole->GetProperty()->userid;
+					else
+						cmd1.dwOldTempID = 0;
+					cmd1.jiemianid = (page - 1) * 2 + (nID / 100) - 1;
+					SEND_USER_CMD(cmd1);
+
+					stGetShizhuangPropertyUserCmd cmd2;
+					if (pMainRole)
+						cmd2.dwOldTempID = pMainRole->GetProperty()->userid;
+					else
+						cmd2.dwOldTempID = 0;
+					SEND_USER_CMD(cmd2);
+				}
+				GetCheckBox(205)->SetChecked(false);
+			
+			}
+			if (GetCheckBox(205)->GetChecked() && nID == 205)
+			{
+				if (Jiemian[(page - 1) * 2 + (nID / 100) - 1].state != 1)
+				{
+					GameMessageBox("您未激活此界面无法穿戴！");
+					GetCheckBox(nID)->SetChecked(false);
+					return false;
+				}
+				else
+				{
+					// 请求佩戴称号
+					stSetJiemianUserCmd cmd1;
+					CMainCharacter *pMainRole = (CMainCharacter *)GetScene()->GetMainCharacter();
+					if (pMainRole)
+						cmd1.dwOldTempID = pMainRole->GetProperty()->userid;
+					else
+						cmd1.dwOldTempID = 0;
+					cmd1.jiemianid = (page - 1) * 2 + (nID / 100) - 1;
+					SEND_USER_CMD(cmd1);
+
+					stGetShizhuangPropertyUserCmd cmd2;
+					if (pMainRole)
+						cmd2.dwOldTempID = pMainRole->GetProperty()->userid;
+					else
+						cmd2.dwOldTempID = 0;
+					SEND_USER_CMD(cmd2);
+				}
+				GetCheckBox(105)->SetChecked(false);
+			}
+		}
 	}
 
 	if (nEvent == EVENT_BUTTON_CLICKED)
@@ -974,6 +1134,7 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 		{
 			page = 1;
 			type = 0;
+			m_pTab->SetCurItem(0);
 			shuaxin();
 		}
 		break;
@@ -981,6 +1142,7 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 		{
 			page = 1;
 			type = 1;
+			m_pTab->SetCurItem(0);
 			shuaxin();
 		}
 		break;
@@ -988,6 +1150,7 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 		{
 			page = 1;
 			type = 2;
+			m_pTab->SetCurItem(0);
 			shuaxin();
 		}
 		break;
@@ -995,6 +1158,15 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 		{
 			page = 1;
 			type = 3;
+			m_pTab->SetCurItem(0);
+			shuaxin();
+		}
+		break;
+		case 1006: // 界面
+		{
+			page = 1;
+			type = 4;
+			m_pTab->SetCurItem(1);
 			shuaxin();
 		}
 		break;
@@ -1064,6 +1236,17 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 					page += 1;
 				}
 			}
+			else if (type == 4)
+			{
+				if (page >= MAX_PAGE5)
+				{
+					page = MAX_PAGE5;
+				}
+				else
+				{
+					page += 1;
+				}
+			}
 
 			shuaxin();
 		}
@@ -1074,6 +1257,9 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 		case 47: // 进阶
 		case 57: // 进阶
 		case 67: // 进阶
+
+		case 107: // 进阶
+		case 207: // 进阶
 		{
 			if (type == 0)
 			{
@@ -1138,6 +1324,24 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 				else
 					cmd1.dwOldTempID = 0;
 				cmd1.zuoqiid = (page - 1) * 6 + (nID / 10) - 1;
+				SEND_USER_CMD(cmd1);
+
+				stGetShizhuangPropertyUserCmd cmd2;
+				if (pMainRole)
+					cmd2.dwOldTempID = pMainRole->GetProperty()->userid;
+				else
+					cmd2.dwOldTempID = 0;
+				SEND_USER_CMD(cmd2);
+			}
+			else if (type == 4) // 界面
+			{
+				CMainCharacter *pMainRole = (CMainCharacter *)GetScene()->GetMainCharacter();
+				stSetJiemianJihuoUserCmd cmd1;
+				if (pMainRole)
+					cmd1.dwOldTempID = pMainRole->GetProperty()->userid;
+				else
+					cmd1.dwOldTempID = 0;
+				cmd1.jiemianid = (page - 1) * 2 + (nID / 100) - 1;
 				SEND_USER_CMD(cmd1);
 
 				stGetShizhuangPropertyUserCmd cmd2;
@@ -1260,6 +1464,18 @@ HRESULT CGuiMagicBoxDlg::OnRender(float fElapsedTime)
 			m_AniBody[i].Render(pt.x, pt.y, NULL, &scale);
 		}
 	}
+	else if (type == 4)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+
+			pt.x = 310 * i + pt2.x;
+			pt.y = 200 + pt2.y;
+			stPointF scale(1.0f,1.0f);
+			m_AniBody[i].Render(pt.x, pt.y, NULL, &scale);
+		}
+	}
+
 
 	return hr;
 
@@ -1308,6 +1524,14 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		if (Zuoqi[i].state == 1)
 		{
 			zuoqishu++;
+		}
+	}
+	jiemianshu = 0;
+	for (int i = 0; i < 100; i++)
+	{
+		if (Jiemian[i].state == 1)
+		{
+			jiemianshu++;
 		}
 	}
 	if (type == 0) // 时装
@@ -1616,6 +1840,77 @@ void CGuiMagicBoxDlg::shuaxin(void)
 			if (zuoqi_select == (page - 1) * 6 + i)
 			{
 				GetCheckBox(((i + 1) * 10) + 5)->SetChecked(true);
+			}
+		}
+	}
+	else if (type == 4) // 界面
+	{
+		GetCheckBox(105)->SetChecked(false);
+		GetCheckBox(205)->SetChecked(false);
+		
+
+		char msg[256];
+		sprintf(msg, "%d/%d", page, MAX_PAGE5);
+		GetStatic(6)->SetText(msg);
+
+		GetProcess(9)->SetRange(0, mohemaxexp);
+		GetProcess(9)->SetPos(moheexp);
+
+		sprintf(msg, "等级：%d级", mohelevel);
+		GetStatic(7)->SetText(msg);
+
+		sprintf(msg, "%d/%d", moheexp, mohemaxexp);
+		GetStatic(112)->SetText(msg);
+
+		jiemianshu = 0;
+		for (int i = 0; i < 100; i++)
+		{
+			if (Jiemian[i].state == 1)
+			{
+				jiemianshu++;
+			}
+		}
+		sprintf(msg, "当前拥有：[%d] 套界面", jiemianshu);
+		GetStatic(111)->SetText(msg);
+		stResourceLocation rlAniBody;
+		rlAniBody.SetFileName("data\\activity.gl");
+		POINT pt;
+		for (int i = 0; i < 2; i++)
+		{
+			
+			pt.x = 20 + 300 * i;
+			pt.y = 240;
+			
+
+			rlAniBody.group = Jiemian[(page - 1) * 2 + i].activityNum;
+			rlAniBody.frame = 3;
+
+			m_AniBody[i].Create(&rlAniBody);
+			m_AniBody[i].SetLoopPlay(true);
+			m_AniBody[i].SetSpeed(50);
+
+			if (Jiemian[(page - 1) * 2 + i].state == 1)
+			{
+				m_AniBody[i].SetColor(COLOR_ARGB(255, 255, 255, 255));
+			}
+			else
+			{
+				m_AniBody[i].SetColor(COLOR_ARGB(50, 255, 255, 255));
+			}
+
+			GetStatic((i + 1) * 100 + 3)->SetText(Jiemian[(page - 1) * 2 + i].name);
+			if (Jiemian[(page - 1) * 2 + i].level >= 1)
+			{
+				GetImage((i + 1) * 100 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Jiemian[(page - 1) * 2 + i].level));
+			}
+			else
+			{
+				GetImage((i + 1) * 100 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, 9999));
+			}
+
+			if (jiemian_select == (page - 1) * 2 + i)
+			{
+				GetCheckBox(((i + 1) * 100) + 5)->SetChecked(true);
 			}
 		}
 	}

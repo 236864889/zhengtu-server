@@ -2012,7 +2012,7 @@ static char zebraclient_doc[] = "\nzebraclient\n" "\t≤‚ ‘øÕªß∂À≥Ã–Ú°£";
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
-	"\nBuild version   :\t" BUILD_STRING;
+	"\nBuild version   :\t" _S(BUILD_STRING);
 
 int main(int argc, char *argv[])
 {

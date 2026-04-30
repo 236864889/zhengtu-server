@@ -267,14 +267,15 @@ bool zntopService::setup_terminal()
 		exit(1);
 	}
 
-cm = tgetstr((char *)"cm", 0);
-cl = tgetstr((char *)"cl", 0);
-top_clrtobot = tgetstr((char *)"cd", 0);
-top_clrtoeol = tgetstr((char *)"ce", 0);
-ho = tgetstr((char *)"ho", 0);
-md = tgetstr((char *)"md", 0);
-me = tgetstr((char *)"me", 0);
-mr = tgetstr((char *)"mr", 0);
+	cm = tgetstr("cm", 0);
+	cl = tgetstr("cl", 0);
+	top_clrtobot = tgetstr("cd", 0);
+	top_clrtoeol = tgetstr("ce", 0);
+	ho = tgetstr("ho", 0);
+	md = tgetstr("md", 0);
+	me = tgetstr("me", 0);
+	mr = tgetstr("mr", 0);
+
 	if (-1 == tcgetattr(0, &savetty))
 	{
 		perror("tcgetattr() failed");
@@ -510,8 +511,8 @@ void zntopService::window_size(int signo)
 	}
 	else
 	{
-zntopService::getInstance().cols = tgetnum((char *)"co");
-zntopService::getInstance().lines = tgetnum((char *)"li");
+		zntopService::getInstance().cols = tgetnum("co");
+		zntopService::getInstance().lines = tgetnum("li");
 	}
 
 	zntopService::getInstance().clear_screen();
@@ -561,8 +562,9 @@ static char zntop_doc[] = "\nzntop\n" "\t网卡流量实时监控程序。";
  * \brief 程序的版本信息
  *
  */
-const char *argp_program_version = "Program version :\t" VERSION_STRING
-                                    "\nBuild version   :\t" BUILD_STRING;
+const char *argp_program_version = "Program version :\t" VERSION_STRING\
+									"\nBuild version   :\t" _S(BUILD_STRING);
+
 
 int main(int argc, char **argv)
 {

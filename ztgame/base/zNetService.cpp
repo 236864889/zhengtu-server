@@ -1,11 +1,11 @@
 /**
  * \file
  * \version  $Id: zNetService.cpp  $
- * \author
- * \date
+ * \author  
+ * \date 
  * \brief 实现网络服务器
  *
- *
+ * 
  */
 
 #include <iostream>
@@ -32,19 +32,19 @@ zNetService *zNetService::instance = NULL;
  */
 bool zNetService::init(unsigned short port)
 {
+
 	Zebra::logger->trace("zNetService::init");
 	if (!zService::init())
 		return false;
-
-	// 初始化服务器
+	
+	//初始化服务器
 	tcpServer = new zTCPServer(serviceName);
 	if (NULL == tcpServer)
 		return false;
-
 	if (!tcpServer->bind(serviceName, port))
 		return false;
 
-	Zebra::logger->debug("zNetService::init bind(%s:%u)", serviceName.c_str(), port);
+	Zebra::logger->debug("zNetService::init bind(%s:%u)",serviceName.c_str(),port);
 	return true;
 }
 
@@ -57,12 +57,12 @@ bool zNetService::init(unsigned short port)
  */
 bool zNetService::serviceCallback()
 {
-	// Zebra::logger->trace("zNetService::serviceCallback");
+//	Zebra::logger->trace("zNetService::serviceCallback");
 	struct sockaddr_in addr;
 	int retcode = tcpServer->accept(&addr);
-	if (retcode >= 0)
+	if (retcode >= 0) 
 	{
-		// 接收连接成功，处理连接
+		//接收连接成功，处理连接
 		newTCPTask(retcode, &addr);
 	}
 
@@ -80,3 +80,4 @@ void zNetService::final()
 	Zebra::logger->trace("zNetService::final");
 	SAFE_DELETE(tcpServer);
 }
+

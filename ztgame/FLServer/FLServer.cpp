@@ -259,7 +259,7 @@ static char login_doc[] = "\nFLServer\n" "\t登陆服务器。";
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
-									"\nBuild version   :\t" BUILD_STRING;
+									"\nBuild version   :\t" _S(BUILD_STRING);
 
 /**
  * \brief 读取配置文件

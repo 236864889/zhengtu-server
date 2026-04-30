@@ -31,6 +31,7 @@ GateUser::GateUser(DWORD accID,GatewayTask *histask):zUser(),GateSelectUserSessi
 	inserted=false;
 	quiz = false;
 	logout=false; 
+	packTime = 0;
 	bzero(jpegPassport, sizeof(jpegPassport));
 	bzero(sysSetting,sizeof(sysSetting));
 	if(gatewaytask)

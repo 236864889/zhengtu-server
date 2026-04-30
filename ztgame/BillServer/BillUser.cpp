@@ -461,6 +461,7 @@ bool BillUser::redeem_gold(const BillData* bd)
 	return true;
 
 }
+//sky 5倍保险
 bool BillUser::redeem_moth_card(const BillData* bd)
 {
 	if(!check_tid(bd->tid))
@@ -468,10 +469,9 @@ bool BillUser::redeem_moth_card(const BillData* bd)
 		return false;
 	}
 	Cmd::Bill::t_Redeem_MonthCard_Gateway send;
-	DWORD old_vip_time=0;
-	
-	Record column,where;                           
-	std::ostringstream oss;         
+
+	int rate = REDEEM_RATE_GOLD;  // 金币与点数兑换比率
+	DWORD waitgold = 0;           // 待充金币数
 	strncpy(send.account , account , Cmd::UserServer::ID_MAX_LENGTH);
 	send.accid = id;			        /// 账号编号
 
@@ -479,91 +479,36 @@ bool BillUser::redeem_moth_card(const BillData* bd)
 
 	if (bd->result == Cmd::UserServer::RET_OK)
 	{
-		RecordSet* recordset = NULL;
-		FieldSet* balance = BillService::metaData->getFields("BALANCE");
-
-			
-			oss << "accid=" << id;
-			where.put("accid", oss.str());
-			
-			if (balance)
-			{
-				connHandleID handle = BillService::dbConnPool->getHandle();
-
-				if ((connHandleID)-1 != handle)
-				{
-					recordset = BillService::dbConnPool->exeSelect(handle, balance, NULL, &where);
-
-					if (recordset && !recordset->empty())
-					{//更新已有金币记录
-						oss.str("");
-
-						old_vip_time = recordset->get(0)->get("monthcard");
-						old_vip_time +=  30 * 24 * 60 * 60;
-						column.put("monthcard", old_vip_time);
-
-						if((unsigned int)-1 == BillService::dbConnPool->exeUpdate(handle, 
-									balance, &column, &where))
-						{
-							send.byReturn = Cmd::REDEEM_FAIL;
-						}      
-						else
-						{
-							send.byReturn = Cmd::REDEEM_SUCCESS;
-						}	
-					}
-					else
-					{
-						/*
-						// 没有兑换记录，插入新的记录
-						
-						old_vip_time = time((time_t)NULL);
-						old_vip_time +=  30 * 24 * 60 * 60;
-						column.clear();
-						column.put("account", account);
-						column.put("accid", id);
-						column.put("gold", 0);
-						column.put("allgold", 0);
-						column.put("monthcard", old_vip_time);
-						column.put("allconsum", (int)0);
-
-						if((unsigned int)-1 == BillService::dbConnPool->exeInsert(handle, balance, &column))
-						{
-							send.byReturn = Cmd::REDEEM_FAIL;
-						}
-						else
-						{
-							send.byReturn = Cmd::REDEEM_SUCCESS;
-						}
-						// */
-						send.byReturn = Cmd::REDEEM_FAIL;
-					}
-					SAFE_DELETE(recordset)
-					BillService::dbConnPool->putHandle(handle); 
-				}
-				else
-				{
-					send.byReturn = Cmd::REDEEM_BUSY;
-				}
-				SAFE_DELETE(recordset);
-			}
-		}
-		else
-		{
-			send.byReturn = Cmd::REDEEM_FAIL;
-		}
-
+		waitgold = bd->point / rate;
 		// 金币服务器操作失败，记录兑换日志
-		 // 帐号, TID, 交易结果，点数余额，金币余额
-		BillUser::logger("月卡",this->id,bd->tid,0,bd->balance,bd->result,"点数换月卡");
+		// 帐号, TID, 交易结果，点数余额，金币余额
+		send.byReturn = Cmd::REDEEM_SUCCESS;
+		BillUser::logger("点卡",this->id,bd->tid,waitgold,bd->balance,bd->result,"点数换五倍基金");
 
-	this->sendCmd(&send, sizeof(send));
+	}
+	else
+	{
+		send.byReturn = Cmd::REDEEM_FAIL;
+	}
+
+	if(send.byReturn == Cmd::REDEEM_SUCCESS)
+	{
+		send.dwBalance = bd->balance;
+	}
+	else
+	{
+		send.dwBalance = 0;
+	}
+	send.dwGold = waitgold;
+
 	end_tid();
+	this->sendCmd(&send, sizeof(send));
 
 	// */
 	return true;
 
 }
+
 bool BillUser::begin_tid(const char *t)
 {
 	if(tid[0]=='\0')

@@ -21,7 +21,11 @@
 #include "./GameAppation.h"
 #include "./GuiMain.h"
 #include "./GuiAutoAttackDlg.h" 
-
+// 需要在GuiAutoAttackDlg.cpp文件顶部添加以下头文件
+#include "./RoleItem.h"
+#include "./AutoGame.h"
+#include "./MainCharacter.h"
+#include "../magic/objectbase.h"
 
 
 #define SendMailDlg_ButtonSetEnable(id,bEnable)	{CGuiButton* pBtn = GetButton(id);if( NULL != pBtn ){ pBtn->SetEnabled(bEnable);}}
@@ -134,6 +138,13 @@ CGuiAutoAttack::CGuiAutoAttack()
 	m_fAniToWait					= false;
 //////////end
 
+	// 初始化装备颜色过滤变量
+	m_fFilter_WhiteEquip = false;
+	m_fFilter_BlueEquip = false;
+	m_fFilter_GoldEquip = false;
+	m_fFilter_GreenEquip = false;
+	//by=>friday
+
 	FUNCTION_END;
 
 }
@@ -210,6 +221,12 @@ void CGuiAutoAttack::OnCreate()
 	m_tab->AddControl(0,(CGuiControl*)GetListBox(304));
 	m_tab->AddControl(0,(CGuiControl*)GetCheckBox(305));
 	
+	// 添加新增的装备颜色过滤控件
+	m_tab->AddControl(0,(CGuiControl*)GetCheckBox(90));
+	m_tab->AddControl(0,(CGuiControl*)GetCheckBox(91));
+	m_tab->AddControl(0,(CGuiControl*)GetCheckBox(92));
+	m_tab->AddControl(0,(CGuiControl*)GetCheckBox(93));
+	//by=>friday
 	
 	m_tab->AddControl(1,(CGuiControl*)GetImage(1));
 	m_tab->AddControl(1,(CGuiControl*)GetButton(11));
@@ -374,6 +391,30 @@ bool CGuiAutoAttack::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 		case BUTTEN_DS_SLEALTH:
 			{
 				OnAuto_DS_Stealth();
+				return true;
+			}
+			break;
+		case 90: // 过滤白色装备
+			{
+				OnFilterWhiteEquip();
+				return true;
+			}
+			break;
+		case 91: // 过滤蓝色装备
+			{
+				OnFilterBlueEquip();
+				return true;
+			}
+			break;
+		case 92: // 过滤金色装备
+			{
+				OnFilterGoldEquip();
+				return true;
+			}
+			break;
+		case 93: // 过滤绿色装备
+			{
+				OnFilterGreenEquip();
 				return true;
 			}
 			break;
@@ -894,7 +935,6 @@ void CGuiAutoAttack::OnProtection_Life()
 
 bool CGuiAutoAttack::OnSaveButtenCleck()
 {
-
 	if(m_fProtection_HP)
 	{
 		m_pEditBox_NeedToProtect_HP  = GetEditBox(EDITBO_PUT_HP);
@@ -916,9 +956,102 @@ bool CGuiAutoAttack::OnSaveButtenCleck()
 		m_iRange_PosX  = strtoul(m_pEditBox_PutX->GetText(), NULL,10);
 		m_iRange_PosY  = strtoul(m_pEditBox_PutY->GetText(), NULL,10);
 		m_iRange_Range = strtoul(m_pEditBox_Range->GetText(),NULL,10);
-
 	}
-
+	
+	// 处理物品过滤关键字
+	if(m_fAuto_PicUp) // 如果启用了远程拾取
+	{
+		// 清空原有过滤列表
+		gAutoGameConfig.setCullObject.clear();
+		
+		// 获取MLEditBox(ID 43)中的文本，处理用户自定义的过滤关键词
+		CGuiMLEditBox* pMLEditBox = GetMLEditBox(43);
+		if(pMLEditBox && pMLEditBox->GetText())
+		{
+			const char* pszText = pMLEditBox->GetText();
+			// 如果用户输入不为空
+			if(*pszText)
+			{
+				// 复制用户输入到新字符串
+				char szKeywords[1024] = {0};
+				strcpy(szKeywords, pszText);
+				
+				// 1. 将字符串中的回车符和换行符替换为分号
+				int origLen = strlen(szKeywords);
+				for(int i = 0; i < origLen; i++)
+				{
+					if(szKeywords[i] == '\r' || szKeywords[i] == '\n')
+					{
+						szKeywords[i] = ';';
+					}
+				}
+				
+				// 2. 去除末尾所有空白字符
+				int len = strlen(szKeywords);
+				while(len > 0 && (szKeywords[len-1] == ' ' || szKeywords[len-1] == '\t'))
+				{
+					szKeywords[len-1] = '\0';
+					len--;
+				}
+				
+				// 3. 确保末尾有分号
+				if(len > 0 && szKeywords[len-1] != ';')
+				{
+					szKeywords[len] = ';';
+					szKeywords[len+1] = '\0';
+				}
+				
+				// 4. 分割字符串，并匹配物品
+				char* tempStr = _strdup(szKeywords); // 创建副本用于分割
+				char* token = strtok(tempStr, ";");
+				int keywordCount = 0;
+				int keywordMatchCount = 0;
+				
+				while(token != NULL)
+				{
+					// 跳过空白字符
+					while(*token == ' ' || *token == '\t')
+					{
+						token++;
+					}
+					
+					// 只处理非空关键词
+					if(*token)
+					{
+						keywordCount++;
+						int matchCount = 0;
+						
+						// 遍历物品数据库，查找包含关键词的物品
+						for(size_t i = 0; i < g_tableObjectBase.size(); i++)
+						{
+							if(g_tableObjectBase[i].strName && *g_tableObjectBase[i].strName)
+							{
+								// 检查物品名称中是否包含关键词
+								if(strstr(g_tableObjectBase[i].strName, token))
+								{
+									// 添加到过滤列表
+									gAutoGameConfig.setCullObject.insert(g_tableObjectBase[i].dwID);
+									matchCount++;
+									keywordMatchCount++;
+								}
+							}
+						}
+					}
+					
+					// 获取下一个关键词
+					token = strtok(NULL, ";");
+				}
+				
+				free(tempStr); // 释放临时字符串
+			}
+		}
+	}
+	//by=>friday
+	
+	// 显示保存成功的提示框
+	GetGameGuiManager()->AddMessageBox("设置保存成功");
+	//by=>friday
+	
 	return true;
 }
 
@@ -986,6 +1119,77 @@ bool CGuiAutoAttack::OnAuto_SetPosSit()
 
 	return true;
 
+}
+
+// 新增装备颜色过滤函数
+bool CGuiAutoAttack::OnFilterWhiteEquip()
+{
+	m_fFilter_WhiteEquip = !m_fFilter_WhiteEquip;
+	SendMailDlg_ButtonSetCheck(90, m_fFilter_WhiteEquip);
+	//by=>friday
+	
+	return true;
+}
+
+bool CGuiAutoAttack::OnFilterBlueEquip()
+{
+	m_fFilter_BlueEquip = !m_fFilter_BlueEquip;
+	SendMailDlg_ButtonSetCheck(91, m_fFilter_BlueEquip);
+	//by=>friday
+	
+	return true;
+}
+
+bool CGuiAutoAttack::OnFilterGoldEquip()
+{
+	m_fFilter_GoldEquip = !m_fFilter_GoldEquip;
+	SendMailDlg_ButtonSetCheck(92, m_fFilter_GoldEquip);
+	//by=>friday
+	
+	return true;
+}
+
+bool CGuiAutoAttack::OnFilterGreenEquip()
+{
+	m_fFilter_GreenEquip = !m_fFilter_GreenEquip;
+	SendMailDlg_ButtonSetCheck(93, m_fFilter_GreenEquip);
+	//by=>friday
+	
+	return true;
+}
+//by=>friday
+
+// 添加OnOffAutoAttack函数实现
+void CGuiAutoAttack::OnOffAutoAttack(bool flag, int index)
+{
+	// 处理自动挂机开关
+	if(index == -1)
+	{
+		// 所有功能的开关
+		m_fBegin_State = flag;
+		m_fBegin_Attack = flag;
+		
+		// 更新界面控件状态
+		SendMailDlg_ButtonSetCheck(25, flag);
+		SendMailDlg_ButtonSetCheck(26, flag);
+	}
+	else
+	{
+		// 特定功能的开关
+		switch(index)
+		{
+		case 0: // 状态
+			m_fBegin_State = flag;
+			SendMailDlg_ButtonSetCheck(25, flag);
+			break;
+		case 1: // 攻击
+			m_fBegin_Attack = flag;
+			SendMailDlg_ButtonSetCheck(26, flag);
+			break;
+		// 可添加其他功能的开关
+		}
+	}
+	//by=>friday
 }
 
 

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="GB2312"?>
 <zoneInfo>
-	<zone game="0" zone="1" ip="127.0.0.1" port="10000" name="征途" desc="征途"/>		
-	<zone game="0" zone="2" ip="127.0.0.1" port="10001" name="征途" desc="征途"/>	
-	<zone game="0" zone="3" ip="127.0.0.1" port="10002" name="征途" desc="征途"/>	
+	<zone game="0" zone="1" ip="127.0.0.1" port="10000" name="蝴蝶征途" desc="蝴蝶征途"/>		
 </zoneInfo>

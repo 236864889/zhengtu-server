@@ -123,6 +123,8 @@ bool RecordClient::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned i
 							memcpy(pUser->packs.m_Chibang,rev->charbase.chibang,sizeof(pUser->packs.m_Chibang));
 							//sky 读取时装魔盒
 							memcpy(pUser->packs.m_Zuoqi,rev->charbase.zuoqi,sizeof(pUser->packs.m_Zuoqi));
+							//sky 读取时装魔盒
+							memcpy(pUser->packs.m_Jiemian,rev->charbase.jiemian,sizeof(pUser->packs.m_Jiemian));  //魔盒界面
 							//sky 读取功勋竞猜
 							memcpy(pUser->packs.m_jingcai,rev->charbase.jingcai,sizeof(pUser->packs.m_jingcai));
 							if (pUser->charbase.reliveWeakTime>0)
@@ -234,7 +236,7 @@ bool RecordClient::cmdMsgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned i
 										ret.qwExp = pUser->charbase.exp;
 										sessionClient->sendCmd(&ret,sizeof(ret));
 										//如果死亡刷回重生区
-										if((int)pUser->charbase.hp <= 0)
+										if(pUser->charbase.hp <= 0)
 										{
 											pUser->relive(Cmd::ReliveHome , 0 , 100);
 										}

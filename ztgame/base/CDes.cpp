@@ -22,9 +22,13 @@ CDes::CDes()
 	haveKey = false;
 }
 
+// CDes::~CDes() 
+// {
+// 	SAFE_DELETE(schedule);
+// }
 CDes::~CDes() 
 {
-	SAFE_DELETE(schedule);
+    if(schedule) { delete schedule; schedule = NULL; } //by=>friday
 }
 
 void CDes::setkey(const_DES_cblock *key)

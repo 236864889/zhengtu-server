@@ -29,6 +29,8 @@ public:
 	bool           m_bConnWay;
 	virtual const char* GetZSTimeString();
 	virtual const char* GetZTTimeString();
+	virtual time_t GetCurrentServerTime();
+	virtual void GetCurrentServerTimeTM(struct tm* pTm);
 	CGameTime(void);
 	~CGameTime(void);
 	virtual DWORD GetTimestamp();

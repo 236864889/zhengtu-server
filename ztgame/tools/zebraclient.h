@@ -204,7 +204,7 @@ class zebraClient : public zTCPClientTask , zAStar<>, public zAStar<2>
 						|| tempPos == destPos));
 		}
 		bool move(const int direct, const int step);
-		void attack(DWORD tempid , DWORD xx , DWORD yy , BYTE byDir);
+		void zebraClient::attack(DWORD tempid , DWORD xx , DWORD yy , BYTE byDir);
 		bool gotoFindPath(const zPos &srcPos, const zPos &destPos)
 		{
 			return zAStar<>::gotoFindPath(srcPos, destPos);

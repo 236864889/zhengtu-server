@@ -34,6 +34,15 @@ ScenePet::ScenePet(Scene* scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 	masterID = 0;
 	masterType = 0;
 
+	//by=>friday 初始化召唤兽继承主人属性的变量
+	masterMinPDamage = 0;
+	masterMaxPDamage = 0;
+	masterMinMDamage = 0;
+	masterMaxMDamage = 0;
+	masterPDefence = 0;
+	masterMDefence = 0;
+	masterMaxHP = 0;
+
 	//full_PetDataStruct(petData);
 	petData.id = this->id;
 	strncpy(petData.name, name, MAX_NAMESIZE-1);
@@ -46,8 +55,8 @@ ScenePet::ScenePet(Scene* scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 	petData.maxatk = getMaxPDamage();
 	petData.matk = getMinMDamage();
 	petData.maxmatk = getMaxMDamage();
-	petData.def = npc->maxpdefence;
-	petData.mdef = npc->maxmdefence;
+	petData.def = getMaxPDefence();
+	petData.mdef = getMaxMDefence();
 
 	petData.str = npc->str;
 	petData.intel = npc->inte;
@@ -673,19 +682,43 @@ void ScenePet::returnToRegion()
  */
 void ScenePet::full_PetDataStruct(Cmd::t_PetData & data)
 {
-	petData.maxhp_plus = getMaxHP() - petData.maxhp;
-	petData.atk_plus = getMinPDamage() - petData.atk;
-	petData.maxatk_plus = getMaxPDamage() - petData.maxatk;
-	petData.matk_plus = getMinMDamage() - petData.matk;
-	petData.maxmatk_plus = getMaxMDamage() - petData.maxmatk;
-	petData.pdef_plus = getMaxPDefence() - petData.def;
-	petData.mdef_plus = getMaxMDefence() - petData.mdef;
+	//by=>friday 对于召唤兽，直接更新petData中的属性值，确保发送给客户端的是正确的大数值
+	if (type == Cmd::PET_TYPE_SUMMON)
+	{
+		petData.atk = getMinPDamage();
+		petData.maxatk = getMaxPDamage();
+		petData.matk = getMinMDamage();
+		petData.maxmatk = getMaxMDamage();
+		petData.def = getPDefence();
+		petData.mdef = getMDefence();
+		petData.maxhp = getMaxHP();
+		
+		petData.maxhp_plus = 0;
+		petData.atk_plus = 0;
+		petData.maxatk_plus = 0;
+		petData.matk_plus = 0;
+		petData.maxmatk_plus = 0;
+		petData.pdef_plus = 0;
+		petData.mdef_plus = 0;
+		
+		
+	}
+	else
+	{
+		petData.maxhp_plus = getMaxHP() - petData.maxhp;
+		petData.atk_plus = getMinPDamage() - petData.atk;
+		petData.maxatk_plus = getMaxPDamage() - petData.maxatk;
+		petData.matk_plus = getMinMDamage() - petData.matk;
+		petData.maxmatk_plus = getMaxMDamage() - petData.maxmatk;
+		petData.pdef_plus = getMaxPDefence() - petData.def;
+		petData.mdef_plus = getMaxMDefence() - petData.mdef;
+	}
 
 	if (hp>getMaxHP())
 		hp = getMaxHP();
 	petData.hp = hp;
 #ifdef _DEBUGLOG
-	Zebra::logger->debug("发送宠物hp plus=%u getMaxHP=%u - petData.maxhp=%u", petData.maxhp_plus, getMaxHP(), petData.maxhp);
+	Zebra::logger->debug("发送宠物hp plus=%llu getMaxHP=%llu - petData.maxhp=%llu", petData.maxhp_plus, getMaxHP(), petData.maxhp); //by=>friday 支持uint64_t
 #endif
 	bcopy(&petData, &data, sizeof(petData));
 }
@@ -745,8 +778,26 @@ void ScenePet::setMaster(SceneEntryPk * m)
 	else
 		masterID = m->tempid;
 
-	if (this->type == Cmd::PET_TYPE_SUMMON)
-		m->getSummonAppendDamage(this->appendMinDamage, this->appendMaxDamage);
+	if (this->type==Cmd::PET_TYPE_SUMMON && getMaster())
+	{
+		getMaster()->getSummonAppendDamage(appendMinDamage, appendMaxDamage);
+		
+		//by=>friday 立即更新召唤兽继承的master属性
+		SceneEntryPk* m = getMaster();
+		if (m && m->getType() == zSceneEntry::SceneEntry_Player)
+		{
+			SceneUser *master = (SceneUser*)m;
+			this->masterMinPDamage = (master->charstate.pdamage * 4) / 5;
+			this->masterMaxPDamage = (master->charstate.maxpdamage * 4) / 5;
+			this->masterMinMDamage = (master->charstate.mdamage * 4) / 5;
+			this->masterMaxMDamage = (master->charstate.maxmdamage * 4) / 5;
+			this->masterPDefence = (master->charstate.pdefence * 4) / 5;
+			this->masterMDefence = (master->charstate.mdefence * 4) / 5;
+			this->masterMaxHP = (master->charstate.maxhp * 4) / 5;
+			
+			
+		}
+	}
 }
 
 /**
@@ -899,7 +950,7 @@ void ScenePet::sendData()
 			ref.id = tempid;
 			full_PetDataStruct(ref.data);
 #ifdef _XWL_DEBUG
-			Zebra::logger->debug("发送宠物信息 name=%s ai=%x hp=%u maxhp=%u", name, petData.ai, petData.hp, petData.maxhp);
+			Zebra::logger->debug("发送宠物信息 name=%s ai=%x hp=%llu maxhp=%llu", name, petData.ai, petData.hp, petData.maxhp); //by=>friday 支持uint64_t
 #endif
 			((SceneUser *)master)->sendCmdToMe(&ref, sizeof(ref));
 		}
@@ -1103,7 +1154,7 @@ SceneEntryPk * ScenePet::chooseEnemy(SceneEntryPk_vec &enemies)
 {
 	if (type==Cmd::PET_TYPE_SEMI) return SceneNpc::chooseEnemy(enemies);
 	//非战斗npc                     
-	if (!canFight()) return NULL;          
+	if (!canFight()) return false;          
 
 	SceneEntryPk * ret = 0;                 
 
@@ -1130,19 +1181,18 @@ SceneEntryPk * ScenePet::chooseEnemy(SceneEntryPk_vec &enemies)
  *
  * \return 最小物理攻击力
  */
-DWORD ScenePet::getMinPDamage()
+uint64_t ScenePet::getMinPDamage()
 {
   SDWORD value = 0;
   switch (type)
   {
-    
     case Cmd::PET_TYPE_PET:
       value =  (SDWORD)((petData.atk+appendMinDamage+skillValue.uppetdamage-skillValue.dpdam-skillValue.theurgy_dpdam)*(1.0f+((float)boostupPet+(float)skillValue.protectUpAtt)/100.0f));
       if (value <0) value = 0;
       return value;
       break;
     case Cmd::PET_TYPE_SUMMON:
-      return (DWORD)(SceneNpc::getMinPDamage()+boostupSummon);
+      return (uint64_t)(SceneNpc::getMinPDamage()+boostupSummon+masterMinPDamage);
       break;
     default:
       return SceneNpc::getMinPDamage();
@@ -1155,7 +1205,7 @@ DWORD ScenePet::getMinPDamage()
  *
  * \return 最大物理攻击力
  */
-DWORD ScenePet::getMaxPDamage()
+uint64_t ScenePet::getMaxPDamage()
 {
   SDWORD value = 0;
   switch (type)
@@ -1166,7 +1216,7 @@ DWORD ScenePet::getMaxPDamage()
       return value;
       break;
     case Cmd::PET_TYPE_SUMMON:
-      return (DWORD)( SceneNpc::getMaxPDamage()+boostupSummon);
+      return (uint64_t)( SceneNpc::getMaxPDamage()+boostupSummon+masterMaxPDamage);
       break;
     default:
       return SceneNpc::getMaxPDamage();
@@ -1179,7 +1229,7 @@ DWORD ScenePet::getMaxPDamage()
  *
  * \return 最小魔法攻击力
  */
-DWORD ScenePet::getMinMDamage()
+uint64_t ScenePet::getMinMDamage()
 {
   SDWORD value = 0;
   switch (type)
@@ -1190,7 +1240,7 @@ DWORD ScenePet::getMinMDamage()
       return value;
       break;
     case Cmd::PET_TYPE_SUMMON:
-      return (DWORD)(SceneNpc::getMinMDamage()+boostupSummon);
+      return (uint64_t)(SceneNpc::getMinMDamage()+boostupSummon+masterMinMDamage);
       break;
     default:
       return SceneNpc::getMinMDamage();
@@ -1203,7 +1253,7 @@ DWORD ScenePet::getMinMDamage()
  *
  * \return 最大魔法攻击力
  */
-DWORD ScenePet::getMaxMDamage()
+uint64_t ScenePet::getMaxMDamage()
 {
   SDWORD value = 0;
   switch (type)
@@ -1214,7 +1264,7 @@ DWORD ScenePet::getMaxMDamage()
       return value;
       break;
     case Cmd::PET_TYPE_SUMMON:
-      return (DWORD)(SceneNpc::getMaxMDamage()+boostupSummon);
+      return (uint64_t)(SceneNpc::getMaxMDamage()+boostupSummon+masterMaxMDamage);
       break;
     default:
       return SceneNpc::getMaxMDamage();
@@ -1227,16 +1277,21 @@ DWORD ScenePet::getMaxMDamage()
  *
  * \return 最小物理防御力
  */
-DWORD ScenePet::getMinPDefence()
+uint64_t ScenePet::getMinPDefence()
 {
-	if (type==Cmd::PET_TYPE_PET)
-	{
-		SDWORD value = (SDWORD)((petData.def+skillValue.uppetdefence-skillValue.theurgy_dpdef)*(1.0f+((float)boostupPet)/100.0f));
-		if (value <0) value =0;
-		return value;
-	}
-	else
-		return SceneNpc::getMinPDefence();
+    if (type==Cmd::PET_TYPE_PET)
+    {
+        SDWORD value = (SDWORD)((petData.def+skillValue.uppetdefence-skillValue.theurgy_dpdef)*(1.0f+((float)boostupPet)/100.0f));
+        if (value <0) value =0;
+        return static_cast<uint64_t>(value);
+    }
+    else if (type==Cmd::PET_TYPE_SUMMON)
+    {
+        //by=>friday 召唤兽直接返回继承的防御值，避免SDWORD截断
+        return SceneNpc::getMinPDefence() + masterPDefence;
+    }
+    else
+        return SceneNpc::getMinPDefence();
 }
 
 /*
@@ -1245,16 +1300,21 @@ DWORD ScenePet::getMinPDefence()
  *
  * \return 最大物理防御力
  */
-DWORD ScenePet::getMaxPDefence()
+uint64_t ScenePet::getMaxPDefence()
 {
-	if (type==Cmd::PET_TYPE_PET)
-	{
-		SDWORD value = (SDWORD)((petData.def+skillValue.uppetdefence-skillValue.theurgy_dpdef)*(1.0f+((float)boostupPet)/100.0f));
-		if (value <0) value = 0;
-		return value;
-	}
-	else
-		return SceneNpc::getMaxPDefence();
+    if (type==Cmd::PET_TYPE_PET)
+    {
+        SDWORD value = (SDWORD)((petData.def+skillValue.uppetdefence-skillValue.theurgy_dpdef)*(1.0f+((float)boostupPet)/100.0f));
+        if (value <0) value = 0;
+        return static_cast<uint64_t>(value);
+    }
+    else if (type==Cmd::PET_TYPE_SUMMON)
+    {
+        //by=>friday 召唤兽直接返回继承的防御值，避免SDWORD截断
+        return SceneNpc::getMaxPDefence() + masterPDefence;
+    }
+    else
+        return SceneNpc::getMaxPDefence();
 }
 
 /*
@@ -1263,17 +1323,22 @@ DWORD ScenePet::getMaxPDefence()
  *
  * \return 最大魔法防御力
  */
-DWORD ScenePet::getMinMDefence()
+uint64_t ScenePet::getMinMDefence()
 {
-	if (type==Cmd::PET_TYPE_PET)
-	{
-		SDWORD value = (SDWORD)((petData.mdef+skillValue.uppetdefence+this->boostupPetMDef-skillValue.theurgy_dmdef)*(1.0f+((float)boostupPet)/100.0f));
-		value = (SDWORD)(value *( 1 - skillValue.dmdefp/100.0f));
-		if (value <0) value =0;
-		return value;
-	}
-	else
-		return SceneNpc::getMinMDefence();
+    if (type==Cmd::PET_TYPE_PET)
+    {
+        SDWORD value = (SDWORD)((petData.mdef+skillValue.uppetdefence+this->boostupPetMDef-skillValue.theurgy_dmdef)*(1.0f+((float)boostupPet)/100.0f));
+        value = (SDWORD)(value *( 1 - skillValue.dmdefp/100.0f));
+        if (value <0) value =0;
+        return static_cast<uint64_t>(value);
+    }
+    else if (type==Cmd::PET_TYPE_SUMMON)
+    {
+        //by=>friday 召唤兽直接返回继承的魔法防御值，避免SDWORD截断
+        return SceneNpc::getMinMDefence() + masterMDefence;
+    }
+    else
+        return SceneNpc::getMinMDefence();
 }
 
 /*
@@ -1282,17 +1347,22 @@ DWORD ScenePet::getMinMDefence()
  *
  * \return 最大魔法防御力
  */
-DWORD ScenePet::getMaxMDefence()
+uint64_t ScenePet::getMaxMDefence()
 {
-	if (type==Cmd::PET_TYPE_PET)
-	{
-		SDWORD value = (SDWORD)((petData.mdef+skillValue.uppetdefence+this->boostupPetMDef-skillValue.theurgy_dmdef)*(1.0f+((float)boostupPet)/100.0f));
-		value = (SDWORD)(value *( 1 - skillValue.dmdefp/100.0f));
-		if (value <0) value =0;
-		return value;
-	}
-	else
-		return SceneNpc::getMaxMDefence();
+    if (type==Cmd::PET_TYPE_PET)
+    {
+        SDWORD value = (SDWORD)((petData.mdef+skillValue.uppetdefence+this->boostupPetMDef-skillValue.theurgy_dmdef)*(1.0f+((float)boostupPet)/100.0f));
+        value = (SDWORD)(value *( 1 - skillValue.dmdefp/100.0f));
+        if (value <0) value =0;
+        return static_cast<uint64_t>(value);
+    }
+    else if (type==Cmd::PET_TYPE_SUMMON)
+    {
+        //by=>friday 召唤兽直接返回继承的魔法防御值，避免SDWORD截断
+        return SceneNpc::getMaxMDefence() + masterMDefence;
+    }
+    else
+        return SceneNpc::getMaxMDefence();
 }
 
 /*
@@ -1434,10 +1504,10 @@ void ScenePet::levelUp()
 	sendMeToNine();
 }
 
-DWORD ScenePet::getBaseMaxHP()
+uint64_t ScenePet::getBaseMaxHP()
 {
 	if (type==Cmd::PET_TYPE_PET)
-		return (DWORD)(petData.maxhp+(anpc?anpc->hp:0));
+		return (uint64_t)(petData.maxhp+(anpc?anpc->hp:0));
 	else
 		return SceneNpc::getBaseMaxHP();
 }
@@ -1448,10 +1518,12 @@ DWORD ScenePet::getBaseMaxHP()
  * 
  * \return 最大生命值
  */
-DWORD ScenePet::getMaxHP()
+uint64_t ScenePet::getMaxHP()
 {
 	if (type==Cmd::PET_TYPE_PET)
-		return (DWORD)((petData.maxhp+(anpc?anpc->hp:0)+skillValue.maxhp)*(1.0f+boostupPet/100.0f));
+		return (uint64_t)((petData.maxhp+(anpc?anpc->hp:0)+skillValue.maxhp)*(1.0f+boostupPet/100.0f));
+	else if (type==Cmd::PET_TYPE_SUMMON)
+		return SceneNpc::getMaxHP() + masterMaxHP;  //by=>friday 召唤兽包含继承的master血量
 	else
 		return SceneNpc::getMaxHP();
 }
@@ -1522,4 +1594,68 @@ void ScenePet::delMyself()
 	else
 		Zebra::logger->debug("[宠物]pet %s 因找不到主人而删除 %s(%u,%u)", name, scene->name, pos.x, pos.y);
 	setClearState();
+}
+
+//by=>friday 添加缺失的防御函数实现
+/*
+ * \brief 得到物理防御力
+ *
+ *
+ * \return 物理防御力
+ */
+// uint64_t ScenePet::getPDefence()
+// {
+// 	if (type == Cmd::PET_TYPE_SUMMON)
+// 	{
+// 		// 召唤兽包含继承的master防御属性
+// 		return getMinPDefence() + masterPDefence;
+// 	}
+// 	else
+// 	{
+// 		return getMinPDefence();
+// 	}
+// }
+
+// /*
+//  * \brief 得到魔法防御力
+//  *
+//  *
+//  * \return 魔法防御力
+//  */
+// uint64_t ScenePet::getMDefence()
+// {
+// 	if (type == Cmd::PET_TYPE_SUMMON)
+// 	{
+// 		// 召唤兽包含继承的master防御属性
+// 		return getMinMDefence() + masterMDefence;
+// 	}
+// 	else
+// 	{
+// 		return getMinMDefence();
+// 	}
+// }
+//by=>friday 召唤兽物理防御力计算
+uint64_t ScenePet::getPDefence()
+{
+    if (type == Cmd::PET_TYPE_SUMMON)
+    {
+        return getMinPDefence();
+    }
+    else
+    {
+        return getMinPDefence();
+    }
+}
+
+//by=>friday 召唤兽魔法防御力计算
+uint64_t ScenePet::getMDefence()
+{
+    if (type == Cmd::PET_TYPE_SUMMON)
+    {
+        return getMinMDefence();
+    }
+    else
+    {
+        return getMinMDefence();
+    }
 }

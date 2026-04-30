@@ -89,6 +89,9 @@ SceneUser::SceneUser(const DWORD accid):SceneEntryPk(SceneEntry_Player), recycle
 	safety_setup = 0;
 	Card_num = 0;
 	Give_MatarialNum = 0;
+	//sky 5倍保险
+	Crd_IalNum = 0;
+	Gie_MatNum = 0;
 	/*
 	   zRTime ctv1;
 	   tenSecondTime = ctv1;
@@ -117,6 +120,12 @@ SceneUser::SceneUser(const DWORD accid):SceneEntryPk(SceneEntry_Player), recycle
 	bikeskill5 = 10;
 	bikeskill6 = 3;
 
+	//by=>friday 战车载具模式变量初始化
+	zhanche_vehicle_mode = false;
+	zhanche_npc_id = 0;
+	zhanche_max_hp = 0;       // 战车最大血量初始化 - by=>friday
+	zhanche_current_hp = 0;   // 战车当前血量初始化 - by=>friday
+	
 	lastUseSkill = 0;
 	this->accid=accid;
 	gatetask=NULL;
@@ -173,6 +182,7 @@ SceneUser::SceneUser(const DWORD accid):SceneEntryPk(SceneEntry_Player), recycle
 	kingConsort = 0;
 	dwArmyState = 0;
 	touxianlevel = 0;
+	jiemian_select = 0;  //魔盒界面
 	isSendingMail = false;
 	isGetingMailItem = false;
 	BossGsStateTime = 0; 
@@ -802,23 +812,23 @@ void SceneUser::setupCharBase(bool lock)
 	//soke 突破属性限制
 	if (this->issetUState(Cmd::USTATE_TOGETHER_WITH_TIGER))
 	{//虎魄附体，所有属性加成50%
-		charstate.wdCon = (WORD)(charstate.wdCon + charstate.wdCon*0.2);
-		charstate.wdStr = (WORD)(charstate.wdStr + charstate.wdStr*0.2);
-		charstate.wdDex = (WORD)(charstate.wdDex + charstate.wdDex*0.2);
-		charstate.wdInt = (WORD)(charstate.wdInt + charstate.wdInt*0.2);
-		charstate.wdMen = (WORD)(charstate.wdMen + charstate.wdMen*0.2);
+		charstate.wdCon = (DWORD)(charstate.wdCon + charstate.wdCon*0.2);
+		charstate.wdStr = (DWORD)(charstate.wdStr + charstate.wdStr*0.2);
+		charstate.wdDex = (DWORD)(charstate.wdDex + charstate.wdDex*0.2);
+		charstate.wdInt = (DWORD)(charstate.wdInt + charstate.wdInt*0.2);
+		charstate.wdMen = (DWORD)(charstate.wdMen + charstate.wdMen*0.2);
 	}
 
-	charstate.wdCon = (WORD)(charstate.wdCon + charbase.wdCon*(skillValue.upattribcon/100.0f));
-	charstate.wdStr = (WORD)(charstate.wdStr + charbase.wdStr*(skillValue.upattribstr/100.0f));
-	charstate.wdDex = (WORD)(charstate.wdDex + charbase.wdDex*(skillValue.upattribdex/100.0f));
-	charstate.wdInt = (WORD)(charstate.wdInt + charbase.wdInt*(skillValue.upattribint/100.0f));
-	charstate.wdMen = (WORD)(charstate.wdMen + charbase.wdMen*(skillValue.upattribmen/100.0f));
+	charstate.wdCon = (DWORD)(charstate.wdCon + charbase.wdCon*(skillValue.upattribcon/100.0f));
+	charstate.wdStr = (DWORD)(charstate.wdStr + charbase.wdStr*(skillValue.upattribstr/100.0f));
+	charstate.wdDex = (DWORD)(charstate.wdDex + charbase.wdDex*(skillValue.upattribdex/100.0f));
+	charstate.wdInt = (DWORD)(charstate.wdInt + charbase.wdInt*(skillValue.upattribint/100.0f));
+	charstate.wdMen = (DWORD)(charstate.wdMen + charbase.wdMen*(skillValue.upattribmen/100.0f));
 
-	charstate.wdStr = (WORD)(charstate.wdStr*(1-skillValue.dpstrdex/100.0f));
-	charstate.wdDex = (WORD)(charstate.wdDex*(1-skillValue.dpstrdex/100.0f));
-	charstate.wdInt = (WORD)(charstate.wdInt*(1-skillValue.dpintmen/100.0f));
-	charstate.wdMen = (WORD)(charstate.wdMen*(1-skillValue.dpintmen/100.0f));
+	charstate.wdStr = (DWORD)(charstate.wdStr*(1-skillValue.dpstrdex/100.0f));
+	charstate.wdDex = (DWORD)(charstate.wdDex*(1-skillValue.dpstrdex/100.0f));
+	charstate.wdInt = (DWORD)(charstate.wdInt*(1-skillValue.dpintmen/100.0f));
+	charstate.wdMen = (DWORD)(charstate.wdMen*(1-skillValue.dpintmen/100.0f));
 
 	/* if (this->issetUState(Cmd::USTATE_USE_HORSE_ONE))
 	{
@@ -836,32 +846,32 @@ void SceneUser::setupCharBase(bool lock)
 	charstate.wdStr += (DWORD)(charbase.wdStr * (skillValue.upstr/100.0f));
 	if (skillValue.upallattrib>0)
 	{
-		charstate.wdCon = (WORD)(charstate.wdCon + skillValue.upallattrib);
-		charstate.wdStr = (WORD)(charstate.wdStr + skillValue.upallattrib);
-		charstate.wdDex = (WORD)(charstate.wdDex + skillValue.upallattrib);
-		charstate.wdInt = (WORD)(charstate.wdInt + skillValue.upallattrib);
-		charstate.wdMen = (WORD)(charstate.wdMen + skillValue.upallattrib);
+		charstate.wdCon = (DWORD)(charstate.wdCon + skillValue.upallattrib);
+		charstate.wdStr = (DWORD)(charstate.wdStr + skillValue.upallattrib);
+		charstate.wdDex = (DWORD)(charstate.wdDex + skillValue.upallattrib);
+		charstate.wdInt = (DWORD)(charstate.wdInt + skillValue.upallattrib);
+		charstate.wdMen = (DWORD)(charstate.wdMen + skillValue.upallattrib);
 	}
 	if (skillValue.dnallattrib>0)
 	{
-		if (charstate.wdCon >= (WORD)skillValue.dnallattrib)
-			charstate.wdCon = (WORD)(charstate.wdCon - (WORD)skillValue.dnallattrib);
+		if (charstate.wdCon >= (DWORD)skillValue.dnallattrib)
+			charstate.wdCon = (DWORD)(charstate.wdCon - (DWORD)skillValue.dnallattrib);
 		else
 			charstate.wdCon =0;
-		if (charstate.wdStr >= (WORD)skillValue.dnallattrib)
-			charstate.wdStr = (WORD)(charstate.wdStr - (WORD)skillValue.dnallattrib);
+		if (charstate.wdStr >= (DWORD)skillValue.dnallattrib)
+			charstate.wdStr = (DWORD)(charstate.wdStr - (DWORD)skillValue.dnallattrib);
 		else
 			charstate.wdStr =0;
-		if (charstate.wdDex >= (WORD)skillValue.dnallattrib)
-			charstate.wdDex = (WORD)(charstate.wdDex - (WORD)skillValue.dnallattrib);
+		if (charstate.wdDex >= (DWORD)skillValue.dnallattrib)
+			charstate.wdDex = (DWORD)(charstate.wdDex - (DWORD)skillValue.dnallattrib);
 		else
 			charstate.wdDex =0;
-		if (charstate.wdInt >= (WORD)skillValue.dnallattrib)
-			charstate.wdInt = (WORD)(charstate.wdInt - (WORD)skillValue.dnallattrib);
+		if (charstate.wdInt >= (DWORD)skillValue.dnallattrib)
+			charstate.wdInt = (DWORD)(charstate.wdInt - (DWORD)skillValue.dnallattrib);
 		else
 			charstate.wdInt =0;
-		if (charstate.wdMen >= (WORD)skillValue.dnallattrib)
-			charstate.wdMen = (WORD)(charstate.wdMen - (WORD)skillValue.dnallattrib);
+		if (charstate.wdMen >= (DWORD)skillValue.dnallattrib)
+			charstate.wdMen = (DWORD)(charstate.wdMen - (DWORD)skillValue.dnallattrib);
 		else
 			charstate.wdMen =0;
 	}
@@ -887,45 +897,45 @@ void SceneUser::setupCharBase(bool lock)
 	{
 		case	PROFESSION_1: // 男
 			{
-				DWORD tmaxhp = packs.equip.getEquips().get_m1axhp() + packs.equip.getEquips().get_m2axhp() + packs.equip.getEquips().get_m3axhp()+ packs.equip.getEquips().get_m4axhp()+ packs.equip.getEquips().get_m5axhp()+ packs.equip.getEquips().get_m6axhp()
+				uint64_t tmaxhp = packs.equip.getEquips().get_m1axhp() + packs.equip.getEquips().get_m2axhp() + packs.equip.getEquips().get_m3axhp()+ packs.equip.getEquips().get_m4axhp()+ packs.equip.getEquips().get_m5axhp()+ packs.equip.getEquips().get_m6axhp()
 					+ packs.equip.getEquips().get_m7axhp()+ packs.equip.getEquips().get_m8axhp()+ packs.equip.getEquips().get_m9axhp()+ packs.equip.getEquips().get_m24axhp();
 				// 最大生命值
-				charstate.maxhp=DWORD(BASEDATA_M_HP+LEVELUP_HP_N*charbase.level + charstate.wdStr*2 + charstate.wdCon*15 +  tmaxhp);
+				charstate.maxhp=static_cast<uint64_t>(BASEDATA_M_HP+LEVELUP_HP_N*charbase.level + charstate.wdStr*2 + charstate.wdCon*15 +  tmaxhp);
 				// 最大法术值
-				charstate.maxmp=DWORD(BASEDATA_M_MP+LEVELUP_MP_N*charbase.level + charstate.wdInt*1 + charstate.wdMen*3);
+				charstate.maxmp=static_cast<uint64_t>(BASEDATA_M_MP+LEVELUP_MP_N*charbase.level + charstate.wdInt*1 + charstate.wdMen*3);
 				// 最大体力值
-				charstate.maxsp=DWORD(BASEDATA_M_SP+LEVELUP_SP_N*charbase.level);
+				charstate.maxsp=static_cast<uint64_t>(BASEDATA_M_SP+LEVELUP_SP_N*charbase.level);
 
-				DWORD tpdamage = packs.equip.getEquips().get_p1damage() + packs.equip.getEquips().get_p2damage() + packs.equip.getEquips().get_p3damage() + packs.equip.getEquips().get_p4damage() + packs.equip.getEquips().get_p5damage() + packs.equip.getEquips().get_p6damage()
+				uint64_t tpdamage = packs.equip.getEquips().get_p1damage() + packs.equip.getEquips().get_p2damage() + packs.equip.getEquips().get_p3damage() + packs.equip.getEquips().get_p4damage() + packs.equip.getEquips().get_p5damage() + packs.equip.getEquips().get_p6damage()
 					+ packs.equip.getEquips().get_p7damage() + packs.equip.getEquips().get_p8damage() + packs.equip.getEquips().get_p9damage()+ packs.equip.getEquips().get_p24damage();
 				// 最小物理攻击力
-				charstate.pdamage=DWORD(BASEDATA_M_PDAMAGE+LEVELUP_PDAMAGE_N*charbase.level + charstate.wdStr*1 + tpdamage );
+				charstate.pdamage=static_cast<uint64_t>(BASEDATA_M_PDAMAGE+LEVELUP_PDAMAGE_N*charbase.level + charstate.wdStr*1 + tpdamage );
 				
-				DWORD tmdamage = packs.equip.getEquips().get_m1damage() + packs.equip.getEquips().get_m2damage() + packs.equip.getEquips().get_m3damage() + packs.equip.getEquips().get_m4damage() + packs.equip.getEquips().get_m5damage() + packs.equip.getEquips().get_m6damage()
+				uint64_t tmdamage = packs.equip.getEquips().get_m1damage() + packs.equip.getEquips().get_m2damage() + packs.equip.getEquips().get_m3damage() + packs.equip.getEquips().get_m4damage() + packs.equip.getEquips().get_m5damage() + packs.equip.getEquips().get_m6damage()
 					+ packs.equip.getEquips().get_m7damage() + packs.equip.getEquips().get_m8damage() + packs.equip.getEquips().get_m9damage() + packs.equip.getEquips().get_m24damage();
 				// 最小魔法攻击力
-				charstate.mdamage=DWORD(BASEDATA_M_MDAMAGE+LEVELUP_MDAMAGE_N*charbase.level + charstate.wdInt*1.1f + tmdamage);
+				charstate.mdamage=static_cast<uint64_t>(BASEDATA_M_MDAMAGE+LEVELUP_MDAMAGE_N*charbase.level + charstate.wdInt*1.1f + tmdamage);
 				
-				DWORD tpdefence = packs.equip.getEquips().get_p1defence() + packs.equip.getEquips().get_p2defence() + packs.equip.getEquips().get_p3defence() + packs.equip.getEquips().get_p4defence() + packs.equip.getEquips().get_p5defence() + packs.equip.getEquips().get_p6defence()
+				uint64_t tpdefence = packs.equip.getEquips().get_p1defence() + packs.equip.getEquips().get_p2defence() + packs.equip.getEquips().get_p3defence() + packs.equip.getEquips().get_p4defence() + packs.equip.getEquips().get_p5defence() + packs.equip.getEquips().get_p6defence()
 					+ packs.equip.getEquips().get_p7defence() + packs.equip.getEquips().get_p8defence() + packs.equip.getEquips().get_p9defence()+ packs.equip.getEquips().get_p24defence();
 				// 物理防御力
-				charstate.pdefence=DWORD(BASEDATA_M_PDEFENCE+LEVELUP_PDEFENCE_N*charbase.level + charstate.wdStr*0.3f + charstate.wdDex*1.5f + charstate.wdCon*0.4f + tpdefence);
+				charstate.pdefence=static_cast<uint64_t>(BASEDATA_M_PDEFENCE+LEVELUP_PDEFENCE_N*charbase.level + charstate.wdStr*0.3f + charstate.wdDex*1.5f + charstate.wdCon*0.4f + tpdefence);
 				
-				DWORD tmdefence = packs.equip.getEquips().get_m1defence() + packs.equip.getEquips().get_m2defence()+ packs.equip.getEquips().get_m3defence()+ packs.equip.getEquips().get_m4defence()+ packs.equip.getEquips().get_m5defence()+ packs.equip.getEquips().get_m6defence()
+				uint64_t tmdefence = packs.equip.getEquips().get_m1defence() + packs.equip.getEquips().get_m2defence()+ packs.equip.getEquips().get_m3defence()+ packs.equip.getEquips().get_m4defence()+ packs.equip.getEquips().get_m5defence()+ packs.equip.getEquips().get_m6defence()
 					+ packs.equip.getEquips().get_m7defence()+ packs.equip.getEquips().get_m8defence()+ packs.equip.getEquips().get_m9defence()+ packs.equip.getEquips().get_m24defence();
 				// 魔法防御力
-				charstate.mdefence=DWORD(BASEDATA_M_MDEFENCE+LEVELUP_MDEFENCE_N*charbase.level + charstate.wdInt*0.3f + charstate.wdDex*1.5f + charstate.wdMen*0.8f + charstate.wdCon*0.6f + tmdefence);
+				charstate.mdefence=static_cast<uint64_t>(BASEDATA_M_MDEFENCE+LEVELUP_MDEFENCE_N*charbase.level + charstate.wdInt*0.3f + charstate.wdDex*1.5f + charstate.wdMen*0.8f + charstate.wdCon*0.6f + tmdefence);
 				// 重击
 				charstate.bang = (WORD)(BASEDATA_M_BANG + charstate.wdCon*0.002f);
 
 				// 标准物理攻击力
-				charstate.stdpdamage=DWORD(BASEDATA_M_PDAMAGE+LEVELUP_PDAMAGE_N*charbase.level + charbase.wdStr*1);
+				charstate.stdpdamage=static_cast<uint64_t>(BASEDATA_M_PDAMAGE+LEVELUP_PDAMAGE_N*charbase.level + charbase.wdStr*1);
 				// 标准法术攻击力
-				charstate.stdmdamage=DWORD(BASEDATA_M_MDAMAGE+LEVELUP_MDAMAGE_N*charbase.level + charbase.wdInt*1.1f);
+				charstate.stdmdamage=static_cast<uint64_t>(BASEDATA_M_MDAMAGE+LEVELUP_MDAMAGE_N*charbase.level + charbase.wdInt*1.1f);
 				// 标准物理防御力
-				charstate.stdpdefence=DWORD(BASEDATA_M_PDEFENCE+LEVELUP_PDEFENCE_N*charbase.level + charbase.wdStr*0.3f + charbase.wdDex*1.5f + charbase.wdCon*0.4f);
+				charstate.stdpdefence=static_cast<uint64_t>(BASEDATA_M_PDEFENCE+LEVELUP_PDEFENCE_N*charbase.level + charbase.wdStr*0.3f + charbase.wdDex*1.5f + charbase.wdCon*0.4f);
 				// 标准法术防御力
-				charstate.stdmdefence=DWORD(BASEDATA_M_MDEFENCE+LEVELUP_MDEFENCE_N*charbase.level + charbase.wdInt*0.3f + charbase.wdDex*1.5f + charbase.wdMen*0.8f + charbase.wdCon*0.6f);
+				charstate.stdmdefence=static_cast<uint64_t>(BASEDATA_M_MDEFENCE+LEVELUP_MDEFENCE_N*charbase.level + charbase.wdInt*0.3f + charbase.wdDex*1.5f + charbase.wdMen*0.8f + charbase.wdCon*0.6f);
 				// 标准重击率
 				charstate.stdbang = (WORD)(BASEDATA_M_BANG + charbase.wdCon*0.002f);
 			}
@@ -933,46 +943,46 @@ void SceneUser::setupCharBase(bool lock)
 		case	PROFESSION_2: // 女
 			{
 
-				DWORD tmaxhp = packs.equip.getEquips().get_m1axhp() + packs.equip.getEquips().get_m2axhp() + packs.equip.getEquips().get_m3axhp()+ packs.equip.getEquips().get_m4axhp()+ packs.equip.getEquips().get_m5axhp()+ packs.equip.getEquips().get_m6axhp()
+				uint64_t tmaxhp = packs.equip.getEquips().get_m1axhp() + packs.equip.getEquips().get_m2axhp() + packs.equip.getEquips().get_m3axhp()+ packs.equip.getEquips().get_m4axhp()+ packs.equip.getEquips().get_m5axhp()+ packs.equip.getEquips().get_m6axhp()
 					         + packs.equip.getEquips().get_m7axhp()+ packs.equip.getEquips().get_m8axhp()+ packs.equip.getEquips().get_m9axhp()+ packs.equip.getEquips().get_m24axhp();
 				// 最大生命值
-				charstate.maxhp=DWORD(BASEDATA_F_HP+LEVELUP_HP_N*charbase.level + charstate.wdStr*2 + charstate.wdCon*15 + tmaxhp );
+				charstate.maxhp=static_cast<uint64_t>(BASEDATA_F_HP+LEVELUP_HP_N*charbase.level + charstate.wdStr*2 + charstate.wdCon*15 + tmaxhp );
 				// 最大法术值
-				charstate.maxmp=DWORD(BASEDATA_F_MP+LEVELUP_MP_N*charbase.level + charstate.wdInt*1 + charstate.wdMen*3);
+				charstate.maxmp=static_cast<uint64_t>(BASEDATA_F_MP+LEVELUP_MP_N*charbase.level + charstate.wdInt*1 + charstate.wdMen*3);
 				// 最大体力值
-				charstate.maxsp=DWORD(BASEDATA_F_SP+LEVELUP_SP_N*charbase.level);
+				charstate.maxsp=static_cast<uint64_t>(BASEDATA_F_SP+LEVELUP_SP_N*charbase.level);
 
-                 DWORD tpdamage = packs.equip.getEquips().get_p1damage() + packs.equip.getEquips().get_p2damage() + packs.equip.getEquips().get_p3damage() + packs.equip.getEquips().get_p4damage() + packs.equip.getEquips().get_p5damage() + packs.equip.getEquips().get_p6damage()
+                 uint64_t tpdamage = packs.equip.getEquips().get_p1damage() + packs.equip.getEquips().get_p2damage() + packs.equip.getEquips().get_p3damage() + packs.equip.getEquips().get_p4damage() + packs.equip.getEquips().get_p5damage() + packs.equip.getEquips().get_p6damage()
 					            + packs.equip.getEquips().get_p7damage() + packs.equip.getEquips().get_p8damage() + packs.equip.getEquips().get_p9damage()+ packs.equip.getEquips().get_p24damage();
 				// 最小物理攻击力
-				charstate.pdamage=DWORD(BASEDATA_F_PDAMAGE+LEVELUP_PDAMAGE_N*charbase.level + charstate.wdStr*1 + tpdamage );
+				charstate.pdamage=static_cast<uint64_t>(BASEDATA_F_PDAMAGE+LEVELUP_PDAMAGE_N*charbase.level + charstate.wdStr*1 + tpdamage );
 				
 				
-				DWORD tmdamage = packs.equip.getEquips().get_m1damage() + packs.equip.getEquips().get_m2damage() + packs.equip.getEquips().get_m3damage() + packs.equip.getEquips().get_m4damage() + packs.equip.getEquips().get_m5damage() + packs.equip.getEquips().get_m6damage()
+				uint64_t tmdamage = packs.equip.getEquips().get_m1damage() + packs.equip.getEquips().get_m2damage() + packs.equip.getEquips().get_m3damage() + packs.equip.getEquips().get_m4damage() + packs.equip.getEquips().get_m5damage() + packs.equip.getEquips().get_m6damage()
 					           + packs.equip.getEquips().get_m7damage() + packs.equip.getEquips().get_m8damage() + packs.equip.getEquips().get_m9damage()+ packs.equip.getEquips().get_m24damage();
 				// 最小魔法攻击力
-				charstate.mdamage=DWORD(BASEDATA_F_MDAMAGE+LEVELUP_MDAMAGE_N*charbase.level + charstate.wdInt*1.1f + tmdamage);
+				charstate.mdamage=static_cast<uint64_t>(BASEDATA_F_MDAMAGE+LEVELUP_MDAMAGE_N*charbase.level + charstate.wdInt*1.1f + tmdamage);
 				
-				DWORD tpdefence = packs.equip.getEquips().get_p1defence() + packs.equip.getEquips().get_p2defence() + packs.equip.getEquips().get_p3defence() + packs.equip.getEquips().get_p4defence() + packs.equip.getEquips().get_p5defence() + packs.equip.getEquips().get_p6defence()
+				uint64_t tpdefence = packs.equip.getEquips().get_p1defence() + packs.equip.getEquips().get_p2defence() + packs.equip.getEquips().get_p3defence() + packs.equip.getEquips().get_p4defence() + packs.equip.getEquips().get_p5defence() + packs.equip.getEquips().get_p6defence()
 					            + packs.equip.getEquips().get_p7defence() + packs.equip.getEquips().get_p8defence() + packs.equip.getEquips().get_p9defence()+ packs.equip.getEquips().get_p24defence();
 				// 物理防御力
-				charstate.pdefence=DWORD(BASEDATA_F_PDEFENCE+LEVELUP_PDEFENCE_N*charbase.level + charstate.wdStr*0.3f + charstate.wdDex*1.5f + charstate.wdCon*0.4f + tpdefence );
+				charstate.pdefence=static_cast<uint64_t>(BASEDATA_F_PDEFENCE+LEVELUP_PDEFENCE_N*charbase.level + charstate.wdStr*0.3f + charstate.wdDex*1.5f + charstate.wdCon*0.4f + tpdefence );
 				
-				DWORD tmdefence = packs.equip.getEquips().get_m1defence() + packs.equip.getEquips().get_m2defence()+ packs.equip.getEquips().get_m3defence()+ packs.equip.getEquips().get_m4defence()+ packs.equip.getEquips().get_m5defence()+ packs.equip.getEquips().get_m6defence()
+				uint64_t tmdefence = packs.equip.getEquips().get_m1defence() + packs.equip.getEquips().get_m2defence()+ packs.equip.getEquips().get_m3defence()+ packs.equip.getEquips().get_m4defence()+ packs.equip.getEquips().get_m5defence()+ packs.equip.getEquips().get_m6defence()
 					            + packs.equip.getEquips().get_m7defence()+ packs.equip.getEquips().get_m8defence()+ packs.equip.getEquips().get_m9defence()+ packs.equip.getEquips().get_m24defence();
 				// 魔法防御力
-				charstate.mdefence=DWORD(BASEDATA_F_MDEFENCE+LEVELUP_MDEFENCE_N*charbase.level + charstate.wdInt*0.3f + charstate.wdDex*1.5f + charstate.wdMen*0.8f + charstate.wdCon*0.6f + tmdefence);
+				charstate.mdefence=static_cast<uint64_t>(BASEDATA_F_MDEFENCE+LEVELUP_MDEFENCE_N*charbase.level + charstate.wdInt*0.3f + charstate.wdDex*1.5f + charstate.wdMen*0.8f + charstate.wdCon*0.6f + tmdefence);
 				// 重击
 				charstate.bang = (WORD)(BASEDATA_F_BANG + charstate.wdCon*0.002f);
 
 				// 标准物理攻击力
-				charstate.stdpdamage=DWORD(BASEDATA_F_PDAMAGE+LEVELUP_PDAMAGE_N*charbase.level + charbase.wdStr*1);
+				charstate.stdpdamage=static_cast<uint64_t>(BASEDATA_F_PDAMAGE+LEVELUP_PDAMAGE_N*charbase.level + charbase.wdStr*1);
 				// 标准法术攻击力
-				charstate.stdmdamage=DWORD(BASEDATA_F_MDAMAGE+LEVELUP_MDAMAGE_N*charbase.level + charbase.wdInt*1.1f);
+				charstate.stdmdamage=static_cast<uint64_t>(BASEDATA_F_MDAMAGE+LEVELUP_MDAMAGE_N*charbase.level + charbase.wdInt*1.1f);
 				// 标准物理防御力
-				charstate.stdpdefence=DWORD(BASEDATA_F_PDEFENCE+LEVELUP_PDEFENCE_N*charbase.level + charbase.wdStr*0.3f + charbase.wdDex*1.5f + charbase.wdCon*0.4f);
+				charstate.stdpdefence=static_cast<uint64_t>(BASEDATA_F_PDEFENCE+LEVELUP_PDEFENCE_N*charbase.level + charbase.wdStr*0.3f + charbase.wdDex*1.5f + charbase.wdCon*0.4f);
 				// 标准法术防御力
-				charstate.stdmdefence=DWORD(BASEDATA_F_MDEFENCE+LEVELUP_MDEFENCE_N*charbase.level + charbase.wdInt*0.3f + charbase.wdDex*1.5f + charbase.wdMen*0.8f + charbase.wdCon*0.6f);
+				charstate.stdmdefence=static_cast<uint64_t>(BASEDATA_F_MDEFENCE+LEVELUP_MDEFENCE_N*charbase.level + charbase.wdInt*0.3f + charbase.wdDex*1.5f + charbase.wdMen*0.8f + charbase.wdCon*0.6f);
 				// 标准重击率
 				charstate.stdbang = (WORD)(BASEDATA_F_BANG + charbase.wdCon*0.002f);
 			}
@@ -982,310 +992,310 @@ void SceneUser::setupCharBase(bool lock)
 		        //soke 绿装15星加成效果
 	            if (this->issetUState(Cmd::USTATE_ULTRA_EQUIPMENT ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(12/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(12/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(12/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(12/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(12/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(12/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(12/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(12/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(12/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(12/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(12/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(12/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(12/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(12/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(12/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(12/100.0f));                 //最大法术值
 	            }
 				//soke 紫装效果加成
 				else if (this->issetUState(Cmd::USTATE_REDHOT ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(12/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(12/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(12/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(12/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(12/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(12/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(12/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(12/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(12/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(12/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(12/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(12/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(12/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(12/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(12/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(12/100.0f));                 //最大法术值
 	            }
 				//soke VIP1效果加成
 				if (this->issetUState(Cmd::USTATE_VIP1 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(1/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(1/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(1/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(1/100.0f));                 //最大法术值
 	            }
 				//soke VIP2效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP2 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(2/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(2/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(2/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(2/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(2/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(2/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(2/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(2/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(2/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(2/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(2/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(2/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(2/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(2/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(2/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(2/100.0f));                 //最大法术值
 	            }
 				//soke VIP3效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP3 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(3/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(3/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(3/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(3/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(3/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(3/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(3/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(3/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(3/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(3/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(3/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(3/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(3/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(3/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(3/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(3/100.0f));                 //最大法术值
 	            }
 				//soke VIP4效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP4 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(4/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(4/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(4/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(4/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(4/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(4/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(4/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(4/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(4/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(4/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(4/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(4/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(4/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(4/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(4/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(4/100.0f));                 //最大法术值
 	            }
 				//soke VIP5效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP5 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(5/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(5/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(5/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(5/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(5/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(5/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(5/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(5/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(5/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(5/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(5/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(5/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(5/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(5/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(5/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(5/100.0f));                 //最大法术值
 	            }
 				//soke VIP6效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP6 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(6/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(6/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(6/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(6/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(6/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(6/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(6/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(6/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(6/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(6/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(6/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(6/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(6/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(6/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(6/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(6/100.0f));                 //最大法术值
 	            }
 				//soke VIP7效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP7 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(7/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(7/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(7/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(7/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(7/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(7/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(7/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(7/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(7/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(7/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(7/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(7/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(7/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(7/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(7/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(7/100.0f));                 //最大法术值
 	            }
 				//soke VIP8效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP8 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(8/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(8/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(8/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(8/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(8/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(8/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(8/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(8/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(8/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(8/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(8/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(8/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(8/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(8/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(8/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(8/100.0f));                 //最大法术值
 	            }
 				//soke VIP9效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP9 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(9/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(9/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(9/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(9/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(9/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(9/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(9/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(9/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(9/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(9/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(9/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(9/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(9/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(9/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(9/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(9/100.0f));                 //最大法术值
 	            }
 				//soke VIP10效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP10 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(10/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(10/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(10/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(10/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(10/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(10/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(10/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(10/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(10/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(10/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(10/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(10/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(10/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(10/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(10/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(10/100.0f));                 //最大法术值
 	            }
 				//soke VIP11效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP11 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(11/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(11/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(11/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(11/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(11/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(11/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(11/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(11/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(11/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(11/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(11/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(11/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(11/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(11/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(11/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(11/100.0f));                 //最大法术值
 	            }
 				//soke VIP12效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP12 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(12/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(12/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(12/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(12/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(12/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(12/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(12/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(12/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(12/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(12/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(12/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(12/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(12/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(12/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(12/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(12/100.0f));                 //最大法术值
 	            }
 				//soke VIP13效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP13 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(13/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(13/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(13/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(13/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(13/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(13/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(13/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(13/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(13/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(13/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(13/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(13/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(13/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(13/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(13/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(13/100.0f));                 //最大法术值
 	            }
 				//soke VIP14效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP14 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(14/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(14/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(14/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(14/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(14/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(14/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(14/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(14/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(14/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(14/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(14/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(14/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(14/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(14/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(14/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(14/100.0f));                 //最大法术值
 	            }
 				//soke VIP15效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP15 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(15/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(15/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(15/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(15/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(15/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(15/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(15/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(15/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(15/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(15/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(15/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(15/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(15/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(15/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(15/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(15/100.0f));                 //最大法术值
 	            }
 				//soke VIP16效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP16 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(18/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(18/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(18/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(18/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(18/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(18/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(18/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(18/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(18/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(18/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(18/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(18/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(18/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(18/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(18/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(18/100.0f));                 //最大法术值
 	            }
 				//soke VIP17效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP17 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(20/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(20/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(20/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(20/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(20/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(20/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(20/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(20/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(20/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(20/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(20/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(20/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(20/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(20/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(20/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(20/100.0f));                 //最大法术值
 	            }
 				//soke VIP18效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP18 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(22/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(22/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(22/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(22/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(22/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(22/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(22/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(22/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(22/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(22/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(22/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(22/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(22/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(22/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(22/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(22/100.0f));                 //最大法术值
 	            }
 				//soke VIP19效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP19 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(24/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(24/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(24/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(24/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(24/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(24/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(24/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(24/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(24/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(24/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(24/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(24/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(24/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(24/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(24/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(24/100.0f));                 //最大法术值
 	            }
 				//soke VIP20效果加成
 				else if (this->issetUState(Cmd::USTATE_VIP20 ))
 	            {
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(26/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(26/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(26/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(26/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(26/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(26/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(26/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(26/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(26/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(26/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(26/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(26/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(26/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(26/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(26/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(26/100.0f));                 //最大法术值
 	            }
 
 				
@@ -1294,15 +1304,15 @@ void SceneUser::setupCharBase(bool lock)
 				if(this->issetUState(2000))
 				{
 					
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(5/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(5/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(5/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(5/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(5/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(5/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(5/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(5/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(5/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(5/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(5/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(5/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(10/100.0f)); 
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(10/100.0f)); 
 				
 				}
 					
@@ -1311,13 +1321,13 @@ void SceneUser::setupCharBase(bool lock)
 				//sky 国王加成
 				if (this->king && !this->emperor)
 				{
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(8/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(8/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(8/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(8/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(8/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(8/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(8/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(8/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(6/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(6/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(6/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(6/100.0f));        //魔防
 
 					charstate.maxhp += DWORD( 500000 );         //最大生命值
 					
@@ -1325,106 +1335,106 @@ void SceneUser::setupCharBase(bool lock)
 				//sky 皇帝加成
 				else if (this->emperor)
 				{
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(10/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(10/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(10/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(10/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(10/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(10/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(10/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(10/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(8/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(8/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(8/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(8/100.0f));        //魔防
 
 					charstate.maxhp += DWORD( 1000000 );         //最大生命值
 					
 				}
 				else if(strstr(this->caption , "城主") != NULL)
 				{
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(6/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(6/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(6/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(6/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(6/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(6/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(6/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(6/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(4/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(4/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(4/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(4/100.0f));        //魔防
 
 					charstate.maxhp += DWORD( 200000 );         //最大生命值 
 				}
 				//网管 白砖加成 2024-11-13 20:58:02
 	            if (this->issetUState(Cmd::USTATE_LOONGPEARL_WHITE ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
 	            }
 				//网管 蓝砖加成 2024-11-13 20:58:02 //2024-11-17 修复if 改 else if
 	            else if (this->issetUState(Cmd::USTATE_LOONGPEARL_BLUE ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
 	            }
 				//网管 黄砖加成 2024-11-13 20:58:02 //2024-11-17 修复if 改 else if
 	            else if (this->issetUState(Cmd::USTATE_LOONGPEARL_YELLOW ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
 	            }
 				//网管 绿砖加成 2024-11-13 20:58:02 //2024-11-17 修复if 改 else if
 	            else if (this->issetUState(Cmd::USTATE_LOONGPEARL_GREEN ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(1/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(1/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(1/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(1/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(1/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(1/100.0f));        //魔防
 	            }
 				//网管 紫砖加成 2024-11-13 20:58:02 //2024-11-17 修复if 改 else if
 	            else if (this->issetUState(Cmd::USTATE_LOONGPEARL_PURPLE ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(2/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(2/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(2/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(2/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(2/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(2/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(2/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(2/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(2/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(2/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(2/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(2/100.0f));        //魔防
 	            }	
 				//sky 战车加成
 				if (this->issetUState(Cmd::USTATE_USER_ZC_TYPE1 ))//生命
 				{
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(30/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(30/100.0f));		
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(30/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(30/100.0f));		
 				}
 
 				//sky 战车加成
 				if (this->issetUState(Cmd::USTATE_USER_ZC_TYPE2 ))//攻击
 				{
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(30/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(30/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(30/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(30/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(30/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(30/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(30/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(30/100.0f));  //最大魔法攻击力
 
 				}
 
 				//sky 战车加成
 				if (this->issetUState(Cmd::USTATE_USER_ZC_TYPE3))//防御
 				{
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(30/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(30/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(30/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(30/100.0f));        //魔防
 				}
 
 
@@ -1629,70 +1639,70 @@ void SceneUser::setupCharBase(bool lock)
 				//soke 永恒套装加成效果
 	            else if (this->issetUState(Cmd::USTATE_USER_TZ_YONGHENG ))
 	            {
-		            charstate.pdamage    += DWORD( 30000 );    //最小物理攻击力
-		            charstate.maxpdamage += DWORD( 30000 );    //最大物理攻击力
-		            charstate.mdamage    += DWORD( 30000 );    //最小魔法攻击力
-		            charstate.maxmdamage += DWORD( 30000 );    //最大魔法攻击力
-		            charstate.pdefence += DWORD( 15000 );      //物防
-		            charstate.mdefence += DWORD( 15000 );      //魔防
-		            charstate.maxhp += DWORD( 300000 );         //最大生命值	
+		            charstate.pdamage    += DWORD( 100000 );    //最小物理攻击力
+		            charstate.maxpdamage += DWORD( 100000 );    //最大物理攻击力
+		            charstate.mdamage    += DWORD( 100000 );    //最小魔法攻击力
+		            charstate.maxmdamage += DWORD( 100000 );    //最大魔法攻击力
+		            charstate.pdefence += DWORD( 50000 );      //物防
+		            charstate.mdefence += DWORD( 50000 );      //魔防
+		            charstate.maxhp += DWORD( 1000000 );         //最大生命值	
 	            }				
 					
 				//soke 补天石1级套装加成效果
 	            if (this->issetUState(Cmd::USTATE_ULTRA_BUTIAN1_QI ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(3/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(3/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(3/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(3/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(3/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(3/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(3/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(3/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(2/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(2/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(2/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(2/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(3/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(3/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(3/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(3/100.0f));                 //最大法术值
 	            }	
 				//soke 补天石2级套装加成效果
 	            else if (this->issetUState(Cmd::USTATE_ULTRA_BUTIAN2_QI ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(6/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(6/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(6/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(6/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(6/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(6/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(6/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(6/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(5/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(5/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(5/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(5/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(6/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(6/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(6/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(6/100.0f));                 //最大法术值
 	            }	
 				//soke 补天石3级套装加成效果
 	            else if (this->issetUState(Cmd::USTATE_ULTRA_BUTIAN3_QI ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(10/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(10/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(10/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(10/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(10/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(10/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(10/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(10/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(8/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(8/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(8/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(8/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(10/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(10/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(10/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(10/100.0f));                 //最大法术值
 	            }	
 				//soke 补天石4级套装加成效果
 	            else if (this->issetUState(Cmd::USTATE_ULTRA_BUTIAN4_QI ))
 	            {
-		            charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(15/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(15/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(15/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(15/100.0f));  //最大魔法攻击力
+		            charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(15/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(15/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(15/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(15/100.0f));  //最大魔法攻击力
 
-                    charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(12/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(12/100.0f));        //魔防
+                    charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(12/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(12/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(15/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(15/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(15/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(15/100.0f));                 //最大法术值
 	            }	
 				 //soke 补天石5级套装加成效果
 	            else if (this->issetUState(Cmd::USTATE_ULTRA_BUTIAN5_QI ))
@@ -1706,16 +1716,16 @@ void SceneUser::setupCharBase(bool lock)
 		            charstate.mdefence += DWORD( 2000 );      //魔防
 		            charstate.maxhp += DWORD( 20000 );         //最大生命值	
 					*/
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(24/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(24/100.0f));  //最大物理攻击力
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(24/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(24/100.0f));  //最大魔法攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(24/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(24/100.0f));  //最大物理攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(24/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(24/100.0f));  //最大魔法攻击力
 
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(20/100.0f));        //物防
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(20/100.0f));        //魔防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(20/100.0f));        //物防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(20/100.0f));        //魔防
 
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(24/100.0f));                 //最大生命值
-					charstate.maxmp += (DWORD)((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(24/100.0f));                 //最大法术值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(24/100.0f));                 //最大生命值
+					charstate.maxmp += static_cast<uint64_t>((charstate.maxmp+packs.equip.getEquips().get_maxmp())*(24/100.0f));                 //最大法术值
 				
 	            }	
 
@@ -1808,14 +1818,526 @@ void SceneUser::setupCharBase(bool lock)
 		            charstate.mdefence += DWORD( 50000 );       //魔防
 		            charstate.maxhp += DWORD( 1000000 );         //最大生命值
 	            }
+                // 永恒星级套装属性加成 //by=>friday
+				if (this->issetUState(Cmd::USTATE_USER_TZ_JJ16 ))
+                {
+                    charstate.pdamage    += DWORD( 100000 );   //by=>friday 永恒16星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 100000 );   //by=>friday 永恒16星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 100000 );   //by=>friday 永恒16星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 100000 );   //by=>friday 永恒16星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 50000 );      //by=>friday 永恒16星套装 物防
+                    charstate.mdefence += DWORD( 50000 );      //by=>friday 永恒16星套装 魔防
+                    charstate.maxhp += DWORD( 1000000 );       //by=>friday 永恒16星套装 最大生命值
+                    charstate.juejiattack += DWORD( 60000 );   //by=>friday 永恒16星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 60000 );  //by=>friday 永恒16星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ18 ))
+                {
+                    charstate.pdamage    += DWORD( 200000 );   //by=>friday 永恒18星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 200000 );   //by=>friday 永恒18星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 200000 );   //by=>friday 永恒18星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 200000 );   //by=>friday 永恒18星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 100000 );     //by=>friday 永恒18星套装 物防
+                    charstate.mdefence += DWORD( 100000 );     //by=>friday 永恒18星套装 魔防
+                    charstate.maxhp += DWORD( 2000000 );       //by=>friday 永恒18星套装 最大生命值
+                    charstate.juejiattack += DWORD( 120000 );  //by=>friday 永恒18星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 120000 ); //by=>friday 永恒18星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ20 ))
+                {
+                    charstate.pdamage    += DWORD( 400000 );   //by=>friday 永恒20星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 400000 );   //by=>friday 永恒20星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 400000 );   //by=>friday 永恒20星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 400000 );   //by=>friday 永恒20星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 200000 );     //by=>friday 永恒20星套装 物防
+                    charstate.mdefence += DWORD( 200000 );     //by=>friday 永恒20星套装 魔防
+                    charstate.maxhp += DWORD( 4000000 );       //by=>friday 永恒20星套装 最大生命值
+                    charstate.juejiattack += DWORD( 240000 );  //by=>friday 永恒20星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 240000 ); //by=>friday 永恒20星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ22 ))
+                {
+                    charstate.pdamage    += DWORD( 800000 );   //by=>friday 永恒22星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 800000 );   //by=>friday 永恒22星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 800000 );   //by=>friday 永恒22星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 800000 );   //by=>friday 永恒22星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 400000 );     //by=>friday 永恒22星套装 物防
+                    charstate.mdefence += DWORD( 400000 );     //by=>friday 永恒22星套装 魔防
+                    charstate.maxhp += DWORD( 8000000 );       //by=>friday 永恒22星套装 最大生命值
+                    charstate.juejiattack += DWORD( 480000 );  //by=>friday 永恒22星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 480000 ); //by=>friday 永恒22星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ24 ))
+                {
+                    charstate.pdamage    += DWORD( 1600000 );  //by=>friday 永恒24星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 1600000 );  //by=>friday 永恒24星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 1600000 );  //by=>friday 永恒24星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 1600000 );  //by=>friday 永恒24星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 800000 );     //by=>friday 永恒24星套装 物防
+                    charstate.mdefence += DWORD( 800000 );     //by=>friday 永恒24星套装 魔防
+                    charstate.maxhp += DWORD( 16000000 );      //by=>friday 永恒24星套装 最大生命值
+                    charstate.juejiattack += DWORD( 960000 );  //by=>friday 永恒24星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 960000 ); //by=>friday 永恒24星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ26 ))
+                {
+                    charstate.pdamage    += DWORD( 3200000 );  //by=>friday 永恒26星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 3200000 );  //by=>friday 永恒26星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 3200000 );  //by=>friday 永恒26星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 3200000 );  //by=>friday 永恒26星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 1600000 );    //by=>friday 永恒26星套装 物防
+                    charstate.mdefence += DWORD( 1600000 );    //by=>friday 永恒26星套装 魔防
+                    charstate.maxhp += DWORD( 32000000 );      //by=>friday 永恒26星套装 最大生命值
+                    charstate.juejiattack += DWORD( 1920000 ); //by=>friday 永恒26星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 1920000 );//by=>friday 永恒26星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ28 ))
+                {
+                    charstate.pdamage    += DWORD( 6400000 );  //by=>friday 永恒28星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 6400000 );  //by=>friday 永恒28星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 6400000 );  //by=>friday 永恒28星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 6400000 );  //by=>friday 永恒28星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 3200000 );    //by=>friday 永恒28星套装 物防
+                    charstate.mdefence += DWORD( 3200000 );    //by=>friday 永恒28星套装 魔防
+                    charstate.maxhp += DWORD( 64000000 );      //by=>friday 永恒28星套装 最大生命值
+                    charstate.juejiattack += DWORD( 3840000 ); //by=>friday 永恒28星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 3840000 );//by=>friday 永恒28星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ30 ))
+                {
+                    charstate.pdamage    += DWORD( 12800000 ); //by=>friday 永恒30星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 12800000 ); //by=>friday 永恒30星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 12800000 ); //by=>friday 永恒30星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 12800000 ); //by=>friday 永恒30星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 6400000 );    //by=>friday 永恒30星套装 物防
+                    charstate.mdefence += DWORD( 6400000 );    //by=>friday 永恒30星套装 魔防
+                    charstate.maxhp += DWORD( 128000000 );     //by=>friday 永恒30星套装 最大生命值
+                    charstate.juejiattack += DWORD( 7680000 ); //by=>friday 永恒30星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 7680000 );//by=>friday 永恒30星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ32 ))
+                {
+                    charstate.pdamage    += DWORD( 25600000 ); //by=>friday 永恒32星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 25600000 ); //by=>friday 永恒32星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 25600000 ); //by=>friday 永恒32星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 25600000 ); //by=>friday 永恒32星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 12800000 );   //by=>friday 永恒32星套装 物防
+                    charstate.mdefence += DWORD( 12800000 );   //by=>friday 永恒32星套装 魔防
+                    charstate.maxhp += DWORD( 256000000 );     //by=>friday 永恒32星套装 最大生命值
+                    charstate.juejiattack += DWORD( 15360000 );//by=>friday 永恒32星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 15360000 );//by=>friday 永恒32星套装 绝技防御
+                }
+                else if (this->issetUState(Cmd::USTATE_USER_TZ_JJ34 ))
+                {
+                    charstate.pdamage    += DWORD( 51200000 ); //by=>friday 永恒34星套装 最小物理攻击力
+                    charstate.maxpdamage += DWORD( 51200000 ); //by=>friday 永恒34星套装 最大物理攻击力
+                    charstate.mdamage    += DWORD( 51200000 ); //by=>friday 永恒34星套装 最小魔法攻击力
+                    charstate.maxmdamage += DWORD( 51200000 ); //by=>friday 永恒34星套装 最大魔法攻击力
+                    charstate.pdefence += DWORD( 25600000 );   //by=>friday 永恒34星套装 物防
+                    charstate.mdefence += DWORD( 25600000 );   //by=>friday 永恒34星套装 魔防
+                    charstate.maxhp += DWORD( 512000000 );     //by=>friday 永恒34星套装 最大生命值
+                    charstate.juejiattack += DWORD( 30720000 );//by=>friday 永恒34星套装 绝技攻击
+                    charstate.juejidefence += DWORD( 30720000 );//by=>friday 永恒34星套装 绝技防御
+                }
 
+				// 斗魂星级套装属性加成 //by=>friday
+				if (this->issetUState(Cmd::USTATE_USER_TZ_DH16 ))
+				{
+					charstate.pdamage    += DWORD( 100000 );   //by=>friday 斗魂16星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 100000 );   //by=>friday 斗魂16星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 100000 );   //by=>friday 斗魂16星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 100000 );   //by=>friday 斗魂16星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 50000 );      //by=>friday 斗魂16星套装 物防
+					charstate.mdefence += DWORD( 50000 );      //by=>friday 斗魂16星套装 魔防
+					charstate.maxhp += DWORD( 1000000 );       //by=>friday 斗魂16星套装 最大生命值
+					charstate.juejiattack += DWORD( 60000 );   //by=>friday 斗魂16星套装 绝技攻击
+					charstate.juejidefence += DWORD( 60000 );  //by=>friday 斗魂16星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH18 ))
+				{
+					charstate.pdamage    += DWORD( 200000 );   //by=>friday 斗魂18星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 200000 );   //by=>friday 斗魂18星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 200000 );   //by=>friday 斗魂18星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 200000 );   //by=>friday 斗魂18星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 100000 );     //by=>friday 斗魂18星套装 物防
+					charstate.mdefence += DWORD( 100000 );     //by=>friday 斗魂18星套装 魔防
+					charstate.maxhp += DWORD( 2000000 );       //by=>friday 斗魂18星套装 最大生命值
+					charstate.juejiattack += DWORD( 120000 );  //by=>friday 斗魂18星套装 绝技攻击
+					charstate.juejidefence += DWORD( 120000 ); //by=>friday 斗魂18星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH20 ))
+				{
+					charstate.pdamage    += DWORD( 400000 );   //by=>friday 斗魂20星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 400000 );   //by=>friday 斗魂20星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 400000 );   //by=>friday 斗魂20星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 400000 );   //by=>friday 斗魂20星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 200000 );     //by=>friday 斗魂20星套装 物防
+					charstate.mdefence += DWORD( 200000 );     //by=>friday 斗魂20星套装 魔防
+					charstate.maxhp += DWORD( 4000000 );       //by=>friday 斗魂20星套装 最大生命值
+					charstate.juejiattack += DWORD( 240000 );  //by=>friday 斗魂20星套装 绝技攻击
+					charstate.juejidefence += DWORD( 240000 ); //by=>friday 斗魂20星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH22 ))
+				{
+					charstate.pdamage    += DWORD( 800000 );   //by=>friday 斗魂22星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 800000 );   //by=>friday 斗魂22星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 800000 );   //by=>friday 斗魂22星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 800000 );   //by=>friday 斗魂22星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 400000 );     //by=>friday 斗魂22星套装 物防
+					charstate.mdefence += DWORD( 400000 );     //by=>friday 斗魂22星套装 魔防
+					charstate.maxhp += DWORD( 8000000 );       //by=>friday 斗魂22星套装 最大生命值
+					charstate.juejiattack += DWORD( 480000 );  //by=>friday 斗魂22星套装 绝技攻击
+					charstate.juejidefence += DWORD( 480000 ); //by=>friday 斗魂22星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH24 ))
+				{
+					charstate.pdamage    += DWORD( 1600000 );  //by=>friday 斗魂24星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 1600000 );  //by=>friday 斗魂24星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 1600000 );  //by=>friday 斗魂24星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 1600000 );  //by=>friday 斗魂24星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 800000 );     //by=>friday 斗魂24星套装 物防
+					charstate.mdefence += DWORD( 800000 );     //by=>friday 斗魂24星套装 魔防
+					charstate.maxhp += DWORD( 16000000 );      //by=>friday 斗魂24星套装 最大生命值
+					charstate.juejiattack += DWORD( 960000 );  //by=>friday 斗魂24星套装 绝技攻击
+					charstate.juejidefence += DWORD( 960000 ); //by=>friday 斗魂24星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH26 ))
+				{
+					charstate.pdamage    += DWORD( 3200000 );  //by=>friday 斗魂26星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 3200000 );  //by=>friday 斗魂26星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 3200000 );  //by=>friday 斗魂26星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 3200000 );  //by=>friday 斗魂26星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 1600000 );    //by=>friday 斗魂26星套装 物防
+					charstate.mdefence += DWORD( 1600000 );    //by=>friday 斗魂26星套装 魔防
+					charstate.maxhp += DWORD( 32000000 );      //by=>friday 斗魂26星套装 最大生命值
+					charstate.juejiattack += DWORD( 1920000 ); //by=>friday 斗魂26星套装 绝技攻击
+					charstate.juejidefence += DWORD( 1920000 );//by=>friday 斗魂26星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH28 ))
+				{
+					charstate.pdamage    += DWORD( 6400000 );  //by=>friday 斗魂28星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 6400000 );  //by=>friday 斗魂28星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 6400000 );  //by=>friday 斗魂28星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 6400000 );  //by=>friday 斗魂28星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 3200000 );    //by=>friday 斗魂28星套装 物防
+					charstate.mdefence += DWORD( 3200000 );    //by=>friday 斗魂28星套装 魔防
+					charstate.maxhp += DWORD( 64000000 );      //by=>friday 斗魂28星套装 最大生命值
+					charstate.juejiattack += DWORD( 3840000 ); //by=>friday 斗魂28星套装 绝技攻击
+					charstate.juejidefence += DWORD( 3840000 );//by=>friday 斗魂28星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH30 ))
+				{
+					charstate.pdamage    += DWORD( 12800000 ); //by=>friday 斗魂30星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 12800000 ); //by=>friday 斗魂30星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 12800000 ); //by=>friday 斗魂30星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 12800000 ); //by=>friday 斗魂30星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 6400000 );    //by=>friday 斗魂30星套装 物防
+					charstate.mdefence += DWORD( 6400000 );    //by=>friday 斗魂30星套装 魔防
+					charstate.maxhp += DWORD( 128000000 );     //by=>friday 斗魂30星套装 最大生命值
+					charstate.juejiattack += DWORD( 7680000 ); //by=>friday 斗魂30星套装 绝技攻击
+					charstate.juejidefence += DWORD( 7680000 );//by=>friday 斗魂30星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH32 ))
+				{
+					charstate.pdamage    += DWORD( 25600000 ); //by=>friday 斗魂32星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 25600000 ); //by=>friday 斗魂32星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 25600000 ); //by=>friday 斗魂32星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 25600000 ); //by=>friday 斗魂32星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 12800000 );   //by=>friday 斗魂32星套装 物防
+					charstate.mdefence += DWORD( 12800000 );   //by=>friday 斗魂32星套装 魔防
+					charstate.maxhp += DWORD( 256000000 );     //by=>friday 斗魂32星套装 最大生命值
+					charstate.juejiattack += DWORD( 15360000 );//by=>friday 斗魂32星套装 绝技攻击
+					charstate.juejidefence += DWORD( 15360000 );//by=>friday 斗魂32星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_DH34 ))
+				{
+					charstate.pdamage    += DWORD( 51200000 ); //by=>friday 斗魂34星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 51200000 ); //by=>friday 斗魂34星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 51200000 ); //by=>friday 斗魂34星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 51200000 ); //by=>friday 斗魂34星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 25600000 );   //by=>friday 斗魂34星套装 物防
+					charstate.mdefence += DWORD( 25600000 );   //by=>friday 斗魂34星套装 魔防
+					charstate.maxhp += DWORD( 512000000 );     //by=>friday 斗魂34星套装 最大生命值
+					charstate.juejiattack += DWORD( 30720000 );//by=>friday 斗魂34星套装 绝技攻击
+					charstate.juejidefence += DWORD( 30720000 );//by=>friday 斗魂34星套装 绝技防御
+				}
 
+				// 龙星星级套装属性加成 //by=>friday
+				if (this->issetUState(Cmd::USTATE_USER_TZ_LX16 ))
+				{
+					charstate.pdamage    += DWORD( 100000 );   //by=>friday 龙星16星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 100000 );   //by=>friday 龙星16星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 100000 );   //by=>friday 龙星16星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 100000 );   //by=>friday 龙星16星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 50000 );      //by=>friday 龙星16星套装 物防
+					charstate.mdefence += DWORD( 50000 );      //by=>friday 龙星16星套装 魔防
+					charstate.maxhp += DWORD( 1000000 );       //by=>friday 龙星16星套装 最大生命值
+					charstate.juejiattack += DWORD( 60000 );   //by=>friday 龙星16星套装 绝技攻击
+					charstate.juejidefence += DWORD( 60000 );  //by=>friday 龙星16星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX18 ))
+				{
+					charstate.pdamage    += DWORD( 200000 );   //by=>friday 龙星18星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 200000 );   //by=>friday 龙星18星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 200000 );   //by=>friday 龙星18星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 200000 );   //by=>friday 龙星18星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 100000 );     //by=>friday 龙星18星套装 物防
+					charstate.mdefence += DWORD( 100000 );     //by=>friday 龙星18星套装 魔防
+					charstate.maxhp += DWORD( 2000000 );       //by=>friday 龙星18星套装 最大生命值
+					charstate.juejiattack += DWORD( 120000 );  //by=>friday 龙星18星套装 绝技攻击
+					charstate.juejidefence += DWORD( 120000 ); //by=>friday 龙星18星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX20 ))
+				{
+					charstate.pdamage    += DWORD( 400000 );   //by=>friday 龙星20星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 400000 );   //by=>friday 龙星20星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 400000 );   //by=>friday 龙星20星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 400000 );   //by=>friday 龙星20星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 200000 );     //by=>friday 龙星20星套装 物防
+					charstate.mdefence += DWORD( 200000 );     //by=>friday 龙星20星套装 魔防
+					charstate.maxhp += DWORD( 4000000 );       //by=>friday 龙星20星套装 最大生命值
+					charstate.juejiattack += DWORD( 240000 );  //by=>friday 龙星20星套装 绝技攻击
+					charstate.juejidefence += DWORD( 240000 ); //by=>friday 龙星20星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX22 ))
+				{
+					charstate.pdamage    += DWORD( 800000 );   //by=>friday 龙星22星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 800000 );   //by=>friday 龙星22星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 800000 );   //by=>friday 龙星22星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 800000 );   //by=>friday 龙星22星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 400000 );     //by=>friday 龙星22星套装 物防
+					charstate.mdefence += DWORD( 400000 );     //by=>friday 龙星22星套装 魔防
+					charstate.maxhp += DWORD( 8000000 );       //by=>friday 龙星22星套装 最大生命值
+					charstate.juejiattack += DWORD( 480000 );  //by=>friday 龙星22星套装 绝技攻击
+					charstate.juejidefence += DWORD( 480000 ); //by=>friday 龙星22星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX24 ))
+				{
+					charstate.pdamage    += DWORD( 1600000 );  //by=>friday 龙星24星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 1600000 );  //by=>friday 龙星24星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 1600000 );  //by=>friday 龙星24星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 1600000 );  //by=>friday 龙星24星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 800000 );     //by=>friday 龙星24星套装 物防
+					charstate.mdefence += DWORD( 800000 );     //by=>friday 龙星24星套装 魔防
+					charstate.maxhp += DWORD( 16000000 );      //by=>friday 龙星24星套装 最大生命值
+					charstate.juejiattack += DWORD( 960000 );  //by=>friday 龙星24星套装 绝技攻击
+					charstate.juejidefence += DWORD( 960000 ); //by=>friday 龙星24星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX26 ))
+				{
+					charstate.pdamage    += DWORD( 3200000 );  //by=>friday 龙星26星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 3200000 );  //by=>friday 龙星26星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 3200000 );  //by=>friday 龙星26星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 3200000 );  //by=>friday 龙星26星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 1600000 );    //by=>friday 龙星26星套装 物防
+					charstate.mdefence += DWORD( 1600000 );    //by=>friday 龙星26星套装 魔防
+					charstate.maxhp += DWORD( 32000000 );      //by=>friday 龙星26星套装 最大生命值
+					charstate.juejiattack += DWORD( 1920000 ); //by=>friday 龙星26星套装 绝技攻击
+					charstate.juejidefence += DWORD( 1920000 );//by=>friday 龙星26星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX28 ))
+				{
+					charstate.pdamage    += DWORD( 6400000 );  //by=>friday 龙星28星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 6400000 );  //by=>friday 龙星28星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 6400000 );  //by=>friday 龙星28星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 6400000 );  //by=>friday 龙星28星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 3200000 );    //by=>friday 龙星28星套装 物防
+					charstate.mdefence += DWORD( 3200000 );    //by=>friday 龙星28星套装 魔防
+					charstate.maxhp += DWORD( 64000000 );      //by=>friday 龙星28星套装 最大生命值
+					charstate.juejiattack += DWORD( 3840000 ); //by=>friday 龙星28星套装 绝技攻击
+					charstate.juejidefence += DWORD( 3840000 );//by=>friday 龙星28星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX30 ))
+				{
+					charstate.pdamage    += DWORD( 12800000 ); //by=>friday 龙星30星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 12800000 ); //by=>friday 龙星30星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 12800000 ); //by=>friday 龙星30星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 12800000 ); //by=>friday 龙星30星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 6400000 );    //by=>friday 龙星30星套装 物防
+					charstate.mdefence += DWORD( 6400000 );    //by=>friday 龙星30星套装 魔防
+					charstate.maxhp += DWORD( 128000000 );     //by=>friday 龙星30星套装 最大生命值
+					charstate.juejiattack += DWORD( 7680000 ); //by=>friday 龙星30星套装 绝技攻击
+					charstate.juejidefence += DWORD( 7680000 );//by=>friday 龙星30星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX32 ))
+				{
+					charstate.pdamage    += DWORD( 25600000 ); //by=>friday 龙星32星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 25600000 ); //by=>friday 龙星32星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 25600000 ); //by=>friday 龙星32星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 25600000 ); //by=>friday 龙星32星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 12800000 );   //by=>friday 龙星32星套装 物防
+					charstate.mdefence += DWORD( 12800000 );   //by=>friday 龙星32星套装 魔防
+					charstate.maxhp += DWORD( 256000000 );     //by=>friday 龙星32星套装 最大生命值
+					charstate.juejiattack += DWORD( 15360000 );//by=>friday 龙星32星套装 绝技攻击
+					charstate.juejidefence += DWORD( 15360000 );//by=>friday 龙星32星套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_LX34 ))
+				{
+					charstate.pdamage    += DWORD( 51200000 ); //by=>friday 龙星34星套装 最小物理攻击力
+					charstate.maxpdamage += DWORD( 51200000 ); //by=>friday 龙星34星套装 最大物理攻击力
+					charstate.mdamage    += DWORD( 51200000 ); //by=>friday 龙星34星套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD( 51200000 ); //by=>friday 龙星34星套装 最大魔法攻击力
+					charstate.pdefence += DWORD( 25600000 );   //by=>friday 龙星34星套装 物防
+					charstate.mdefence += DWORD( 25600000 );   //by=>friday 龙星34星套装 魔防
+					charstate.maxhp += DWORD( 512000000 );     //by=>friday 龙星34星套装 最大生命值
+					charstate.juejiattack += DWORD( 30720000 );//by=>friday 龙星34星套装 绝技攻击
+					charstate.juejidefence += DWORD( 30720000 );//by=>friday 龙星34星套装 绝技防御
+				}
+
+				//by=>friday 心意等级套装属性加成
+				if (this->issetUState(Cmd::USTATE_USER_TZ_HEART_WHITE))
+				{
+					charstate.pdamage += DWORD(1000000);       //by=>friday 白色20心套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(1000000);    //by=>friday 白色20心套装 最大物理攻击力
+					charstate.mdamage += DWORD(1000000);       //by=>friday 白色20心套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(1000000);    //by=>friday 白色20心套装 最大魔法攻击力
+					charstate.pdefence += DWORD(500000);       //by=>friday 白色20心套装 物防
+					charstate.mdefence += DWORD(500000);       //by=>friday 白色20心套装 魔防
+					charstate.maxhp += DWORD(3000000);         //by=>friday 白色20心套装 最大生命值
+					charstate.juejiattack += DWORD(100000);    //by=>friday 白色20心套装 绝技攻击
+					charstate.juejidefence += DWORD(100000);   //by=>friday 白色20心套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_HEART_BLUE))
+				{
+					charstate.pdamage += DWORD(2000000);       //by=>friday 蓝色20心套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(2000000);    //by=>friday 蓝色20心套装 最大物理攻击力
+					charstate.mdamage += DWORD(2000000);       //by=>friday 蓝色20心套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(2000000);    //by=>friday 蓝色20心套装 最大魔法攻击力
+					charstate.pdefence += DWORD(1000000);      //by=>friday 蓝色20心套装 物防
+					charstate.mdefence += DWORD(1000000);      //by=>friday 蓝色20心套装 魔防
+					charstate.maxhp += DWORD(6000000);         //by=>friday 蓝色20心套装 最大生命值
+					charstate.juejiattack += DWORD(200000);    //by=>friday 蓝色20心套装 绝技攻击
+					charstate.juejidefence += DWORD(200000);   //by=>friday 蓝色20心套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_HEART_YELLOW))
+				{
+					charstate.pdamage += DWORD(4000000);       //by=>friday 黄色20心套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(4000000);    //by=>friday 黄色20心套装 最大物理攻击力
+					charstate.mdamage += DWORD(4000000);       //by=>friday 黄色20心套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(4000000);    //by=>friday 黄色20心套装 最大魔法攻击力
+					charstate.pdefence += DWORD(2000000);      //by=>friday 黄色20心套装 物防
+					charstate.mdefence += DWORD(2000000);      //by=>friday 黄色20心套装 魔防
+					charstate.maxhp += DWORD(12000000);        //by=>friday 黄色20心套装 最大生命值
+					charstate.juejiattack += DWORD(400000);    //by=>friday 黄色20心套装 绝技攻击
+					charstate.juejidefence += DWORD(400000);   //by=>friday 黄色20心套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_HEART_GREEN))
+				{
+					charstate.pdamage += DWORD(8000000);       //by=>friday 绿色20心套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(8000000);    //by=>friday 绿色20心套装 最大物理攻击力
+					charstate.mdamage += DWORD(8000000);       //by=>friday 绿色20心套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(8000000);    //by=>friday 绿色20心套装 最大魔法攻击力
+					charstate.pdefence += DWORD(4000000);      //by=>friday 绿色20心套装 物防
+					charstate.mdefence += DWORD(4000000);      //by=>friday 绿色20心套装 魔防
+					charstate.maxhp += DWORD(24000000);        //by=>friday 绿色20心套装 最大生命值
+					charstate.juejiattack += DWORD(800000);    //by=>friday 绿色20心套装 绝技攻击
+					charstate.juejidefence += DWORD(800000);   //by=>friday 绿色20心套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_HEART_PURPLE))
+				{
+					charstate.pdamage += DWORD(16000000);      //by=>friday 紫色20心套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(16000000);   //by=>friday 紫色20心套装 最大物理攻击力
+					charstate.mdamage += DWORD(16000000);      //by=>friday 紫色20心套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(16000000);   //by=>friday 紫色20心套装 最大魔法攻击力
+					charstate.pdefence += DWORD(8000000);      //by=>friday 紫色20心套装 物防
+					charstate.mdefence += DWORD(8000000);      //by=>friday 紫色20心套装 魔防
+					charstate.maxhp += DWORD(48000000);        //by=>friday 紫色20心套装 最大生命值
+					charstate.juejiattack += DWORD(1600000);   //by=>friday 紫色20心套装 绝技攻击
+					charstate.juejidefence += DWORD(1600000);  //by=>friday 紫色20心套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_HEART_ORANGE))
+				{
+					charstate.pdamage += DWORD(32000000);      //by=>friday 橙色20心套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(32000000);   //by=>friday 橙色20心套装 最大物理攻击力
+					charstate.mdamage += DWORD(32000000);      //by=>friday 橙色20心套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(32000000);   //by=>friday 橙色20心套装 最大魔法攻击力
+					charstate.pdefence += DWORD(16000000);     //by=>friday 橙色20心套装 物防
+					charstate.mdefence += DWORD(16000000);     //by=>friday 橙色20心套装 魔防
+					charstate.maxhp += DWORD(96000000);        //by=>friday 橙色20心套装 最大生命值
+					charstate.juejiattack += DWORD(3200000);   //by=>friday 橙色20心套装 绝技攻击
+					charstate.juejidefence += DWORD(3200000);  //by=>friday 橙色20心套装 绝技防御
+				}
+
+				//by=>friday 突破等级套装属性加成
+				if (this->issetUState(Cmd::USTATE_USER_TZ_BREAK_WHITE))
+				{
+					charstate.pdamage += DWORD(1000000);       //by=>friday 白色50级套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(1000000);    //by=>friday 白色50级套装 最大物理攻击力
+					charstate.mdamage += DWORD(1000000);       //by=>friday 白色50级套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(1000000);    //by=>friday 白色50级套装 最大魔法攻击力
+					charstate.pdefence += DWORD(500000);       //by=>friday 白色50级套装 物防
+					charstate.mdefence += DWORD(500000);       //by=>friday 白色50级套装 魔防
+					charstate.maxhp += DWORD(3000000);         //by=>friday 白色50级套装 最大生命值
+					charstate.juejiattack += DWORD(100000);    //by=>friday 白色50级套装 绝技攻击
+					charstate.juejidefence += DWORD(100000);   //by=>friday 白色50级套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_BREAK_BLUE))
+				{
+					charstate.pdamage += DWORD(2000000);       //by=>friday 蓝色50级套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(2000000);    //by=>friday 蓝色50级套装 最大物理攻击力
+					charstate.mdamage += DWORD(2000000);       //by=>friday 蓝色50级套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(2000000);    //by=>friday 蓝色50级套装 最大魔法攻击力
+					charstate.pdefence += DWORD(1000000);      //by=>friday 蓝色50级套装 物防
+					charstate.mdefence += DWORD(1000000);      //by=>friday 蓝色50级套装 魔防
+					charstate.maxhp += DWORD(6000000);         //by=>friday 蓝色50级套装 最大生命值
+					charstate.juejiattack += DWORD(200000);    //by=>friday 蓝色50级套装 绝技攻击
+					charstate.juejidefence += DWORD(200000);   //by=>friday 蓝色50级套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_BREAK_GREEN))
+				{
+					charstate.pdamage += DWORD(4000000);       //by=>friday 绿色50级套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(4000000);    //by=>friday 绿色50级套装 最大物理攻击力
+					charstate.mdamage += DWORD(4000000);       //by=>friday 绿色50级套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(4000000);    //by=>friday 绿色50级套装 最大魔法攻击力
+					charstate.pdefence += DWORD(2000000);      //by=>friday 绿色50级套装 物防
+					charstate.mdefence += DWORD(2000000);      //by=>friday 绿色50级套装 魔防
+					charstate.maxhp += DWORD(12000000);        //by=>friday 绿色50级套装 最大生命值
+					charstate.juejiattack += DWORD(400000);    //by=>friday 绿色50级套装 绝技攻击
+					charstate.juejidefence += DWORD(400000);   //by=>friday 绿色50级套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_BREAK_YELLOW))
+				{
+					charstate.pdamage += DWORD(8000000);       //by=>friday 黄色50级套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(8000000);    //by=>friday 黄色50级套装 最大物理攻击力
+					charstate.mdamage += DWORD(8000000);       //by=>friday 黄色50级套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(8000000);    //by=>friday 黄色50级套装 最大魔法攻击力
+					charstate.pdefence += DWORD(4000000);      //by=>friday 黄色50级套装 物防
+					charstate.mdefence += DWORD(4000000);      //by=>friday 黄色50级套装 魔防
+					charstate.maxhp += DWORD(24000000);        //by=>friday 黄色50级套装 最大生命值
+					charstate.juejiattack += DWORD(800000);    //by=>friday 黄色50级套装 绝技攻击
+					charstate.juejidefence += DWORD(800000);   //by=>friday 黄色50级套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_BREAK_PURPLE))
+				{
+					charstate.pdamage += DWORD(16000000);      //by=>friday 紫色50级套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(16000000);   //by=>friday 紫色50级套装 最大物理攻击力
+					charstate.mdamage += DWORD(16000000);      //by=>friday 紫色50级套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(16000000);   //by=>friday 紫色50级套装 最大魔法攻击力
+					charstate.pdefence += DWORD(8000000);      //by=>friday 紫色50级套装 物防
+					charstate.mdefence += DWORD(8000000);      //by=>friday 紫色50级套装 魔防
+					charstate.maxhp += DWORD(48000000);        //by=>friday 紫色50级套装 最大生命值
+					charstate.juejiattack += DWORD(1600000);   //by=>friday 紫色50级套装 绝技攻击
+					charstate.juejidefence += DWORD(1600000);  //by=>friday 紫色50级套装 绝技防御
+				}
+				else if (this->issetUState(Cmd::USTATE_USER_TZ_BREAK_ORANGE))
+				{
+					charstate.pdamage += DWORD(32000000);      //by=>friday 橙色50级套装 最小物理攻击力
+					charstate.maxpdamage += DWORD(32000000);   //by=>friday 橙色50级套装 最大物理攻击力
+					charstate.mdamage += DWORD(32000000);      //by=>friday 橙色50级套装 最小魔法攻击力
+					charstate.maxmdamage += DWORD(32000000);   //by=>friday 橙色50级套装 最大魔法攻击力
+					charstate.pdefence += DWORD(16000000);     //by=>friday 橙色50级套装 物防
+					charstate.mdefence += DWORD(16000000);     //by=>friday 橙色50级套装 魔防
+					charstate.maxhp += DWORD(96000000);        //by=>friday 橙色50级套装 最大生命值
+					charstate.juejiattack += DWORD(3200000);   //by=>friday 橙色50级套装 绝技攻击
+					charstate.juejidefence += DWORD(3200000);  //by=>friday 橙色50级套装 绝技防御
+				}
+				
 				//附件神剑剑冢属性加成 by醉梦
-				int pDam=0;
-				int mDam=0;
-				int pDef=0;
-				int mDef=0;
-				int hp=0;
+				uint64_t pDam=0;
+				uint64_t mDam=0;
+				uint64_t pDef=0;
+				uint64_t mDef=0;
+				uint64_t hp=0;
 				if(charbase.jian1>0)
 				{
 					for(DWORD i=0;i<charbase.jian1;i++)
@@ -2287,14 +2809,14 @@ void SceneUser::setupCharBase(bool lock)
 					mDef += fjconfig::getInstance().mohelist[i].mDef;
 					hp += fjconfig::getInstance().mohelist[i].hp;
 				}	
-				
-				charstate.pdamage += (DWORD)(pDam);           //最小物理攻击力
-				charstate.maxpdamage += (DWORD)(pDam);   //最大物理攻击力
-				charstate.mdamage += (DWORD)(mDam);             //最小魔法攻击力
-				charstate.maxmdamage += (DWORD)(mDam);   //最大魔法攻击力
-				charstate.pdefence += (DWORD)(pDef);          //物防
-				charstate.mdefence += (DWORD)(mDef);          //魔防
-				charstate.maxhp += (DWORD)(hp);
+				//by=>friday
+				charstate.pdamage += pDam;           //最小物理攻击力
+				charstate.maxpdamage += pDam;   //最大物理攻击力
+				charstate.mdamage += mDam;             //最小魔法攻击力
+				charstate.maxmdamage += mDam;   //最大魔法攻击力
+				charstate.pdefence += pDef;          //物防
+				charstate.mdefence += mDef;          //魔防
+				charstate.maxhp += hp;
 
 
 
@@ -2302,29 +2824,29 @@ void SceneUser::setupCharBase(bool lock)
 
 				if(charbase.babyskill1 !=0)
 				{
-					charstate.pdamage += (DWORD)((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(charbase.babyskill1/100.0f));           //最小物理攻击力
-					charstate.maxpdamage += (DWORD)((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(charbase.babyskill1/100.0f));  //最大物理攻击力
+					charstate.pdamage += static_cast<uint64_t>((charstate.pdamage+packs.equip.getEquips().get_pdamage())*(charbase.babyskill1/100.0f));           //最小物理攻击力
+					charstate.maxpdamage += static_cast<uint64_t>((charstate.maxpdamage+packs.equip.getEquips().get_maxpdamage())*(charbase.babyskill1/100.0f));  //最大物理攻击力
 				
 				}
 				if(charbase.babyskill2 !=0)
 				{
-					charstate.mdamage += (DWORD)((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(charbase.babyskill2/100.0f));           //最小魔法攻击力
-					charstate.maxmdamage += (DWORD)((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(charbase.babyskill2/100.0f));  //最大魔法攻击力
+					charstate.mdamage += static_cast<uint64_t>((charstate.mdamage+packs.equip.getEquips().get_mdamage())*(charbase.babyskill2/100.0f));           //最小魔法攻击力
+					charstate.maxmdamage += static_cast<uint64_t>((charstate.maxmdamage+packs.equip.getEquips().get_maxmdamage())*(charbase.babyskill2/100.0f));  //最大魔法攻击力
 
 				}
 				if(charbase.babyskill3 !=0)
 				{
-					charstate.pdefence += (DWORD)((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(charbase.babyskill3/100.0f));        //物防
+					charstate.pdefence += static_cast<uint64_t>((charstate.pdefence+packs.equip.getEquips().get_pdefence())*(charbase.babyskill3/100.0f));        //物防
 				}
 
 				if(charbase.babyskill4 != 0)
 				{
-					charstate.mdefence += (DWORD)((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(charbase.babyskill4/100.0f));        //魔防
+					charstate.mdefence += static_cast<uint64_t>((charstate.mdefence+packs.equip.getEquips().get_mdefence())*(charbase.babyskill4/100.0f));        //魔防
 				}
 				
 				if(charbase.babyskill5 != 0)
 				{
-					charstate.maxhp += (DWORD)((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(charbase.babyskill5/100.0f));                 //最大生命值
+					charstate.maxhp += static_cast<uint64_t>((charstate.maxhp+packs.equip.getEquips().get_maxhp())*(charbase.babyskill5/100.0f));                 //最大生命值
 				}
 			
 
@@ -2884,35 +3406,40 @@ void SceneUser::setupCharBase(bool lock)
 		         
 	            }				
 	        }
+	//by=>friday
+	charstate.juejiattack		+=	packs.equip.getEquips().get_juejiattack();
+	charstate.juejidefence		+=	packs.equip.getEquips().get_juejidefence();	
+	charstate.qiegeattack		+=	packs.equip.getEquips().get_qiegeattack();
+	charstate.qiegedefence		+=	packs.equip.getEquips().get_qiegedefence();
 
 	charstate.maxhp= charstate.maxhp+packs.equip.getEquips().get_maxhp()+skillValue.maxhp+skillValue.sept_maxhp+skillValue.pmaxhp+skillValue.x1_pmaxhp+skillValue.x2_pmaxhp+skillValue.x3_pmaxhp+skillValue.x4_pmaxhp+skillValue.x5_pmaxhp+skillValue.hpupbylevel*charbase.level+skillValue.introject_maxhp;
-	charstate.maxhp += (DWORD)(charstate.maxhp * ((packs.equip.getEquips().get_maxhprate())/100.0f)); //血量百分比 
+	charstate.maxhp += static_cast<uint64_t>(charstate.maxhp * ((packs.equip.getEquips().get_maxhprate())/100.0f)); //血量百分比 
 	if (horse.pkData.maxhp) charstate.maxhp += horse.pkData.maxhp;//高级战马
-	if(charbase.hp > charstate.maxhp) charbase.hp = charstate.maxhp;
+	if(charbase.hp > charstate.maxhp) charbase.hp = charstate.maxhp;//by=>friday 取消这个判断，
 	charstate.maxmp=charstate.maxmp+packs.equip.getEquips().get_maxmp()+skillValue.maxmp+skillValue.sept_maxmp;
-	charstate.maxmp += (DWORD)(charstate.maxmp * packs.equip.getEquips().get_maxmprate()/100.0f);
+	charstate.maxmp += static_cast<uint64_t>(charstate.maxmp * packs.equip.getEquips().get_maxmprate()/100.0f);
 	if (horse.pkData.maxmp)	charstate.maxmp += horse.pkData.maxmp;//高级战马
-	if(charbase.mp > charstate.maxmp) charbase.mp = charstate.maxmp;
+	if(charbase.mp > charstate.maxmp) charbase.mp = charstate.maxmp;//by=>friday 取消这个判断，
 	charstate.maxsp=charstate.maxsp+packs.equip.getEquips().get_maxsp()+skillValue.maxsp;
 
-	DWORD temp=0; 
+	uint64_t temp=0; 
 
 
 	
 	// add by snip3r
-	DWORD equips_max_pdam = (DWORD)(packs.equip.getEquips().get_maxpdamage() * (100+skillValue.physic_att)/100.0f);
-	DWORD equips_min_pdam = (DWORD)(packs.equip.getEquips().get_pdamage() * (100+skillValue.physic_att)/100.0f);
-	DWORD equips_max_mdam = (DWORD)(packs.equip.getEquips().get_maxmdamage() * (100+skillValue.magic_att)/100.0f);
-	DWORD equips_min_mdam = (DWORD)(packs.equip.getEquips().get_mdamage()* (100+skillValue.magic_att)/100.0f);
+	uint64_t equips_max_pdam = static_cast<uint64_t>(packs.equip.getEquips().get_maxpdamage() * (100+skillValue.physic_att)/100.0f);
+	uint64_t equips_min_pdam = static_cast<uint64_t>(packs.equip.getEquips().get_pdamage() * (100+skillValue.physic_att)/100.0f);
+	uint64_t equips_max_mdam = static_cast<uint64_t>(packs.equip.getEquips().get_maxmdamage() * (100+skillValue.magic_att)/100.0f);
+	uint64_t equips_min_mdam = static_cast<uint64_t>(packs.equip.getEquips().get_mdamage()* (100+skillValue.magic_att)/100.0f);
 
 
-	DWORD cikewu = (DWORD)(packs.equip.getEquips().get_maxpdamage() * (100+skillValue.cikewu)/100.0f);
-	DWORD cikemo = (DWORD)(packs.equip.getEquips().get_maxpdamage() * (100+skillValue.cikemo)/100.0f);
+	uint64_t cikewu = static_cast<uint64_t>(packs.equip.getEquips().get_maxpdamage() * (100+skillValue.cikewu)/100.0f);
+	uint64_t cikemo = static_cast<uint64_t>(packs.equip.getEquips().get_maxpdamage() * (100+skillValue.cikemo)/100.0f);
 	
 	
 	// end add by snip3r
 	// 最大物理攻击力
-	temp = (DWORD)((charstate.pdamage+equips_max_pdam+cikewu/*packs.equip.getEquips().get_maxpdamage()*/)*(1+packs.equip.getEquips().get_pdam()/100.0f)*
+	temp = static_cast<uint64_t>((charstate.pdamage+equips_max_pdam+cikewu/*packs.equip.getEquips().get_maxpdamage()*/)*(1+packs.equip.getEquips().get_pdam()/100.0f)*
 		(1.0f+((int)skillValue.updamp+(int)skillValue.theurgy_updamp+(int)skillValue.erupt+(int)skillValue.lm_updamp+(int)skillValue.nsc_updamp+(int)skillValue.sept_updamp+(int)skillValue.array_udamp+(int)skillValue.spupdamp+horse.pkData.pdam-(int)skillValue.dpdamp)/100.0f)+skillValue.introject_maxpdam+skillValue.updam+
 			skillValue.theurgy_updam+skillValue.lupdam+skillValue.pupdam+skillValue.x1_pupdam+skillValue.x2_pupdam+skillValue.x3_pupdam+skillValue.spupdam+skillValue.supdam+skillValue.pdeftodam+(int)skillValue.sword_udam-skillValue.pdamtodef
 			+skillValue.rpupdam-skillValue.dpdam-skillValue.theurgy_dpdam+packs.equip.getEquips().get_maxpdamage()*(skillValue.weaponupdamp/100.0f)+packs.equip.getEquips().get_maxpdamage()*(skillValue.weaponupdamp2/100.0f));
@@ -2923,41 +3450,41 @@ void SceneUser::setupCharBase(bool lock)
 	Zebra::logger->info("charstate.maxpdamage=[%u] temp=[%d]" , charstate.maxpdamage,temp);
 #endif
 	// 最大魔法攻击力
-	temp = (DWORD)((charstate.mdamage+equips_max_mdam+cikemo/*packs.equip.getEquips().get_maxmdamage()*/)*(1+packs.equip.getEquips().get_mdam()/100.0f)*
+	temp = static_cast<uint64_t>((charstate.mdamage+equips_max_mdam+cikemo/*packs.equip.getEquips().get_maxmdamage()*/)*(1+packs.equip.getEquips().get_mdam()/100.0f)*
 			(1.0f+((int)skillValue.umdamp+(int)skillValue.pumdamp+(int)skillValue.theurgy_umdamp+(int)skillValue.erupt+(int)skillValue.array_udamp+(int)skillValue.sept_umdamp+horse.pkData.mdam-(int)skillValue.dmdamp)/100.0f)+skillValue.introject_maxmdam+skillValue.umdam+skillValue.theurgy_umdam+skillValue.mdeftodam-skillValue.mdamtodef+
 			skillValue.pumdam+skillValue.x1_pumdam+skillValue.x2_pumdam+skillValue.x3_pumdam-skillValue.dmdam-skillValue.theurgy_dmdam+packs.equip.getEquips().get_maxmdamage()*(skillValue.weaponumdamp/100.0f)+packs.equip.getEquips().get_maxmdamage()*(skillValue.weaponumdamp2/100.0f));
 	charstate.maxmdamage = (temp<0?0:temp)+this->team.getAttPlus() - (this->dropweapon?getWeaponPower(3):0);
 	
 	// 最小物理攻击力
-	temp = (DWORD)((charstate.pdamage+equips_min_pdam/*packs.equip.getEquips().get_pdamage()*/)*(1+packs.equip.getEquips().get_pdam()/100.0f)*
+	temp = static_cast<uint64_t>((charstate.pdamage+equips_min_pdam/*packs.equip.getEquips().get_pdamage()*/)*(1+packs.equip.getEquips().get_pdam()/100.0f)*
 		(1.0f+((int)skillValue.updamp+(int)skillValue.theurgy_updamp+(int)skillValue.erupt+(int)skillValue.lm_updamp+(int)skillValue.nsc_updamp+(int)skillValue.array_udamp+(int)skillValue.sept_updamp+(int)skillValue.spupdamp+horse.pkData.pdam-(int)skillValue.dpdamp)/100.0f)+skillValue.introject_pdam+skillValue.updam+
 			skillValue.theurgy_updam+skillValue.lupdam+skillValue.pupdam+skillValue.x1_pupdam+skillValue.x2_pupdam+skillValue.x3_pupdam+skillValue.spupdam+skillValue.supdam+skillValue.pdeftodam+(int)skillValue.sword_udam-skillValue.pdamtodef
 			+skillValue.rpupdam-skillValue.dpdam-skillValue.theurgy_dpdam+packs.equip.getEquips().get_pdamage()*(skillValue.weaponupdamp/100.0f)+packs.equip.getEquips().get_pdamage()*(skillValue.weaponupdamp2/100.0f));
 	charstate.pdamage = (temp<0?0:temp)+this->team.getAttPlus() - (this->dropweapon?getWeaponPower(0):0);
 	// 最小魔法攻击力
-	temp = (DWORD)((charstate.mdamage+equips_min_mdam/*packs.equip.getEquips().get_mdamage()*/)*(1+packs.equip.getEquips().get_mdam()/100.0f)*
+	temp = static_cast<uint64_t>((charstate.mdamage+equips_min_mdam/*packs.equip.getEquips().get_mdamage()*/)*(1+packs.equip.getEquips().get_mdam()/100.0f)*
 			(1.0f+((int)skillValue.umdamp+(int)skillValue.pumdamp+(int)skillValue.theurgy_umdamp+(int)skillValue.erupt+(int)skillValue.array_udamp+(int)skillValue.sept_umdamp+horse.pkData.mdam-(int)skillValue.dmdamp)/100.0f)+skillValue.introject_mdam+skillValue.umdam+skillValue.theurgy_umdam+skillValue.mdeftodam-skillValue.mdamtodef+
 			skillValue.pumdam+skillValue.x1_pumdam+skillValue.x2_pumdam+skillValue.x3_pumdam-skillValue.dmdam-skillValue.theurgy_dmdam+packs.equip.getEquips().get_mdamage()*(skillValue.weaponumdamp/100.0f)+packs.equip.getEquips().get_mdamage()*(skillValue.weaponumdamp2/100.0f));
 	charstate.mdamage = (temp<0?0:temp)+this->team.getAttPlus() - (this->dropweapon?getWeaponPower(2):0);
 	// 新增物防魔防
-	DWORD equips_pdef = (SDWORD)(packs.equip.getEquips().get_pdefence() * (100 + skillValue.physic_prt) / 100.0f); //327物防
-	DWORD equips_mdef = (SDWORD)(packs.equip.getEquips().get_mdefence() * (100 + skillValue.magic_prt) / 100.0f);  //329魔防
+	uint64_t equips_pdef = static_cast<uint64_t>(packs.equip.getEquips().get_pdefence() * (100 + skillValue.physic_prt) / 100.0f); //327物防
+	uint64_t equips_mdef = static_cast<uint64_t>(packs.equip.getEquips().get_mdefence() * (100 + skillValue.magic_prt) / 100.0f);  //329魔防
 	// end add by snip3r
 
     // 魔法防御力
-	temp = (DWORD)((charstate.mdefence+equips_mdef/*packs.equip.getEquips().get_mdefence()*/)*(1+packs.equip.getEquips().get_mdef()/100.0f)*
+	temp = static_cast<uint64_t>((charstate.mdefence+equips_mdef/*packs.equip.getEquips().get_mdefence()*/)*(1+packs.equip.getEquips().get_mdef()/100.0f)*
 			(1.0f+((int)skillValue.umdefp+(int)skillValue.theurgy_umdefp+(int)skillValue.ice_umdefp+(int)skillValue.ice_umdefp2+(int)skillValue.sept_umdefp+horse.pkData.mdef-(int)skillValue.array_ddefp-(int)skillValue.dmdefp)/100.0f)+skillValue.introject_mdef+skillValue.umdef+skillValue.theurgy_umdef+
 			skillValue.pumdef+skillValue.x1_pumdef+skillValue.x2_pumdef+skillValue.x3_pumdef+skillValue.udef-skillValue.dmdef-skillValue.theurgy_dmdef+skillValue.mdamtodef-skillValue.mdeftodam);
 	charstate.mdefence = (temp<0?0:temp)+this->team.getDefPlus();
-	if (this->issetUState(Cmd::USTATE_SITDOWN)) charstate.mdefence = (DWORD)(((float)(charstate.mdefence))*0.6f);
+	if (this->issetUState(Cmd::USTATE_SITDOWN)) charstate.mdefence = static_cast<uint64_t>(((float)(charstate.mdefence))*0.6f);
 
 	
 	 // 物理防御力
-	temp = (DWORD)((charstate.pdefence+equips_pdef/*packs.equip.getEquips().get_pdefence()*/)*(1+packs.equip.getEquips().get_pdef()/100.0f)*
+	temp = static_cast<uint64_t>((charstate.pdefence+equips_pdef/*packs.equip.getEquips().get_pdefence()*/)*(1+packs.equip.getEquips().get_pdef()/100.0f)*
 			(1.0f+((int)skillValue.updefp2+(int)skillValue.updefp+(int)skillValue.tgyt_updefp+(int)skillValue.sept_updefp+(int)skillValue.theurgy_updefp+horse.pkData.pdef-(int)skillValue.array_ddefp-(int)skillValue.dpdefp)/100.0f)+skillValue.introject_pdef+skillValue.updef+skillValue.theurgy_updef+
 			skillValue.pupdef+skillValue.x1_pupdef+skillValue.x2_pupdef+skillValue.x3_pupdef+skillValue.udef+(int)skillValue.tgzh_updef-skillValue.dpdef-skillValue.theurgy_dpdef+skillValue.pdamtodef-skillValue.pdeftodam);
 	charstate.pdefence = (temp<0?0:temp)+this->team.getDefPlus();
-	if (this->issetUState(Cmd::USTATE_SITDOWN)) charstate.pdefence = (DWORD)(((float)(charstate.pdefence))*0.6f);
+	if (this->issetUState(Cmd::USTATE_SITDOWN)) charstate.pdefence = static_cast<uint64_t>(((float)(charstate.pdefence))*0.6f);
 	
 	charstate.resumehp		=	(DWORD)((charstate.resumehp*(skillValue.hpspeedup==0?1:(1+skillValue.hpspeedup/100.0f)) + packs.equip.getEquips().get_hpr())*(skillValue.enervation==0?1:(skillValue.enervation/100.0f)));
 	charstate.resumemp		=	(DWORD)((charstate.resumemp*(skillValue.mpspeedup==0?1:(1+skillValue.mpspeedup/100.0f)) + packs.equip.getEquips().get_mpr())*(skillValue.enervation==0?1:(skillValue.enervation/100.0f)));
@@ -3054,14 +3581,13 @@ void SceneUser::setupCharBase(bool lock)
 
 	charstate.attackfive = (BYTE)this->getFivePoint();//packs.equip.getEquips().getAttFive();
 	charstate.defencefive = (BYTE)this->getFivePoint();//packs.equip.getEquips().getDefFive();
-
 	using namespace Cmd;
 	if (charbase.hp>charstate.maxhp) charbase.hp = charstate.maxhp;
 	if (charbase.mp>charstate.maxmp) charbase.mp = charstate.maxmp;
-
 	packs.equip.needRecalc=false;
 
-	charbase.zhanli = (charstate.maxpdamage+charstate.maxmdamage+charstate.pdefence+charstate.mdefence)/18;//add 2023-04-10 战力
+	// by=>friday 使用新的综合战力计算系统
+	charbase.zhanli = calculateComprehensiveFightingPower();
 	//Zebra::logger->debug("马的速度加成:%d——人物移动速度:%u",horse.pkData.speed,getMyMoveSpeed() );
 	//Zebra::logger->debug("战力:%d",charbase.zhanli);
 
@@ -3072,6 +3598,26 @@ void SceneUser::setupCharBase(bool lock)
 	charbase.m13axmdamage = packs.equip.getEquips().get_m13axmdamage();// 百兽图鉴 最大法术攻击力
 	charbase.p13defence = packs.equip.getEquips().get_p13defence();// 百兽图鉴 物防
 	charbase.m13defence = packs.equip.getEquips().get_m13defence();// 百兽图鉴 魔防
+	
+	//by=>friday 增加召唤兽继承人物属性的80%
+	//by=>friday 计算完人物属性后，按照80%分别加成到召唤兽身上
+	if (summon && summon->getPetType() == Cmd::PET_TYPE_SUMMON)
+	{
+		// 设置召唤兽各项属性加成（人物属性的80%）
+		summon->masterMinPDamage = static_cast<uint64_t>(charstate.pdamage * 0.8f);      // 最小物理攻击
+		summon->masterMaxPDamage = static_cast<uint64_t>(charstate.maxpdamage * 0.8f);   // 最大物理攻击
+		summon->masterMinMDamage = static_cast<uint64_t>(charstate.mdamage * 0.8f);      // 最小魔法攻击
+		summon->masterMaxMDamage = static_cast<uint64_t>(charstate.maxmdamage * 0.8f);   // 最大魔法攻击
+		summon->masterPDefence = static_cast<uint64_t>(charstate.pdefence * 0.8f);       // 物理防御
+		summon->masterMDefence = static_cast<uint64_t>(charstate.mdefence * 0.8f);       // 魔法防御
+		summon->masterMaxHP = static_cast<uint64_t>(charstate.maxhp * 0.8f);             // 最大生命值
+		// 刷新召唤兽数据
+		summon->sendData();
+	}
+	//by=>friday 属性调试日志
+	// Zebra::logger->info("[属性调试] 角色ID=%u 名字=%s pdamage=%llu mdamage=%llu pdefence=%llu mdefence=%llu maxhp=%llu maxmp=%llu", 
+	// 	charbase.id, charbase.name, charstate.pdamage, charstate.mdamage, charstate.pdefence, charstate.mdefence, charstate.maxhp, charstate.maxmp); //by=>friday
+	
 	//装备改变攻击力预处理
 
 	calPreValue();
@@ -3083,7 +3629,7 @@ void SceneUser::setupCharBase(bool lock)
  */
 void SceneUser::setupCharm()
 {
-	charstate.charm = (WORD)(charbase.level / 15);
+	charstate.charm = (WORD)(charbase.level / 15); //by=>friday
 }
 
 /**
@@ -3100,22 +3646,22 @@ void SceneUser::calPreValue()
 	    float five_def_express = 1 + (float)(charstate.defencefive/100.0f);
 
 	    //soke 突破防御65535限制
-	    pkpreValue.fivedam = (DWORD)(charstate.pdamage * pkpreValue.fiveexpress); 
-	    pkpreValue.fivemaxdam = (DWORD)(charstate.maxpdamage  * pkpreValue.fiveexpress);
+	    pkpreValue.fivedam = static_cast<uint64_t>(charstate.pdamage * pkpreValue.fiveexpress); 
+	    pkpreValue.fivemaxdam = static_cast<uint64_t>(charstate.maxpdamage  * pkpreValue.fiveexpress);
 
 	    pkpreValue.nofivedam = charstate.pdamage;
 	    pkpreValue.nofivemaxdam = charstate.maxpdamage;
 
-	    pkpreValue.fivedef	= (DWORD)(charstate.pdefence * five_def_express);
+	    pkpreValue.fivedef	= static_cast<uint64_t>(charstate.pdefence * five_def_express);
 	    pkpreValue.nofivedef = charstate.pdefence;
 
-	    pkpreValue.fivemdam = (DWORD)(charstate.mdamage * pkpreValue.fiveexpress); 
-	    pkpreValue.fivemaxmdam = (DWORD)(charstate.maxmdamage  * pkpreValue.fiveexpress);
+	    pkpreValue.fivemdam = static_cast<uint64_t>(charstate.mdamage * pkpreValue.fiveexpress); 
+	    pkpreValue.fivemaxmdam = static_cast<uint64_t>(charstate.maxmdamage  * pkpreValue.fiveexpress);
 
 	    pkpreValue.nofivemdam = charstate.mdamage;
 	    pkpreValue.nofivemaxmdam = charstate.maxmdamage;
 
-	    pkpreValue.fivemdef	= (DWORD)(charstate.mdefence * five_def_express);
+	    pkpreValue.fivemdef	= static_cast<uint64_t>(charstate.mdefence * five_def_express);
 	    pkpreValue.nofivemdef = charstate.mdefence;
         //修复精神技能问题
         pkpreValue.nofivewdstr = charstate.wdStr;
@@ -3127,6 +3673,23 @@ void SceneUser::calPreValue()
         #ifdef _DEBUGLOG 
 	        Zebra::logger->debug("calPreValue():fiveexpress=%f",pkpreValue.fiveexpress);
 	        Zebra::logger->debug("calPreValue():five_def_express=%f",five_def_express);
+        #endif
+        
+		//  charstate.qiegeattack += 10000000;//pve测试
+		//  charstate.juejiattack = 10000000;//pvp测试
+
+        //by=>friday 初始化绝技属性(PvP)
+        pkpreValue.juejiattack = charstate.juejiattack;
+        pkpreValue.juejidefence = charstate.juejidefence;
+       
+
+        //by=>friday 初始化切割属性(PvE)
+        pkpreValue.qiegeattack = charstate.qiegeattack;
+        pkpreValue.qiegedefence = charstate.qiegedefence;
+        
+        #ifdef _DEBUGLOG
+        Zebra::logger->debug("calPreValue():juejiattack=%llu, juejidefence=%llu", pkpreValue.juejiattack, pkpreValue.juejidefence);
+        Zebra::logger->debug("calPreValue():qiegeattack=%llu, qiegedefence=%llu", pkpreValue.qiegeattack, pkpreValue.qiegedefence);
         #endif
 }
 
@@ -4484,7 +5047,7 @@ struct GetRequestUserAndSend
 BYTE GetRequestUserAndSend::_buf_map_user[zSocket::zSocket::MAX_USERDATASIZE];
 bool SceneUser::requestUser(Cmd::stRequestUserDataMapScreenUserCmd *rev)
 {
-	WORD loop = (200 < rev->size ? 200 : rev->size);
+	WORD loop = 200 <? rev->size;
 
 	GetRequestUserAndSend request_user(this);
 	for(WORD i =0 ;i<loop ;i++)
@@ -4635,7 +5198,7 @@ BYTE GetRequestNpcAndSend::petBuf[zSocket::zSocket::MAX_USERDATASIZE];
 bool SceneUser::requestNpc(Cmd::stRequestMapNpcDataMapScreenUserCmd *rev)
 {
 	GetRequestNpcAndSend request_npc(this);
-	WORD loop = (200 < rev->size ? 200 : rev->size);
+	WORD loop = 200 <? rev->size;
 
 	for(WORD i =0 ;i<loop ;i++)
 	{
@@ -5084,13 +5647,29 @@ bool SceneUser::save(const Cmd::Record::WriteBack_Type writeback_type)
 		}
 
 		//醉梦修复动态地图
-		if(scene->isDynamic()) //动态地图下线回到皇城
-		{
-			charbase.mapid = 134;
-			strncpy(charbase.mapName, "中立区·皇城",MAX_NAMESIZE);
-			charbase.x = 832;
-			charbase.y = 699;
-		}
+		// if(scene->isDynamic()) //动态地图下线回到皇城
+		// {
+		// 	charbase.mapid = 134;
+		// 	strncpy(charbase.mapName, "中立区·皇城",MAX_NAMESIZE);
+		// 	charbase.x = 832;
+		// 	charbase.y = 699;
+		// }
+            // 根据国家设置不同的返回地点
+                charbase.mapid = 101;  // 基础地图ID保持不变
+
+            // 根据国家设置不同的地图名称和坐标
+                switch(charbase.country) {
+            case 8:  // 汉国
+                strncpy(charbase.mapName, "汉国·清源村", MAX_NAMESIZE);
+                charbase.x = 119;
+                charbase.y = 93;
+        break;
+            case 12:  // 楚国
+                strncpy(charbase.mapName, "楚国·清源村", MAX_NAMESIZE);
+                charbase.x = 119;
+                charbase.y = 93;
+        break;
+}		
 	}
 
 	zObject *gold = packs.getGold();
@@ -5148,6 +5727,8 @@ bool SceneUser::save(const Cmd::Record::WriteBack_Type writeback_type)
 	memcpy(saveChar->charbase.chibang,this->packs.m_Chibang,sizeof(this->packs.m_Chibang));
 	//sky 保存时装
 	memcpy(saveChar->charbase.zuoqi,this->packs.m_Zuoqi,sizeof(this->packs.m_Zuoqi));
+	//sky 保存时装
+	memcpy(saveChar->charbase.jiemian,this->packs.m_Jiemian,sizeof(this->packs.m_Jiemian));  //魔盒界面
 	//sky 保存功勋竞猜
 	memcpy(saveChar->charbase.jingcai,this->packs.m_jingcai,sizeof(this->packs.m_jingcai));
 	saveChar->dataSize = compressSaveData(this , (unsigned char *)saveChar->data);
@@ -5622,7 +6203,7 @@ bool SceneUser::useScroll(zObject *obj)
 					SceneUser *pUser = SceneUserManager::getMe().getUserByTempID(member.tempid);
 					if(pUser && pUser != leader)
 					{
-						if(labs((long)(oldPos.x)-(long)(pUser->getPos().x)) <= 2 && labs((long)(oldPos.y)-(long)(pUser->getPos().y)) <= 2)
+						if(abs(oldPos.x - pUser->getPos().x) <= 2 && abs(oldPos.y - pUser->getPos().y) <= 2)
 						{
 							if(pUser->tradeorder.hasBegin() || pUser->privatestore.step() 
 									|| pUser->getState() == SceneUser::SceneEntry_Death
@@ -5709,7 +6290,7 @@ bool SceneUser::useScroll(zObject *obj)
 					SceneUser *pUser = SceneUserManager::getMe().getUserByTempID(member.tempid);
 					if(pUser && pUser != leader)
 					{
-						if(labs((long)(oldPos.x)-(long)(pUser->getPos().x)) <= 2 && labs((long)(oldPos.y)-(long)(pUser->getPos().y)) <= 2)
+						if(abs(oldPos.x - pUser->getPos().x) <= 2 && abs(oldPos.y - pUser->getPos().y) <= 2)
 						{
 							if(pUser->tradeorder.hasBegin() || pUser->privatestore.step() 
 									|| pUser->getState() == SceneUser::SceneEntry_Death
@@ -7511,7 +8092,7 @@ void SceneUser::getWgLog(DWORD data)
 		//wg_log[strlen(wg_log)+2] = ((BYTE *)&data)[2];
 		//wg_log[strlen(wg_log)+3] = ((BYTE *)&data)[3];
 		bcopy(&data, &wg_log[strlen(wg_log)], sizeof(DWORD));
-		wg_log_len -= (wg_log_len < 4 ? wg_log_len : 4);
+		wg_log_len -= wg_log_len <? 4;
 #ifdef _XWL_DEBUG
 		//Zebra::logger->debug("%s 外挂日志 %s 长度%u", name, (char *)&data, wg_log_len);
 #endif
@@ -7580,8 +8161,8 @@ bool SceneUser::move(Cmd::stUserMoveMoveUserCmd *rev)
 		sendCmdToMe(&ret,sizeof(ret));
 		return true;
 	}
-	int xlen = labs((long)(pos.x)-(long)(rev->x));
-	int ylen = labs((long)(pos.y)-(long)(rev->y));
+	int xlen = abs(pos.x - rev->x);
+	int ylen = abs(pos.y - rev->y);
 	//检测移动间隔
 	if ((!speedOutMove(rev->dwTimestamp, getMyMoveSpeed(), (xlen>ylen)?xlen:ylen))&&(!this->dread))
 	{
@@ -8158,6 +8739,19 @@ bool SceneUser::intoScene(Scene *newscene,bool needInitInfo,const zPos & initPos
 		noti.sceneID = SceneManager::getInstance().getMapIDByMapName(scene->name);
 		gatetask->sendCmd(&noti, sizeof(noti));
 
+		//by=>friday 检查是否为天下第一比武地图，自动设置PK模式
+		if(strstr(newscene->name, "天下第一") != NULL) {
+			// 保存原来的PK模式
+			this->oldPkMode = this->pkMode;
+			// 设置为全体攻击模式
+			this->pkMode = 1;
+			// 发送PK模式更新命令到客户端
+			Cmd::stPKModeUserCmd pkCmd;
+			pkCmd.byPKMode = 1;
+			this->sendCmdToMe(&pkCmd, sizeof(pkCmd));
+			Channel::sendSys(this, Cmd::INFO_TYPE_STATE, "进入比武场，已自动切换为全体攻击模式！");
+		}
+
 		/*
 		//宠物
 		zPos petPos = getPos();
@@ -8585,6 +9179,18 @@ bool SceneUser::intoScene(Scene *newscene,bool needInitInfo,const zPos & initPos
 bool SceneUser::LeaveScene()
 {
     if(scene) scene->removeUser(this);
+
+	//by=>friday 检查是否离开天下第一比武地图，恢复原PK模式
+	if(scene && strstr(scene->name, "天下第一") != NULL) {
+		// 恢复原来的PK模式
+		this->pkMode = this->oldPkMode;
+		// 发送PK模式更新命令到客户端
+		Cmd::stPKModeUserCmd pkCmd;
+		pkCmd.byPKMode = this->oldPkMode;
+		this->sendCmdToMe(&pkCmd, sizeof(pkCmd));
+		Channel::sendSys(this, Cmd::INFO_TYPE_STATE, "离开比武场，已恢复原攻击模式！");
+	}
+
 	Cmd::stRemoveUserMapScreenUserCmd remove;
 	remove.dwUserTempID=tempid;
 	//检查是否隐身
@@ -9009,10 +9615,10 @@ void SceneUser::processFubenCount()
 	{       
 		this->charbase.fbCount = 0;
 		this->charbase.fba1 = 3;
-		this->charbase.fba1 = 3;
-		this->charbase.fba1 = 3;
-		this->charbase.fba1 = 3;
-		this->charbase.fba1 = 3;
+		this->charbase.fba2 = 3;
+		this->charbase.fba3 = 3;
+		this->charbase.fba4 = 3;
+		this->charbase.fba5 = 3;
 		this->charbase.vipfb = 0;
 	}       
 }  
@@ -10670,7 +11276,7 @@ ScenePet * SceneUser::summonPet(DWORD id, Cmd::petType type, DWORD standTime, DW
 	if ((Cmd::PET_TYPE_NOTPET>=type)||(Cmd::PET_TYPE_XCARTOON2<type))
 	{
 		Zebra::logger->trace("SceneUser::summonPet(): %s 召唤未知类型的宠物 type=%d", name, type);
-		return NULL;
+		return false;
 	}
 
 	/*
@@ -10687,7 +11293,7 @@ ScenePet * SceneUser::summonPet(DWORD id, Cmd::petType type, DWORD standTime, DW
 	zNpcB *base = npcbm.get(id);
 	zNpcB *abase = NULL;
 	if (anpcid>0) abase = npcbm.get(anpcid);
-	if (NULL == base) return NULL;
+	if (NULL == base) return false;
 
 	t_NpcDefine define;
 	define.id = base->id;
@@ -11076,12 +11682,12 @@ void SceneUser::full_t_MainUserData(Cmd::t_MainUserData &data) const
 	data.country=charbase.country;
 	data.pkmode=pkMode;
 	data.bang=charstate.bang;
-	data.zhanli = (data.maxpdamage+data.maxmdamage+data.pdefence+data.mdefence)/18; //add 2023-04-10 战力
-	data.wdProperty[0]=charstate.wdProperty[0];
-	data.wdProperty[1]=charstate.wdProperty[1];
-	data.wdProperty[2]=charstate.wdProperty[2];
-	data.wdProperty[3]=charstate.wdProperty[3];
-	data.wdProperty[4]=charstate.wdProperty[4];
+	data.zhanli = charbase.zhanli;
+	data.wdProperty[0]=charstate.wdProperty[0]; //by=>friday
+	data.wdProperty[1]=charstate.wdProperty[1]; //by=>friday
+	data.wdProperty[2]=charstate.wdProperty[2]; //by=>friday
+	data.wdProperty[3]=charstate.wdProperty[3]; //by=>friday
+	data.wdProperty[4]=charstate.wdProperty[4]; //by=>friday
 
 	data.stdpdamage		= charstate.stdpdamage;					/// 标准物理攻击力
 	data.stdmdamage		= charstate.stdmdamage;					/// 标准法术攻击力
@@ -11089,11 +11695,11 @@ void SceneUser::full_t_MainUserData(Cmd::t_MainUserData &data) const
 	data.stdmdefence	= charstate.stdmdefence;				/// 标准法术防御力
 	data.stdbang		= charstate.stdbang;					/// 标准重击率
 
-	data.wdStdProperty[0]=charbase.wdProperty[0];
-	data.wdStdProperty[1]=charbase.wdProperty[1];
-	data.wdStdProperty[2]=charbase.wdProperty[2];
-	data.wdStdProperty[3]=charbase.wdProperty[3];
-	data.wdStdProperty[4]=charbase.wdProperty[4];
+	data.wdStdProperty[0]=charbase.wdProperty[0]; //by=>friday
+	data.wdStdProperty[1]=charbase.wdProperty[1]; //by=>friday
+	data.wdStdProperty[2]=charbase.wdProperty[2]; //by=>friday
+	data.wdStdProperty[3]=charbase.wdProperty[3]; //by=>friday
+	data.wdStdProperty[4]=charbase.wdProperty[4]; //by=>friday
 
 	data.wdTire = this->wdTire;
 	data.fivetype = this->getFiveType();
@@ -11128,6 +11734,10 @@ void SceneUser::full_t_MainUserData(Cmd::t_MainUserData &data) const
 	data.chenghao_select = charbase.chenghao_select; //称号
 	data.zhancheid = charbase.zhancheid; //战车id
 	data.zhanchetype = charbase.zhanchetype; //战车类型
+	data.jiemian_select = charbase.jiemian_select; //魔盒界面
+	// printf("11111111111111111力量=%d,智力=%d,敏捷=%d,精神=%d,体质=%d\n",charbase.str,charbase.inte,charbase.dex,charbase.spi,charbase.con);
+	
+	// Zebra::logger->debug("角色[%s]的属性: 力量=%u, 智力=%u, 敏捷=%u, 精神=%u, 体质=%u", name, charstate.wdStr, charstate.wdInt, charstate.wdDex, charstate.wdMen, charstate.wdCon);
 }
 
 /**
@@ -11297,6 +11907,7 @@ void SceneUser::full_t_UserData(Cmd::t_UserData &data) //国王皇帝马外形
 	data.exploit = this->charbase.exploit;
 	data.dwArmyState = this->dwArmyState;
 	data.touxianlevel = this->charbase.touxianlevel;
+	data.jiemian_select = this->charbase.jiemian_select;  //魔盒界面
 	data.hanbing = this->charbase.hanbing;
 
 	//strncpy(data.unionName, this->unionName, sizeof(data.unionName));
@@ -12432,12 +13043,22 @@ int SceneUser::isEnemy(SceneEntryPk * entry, bool notify, bool good)
 				}
 
 				//战车判定
-				if (pUser->issetUState(1410))
+				// if (pUser->issetUState(1410))
+				// {
+				// 	Channel::sendSys(this,Cmd::INFO_TYPE_SYS,"不能攻击战车");
+				// 	return 0;
+				// }
+				//战车判定 - by=>friday 修改为战车载具模式逻辑
+				if (pUser->zhanche_vehicle_mode)
 				{
-					Channel::sendSys(this,Cmd::INFO_TYPE_SYS,"不能攻击战车");
-					return 0;
+					// 只有战车才能攻击战车
+					if (!this->zhanche_vehicle_mode)
+					{
+						Channel::sendSys(this,Cmd::INFO_TYPE_SYS,"只有战车才能攻击战车");
+						return 0;
+					}
+					// 战车可以攻击战车，继续执行后续逻辑
 				}
-
 				//跳舞状态检测
 				if(pUser->scene->getRealMapID() == 139 )
 				{
@@ -12749,12 +13370,12 @@ void SceneUser::changeHP(const SDWORD &hp)
  *
  */
 //soke 突破伤害值限制（攻击不显示掉血）
-SQWORD SceneUser::directDamage(SceneEntryPk *pAtt, const SDWORD &hp, bool notify)
+uint64_t SceneUser::directDamage(SceneEntryPk *pAtt, const uint64_t &hp, bool notify) //by=>friday 修改为支持64位无符号伤害
 {
 	SceneEntryPk::directDamage(pAtt, hp, notify);
 
-	SQWORD reduceHP;
-	if ((SQWORD)charbase.hp-hp>=0)
+	uint64_t reduceHP; //by=>friday 修复类型不匹配，改为无符号类型
+	if (charbase.hp >= hp) //by=>friday 修复无符号下溢出问题
 	{
 		charbase.hp -= hp;
 		reduceHP = hp;
@@ -12837,7 +13458,7 @@ void SceneUser::changeSP(const SDWORD &sp)
  * \author fqnewman
  * \return 返回最大值
  */
-DWORD SceneUser::getMaxHP()
+uint64_t SceneUser::getMaxHP()
 {
 	return charstate.maxhp;
 }
@@ -12847,7 +13468,7 @@ DWORD SceneUser::getMaxHP()
  * \author fqnewman
  * \return 返回最大值
  */
-DWORD SceneUser::getBaseMaxHP()
+uint64_t SceneUser::getBaseMaxHP()
 {
 	return charstate.maxhp;
 }
@@ -12857,7 +13478,7 @@ DWORD SceneUser::getBaseMaxHP()
  * \author fqnewman
  * \return 返回最大值
  */
-DWORD SceneUser::getMaxMP()
+uint64_t SceneUser::getMaxMP()
 {
 	return charstate.maxmp;
 }
@@ -12867,7 +13488,7 @@ DWORD SceneUser::getMaxMP()
  * \author fqnewman
  * \return 返回最大值
  */
-DWORD SceneUser::getBaseMaxMP()
+uint64_t SceneUser::getBaseMaxMP()
 {
 	return charstate.maxmp;
 }
@@ -13226,6 +13847,16 @@ bool SceneUser::needSaveBinayArchive(BinaryArchiveType type)
 			{
 				return this->Card_num;
 			}
+		case BINARY_CRD_IAL_NUM: //sky 5倍保险
+			{
+				return this->Crd_IalNum;
+			}
+			break;
+		case BINARY_GIE_MAT_NUM://sky 5倍保险
+			{
+				return this->Gie_MatNum;
+			}
+			break;	
 		case BINARY_SAFETY_SETUP:
 			{
 				return this->safety_setup;
@@ -13979,6 +14610,20 @@ DWORD SceneUser::addBinaryArchiveMember(DWORD type , char *out , DWORD maxSize)
 				dwSize += data->size;
 			}
 			break;
+		case BINARY_CRD_IAL_NUM: //sky 5倍保险
+			{
+				*(DWORD*)&data->data[data->size]=this->Crd_IalNum;
+				data->size += sizeof(DWORD);
+				dwSize += data->size;
+			}
+			break;
+		case BINARY_GIE_MAT_NUM://sky 5倍保险
+			{
+				*(DWORD*)&data->data[data->size]=this->Gie_MatNum;
+				data->size += sizeof(DWORD);
+				dwSize += data->size;
+			}
+			break;	
 		case BINARY_SAFETY_SETUP:
 			{
 				*(BYTE*)&data->data[data->size]=this->safety_setup;
@@ -14112,6 +14757,19 @@ DWORD SceneUser::saveBinaryArchive(unsigned char *out , const int maxsize)
 	if (needSaveBinayArchive(BINARY_CARD_NUM))
 	{
 		size += addBinaryArchiveMember(BINARY_CARD_NUM, (char*)data, maxsize-size);
+		data = &data[size];
+	}
+
+	//5倍保险
+	if (needSaveBinayArchive(BINARY_CRD_IAL_NUM))
+	{
+		size += addBinaryArchiveMember(BINARY_CRD_IAL_NUM, (char*)data, maxsize-size);
+		data = &data[size];
+	}
+	//5倍保险
+	if (needSaveBinayArchive(BINARY_GIE_MAT_NUM))
+	{
+		size += addBinaryArchiveMember(BINARY_GIE_MAT_NUM, (char*)data, maxsize-size);
 		data = &data[size];
 	}
 
@@ -14264,6 +14922,16 @@ DWORD SceneUser::setupBinaryArchive(const char *revData)
 					this->Card_num = *(DWORD*)data->data;
 				}
 				break; 
+		case BINARY_CRD_IAL_NUM: //5倍保险
+			{
+				this->Crd_IalNum = *(DWORD*)data->data;
+			}
+			break; 
+		case BINARY_GIE_MAT_NUM: //5倍保险
+			{
+				this->Gie_MatNum = *(DWORD*)data->data;
+			}
+			break;				
 		case BINARY_SAFETY_SETUP:
 				{
 					this->safety_setup = *(BYTE*)data->data;
@@ -14849,8 +15517,8 @@ DWORD SceneUser::autoRestitute(DWORD &updated)
 		{
 			if (sitdownRestitute)
 			{
-				DWORD tmp = charbase.hp;
-				DWORD value = (DWORD)(((float)charstate.maxhp)*0.02f)+charstate.resumehp*2;
+				uint64_t tmp = charbase.hp;
+				uint64_t value = (uint64_t)(((float)charstate.maxhp)*0.02f)+charstate.resumehp*2;
 				if (value<4) value = 4;
 				charbase.hp += value;
 
@@ -14858,7 +15526,7 @@ DWORD SceneUser::autoRestitute(DWORD &updated)
 				if (tmp != charbase.hp) updated |= 0x1;
 
 				tmp = charbase.mp;
-				value = (DWORD)(((float)charstate.maxmp)*0.02f)+charstate.resumemp*2;
+				value = (uint64_t)(((float)charstate.maxmp)*0.02f)+charstate.resumemp*2;
 				if (value<6) value=6;
 				charbase.mp +=  value;
 				if (charbase.mp>charstate.maxmp) charbase.mp = charstate.maxmp;
@@ -15357,7 +16025,7 @@ void SceneUser::processMaskOnDefence()
 	mask.on_defence();
 }
 
-void SceneUser::processAddDam(int &dwDam, int &dwDamDef, bool physics)
+void SceneUser::processAddDam(uint64_t &dwDam, uint64_t &dwDamDef, bool physics) //by=>friday 修复64位无符号参数
 {
 /* 	//计算增加伤害率
 	if(this->packs.equip.getEquips().get_damage()> 0)
@@ -15387,7 +16055,7 @@ void SceneUser::processAddDam(int &dwDam, int &dwDamDef, bool physics)
 #endif
 }
 
-void SceneUser::reduceDam(int &dwDam, int &dwDamDef, bool physics)
+void SceneUser::reduceDam(uint64_t &dwDam, uint64_t &dwDamDef, bool physics) //by=>friday 修复64位无符号参数
 {
 	if (physics)
 	{
@@ -15430,7 +16098,7 @@ void SceneUser::reduceDam(int &dwDam, int &dwDamDef, bool physics)
 }
 
 //soke  伤害反射
-void SceneUser::reflectDam(int &dwDamDef, int &dwDamSelf, bool physics)
+void SceneUser::reflectDam(uint64_t &dwDamDef, uint64_t &dwDamSelf, bool physics) //by=>friday 修复64位无符号参数
 {
 	//计算伤害反射
 	// 计算被攻击者身上装备对伤害的反弹
@@ -15440,7 +16108,7 @@ void SceneUser::reflectDam(int &dwDamDef, int &dwDamSelf, bool physics)
 		dwDamSelf += (int)(dwDamDef * (this->packs.equip.getEquips().get_rdam() / 100.0f));
 	}
 #ifdef _DEBUGLOG 
-	Zebra::logger->debug("根据装备的伤害反弹数值计算出来的结果dwDamSelf:%ld,装备总反射=%d,dwDamDef = %d", dwDamSelf,packs.equip.getEquips().get_rdam() ,dwDamDef);
+	Zebra::logger->debug("根据装备的伤害反弹数值计算出来的结果dwDamSelf:%lld,装备总反射=%d,dwDamDef = %lld", dwDamSelf,packs.equip.getEquips().get_rdam() ,dwDamDef); //by=>friday 修复64位显示
 #endif
 	/*
 	   if(this->packs.equip.getAllObject().reflect > 0)
@@ -15457,21 +16125,21 @@ Zebra::logger->debug("根据装备的伤害反弹率计算出来的结果累加值dwDamSelf:%ld", dw
 		dwDamSelf += (int)(dwDamDef * (this->skillValue.reflect2 / 100.0f ));
 	}
 #ifdef _DEBUGLOG 
-	Zebra::logger->debug("根据技能的伤害反弹百分比2计算出来的结果dwDamSelf:%ld", dwDamSelf);
+	Zebra::logger->debug("根据技能的伤害反弹百分比2计算出来的结果dwDamSelf:%lld", dwDamSelf); //by=>friday 修复64位显示
 #endif
 	if(this->skillValue.reflectp > 0)
 	{
 		dwDamSelf += (int)(dwDamDef * (this->skillValue.reflectp / 100.0f ));
 	}
 #ifdef _DEBUGLOG 
-	Zebra::logger->debug("根据技能的伤害反弹百分比计算出来的结果dwDamSelf:%ld", dwDamSelf);
+	Zebra::logger->debug("根据技能的伤害反弹百分比计算出来的结果dwDamSelf:%lld", dwDamSelf); //by=>friday 修复64位显示
 #endif
 	if(this->skillValue.reflect > 0)
 	{
 		dwDamSelf += this->skillValue.reflect;
 	}
 #ifdef _DEBUGLOG 
-	Zebra::logger->debug("根据技能的伤害反弹数值计算出来的结果累加值dwDamSelf:%ld", dwDamSelf);
+	Zebra::logger->debug("根据技能的伤害反弹数值计算出来的结果累加值dwDamSelf:%lld", dwDamSelf); //by=>friday 修复64位显示
 #endif
 
 	//soke 反射算法有问题  我打你100  你反射40% 结果：我掉血40 你掉血60===不应该是这样的
@@ -15758,7 +16426,7 @@ bool SceneUser::processDeath(SceneEntryPk *pAtt)
 	return false;
 }
 
-void SceneUser::hp2mp(int &dwDamDef)
+void SceneUser::hp2mp(uint64_t &dwDamDef) //by=>friday 修复64位无符号参数
 {
 	int dwMP =0;
 	if(this->charbase.mp > 0 && this->packs.equip.getEquips().get_hptomp() > 0)
@@ -19679,8 +20347,8 @@ void SceneUser::checkNpcDare(Cmd::Session::t_NpcDare_NotifyScene_SceneSession * 
 		if (charbase.level >19 &&
 				rev->dwCountryID == scene->getCountryID() &&
 				rev->dwMapID == scene->getRealMapID() &&
-				labs((long)(rev->dwPosX)-(long)(this->pos.x))<=26 &&
-				labs((long)(rev->dwPoxY)-(long)(this->pos.y))<=38)
+				abs(rev->dwPosX - this->pos.x)<=26 &&
+				abs(rev->dwPoxY - this->pos.y)<=38)
 		{
 			if (this->charbase.level >=60)
 			{
@@ -19717,11 +20385,11 @@ void SceneUser::checkNpcDareState()
 	{
 		if (npcdareCountryID == scene->getCountryID() &&
 				npcdareMapID == scene->getRealMapID() &&
-				labs((long)(npcdarePosX)-(long)(this->pos.x))<=26 &&
-				labs((long)(npcdarePosY)-(long)(this->pos.y))<=38)
+				abs(npcdarePosX - this->pos.x)<=26 &&
+				abs(npcdarePosY - this->pos.y)<=38)
 		{
-			if ((labs((long)(npcdarePosX)-(long)(this->pos.x))>=20 ||
-						labs((long)(npcdarePosY)-(long)(this->pos.y))>=30)&&
+			if ((abs(npcdarePosX - this->pos.x)>=20 ||
+						abs(npcdarePosY - this->pos.y)>=30)&&
 					npcdareNotify)
 			{
 				npcdareNotify = false;
@@ -19882,9 +20550,9 @@ bool SceneUser::unCombin(Cmd::stUnCombinUserCmd *rev)
  * \author fqnewman
  * \return 魔法攻击力
  */
-DWORD SceneUser::getMaxMDamage()
+uint64_t SceneUser::getMaxMDamage()
 {
-	return charstate.maxpdamage;
+	return static_cast<uint64_t>(charstate.maxpdamage);
 }
 
 /**
@@ -19892,9 +20560,9 @@ DWORD SceneUser::getMaxMDamage()
  * \author fqnewman
  * \return 物理攻击力
  */
-DWORD SceneUser::getMaxPDamage()
+uint64_t SceneUser::getMaxPDamage()
 {
-	return charstate.maxpdamage;
+	return static_cast<uint64_t>(charstate.maxpdamage);
 }
 
 /**
@@ -19902,9 +20570,9 @@ DWORD SceneUser::getMaxPDamage()
  * \author fqnewman
  * \return 物理防御力
  */
-DWORD SceneUser::getPDefence()
+uint64_t SceneUser::getPDefence()
 {
-	return charstate.pdefence;
+	return static_cast<uint64_t>(charstate.pdefence);
 }
 
 /**
@@ -19912,11 +20580,30 @@ DWORD SceneUser::getPDefence()
  * \author fqnewman
  * \return 魔法防御力
  */
-DWORD SceneUser::getMDefence()
+uint64_t SceneUser::getMDefence()
 {
-	return charstate.mdefence;
+	return static_cast<uint64_t>(charstate.mdefence);
+}
+//by=>friday 添加战斗系统需要的防御力函数实现
+uint64_t SceneUser::getMinPDefence()
+{
+    return charstate.pdefence;
 }
 
+uint64_t SceneUser::getMaxPDefence()
+{
+    return charstate.pdefence;
+}
+
+uint64_t SceneUser::getMinMDefence()
+{
+    return charstate.mdefence;
+}
+
+uint64_t SceneUser::getMaxMDefence()
+{
+    return charstate.mdefence;
+}
 /**
  * \brief 更新用户数据到会话
  * \author zjw
@@ -21779,3 +22466,80 @@ void SceneUser::Refreshleaderboard()
     }
   
 }
+
+/**
+ * \brief 计算综合战力值
+ * 
+ * 详细描述：根据角色的所有属性计算综合战力，包括基础属性、装备加成、技能等级等
+ * 
+ * \return 返回计算后的战力值
+ */
+uint64_t SceneUser::calculateComprehensiveFightingPower()
+{
+	// by=>friday 基于人物面板属性的综合战力计算
+	uint64_t totalPower = 0;
+	
+	// 1. 攻击力 - 权重最高 (40%)
+	uint64_t attackPower = (charstate.maxpdamage + charstate.maxmdamage) * 4;
+	totalPower += attackPower;
+	
+	// 2. 防御力 - 权重25%
+	uint64_t defensePower = (charstate.pdefence + charstate.mdefence) * 2.5f;
+	totalPower += defensePower;
+	
+	// 3. 生命值 - 权重20%
+	uint64_t healthPower = charstate.maxhp / 5; // 每5点生命值=1战力
+	totalPower += healthPower;
+	
+	// 4. 法术值 - 权重10%
+	uint64_t manaPower = charstate.maxmp / 10; // 每10点法术值=1战力
+	totalPower += manaPower;
+	
+	// 5. 体力值 - 权重3%
+	uint64_t staminaPower = charstate.maxsp / 20; // 每20点体力=1战力
+	totalPower += staminaPower;
+	
+	// 6. 命中躲避 - 权重1%
+	uint64_t hitPower = (charstate.attackrating + charstate.attackdodge);
+	totalPower += hitPower;
+	
+	// 7. 重击幸运 - 权重1%
+	uint64_t luckPower = (charstate.bang + charstate.lucky);
+	totalPower += luckPower;
+	
+	// 8. 基础属性加成 - 体质力量敏捷智力精神
+	uint64_t propertyPower = (charstate.wdCon + charstate.wdStr + charstate.wdDex + charstate.wdInt + charstate.wdMen) * 2;
+	totalPower += propertyPower;
+	
+	// 9. 等级加成 - 每级+50战力
+	uint64_t levelPower = charbase.level * 50;
+	totalPower += levelPower;
+	
+	// 10. 转生加成 - 每次转生+5000战力
+	uint64_t roundPower = charbase.round * 5000;
+	totalPower += roundPower;
+	
+	// 11. 五行加成 - 每点五行+10战力
+	uint64_t fivePower = charbase.fivelevel * 10;
+	totalPower += fivePower;
+	
+	// 12. 技能点加成 - 每点技能+20战力
+	uint64_t skillPower = charbase.skillpoint * 20;
+	totalPower += skillPower;
+	
+	// 13. 魅力值加成 - 每点魅力+5战力
+	uint64_t charmPower = charstate.charm * 5;
+	totalPower += charmPower;
+	
+	// 14. 攻击速度移动速度加成
+	uint64_t speedPower = (charstate.attackspeed + charstate.movespeed) * 2;
+	totalPower += speedPower;
+	
+	// by=>friday 最终战力除以10，让数值更合理
+	totalPower = totalPower / 10;
+	// Zebra::logger->debug("角色%s战力更新为: %llu", charbase.name, totalPower);
+
+	return totalPower;
+}
+
+

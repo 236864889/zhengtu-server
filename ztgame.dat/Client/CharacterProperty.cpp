@@ -1229,11 +1229,17 @@ void CGuiCharacterProperty::RenderBar( CGuiCharacterProperty::stBarShowInfo& bar
 	char strValue[64];
 	switch( index )
 	{
-	case 0:
+	/*case 0:
 		sprintf( strValue, "( %I64u / %I64u )", iCur, iMax );
 		break;
 	case 1:
 		sprintf( strValue, "( %I64u / %I64u )", iCur, iMax );
+		break;*/
+		case 0:
+		sprintf( strValue, "( %s / %s )", FormatLargeNumber(iCur).c_str(), FormatLargeNumber(iMax).c_str() );
+		break;
+	case 1:
+		sprintf( strValue, "( %s / %s )", FormatLargeNumber(iCur).c_str(), FormatLargeNumber(iMax).c_str() );
 		break;
 	}
 
@@ -1342,8 +1348,8 @@ HRESULT CGuiCharacterProperty::OnRender( float fElapsedTime )
 	if ( GetScene()->m_pInterestNpc )
 	{
 		
-		unsigned int nCurHp = GetScene()->m_pInterestNpc->GetHP();
-		unsigned int nMaxHp = GetScene()->m_pInterestNpc->GetMaxHP();
+		uint64_t nCurHp = GetScene()->m_pInterestNpc->GetHP();
+		uint64_t nMaxHp = GetScene()->m_pInterestNpc->GetMaxHP();
 		// 注释: 以前有人在CSceneObject::CSceneObject()中, 
 		//  m_dwHP(0)
 		// , m_dwMaxHP(1)
@@ -1358,7 +1364,11 @@ HRESULT CGuiCharacterProperty::OnRender( float fElapsedTime )
                         nCurHp = nMaxHp = 1; 
 		}
 		RenderBar(m_aBar[0],nCurHp,nMaxHp,0);
-		RenderBar(m_aBar[1],GetScene()->m_pInterestNpc->GetMP(),GetScene()->m_pInterestNpc->GetMaxMP(),1);
+		// by=>friday 直接从64位变量获取MP值
+		uint64_t nCurMp = GetScene()->m_pInterestNpc->GetMP();
+		uint64_t nMaxMp = GetScene()->m_pInterestNpc->GetMaxMP();
+		RenderBar(m_aBar[1],nCurMp,nMaxMp,1);
+		//RenderBar(m_aBar[1],GetScene()->m_pInterestNpc->GetMP(),GetScene()->m_pInterestNpc->GetMaxMP(),1);
 		//RenderBar(m_aBar[2],GetScene()->m_pInterestNpc->GetSP(),GetScene()->m_pInterestNpc->GetMaxSP(),2);
 	}
 

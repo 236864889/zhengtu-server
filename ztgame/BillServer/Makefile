@@ -1,8 +1,8 @@
 # $Id: Makefile 4343 2005-12-17 05:29:58Z whj $
 
-CXX = /opt/rh/devtoolset-8/root/usr/bin/g++
+CXX = /usr/bin/g++
 CXXFLAGS = $(ZEBRA_COMPILE_OPT) -I../base -I../zise -Wall -D_USE_CMD_NAMESPACE -D_GNU_SOURCE -D_REENTRANT `mysql_config --cflags` `xml2-config --cflags`
-CXXLFLAGS = $(ZEBRA_COMPILE_OPT) -Wall -L../base -lzebra -lencdec -lpthread -lz `mysql_config --libs_r` `xml2-config --libs` -L/usr/local/lib -L/usr/local/lib -llog4cxx -lgd -ljpeg
+CXXLFLAGS = $(ZEBRA_COMPILE_OPT) -Wall -L../base -lzebra -lencdec -lpthread -lz `mysql_config --libs_r` `xml2-config --libs` -llog4cxx -L/usr/local/lib -lgd -ljpeg
 LIB_ZEBRA = ../base/libzebra.a
 
 OBJS = StockConsign.o BillUser.o BillUserManager.o BillServer.o BillTask.o BillTaskManager.o BillManager.o TimeTick.o BillSessionManager.o BillCache.o BillCallback.o BillClient.o BillClientManager.o

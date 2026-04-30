@@ -7396,7 +7396,7 @@ bool  CGuiMakeTo::UpdateUp(bool bShowContext)
 					return false;
 				}
 			}
-			if (15 == pItemUp->GetObject()->upgrade)
+			if (34 == pItemUp->GetObject()->upgrade)
 			{
 				SetContext("当前等级已经最高，不能再升级！",bShowContext);
 				return false;

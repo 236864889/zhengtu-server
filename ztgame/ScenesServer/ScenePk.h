@@ -222,37 +222,53 @@ struct PkPreValue
 	{
 		fiveexpress = 0;
 		bzero(wdValue , sizeof(wdValue));
+		//by=>friday 初始化绝技和切割属性
+		juejiattack = 0;
+		juejidefence = 0;
+		qiegeattack = 0;
+		qiegedefence = 0;
 	}
 	void init()
 	{
 		fiveexpress = 0;
 		bzero(wdValue , sizeof(wdValue));
+		//by=>friday 初始化绝技和切割属性
+		juejiattack = 0;
+		juejidefence = 0;
+		qiegeattack = 0;
+		qiegedefence = 0;
 	}
 	float fiveexpress;
 	union
 	{
 		struct 
 		{//soke 突破攻击/防御65535限制
-			DWORD fivedam;
-			DWORD fivemaxdam;
-			DWORD fivedef;
-			DWORD nofivedam;
-			DWORD nofivemaxdam;
-			DWORD nofivedef;
-			DWORD fivemdam;
-			DWORD fivemaxmdam;
-			DWORD fivemdef;
-			DWORD nofivemdam;
-			DWORD nofivemaxmdam;
-			DWORD nofivemdef;
+			uint64_t fivedam;
+			uint64_t fivemaxdam;
+			uint64_t fivedef;
+			uint64_t nofivedam;
+			uint64_t nofivemaxdam;
+			uint64_t nofivedef;
+			uint64_t fivemdam;
+			uint64_t fivemaxmdam;
+			uint64_t fivemdef;
+			uint64_t nofivemdam;
+			uint64_t nofivemaxmdam;
+			uint64_t nofivemdef;
 		    //新增由技能管理器调用进行取值
 		    DWORD nofivewdstr;
 			DWORD nofivewddex;
 			DWORD nofivewdint;
 			DWORD nofivewdmen;
 			DWORD nofivewdcon;
+			//by=>friday 绝技属性(PvP)
+			uint64_t juejiattack;
+			uint64_t juejidefence;
+			//by=>friday 切割属性(PvE)
+			uint64_t qiegeattack;
+			uint64_t qiegedefence;
 		};
-		DWORD wdValue[17]; //这里也要改
+		uint64_t wdValue[21]; //by=>friday 这里也要改，增加4个字段
 	};
 };
 
@@ -270,10 +286,10 @@ struct PkValue
 	{
 		struct 
 		{
-			DWORD	pdamage;					/// 物理攻击力 *
-			DWORD	mdamage;					/// 法术攻击力 *
-			DWORD	pdefence;					/// 物理防御力 *
-			DWORD	mdefence;					/// 法术防御力 *
+			uint64_t	pdamage;					/// 物理攻击力 *
+			uint64_t	mdamage;					/// 法术攻击力 *
+			uint64_t	pdefence;					/// 物理防御力 *
+			uint64_t	mdefence;					/// 法术防御力 *
 			DWORD	mcost;						/// 消耗法术值
 			DWORD	hpcost;						/// 消耗生命值
 			DWORD	spcost;						/// 消耗体力值
@@ -282,7 +298,7 @@ struct PkValue
 			DWORD	dvaluep;					/// 伤害值增加百分比
 			SWORD	damagebonus;				/// 技能伤害加成
 		};
-		DWORD dwValue[11];
+		uint64_t dwValue[15]; // 由于前4个是uint64_t，后面是DWORD等，需要扩大数组 //by=>friday
 	};
 };
 
@@ -362,7 +378,7 @@ class ScenePk
 		static bool attackUserCmdToNine(const Cmd::stAttackMagicUserCmd *rev , SceneEntryPk *pAtt);
 		static void attackRTHpAndMp(SceneUser *pUser);
 		static void attackRTExp(SceneUser *pUser , DWORD exp, DWORD dwTempID=0, BYTE byType=0);
-		static bool attackRTCmdToNine(const Cmd::stAttackMagicUserCmd *rev , SceneEntryPk *pAtt , SceneEntryPk *pDef , const SDWORD sdwHP , BYTE byLuck);
+		static bool attackRTCmdToNine(const Cmd::stAttackMagicUserCmd *rev , SceneEntryPk *pAtt , SceneEntryPk *pDef , const uint64_t sdwHP , BYTE byLuck); //by=>friday 修改为支持64位无符号伤害值
 		static bool checkAttackSpeed(SceneUser *pAtt , const Cmd::stAttackMagicUserCmd *rev);
 		static void	calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt , SceneUser *pDef);
 		static void	calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt , SceneNpc *pDef);

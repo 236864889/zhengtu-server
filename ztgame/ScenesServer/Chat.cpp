@@ -73,6 +73,7 @@ Gm GmCmds[]=
 	{"loadtbl2",Gm::loadTbl2,Gm::gm_mode,"重新加载TBL脚本"},
 	{"loadgameconfig",Gm::loadGameConfig, Gm::gm_mode,"加载温泉配置脚本"},
 	{"loadfuben",Gm::loadFuBenConfig, Gm::gm_mode,"加载副本配置脚本"}, //副本	
+	{"loadpz",Gm::loadPeizhi,Gm::gm_mode,"加载配置"},
 
 	//组长用
 	{"closenpc",Gm::closenpc,Gm::gm_mode,"关闭功能NPC"},
@@ -4481,8 +4482,8 @@ bool Gm::summon(SceneUser *pUser,const char *para)
 		define.width = SCREEN_WIDTH;
 		define.height = SCREEN_HEIGHT;
 		define.num = atoi(prop["num"].c_str());
-		define.num = (define.num > 1 ? define.num : 1);
-		define.num = (define.num < 100 ? define.num : 100);
+		define.num = define.num >? 1;
+		define.num = define.num <? 100;
 		define.interval = 30;
 		define.initstate = zSceneEntry::SceneEntry_Normal;
 		define.scriptID = atoi(prop["script"].c_str());
@@ -8878,6 +8879,17 @@ bool Gm::loadTbl(SceneUser *pUser, const char * para)
 	send.gm_cmd = Cmd::Session::GM_COMMAND_LOADTBL;
 	sessionClient->sendCmd(&send, sizeof(send));
 	Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME, "重新加载TBL文件");
+	return true;
+
+}
+
+bool Gm::loadPeizhi(SceneUser *pUser, const char * para)
+{
+	
+	Cmd::Session::t_gmCommand_SceneSession send;
+	send.gm_cmd = Cmd::Session::GM_COMMAND_LOADPEIZHI;
+	sessionClient->sendCmd(&send, sizeof(send));
+	Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME, "重新加载配置文件");
 	return true;
 
 }

@@ -4259,7 +4259,7 @@ bool CCountryM::getZhanliRank(DWORD &retcode,Cmd::SelectUserInfoA *info,DWORD in
 		//{ "", zDBConnPool::DB_STR, sizeof(char[MAX_NAMESIZE+1]) },
 		//{ "`BITMASK`", zDBConnPool::DB_DWORD, sizeof(DWORD) },
 		{ "`UNIONID`", zDBConnPool::DB_DWORD, sizeof(DWORD) }, //add 2023-04-25
-		{ "`ZHANLI`", zDBConnPool::DB_DWORD, sizeof(DWORD) },  //zhanli 战力
+		{ "`ZHANLI`", zDBConnPool::DB_QWORD, sizeof(uint64_t) },  //zhanli 战力 //by=>friday 修改为uint64_t
 		{ NULL, 0, 0}
 	};
 	char where[128];
@@ -4271,7 +4271,10 @@ bool CCountryM::getZhanliRank(DWORD &retcode,Cmd::SelectUserInfoA *info,DWORD in
 		return false;
 	}
 	bzero(where, sizeof(where));
+	//by=>friday 添加调试日志，确保查询正确
+	//Zebra::logger->debug("开始查询战力排行榜，查询数量=%u", infoSize);
 	retcode = SessionService::dbConnPool->exeSelectLimit(handle, "`CHARBASE`", charinfo_define, NULL, "ZHANLI DESC"/* , CHARID DESC" */, infoSize, (BYTE *)info);
+	//Zebra::logger->debug("战力排行榜查询完成，返回记录数=%u", retcode);
 	SessionService::dbConnPool->putHandle(handle);
 	return true;
 }

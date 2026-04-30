@@ -179,22 +179,16 @@ bool SuperService::init()
 		return false;
 
 	//初始化连接线程池
-int state = state_none;
-Zebra::to_lower(Zebra::global["initThreadPoolState"]);
-if ("repair" == Zebra::global["initThreadPoolState"]
-        || "maintain" == Zebra::global["initThreadPoolState"])
-    state = state_maintain;
+	int state = state_none;
+	Zebra::to_lower(Zebra::global["initThreadPoolState"]);
+	if ("repair" == Zebra::global["initThreadPoolState"]
+			|| "maintain" == Zebra::global["initThreadPoolState"])
+		state = state_maintain;
+	taskPool = new zTCPTaskPool(atoi(Zebra::global["threadPoolCapacity"].c_str()), state);
+	if (NULL == taskPool
+			|| !taskPool->init())
+		return false;
 
-int poolCap = atoi(Zebra::global["threadPoolCapacity"].c_str());
-Zebra::logger->debug("SuperServer threadPoolCapacity raw=[%s], parsed=%d",
-        Zebra::global["threadPoolCapacity"].c_str(), poolCap);
-if (poolCap <= 0)
-    poolCap = 2048;
-
-taskPool = new zTCPTaskPool(poolCap, state);
-if (NULL == taskPool
-        || !taskPool->init())
-    return false;
 	if (!zNetService::init(wdPort))
 	{
 		return false;
@@ -328,7 +322,7 @@ static char super_doc[] = "\nSuperServer\n" "\t服务器管理器。";
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
-									"\nBuild version   :\t" BUILD_STRING\
+									"\nBuild version   :\t" _S(BUILD_STRING)\
 									"\nBuild time      :\t" __DATE__ ", " __TIME__;
 
 /**

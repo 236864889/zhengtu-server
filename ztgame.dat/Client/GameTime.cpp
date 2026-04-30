@@ -378,7 +378,9 @@ DWORD CGameTime::GetTimestamp()
 {
 	FUNCTION_BEGIN;
 
-	return  xtimeGetTime() - m_nTimeInit;
+	//return  xtimeGetTime() - m_nTimeInit;
+
+	return time(NULL);  //封杀网关
 
 	FUNCTION_END;
 }
@@ -485,4 +487,51 @@ bool CGameTime::IsDayNumChanged()
 	}
 
 	return false;
+}
+
+//by=>friday 添加获取当前服务器时间的方法
+/**
+ * \brief 获取当前服务器时间戳
+ * 
+ * 根据服务器推送的时间和客户端计时器计算当前服务器时间
+ * 
+ * \return 当前服务器时间戳
+ */
+time_t CGameTime::GetCurrentServerTime()
+{
+	FUNCTION_BEGIN;
+	
+	if(m_dwTimer == 0) //还没收到服务器时间，返回本地时间
+	{
+		return time(NULL);
+	}
+	
+	//计算当前服务器时间 = 服务器推送时间 + (当前客户端时间 - 推送时的客户端时间)
+	time_t current_server_time = m_qwServerTime + (xtimeGetTime() - m_dwTimer) / 1000;
+	return current_server_time;
+	
+	FUNCTION_END;
+}
+
+/**
+ * \brief 获取当前服务器时间结构
+ * 
+ * 将服务器时间转换为tm结构
+ * 
+ * \param pTm 输出的时间结构指针
+ */
+void CGameTime::GetCurrentServerTimeTM(struct tm* pTm)
+{
+	FUNCTION_BEGIN;
+	
+	if(pTm == NULL) return;
+	
+	time_t server_time = GetCurrentServerTime();
+	struct tm* tm_ptr = localtime(&server_time);
+	if(tm_ptr)
+	{
+		*pTm = *tm_ptr;
+	}
+	
+	FUNCTION_END;
 }

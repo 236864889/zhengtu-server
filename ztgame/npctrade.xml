@@ -626,7 +626,7 @@ this:AddDialog("MainDialog")</menu>
 	<npc name="高杂货" id="99">
 		<menu>                 
 function MainDialog()
-id=this:AddTradeItem("高级杂货(1)","杂货{id[795,795*50,760,761,860,799,799*50,799*500,1317,1317*10,678,678*50,679,679*50,772,763,777]}|材料{id[507*1*3,507*50*3,517*1*3,517*50*3,527*1*3,527*50*3,537*1*3,537*50*3,547*1*3,547*50*3,561*1*3,561*50*3,562*1*3,562*50*3,563*1*3,563*50*3,564*1*3,564*50*3,565*1*3,565*50*3,852*1*3,852*50*3,877*1*3,877*50*3,548*1*5,548*50*5,548*1*6,548*50*6]}","type[16-23,25-33,35-49,51-160]","杂货买卖")             
+id=this:AddTradeItem("高级杂货(1)","杂货{id[795,795*50,760,761,860,799,799*50,799*500,1317,1317*10,678,678*50,679,679*50,772,763,777]}|材料{id[507*1*3,507*50*3,517*1*3,517*50*3,527*1*3,527*50*3,537*1*3,537*50*3,547*1*3,547*50*3,561*1*3,561*50*3,562*1*3,562*50*3,563*1*3,563*50*3,564*1*3,564*50*3,565*1*3,565*50*3,548*1*5,548*50*5,548*1*6,548*50*6]}","type[16-23,25-33,35-49,51-160]","杂货买卖")             
 TaskDialog()                                                                   
 this:AddSeptAttackNpc("家族争夺NPC(0)")
 this:AddSeptNpcCustom("管理费(0)") 	                                           
@@ -8555,11 +8555,7 @@ this:AddDialog("MainDialog")</menu>
 	<npc name="点卡高级钱庄老板" id="361">
 		<menu>function MainDialog()
 this:AddTalk("欢迎啊，恭喜发财。在我这里或许你就会成为百万富翁。")
-this:AddTalk("&lt;p&gt;&lt;n color=\"255,0,255,0\"&gt;\n每兑换10元点数增加1点VIP点数 &lt;/n&gt;&lt;/p&gt;");
-this:AddGoldExchangeDialog("兑换金子(0)")
-this:AddQuestGoldGiveNum("领取礼品及查询(0)")
-this:AddRequestItemCardForGift("请求道具卡换礼品(0)")
-this:AddDialogItem("关于金币兑换和领取升级宝石(3)","Dialog1")
+
 TaskDialog()  
 end
 this:PlaySound("20000.wav,20003.wav,20007.wav,20008.wav,20005.wav,61031.wav,61012.wav,61007.wav,20006.wav,20002.wav") 
@@ -10690,7 +10686,7 @@ end</menu>
 	<npc name="杂货店伙计-凤凰城和王城" id="803">
 		<menu>
 function MainDialog()
-id=this:AddTradeItem("买卖杂货(1)","杂货{id[689,667,788,669,668,670,675,506*1*3,506*50*3,516*1*3,516*50*3,526*1*3,526*50*3,536*1*3,536*50*3,546*1*3,546*50*3,1837,798,811,662,663,773,769,778,1047,876,841]}|烟火{id[1709-1722]}","type[16-23,25-33,35-49,51-160]","买卖杂货")              
+id=this:AddTradeItem("买卖杂货(1)","杂货{id[689,667,788,669,668,670,675,506*1*3,506*50*3,516*1*3,516*50*3,526*1*3,526*50*3,536*1*3,536*50*3,546*1*3,546*50*3,1837,798,811,662,663,773,769,778,1047,876]}|烟火{id[1709-1722]}","type[16-23,25-33,35-49,51-160]","买卖杂货")              
 TaskDialog()
 end
 this:PlaySound("23013.wav,20000.wav,20001.wav,20002.wav,20003.wav,20008.wav,20004.wav,20005.wav,20006.wav,61007.wav,61012.wav,61031.wav") 
@@ -10729,7 +10725,6 @@ end
 		<item id="876" action="3"/>
 		<item id="821" action="3"/>
 		<item id="831" action="3"/>
-		<item id="841" action="3"/>
 		<item id="501" action="3" itemlevel="1"/>
 		<item id="506" action="3" itemlevel="1"/>
 		<item id="516" action="3" itemlevel="1"/>
@@ -15350,6 +15345,7 @@ this:AddDialog("MainDialog")
 <item id="3869" action="3"/>
 <item id="3905" action="3"/>
 <item id="3906" action="3"/>
+<item id="3831" action="3"/>
 
 <item id="35101" action="3"/>
 <item id="50012" action="3"/>
@@ -15366,7 +15362,7 @@ this:AddDialog("MainDialog")
 <item id="3851" action="3"/>
 <item id="795" action="3"/>
 <item id="3830" action="3"/>
-<item id="799" action="3"/>
+
 <item id="50001" action="3"/>
 <item id="810" action="3"/>
 <item id="684" action="3"/>
@@ -15757,6 +15753,7 @@ this:AddDialog("MainDialog")
 		<item kind="229" action="2"/>
 		<item kind="230" action="2"/>
 		
+		
 	</npc>
 	<npc name="闻阔" id="885">
 		<menu>function MainDialog()
@@ -15789,7 +15786,7 @@ this:AddDialog("MainDialog")</menu>
 		<menu>function MainDialog()
 this:AddTalk("用“工资”购买的物品都是绑定的.绑定的材料可以和非绑定材料共同使用,它们在叠加、合成后,将统一变为绑定材料.用绑定材料打造的装备也是绑定的,并带有绑定所附加的百分比加成.\n用“工资”可以到皇城的移民官处进行移民")
 TaskDialog()
-id=this:AddManagerSalaryDlg("工资商城(1)","杂货{id[4101,929-931,794,760,761,506*100*5,516*100*5,526*100*5,536*100*5,546*100*5,507*100*5,517*100*5,527*100*5,537*100*5,547*100*5,852*100*4,877*100*3,678,678*1*1,678*1*2,678*1*3,678*1*4,678*1*5,679,679*1*1,679*1*2,679*1*3,679*1*4,679*1*5,548*100*5,550*100*5,2329,2329*10]}","type[16-23,25-33,35-49,51-160]","")
+id=this:AddManagerSalaryDlg("工资商城(1)","杂货{id[929-931,794,760,761,506*100*5,516*100*5,526*100*5,536*100*5,546*100*5,507*100*5,517*100*5,527*100*5,537*100*5,547*100*5,678,678*1*1,678*1*2,678*1*3,678*1*4,678*1*5,679,679*1*1,679*1*2,679*1*3,679*1*4,679*1*5,548*100*5,550*100*5,2329,2329*10]}","type[16-23,25-33,35-49,51-160]","")
 this:AddDialogItem("离开","MainDialog")
 end
 function Dialog1()                                           
@@ -18355,7 +18352,7 @@ this:AddMakeItem("打造护心镜(0)","id[12501-12510]","打造护心镜")
 this:AddMakeItem("打造转生枪装备(0)","id[19039-19040,12629-12630]","长枪装备")
 this:AddMakeItem("打造转生刺客装备(0)","id[11501,]","刺客装备")
 this:AddMakeItem("打造马装(0)","id[16101,16201,16301,16401,16501,]","打造马装")  
-this:AddHoleMakeItem("增加凹槽(0)","type[140,101-111,113-118,136-137,155,130-134,140,155]","增加凹槽")           
+this:AddHoleMakeItem("增加凹槽(0)","type[140,101-112,113-118,136-137,155,130-134,138-156,141-147]","增加凹槽")               
 TaskDialog()
 end 
 function Dialog2()                                           
@@ -20536,6 +20533,7 @@ end</menu>
 		<menu>function MainDialog()
 if( IsHasTask() == false) then
 this:AddTalk("我可以带你进入迷宫的某层，至于是多少就看你我的缘分了")
+this:AddMiGong("带我去迷宫下一层(0)","1")        
 end                                                                                                                                              
 TaskDialog()
 end
@@ -20554,6 +20552,7 @@ this:AddDialog("MainDialog")</menu>
 		<menu>function MainDialog()
 if( IsHasTask() == false) then
 this:AddTalk("我可以带你进入迷宫的某层，至于是多少就看你我的缘分了")
+this:AddMiGong("带我去迷宫下一层(0)","2")         
 end                                                                                                                                              
 TaskDialog()
 end
@@ -20563,6 +20562,7 @@ this:AddDialog("MainDialog")</menu>
 		<menu>function MainDialog()
 if( IsHasTask() == false) then
 this:AddTalk("我可以带你进入迷宫的某层，至于是多少就看你我的缘分了")
+this:AddMiGong("带我去迷宫下一层(0)","3")      
 end                                                                                                                                              
 TaskDialog()
 end
@@ -20976,7 +20976,10 @@ this:AddDialog("MainDialog")
 </menu>
 	</npc>
 	<npc name="家族管理员" id="1068">
-		<menu>function MainDialog()                                                       this:AddTalk("只有族长才能发起战争！如果想领取家族经验请到清源村的清源村长老那里领取。")
+		<menu>function MainDialog()     
+                                                  this:AddTalk("只有族长才能发起战争！如果想领取家族经验请到清源村的清源村长老那里领取。")
+												  this:AddZhanCheListDlg("领用家族战车(0)")
+												  this:AddJiaZuOpen("进入家族地图(0)")
 if this:IsAttackPop(2)==true then                                           
 this:AddLaunchAttack("发起家族战斗(0)",2)  
 end                                                                                          
@@ -24476,7 +24479,33 @@ this:AddDialog("MainDialog")</menu>
 		<menu>function MainDialog()
 if( IsHasTask() == false) then
 this:AddTalk("万人瞩目的天下第一争霸赛！")
-this:AddTianxiaDlg("我要报名天下第一争霸赛(0)")
+end                                                                                                                                                                
+TaskDialog()
+end
+this:AddDialog("MainDialog")</menu>
+	</npc>
+	<npc name="皇城争夺战" id="5146">
+		<menu>function MainDialog()
+if( IsHasTask() == false) then
+this:AddTalk("皇城争夺战专属奖励领取")
+end                                                                                                                                                                
+TaskDialog()
+end
+this:AddDialog("MainDialog")</menu>
+	</npc>
+	<npc name="哥哥砍征途(天下第一冠军)" id="5488">
+		<menu>function MainDialog()
+if( IsHasTask() == false) then
+this:AddTalk("哥哥砍征途(天下第一冠军)雕像，每日膜拜可以领取奖励！")
+end                                                                                                                                                                
+TaskDialog()
+end
+this:AddDialog("MainDialog")</menu>
+	</npc>
+	<npc name="小楼一夜听春雨(天下第一亚军)" id="5490">
+		<menu>function MainDialog()
+if( IsHasTask() == false) then
+this:AddTalk("小楼一夜听春雨(天下第一亚军)雕像，每日膜拜可以领取奖励！")
 end                                                                                                                                                                
 TaskDialog()
 end
@@ -26672,7 +26701,7 @@ this:AddDialog("MainDialog")</menu>
 	<npc name="随身商店" id="5281">
 		<menu>
 function MainDialog()
-id=this:AddTradeItem("(1)","普通杂货{id[689,667,667*50,669,669*50,841,843,844,1837,798,876,802,909,1019,580*10,581*10,587*10,588*10,773,769,778,1142]}","type[16-23,25-33,35-49,51-160]","")
+id=this:AddTradeItem("(1)","普通杂货{id[689,667,667*50,669,669*50,843,844,1837,798,876,802,909,1019,580*10,581*10,587*10,588*10,773,769,778,1142]}","type[16-23,25-33,35-49,51-160]","")
 TaskDialog()
 end
 this:PlaySound("23013.wav,20000.wav,20001.wav,20002.wav,20003.wav,20008.wav,20004.wav,20005.wav,20006.wav,61007.wav,61012.wav,61031.wav") 
@@ -26690,7 +26719,6 @@ end
 		<item id="669" action="1"/>
 		<item id="831" action="1"/>
 		<item id="821" action="1"/>
-		<item id="841" action="1"/>
 		<item id="843" action="1"/>
 		<item id="844" action="1"/>
 		<item id="1837" action="1"/>
@@ -26900,7 +26928,19 @@ end
         <item kind="203" action="2"/>
 		<item kind="204" action="2"/>
 		<item kind="205" action="2"/>
-		<item kind="217" action="2"/>		
+		<item kind="217" action="2"/>
+		<item kind="205" action="2"/>
+		<item kind="217" action="2"/>
+		<item kind="221" action="2"/>
+		<item kind="222" action="2"/>
+		<item kind="223" action="2"/>
+		<item kind="224" action="2"/>
+		<item kind="225" action="2"/>
+		<item kind="226" action="2"/>
+		<item kind="227" action="2"/>
+		<item kind="228" action="2"/>
+		<item kind="229" action="2"/>
+		<item kind="230" action="2"/>		
 		
 	</npc>
 	<npc name="家族收藏家" id="5300">
@@ -29293,6 +29333,7 @@ this:AddDialog("MainDialog")
 		<item kind="228" action="2"/>
 		<item kind="229" action="2"/>
 		<item kind="230" action="2"/>
+		
 	</npc>
 		<npc name="新增清源村NPC" id="5156">
 		<menu>function MainDialog()
@@ -29431,7 +29472,30 @@ TaskDialog()
 end
 this:AddDialog("MainDialog")</menu>
 	</npc>
+
+	<npc name="新增NPC" id="5408">
+		<menu>function MainDialog()
+if( IsHasTask() == false) then
+this:AddTalk("这里很危险的，你真的想好了吗？")
+end
+this:PlaySound("20001.wav,20003.wav,20005.wav,61007.wav,61012.wav,61031.wav,61020.wav") 
+TaskDialog()
+end
+this:AddDialog("MainDialog")</menu>
+	</npc>
+
 <npc name="新增NPC" id="5407">
+		<menu>function MainDialog()
+if( IsHasTask() == false) then
+this:AddTalk("这里很危险的，你真的想好了吗？")
+end
+this:PlaySound("20001.wav,20003.wav,20005.wav,61007.wav,61012.wav,61031.wav,61020.wav") 
+TaskDialog()
+end
+this:AddDialog("MainDialog")</menu>
+	</npc>
+
+<npc name="新增NPC" id="7777">
 		<menu>function MainDialog()
 if( IsHasTask() == false) then
 this:AddTalk("这里很危险的，你真的想好了吗？")
@@ -29452,6 +29516,26 @@ end
 this:AddDialog("MainDialog")</menu>
 	</npc>	
 	<npc name="新增NPC" id="5406">
+		<menu>function MainDialog()
+if( IsHasTask() == false) then
+this:AddTalk("这里很危险的，你真的想好了吗？")
+end
+this:PlaySound("20001.wav,20003.wav,20005.wav,61007.wav,61012.wav,61031.wav,61020.wav") 
+TaskDialog()
+end
+this:AddDialog("MainDialog")</menu>
+	</npc>
+<npc name="新增NPC" id="5562">
+		<menu>function MainDialog()
+if( IsHasTask() == false) then
+this:AddTalk("这里很危险的，你真的想好了吗？")
+end
+this:PlaySound("20001.wav,20003.wav,20005.wav,61007.wav,61012.wav,61031.wav,61020.wav") 
+TaskDialog()
+end
+this:AddDialog("MainDialog")</menu>
+	</npc>
+<npc name="新增NPC" id="5545">
 		<menu>function MainDialog()
 if( IsHasTask() == false) then
 this:AddTalk("这里很危险的，你真的想好了吗？")
@@ -29675,6 +29759,17 @@ if( IsHasTask() == false) then
 this:AddTalk("我是19号赛车女郎，小样，加油哦")
 end  
 this:NextBikeGame("继续自行车大赛(0)","19")    
+TaskDialog()
+end
+this:AddDialog("MainDialog")</menu>
+	</npc>
+	
+	<npc name="家族地图管理员" id="974">
+		<menu>function MainDialog()
+if( IsHasTask() == false) then
+this:AddTalk("我是家族地图管理员，在我这里可以喂养家族BOSS。")
+end  
+this:AddJiaZuBoss("喂养家族BOSS(0)")    
 TaskDialog()
 end
 this:AddDialog("MainDialog")</menu>

@@ -296,63 +296,175 @@ static int cmpItemByPos(const void *p1, const void *p2)
 	return dis1 - dis2;
 }
 
+// 添加全局变量 
+static DWORD g_lastKillTime = 0;
+static DWORD g_lastPickTime = 0; // 上次拾取物品的时间戳 
+static BYTE g_itemColorCache[2048] = {0}; // 缓存物品颜色，减小数组大小节省内存 
+
+// 通知系统怪物已死亡 
+extern "C" void OnMonsterDeath() {
+    g_lastKillTime = xtimeGetTime();
+}
+
 typedef std::vector<CItem*,std::stack_allocator<CItem*> > tTmpItemVec;
 bool CMainCharacter::RunAutoPickup()
 {
-//#ifdef _AUTOPLAY
-	//if(GetGameGuiManager()->IsPackgetFull())
-	//	return false;
-
+	// 获取当前时间戳
+	DWORD curTime = xtimeGetTime();
+	
+	// 检查是否在怪物死亡后延迟期内 
+	if (g_lastKillTime > 0 && curTime - g_lastKillTime < 300) {
+		return false; // 怪物死亡后300ms内不拾取物品，减少卡顿感
+	}
+	
+	// 强制间隔检查，每次运行至少间隔50ms，避免CPU占用过高 
+	if (curTime - g_lastPickTime < 50) {
+		return false;
+	}
+	g_lastPickTime = curTime;
+	
 	stPointI ptGrid = GetGridPos();
-	stRectI rc(ptGrid.x - 8,ptGrid.y - 8,ptGrid.x + 9,ptGrid.y + 9);
+	stRectI rc(ptGrid.x - 5,ptGrid.y - 5,ptGrid.x + 6,ptGrid.y + 6); // 减小搜索范围，提高效率 
 	SetFrameAllocator fa;
 	tTmpItemVec aItem;
 	GetScene()->GetObjectAtGridRect<CItem,tTmpItemVec >(rc,(tTmpItemVec&)aItem);
 	qsort(&aItem[0],aItem.size(),sizeof(CItem*),cmpItemByPos);
 	bool retval = false;
 	size_t pickupCount = 0;
-	DWORD curTime = xtimeGetTime();
-	for(size_t i=0; i<aItem.size(); ++i)
+	
+	// 限制每次处理的物品数量，但增加到30个，提高拾取效率 
+	const size_t MAX_PROCESS_ITEMS = 30;
+	size_t processCount = min(aItem.size(), MAX_PROCESS_ITEMS);
+	
+	// 缓存过滤设置，避免重复访问 
+	bool fAuto_PicUp = false;
+	bool fFilter_WhiteEquip = false;
+	bool fFilter_BlueEquip = false;
+	bool fFilter_GoldEquip = false;
+	bool fFilter_GreenEquip = false;
+	
+	if (GetGameGuiManager() && GetGameGuiManager()->m_guiAutoAttackDlg) {
+		fAuto_PicUp = GetGameGuiManager()->m_guiAutoAttackDlg->m_fAuto_PicUp;
+		fFilter_WhiteEquip = GetGameGuiManager()->m_guiAutoAttackDlg->m_fFilter_WhiteEquip;
+		fFilter_BlueEquip = GetGameGuiManager()->m_guiAutoAttackDlg->m_fFilter_BlueEquip; 
+		fFilter_GoldEquip = GetGameGuiManager()->m_guiAutoAttackDlg->m_fFilter_GoldEquip;
+		fFilter_GreenEquip = GetGameGuiManager()->m_guiAutoAttackDlg->m_fFilter_GreenEquip;
+	}
+	
+	// 优化：如果没有任何过滤选项，标记跳过颜色检查 
+	bool skipColorCheck = !fAuto_PicUp || 
+		(!fFilter_WhiteEquip && !fFilter_BlueEquip && !fFilter_GoldEquip && !fFilter_GreenEquip);
+	
+	// 最大拾取物品数量，使用更合理的值避免一次拾取太多导致卡顿 
+	const size_t MAX_PICKUP_COUNT = 30;
+	
+	for(size_t i=0; i<processCount; ++i)
 	{
 		CItem* pItem = aItem[i];
 		DWORD dwBaseID = pItem->GetBaseID();
-		if( (dwBaseID != c_nHuoYunFu) &&
-			(dwBaseID != c_nXianTianFu) &&
-			(dwBaseID != c_nXuanYuanFu) ) 
+		
+		// 特殊物品直接拾取，不做任何过滤 
+		if (dwBaseID == c_nHuoYunFu || dwBaseID == c_nXianTianFu || dwBaseID == c_nXuanYuanFu) {
+			PickUpItem(pItem);
+			pickupCount++;
+			if (pickupCount >= MAX_PICKUP_COUNT) {
+				return true;
+			}
+			continue;
+		}
+		
+		// 检查物品归属 
+		DWORD dwOwner = pItem->GetOwner();
+		if (dwOwner != 0 && dwOwner != GetID()) {
+			bool bCanPickFoOwner = 
+				GetGameGuiManager()->m_guiTeam && 
+				NULL != GetGameGuiManager()->m_guiTeam->FindMember(GetID())
+				&& GetGameGuiManager()->m_guiTeam->m_dwCurObjAssign == TEAM_OBJ_MODE_NORMAL;
+			if(!bCanPickFoOwner)
+				continue;
+		}
+		
+		// 检查物品是否在过滤列表中 - 使用缓存变量 
+		bool inFilterList = (gAutoGameConfig.setCullObject.find(dwBaseID) != gAutoGameConfig.setCullObject.end());
+		
+		// 快速路径: 如果物品在过滤列表中，直接跳过
+		if(inFilterList)
+			continue;
+		
+		// 如果物品不在过滤列表中，检查是否需要根据颜色过滤
+		bool shouldFilter = false;
+		
+		// 优化: 只有启用了自动拾取并且可能是装备时才进行装备过滤判断 
+		if(fAuto_PicUp && !skipColorCheck)
 		{
-			DWORD dwOwner = pItem->GetOwner();
-			bool bCanPickFoOwner = true;
-			if( dwOwner != 0 && dwOwner != GetID())
+			// 快速获取物品基本信息
+			ObjectBase_t* pObjBase = GetObjectBase(dwBaseID);
+			
+			// 只有是装备类型的物品才进行颜色过滤判断
+			if(pObjBase && pObjBase->dwEquipType > 0)
 			{
-				bCanPickFoOwner = 
-					GetGameGuiManager()->m_guiTeam && 
-					NULL != GetGameGuiManager()->m_guiTeam->FindMember(GetID())
-					&& GetGameGuiManager()->m_guiTeam->m_dwCurObjAssign == TEAM_OBJ_MODE_NORMAL;
-				if(!bCanPickFoOwner)
-					continue;
+				// 使用缓存查找物品颜色，减少CPU计算开销 
+				DWORD itemId = dwBaseID % 2048; // 使用物品基础ID作为缓存索引，确保在缓存范围内
+				BYTE itemKind = 0;
+				
+				// 如果缓存中已有该物品颜色，直接使用缓存 
+				if (g_itemColorCache[itemId] != 0) {
+					itemKind = g_itemColorCache[itemId] - 1; // 恢复真实颜色值
+				} else {
+					// 获取装备的颜色代码 (kind值: 0=白色,1=蓝色,2=金色,4=绿色,8=紫色)
+					itemKind = pItem->GetKind();
+					// 缓存物品颜色，避免重复计算 
+					g_itemColorCache[itemId] = itemKind + 1; // +1避免0值冲突
+				}
+				
+				// 极简颜色判断逻辑 - 使用最少的逻辑分支 
+				// 先处理最常见的情况
+				// 紫色装备永不过滤
+				if (itemKind & 0x8) {
+					shouldFilter = false;
+				}
+				// 白色装备
+				else if (itemKind == 0) {
+					shouldFilter = fFilter_WhiteEquip;
+				}
+				// 其他颜色使用一次位操作判断
+				else {
+					shouldFilter = 
+						((itemKind & 0x1) && fFilter_BlueEquip) || 
+						((itemKind & 0x2) && fFilter_GoldEquip) || 
+						((itemKind & 0x4) && fFilter_GreenEquip);
+				}
 			}
 		}
-		if(gAutoGameConfig.setCullObject.find(pItem->GetBaseID()) == gAutoGameConfig.setCullObject.end())
+		
+		// 如果不应该被过滤，则拾取
+		if(!shouldFilter)
 		{
-			if(curTime - pItem->m_LastSendPickCmdTime > 1 && curTime - pItem->m_LastTryPickTime > 1){
-				if( Scene_GetDis(GetGridPos(),pItem->GetGridPos()) > 1 ){
-					//TryPickUpItem(pItem);
-					////RunPickUpEvent();
-					PickUpItem(pItem);////////star100810
-					retval = true;
-					break;
-				}else{
-					if(pickupCount > 0)
-						Sleep(1);
+			// 避免频繁拾取同一物品
+			if(curTime - pItem->m_LastSendPickCmdTime > 30000 && curTime - pItem->m_LastTryPickTime > 30000){
+				// 判断距离并拾取
+				if(Scene_GetDis(GetGridPos(),pItem->GetGridPos()) > 1){
 					PickUpItem(pItem);
+					return true; // 直接返回，而不是break，允许下次调用再拾取更多 
+				}else{
+					// 如果已经拾取过物品，稍微等待一下避免客户端/服务器拒绝
+					if(pickupCount > 0)
+						Sleep(10); // 最小化延迟，提高拾取效率 
+					
+					PickUpItem(pItem);
+					pickupCount++;
+					
+					// 每次最多拾取MAX_PICKUP_COUNT个物品，避免一次处理太多导致卡顿 
+					// 但不直接返回，而是设置retval，允许下次调用继续拾取
+					if (pickupCount >= MAX_PICKUP_COUNT) {
+						retval = true;
+						break;
+					}
 				}
 			}
 		}
 	}
 	return retval;
-//#else
-//	return false;
-//#endif
 }
 
 bool CMainCharacter::RunAutoWork()

@@ -354,7 +354,11 @@ bool ScenesService::init()
 		Zebra::logger->error("初始化魔盒【坐骑类】配置文件失败");
 		return false;
 	}
-	
+	//时装魔盒  魔盒界面
+	if(! fjconfig::getInstance().initJiemian()){
+		Zebra::logger->error("初始化魔盒【界面类】配置文件失败");
+		return false;
+	}
 	//初始化天下第一
 	for (int i = 0; i < 32; i++)
 	{
@@ -691,7 +695,7 @@ static char scenes_doc[] = "\nScenesServer\n" "\t场景服务器。";
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
-									"\nBuild version   :\t" STR(BUILD_STRING)\
+									"\nBuild version   :\t" _S(BUILD_STRING)\
 									"\nBuild time      :\t" __DATE__ ", " __TIME__;
 
 /**
@@ -868,6 +872,7 @@ int main(int argc, char **argv)
 	Zebra::global["MagicBoxZuoqiConfig"] = "Config/MagicBoxZuoqiConfig.xml";
 	Zebra::global["MagicBoxChiBangLevelConfig"] = "Config/MagicBoxChiBangLevelConfig.xml";
 	Zebra::global["MagicBoxChiBangConfig"] = "Config/MagicBoxChiBangConfig.xml";
+	Zebra::global["MagicBoxJieMianConfig"] = "Config/MagicBoxJieMianConfig.xml";  //魔盒界面
 	Zebra::global["ErnvConfig"] = "Config/ErnvConfig.xml";
 	Zebra::global["zhengtuzhuaconfig"] = "Config/ZhengTuZhuanConfig.xml";
 	Zebra::global["12BeastsConfig"] = "Config/12BeastsConfig.xml";

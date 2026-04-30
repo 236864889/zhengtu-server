@@ -152,7 +152,7 @@ class zMisc
 	public:	
 		//从字符串中查找第pos(从零开始)个数字，如果未找到返回defValue
 		template <typename T>
-		static WORD getAllNum(const char *s,std::vector<T> & data)
+		static WORD zMisc::getAllNum(const char *s,std::vector<T> & data)
 		{
 			size_t i;
 			int count = 0;

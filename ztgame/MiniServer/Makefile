@@ -1,8 +1,8 @@
 # $Id: Makefile 6528 2006-05-14 16:25:15Z xwl $
 
-CXX = /opt/rh/devtoolset-8/root/usr/bin/g++
+CXX = /usr/bin/g++
 CXXFLAGS = $(ZEBRA_COMPILE_OPT) -D_USE_EPOLL_ -D_USE_CMD_NAMESPACE -D_ENCDEC_MSG -D_WQH_DEBUG -D_ALL_SUPER_GM -I../base -I../zise -Wall -D_GNU_SOURCE -D_REENTRANT `mysql_config --cflags` `xml2-config --cflags`
-CXXLFLAGS = $(ZEBRA_COMPILE_OPT) -Wall -L../base -lzebra -lencdec -lpthread -lz `mysql_config --libs_r` `xml2-config --libs` -L/usr/local/lib -L/usr/local/lib -llog4cxx -lgd -ljpeg
+CXXLFLAGS = $(ZEBRA_COMPILE_OPT) -Wall -L../base -lzebra -lencdec -lpthread -lz `mysql_config --libs_r` `xml2-config --libs` -llog4cxx -L/usr/local/lib -lgd -ljpeg
 LIB_ZEBRA = ../base/libzebra.a
 
 OBJS = Top100.o DDZCardGame.o CardPattern.o MiniUser.o MiniUserManager.o MiniHall.o MiniRoom.o MiniGame.o MiniServer.o MiniTask.o MiniTaskManager.o TimeTick.o

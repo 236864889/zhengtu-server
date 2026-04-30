@@ -42,8 +42,8 @@ class MiniRoom
 		std::set<MiniUser *> userList;// Íæ¼Ò-×´Ì¬
 
 		typedef __gnu_cxx::hash_map<DWORD, MiniGame *>::iterator game_iter;
-		typedef std::set<MiniUser *>::iterator user_iter;
-		typedef std::set<MiniUser *>::const_iterator const_user_iter;
+		typedef std::set<MiniUser *, Cmd::MiniUserState>::iterator user_iter;
+		typedef std::set<MiniUser *, Cmd::MiniUserState>::const_iterator const_user_iter;
 };
 
 #endif
