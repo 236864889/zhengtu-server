@@ -1,0 +1,10 @@
+#yum install glibc-static libstdc++-static -y
+
+#yum install gcc gcc-c++ gcc-g77 pcre-devel openssl-devel bison autoconf automake make cmake libcurl-devel gd-devel zlib* fiex* libxml* ncurses-devel libmcrypt* libtool-ltdl-devel*   【常用的包一键全部安装命令】
+
+
+
+#yum install gcc gcc-c++ gcc-g77 flex bison autoconf automake bzip2-devel zlib-devel ncurses-devel libjpeg-devel libpng-devel libtiff-devel freetype-devel pam-devel      【常用的包一键全部安装命令】
+
+
+#yum groupinstall 'Development Tools'        【常用的包一键全部安装命令】

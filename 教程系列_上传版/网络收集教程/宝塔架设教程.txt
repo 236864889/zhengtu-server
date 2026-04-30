@@ -1,0 +1,142 @@
+征途私服-一转230级紫装--架设过程
+
+系统：centos6.5 64位及以上
+
+配置：1H2G及以上
+
+
+centos关闭防火墙
+
+1、查看防火墙状态
+
+firewall-cmd --state
+
+2、停止firewall
+
+systemctl stop firewalld.service
+
+3、禁止firewall开机启动
+
+systemctl disable firewalld.service 
+
+4、新增开放端口
+
+firewall-cmd --zone=public --add-port=端口号/tcp --permanent
+
+5、移除开放端口
+
+firewall-cmd --zone=public --remove-port=端口号/tcp --permanent
+
+6、查看开放的端口
+
+firewall-cmd --zone=public --list-ports
+
+7、刷新防火墙
+
+firewall-cmd --reload
+
+有的版本有时间验证，需要修改服务器时间到2019年上半年
+
+date -s 20190102 (你当天是星期几就修改成星期几的时间比如20190101是星期二)
+
+date -s 14:30:00
+
+修改时间
+
+       1.查看当前系统时间 date
+       2.修改当前系统时间 date -s "2019-1-2 8:48:00"
+       3.查看硬件时间 hwclock --show
+       4.修改硬件时间 hwclock --set --date "2019-1-2 14:30:00"
+       5.同步系统时间和硬件时间 hwclock --hctosys
+       6.保存时钟 clock -w
+       7.重启系统（init 6）后便发现系统时间被修改了
+
+
+
+一、服务器环境：
+
+1、安装宝塔面板（具体请百度）
+
+宝塔内安装
+
+Nginx1.14 php 5.4 phpmyadmin4.0 极速安装
+
+mysql5.1 编译安装
+
+
+2、安装32位运行库
+
+yum install -y glibc*i686
+
+
+3、支持库文件上传大奥服务器根目录下，然后解压。
+
+
+4、服务端文件上传到home下
+需要给ztgame和Server目录777权限
+
+5、数据库设置
+phpmyadmin内 新建用户 ztgame 密码 123456
+
+phpmyadmin内 根据数据库sql文件新建库表并恢复数据库
+
+phpmyadmin内 找到 zt 下的 serverlist外网 修改6020端口IP为你的外网ip
+
+
+6、启动和停止游戏
+
+1.启动mysql服务
+service mysqld restart
+
+#停止mysql服务
+service mysqld stop
+
+2.启动版本
+cd /home/ztgame
+./start
+
+3.启动验证
+cd /home/Server
+./yz
+
+#关闭版本和验证
+
+cd /home/ztgame
+./stop
+
+7、.启动注册，端口是以下的8000
+cd /home
+
+chmod a+x zt_login
+
+./zt_login 192.168.249.128 3306 FLServerDB qwlvip 123344 192.168.249.128 3306 ZtGameDB qwlvip 123344 10000000 8000 &
+
+exit
+
+
+cd /home
+
+chmod a+x zt_login
+
+./zt_login 121.4.33.29 3306 unify00 ztgame 123456 121.4.33.29 3306 zt ztgame 123456 10000000 8003 &
+
+exit
+
+
+
+
+至此，可以注册和开玩了。查看服务启动情况  ps -x
+
+七、生成专用登录器
+
+1.列表管理，填写自己信息。看视频，serverlist.txt尽量放在正常网站空间。充值链接自己喜欢哪个就注册哪个。浏览框是个网页，自己制作吧。开区端口是因为架设的时候设定的，所以必须那样填写。
+
+2.生成后，用resscope导入gui.pak和ztgame.dat，保存即可。
+
+3.剩下的打补丁，登陆器放哪，不啰嗦了。
+
+支持1.04夏轩登陆器，角色充值、管理、后台商城、在线加点、修改密码等服务
+
+
+
+<npc id="60011" name="服务器维护补偿" width="1" height="1" x="854" y="447" num="1" interval="100" color="0,255,0,0"/>

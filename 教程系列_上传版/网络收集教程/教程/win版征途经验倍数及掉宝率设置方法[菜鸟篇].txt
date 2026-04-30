@@ -1,0 +1,15 @@
+win版征途经验倍数及掉宝率设置方法[菜鸟篇]
+其实呢很简单:
+打开服务端的目录找到config.xml文件打开后(不知道怎么打开?右键编辑就可以了.)找到以下代码:
+<ExpRate>1</ExpRate>
+<DropRate>1</DropRate>
+<DropRateLevel>150</DropRateLevel>
+
+把上面的修改就可以了
+<ExpRate>10000</ExpRate>经验倍数
+<DropRate>100</DropRate>掉宝倍率
+<DropRateLevel>150</DropRateLevel>掉宝适合的级别(这里的设置是150以下大家可以改成160)
+
+其实呢配置文件内就有详细的修改方法了.
+
+这里发这个帖子是让那些新来的朋友看的哦

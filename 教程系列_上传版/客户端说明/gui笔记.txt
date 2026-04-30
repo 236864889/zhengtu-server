@@ -1,0 +1,75 @@
+listboarddialog = 护国英雄榜
+logindialog.xml  = 登陆器登入界面
+logindialog800.xml =等出后的界面（同上修改两个必须一起修改）
+pet.xml =，马匹界面
+sendmaildialog.xml =邮件发件箱界面， 修改的同时注意原版本的ID和和修改后的是否一样
+recvmaildialog   =邮件收件箱界面，
+roleseldialog.xml  创建角色
+roleseldialog800.xml   创建角色
+userinfodialog.xml    人物装备
+autoplayskill        自动释放技能
+auction              拍卖
+changehorseface      更换坐骑
+chatselect           聊天频道
+clearpoint           属性加点
+floatmaindialog     打坐
+goodhelper         好帮手
+changeHorseFace    坐骑造型更换
+CreateCharDialog    创建角色
+EquipDialog      武器
+exitgame     登出帐号
+FloatDialog   打坐  MainDialog打坐
+ForTuneFundDialog 储蓄系统
+GoldExchangeDialog点数兑换金子
+InputBoxDialog祝福语
+ItemDialog银子的最大上限是1000锭  金子的最大上限为10万锭
+RoleDelDlg请输入图形验证码
+kingaward国王册封
+ListBoardDialog排行榜
+LoginDialog  LoginDialog游戏登陆
+mainsafetyuser财产保护
+minimap服务器状态显示灯
+MoneyInputBoxDialog请输入对方名字
+PetFloatDialog  宝宝  攻击所有敌人
+QueryGenDlg当前经验
+RegisterDialog注册帐号
+mainsafetyuser警告!有人正试图从其它机器登陆该游戏帐号
+RightCornerWindowDialog右下角弹出信息框
+Salary福利姐姐
+SystemDialog系统设置
+TankSetDialog战车指挥
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

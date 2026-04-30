@@ -1,0 +1,9 @@
+tar -zcvf /root/ztgame.tar.gz /home/1/
+
+
+
+
+# 打包 /a/b/target 文件夹，压缩包内直接是 target/（无上级目录）
+
+
+tar -zcvf ztgame.tar.gz -C /home/1 home root

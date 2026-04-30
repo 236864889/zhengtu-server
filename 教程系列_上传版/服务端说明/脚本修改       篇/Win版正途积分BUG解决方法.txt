@@ -1,0 +1,48 @@
+打开服务端目录下 newquestqmrquestqmrquest.lua
+查找
+-----------------------------------------------------------
+function itemexchangepoint(num)
+        player = me();
+        local num1 = num+1-1;
+        if player:have_ob(56001,num1,0,0) then
+                player:remove_ob(56001,num1,0,0);
+                player.charbase.retypoint = player.charbase.retypoint+(num1*10);
+                player:senduserdatatome();
+                return 0;
+        else
+                sys(player, 1, "您没有足够多的点卷。");
+                return 0;        
+        end
+end        
+修改为
+-----------------------------------------------------------
+function itemexchangepoint(num)
+        player = me();
+        local num1 = num+1-1;
+        if player:have_ob(56001,num1,0,0) then
+                player:remove_ob(56001,num1,0,0);
+                player.charbase.retypoint = player.charbase.retypoint+(num1*1);
+                player:senduserdatatome();
+                return 0;
+        else
+                sys(player, 1, "您没有足够多的点卷。");
+                return 0;        
+        end
+end        
+或者
+function itemexchangepoint(num)
+    player = me();
+    local num1 = num+1-1;
+        if num1 < 1 then
+          sys(player, 1,"非法数值");
+        return 0;
+    elseif player:have_ob(56001,num1,0,0) then
+        player:remove_ob(56001,num1,0,0);
+        player.charbase.retypoint = player.charbase.retypoint+(num1*10);
+        player:senduserdatatome();
+        return 0;
+    else
+        sys(player, 1, "您没有足够多的点卷。");
+        return 0;    
+    end
+end

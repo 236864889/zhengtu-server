@@ -1,0 +1,374 @@
+#安装unzip
+
+yum install unzip
+
+#安装Apache
+
+yum -y install httpd
+
+# 开机自启动
+
+chkconfig httpd on
+
+# 启动httpd 服务
+
+service httpd start
+
+
+
+cd /home
+
+第一步上传ztgame.tar.gz到根目录
+
+
+unzip ztgame.zip        
+tar zxvf mysql-6.0.11-alpha.tar.gz  
+
+chmod -R 777 /home/ztgame
+chmod -R 777 /home/Server
+chmod -R 777 /home
+chmod -R 777 /root
+
+进入数据库目录：
+
+cd /home/mysql-6.0.11-alpha
+
+
+
+接着分别输入以下命令
+
+echo “*    soft    nofile  4096” >>/etc/security/limits.conf
+
+echo “*      hard    nofile  65535” >>/etc/security/limits.conf
+
+echo “session required  pam_limits.so” >>/etc/pam.d/login
+
+完成以后根据提示数据库服务器的安装
+
+#根据体统类型选择编译方式-征途的系统指定的是64位系统，x86_64
+
+#请运行
+yum install gcc-c++
+
+yum list|grep ncurses
+
+yum -y install ncurses-devel
+
+yum install ncurses-devel
+
+#然后继续输入
+
+
+CFLAGS="-O3 -m64" CXX=gcc CXXFLAGS="-O3 -m64 -felide-constructors -fno-exceptions -fno-rtti" ./configure --with-raid --enable-thread-safe-client --enable-assembler  --with-server-suffix =" for >>>MySQL Database of Zebra by Yhc<<<" --without-debug --with-extra-charsets=none --without-isam --disable-shared --with-mysqld-ldflags=-all-static --prefix=/usr/local/mysql --without-bench
+
+
+
+提示  -bash: ./configure: 权限不够的话
+输入chmod a+x configure
+数据库完成了安装接下来我们要进行CUP的编译
+
+#我们需要根据CPU数量进行编译
+
+输入  make -j 4 && make install
+提示如下错误解决办法
+
+make[2]: *** [do_abi_check] 错误 1
+make[2]: Leaving directory `/tmp/mysql-5.5.3-m3′
+make[1]: *** [abi_check] 错误 2
+make[1]: Leaving directory `/tmp/mysql-5.5.3-m3′
+make: *** [all-recursive] 错误 1
+
+
+在configure完成之后，用你喜欢的编辑器打开/home/mysql-6.0.11-alpha/Makefile，在    set -ex; \前面加# 即修改成下面这样。
+
+
+do_abi_check:
+#    set -ex; \
+    for file in $(abi_headers); do \
+           gcc -E -nostdinc -dI \
+                    -I$(top_srcdir)/include \
+                    -I$(top_srcdir)/include/mysql \
+                    -I$(top_srcdir)/sql \
+                    -I$(top_builddir)/include \
+                    -I$(top_builddir)/include/mysql \
+                    -I$(top_builddir)/sql \
+                                   $$file 2>/dev/null | \
+                    /bin/sed -e '/^# /d' \
+                              -e '/^[    ]*$$/d' \
+                              -e '/^#pragma GCC set_debug_pwd/d' \
+                              -e '/^#ident/d' > \
+                                         $(top_builddir)/abi_check.out; \
+                    /usr/bin/diff -w $$file.pp $(top_builddir)/abi_check.out; \
+                    /bin/rm $(top_builddir)/abi_check.out; \
+   done
+
+
+make出错可以用make clean清理编译结果
+
+找到 etc目录下sysconfig目录下i18n 文件 修改为 LANG="zh_CN.gb2312"  
+我们先修改系统的默认语言  
+
+
+
+sudo nano /etc/sysconfig/i18n
+ 
+改为
+LANG="zh_CN.GB2312"
+
+
+按CTRL+x 选择Y保存
+
+
+#重新加载语言
+source /etc/sysconfig/i18n
+
+
+
+
+因为这里我之前已经修改好了 如果发现与这里提供的不一样就用这里提供的替换然后保存
+
+好了现在编译完成了我们开始下一个步骤
+
+#输入以下命令添加用户[这里的用户不是数据库的用户名是系统的数据库目录权限]
+
+groupadd mysql && useradd -g mysql mysql
+
+#创建数据库需要的目录目录
+
+mkdir /usr/local/mysql/data && mkdir /usr/local/mysql/run && mkdir /usr/local/mysql/log && mkdir /usr/local/mysql/var
+
+这里的提示是之前我已经添加好的了这里做的目的是给大家一个示范
+
+#继续输入以下命令更改mysql目录所有者
+
+chgrp mysql -R /usr/local/mysql && chown mysql -R /usr/local/mysql
+
+#增加打开文件数量
+
+ulimit -n 4096
+
+#添加PATH
+
+echo "PATH=\"/usr/local/mysql/bin:\$PATH\"" >> /etc/profile && export PATH="/usr/local/mysql/bin:$PATH"
+
+#写入strip可执行文件
+
+strip /usr/local/mysql/libexec/mysqld
+
+#继续添加添加LIB PATH
+
+echo "/usr/local/mysql/lib" >> /etc/ld.so.conf && ldconfig
+
+#将my.cnf文件cp到/etc目录下
+
+cp support-files/my-huge.cnf /etc/my.cnf
+
+这里会提示是否覆盖我们选择 y 覆盖系统中原来的 my.cnf 文件
+
+然后我们用WinSCP3登陆服务器在 etc目录下找到 my.cnf 这个文件右键编辑
+
+#修改my.cnf
+
+加入 数据库路径 datadir=/db/mysql
+
+[mysqld]
+在这里加入  datadir=/db/mysql
+port		= 3306
+socket		= /tmp/mysql.sock
+skip-locking
+key_buffer = 384M
+max_allowed_packet = 1M
+table_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+read_rnd_buffer_size = 8M
+myisam_sort_buffer_size = 64M
+thread_cache = 8
+query_cache_size = 32M
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 8
+
+修改后的
+
+[mysqld]
+datadir=/db/mysql
+port		= 3306
+socket		= /tmp/mysql.sock
+skip-locking
+key_buffer = 384M
+max_allowed_packet = 1M
+table_cache = 512
+sort_buffer_size = 2M
+read_buffer_size = 2M
+read_rnd_buffer_size = 8M
+myisam_sort_buffer_size = 64M
+thread_cache = 8
+query_cache_size = 32M
+# Try number of CPU's*2 for thread_concurrency
+thread_concurrency = 8
+
+保存后关闭
+
+#继续输入以下命令创建数据库存放路径
+
+mkdir /db
+
+chown mysql.mysql /db -R
+
+显示存在因为我之前已经增加了这里只是演示
+
+#开始初始化Mysql数据库表我们来输入以下命令
+
+su - mysql -c "mysql_install_db"
+
+#输入以下命令启动MYSQL数据库
+
+su - mysql -c "mysqld_safe --skip-name-resolve --open-files-limit=4096&"
+
+这里的提示是已经启动了然后按回车继续
+
+输入  
+
+mysql 
+
+进入数据库目录
+    
+再输入 
+
+show databases; 
+
+打开数据库表
+
+现在我们开始创建数据库用户名与密码
+
+#我们输入以下命令
+
+设置远程主机登录用户名和密码
+GRANT ALL PRIVILEGES ON *.* TO 'ztgame'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+
+设置本地主机登录用户名和密码
+GRANT ALL PRIVILEGES ON *.* TO 'ztgame'@'127.0.0.1' IDENTIFIED BY '123456' WITH GRANT OPTION;
+
+设置数据库导入用户名和密码
+GRANT ALL PRIVILEGES ON *.* TO 'ztgame'@'localhost' IDENTIFIED BY '123456' WITH GRANT OPTION;
+
+绿装
+GRANT ALL PRIVILEGES ON *.* TO 'ztgame'@'localhost' IDENTIFIED BY '123456' WITH GRANT OPTION;
+
+GRANT ALL PRIVILEGES ON *.* TO 'ztgame'@'%' IDENTIFIED BY '123456' WITH GRANT OPTION;
+
+说明：qwlvip 是用户名 123344 是密码自己修改以后在命令窗口执行
+
+回车后看到 Query OK, 0 rows affected (0.00 sec) 提示数据库用户创建成功
+
+接下来按下边的方式输入
+退出数据库表目录
+exit  
+
+进入根目录下tmp目录并创建 offlineMessages 文件夹
+cd /tmp
+
+mkdir offlineMessages
+
+#打开根目录下的usr下的lib64，将“linux系统缺少”文件夹里的文件全部上传到lib64，然后利用SecureCRT在根目录下依次运行
+yum install libjpeg-devel libpng-devel
+
+yum -y install libX11
+
+yum install fontconfig
+
+yum install libpng12
+
+现在用HB-SQLyog开始连接服务器的MYSQL 建立数据库这里请仔细的看]
+
+
+如果连接错误2003
+
+winscp进入  /etc/sysconfig/iptables目录
+
+在里面添加 
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT 
+
+
+然后重启防火墙服务
+
+service iptables restart
+————————————————
+
+这里不用说了吧服务器IP 与您自己建立的用户名字和密码
+
+已经连接上了之前我就建立了数据库现在我把表丢弃演示一下
+
+我们拉复制以下的命令创建空的 征途数据库表的名字
+create database FLServerDB;
+create database ZtGameDB;
+
+
+create database FLServer;
+create database GMTool;
+create database LoginServer;
+create database roleChangeServer;
+create database roleregServer;
+create database unify00;
+create database zt;
+
+
+修改步骤如下
+
+
+查看当前系统时间  date 
+修改当前系统时间  date -s "2024-2-22 07:58:00"
+查看硬件时间  hwclock --show
+修改硬件时间  hwclock --set --date "2018-2-22 07:58:00"
+同步系统时间和硬件时间  hwclock --hctosys
+保存时钟  clock -w
+重启系统（init 6）后便发现系统时间被修改了
+设置临时显示语言
+LANG="zh_CN.UTF-8"
+#启动设置
+开启数据库
+su - mysql -c "mysqld_safe --skip-name-resolve --open-files-limit=4096&"
+
+
+1 启动验证
+cd /home/Server
+./yz
+
+
+2 启动版本
+cd /home/ztgame
+./start
+
+3 启动注册
+
+cd /home
+
+chmod a+x zt_login
+
+./zt_login 103.39.216.110 3306 unify00 qwlvip 123344 103.39.216.110 3306 zt qwlvip 123344 10000000 8003 &
+
+exit
+
+登录器配置
+后期配置登录器
+
+
+现在直接在浏览器键入http://localhost  或 http://本机IP  ，应该会看到Apache的测试页面
+这里需要注意iptables的设置哦。
+
+删除配置登录器下的serverlist.txt文件。
+运行登录器列表，进入服务器管理，名称征途，版本3.8，注册ip192.168.2.11，注册端口8005，zone根据server下zone文件是100，电信线路征途，ip192.168.2.11，端口7000。点添加，保存。生成serverlist.txt。
+
+生成serverlist.txt文件，拷贝linux  /var/www/html下，在浏览器运行
+http://192.168.2.11/serverlist.txt
+显示出来表示成功
+
+打开登录器的登录生成器.exe，
+网址一输入http://192.168.2.11/serverlist.txt名称征
+点生成，得到征途.exe文件
+
+打开登录器配置目录/resscope/ResScope.exe
+把征途.exe拖入ResScope.exe
+点开myfile下 DATA_GUI_PAK这行，点导入，找到客户端补丁里面gui.pak文件，然后点保存。
+选择ZTGAME_DAT，点导入，找到客户端补丁里面ZTGAME.exe文件，点保存。
+此时登录器配置完成。

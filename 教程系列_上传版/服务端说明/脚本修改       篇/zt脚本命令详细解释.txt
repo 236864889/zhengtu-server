@@ -1,0 +1,26 @@
+zt脚本命令详细解释
+quests 任务集 quest id=2 name=新手辅导 建立任务 description 任务描述 body p n color=255,239,196,0
+
+新手辅导n a href=goto 114,93清源村-村长(114,93)a 
+
+和我们用的超级链接NNN相似呀 p diffcult level=1 等级为1 body description events 
+
+任务事件 event type=on_enter source=227.xml 事件链接 events quest quests 这是一个基本架构。
+
+架构性语句： 1、embranchment id=10 分支 2、conditions 状况 3、actions 动作 4、menu 任务菜单 
+
+5、function TaskDialog() 对话框函数描述性语句 1、object id=690 短刀-战士武器 object 显示物品 2、 
+
+message color=255,255,255,20 n鸡：n n var=kill_鸡 task=214 n10n message 数量任务显示执行性语句： 1、
+
+变量定义 var type=Differ name=state value=-1 id=211 2、变量修改 var type=Set name=state value=-3 3、
+
+变量比较 var type=Equal name=state value=-3 id=215 refresh name=state 刷新变量 4、
+
+系统给玩家物品 additem value=5 id=585 普通的 addbinditem value=5 id=585 
+
+绑定的 addgreenbinditem value=5 id=585 绑定的绿装 5、系统给玩家经验 exp value=500 6、
+
+系统给玩家银子 gold type=Add value=6000 7、
+
+系统给玩家提示 notify content=恭喜你完成了“身世”任务 notify1 content=得到60两酬劳

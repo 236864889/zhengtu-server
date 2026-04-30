@@ -1,0 +1,164 @@
+征途私服-一转230级紫装--架设过程
+
+一、服务器环境：
+
+1.操作系统为linux，本人用centos7.2的64位
+
+2.系统基础环境只有centos7.2纯净环境，不能安装配置mysql、php、linux管理软件等任何软件程序，否则
+有冲突，造成架设中途退出。
+
+3.注意，如果购买云服务器，不要购买数据盘，只需要购买系统盘就可以，数据盘用不上。
+
+二、架设前准备
+
+1.GM本人电脑安装几个管理软件：SecureCRT（编译工具）、WinSCP（传输工具）、SQLyog（数据库管理工具）
+、TeamViewer（远程控制软件，利用远程架设）、EV录屏（屏幕录像软件，GM记录架设过程）
+
+2.把服务端、登录器配置程序等文件，接受到桌面专用文件夹，方便后续寻找和使用。
+
+3.提前把SecureCRT（编译工具）、WinSCP（传输工具）连接服务器设置好。
+
+三、开始架设
+
+1.服务器环境修改，WinSCP进入服务器根目录，找到etc文件夹下的locale.conf（服务器默认mysql字符集），
+将里边的内容换成
+>>  LANG="zh_CN.GB2312"
+
+2.打开SecureCRT，利用root进入服务器，列出所有被安装的rpm package：
+>>  rpm -qa | grep mariadb
+会看到一个类似mariadb-libs-5.5.56-2.el7.x86_64的反馈，需要强制卸载，利用命令
+>>  rpm -e --nodeps mariadb-libs-5.5.35-3.el7.x86_64 （注意反馈是什么版本，就卸载什么版本）
+
+3.安装mysql依赖
+>>  yum install vim libaio net-tools
+
+4.下载mysql的repo源，如果提示 未找到wget命令，需要安装wget：
+>>  yum install wget
+>>  wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+
+5.安装mysql-community-release-el7-5.noarch.rpm包 
+>>  sudo rpm -ivh mysql-community-release-el7-5.noarch.rpm
+
+6.安装mysql（比较慢）
+>>  sudo yum install mysql-server
+
+7.启动mysql服务
+>>  service mysqld restart
+
+8.进入MySQL
+>>  mysql
+
+9.设置远程主机登录用户名和密码
+>>  GRANT ALL PRIVILEGES ON *.* TO 'qaz1230'@'%' IDENTIFIED BY 'qaz1230' WITH GRANT OPTION;
+
+10.设置本地主机登录用户名和密码
+>>  GRANT ALL PRIVILEGES ON *.* TO 'qaz1230'@'127.0.0.1' IDENTIFIED BY 'qaz1230' WITH GRANT OPTION;
+
+11.退出
+>>  exit 
+
+12.再次打开SecureCRT，解释进入根目录下tmp目录
+>>  cd /tmp
+
+13.解释创建 offlineMessages 文件夹
+>>  mkdir offlineMessages
+
+14.打开根目录下的usr下的lib64，将“linux系统缺少”文件夹里的文件全部上传到lib64，然后利用SecureCRT在根目录下依次运行
+缺少 Libjpeg.so.62
+>>  yum install libjpeg-devel libpng-devel
+缺少 libX11.so.6
+>>  yum -y install libX11
+缺少 libfontconfig.so.1
+>>  yum install fontconfig
+缺少 libpng12.so.0
+>>  yum install libpng12
+
+15.数据库存放目录是var/lib/mysql/
+
+至此，服务器环境配置完成。
+
+四、服务端架设，服务端文件配置。
+
+1.ztgame里的billServerList.xml  config.xml  loginServerList.xml  逐个打开，替换IP全部为127.0.0.1,
+数据库zhanghao和mima以及数据库名称  fname>lo</ifname>
+
+2.  Server里的config.xml  dbAccessServerList.xml  UserServer.xml   zoneInfo.xml 逐个打开，替换IP全部为127.0.0.1，数据库zhanghao和mima以及数据库名称  fname>lo</ifname>
+
+3.打开编辑ztgame里的 start,  将./ScenesServer &
+sleep 10  的10，改为12，即为./ScenesServer &
+sleep 12
+
+4.将ztgame和Server压缩为.zip格式，利用WinSCP上传至服务器home下，并利用SecureCRT的命令解压缩
+>>  cd /home
+>>  unzip ztgame.zip
+>>  unzip Server.zip  注意S是大写，也可提前改成小写。
+
+如果不能执行找不到unzip命令，就安装unzip
+>>  yum install -y unzip zip
+
+5.在WinSCP里，刷新home，看到解压缩两个文件夹Server和ztgame，右键点击Server，属性，权限设置为0777（八进制表示），选中“循环...”，确定
+
+6.打开ztgame文件夹，同时选中tmp和log文件夹以及start、stop、zntop,右键属性，同上条设置权限0777
+
+7.同时选中7个启动服务执行文件SuperServer  BillServer  MiniServer  GatewayServer  SessionServer  ScenesServer  RecordServer  右键属性，权限设置为777
+
+8.把zt_login上传至home下
+
+五、创建和导入游戏数据库
+
+1.打开SQLyog（数据库管理工具），创建FLServerDB和ZtGameDB数据库，前者是帐号，后者是角色。
+
+2.两个数据库表，从SQL语句导入FLServerDB.sql和ZtGameDB.sql，看好别错。
+
+3.导入后修改ztgame数据库里的serverlist表，网关和登陆IP，这里是6020和7000端口那两个，设置位公网IP，其他全部修改为127.0.0.1
+
+4.再找到CHARBASE角色表，把CHARID第一个改成100，以后注册的都是一般玩家，100以前都是GM。
+
+六、启动和停止游戏
+
+1.启动mysql服务
+service mysqld restart
+
+#停止mysql服务
+service mysqld stop
+
+2.启动版本
+cd /home/ztgame
+./start
+
+3.启动验证
+cd /home/Server
+./yz
+
+#关闭版本和验证
+
+cd /home/ztgame
+./stop
+
+4.启动注册，端口是以下的8000
+cd /home
+
+chmod a+x zt_login
+
+./zt_login 42.51.15.221 3306 FLServerDB dream dream371 42.51.15.221 3306 ZtGameDB dream dream371 1 8000 &
+
+exit
+
+至此，可以注册和开玩了。查看服务启动情况  ps -x
+
+七、生成专用登录器
+
+1.列表管理，填写自己信息。看视频，serverlist.txt尽量放在正常网站空间。充值链接自己喜欢哪个就注册哪个。浏览框是个网页，自己制作吧，我的是论坛推送信息。开区端口是因为架设的时候设定的，所以必须那样填写。
+
+2.生成后，用resscope导入gui.pak和ztgame.dat，保存即可。
+
+3.剩下的打补丁，登陆器放哪，不啰嗦了。
+
+支持1.04夏轩登陆器，角色充值、管理、后台商城、在线加点、修改密码等服务
+
+充值的数据库： FLServerDB
+
+充值的数据表： POINTBONUS0000
+
+
+<npc id="60011" name="服务器维护补偿" width="1" height="1" x="854" y="447" num="1" interval="100" color="0,255,0,0"/>

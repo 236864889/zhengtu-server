@@ -1,0 +1,17 @@
+SetObjectBase.tbl               里面放的是装备灵魂锁链对应物品和套装
+UpgradeObjectBase.tbl           里面放的是装备每升级1棵星数所加的属性
+BlueObjectBase.tbl              装备的金色标志（就是那些精致。完美之类的）
+GoldObjectBase.tbl              装备的金色标志（就是那些精致。完美之类的）
+SoulStoneBase.tbl               28种品质魂魄石的属性
+NpcBase.tbl                     游戏里所有NPC的相关列表
+CharacterStateBase.tbl          一些材料的相关信息
+HairColour.tbl                  修改头发颜色需要的金钱
+ObjectBase.tbl                  游戏里所有的物品数据
+PetBase.tbl                     各个等级怪物的相关数据
+ZhuanGoldObjectBase.tbl         装备的金色标志（就是那些精致。完美之类的）
+DropGoldObjectBase.tbl          装备的金色标志（就是那些精致。完美之类的）
+SetObjectBase.tbl               各种套装。和装备的灵魂锁链物品ID（可以修改全部装备需要某东西
+
+激活）
+SkillBase.tbl                   游戏里技能的文件
+FiveSetBase.tbl                 灵魂锁链的相关信息（可以把灵魂锁链12%修改成100%）

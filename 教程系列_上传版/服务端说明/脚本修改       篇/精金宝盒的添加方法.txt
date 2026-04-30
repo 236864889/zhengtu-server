@@ -1,0 +1,53 @@
+精金宝盒的添加方法 
+ 
+ GiftBoxConfig.xml文件拉到最下面
+!-- giftbox id=大类ID --
+
+        
+giftbox id=2
+boxitem itemid=964 size=17 maxnumber=1 price=0
+                qualitys quality=11 qualityodds=25000 maxnum=1 numkind=1
+giftbox
+
+其实就是新加一个箱子的 id为2
+设置箱子所需钥匙的id，精金钥匙的id是964，下面quality就是设置开出物品类了
+
+
+-------------------
+
+例子：
+
+
+giftbox id=1
+!-- id=钥匙ID size=格子个数 maxnumber=再来1次次数上限 price=基础价格--
+boxitem itemid=963 size=17 maxnumber=1 price=0
+qualitys quality=11 qualityodds=25000 maxnum=1 numkind=1
+qualitys quality=10 qualityodds=450 maxnum=1 numkind=10
+qualitys quality=9 qualityodds=1500 maxnum=1 numkind=10
+qualitys quality=8 qualityodds=100000 maxnum=2 numkind=11
+qualitys quality=7 qualityodds=12500 maxnum=1 numkind=19
+qualitys quality=6 qualityodds=2000 maxnum=1 numkind=1
+qualitys quality=5 qualityodds=25000 maxnum=1 numkind=19
+qualitys quality=4 qualityodds=10000 maxnum=1 numkind=1
+qualitys quality=3 qualityodds=50000 maxnum=1 numkind=19
+qualitys quality=2 qualityodds=100000 maxnum=1 numkind=35
+qualitys quality=1 qualityodds=100000 maxnum=17 numkind=23
+giftbox
+----------------------------上面是原内容，下面加一段----
+giftbox id=2
+boxitem itemid=964 size=17 maxnumber=1 price=0
+qualitys quality=11 qualityodds=25000 maxnum=1 numkind=1
+qualitys quality=10 qualityodds=450 maxnum=1 numkind=10
+qualitys quality=9 qualityodds=1500 maxnum=1 numkind=10
+qualitys quality=8 qualityodds=100000 maxnum=2 numkind=11
+qualitys quality=7 qualityodds=12500 maxnum=1 numkind=19
+qualitys quality=6 qualityodds=2000 maxnum=1 numkind=1
+qualitys quality=5 qualityodds=25000 maxnum=1 numkind=19
+qualitys quality=4 qualityodds=10000 maxnum=1 numkind=1
+qualitys quality=3 qualityodds=50000 maxnum=1 numkind=19
+qualitys quality=2 qualityodds=100000 maxnum=1 numkind=35
+qualitys quality=1 qualityodds=100000 maxnum=17 numkind=23
+giftbox 
+ 
+ 
+

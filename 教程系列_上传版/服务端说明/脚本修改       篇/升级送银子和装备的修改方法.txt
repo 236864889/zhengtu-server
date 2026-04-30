@@ -1,0 +1,26 @@
+升级送银子和装备的修改方法
+打开服务端 \ztgame\quest\on_other 目录下的 levelup.xml 文件
+
+<embranchment id="8">
+<conditions>
+<level type="Great" value="100"/>     等级限定最低100级
+<level type="Less" value="121"/>     等级限定最高121级
+</conditions>
+<actions>                           行为，执行下面<actions></actions>中包括的内容
+<gold type="Add" value="1500"/>      限定等级内每升一级送1500文银子,直到角色等级超过上限121级!!
+<addgreenbinditem value="1" id="963" />    限定等级内每升一级送1把绑定的钥匙,value="数量" id="物品代码",要送什么自己改咯
+<additem value="1" id="963" />        这句就是送不绑定的东东..当然,送的东西,还是绑定的好啊..  
+<notify1 content="恭喜你升级了！"/>
+<notify1 content="人物属性+8"/>
+<notify1 content="技能点+1"/>
+<notify1 content="生命上限+15"/>
+<notify1 content="魔法上限+1"/>
+<var type="Set" name="state" value="1" id="150001"/>
+</actions>
+</embranchment>
+
+更多修改 请到http://51zhengtu.com.cn
+--------------------
+我要征途http://51zhengtu.com.cn
+一起私服http://174f.com.cn
+征途私服免费发布，技术学习专业网站

@@ -1,0 +1,11 @@
+编译CPU之前错误提示为：
+checking if struct dirent has a d_ino member... yes
+checking if struct dirent has a d_namlen member... no
+checking whether signal handlers are of type void... yes
+checking for tgetent in -lncurses... no
+checking for tgetent in -lcurses... no
+checking for tgetent in -ltermcap... no
+checking for termcap functions library... configure: error: No curses/termcap library found
+
+
+输入yum install ncurses-devel，自动完成直接安装即可
