@@ -1,0 +1,12 @@
+{
+  "servers": [
+    {
+      "name": "测试一区",
+      "ip": "127.0.0.1",
+      "port": 7000,
+      "zone": 1,
+      "version": 1999,
+      "status": "open"
+    }
+  ]
+}
