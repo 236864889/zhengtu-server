@@ -1,57 +1,65 @@
-# 附录C：Codex/Claw 任务模板
+# 附录C_Codex_Claw任务模板
 
-## 模板1：编译失败排查任务
-- 当前状态：`make` 失败，需定位首个报错。
-- 禁止事项：不改协议/数据库/登录器，不执行危险写操作。
-- 允许事项：读取 `Makefile`、日志、依赖检查命令。
-- 要读取的文件：`ztgame/Makefile`、对应模块 `Makefile`、`docs/rag_sources/10_已修复编译问题记录.md`。
-- 要执行的只读命令：`make 2>&1 | tee build.log`、`tail -n 200 build.log`。
-- 输出要求：首错位置、根因判断、最小修复建议、回滚点。
+## 1) 编译失败排查任务
+- 当前状态：某模块编译/链接失败，需只读排查。
+- 禁止事项：禁止改源码、禁止编译执行、禁止启动服务。
+- 允许事项：读取日志、Makefile、历史修复文档。
+- 要读取的文件：`ztgame/Makefile`、`docs/rag_sources/02_编译顺序与产物.md`、`docs/rag_sources/10_已修复编译问题记录.md`。
+- 要执行的只读命令：`cat`、`rg`、`find`（仅查询）。
+- 输出要求：给出失败阶段、首个错误点、候选根因、人工复核项。
 
-## 模板2：base 编译失败任务
-- 当前状态：`make -C base` 失败。
-- 禁止事项：不跳过错误、不直接替换第三方库。
-- 允许事项：只读检查头文件、编译器、已修复记录。
-- 要读取的文件：`ztgame/base/*`、`docs/rag_sources/10_已修复编译问题记录.md`。
-- 要执行的只读命令：`make -C base 2>&1 | tee base_build.log`。
-- 输出要求：是否命中历史问题、修复优先级、影响范围。
+## 2) base 编译失败任务
+- 当前状态：`base` 相关报错。
+- 禁止事项：禁止直接打补丁到源码。
+- 允许事项：仅做证据归档与修复建议。
+- 要读取的文件：`docs/rag_sources/10_已修复编译问题记录.md`、`ztgame/base` 下相关文件（只读）。
+- 要执行的只读命令：`cat`、`rg "zMisc|zSocket|zLogger|zMysqlDBConnPool" ztgame/base`。
+- 输出要求：映射到已知修复项，标记是否复发。
 
-## 模板3：ScenesServer 编译失败任务
-- 当前状态：ScenesServer 链接失败。
-- 禁止事项：不删除 Lua 功能、不改业务逻辑规避。
-- 允许事项：检查 `script` 静态库与 `ScenesServer/Makefile`。
-- 要读取的文件：`ztgame/ScenesServer/Makefile`、`ztgame/script/*`、`docs/rag_sources/02_编译顺序与产物.md`。
-- 要执行的只读命令：`ls ztgame/script/*.a`、`grep -n 'llua\|lluabind' ztgame/ScenesServer/Makefile`。
-- 输出要求：缺失库/顺序/ABI 三类结论与建议。
+## 3) ScenesServer 编译失败任务
+- 当前状态：`ScenesServer` 编译或链接失败。
+- 禁止事项：禁止重构构建系统。
+- 允许事项：核对静态库依赖链与路径。
+- 要读取的文件：`docs/rag_sources/02_编译顺序与产物.md`、`ztgame/Makefile`。
+- 要执行的只读命令：`cat`、`rg "liblua|luabind|ssl|zebra" ztgame/ScenesServer`。
+- 输出要求：指出缺失库/错误符号/路径不一致点。
 
-## 模板4：服务启动失败任务
-- 当前状态：启动链路中断。
-- 禁止事项：不直接全量 kill -9 线上进程。
-- 允许事项：读取启动脚本、日志、进程/端口状态。
-- 要读取的文件：`ztgame/start.sh`、`ztgame/start1.sh`、`ztgame/stop.sh`、配置 XML。
-- 要执行的只读命令：`ps -ef | egrep 'Server'`、`ss -lntp`、`tail -n 200 /tmp/*.log`（若存在）。
-- 输出要求：首个失败服务、前置依赖、修复与回滚步骤。
+## 4) 服务启动失败任务
+- 当前状态：服务按脚本启动失败或异常退出。
+- 禁止事项：禁止实际启动、禁止 kill 进程。
+- 允许事项：比对启动脚本与日志线索。
+- 要读取的文件：`ztgame/start.sh`、`ztgame/start1.sh`、`ztgame/stop.sh`、`docs/rag_sources/03_服务端启动顺序.md`。
+- 要执行的只读命令：`cat`、`rg "Super|FL|Gateway|kill -9" ztgame/*.sh`。
+- 输出要求：给出基线A/B差异、风险点、建议启动基线。
 
-## 模板5：登录失败任务
-- 当前状态：客户端无法登录。
-- 禁止事项：不做协议注入/抓包伪造。
-- 允许事项：核对配置与服务状态。
-- 要读取的文件：`config.ini`、`servers.json`、runtime_validation 文档。
-- 要执行的只读命令：服务进程与端口检查、日志关键字检索。
-- 输出要求：配置差异点、服务链路断点、最小修复路径。
+## 5) 登录失败任务
+- 当前状态：`login failed/timeout`。
+- 禁止事项：禁止改协议与数据库结构。
+- 允许事项：读取账号链路分析材料。
+- 要读取的文件：`docs/rag_sources/06_数据库与账号体系.md`、`docs/source_analysis/ztgame_dat/runtime_validation/`、`docs/source_analysis/launcher_reanalysis/`。
+- 要执行的只读命令：`cat`、`rg "login|timeout|DBAccess|Session" docs/source_analysis`。
+- 输出要求：给出链路断点假设和最小验证顺序。
 
-## 模板6：配置漂移任务
-- 当前状态：环境间配置不一致。
-- 禁止事项：不覆盖生产配置。
-- 允许事项：只读 diff 与备份核对。
-- 要读取的文件：`ztgame/Config/*.xml`、顶层 XML、备份目录。
-- 要执行的只读命令：`diff -ruN <envA_config> <envB_config>`（只读）。
-- 输出要求：漂移清单、风险等级、回滚建议。
+## 6) 配置漂移任务
+- 当前状态：环境配置与文档不一致。
+- 禁止事项：禁止直接覆盖线上配置。
+- 允许事项：做差异盘点与风险分类。
+- 要读取的文件：`docs/rag_sources/05_配置文件总览.md`、相关 XML 清单。
+- 要执行的只读命令：`find ztgame -maxdepth 2 -name "*.xml"`、`cat`。
+- 输出要求：漂移项列表（缺失/新增/命名变更）。
 
-## 模板7：客户端登录器联调任务
-- 当前状态：登录器与客户端联调异常。
-- 禁止事项：不改 `ztgame.dat` 源码、不改协议算法实现。
-- 允许事项：读取 runtime_validation 与 launcher_reanalysis 文档，核对配置。
-- 要读取的文件：`docs/source_analysis/ztgame_dat/runtime_validation/*.md`、`docs/source_analysis/launcher_reanalysis/*.md`。
-- 要执行的只读命令：配置文件检查、日志检查、端口连通检查。
-- 输出要求：联调路径图、断点、建议验证顺序、人工复核项。
+## 7) 客户端登录器联调任务
+- 当前状态：客户端或登录器联调受阻。
+- 禁止事项：禁止运行未知二进制。
+- 允许事项：读取 runtime_validation 与 launcher_reanalysis 证据。
+- 要读取的文件：`docs/source_analysis/ztgame_dat/runtime_validation/`、`docs/source_analysis/launcher_reanalysis/`。
+- 要执行的只读命令：`cat`、`rg "launcher|runtime|P0_" docs/source_analysis`。
+- 输出要求：联调前置条件、链路核对表、人工确认项。
+
+## 8) 教程整理/手册修订任务
+- 当前状态：需更新 SOP 文档。
+- 禁止事项：禁止把 C/D 教程写入主流程。
+- 允许事项：仅更新 `docs/operations/`。
+- 要读取的文件：`docs/source_analysis/tutorials_inventory/04_教程质量分级与整理建议.md`、`05_最终教程手册结构建议.md`、`docs/operations/review/*.md`。
+- 要执行的只读命令：`cat`、`rg`。
+- 输出要求：修订清单、变更理由、仍待确认项。
