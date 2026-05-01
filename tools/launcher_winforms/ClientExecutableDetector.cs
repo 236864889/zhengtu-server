@@ -37,8 +37,8 @@ namespace LauncherWinForms
             if (File.Exists(exe) && IsWindowsPE(exe)) return exe;
 
             if (!File.Exists(dat) && !File.Exists(exe))
-                throw new Exception("E001: 主程序缺失");
-            throw new Exception("E002: 主程序不是PE");
+                throw new LauncherException(LauncherErrorCode.E001, "主程序缺失");
+            throw new LauncherException(LauncherErrorCode.E002, "主程序不是有效 PE 文件");
         }
     }
 }

@@ -54,9 +54,9 @@
     <Compile Include="LauncherErrorPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="servers.json">
+    <Content Include="servers.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
