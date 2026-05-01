@@ -1,0 +1,5 @@
+{"path":"ztgame/BillServer/BillServer.cpp","level":"S","module":"BillServer","chunk_hint":"init/final/super-msg","keywords":["BillService","init","final","msgParse_SuperService","dbConnPool"],"reason":"服务生命周期与总装配主入口"}
+{"path":"ztgame/BillServer/BillTask.cpp","level":"S","module":"BillServer","chunk_hint":"verify+cmd-dispatch","keywords":["verifyLogin","cmdMsgParse","PARA_GATE_LOGINVERIFY","PARA_SCENE_FORWARD_BILL"],"reason":"Gateway/Scene到Bill分发核心"}
+{"path":"ztgame/BillServer/BillUser.cpp","level":"S","module":"BillServer","chunk_hint":"balance+redeem+restore","keywords":["login","usermsgParseScene","redeem_gold","RESTOREGOLD","BALANCE"],"reason":"资金变更与补偿主逻辑"}
+{"path":"ztgame/BillServer/StockConsign.cpp","level":"S","module":"BillServer","chunk_hint":"consign trade","keywords":["CONSIGNGOLD","CONSIGNMONEY","history","cancelListAll"],"reason":"大额资金相关委托交易逻辑"}
+{"path":"ztgame/base/BillCommand.h","level":"S","module":"base","chunk_hint":"protocol enums","keywords":["CMD_GATE","CMD_REDEEM","t_LoginVerify_Gateway"],"reason":"跨服务协议语义锚点"}
