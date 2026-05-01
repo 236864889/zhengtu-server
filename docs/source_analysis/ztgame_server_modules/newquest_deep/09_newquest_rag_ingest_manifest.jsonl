@@ -1,0 +1,4 @@
+{"path": "ztgame/newquest/quest.lua", "level": "S", "module": "newquest", "chunk_hint": "入口/生命周期", "keywords": ["LUA_PATH", "enter", "quit", "die", "require"], "reason": "全局入口与生命周期函数"}
+{"path": "ztgame/newquest/npc/npc_825.lua", "level": "S", "module": "newquest", "chunk_hint": "高复杂度任务脚本", "keywords": ["visit_825", "accept_825", "show_dialog", "随机任务"], "reason": "超大脚本，分支最多"}
+{"path": "ztgame/newquest/define825.lua", "level": "S", "module": "newquest", "chunk_hint": "公共任务定义", "keywords": ["visit_npc", "state_npc", "kill_npc", "refresh_npc"], "reason": "高复用公共逻辑"}
+{"path": "ztgame/ScenesServer/Quest.cpp", "level": "S", "module": "ScenesServer", "chunk_hint": "Lua事件桥接", "keywords": ["execute_script_event", "target", "offset"], "reason": "quest->lua 调用主链"}
