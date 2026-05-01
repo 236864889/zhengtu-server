@@ -1,0 +1,11 @@
+# 关键词词库
+- 启动生命周期：`ScenesService main init final serviceCallback zSubNetService`
+- Session/Gateway通信：`SceneTask cmdMsgParse SessionClient sendCmd ForwardScene`
+- 玩家入场切图：`SceneUser changeMap deathBackToMapID loadMapOK logout`
+- 地图AOI：`Scene sendCmdToNine sendCmdToDirect maptempid screen`
+- NPC怪物：`SceneNpc SceneNpcAI summon bossMap NpcTrade`
+- 任务：`Quest QuestEvent QuestCondition QuestTable`
+- 技能战斗：`ScenePk Skill SceneSkill SkillStatusManager attackMagic`
+- Lua脚本：`script.cpp script.h luabind execute_script_event newquest/quest.lua`
+- 配置数据库：`zXMLParser LoadMap mysql RecordClient`
+- 风险排查：`状态一致性 广播风暴 脚本panic 内存增长`

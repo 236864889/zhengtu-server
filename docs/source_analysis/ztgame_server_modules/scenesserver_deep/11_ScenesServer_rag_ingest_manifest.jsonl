@@ -1,0 +1,9 @@
+{"path":"ztgame/ScenesServer/ScenesServer.cpp","level":"S","module":"lifecycle","chunk_hint":"init/final/main/service loop","keywords":["main","init","final","zSubNetService","quest.lua"],"reason":"启动和全局依赖总入口"}
+{"path":"ztgame/ScenesServer/SceneTask.cpp","level":"S","module":"protocol_dispatch","chunk_hint":"cmdMsgParse and gateway/session forward","keywords":["cmdMsgParse","sendCmd","LUA_USERCMD","logout"],"reason":"协议分发核心"}
+{"path":"ztgame/ScenesServer/Scene.cpp","level":"S","module":"scene_aoi","chunk_hint":"changeMap/loadMapFile/sendCmdToNine","keywords":["changeMap","AOI","sendCmdToNine","LoadMap"],"reason":"地图与广播核心"}
+{"path":"ztgame/ScenesServer/SceneUser.cpp","level":"S","module":"user_flow","chunk_hint":"login-enter-map-quit-save","keywords":["SceneUser","changeMap","sendCmdToMe","execute_script_event"],"reason":"玩家主状态机"}
+{"path":"ztgame/ScenesServer/SceneNpc.cpp","level":"S","module":"npc_combat","chunk_hint":"npc ai interact death","keywords":["SceneNpc","summon","sendCmdToNine","script"],"reason":"NPC与怪物主行为"}
+{"path":"ztgame/ScenesServer/SkillStatusManager.cpp","level":"S","module":"combat_status","chunk_hint":"SkillStatus_*","keywords":["SkillStatus","attack","buff","debuff"],"reason":"战斗状态高风险高价值"}
+{"path":"ztgame/ScenesServer/script.h","level":"S","module":"lua_bridge","chunk_hint":"execute_script_event templates","keywords":["luabind","execute_script_event","lua error"],"reason":"脚本桥接入口"}
+{"path":"ztgame/ScenesServer/RecordClient.cpp","level":"A","module":"record_link","chunk_hint":"record callbacks and save ack","keywords":["RecordClient","cmdMsgParse","save"],"reason":"持久化回包链路"}
+{"path":"ztgame/ScenesServer/SceneManager.cpp","level":"A","module":"map_registry","chunk_hint":"country/map init and temp scene","keywords":["SceneManager","map_info","country_info"],"reason":"地图注册中心"}
