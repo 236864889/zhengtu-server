@@ -1,0 +1,11 @@
+{"path":"ztgame/MiniServer/MiniServer.cpp","level":"S","module":"lifecycle","chunk_hint":"init/final/main/reloadConfig/newTCPTask","keywords":["MiniService","zSubNetService","mysql","threadPool","MiniHall"],"reason":"服务启动与生命周期总入口，决定可用性"}
+{"path":"ztgame/MiniServer/MiniTask.cpp","level":"S","module":"protocol","chunk_hint":"verifyConn/cmdMsgParse/parseGateMsg/parseForwardMsg/parseSceneMsg","keywords":["CMD_GATE","CMD_FORWARD","CMD_SCENE","deposit","draw"],"reason":"跨 Gateway/Scene 的协议枢纽与资金逻辑"}
+{"path":"ztgame/MiniServer/MiniHall.cpp","level":"S","module":"gameplay_entry","chunk_hint":"init/parseUserCmd/parseCommonCmd/userEnter/userLeave","keywords":["Mini.xml","room","game","chat","top100"],"reason":"小游戏业务入口与大厅状态机"}
+{"path":"ztgame/MiniServer/MiniUserManager.cpp","level":"S","module":"user_state","chunk_hint":"newUser/removeUserByGatewayID/update","keywords":["MINIGAME","load/save","gateway disconnect"],"reason":"用户生命周期与落库主路径"}
+{"path":"ztgame/MiniServer/MiniUser.cpp","level":"A","module":"score_money","chunk_hint":"save/addMoney/removeMoney/sendCmd","keywords":["MiniGameScore","money","db update"],"reason":"积分与金币更新关键实现"}
+{"path":"ztgame/MiniServer/MiniGame.cpp","level":"A","module":"game_base","chunk_hint":"userEnter/userLeave/start/end/timer","keywords":["seat","ready","state machine"],"reason":"玩法公共状态机基类"}
+{"path":"ztgame/MiniServer/DDZCardGame.cpp","level":"A","module":"ddz_rule","chunk_hint":"v_start/v_parseGameCmd/canPut/auto_put","keywords":["DDZ","card pattern","countdown"],"reason":"核心玩法规则与争议定位"}
+{"path":"ztgame/MiniServer/Top100.cpp","level":"A","module":"ranking","chunk_hint":"init/calculate/send","keywords":["top100","rank"],"reason":"排行榜能力定位"}
+{"path":"ztgame/MiniServer/Makefile","level":"B","module":"build","chunk_hint":"CXXFLAGS/CXXLFLAGS/OBJS","keywords":["mysql_config","xml2-config","libzebra"],"reason":"构建依赖与环境排障"}
+{"path":"ztgame/base/MiniCommand.h","level":"S","module":"protocol_def","chunk_hint":"CMD/PARA struct definitions","keywords":["PARA_USER_FORWARD_MINI","PARA_SCENE_DEPOSIT","PARA_MINI_FORWARD_USER"],"reason":"跨服务协议定义源头"}
+{"path":"ztgame/base/MiniUserCommand.h","level":"A","module":"client_cmd","chunk_hint":"stMiniGameUserCmd and subcommands","keywords":["MUS_READY","stDrawCommonMiniGameCmd","stRetTopCommonMiniGameCmd"],"reason":"客户端小游戏命令结构体索引"}
