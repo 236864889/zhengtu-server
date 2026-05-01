@@ -1,0 +1,29 @@
+# 服务端源码深度分析整理包（最终版）
+
+## 文件清单
+
+- `docs/source_analysis/01_服务入口与生命周期.md`
+- `docs/source_analysis/02_跨服务关系_协议_配置_数据库_Lua.md`
+- `docs/source_analysis/03_RAG入库建议_源码深度分析.md`
+- `docs/source_analysis/04_关键词索引矩阵.md`
+- `docs/source_analysis/05_启动_配置_协议调用链补充.md`
+- `docs/source_analysis/05_配置文件读取链路分析.md`
+- `docs/source_analysis/06_base公共库关键词深度分析.md`
+- `docs/source_analysis/06_数据库访问链路分析.md`
+- `docs/source_analysis/07_Lua脚本绑定与任务系统分析.md`
+- `docs/source_analysis/07_base公共库_重点确认清单.md`
+- `docs/source_analysis/08_base网络收发时序图.md`
+- `docs/source_analysis/09_base配置与DB初始化时序图.md`
+- `docs/source_analysis/09_运行日志与错误排查关键词.md`
+- `docs/source_analysis/10_协议与命令关键词分析.md`
+- `docs/source_analysis/11_服务进程关系关键词模式分析.md`
+- `docs/source_analysis/modules/BillServer_源码分析.md`
+- `docs/source_analysis/modules/FLServer_源码分析.md`
+- `docs/source_analysis/modules/GatewayServer_源码深度分析.md`
+- `docs/source_analysis/modules/MiniServer_源码分析.md`
+- `docs/source_analysis/modules/RecordServer_源码分析.md`
+- `docs/source_analysis/modules/ScenesServer_源码深度分析.md`
+- `docs/source_analysis/modules/SessionServer_源码深度分析.md`
+- `docs/source_analysis/modules/SuperServer_源码分析.md`
+- `docs/source_analysis/modules/base_源码深度分析.md`
+- `docs/source_analysis/modules/script_源码分析.md`
