@@ -1,0 +1,6 @@
+{"path":"ztgame/SessionServer/SessionServer.cpp","level":"S","module":"lifecycle","chunk_hint":"init/final/main/msgParse_SuperService","keywords":["zSubNetService","init","RecordClient","MetaData","DBConnPool","Super"],"reason":"启动链路与跨服务关系中枢"}
+{"path":"ztgame/SessionServer/SessionTask.cpp","level":"S","module":"protocol_dispatch","chunk_hint":"cmdMsgParse/msgParse_Scene/msgParse_Gate/msgParse_Forward","keywords":["CMD_SCENE","CMD_GATE","CMD_FORWARD","shutdown","login","user"],"reason":"协议分发主入口且风险最高"}
+{"path":"ztgame/SessionServer/SessionTaskManager.h","level":"S","module":"network_routing","chunk_hint":"broadcast/sendCmdToCountry","keywords":["broadcastScene","broadcastGateway","country"],"reason":"跨服务路由与广播能力"}
+{"path":"ztgame/SessionServer/SessionManager.cpp","level":"S","module":"session_state","chunk_hint":"UserSessionManager/SceneSessionManager","keywords":["getUserByID","removeAllUserByTask","scene"],"reason":"用户/场景会话索引核心"}
+{"path":"ztgame/SessionServer/RecordClient.cpp","level":"A","module":"record_link","chunk_hint":"connectToRecordServer/cmdMsgParse/run","keywords":["RecordServer","terminate","PARA_CHK_USER_EXIST"],"reason":"外部依赖与停服触发点"}
+{"path":"ztgame/SessionServer/Makefile","level":"A","module":"build","chunk_hint":"OBJS/CXXLFLAGS","keywords":["libzebra","mysql","xml2","log4cxx"],"reason":"构建依赖全貌"}
