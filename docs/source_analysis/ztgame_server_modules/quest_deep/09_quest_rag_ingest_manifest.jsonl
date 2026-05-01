@@ -1,0 +1,11 @@
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/00_quest_总览.md","level":"S","module":"quest","chunk_hint":"overview+risk+topxml","keywords":["quests.xml","on_visit","on_kill","source"],"reason":"旧任务入口与风险总索引"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/01_quest_quests_xml入口结构.md","level":"S","module":"quest","chunk_hint":"entry-structure","keywords":["GB2312","event type","source"],"reason":"入口结构与事件分布"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/02_quest_source_XML与事件映射.md","level":"S","module":"quest","chunk_hint":"source-map","keywords":["on_visit","on_use","on_kill","quest214"],"reason":"source到任务链映射"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/03_quest_Cpp调度链路.md","level":"S","module":"quest","chunk_hint":"cpp-dispatch","keywords":["Quest.cpp","request->target","execute_script_event"],"reason":"C++到Lua调度核心"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/04_quest_任务状态变量与条件.md","level":"A","module":"quest","chunk_hint":"state-vars","keywords":["state","kill_*","refresh"],"reason":"状态推进故障排查"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/05_quest_奖励与经济配置.md","level":"A","module":"quest","chunk_hint":"reward-economy","keywords":["reward","economy","on_use"],"reason":"经济风险审计"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/06_quest_newquest边界关系.md","level":"S","module":"quest","chunk_hint":"boundary","keywords":["oldquest","newquest","scriptquest"],"reason":"新旧任务边界判定"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/07_quest_编码路径与运行风险.md","level":"A","module":"quest","chunk_hint":"encoding-path-risk","keywords":["GB2312","target missing","source missing"],"reason":"运行故障高频根因"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/08_quest_二开模板与安全规范.md","level":"A","module":"quest","chunk_hint":"template-safety","keywords":["template","rollback","gray"],"reason":"二开操作规范"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/10_quest_关键词词库.md","level":"B","module":"quest","chunk_hint":"keyword-dict","keywords":["排查关键词","RAG召回"],"reason":"检索增强"}
+{"path":"docs/source_analysis/ztgame_server_modules/quest_deep/11_quest_下一步深挖建议.md","level":"B","module":"quest","chunk_hint":"next-step","keywords":["ztgame/tools"],"reason":"下一轮规划"}

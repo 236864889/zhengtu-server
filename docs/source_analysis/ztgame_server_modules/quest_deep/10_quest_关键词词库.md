@@ -1,0 +1,12 @@
+# quest 关键词词库
+- 入口：`quests.xml`, `quest id`, `events`
+- quests.xml：`encoding=GB2312`, `event type`, `source`
+- source XML：`on_visit`, `on_kill`, `on_use`, `on_get`
+- 事件类型：`on_enter`, `on_quit`, `on_other`, `on_kill_by_level`
+- C++调度：`Quest::execute`, `request->target`, `EventTable::execute`
+- 任务状态：`state`, `var`, `refresh`, `kill_*`, `visit_*`
+- 奖励：`reward`, `exp`, `money`, `item`
+- 新旧边界：`ScriptQuest`, `execute_script_event`, `newquest/quest.lua`
+- 编码风险：`GB2312`, `GBK`, `UTF-8`, `CRLF`
+- 二开模板：`新增quest`, `新增source`, `灰度`, `回滚`
+- 异常排查：`CATCHED Luabind EXCEPTION`, `source missing`, `target missing`
