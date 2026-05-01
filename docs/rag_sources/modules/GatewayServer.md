@@ -8,47 +8,47 @@ tags: ['GatewayServer', 'rag', 'module']
 confidence: medium
 last_verified: 2026-04-30
 ---
-# 模块文档：GatewayServer（v0.2）
+# 模块文档：GatewayServer（v0.3）
 
 ## 1. 模块定位
-- `GatewayServer` 是服务端链路中的独立模块，参与 `ztgame/Makefile` 编译流程（`Config` 为配置模块）。
+- `GatewayServer` 在服务集群中承担独立职责，包含主进程入口、任务处理、连接管理与业务对象管理。
 
 ## 2. 目录职责
-- 依据类名可见职责边界：任务处理（`*Task*`）、连接管理（`*Client*`）、状态管理（`*Manager*`）、主进程入口（`GatewayServer.cpp`/同名主文件）。
+- 典型分层：`*Server` 入口、`*Task` 网络任务、`*Manager` 集合/状态管理、`*Client` 跨服务连接。
 
-## 3. 核心文件表（至少10个）
-| 文件 | 线索 | 用途说明 |
-|---|---|---|
-| `GatewayServer.cpp` | 基于文件名/类名 | 作用：GatewayServer 相关逻辑（细节待确认） |
-| `GatewayTask.cpp` | 基于文件名/类名 | 作用：GatewayTask 相关逻辑（细节待确认） |
-| `GatewayTaskManager.cpp` | 基于文件名/类名 | 作用：GatewayTaskManager 相关逻辑（细节待确认） |
-| `GateUser.cpp` | 基于文件名/类名 | 作用：GateUser 相关逻辑（细节待确认） |
-| `GateUserManager.cpp` | 基于文件名/类名 | 作用：GateUserManager 相关逻辑（细节待确认） |
-| `SceneClient.cpp` | 基于文件名/类名 | 作用：SceneClient 相关逻辑（细节待确认） |
-| `SceneClientManager.cpp` | 基于文件名/类名 | 作用：SceneClientManager 相关逻辑（细节待确认） |
-| `SessionClient.cpp` | 基于文件名/类名 | 作用：SessionClient 相关逻辑（细节待确认） |
-| `RecordClient.cpp` | 基于文件名/类名 | 作用：RecordClient 相关逻辑（细节待确认） |
-| `BillClient.cpp` | 基于文件名/类名 | 作用：BillClient 相关逻辑（细节待确认） |
-| `LoginSessionManager.cpp` | 基于文件名/类名 | 作用：LoginSessionManager 相关逻辑（细节待确认） |
-| `CmdChecker.cpp` | 基于文件名/类名 | 作用：CmdChecker 相关逻辑（细节待确认） |
+## 3. 核心文件表
+| 文件 | 职责 |
+|---|---|
+| `GatewayServer.cpp` | 网关主进程入口，承接玩家入口连接。 |
+| `GatewayTask.cpp` | 网关网络任务处理单元。 |
+| `GatewayTaskManager.cpp` | 网关任务调度与管理。 |
+| `GateUser.cpp` | 网关侧用户会话对象。 |
+| `GateUserManager.cpp` | 网关用户连接集合管理。 |
+| `SceneClient.cpp` | 连接 ScenesServer 的客户端通道。 |
+| `SceneClientManager.cpp` | SceneClient 连接池管理。 |
+| `SessionClient.cpp` | 连接 SessionServer 的客户端通道。 |
+| `RecordClient.cpp` | 连接 RecordServer 的日志/记录通道。 |
+| `BillClient.cpp` | 连接 BillServer 的计费通道。 |
+| `LoginSessionManager.cpp` | 登录会话生命周期管理。 |
+| `CmdChecker.cpp` | 协议命令检查/过滤。 |
 
 ## 4. 编译关系
-- 由本目录 `Makefile` 产出目标（或配置输入）。
-- 服务模块普遍链接 `../base/libzebra.a` 与 `-lencdec`。
+- 由本目录 `Makefile` 产出对应目标（`tools` 为工具目标集合）。
+- 普遍链接 `../base/libzebra.a` 与 `-lencdec`，具体附加库由目录 Makefile 决定。
 
 ## 5. 运行关系
-- 通过 `*Client*` 与其他服务互联，具体端口和握手协议待确认。
+- 通过 `*Client` 连接上游/下游服务，通过 `*Manager` 维护连接、用户或任务集合。
 
 ## 6. 配置依赖
-- 依赖 `Config/*.xml`、根目录 XML、任务脚本（`quest/`、`newquest/`）的可能性高；精确映射待确认。
+- 依赖 `Config/*.xml`、根目录 XML 与任务脚本目录（精确读取路径待确认）。
 
 ## 7. 常见问题
-- 启动顺序错误导致上游连接失败。
-- 协议结构改动未同步多服务。
-- 配置版本与二进制不匹配。
+- 上游未就绪导致 `*Client` 建连失败。
+- `*Manager` 状态未同步导致会话/对象不一致。
+- 配置版本与二进制不一致导致业务异常。
 
 ## 8. 二开入口
-- 优先从同名主文件 + `*Task*` + `*Manager*` 三类入口切入。
+- 优先从 `GatewayServer.cpp`（或主入口文件）+ `*Task` + `*Manager` 切入，再扩展到 `*Client`。
 
 ## 9. 待确认事项
-- 默认端口、数据库表映射、线程模型、重连策略待确认。
+- 默认端口、重连退避策略、部分缩写类（如 GY）业务语义待确认。

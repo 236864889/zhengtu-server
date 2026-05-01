@@ -8,44 +8,45 @@ tags: ['RecordServer', 'rag', 'module']
 confidence: medium
 last_verified: 2026-04-30
 ---
-# 模块文档：RecordServer（v0.2）
+# 模块文档：RecordServer（v0.3）
 
 ## 1. 模块定位
-- `RecordServer` 是服务端链路中的独立模块，参与 `ztgame/Makefile` 编译流程（`Config` 为配置模块）。
+- `RecordServer` 在服务集群中承担独立职责，包含主进程入口、任务处理、连接管理与业务对象管理。
 
 ## 2. 目录职责
-- 依据类名可见职责边界：任务处理（`*Task*`）、连接管理（`*Client*`）、状态管理（`*Manager*`）、主进程入口（`RecordServer.cpp`/同名主文件）。
+- 典型分层：`*Server` 入口、`*Task` 网络任务、`*Manager` 集合/状态管理、`*Client` 跨服务连接。
 
-## 3. 核心文件表（至少10个）
-| 文件 | 线索 | 用途说明 |
-|---|---|---|
-| `RecordServer.cpp` | 基于文件名/类名 | 作用：RecordServer 相关逻辑（细节待确认） |
-| `RecordTask.cpp` | 基于文件名/类名 | 作用：RecordTask 相关逻辑（细节待确认） |
-| `RecordSessionManager.cpp` | 基于文件名/类名 | 作用：RecordSessionManager 相关逻辑（细节待确认） |
-| `RecordEditor.cpp` | 基于文件名/类名 | 作用：RecordEditor 相关逻辑（细节待确认） |
-| `Makefile` | 基于文件名/类名 | 作用：Makefile 相关逻辑（细节待确认） |
-| `RecordServer.h` | 基于文件名/类名 | 作用：RecordServer 相关逻辑（细节待确认） |
-| `RecordTask.h` | 基于文件名/类名 | 作用：RecordTask 相关逻辑（细节待确认） |
-| `RecordSessionManager.h` | 基于文件名/类名 | 作用：RecordSessionManager 相关逻辑（细节待确认） |
-| `RecordEditor.h` | 基于文件名/类名 | 作用：RecordEditor 相关逻辑（细节待确认） |
+## 3. 核心文件表
+| 文件 | 职责 |
+|---|---|
+| `RecordServer.cpp` | 记录服务主入口。 |
+| `RecordTask.cpp` | 记录服务网络任务处理。 |
+| `RecordSessionManager.cpp` | 记录会话管理。 |
+| `RecordEditor.cpp` | 记录编辑/格式化处理（细节待确认）。 |
+| `RecordServer.h` | 主服务类声明。 |
+| `RecordTask.h` | 任务类声明。 |
+| `RecordSessionManager.h` | 会话管理声明。 |
+| `RecordEditor.h` | 记录编辑声明。 |
+| `Makefile` | 定义目标 `RecordServer` 与链接参数。 |
+| `.RecordServer.d(历史构建产物)` | 依赖文件线索，仅构建期使用（若存在，待确认）。 |
 
 ## 4. 编译关系
-- 由本目录 `Makefile` 产出目标（或配置输入）。
-- 服务模块普遍链接 `../base/libzebra.a` 与 `-lencdec`。
+- 由本目录 `Makefile` 产出对应目标（`tools` 为工具目标集合）。
+- 普遍链接 `../base/libzebra.a` 与 `-lencdec`，具体附加库由目录 Makefile 决定。
 
 ## 5. 运行关系
-- 通过 `*Client*` 与其他服务互联，具体端口和握手协议待确认。
+- 通过 `*Client` 连接上游/下游服务，通过 `*Manager` 维护连接、用户或任务集合。
 
 ## 6. 配置依赖
-- 依赖 `Config/*.xml`、根目录 XML、任务脚本（`quest/`、`newquest/`）的可能性高；精确映射待确认。
+- 依赖 `Config/*.xml`、根目录 XML 与任务脚本目录（精确读取路径待确认）。
 
 ## 7. 常见问题
-- 启动顺序错误导致上游连接失败。
-- 协议结构改动未同步多服务。
-- 配置版本与二进制不匹配。
+- 上游未就绪导致 `*Client` 建连失败。
+- `*Manager` 状态未同步导致会话/对象不一致。
+- 配置版本与二进制不一致导致业务异常。
 
 ## 8. 二开入口
-- 优先从同名主文件 + `*Task*` + `*Manager*` 三类入口切入。
+- 优先从 `RecordServer.cpp`（或主入口文件）+ `*Task` + `*Manager` 切入，再扩展到 `*Client`。
 
 ## 9. 待确认事项
-- 默认端口、数据库表映射、线程模型、重连策略待确认。
+- 默认端口、重连退避策略、部分缩写类（如 GY）业务语义待确认。
