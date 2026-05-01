@@ -1,0 +1,11 @@
+# script 关键词词库
+- Lua VM: `lua_open` `luaL_newstate` `luaopen_base` `luaopen_package` `luaL_dofile`
+- luabind: `luabind::open` `luabind::call_function` `luabind::error` `module` `class_`
+- 绑定导出: `def(` `property(` `enum_` `Binder::bind`
+- execute_script_event: `current_user` `getVM(0)` `0/1/2/3参数模板`
+- newquest: `newquest/quest.lua` `LUA_PATH` `require ./newquest/npc/*`
+- quest: `quests.xml` `on_enter` `on_visit` `on_kill`
+- NPC脚本: `SceneNpc.cpp` `func_name` `refresh_npc` `summon_npc`
+- 任务脚本: `Quest.cpp` `target` `offset` `ScriptQuest`
+- 异常排查: `FATAL ERROR` `CATCHED Luabind EXCEPTION` `userdata`
+- 二开风险: `资产接口` `签名不匹配` `编码混用` `库ABI漂移`

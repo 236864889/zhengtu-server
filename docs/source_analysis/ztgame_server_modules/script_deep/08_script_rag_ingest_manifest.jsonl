@@ -1,0 +1,6 @@
+{"path":"ztgame/ScenesServer/script.cpp","level":"S","module":"script_bridge","chunk_hint":"LuaVM init + Binder::bind + reloadVM","keywords":["lua_open","luaopen_base","luabind::open","luaL_dofile","newquest/quest.lua"],"reason":"脚本桥接核心实现"}
+{"path":"ztgame/ScenesServer/script.h","level":"S","module":"script_bridge","chunk_hint":"execute_script_event templates","keywords":["execute_script_event","call_function","luabind::error","current_user"],"reason":"事件调度与异常处理核心"}
+{"path":"ztgame/ScenesServer/ScenesServer.cpp","level":"S","module":"bootstrap","chunk_hint":"createVM/createScriptFromFile/bind/execute","keywords":["createVM","quest.lua","ScriptQuest::sort"],"reason":"服务启动脚本加载入口"}
+{"path":"ztgame/newquest/quest.lua","level":"S","module":"lua_entry","chunk_hint":"LUA_PATH + require + enter/quit/die","keywords":["LUA_PATH","require","enter","quit","die"],"reason":"Lua总入口"}
+{"path":"ztgame/ScenesServer/Quest.cpp","level":"A","module":"quest_flow","chunk_hint":"execute_script_event in quest events","keywords":["target","id","offset","sceneNpc"],"reason":"任务事件到脚本桥接"}
+{"path":"ztgame/quest/quests.xml","level":"A","module":"quest_data","chunk_hint":"events on_enter/on_visit/on_kill","keywords":["GB2312","events","source xml"],"reason":"任务配置与事件源映射"}
