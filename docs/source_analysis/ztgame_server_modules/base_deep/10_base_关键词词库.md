@@ -1,0 +1,12 @@
+# base 关键词词库
+- 网络：zSocket,zTCPServer,zTCPTask,zTCPTaskPool,recvToCmd,sendCmd,accept,connect
+- 生命周期：zService,init,validate,serviceCallback,final,Terminate
+- 日志：zLogger,Zebra::logger,PowerLogger,log4cxx,DailyRollingFileAppender
+- 数据库：zMysqlDBConnPool,execSql,execSelectSql,commit,rollback,zDatabaseManager
+- XML配置：zXMLParser,zConfile,zIncludeXML,zProperties,parseYour
+- 协议：Cmd,t_NullCmd,Command.h,BillCommand,DBAccessCommand
+- 加解密：EncDec,CDes,blowfish,md5ex,zBase64
+- 线程：zThread,zThreadGroup,zMutex,zCond,zRWLock
+- 时间：zTime,zRTime,zTimer,FunctionTime
+- 编译兼容：mysql_config,xml2-config,log4cxx,gd,jpeg,libs_r
+- 运行风险：粘包,断连,SQL注入,配置缺失,线程泄漏,协议错位
