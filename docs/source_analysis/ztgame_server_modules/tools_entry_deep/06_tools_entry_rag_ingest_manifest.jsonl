@@ -1,0 +1,10 @@
+{"path":"ztgame/tools/Makefile","level":"L1","module":"tools_entry","chunk_hint":"targets+deps+linkflags","keywords":["makefile","target","zntop","zebraclientService","datetime","base64","mysql","xml2","log4cxx"],"reason":"入口目标与构建依赖总入口"}
+{"path":"ztgame/tools/zebraclientService.cpp","level":"L1","module":"tools_entry","chunk_hint":"main+argp+default_global+risk_flags","keywords":["main","argp","server","port","user","passwd","count","cacc","change","role"],"reason":"高风险网络入口与参数矩阵核心来源"}
+{"path":"ztgame/tools/skill_test_client.cpp","level":"L1","module":"tools_entry","chunk_hint":"main+argp+batch_login+map+skilltable","keywords":["main","argp","login","mapfile","skilltable","loop_run"],"reason":"批量客户端压测入口，副作用链重要"}
+{"path":"ztgame/tools/zntop.cpp","level":"L1","module":"tools_entry","chunk_hint":"main+outfile+interval+loop","keywords":["zntop","outfile","interval","fopen","ncurses","monitor"],"reason":"监控入口与写文件风险源"}
+{"path":"ztgame/tools/CollectServerInfo.cpp","level":"L2","module":"tools_entry","chunk_hint":"proc_read+xml_dump","keywords":["proc","/proc/stat","/proc/net/dev","xml","dump"],"reason":"zntop 数据来源与 XML 生成链"}
+{"path":"ztgame/tools/ArrayTable.cpp","level":"L2","module":"tools_entry","chunk_hint":"skilltable_xml_parse+global_map","keywords":["skilltable.xml","zXMLParser","global","parse"],"reason":"工具配置读取核心"}
+{"path":"ztgame/tools/LoadMap.cpp","level":"L2","module":"tools_entry","chunk_hint":"mps_binary_read","keywords":["LoadMap","fopen","mps","resource"],"reason":"地图资源读取输入链"}
+{"path":"ztgame/tools/base64.cpp","level":"L2","module":"tools_entry","chunk_hint":"argp_options+encode_decode","keywords":["base64","argp","method","source","key"],"reason":"低风险 CLI 样板入口"}
+{"path":"ztgame/tools/datetime.cpp","level":"L2","module":"tools_entry","chunk_hint":"simple_main","keywords":["datetime","main","time"],"reason":"最小入口样板"}
+{"path":"ztgame/base/zArg.cpp","level":"L3","module":"tools_entry","chunk_hint":"argp_framework","keywords":["zArg","argp_parse","options"],"reason":"tools 参数解析公共基础"}
