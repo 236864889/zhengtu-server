@@ -1,0 +1,10 @@
+{"path":"ztgame/test/Makefile","level":"L2","module":"test_build","chunk_hint":"full","keywords":["Makefile","ALL_TARGETS","libzebra","mysql_config","xml2-config","log4cxx"],"reason":"定义测试样例构建入口与依赖拓扑"}
+{"path":"ztgame/test/TCPClient.cpp","level":"L2","module":"test_network","chunk_hint":"class+main","keywords":["zTCPClient","connect","sendCmd","recvToCmd","zService"],"reason":"客户端网络联调最小调用链"}
+{"path":"ztgame/test/TCPServer.cpp","level":"L2","module":"test_network","chunk_hint":"task+service","keywords":["zTCPTask","zTCPTaskPool","zNetService","accept","listen"],"reason":"服务端连接接入与任务池分发模板"}
+{"path":"ztgame/test/ThreadPoolTest.cpp","level":"L2","module":"test_threadpool","chunk_hint":"init+callback","keywords":["zThread","zTCPTaskPool","threadPoolCapacity","serviceCallback"],"reason":"线程池与服务循环样例"}
+{"path":"ztgame/test/MySqlTest.cpp","level":"L2","module":"test_mysql","chunk_hint":"init+callback","keywords":["zDBConnPool","mysql://","serviceCallback","SQL","write-risk"],"reason":"旧版数据库压测/验证路径与风险识别"}
+{"path":"ztgame/test/NewMySqlTest.cpp","level":"L2","module":"test_mysql","chunk_hint":"metadata+pool","keywords":["zMetaData","zDBConnPool","mysql://","benchmark"],"reason":"新旧 MySQL 封装调用对照"}
+{"path":"ztgame/test/confiletest.cpp","level":"L3","module":"test_config","chunk_hint":"main","keywords":["zConfile","parse","zXMLParser"],"reason":"配置文件解析最小样例"}
+{"path":"ztgame/test/includefiletest.cpp","level":"L3","module":"test_config","chunk_hint":"main","keywords":["zIncludeXML","root.xml","expand"],"reason":"XML include 展开验证入口"}
+{"path":"ztgame/test/root.xml","level":"L3","module":"test_config","chunk_hint":"full","keywords":["xml","include","inc1.xml","inc2.xml"],"reason":"配置 include 样例数据"}
+{"path":"docs/source_analysis/ztgame_server_modules/test_deep/00_test_总览.md","level":"L1","module":"test_deep_docs","chunk_hint":"full","keywords":["overview","risk","base","reuse"],"reason":"test deep 分析总入口"}
