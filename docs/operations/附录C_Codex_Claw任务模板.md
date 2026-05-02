@@ -1,62 +1,82 @@
-# 附录C_Codex_Claw任务模板
+# 附录C_Codex_Claw任务模板（v1.2）
 
-## 1) 编译失败排查任务
+> 本附录用于明确 Codex 与 Claw/SSH/人工的任务边界，避免“让 Codex 执行真实环境动作”的错配。
+
+## 1) Codex 仓库静态检查任务（仅仓库内）
+
+- 适用场景：手册修订、编译链路核对、脚本风险盘点、历史问题归档。
+- 允许事项（仅限）：
+  - 读取文件（`cat`/`find`/`rg`）
+  - `grep/rg` 关键词检索
+  - 分析 `Makefile` 编译顺序
+  - 分析 shell 脚本文本（启动顺序、停服策略、风险命令）
+  - 生成补丁与文档修订建议
+- 禁止事项：
+  - 禁止编译（含 `make`、`cmake`、`ninja`）
+  - 禁止启动服务/停止服务/kill 进程
+  - 禁止数据库连接、端口探测、真实依赖探测
+- 输出要求：静态结论 + 待服务器确认清单 + 风险分级。
+
+## 2) 服务器/Claw 只读环境检查任务（真实环境）
+
+- 执行方：Claw/SSH/人工。
+- 目标：确认服务器依赖与运行环境是否满足编译/启动前提。
+- 建议命令（服务器执行）：
+  - `gcc --version`
+  - `mysql_config --version`
+  - `xml2-config --version`
+  - `df -h`
+  - `ss -lntp`
+- 结果回传：原始命令输出全文 + 执行时间 + 主机标识。
+- Codex职责：仅对回传结果做解读，不声称“已在服务器执行”。
+
+## 3) base 编译复验任务（真实执行 + 日志回传）
+
+- 执行方：Claw/SSH/人工。
+- 真实动作：执行 `make -C base`（或等效构建命令）并保存完整日志。
+- Codex职责：
+  - 只在拿到日志后分析首个错误点与依赖链。
+  - 输出修复建议与最小补丁方案。
+- 明确要求：不要让 Codex 声称“已完成编译”。
+
+## 4) 启动联调任务（真实执行）
+
+- 执行方：服务器/Claw/人工。
+- 真实动作：启动服务、核对进程与端口、执行客户端联调。
+- Codex职责：
+  - 不启动服务、不停服。
+  - 仅根据日志、脚本与回传状态定位问题。
+- 输出要求：启动基线（A/B）选择、失败断点、下一步实测建议。
+
+## 5) 编译失败排查任务（日志驱动）
+
 - 当前状态：某模块编译/链接失败，需只读排查。
-- 禁止事项：禁止改源码、禁止编译执行、禁止启动服务。
-- 允许事项：读取日志、Makefile、历史修复文档。
+- 禁止事项：禁止改源码、禁止本地编译执行、禁止启动服务。
+- 允许事项：读取日志、`Makefile`、历史修复文档。
 - 要读取的文件：`ztgame/Makefile`、`docs/rag_sources/02_编译顺序与产物.md`、`docs/rag_sources/10_已修复编译问题记录.md`。
 - 要执行的只读命令：`cat`、`rg`、`find`（仅查询）。
-- 输出要求：给出失败阶段、首个错误点、候选根因、人工复核项。
+- 输出要求：失败阶段、首个错误点、候选根因、人工复核项。
 
-## 2) base 编译失败任务
-- 当前状态：`base` 相关报错。
-- 禁止事项：禁止直接打补丁到源码。
-- 允许事项：仅做证据归档与修复建议。
-- 要读取的文件：`docs/rag_sources/10_已修复编译问题记录.md`、`ztgame/base` 下相关文件（只读）。
-- 要执行的只读命令：`cat`、`rg "zMisc|zSocket|zLogger|zMysqlDBConnPool" ztgame/base`。
-- 输出要求：映射到已知修复项，标记是否复发。
+## 6) ScenesServer 编译失败任务
 
-## 3) ScenesServer 编译失败任务
 - 当前状态：`ScenesServer` 编译或链接失败。
 - 禁止事项：禁止重构构建系统。
-- 允许事项：核对静态库依赖链与路径。
+- 允许事项：核对静态库依赖链与路径（静态分析）。
 - 要读取的文件：`docs/rag_sources/02_编译顺序与产物.md`、`ztgame/Makefile`。
 - 要执行的只读命令：`cat`、`rg "liblua|luabind|ssl|zebra" ztgame/ScenesServer`。
-- 输出要求：指出缺失库/错误符号/路径不一致点。
+- 输出要求：缺失库/错误符号/路径不一致点。
 
-## 4) 服务启动失败任务
+## 7) 服务启动失败任务
+
 - 当前状态：服务按脚本启动失败或异常退出。
-- 禁止事项：禁止实际启动、禁止 kill 进程。
-- 允许事项：比对启动脚本与日志线索。
+- 禁止事项：Codex 禁止实际启动、禁止 kill 进程。
+- 允许事项：比对启动脚本与服务器回传日志线索。
 - 要读取的文件：`ztgame/start.sh`、`ztgame/start1.sh`、`ztgame/stop.sh`、`docs/rag_sources/03_服务端启动顺序.md`。
 - 要执行的只读命令：`cat`、`rg "Super|FL|Gateway|kill -9" ztgame/*.sh`。
-- 输出要求：给出基线A/B差异、风险点、建议启动基线。
-
-## 5) 登录失败任务
-- 当前状态：`login failed/timeout`。
-- 禁止事项：禁止改协议与数据库结构。
-- 允许事项：读取账号链路分析材料。
-- 要读取的文件：`docs/rag_sources/06_数据库与账号体系.md`、`docs/source_analysis/ztgame_dat/runtime_validation/`、`docs/source_analysis/launcher_reanalysis/`。
-- 要执行的只读命令：`cat`、`rg "login|timeout|DBAccess|Session" docs/source_analysis`。
-- 输出要求：给出链路断点假设和最小验证顺序。
-
-## 6) 配置漂移任务
-- 当前状态：环境配置与文档不一致。
-- 禁止事项：禁止直接覆盖线上配置。
-- 允许事项：做差异盘点与风险分类。
-- 要读取的文件：`docs/rag_sources/05_配置文件总览.md`、相关 XML 清单。
-- 要执行的只读命令：`find ztgame -maxdepth 2 -name "*.xml"`、`cat`。
-- 输出要求：漂移项列表（缺失/新增/命名变更）。
-
-## 7) 客户端登录器联调任务
-- 当前状态：客户端或登录器联调受阻。
-- 禁止事项：禁止运行未知二进制。
-- 允许事项：读取 runtime_validation 与 launcher_reanalysis 证据。
-- 要读取的文件：`docs/source_analysis/ztgame_dat/runtime_validation/`、`docs/source_analysis/launcher_reanalysis/`。
-- 要执行的只读命令：`cat`、`rg "launcher|runtime|P0_" docs/source_analysis`。
-- 输出要求：联调前置条件、链路核对表、人工确认项。
+- 输出要求：基线A/B差异、风险点、建议启动基线。
 
 ## 8) 教程整理/手册修订任务
+
 - 当前状态：需更新 SOP 文档。
 - 禁止事项：禁止把 C/D 教程写入主流程。
 - 允许事项：仅更新 `docs/operations/`。
