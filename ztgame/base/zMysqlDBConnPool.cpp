@@ -15,6 +15,8 @@
 #include <iostream>
 #include <ext/hash_map>
 #include <sstream>
+#include <execinfo.h>
+#include <stdlib.h>
 
 #include "zDBConnPool.h"
 #include "zType.h"
@@ -26,6 +28,29 @@
 #include "zMetaData.h"
 
 using namespace Zebra;
+
+static std::string dumpDBHandleBacktrace()
+{
+	std::ostringstream os;
+	void *buffer[32];
+	int size = backtrace(buffer, 32);
+	char **symbols = backtrace_symbols(buffer, size);
+
+	if (symbols != NULL)
+	{
+		for (int i = 0; i < size; ++i)
+		{
+			os << "#" << i << " " << symbols[i] << "\n";
+		}
+		free(symbols);
+	}
+	else
+	{
+		os << "backtrace_symbols failed\n";
+	}
+
+	return os.str();
+}
 
 enum handleState
 {
@@ -63,6 +88,8 @@ class MysqlClientHandle : private zNoncopyable
 		pthread_t getedThread;
 		zTime useTime;
 		std::string my_sql;
+		std::string borrowStack;
+		unsigned long lastWarnSecond;
 
 		MysqlClientHandle(const UrlInfo &url)
 			: id(++HandleID_generator), url(url), lifeTime(), useTime()
@@ -71,6 +98,8 @@ class MysqlClientHandle : private zNoncopyable
 				getedCount=0;
 				getedThread=0;
 				mysql=NULL;
+				borrowStack="";
+				lastWarnSecond=0;
 			}
 
 		~MysqlClientHandle()
@@ -86,6 +115,11 @@ class MysqlClientHandle : private zNoncopyable
 		const unsigned int hashcode() const
 		{
 			return url.hashcode;
+		}
+
+		const unsigned int getGetedCount() const
+		{
+			return getedCount;
 		}
 
 		bool isSupportTransactions() const
@@ -248,7 +282,21 @@ class zMysqlDBConnPool : public zDBConnPool
 			MysqlClientHandle* handle = getHandleByID(handleID);
 			if(handle!=NULL)
 			{
+				if (handle->state != MYSQLCLIENT_HANDLE_USED)
+				{
+					logger->warn("putHandle warning: handle(%u) state=%d is not USED, put thread=%lu",
+							handleID,
+							handle->state,
+							(unsigned long)pthread_self());
+				}
+
 				handle->unsetHandle();
+			}
+			else
+			{
+				logger->warn("putHandle warning: unknown handle(%u), put thread=%lu",
+						handleID,
+						(unsigned long)pthread_self());
 			}
 		}
 
@@ -492,12 +540,25 @@ class zMysqlDBConnPool : public zDBConnPool
 							break;
 						case MYSQLCLIENT_HANDLE_USED:
 							//handle正在使用中
-							if(tempHandle->useTime.elapse()>10)
 							{
-								//使用时间过长，是否程序存在问题
-								logger->warn("The handle(%u) timeout %lus by thread %u",
-										tempHandle->getID(),tempHandle->useTime.elapse(),tempHandle->getedThread);
-								logger->warn("The handle sql is : %s" , tempHandle->my_sql.c_str());
+								unsigned long usedSec = tempHandle->useTime.elapse();
+
+								if(usedSec > 10 && usedSec >= tempHandle->lastWarnSecond + 10)
+								{
+									tempHandle->lastWarnSecond = usedSec;
+
+									//使用时间过长，打印借出现场，定位 getHandle 后未 putHandle 的调用链
+									logger->warn("MYSQL handle timeout: handle=%u hashcode=%u used=%lus getThread=%lu state=%d getedCount=%u",
+											tempHandle->getID(),
+											tempHandle->hashcode(),
+											usedSec,
+											(unsigned long)tempHandle->getedThread,
+											tempHandle->state,
+											tempHandle->getGetedCount());
+
+									logger->warn("MYSQL handle last sql: %s", tempHandle->my_sql.c_str());
+									logger->warn("MYSQL handle borrow stack:\n%s", tempHandle->borrowStack.c_str());
+								}
 							}
 							break;
 					}
@@ -631,6 +692,8 @@ void MysqlClientHandle::finalHandle()
 	getedCount=0;
 	getedThread=(pthread_t)0;
 	my_sql="";
+	borrowStack="";
+	lastWarnSecond=0;
 }
 
 bool MysqlClientHandle::setHandle()
@@ -648,6 +711,9 @@ bool MysqlClientHandle::setHandle()
 	getedCount++;
 	useTime.now();
 	getedThread=pthread_self();
+	my_sql="";
+	borrowStack=dumpDBHandleBacktrace();
+	lastWarnSecond=0;
 	return true;
 }
 
@@ -656,6 +722,9 @@ void MysqlClientHandle::unsetHandle()
 	state=MYSQLCLIENT_HANDLE_VALID;
 	useTime.now();
 	getedThread=0;
+	my_sql="";
+	borrowStack="";
+	lastWarnSecond=0;
 }
 
 bool MysqlClientHandle::setTransactions(bool supportTransactions)
