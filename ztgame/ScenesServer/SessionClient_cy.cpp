@@ -168,6 +168,11 @@ bool SessionClient::msgParse(const Cmd::t_NullCmd *ptNullCmd, const unsigned int
         && ptNullCmd->cmd == Cmd::Session::CMD_SCENE
         && ptNullCmd->para == Cmd::Session::PARA_SCENE_REGUSER)
     {
+        Zebra::logger->debug("DBG_SCENE_REGUSER_DIRECT cmd=%u para=%u len=%u",
+                ptNullCmd->cmd,
+                ptNullCmd->para,
+                nCmdLen);
+
         return cmdMsgParse(ptNullCmd, nCmdLen);
     }
 
