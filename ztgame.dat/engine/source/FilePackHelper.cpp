@@ -11,6 +11,7 @@
 #include "../include/engine.h"
 #include <algorithm>
 #include <functional>
+#include <map>
 
 //#include "../../EncDec/include/EncDec.h"
 #include "../include/crc.h"
@@ -78,6 +79,190 @@ static tMapPacks sPacks;
 
 static CLock g_FilePackLock;
 
+struct stPackRuntimeOption
+{
+	String password;
+	int encrypt;
+	int zip;
+	int level;
+	bool hasPassword;
+	bool hasEncrypt;
+	bool hasZip;
+	bool hasLevel;
+	int looseFallback;
+	bool hasLooseFallback;
+	String looseFallbackSource;
+	String passwordSource;
+	String encryptSource;
+	String zipSource;
+	String levelSource;
+
+	stPackRuntimeOption()
+	{
+		encrypt = -1;
+		zip = -1;
+		level = -1;
+		hasPassword = false;
+		hasEncrypt = false;
+		hasZip = false;
+		hasLevel = false;
+		looseFallback = -1;
+		hasLooseFallback = false;
+	}
+};
+
+static bool s_packConfigLoaded = false;
+static bool s_packConfigExists = false;
+static stPackRuntimeOption s_packDefaultOption;
+static std::map<String, stPackRuntimeOption> s_packFileOptions;
+
+static String getPackFileTitle(const char* pakPath)
+{
+	const char* p1 = strrchr(pakPath,'\\');
+	const char* p2 = strrchr(pakPath,'/');
+	const char* p = p1;
+	if(p2 && (!p || p2 > p)) p = p2;
+	String fileName = p ? (p + 1) : pakPath;
+	if(!fileName.empty()) strlwr(&fileName[0]);
+	return fileName;
+}
+
+static void loadPackOptionFromIni(const char* iniPath,const char* section,stPackRuntimeOption & option,const char* sourceTag)
+{
+	char buf[256] = {0};
+
+	GetPrivateProfileString(section,"password","",buf,sizeof(buf),iniPath);
+	if(buf[0])
+	{
+		option.password = buf;
+		option.hasPassword = true;
+		option.passwordSource = sourceTag;
+	}
+
+	GetPrivateProfileString(section,"encrypt","",buf,sizeof(buf),iniPath);
+	if(buf[0])
+	{
+		option.encrypt = atoi(buf);
+		option.hasEncrypt = true;
+		option.encryptSource = sourceTag;
+	}
+
+	GetPrivateProfileString(section,"zip","",buf,sizeof(buf),iniPath);
+	if(buf[0])
+	{
+		option.zip = atoi(buf);
+		option.hasZip = true;
+		option.zipSource = sourceTag;
+	}
+
+	GetPrivateProfileString(section,"level","",buf,sizeof(buf),iniPath);
+	if(buf[0])
+	{
+		option.level = atoi(buf);
+		option.hasLevel = true;
+		option.levelSource = sourceTag;
+	}
+
+	GetPrivateProfileString(section,"loose_fallback","",buf,sizeof(buf),iniPath);
+	if(buf[0])
+	{
+		option.looseFallback = atoi(buf);
+		option.hasLooseFallback = true;
+		option.looseFallbackSource = sourceTag;
+	}
+}
+
+static void LoadPackConfig()
+{
+	if(s_packConfigLoaded) return;
+	s_packConfigLoaded = true;
+
+	const char* iniPath = ".\\pack.ini";
+	s_packConfigExists = (GetFileAttributes(iniPath) != INVALID_FILE_ATTRIBUTES);
+
+	if(!s_packConfigExists)
+	{
+		TRACE("[PackConfig] pack.ini not found, fallback to built-in defaults.\n");
+		return;
+	}
+
+	loadPackOptionFromIni(iniPath,"default",s_packDefaultOption,"default");
+
+	char sections[4096] = {0};
+	GetPrivateProfileSectionNames(sections,sizeof(sections),iniPath);
+
+	for(char* q = sections; *q; q += strlen(q) + 1)
+	{
+		if(stricmp(q,"default") == 0) continue;
+
+		stPackRuntimeOption option;
+		loadPackOptionFromIni(iniPath,q,option,q);
+
+		if(option.hasPassword || option.hasEncrypt || option.hasZip || option.hasLevel || option.hasLooseFallback)
+		{
+			char sectionName[MAX_PATH];
+			strcpy(sectionName,q);
+			strlwr(sectionName);
+			s_packFileOptions[sectionName] = option;
+		}
+	}
+
+	TRACE("[PackConfig] pack.ini loaded.\n");
+}
+
+static stPackRuntimeOption ResolvePackOption(const char* pakPath)
+{
+	LoadPackConfig();
+
+	stPackRuntimeOption resolved = s_packDefaultOption;
+	String packTitle = getPackFileTitle(pakPath);
+
+	std::map<String, stPackRuntimeOption>::iterator it = s_packFileOptions.find(packTitle);
+	if(it != s_packFileOptions.end())
+	{
+		const stPackRuntimeOption& specific = it->second;
+
+		if(specific.hasPassword) { resolved.password = specific.password; resolved.hasPassword = true; resolved.passwordSource = specific.passwordSource; }
+		if(specific.hasEncrypt) { resolved.encrypt = specific.encrypt; resolved.hasEncrypt = true; resolved.encryptSource = specific.encryptSource; }
+		if(specific.hasZip) { resolved.zip = specific.zip; resolved.hasZip = true; resolved.zipSource = specific.zipSource; }
+		if(specific.hasLevel) { resolved.level = specific.level; resolved.hasLevel = true; resolved.levelSource = specific.levelSource; }
+		if(specific.hasLooseFallback) { resolved.looseFallback = specific.looseFallback; resolved.hasLooseFallback = true; resolved.looseFallbackSource = specific.looseFallbackSource; }
+	}
+
+	if(!resolved.hasPassword || resolved.password.empty())
+	{
+		resolved.password = PackAggregate::GetDefaultPassword();
+		resolved.hasPassword = true;
+		resolved.passwordSource = "builtin_default";
+	}
+
+	return resolved;
+}
+
+static stPackRuntimeOption ResolvePackOptionByResName(const char* filename)
+{
+	// filename normally looks like data\\datas\\tables\\ObjectBase.tbl
+	if(filename && filename[0] == 'd' && filename[1] == 'a' && filename[2] == 't' && filename[3] == 'a')
+	{
+		const char* p1 = strchr(filename,'\\');
+		if(p1)
+		{
+			const char* p2 = strchr(p1 + 1,'\\');
+			if(p2)
+			{
+				String packName;
+				packName.resize(p2 - p1 - 1);
+				memcpy(&packName[0],p1 + 1,p2 - p1 - 1);
+				if(strrchr(packName.c_str(),'.') == NULL)
+					packName += ".pak";
+				return ResolvePackOption(packName.c_str());
+			}
+		}
+	}
+	return ResolvePackOption(filename ? filename : "");
+}
+
+
 static bool isFullBuffer(const char* packName)
 {
 	return true;
@@ -106,7 +291,15 @@ static bool InitZipPackInfo(const TCHAR* pszZipPack,stZipPackInfo * & pZipPackIn
 	PackAggregate packAggregate;
 	ZipAggregate zipAggregate;
 
-	PasswordToDesKey( PackAggregate::GetDefaultPassword(),pZipPackInfo->des_key[0],pZipPackInfo->des_key[1],pZipPackInfo->des_key[2] );
+	stPackRuntimeOption packOpt = ResolvePackOption(pszZipPack);
+	PasswordToDesKey(packOpt.password.c_str(),pZipPackInfo->des_key[0],pZipPackInfo->des_key[1],pZipPackInfo->des_key[2]);
+	TRACE("[PackConfig] open pak=%s ini=%d password_source=%s password_len=%d encrypt_source=%s zip_source=%s\n",
+		pszZipPack,
+		s_packConfigExists?1:0,
+		packOpt.passwordSource.c_str(),
+		(int)packOpt.password.length(),
+		packOpt.encryptSource.empty()?"builtin_or_unknown":packOpt.encryptSource.c_str(),
+		packOpt.zipSource.empty()?"builtin_or_unknown":packOpt.zipSource.c_str());
 	packAggregate.SetDesKey((const BYTE*)pZipPackInfo->des_key);
 
 	if( packAggregate.openAggregate(pszZipPack) )
@@ -439,7 +632,10 @@ static Stream* OpenZipFileForRead(stZipPackInfo * pZipPackInfo,stZipFileInfo * p
 #else
 		if(!pStream->open(pZipPackInfo->strPackFileName.c_str(),FileStream::Read,0))
 #endif
+		{
+			TRACE("[PackReadError] open file failed. pak=%s\n",pZipPackInfo->strPackFileName.c_str());
 			return NULL;
+		}
 	}
 	if(pStream->getStatus() != Stream::Ok)
 	{
@@ -548,7 +744,11 @@ static bool getPackFileInfo(const char* filename,stZipPackInfo *& pPack,stZipFil
 			pPack = it->second;
 			stZipPackInfo::tMapZipPackInfo::iterator it1 = pPack->mapZipPackInfo.find(calculateCRC(p1+1,strlen(p1+1)));
 			if(it1 == pPack->mapZipPackInfo.end())
+			{
+				DWORD reqCrc = calculateCRC(p1+1,strlen(p1+1));
+				TRACE("[PackReadError] index miss. pak=%s path=%s crc=%u suggestion=check password/encrypt/zip/path\n",packName.c_str(),p1+1,reqCrc);
 				return false;
+			}
 			pFile = &it1->second;
 			return true;
 		}
@@ -743,34 +943,63 @@ XSHARELIB_API bool	IsExistResFile(const TCHAR* pszFileName)
 	return true;	
 }
 
+static Stream* OpenLooseResFile(const String & filename)
+{
+	String localFile = filename;
+	replaceFrontlashPath(&localFile[0]);
+
+	if(IsFileExist(localFile.c_str()))
+	{
+#ifdef _USE_MEMVIEWOFFILE
+		MemMapFileStream * pStream = new MemMapFileStream(localFile,false);
+#else
+		FileStream * pStream = new FileStream(localFile.c_str(),FileStream::Read);
+#endif
+		TRACE("[PackLoose] open loose file=%s\n",localFile.c_str());
+		return pStream;
+	}
+
+	return NULL;
+}
+
 XSHARELIB_API Stream * OpenResFile(const TCHAR* pszFileName)
 {
 	stZipPackInfo* pPack;
 	stZipFileInfo* pFile;
 	String filename = fixResFileName(pszFileName);
 	String packName;
+	stPackRuntimeOption packOpt = ResolvePackOptionByResName(filename.c_str());
+
 	if(!getPackFileInfo(filename.c_str(),pPack,pFile,packName))
 	{
-		// 不是包中的文件
+		// Try loose file first. This keeps old direct-file behavior and enables data\datas\... override.
+		Stream* loose = OpenLooseResFile(filename);
+		if(loose) return loose;
 
-		bool bFullMap = false;//isFullMap(szFileName);
-		replaceFrontlashPath(&filename[0]);
-		if(IsFileExist(filename.c_str()))
+		if(packOpt.hasLooseFallback && packOpt.looseFallback == 1)
 		{
-#ifdef _USE_MEMVIEWOFFILE
-			MemMapFileStream * pStream = new MemMapFileStream(filename,bFullMap);
-#else
-			FileStream * pStream = new FileStream(filename.c_str(),FileStream::Read);
-#endif
-			return pStream;
+			// The exact loose path was already tried above; keep this branch for clear diagnostics.
+			TRACE("[PackLoose] fallback miss req=%s source=%s\n",filename.c_str(),packOpt.looseFallbackSource.c_str());
 		}
-		TRACE("未找到资源文件 %s\n",pszFileName);
+
+		TRACE("[PackReadError] resource file not found %s\n",pszFileName);
 		return NULL;
 	}
-	else
+
+	Stream* packStream = OpenZipFileForRead(pPack,pFile,isFullBuffer(packName.c_str()));
+	if(packStream) return packStream;
+
+	if(packOpt.hasLooseFallback && packOpt.looseFallback == 1)
 	{
-		return OpenZipFileForRead(pPack,pFile,isFullBuffer(packName.c_str()));
+		Stream* fallback = OpenLooseResFile(filename);
+		if(fallback)
+		{
+			TRACE("[PackLoose] fallback after pack read fail req=%s source=%s\n",filename.c_str(),packOpt.looseFallbackSource.c_str());
+			return fallback;
+		}
 	}
+
+	return NULL;
 }
 
 XSHARELIB_API void CloseResFile(Stream* pStream)
