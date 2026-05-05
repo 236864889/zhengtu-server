@@ -31,7 +31,7 @@ SceneUserManager &SceneUserManager::getMe()
 	if(sum==NULL)
 	{
 		sum=new SceneUserManager();
-		//Zebra::logger->debug("¶ÁÐ´Ëø¼ÆÊý:(¶Á=%u , Ð´=%u)" , sum->rwlock.rd_count , sum->rwlock.wr_count);
+		//Zebra::logger->debug("Ð´:(=%u , Ð´=%u)" , sum->rwlock.rd_count , sum->rwlock.wr_count);
 	}
 	return *sum;
 }
@@ -40,7 +40,7 @@ void SceneUserManager::destroyMe()
 {
 	if(sum!=NULL)
 	{
-		//Zebra::logger->debug("¶ÁÐ´Ëø¼ÆÊý:(¶Á=%u , Ð´=%u)" , sum->rwlock.rd_count , sum->rwlock.wr_count);
+		//Zebra::logger->debug("Ð´:(=%u , Ð´=%u)" , sum->rwlock.rd_count , sum->rwlock.wr_count);
 		SAFE_DELETE(sum);
 	}
 }
@@ -114,114 +114,118 @@ SceneUser * SceneUserManager::getUserByTempIDOut( DWORD tempid)
 		return ret;
 }
 
-bool SceneUserManager::GuoJiaBiaoCheJiangLi1(Scene *scene)
+bool SceneUserManager::GuoJiaBiaoCheJiangLi1(Scene *scene, DWORD countryID)
 {
 	struct GuoJiaBiaoCheJiangLi : public execEntry<SceneUser>
 	{
 		Scene *scene;
-		GuoJiaBiaoCheJiangLi(Scene *s) : scene(s)
+		DWORD countryID;
+		GuoJiaBiaoCheJiangLi(Scene *s, DWORD c) : scene(s), countryID(c)
 		{
 		}
 		bool exec(SceneUser *u)
 		{
-			if (u->scene && u->scene->id == scene->id && u->charbase.country == 8)
+			if (u->scene && u->scene->id == scene->id && u->charbase.country == countryID)
 			{
 				Gm::fetch(u, "id=123123 num=5000 bind=1");
 				Gm::fetch(u, "id=120048 num=500 bind=1");
 				//Gm::fetch(u, "id=120052 num=400 bind=1");
 				//Gm::fetch(u, "id=20800 num=100 bind=1");
-				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "¹§Ï²Äã³É¹¦ÊØ»¤ÁË¹ú¼ÒïÚ³µ,»ñµÃ³äÖµµã5000¸ö£¬¾íÖá500¸ö£¡");
-				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "¹§Ï²%sµÄ%s³É¹¦ÊØ»¤ÁË¹ú¼ÒïÚ³µ,»ñµÃ³äÖµµã5000¸ö£¬¾íÖá500¸ö£¡", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // ÌøÎèÀñ°ü¸ÄÉñÃØÀñ°üÍø¹Ü
+				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "Ï²É¹Ø»Ë¹Ú³,Ã³Öµ5000500");
+				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "Ï²%s%sÉ¹Ø»Ë¹Ú³,Ã³Öµ5000500", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // 
 			}
 			return true;
 		}
 	};
-	GuoJiaBiaoCheJiangLi exec(scene);
+	GuoJiaBiaoCheJiangLi exec(scene, countryID);
 	SceneUserManager::getMe().execEveryUser(exec);
 	return true;
 }
 
-bool SceneUserManager::GuoJiaBiaoCheJiangLi2(Scene *scene)
+bool SceneUserManager::GuoJiaBiaoCheJiangLi2(Scene *scene, DWORD countryID)
 {
 	struct GuoJiaBiaoCheJiangLi : public execEntry<SceneUser>
 	{
 		Scene *scene;
-		GuoJiaBiaoCheJiangLi(Scene *s) : scene(s)
+		DWORD countryID;
+		GuoJiaBiaoCheJiangLi(Scene *s, DWORD c) : scene(s), countryID(c)
 		{
 		}
 		bool exec(SceneUser *u)
 		{
-			if (u->scene && u->scene->id == scene->id && u->charbase.country == 8)
+			if (u->scene && u->scene->id == scene->id && u->charbase.country == countryID)
 			{
 				Gm::fetch(u, "id=123123 num=3000 bind=1");
 				Gm::fetch(u, "id=120048 num=200 bind=1");
 				//Gm::fetch(u, "id=120052 num=200 bind=1");
 				//Gm::fetch(u, "id=20800 num=100 bind=1");
-				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "¹§Ï²Äã³É¹¦ÊØ»¤ÁË¹ú¼ÒïÚ³µ,»ñµÃ³äÖµµã3000¸ö£¬¾íÖá200¸ö£¡");
-				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "¹§Ï²%sµÄ%s³É¹¦ÊØ»¤ÁË¹ú¼ÒïÚ³µ,»ñµÃ³äÖµµã3000¸ö£¬¾íÖá200¸ö£¡", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // ÌøÎèÀñ°ü¸ÄÉñÃØÀñ°üÍø¹Ü
+				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "Ï²É¹Ø»Ë¹Ú³,Ã³Öµ3000200");
+				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "Ï²%s%sÉ¹Ø»Ë¹Ú³,Ã³Öµ3000200", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // 
 							
 			}
 			return true;
 		}
 	};
-	GuoJiaBiaoCheJiangLi exec(scene);
+	GuoJiaBiaoCheJiangLi exec(scene, countryID);
 	SceneUserManager::getMe().execEveryUser(exec);
 	return true;
 }
 
 
-bool SceneUserManager::GuoJiaBiaoCheJiangLi3(Scene *scene)
+bool SceneUserManager::GuoJiaBiaoCheJiangLi3(Scene *scene, DWORD countryID)
 {
 	struct GuoJiaBiaoCheJiangLi : public execEntry<SceneUser>
 	{
 		Scene *scene;
-		GuoJiaBiaoCheJiangLi(Scene *s) : scene(s)
+		DWORD countryID;
+		GuoJiaBiaoCheJiangLi(Scene *s, DWORD c) : scene(s), countryID(c)
 		{
 		}
 		bool exec(SceneUser *u)
 		{
-			if (u->scene && u->scene->id == scene->id && u->charbase.country == 12)
+			if (u->scene && u->scene->id == scene->id && u->charbase.country == countryID)
 			{
 				Gm::fetch(u, "id=123123 num=5000 bind=1");
 				Gm::fetch(u, "id=120048 num=500 bind=1");
 				//Gm::fetch(u, "id=120052 num=400 bind=1");
 				//Gm::fetch(u, "id=20800 num=100 bind=1");
-				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "¹§Ï²Äã³É¹¦ÊØ»¤ÁË¹ú¼ÒïÚ³µ,»ñµÃ³äÖµµã5000¸ö£¬¾íÖá500¸ö£¡");
-				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "¹§Ï²%sµÄ%s³É¹¦ÊØ»¤ÁË¹ú¼ÒïÚ³µ,»ñµÃ³äÖµµã5000¸ö£¬¾íÖá500¸ö£¡", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // ÌøÎèÀñ°ü¸ÄÉñÃØÀñ°üÍø¹Ü
+				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "Ï²É¹Ø»Ë¹Ú³,Ã³Öµ5000500");
+				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "Ï²%s%sÉ¹Ø»Ë¹Ú³,Ã³Öµ5000500", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // 
 			
 			}
 			return true;
 		}
 	};
-	GuoJiaBiaoCheJiangLi exec(scene);
+	GuoJiaBiaoCheJiangLi exec(scene, countryID);
 	SceneUserManager::getMe().execEveryUser(exec);
 	return true;
 }
 
 
-bool SceneUserManager::GuoJiaBiaoCheJiangLi4(Scene *scene)
+bool SceneUserManager::GuoJiaBiaoCheJiangLi4(Scene *scene, DWORD countryID)
 {
 	struct GuoJiaBiaoCheJiangLi : public execEntry<SceneUser>
 	{
 		Scene *scene;
-		GuoJiaBiaoCheJiangLi(Scene *s) : scene(s)
+		DWORD countryID;
+		GuoJiaBiaoCheJiangLi(Scene *s, DWORD c) : scene(s), countryID(c)
 		{
 		}
 		bool exec(SceneUser *u)
 		{
-			if (u->scene && u->scene->id == scene->id && u->charbase.country == 12)
+			if (u->scene && u->scene->id == scene->id && u->charbase.country == countryID)
 			{
 				Gm::fetch(u, "id=123123 num=3000 bind=1");
 				Gm::fetch(u, "id=120048 num=200 bind=1");
 				//Gm::fetch(u, "id=120052 num=200 bind=1");
 				//Gm::fetch(u, "id=20800 num=100 bind=1");
-				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "¹§Ï²Äã³É¹¦ÊØ»¤ÁË¹ú¼ÒïÚ³µ,»ñµÃ³äÖµµã3000¸ö£¬¾íÖá200¸ö£¡");
-				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "¹§Ï²%sµÄ%s³É¹¦ÊØ»¤ÁË¹ú¼ÒïÚ³µ,»ñµÃ³äÖµµã3000¸ö£¬¾íÖá200¸ö£¡", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // ÌøÎèÀñ°ü¸ÄÉñÃØÀñ°üÍø¹Ü
+				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "Ï²É¹Ø»Ë¹Ú³,Ã³Öµ3000200");
+				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "Ï²%s%sÉ¹Ø»Ë¹Ú³,Ã³Öµ3000200", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // 
 			}
 			return true;
 		}
 	};
-	GuoJiaBiaoCheJiangLi exec(scene);
+	GuoJiaBiaoCheJiangLi exec(scene, countryID);
 	SceneUserManager::getMe().execEveryUser(exec);
 	return true;
 }
@@ -302,14 +306,14 @@ void SceneUserManager::removeUserByTask(SceneTask *task)
 			pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//pUser->killAllPets();
 			pUser->unreg();
-			Zebra::logger->trace("ÓÃ»§%s(%ld)ÒòÐ¶ÔØÍø¹Ø×¢Ïú",pUser->name,pUser->id);
+			Zebra::logger->trace("Ã»%s(%ld)Ð¶×¢",pUser->name,pUser->id);
 		}
 		else
 		{
 			SceneUser *pUser=SceneUserManager::getMe().getUserByIDOut(*iter);
 			if(pUser)
 			{
-				Zebra::logger->trace("ÓÃ»§%s(%ld)ÒòÐ¶ÔØÍø¹Ø×¢Ïú,µ«Õâ¸öÈËÕýÔÚ¶ÁÈ¡µµ°¸",pUser->name,pUser->id);
+				Zebra::logger->trace("Ã»%s(%ld)Ð¶×¢,Ú¶È¡",pUser->name,pUser->id);
 				Cmd::Record::t_RemoveUser_SceneRecord rec_ret;
 				rec_ret.accid = pUser->accid;
 				rec_ret.id = pUser->id;
@@ -349,7 +353,7 @@ void SceneUserManager::removeAllUser()
 		{
 			//pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//SceneUserManager::getMe().removeUser(pUser);
-			Zebra::logger->trace("ÓÃ»§%s(%ld)Òò·þÎñÆ÷¹Ø±ÕÐ¶ÔØ",pUser->name,pUser->id);
+			Zebra::logger->trace("Ã»%s(%ld)Ø±Ð¶",pUser->name,pUser->id);
 			OnQuit event(1);
 			EventTable::instance().execute(*pUser, event);
 			execute_script_event(pUser,"quit");
@@ -357,7 +361,7 @@ void SceneUserManager::removeAllUser()
 			pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//pUser->killAllPets();
 			pUser->unreg();
-			//Í¨ÖªÍø¹Ø·þÎñÆ÷
+			//Í¨ÖªØ·
 			Cmd::Scene::t_Unreg_LoginScene retgate;
 			retgate.dwUserID = pUser->id;
 			retgate.dwSceneTempID = pUser->scene->tempid;
@@ -395,7 +399,7 @@ void SceneUserManager::removeUserInOneScene(Scene *scene)
 		{
 			//pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//SceneUserManager::getMe().removeUser(pUser);
-			Zebra::logger->trace("ÓÃ»§%s(%ld)ÒòÐ¶ÔØ³¡¾°×¢Ïú",pUser->name,pUser->id);
+			Zebra::logger->trace("Ã»%s(%ld)Ð¶Ø³×¢",pUser->name,pUser->id);
 			OnQuit event(1);
 			EventTable::instance().execute(*pUser, event);
 			execute_script_event(pUser,"quit");
@@ -403,7 +407,7 @@ void SceneUserManager::removeUserInOneScene(Scene *scene)
 			pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//pUser->killAllPets();
 			pUser->unreg();
-			//Í¨ÖªÍø¹Ø·þÎñÆ÷
+			//Í¨ÖªØ·
 			Cmd::Scene::t_Unreg_LoginScene retgate;
 			retgate.dwUserID = pUser->id;
 			retgate.dwSceneTempID = pUser->scene->tempid;
@@ -471,14 +475,14 @@ void SceneUserManager::enterWar(Cmd::Session::t_enterWar_SceneSession* cmd)
 				if (ptCmd->dwStatus == 1)
 				{
 #ifdef _ALL_SUPER_GM					
-					Zebra::logger->debug("µ±Ç°¶ÔÕ½¼ÇÂ¼Êý: %u", su->warSize());
-					Zebra::logger->debug("¼ÓÈë¹úÕ½: toRelation:%u, isAtt:%u", 
+					Zebra::logger->debug("Ç°Õ½Â¼: %u", su->warSize());
+					Zebra::logger->debug("Õ½: toRelation:%u, isAtt:%u", 
 							ptCmd->dwToRelationID, ptCmd->isAtt);
 #endif
 					su->addWarRecord(ptCmd->dwWarType, ptCmd->dwToRelationID, ptCmd->isAtt);
 
 #ifdef _ALL_SUPER_GM					
-					Zebra::logger->debug("µ±Ç°¶ÔÕ½¼ÇÂ¼Êý: %u", su->warSize());
+					Zebra::logger->debug("Ç°Õ½Â¼: %u", su->warSize());
 #endif					
 
 					if (ptCmd->isAntiAtt)
@@ -497,24 +501,24 @@ void SceneUserManager::enterWar(Cmd::Session::t_enterWar_SceneSession* cmd)
 				else
 				{
 #ifdef _ALL_SUPER_GM					
-					Zebra::logger->debug("µ±Ç°¶ÔÕ½¼ÇÂ¼Êý: %u", su->warSize());
-					Zebra::logger->debug("É¾³ý¹úÕ½: toRelation:%u, isAtt:%u", 
+					Zebra::logger->debug("Ç°Õ½Â¼: %u", su->warSize());
+					Zebra::logger->debug("É¾Õ½: toRelation:%u, isAtt:%u", 
 							ptCmd->dwToRelationID, ptCmd->isAtt);
 #endif					
 
 					su->removeWarRecord(ptCmd->dwWarType, ptCmd->dwToRelationID);
 					
 #ifdef _ALL_SUPER_GM					
-					Zebra::logger->debug("µ±Ç°¶ÔÕ½¼ÇÂ¼Êý: %u", su->warSize());
+					Zebra::logger->debug("Ç°Õ½Â¼: %u", su->warSize());
 #endif					
 
 					//if (!su->isSpecWar(Cmd::COUNTRY_FORMAL_DARE))
-					//{// ²»ÔÚ¹úÕ½×´Ì¬ÁË
+					//{// Ú¹Õ½×´Ì¬
 						su->setDeathBackToMapID(su->scene);
 					//}
 				}
 
-				//su->sendNineToMe(); // ¼°Ê±¸üÐÂ¶ÔÕ½×´Ì¬
+				//su->sendNineToMe(); // Ê±Â¶Õ½×´Ì¬
 				//FunctionTimes times(40,__FUNCTION__);
 				su->setStateToNine(Cmd::USTATE_WAR);
 			}
@@ -557,7 +561,7 @@ void SceneUserManager::countryTrans(DWORD dwCountryID, DWORD dwLevel)
 					pUser->charbase.exploit = 0;
 				}
 
-				Channel::sendSys(pUser, Cmd::INFO_TYPE_EXP, "¹úÍõµãÈ¼ÁË·é»ðÌ¨£¬Ó¢ÓÂµÄÄã±»¹úÍõÑ¡Ôñ¼ÓÈëÕ½³¡");
+				Channel::sendSys(pUser, Cmd::INFO_TYPE_EXP, "È¼Ë·Ì¨Ó¢Âµã±»Ñ¡Õ½");
 			}
 		}
 
@@ -616,7 +620,7 @@ bool SceneRecycleUserManager::canReg(DWORD id)
 	}
 	else
 	{
-		Zebra::logger->debug("µÈ´ý»ØÊÕÊ±ÔÙ´ÎµÇÂ½:%s",ret->name);
+		Zebra::logger->debug("È´Ê±Ù´ÎµÂ½:%s",ret->name);
 		rwlock.wrlock();
 		SceneRecycleUserManager::getInstance().removeUser(ret);
 		ret->gatetask=NULL;
@@ -701,7 +705,7 @@ void SceneUserManager::removeUserToHuangcheng(Scene *scene)
 		SceneUser *pUser=SceneUserManager::getMe().getUserByID(*iter);
 		if(pUser)
 		{
-			Gm::gomap(pUser, "name=ÖÐÁ¢Çø¡¤»Ê³Ç type=4");
+			Gm::gomap(pUser, "name=Ê³ type=4");
 		}
 	}
 }

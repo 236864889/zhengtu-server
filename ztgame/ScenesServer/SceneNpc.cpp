@@ -3,7 +3,7 @@
  * \version  $Id: SceneNpc.cpp $
  * \author  
  * \date 
- * \brief ¶¨ÒåNpc
+ * \brief Npc
  *
  * 
  */
@@ -35,13 +35,13 @@ DWORD SceneNpc::serialID = SceneNpc::maxUniqueID;
 zUniqueDWORDID SceneNpc::uniqueID(1, SceneNpc::maxUniqueID);
 
 /**
- * \brief ÅĞ¶Ï¸ÄnpcÊÇ·ñ¿ÉÒÔ±»¹¥»÷
- * ·µ»ØfalseÔòÍêÈ«²»ÄÜ±»¹¥»÷
+ * \brief Ğ¶Ï¸npcÇ·Ô±
+ * falseÈ«Ü±
  *
  */
 bool SceneNpc::canBeAttack()
 {
-	if (getPetType()==Cmd::PET_TYPE_RIDE//ÂíÆ¥Ò²²»ÄÜ±»¹¥»÷
+	if (getPetType()==Cmd::PET_TYPE_RIDE//Æ¥Ò²Ü±
 			|| getPetType()==Cmd::PET_TYPE_CARTOON)
 		return false;
 
@@ -67,13 +67,15 @@ bool SceneNpc::canBeAttack()
 	return true;
 }
 
+					
+
 /**
- * \brief ÅĞ¶Ï¸ÄnpcÊÇ·ñ¿ÉÒÔ±»¹¥»÷(ÊÇ·ñÊÇ¹ÖÎï)
- * µ«ÊÇÆäÖĞNPC_TYPE_TRADE NPC_TYPE_TASK Á½¸öÀàĞÍ¿ÉÒÔ±»Íâ¹úÈË¹¥»÷
+ * \brief Ğ¶Ï¸npcÇ·Ô±(Ç·Ç¹)
+ * NPC_TYPE_TRADE NPC_TYPE_TASK Í¿Ô±Ë¹
  */
 bool SceneNpc::isBugbear()
 {
-	if (getPetType()==Cmd::PET_TYPE_RIDE//ÂíÆ¥Ò²²»ÄÜ±»¹¥»÷
+	if (getPetType()==Cmd::PET_TYPE_RIDE//Æ¥Ò²Ü±
 			|| getPetType()==Cmd::PET_TYPE_CARTOON)
 		return false;
 
@@ -101,7 +103,7 @@ bool SceneNpc::isBugbear()
 	return true;
 }
 /**
- * \brief NpcËÀÍö
+ * \brief Npc
  *
  */
 void SceneNpc::death(const zRTime &ct)
@@ -110,35 +112,35 @@ void SceneNpc::death(const zRTime &ct)
 
 	killAllPets();
 	petDeath();
-	//Çå³ş×èµ²ĞÅÏ¢
+	//èµ²Ï¢
 	scene->clearBlock(getPos());
 
 	setState(SceneEntry_Death);
 #ifdef _XWL_DEBUG
-	//Zebra::logger->debug("npc %s(%u) ËÀÍö", name, tempid);
+	//Zebra::logger->debug("npc %s(%u) ", name, tempid);
 #endif
 	summonByNpcMap(define->deathSummonList);
 
-	//µôÂäÎïÆ·ÑÓ³Ù
+	//Æ·Ó³
 	setMoveTime(ct, 1000);
 	setAttackTime(ct, 1000);
 
-	if (Cmd::PET_TYPE_NOTPET==getPetType())//³èÎï²»µô¶«Î÷
+	if (Cmd::PET_TYPE_NOTPET==getPetType())//ï²»
 	{
 		lostObject = true;
 		mayRush = true;
 	}
 
 	if (ALLY_GUARDNPC==npc->id)
-		//Zebra::logger->trace("%s ÃË¹úïÚ³µ±»É±ËÀ",SceneManager::getInstance().getCountryNameByCountryID(scene->getCountryID()));
-		Zebra::logger->debug("%s ÃË¹úïÚ³µ±»É±ËÀ",SceneManager::getInstance().getCountryNameByCountryID(scene->getCountryID()));
+		//Zebra::logger->trace("%s Ë¹Ú³É±",SceneManager::getInstance().getCountryNameByCountryID(scene->getCountryID()));
+		Zebra::logger->debug("%s Ë¹Ú³É±",SceneManager::getInstance().getCountryNameByCountryID(scene->getCountryID()));
 }
 
 /**
- * \brief ±»»÷ÍË
- * ²»»á¶Ô³¡¾°½øĞĞËø²Ù×÷£¬±£Ö¤µ÷ÓÃÕß¶Ô³¡¾°½øĞĞÁËËø²Ù×÷
- * \param direct ºóÍË·½Ïò
- * \param step ºóÍË²½·¥
+ * \brief 
+ * Ô³Ö¤ß¶Ô³
+ * \param direct Ë·
+ * \param step Ë²
  */
 void SceneNpc::backoff(const int direct, const int step)
 {
@@ -194,8 +196,8 @@ void SceneNpc::backoff(const int direct, const int step)
 }
 
 /**
- * \brief ¼ì²é¾­ÑéÁĞ±íÖĞÍæ¼ÒµÄ¹¥»÷ÊÇ·ñ³¬Ê±
- * \param pAtt ¹¥»÷Õß
+ * \brief é¾­Ğ±ÒµÄ¹Ç·Ê±
+ * \param pAtt 
  */
 void SceneNpc::refreshExpmapAttackTime(SceneUser* pAtt)
 {
@@ -216,21 +218,21 @@ void SceneNpc::refreshExpmapAttackTime(SceneUser* pAtt)
 }
 
 /**
- * \brief ¼õÉÙ userµÄhp
+ * \brief  userhp
  *
- * \param pAtt ¹¥»÷Õß
- * \param wdHP ¼õÉÙµÄhp
+ * \param pAtt 
+ * \param wdHP Ùµhp
  * \return 
  */
-void SceneNpc::reduceHP(SceneUser *pAtt , uint64_t wdHP) //by=>friday ĞŞ¸ÄÎªÖ§³Ö64Î»ÎŞ·ûºÅÉËº¦
+void SceneNpc::reduceHP(SceneUser *pAtt , uint64_t wdHP) //by=>friday Ş¸ÎªÖ§64Î»Ş·Ëº
 {
 #ifdef _XWL_DEBUG
-	//Zebra::logger->debug("SceneNpc::reduceHP %s hp=%u wdHP=%llu", name, hp, wdHP); //by=>friday ĞŞ¸´64Î»ÏÔÊ¾¸ñÊ½
+	//Zebra::logger->debug("SceneNpc::reduceHP %s hp=%u wdHP=%llu", name, hp, wdHP); //by=>friday Ş¸64Î»Ê¾Ê½
 #endif
 	if(hp + wdHP == this->getMaxHP())
 	{
 		first_time.now();
-		//Zebra::logger->debug("npc(%ld , %s)µÚÒ»´ÎÔâµ½¹¥»÷ , Ê±¼ä:%ld", this->tempid , this->name , ctv.sec());
+		//Zebra::logger->debug("npc(%ld , %s)Ò»âµ½ , Ê±:%ld", this->tempid , this->name , ctv.sec());
 	}
 	NpcHpHashmap_iterator iter;
 	DWORD leader = 0; 
@@ -281,7 +283,7 @@ void SceneNpc::reduceHP(SceneUser *pAtt , uint64_t wdHP) //by=>friday ĞŞ¸ÄÎªÖ§³Ö
 			expRec.wdHP = wdHP;
 			expmap.insert(NpcHpHashmap_pair(leader, expRec));
 #ifdef _XWL_DEBUG
-			Zebra::logger->debug("%s wdHP=%llu hp=%u", name, expRec.wdHP, wdHP); //by=>friday ĞŞ¸´64Î»ÏÔÊ¾¸ñÊ½
+			Zebra::logger->debug("%s wdHP=%llu hp=%u", name, expRec.wdHP, wdHP); //by=>friday Ş¸64Î»Ê¾Ê½
 #endif			
 		}
 	}
@@ -292,7 +294,7 @@ void SceneNpc::reduceHP(SceneUser *pAtt , uint64_t wdHP) //by=>friday ĞŞ¸ÄÎªÖ§³Ö
 		{
 			iter->second.wdHP += wdHP;
 #ifdef _XWL_DEBUG
-			Zebra::logger->debug("Ğ¡ÓÚÊ®Ãë£¬ÀÛ¼ÓHPÖµ:%llu hp=%u", iter->second.wdHP, hp); //by=>friday ĞŞ¸´64Î»ÏÔÊ¾¸ñÊ½
+			Zebra::logger->debug("Ğ¡Ê®ë£¬Û¼HPÖµ:%llu hp=%u", iter->second.wdHP, hp); //by=>friday Ş¸64Î»Ê¾Ê½
 #endif			
 
 		}
@@ -300,7 +302,7 @@ void SceneNpc::reduceHP(SceneUser *pAtt , uint64_t wdHP) //by=>friday ĞŞ¸ÄÎªÖ§³Ö
 		{
 			iter->second.wdHP = wdHP;
 #ifdef _XWL_DEBUG
-			Zebra::logger->debug("´óÓÚÊ®Ãë£¬ ÖØÖÃHPÖµ:%llu hp=%u", iter->second.wdHP, hp); //by=>friday ĞŞ¸´64Î»ÏÔÊ¾¸ñÊ½
+			Zebra::logger->debug("Ê®ë£¬ HPÖµ:%llu hp=%u", iter->second.wdHP, hp); //by=>friday Ş¸64Î»Ê¾Ê½
 #endif			
 		}
 		iter->second.attack_time.now();
@@ -308,24 +310,24 @@ void SceneNpc::reduceHP(SceneUser *pAtt , uint64_t wdHP) //by=>friday ĞŞ¸ÄÎªÖ§³Ö
 }
 
 /**
- * \brief ¶ÓÎé·ÖÇ®µÄ»Øµ÷
+ * \brief Ç®Ä»Øµ
  *
  */
 struct MoneyTeamExecExceptMe : public TeamMemExec
 {
-	///¶Ó³¤
+	///Ó³
 	SceneUser *leader;
-	///×Ô¼º
+	///Ô¼
 	SceneUser *me;
-	///Ç®Êı
+	///Ç®
 	WORD money;
 
 	/**
-	 * \brief ¹¹Ôìº¯Êı
+	 * \brief ìº¯
 	 *
-	 * \param pMe ×Ô¼º
-	 * \param u ¶Ó³¤
-	 * \param mon Ç®Êı
+	 * \param pMe Ô¼
+	 * \param u Ó³
+	 * \param mon Ç®
 	 */
 	MoneyTeamExecExceptMe(SceneUser *pMe, SceneUser *u , WORD mon)
 	{
@@ -334,10 +336,10 @@ struct MoneyTeamExecExceptMe : public TeamMemExec
 		money = mon;
 	}
 	/**
-	 * \brief ·ÖÇ®
+	 * \brief Ç®
 	 *
-	 * \param member ¶ÓÓÑ
-	 * \return ÊÇ·ñ¼ÌĞø»Øµ÷
+	 * \param member 
+	 * \return Ç·Øµ
 	 */
 	bool exec(TeamMember &member)
 	{
@@ -348,7 +350,7 @@ struct MoneyTeamExecExceptMe : public TeamMemExec
 			{
 				if(pUser->getState() != SceneUser::SceneEntry_Death)
 				{
-					pUser->packs.addMoney((DWORD)(money),"¶ÓÎé·ÖÇ®");
+					pUser->packs.addMoney((DWORD)(money),"Ç®");
 					pUser->team.putMoneyPlus(money);
 				}
 			}
@@ -357,11 +359,11 @@ struct MoneyTeamExecExceptMe : public TeamMemExec
 	}
 
 };
-//Òø×Ó·ÖÅä
+//Ó·
 /**
- * \brief ¶ÓÎé·ÖÇ®
+ * \brief Ç®
  *
- * \param money ×ÜÇ®Êı
+ * \param money Ç®
  */
 void SceneNpc::distributeMoney(DWORD money)
 {
@@ -380,7 +382,7 @@ void SceneNpc::distributeMoney(DWORD money)
 					mon = (WORD)((money - myMon) / leader->team.getExpSize(pUser->getPosI(),this->scene->id) + 0.9f);
 				}
 				myMon +=mon;
-				pUser->packs.addMoney(myMon,"¶ÓÎé·ÖÇ®");
+				pUser->packs.addMoney(myMon,"Ç®");
 				pUser->team.putMoneyPlus(myMon);
 
 				MoneyTeamExecExceptMe exec(pUser, leader , mon);
@@ -389,18 +391,18 @@ void SceneNpc::distributeMoney(DWORD money)
 		}
 		else
 		{
-			pUser->packs.addMoney(money,"¶ÓÎé·ÖÇ®");
+			pUser->packs.addMoney(money,"Ç®");
 		}
 	}
 }
 
 struct CountSeptTeamExec : public TeamMemExec
 {
-	///¼Ò×å¼ÇÊı
+	///
 	int count;
-	///·Ö¾­Ñé½ÇÉ«µÄ¼Ò×åID
+	///Ö¾É«Ä¼ID
 	DWORD septid;
-	///É±ËÀµÄnpc
+	///É±npc
 	SceneNpc *npc;
 
 	CountSeptTeamExec(DWORD dwSeptid, SceneNpc *pnpc)
@@ -411,11 +413,11 @@ struct CountSeptTeamExec : public TeamMemExec
 	}
 
 	/**
-	 * \brief Í¬Ò»¼Ò×åÈËÊıÍ³¼Æº¯Êı
+	 * \brief Í¬Ò»Í³Æº
 	 *
 	 *
-	 * \param member ¶ÓÓÑ
-	 * \return ÊÇ·ñ¼ÌĞø»Øµ÷
+	 * \param member 
+	 * \return Ç·Øµ
 	 */
 	bool exec(TeamMember &member)
 	{
@@ -437,25 +439,25 @@ struct CountSeptTeamExec : public TeamMemExec
 };
 
 /**
- * \brief ¶ÓÎé·Ö¾­ÑéµÄ»Øµ÷
+ * \brief Ö¾Ä»Øµ
  *
  */
 struct ExpTeamExec : public TeamMemExec
 {
-	///¶Ó³¤
+	///Ó³
 	SceneUser *leader;
-	///É±ËÀµÄnpc
+	///É±npc
 	SceneNpc *npc;
-	///¾­ÑéÖµ
+	///Öµ
 	DWORD exp;
-	///¼Ò×åID
+	///ID
 
 	/**
-	 * \brief ¹¹Ôìº¯Êı
+	 * \brief ìº¯
 	 *
-	 * \param u ¶Ó³¤
-	 * \param n É±ËÀµÄnpc
-	 * \param wdExp ¾­Ñé
+	 * \param u Ó³
+	 * \param n É±npc
+	 * \param wdExp 
 	 */
 	ExpTeamExec(SceneUser *u , SceneNpc *n , DWORD wdExp)
 	{
@@ -464,18 +466,18 @@ struct ExpTeamExec : public TeamMemExec
 		exp = wdExp;
 	}
 	/**
-	 * \brief ·ÖÇ®µÄº¯Êı
+	 * \brief Ç®Äº
 	 *
 	 *
-	 * \param member ¶ÓÓÑ
-	 * \return ÊÇ·ñ¼ÌĞø»Øµ÷
+	 * \param member 
+	 * \return Ç·Øµ
 	 */
 	bool exec(TeamMember &member)
 	{
 		SceneUser *pUser = SceneUserManager::getMe().getUserByTempID(member.tempid);
 		if(pUser)
 		{
-			// ÈÙÓşÄ£Ê½¶Ó³¤²»¸ø¾­ÑéÖµ
+			// Ä£Ê½Ó³Öµ
 			if((pUser == leader && pUser->team_mode == Cmd::TEAM_HONOR) || (leader->team_mode == Cmd::TEAM_HONOR &&pUser->charbase.level >= TEAM_HONOR_MEMBER_LEVEL))
 			{
 				return true;
@@ -487,7 +489,7 @@ struct ExpTeamExec : public TeamMemExec
 						&& pUser->scene->tempid == npc->scene->tempid
 						&& pUser->scene->checkTwoPosIInNine(pUser->getPosI(),npc->getPosI()))
 				{
-					//Zebra::logger->debug("Æ½¾ù¾­Ñé=%d,ÈËÊı=%d",leader->team.getAverageExp() , leader->team.getExpSize(npc->getPosI()));
+					//Zebra::logger->debug("Æ½=%d,=%d",leader->team.getAverageExp() , leader->team.getExpSize(npc->getPosI()));
 					//DWORD wdExp=(DWORD)(exp * (((pUser->charbase.level / 30)+1.0f) / leader->team.getAverageExp()) + 0.9); 
 					DWORD exp_level=0;
 					if(leader->team_mode == Cmd::TEAM_HONOR)
@@ -503,7 +505,7 @@ struct ExpTeamExec : public TeamMemExec
 					DWORD early_level=pUser->charbase.level;
 					DWORD wdExp = (DWORD)(exp *((float)(exp_level) / (float)leader->team.getAverageExp()) + 0.9); 
 					wdExp += pUser->team.getExpPlus(wdExp);
-					if (pUser->pet) pUser->pet->addExp(wdExp);//³èÎï¾­Ñé²»ËğºÄ
+					if (pUser->pet) pUser->pet->addExp(wdExp);//ï¾­é²»
 					for (SceneUser::adopt_it it=pUser->adoptList.begin(); it!=pUser->adoptList.end(); it++)
 						it->second->releaseExp(wdExp*15/100);
 					wdExp = npc->levelExp(wdExp , pUser->charbase.level);
@@ -512,10 +514,10 @@ struct ExpTeamExec : public TeamMemExec
 					{
 					//	if (pUser->scene&&(pUser->charbase.country == pUser->scene->getCountryID())) wdExp = (DWORD)(wdExp*(pUser->wdTirePer/100.0f));
 						if (pUser->isSpecWar(Cmd::COUNTRY_FORMAL_DARE))
-						{//¹úÕ½ÆÚ£¬´ò¹Ö¾­Ñé¼õ50%
+						{//Õ½Ú£Ö¾50%
 							wdExp = wdExp/2;
 						}
-						//TODO ¾­Ñé³ı°ë
+						//TODO 
 						if (wdExp==0) wdExp=1;
 
 						pUser->sendExpToSept(wdExp);
@@ -531,11 +533,11 @@ struct ExpTeamExec : public TeamMemExec
 						{
 							wdExp += pUser->scene->winnerExp(oldExp);
 						}
-						wdExp = wdExp*(100+5*pUser->adoptList.size())/100;	//ÊÕÑøÒ»¸ö¶à5%
+						wdExp = wdExp*(100+5*pUser->adoptList.size())/100;	//Ò»5%
 						pUser->addExp(wdExp, false, npc->tempid, Cmd::MAPDATATYPE_NPC, true);
 						pUser->packs.equip.obtain_exp(pUser, wdExp);
 					}
-					//Îª¶Ó³¤Ôö¼ÓÈÙÓşµãÊı
+					//ÎªÓ³
 					if(leader->team_mode == Cmd::TEAM_HONOR && early_level < pUser->charbase.level 
 							&& pUser->charbase.level <= TEAM_HONOR_MEMBER_LEVEL
 							&& leader->scene->id == pUser->scene->id
@@ -560,8 +562,8 @@ struct ExpTeamExec : public TeamMemExec
 						{
 							leader->charbase.honor += get_honor;
 							leader->charbase.maxhonor += get_honor;
-							zObject::logger(0,0,"ÈÙÓşÖµ",leader->charbase.honor,get_honor,1,pUser->id , pUser->name ,leader->id,leader->name,"»ñµÃÈÙÓşÖµ",NULL,0,0);
-							Channel::sendSys(leader, Cmd::INFO_TYPE_GAME,"Äã»ñµÃÈÙÓşµã%d",get_honor);
+							zObject::logger(0,0,"Öµ",leader->charbase.honor,get_honor,1,pUser->id , pUser->name ,leader->id,leader->name,"Öµ",NULL,0,0);
+							Channel::sendSys(leader, Cmd::INFO_TYPE_GAME,"%d",get_honor);
 							Cmd::stMainUserDataUserCmd  userinfo;
 							leader->full_t_MainUserData(userinfo.data);
 							leader->sendCmdToMe(&userinfo,sizeof(userinfo));
@@ -575,23 +577,23 @@ struct ExpTeamExec : public TeamMemExec
 
 };
 /**
- * \brief ¶ÓÎéÌØÊâ·Ö¾­ÑéµÄ»Øµ÷
+ * \brief Ö¾Ä»Øµ
  *
  */
 struct SpecialExpTeamExec : public TeamMemExec
 {
-	///¶ÓÔ±
+	///Ô±
 	SceneUser *user;
-	///¾­ÑéÖµ
+	///Öµ
 	SceneNpc *npc;
 	DWORD exp;
-	///¼Ò×åID
+	///ID
 
 	/**
-	 * \brief ¹¹Ôìº¯Êı
+	 * \brief ìº¯
 	 *
-	 * \param u µÃµ½¾­ÑéµÄÓÃ»§
-	 * \param wdExp ¾­Ñé
+	 * \param u ÃµÃ»
+	 * \param wdExp 
 	 */
 	SpecialExpTeamExec(SceneUser *u , SceneNpc *n , DWORD wdExp)
 	{
@@ -601,18 +603,18 @@ struct SpecialExpTeamExec : public TeamMemExec
 		exp = exp?exp:1;
 	}
 	/**
-	 * \brief ·ÖÇ®µÄº¯Êı
+	 * \brief Ç®Äº
 	 *
 	 *
-	 * \param member ¶ÓÓÑ
-	 * \return ÊÇ·ñ¼ÌĞø»Øµ÷
+	 * \param member 
+	 * \return Ç·Øµ
 	 */
 	bool exec(TeamMember &member)
 	{
 		SceneUser *pUser = SceneUserManager::getMe().getUserByTempID(member.tempid);
 		if(pUser)
 		{
-			// ÌØÊâ·Ö¾­Ñé²¿·Ö²»¸ø×Ô¼º·Ö
+			// Ö¾é²¿Ö²Ô¼
 			if(pUser == user)
 			{
 				return true;
@@ -631,7 +633,7 @@ struct SpecialExpTeamExec : public TeamMemExec
 
 };
 /**
- * \brief ¶ÓÎé·Ö¾­Ñé
+ * \brief Ö¾
  *
  */
 void SceneNpc::distributeExp()
@@ -642,7 +644,7 @@ void SceneNpc::distributeExp()
 		if (abs(iter->second.attack_time.sec() - SceneTimeTick::currentTime.sec()) >=10)
 		{
 #ifdef _ZJW_DEBUG
-			Zebra::logger->debug("%d ×îºóÒ»´Î¹¥»÷´óÓÚÊ®Ãë", iter->first);
+			Zebra::logger->debug("%d Ò»Î¹Ê®", iter->first);
 #endif			
 			continue;
 		}
@@ -671,11 +673,11 @@ void SceneNpc::distributeExp()
 			{
 				DWORD wdExp = (DWORD)(npc->exp * ((float)iter->second.wdHP / (this->getMaxHP())) + 0.9f);
 
-				//Èç¹û¼¼ÄÜÔö¼Ó¾­ÑéÖµ
+				//Ó¾Öµ
 				wdExp +=pUser->pkValue.exp;
-				//³èÎï
+				//
 				if (pUser->pet) pUser->pet->addExp(wdExp);
-				//ÁìÑø
+				//
 				for (SceneUser::adopt_it it=pUser->adoptList.begin(); it!=pUser->adoptList.end(); it++)
 					it->second->releaseExp(wdExp*15/100);
 				wdExp = levelExp(wdExp , pUser->charbase.level);
@@ -685,37 +687,37 @@ void SceneNpc::distributeExp()
 				   //if (pUser->scene &&(pUser->charbase.country == pUser->scene->getCountryID())) wdExp = (DWORD)(wdExp*(pUser->wdTirePer/100.0f));
 
 					if (pUser->isSpecWar(Cmd::COUNTRY_FORMAL_DARE))
-					{//¹úÕ½ÆÚ£¬´ò¹Ö¾­Ñé¼õ50%
+					{//Õ½Ú£Ö¾50%
 						wdExp = wdExp/2;
 					}
 					
-					//soke ÅĞ¶ÏÊÇ·ñÊÇ¾­Ñé±¶ÂÊ×´Ì¬
+					//soke Ğ¶Ç·Ç¾é±¶×´Ì¬
 					if (pUser->issetUState(Cmd::USTATE_EXP_125))
 					{
-					    //Zebra::logger->debug("Ô­¾­ÑéÖµÎª:%u",wdExp);
+					    //Zebra::logger->debug("Ô­ÖµÎª:%u",wdExp);
 						wdExp = (DWORD)(wdExp*1.25);
-						//Zebra::logger->debug("Ìá¸ß1.25±¶¾­ÑéÖµÎª:%u",wdExp);
+						//Zebra::logger->debug("1.25ÖµÎª:%u",wdExp);
 					}
 
 					if (pUser->issetUState(Cmd::USTATE_EXP_150))
 					{
-					    //Zebra::logger->debug("Ô­¾­ÑéÖµÎª:%u",wdExp);
+					    //Zebra::logger->debug("Ô­ÖµÎª:%u",wdExp);
 						wdExp = (DWORD)(wdExp*1.5);
-						//Zebra::logger->debug("Ìá¸ß1.50±¶¾­ÑéÖµÎª:%u",wdExp);
+						//Zebra::logger->debug("1.50ÖµÎª:%u",wdExp);
 					}
 
 					if (pUser->issetUState(Cmd::USTATE_EXP_175))
 					{
-					    //Zebra::logger->debug("Ô­¾­ÑéÖµÎª:%u",wdExp);
+					    //Zebra::logger->debug("Ô­ÖµÎª:%u",wdExp);
 					    wdExp = (DWORD)(wdExp*1.75);
-					    //Zebra::logger->debug("Ìá¸ß1.75±¶¾­ÑéÖµÎª:%u",wdExp);
+					    //Zebra::logger->debug("1.75ÖµÎª:%u",wdExp);
 					}
 
 					if (wdExp==0) wdExp=1;
 					//pUser->sendExpToSept(wdExp);
 					pUser->packs.equip.obtain_exp(pUser,wdExp);
 					
-					//×é¶ÓÌØÊâ·Ö¾­Ñé·½Ê½
+					//Ö¾é·½Ê½
 					if(pUser->team.IsTeamed() && pUser->team.isSpecialExp())
 					{
 						SceneUser *leader = SceneUserManager::getMe().getUserByTempID(pUser->team.getLeader());
@@ -731,7 +733,7 @@ void SceneNpc::distributeExp()
 					{
 						wdExp += pUser->scene->winnerExp(oldExp);
 					}
-					wdExp = wdExp*(100+5*pUser->adoptList.size())/100;	//ÊÕÑøÒ»¸ö¶à5%
+					wdExp = wdExp*(100+5*pUser->adoptList.size())/100;	//Ò»5%
 					pUser->addExp(wdExp, false, this->tempid, Cmd::MAPDATATYPE_NPC, true);
 				}
 			}
@@ -752,7 +754,7 @@ DWORD SceneNpc::addOtherExp(DWORD wdExp , SceneUser *pUser)
 		if ((per>20)&&(per<100)) per=20;
 		else if (per>=100) per=100;
 		///////////////////////////////////////////////
-        //soke ´ò¹Ö¾­Ñé±¶Êı
+        //soke Ö¾é±¶
 		if(ScenesService::getInstance().double_exp > 0)
 		{
 			wdExp = wdExp*ScenesService::getInstance().double_exp ;
@@ -782,7 +784,7 @@ DWORD SceneNpc::levelExp(DWORD wdExp , DWORD char_level)
 	return wdExp;
 }*/
 
-//soke ĞŞ¸Ä´ò¹ÖµÄµÈ¼¶¾­ÑéÏŞÖÆ
+//soke Ş¸Ä´ÖµÄµÈ¼
 DWORD SceneNpc::levelExp(DWORD wdExp , DWORD char_level)
 {
 	int diff = (int)(char_level - this->npc->level);
@@ -875,7 +877,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 					return false;
 				}
 			}
-	//soke È¡Ïû²É¼¯ÊÖÌ×	²»È¡Ïû²»ÄÜ×Ô¶¯´ò¹Ö	
+	//soke È¡É¼	È¡Ô¶	
 	////////////////////////////////////////////////////////		
 	//		SceneUser *pUser = (SceneUser *)pEntry;
 	//		zObject *temp=NULL;
@@ -886,7 +888,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 				{
 	//				if (0 != temp->data.dur)
 					{
-	//					if (temp->base->id == 876) //²É¼¯ÊÖÌ×
+	//					if (temp->base->id == 876) //É¼
 	////////////////////////////////////////////////////////					
 						{
 							ret=true;
@@ -905,13 +907,13 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 
 	if (!good)
 	{
-		DWORD attackRating = 0; // ¹¥»÷Õß
+		DWORD attackRating = 0; // 
 		DWORD attLevel = 0;
 		DWORD attCountryID = 0;
 		bool  isUnionCityWar = false;
-		bool  isCountryFormal = false; // ÅĞ¶Ï´ó½«¾üËùÊô¹úÓë¹¥»÷ÕßÊÇ·ñÊôÓÚµĞ¶Ô
-		bool  isAtt = true; // Ä¬ÈÏÎª¶áÆìÀà¶ÔÕ½ÖĞµÄ¹¥·½
-		bool  isAttCountry = true; // ¹úÕ½ÖĞµÄ¹¥·½
+		bool  isCountryFormal = false; // Ğ¶Ï´ó½«¾ë¹¥Ç·ÚµĞ¶
+		bool  isAtt = true; // Ä¬ÎªÕ½ĞµÄ¹
+		bool  isAttCountry = true; // Õ½ĞµÄ¹
 		bool  isAntiCountry = false;
 
 		SceneEntryPk * m = ((SceneEntryPk *)pEntry)->getMaster();
@@ -942,14 +944,14 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			attCountryID = ((SceneNpc *)pEntry)->scene->getCountryID();
 		}
 
-		if (this->id == 58101) // ³ÇÆìµÄID
+		if (this->id == 58101) // ID
 		{
 //			if (!isUnionCityWar || 	(this->scene->getCountryID() != attCountryID && this->scene->getCountryID()!=6) || !isAtt)
 			if (!isUnionCityWar || !isAtt)
 
 			{
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "²»´¦ÓÚ¶á³ÇÕ½£¬»ò²»ÊÇ¹¥·½,²»ÄÜ¹¥»÷58101");
+				Channel::sendNine(this, "Ú¶Õ½Ç¹,Ü¹58101");
 #endif			
 
 				if (rev)
@@ -959,14 +961,14 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			}
 		}
 
-		//soke ²»ÊÇ¿ªÇøÊ±¼ä²»ÄÜ¹¥»÷NPC
+		//soke Ç¿Ê±ä²»Ü¹NPC
 		if (this->id > 0 && (atoi(Zebra::global["service_flag"].c_str())==9))
 		{
-            Channel::sendNine(this, "»¹Ã»µ½¿ªÇøÊ±¼äÄØ£¬²»ÄÜÆÛ¸ºÈË¼ÒÀ²");
+            Channel::sendNine(this, "Ã»Ê±Ø£Û¸Ë¼");
 			return false;
 		}
 		
-		//¹¥»÷¹¦Ñ«¾º²ÂÉ¢²ÆÖí
+		//Ñ«É¢
 		if (this->id==140003)
 		{
 			zRTime cur_time;
@@ -976,10 +978,10 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 				char a[32];
 				sprintf(a, "%d", cur_time.sec());
 				Zebra::global["pigtime"]=a;
-				//·¢¸ø¿Í»§¶ËÊ±¼ä¿ªÊ¼¼ÆÊ±
+				//Í»Ê±ä¿ªÊ¼Ê±
 				Cmd::stJingcaiReturnPigTimeCmd ret;
 				ret.pigtime = atoi(Zebra::global["pigtime"].c_str());
-				Scene * s = SceneManager::getInstance().getSceneByName("ÖĞÁ¢Çø¡¤¹¦Ñ«·ûµØÍ¼");
+				Scene * s = SceneManager::getInstance().getSceneByName("Ñ«Í¼");
 				s->sendCmdToScene(&ret, sizeof(ret));
 
 				Cmd::stJingcaiReturnKillPigTimeCmd ret2;
@@ -988,14 +990,14 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 				s->sendCmdToScene(&ret2, sizeof(ret2));	
 			}
 		}	
-		//¹¥»÷¹ú¼ÒBOSS
+		//BOSS
 		if (this->id==144006)
 		{
 			if (master->charbase.country==12)
 			{
 				if(atoi(Zebra::global["BOSS_CHU"].c_str())==0)
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "±¾¹úBOSS»¹Î´»÷É±£¬²»ÄÜ½ø¹¥ÖÕ¼«BOSS£¡"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "BOSSÎ´É±Ü½Õ¼BOSS"); 
 					return false;	
 				}
 			}
@@ -1004,7 +1006,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			{
 				if(atoi(Zebra::global["BOSS_HAN"].c_str())==0)
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "±¾¹úBOSS»¹Î´»÷É±£¬²»ÄÜ½ø¹¥ÖÕ¼«BOSS£¡"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "BOSSÎ´É±Ü½Õ¼BOSS"); 
 					return false;	
 				}
 				
@@ -1020,10 +1022,10 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			{
 				if(master)  
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "»¹´æÔÚ¸±Æì£¬²»ÄÜ¹¥»÷Ö÷Æì"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú¸ì£¬Ü¹"); 
 				}
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "¹¥»÷¹úÆìÊ§°Ü£¬»¹´æÔÚ¸±Æì");
+				Channel::sendNine(this, "Ê§Ü£Ú¸");
 #endif			
 
 				if (rev)
@@ -1039,7 +1041,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			if (this->scene->getCountryID() ==attCountryID)
 			{
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "±¾¹úÈË²»ÔÊĞí¹¥»÷¹úÆì");
+				Channel::sendNine(this, "Ë²");
 #endif			
 				if (rev)
 					ScenePk::attackFailToMe(rev, (SceneUser*)pEntry, true);
@@ -1049,7 +1051,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			if (attLevel>50)
 			{
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "¸ßÓÚ50¼¶²»ÔÊĞí¹¥»÷·ï»Ë³ÇÄÚµÄ¹úÆì");
+				Channel::sendNine(this, "50Ë³ÚµÄ¹");
 #endif			
 
 				if (rev)
@@ -1064,7 +1066,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			if (this->scene->getCountryID() ==attCountryID)
 			{
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "±¾¹úÈË²»ÔÊĞí¹¥»÷¹úÆì");
+				Channel::sendNine(this, "Ë²");
 #endif			
 				if (rev)
 					ScenePk::attackFailToMe(rev, (SceneUser*)pEntry, true);
@@ -1088,10 +1090,10 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			{
 				if(master)  
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "»¹´æÔÚ¸±Æì£¬²»ÄÜ¹¥»÷Ö÷Æì"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú¸ì£¬Ü¹"); 
 				}
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "¹¥»÷¹úÆìÊ§°Ü£¬»¹´æÔÚ¸±Æì");
+				Channel::sendNine(this, "Ê§Ü£Ú¸");
 #endif			
 				if (rev)
 					ScenePk::attackFailToMe(rev, (SceneUser*)pEntry, true);
@@ -1101,7 +1103,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 		}
 
 		if (this->isMainGeneral() || this->id==COUNTRY_SEC_GEN)
-		{//±¾¹úÈË²»ÔÊĞí¹¥»÷´ó½«¾üºÍÁé½«
+		{//Ë²ó½«¾é½«
 			if (this->scene->getCountryID() ==attCountryID)
 			{
 				if (rev)
@@ -1110,13 +1112,13 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			}
 		}
 		if (this->isMainGeneral())
-		{//ÅĞ¶ÏÊÇ·ñÔÊĞí¹¥»÷´ó½«¾ü
+		{//Ğ¶Ç·ó½«¾
 			if (!isCountryFormal || !CountryDareM::getMe().isAttackMainGen(this->scene) ||
 					(!isAttCountry && !isAntiCountry))
 			{
 				if (master)
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "²»ÔÚ¹úÕ½ÆÚ¼ä»ò²»ÊÇ½ø¹¥·½£¬²»ÄÜ¹¥»÷´ó½«¾ü");
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú¹Õ½Ú¼Ç½Ü¹ó½«¾");
 				}
 
 				if (rev)
@@ -1127,18 +1129,18 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 		}
 
 		if (this->id==COUNTRY_EMPEROR_MAIN_GEN || this->id==COUNTRY_EMPEROR_SEC_GEN)
-		{//Õ¼Áì¹úÈË²»ÔÊĞí¹¥»÷»Ê³Ç´ó½«¾üºÍ»Ê³ÇÁé½«
+		{//Õ¼Ë²Ê³Ç´ó½«¾Í»Ê³é½«
 			if (this->scene->getEmperorDare())
 			{
 				if (this->scene->getEmperorDareDef() == attCountryID)
-				{// ×Ô¼ºÈË²»´ò×Ô¼ºÈË
+				{// Ô¼Ë²Ô¼
 					if (rev)
 						ScenePk::attackFailToMe(rev, (SceneUser*)pEntry, true);
 					return false;
 				}
 			}
 			else
-			{//²»ÔÚ»Ê³ÇÕù¶áÕ½ÆÚ¼ä,Ë­¶¼²»ÄÜ´ò»Ê³Ç´ó½«¾üºÍÁé½«
+			{//Ú»Ê³Õ½Ú¼,Ë­Ü´Ê³Ç´ó½«¾é½«
 				if (rev)
 					ScenePk::attackFailToMe(rev, (SceneUser*)pEntry, true);
 				return false;
@@ -1146,14 +1148,14 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 		}
 
 		if (this->id==COUNTRY_EMPEROR_MAIN_GEN)
-		{//ÅĞ¶ÏÊÇ·ñÔÊĞí¹¥»÷»Ê³Ç´ó½«¾ü
+		{//Ğ¶Ç·Ê³Ç´ó½«¾
 			if (!this->scene->getEmperorDare() 
 					|| !CountryDareM::getMe().isAttackMainFlag(this->scene, COUNTRY_EMPEROR_SEC_GEN))
 			{
 				if (master) 
 				{
-					//Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "»¹´æÔÚ½ûÎÀ¶Ó³¤»ò²»ÊÇ²ÎÕ½¹ú£¬²»ÄÜ¹¥»÷´ó½«¾ü"); 
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "²»ÔÚ»Ê³ÇÕ½ÆÚ¼ä»ò»¹ÓĞ½û¾ü¶Ó³¤£¬²»ÄÜ¹¥»÷´ó½«¾ü");
+					//Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú½Ó³Ç²Õ½Ü¹ó½«¾"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú»Ê³Õ½Ú¼Ğ½Ó³Ü¹ó½«¾");
 				}
 
 				if (rev)
@@ -1164,10 +1166,10 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 		}
 
 		if ((this->id == COUNTRY_SEC_GEN) && !this->scene->getCountryDare())
-		{//ÅĞ¶ÏÊÇ·ñÔÊĞí¹¥»÷Áé½«
+		{//Ğ¶Ç·é½«
 			if (master) 
 			{
-				Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "²»ÔÚ¹úÕ½ÆÚ¼ä£¬²»ÄÜ¹¥»÷½ûÎÀ¶Ó³¤"); 
+				Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú¹Õ½Ú¼ä£¬Ü¹Ó³"); 
 			}
 
 			if (rev)
@@ -1177,11 +1179,11 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 		}
 	}
 
-	//³õÊ¼»¯pkÊı¾İ
+	//Ê¼pk
 	this->pkValue.init();
 	this->skillValue.init();
 
-	this->skillStatusM.processPassiveness();	// ´¦ÀíÎÒµÄ±»¶¯×´Ì¬Ó°Ïì
+	this->skillStatusM.processPassiveness();	// ÒµÄ±×´Ì¬Ó°
 
 	if (pEntry->getType() == SceneEntry_Player)
 	{
@@ -1215,15 +1217,15 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 
 bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev, bool physics, SWORD rangDamageBonus)
 {
-	//by=>friday ĞŞ¸´ÆÆÀÃïÚ³µ±»»÷É±ºóµô³¡¾°ÎÊÌâ - ×èÖ¹ÈÎºÎ¹¥»÷Õß¹¥»÷ÆÆÀÃïÚ³µ
-	if (npc && npc->id == 54099) //ÆÆÀÃµÄïÚ³µ
+	//by=>friday Ş¸Ú³É± - Ö¹ÎºÎ¹ß¹Ú³
+	if (npc && npc->id == 54099) //ÃµÚ³
 	{
-		//ÆÆÀÃïÚ³µ²»ÄÜ±»ÈÎºÎ·½Ê½¹¥»÷£¬°üÀ¨ÕÙ»½ÊŞ
+		//Ú³Ü±ÎºÎ·Ê½Ù»
 		SceneEntryPk * am = pAtt->getTopMaster();
 		if (am->getType()==zSceneEntry::SceneEntry_Player)
 		{
 			SceneUser * attacker = (SceneUser *)am;
-			Channel::sendSys(attacker, Cmd::INFO_TYPE_FAIL, "´Ë¹ú¼ÒïÚ³µÒÑ±»½ÙÂÓ£¬ÎŞ·¨¼ÌĞø¹¥»÷");
+			Channel::sendSys(attacker, Cmd::INFO_TYPE_FAIL, "Ë¹Ú³Ñ±Ó£Ş·");
 		}
 		return false;
 	}
@@ -1234,20 +1236,20 @@ bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev
 	if (am->getType()==zSceneEntry::SceneEntry_Player)
 	{
 		SceneUser * a = (SceneUser *)am;
-		//±»Íâ¹úÈË´òµÚÒ»ÏÂÊ±¸øÓèÍ¨Öª
+		//Ë´Ò»Ê±Í¨Öª
 		if (hp==getMaxHp() && scene->getCountryID()!=a->charbase.country)
 		{
 			char buf[MAX_CHATINFO];
 			bzero(buf, sizeof(buf));
-			snprintf(buf, MAX_CHATINFO-1, "%s(%s) ÕıÔÚ %s(%u,%u) ¹¥»÷ %s,ÇëËÙÖ§Ô®"
+			snprintf(buf, MAX_CHATINFO-1, "%s(%s)  %s(%u,%u)  %s,Ö§Ô®"
 					, a->name, SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country)
 					, scene->name, getPos().x, getPos().y, name);
 
-			//¹¥»÷¹¦ÄÜNPC£¬È«¹úÍ¨Öª
+			//NPCÈ«Í¨Öª
 			if (!isBugbear() && canBeAttack())
 				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_EXP, buf);
 
-			//¹¥»÷´ó½«¾üºÍ½üÎÀ¶Ó³¤£¬ÏòÍõ³Ç¡¢±ß¾³¡¢¶«½¼¡¢ÄÏ½¼Í¨Öª
+			//ó½«¾Í½Ó³Ç¡ß¾Ï½Í¨Öª
 			if (isMainGeneral() || id==COUNTRY_SEC_GEN)
 			{
 				DWORD high = (scene->getCountryID()<<16);
@@ -1260,26 +1262,26 @@ bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev
 			
 		if (hp==getMaxHp() && scene->getCountryID()!=a->charbase.country)
 		{
-			//¹¥»÷¹¦ÄÜNPC´ó³¼£¬È«¹úÍ¨Öª
+			//NPCó³¼£È«Í¨Öª
 			if (npc->id==227)
 			{
-				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME1,"%sµÄ%sÕıÔÚ¹¥»÷´ó³¼£¬ÇëÓÂÊ¿ÃÇËÙ»Ø!·ñÔò¹ú¼Ò×ğÑÏ½«±»É¨¹â!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
+				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME1,"%s%sÚ¹ó³¼£Ê¿Ù»!Ï½É¨!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
 			}
 		}
 		else if (hp<=getMaxHp()*0.4 && scene->getCountryID()!=a->charbase.country)
 		{
-			//¹¥»÷¹¦ÄÜNPC´ó³¼£¬È«¹úÍ¨Öª
+			//NPCó³¼£È«Í¨Öª
 			if (npc->id==227)
 			{
-				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME4,"%sµÄ%sÕıÔÚ¹¥»÷´ó³¼£¬´ó³¼ÑªÁ¿¼õÉÙÎª30%£¬ÇëÓÂÊ¿ÃÇËÙ»Ø!·ñÔò¹ú¼Ò×ğÑÏ½«±»É¨¹â!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
+				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME4,"%s%sÚ¹ó³¼£ÑªÎª30%Ê¿Ù»!Ï½É¨!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
 			}
 		}
 		else if (hp<=getMaxHp()*0.7 && scene->getCountryID()!=a->charbase.country)
 		{
-			//¹¥»÷¹¦ÄÜNPC´ó³¼£¬È«¹úÍ¨Öª
+			//NPCó³¼£È«Í¨Öª
 			if (npc->id==227)
 			{
-				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME2,"%sµÄ%sÕıÔÚ¹¥»÷´ó³¼£¬´ó³¼ÑªÁ¿¼õÉÙÎª60%£¬ÇëÓÂÊ¿ÃÇËÙ»Ø!·ñÔò¹ú¼Ò×ğÑÏ½«±»É¨¹â!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
+				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME2,"%s%sÚ¹ó³¼£ÑªÎª60%Ê¿Ù»!Ï½É¨!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
 			}
 		}
 	}
@@ -1297,7 +1299,7 @@ bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev
 	{
 		((ScenePet *)this)->sendHpExp();
 	}
-	//´¦ÀíAI
+	//AI
 	if (AIC)
 		AIC->on_hit(pAtt);
 	if (aif&AIF_GIVEUP_6_SEC)
@@ -1331,12 +1333,12 @@ struct HpTeamExec : public TeamMemExec
 };
 
 /**
- * \brief ÅĞ¶ÏÒ»¸ö¶ÔÏóÊÇ·ñÔÚ¹¥»÷×Ô¼º
- * ¸ù¾İ¾­ÑéÁĞ±íÀ´ÅĞ¶Ï
- * Ö»ÊÊÓÃÓÚÅĞ¶ÏÍæ¼ÒºÍ³èÎï
+ * \brief Ğ¶Ò»Ç·Ú¹Ô¼
+ * İ¾Ğ±Ğ¶
+ * Ö»Ğ¶ÒºÍ³
  *
- * \param entry ÒªÅĞ¶ÏµÄ¶ÔÏó
- * \return ÊÇ·ñÔÚ¹¥»÷×Ô¼º
+ * \param entry ÒªĞ¶ÏµÄ¶
+ * \return Ç·Ú¹Ô¼
  */
 bool SceneNpc::isAttackMe(SceneEntryPk *entry)
 {
@@ -1392,7 +1394,7 @@ void SceneNpc::showHP(SceneUser *pUser, QWORD npchp)
 	pUser->sendCmdToMe(&ret , sizeof(ret));
 }
 /**
- * \brief Í¨Öª¿Í»§¶ËÉúÃüÖµµÄ±ä»¯
+ * \brief Í¨ÖªÍ»ÖµÄ±ä»¯
  * \author fqnewman
  */
 void SceneNpc::attackRTHpAndMp()
@@ -1402,13 +1404,13 @@ void SceneNpc::attackRTHpAndMp()
 
 
 /**
- * \brief ¹¹Ôìº¯Êı
- * \param scene npcËùÔÚµÄ³¡¾°
- * \param npc »ù±¾Êı¾İ
- * \param define ¶¨ÒåÊı¾İ
- * \param type ÀàĞÍ
- * \param entrytype Îï¼şÀàĞÍ(Íæ¼Ò¡¢npc¡¢½¨ÖşµÈ)
- * \param anpc ÓÃÓÚÇ¿»¯µÄnpc base
+ * \brief ìº¯
+ * \param scene npcÚµÄ³
+ * \param npc 
+ * \param define 
+ * \param type 
+ * \param entrytype (Ò¡npc)
+ * \param anpc Ç¿npc base
  */
 SceneNpc::SceneNpc(Scene *scene, zNpcB *npc, const t_NpcDefine *define, const SceneNpcType type, const SceneEntryType entrytype, zNpcB *anpc) : SceneEntryPk(entrytype, SceneEntry_Hide),npc(npc), anpc(anpc), define(define), _half_sec(0.3f), _one_sec(1), _3_sec(3), lockedUserTime(), nextMoveTime(npc->distance), nextAttackTime(npc->adistance), type(type), isUse(false)
 {
@@ -1422,7 +1424,7 @@ SceneNpc::SceneNpc(Scene *scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 	{
 		tempid = uniqueID.get();
 		if (tempid==uniqueID.invalid())
-			Zebra::logger->fatal("%s ÁÙÊ±±àºÅ·ÖÅä´íÎó", __PRETTY_FUNCTION__);
+			Zebra::logger->fatal("%s Ê±Å·", __PRETTY_FUNCTION__);
 	}
 	if ((char)define->name[0]) {
 		strncpy(name, define->name, MAX_NAMESIZE);
@@ -1430,13 +1432,13 @@ SceneNpc::SceneNpc(Scene *scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 		strncpy(name, npc->name, MAX_NAMESIZE);
 	}
 
-	catchme = 0; //ÎüÒıµĞÈË¹¥»÷±êÖ¾
-	boostupPet =0; // ³èÎïÔöÇ¿
-	boostupPetMDef = 0; //ÔöÇ¿³èÎïµÄ·¨Êõ·ÀÓù
-	boostupSummon = 0; //ÕÙ»½ÊŞ¹¥»÷¼ÓÇ¿
-	dwReduceDam = 0; //ÕÙ»½ÊŞÉËº¦¿Û¼õ
-	giddy =0; //Å­ºğÑµÁ·Ê¹¶Ô·½Ñ£ÔÎµÄ¼¸ÂÊ
-	boostupHpMaxP =0; // ÔöÇ¿³èµÄÉúÃü×î´óÖµ°Ù·Ö±È
+	catchme = 0; //Ë¹Ö¾
+	boostupPet =0; // Ç¿
+	boostupPetMDef = 0; //Ç¿Ä·
+	boostupSummon = 0; //Ù»Ş¹Ç¿
+	dwReduceDam = 0; //Ù»ËºÛ¼
+	giddy =0; //Å­ÑµÊ¹Ô·Ñ£ÎµÄ¼
+	boostupHpMaxP =0; // Ç¿ÖµÙ·Ö±
 
 	hp = this->getMaxHP();//npc->hp+(anpc?anpc->hp:0);
 	chaseMode = CHASE_NONE;
@@ -1473,14 +1475,14 @@ SceneNpc::SceneNpc(Scene *scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 
 	needRecover = false;
 
-	notifystep=0; // ÂÌboss Í¨Öª²½Öè
+	notifystep=0; // boss Í¨Öª
 
 	//petAI = 0;
 	aif = npc->ai;
 #ifdef _XWL_DEBUG
 	//aif = npc->ai | AIF_LIMIT_REGION;
 #endif
-	//³èÎï
+	//
 	pet = 0;
 	summon = 0;
 	totems.clear();
@@ -1510,7 +1512,7 @@ SceneNpc::SceneNpc(Scene *scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 			break;
 	}
 
-	///¼ÓÔØnpc¼¼ÄÜ
+	///npc
 	if (!npc->skillMap.empty())
 	{
 		std::map<int, std::vector<npcSkill> >::iterator map_it;
@@ -1523,10 +1525,10 @@ SceneNpc::SceneNpc(Scene *scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 
 				zSkill *skill = zSkill::create(this , skill_it->id , 1);
 				if(!skill)
-					Zebra::logger->error("SceneNpc::SnceneNpc():ÎŞ·¨¼ÓÔØ¼¼ÄÜ name=%s skill=%u level=%u",npc->name, skill_it->id, npc->level);
+					Zebra::logger->error("SceneNpc::SnceneNpc():Ş·Ø¼ name=%s skill=%u level=%u",npc->name, skill_it->id, npc->level);
 #ifdef _DEBUGLOG
 				else
-					Zebra::logger->error("NPC[%s]¼ÓÔØ¼¼ÄÜskill=[%u] level=[%u]",npc->name, skill_it->id, npc->level);
+					Zebra::logger->error("NPC[%s]Ø¼skill=[%u] level=[%u]",npc->name, skill_it->id, npc->level);
 #endif
 			}
 		}
@@ -1538,7 +1540,7 @@ SceneNpc::SceneNpc(Scene *scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 }
 
 /**
- * \brief Îö¹¹º¯Êı
+ * \brief 
  *
  */
 SceneNpc::~SceneNpc()
@@ -1552,8 +1554,8 @@ SceneNpc::~SceneNpc()
 }
 
 /**
- * \brief ·µ»ØNpc¸ú×Ù×´Ì¬
- * \return ¸ú×Ù×´Ì¬
+ * \brief Npc×´Ì¬
+ * \return ×´Ì¬
  */
 SceneNpc::SceneNpcChase SceneNpc::getChaseMode() const
 {
@@ -1561,8 +1563,8 @@ SceneNpc::SceneNpcChase SceneNpc::getChaseMode() const
 }
 
 /**
- * \brief »ñÈ¡¸ú×ÙÓÃ»§±àºÅ
- * \return ÓÃ»§±àºÅ
+ * \brief È¡Ã»
+ * \return Ã»
  */
 SceneEntryPk* SceneNpc::getChaseSceneEntry() const
 {
@@ -1588,14 +1590,14 @@ SceneEntryPk* SceneNpc::getChaseSceneEntry() const
 }
 
 /**
- * \brief ÉèÖÃ¸ú×ÙÓÃ»§
- * \param type ¸ú×Ù¶ÔÏóµÄÀàĞÍ
- * \param entryid Òª¸ú×ÙÓÃ»§µÄ±àºÅ
- * \return ÊÇ·ñ¸ú×Ù³É¹¦
+ * \brief Ã¸Ã»
+ * \param type Ù¶
+ * \param entryid ÒªÃ»Ä±
+ * \return Ç·Ù³É¹
  */
 bool SceneNpc::chaseSceneEntry(const DWORD type, const DWORD entryid)
 {
-    //²»ÉèÖÃ×Ô¼º
+    //Ô¼
     if (type==(DWORD)getType()&&entryid==tempid) return false;
 
 	if (curTargetID!=0)
@@ -1613,9 +1615,9 @@ bool SceneNpc::chaseSceneEntry(const DWORD type, const DWORD entryid)
 }
 
 /**
- * \brief Ç¿ÖÆ¸ú×ÙÓÃ»§£¬Èç¹û¹ÖÒÑ¾­ÔÚ¸ú×ÙÓÃ»§£¬ÄÇÃ´ÓĞ45%µÄ¼¸ÂÊ½«Ä¿±ê×ª»»³ÉÄ¿Ç°µÄÓÃ»§
- * \param userid Òª¸ú×ÙÓÃ»§µÄ±àºÅ
- * \return ÊÇ·ñ¸ú×Ù³É¹¦
+ * \brief Ç¿Æ¸Ã»Ñ¾Ú¸Ã»Ã´45%Ä¼Ê½Ä¿×ªÄ¿Ç°Ã»
+ * \param userid ÒªÃ»Ä±
+ * \return Ç·Ù³É¹
  */
 bool SceneNpc::forceChaseUser(SceneEntryPk *pAtt)
 {
@@ -1626,7 +1628,7 @@ bool SceneNpc::forceChaseUser(SceneEntryPk *pAtt)
 		{
 			chaseMode = CHASE_ATTACK;
 			setCurTarget(pAtt);
-			//Channel::sendNine(this, "¸ü»»¹¥»÷Ä¿±ê%s", pAtt->name);
+			//Channel::sendNine(this, "Ä¿%s", pAtt->name);
 			return true;
 		}
 		else
@@ -1647,7 +1649,7 @@ bool SceneNpc::forceChaseUser(SceneEntryPk *pAtt)
 }
 
 /**
- * \brief È¡Ïû¶ÔÓÃ»§½øĞĞ¸ú×Ù
+ * \brief È¡Ã»Ğ¸
  *
  */
 void SceneNpc::unChaseUser()
@@ -1658,14 +1660,14 @@ void SceneNpc::unChaseUser()
 		leaveBattle();
 		lockTarget = false;
 #ifdef _XWL_DEBUG
-		//Zebra::logger->debug("%s ·ÅÆúÄ¿±ê", name);
+		//Zebra::logger->debug("%s Ä¿", name);
 #endif
 	}
 }
 
 /**
- * \brief ¸üĞÂËø¶¨ÓÃ»§£¬ÔÚÎïÆ·±£»¤µÄÊ±ºòÊ¹ÓÃ
- * \param ct µ±Ç°Ê±¼ä
+ * \brief Ã»Æ·Ê±Ê¹
+ * \param ct Ç°Ê±
  */
 bool SceneNpc::checkLockUserOverdue(const zRTime &ct)
 {
@@ -1673,7 +1675,7 @@ bool SceneNpc::checkLockUserOverdue(const zRTime &ct)
 			&& dwNpcLockedUser
 			&& ct > lockedUserTime)
 	{
-		//¸³Öµ0Ö®Ç°È¡Ïû×´Ì¬
+		//Öµ0Ö®Ç°È¡×´Ì¬
 		SceneUser *pUser = SceneUserManager::getMe().getUserByID(dwNpcLockedUser);
 		if (pUser)
 		{
@@ -1693,8 +1695,8 @@ bool SceneNpc::checkLockUserOverdue(const zRTime &ct)
 }
 
 /**
- * \brief ÉèÖÃËø¶¨ÓÃ»§
- * \param dwID ±»±£»¤µÄÓÃ»§
+ * \brief Ã»
+ * \param dwID Ã»
  */
 void SceneNpc::setLockUser(const DWORD dwID)
 {
@@ -1723,16 +1725,16 @@ void SceneNpc::setLockUser(const DWORD dwID)
 		}		
 	}
 
-	//ÉèÖÃ×´Ì¬
+	//×´Ì¬
 	lockedUserTime = SceneTimeTick::currentTime;
 	lockedUserTime.addDelay(10000);
     }
 }
 
 /**
- * \brief ¼ì²éNpcÊÇ·ñÒÑ¾­µ½´ï¿ÉÒÔÒÆ¶¯Ê±¼ä
- * \param ct µ±Ç°Ê±¼ä
- * \return ÅĞ¶ÏÊÇ·ñ³É¹¦
+ * \brief NpcÇ·Ñ¾Æ¶Ê±
+ * \param ct Ç°Ê±
+ * \return Ğ¶Ç·É¹
  */
 bool SceneNpc::checkMoveTime(const zRTime &ct)
 {
@@ -1740,30 +1742,30 @@ bool SceneNpc::checkMoveTime(const zRTime &ct)
 }
 
 /**
- * \brief ÉèÖÃNpcÏÂÒ»´ÎÒÆ¶¯Ê±¼ä
- * \param ct µ±Ç°Ê±¼ä
+ * \brief NpcÒ»Æ¶Ê±
+ * \param ct Ç°Ê±
  */
 void SceneNpc::setMoveTime(const zRTime &ct)
 {
     nextMoveTime = ct;
     nextMoveTime.addDelay((int)(npc->distance/speedRate));
-    //Channel::sendNine(this, "ÒÆ¶¯ÑÓ³Ù1 %u ºÁÃë", (int)(npc->distance/speedRate));
+    //Channel::sendNine(this, "Æ¶Ó³1 %u ", (int)(npc->distance/speedRate));
 }
 
 /**
- * \brief ÉèÖÃNpcÏÂÒ»´ÎÒÆ¶¯Ê±¼ä
- * \param ct µ±Ç°Ê±¼ä
- * \param delay ÑÓ³ÙÊ±¼ä£¬ºÁÃë
+ * \brief NpcÒ»Æ¶Ê±
+ * \param ct Ç°Ê±
+ * \param delay Ó³Ê±ä£¬
  */
 void SceneNpc::setMoveTime(const zRTime &ct, const int delay)
 {
     nextMoveTime = ct;
     nextMoveTime.addDelay((int)(delay/speedRate));
-    //Channel::sendNine(this, "ÒÆ¶¯ÑÓ³Ù2 %u ºÁÃë", (int)(delay/speedRate));
+    //Channel::sendNine(this, "Æ¶Ó³2 %u ", (int)(delay/speedRate));
 }
 
 /**
- * \brief ÑÓ³¤ÏÂ´ÎÒÆ¶¯µÄÊ±¼ä
+ * \brief Ó³Â´Æ¶Ê±
  *
  *
  * \return 
@@ -1772,14 +1774,14 @@ void SceneNpc::delayMoveTime(const int delay)
 {
     nextMoveTime.addDelay(delay);
     if (getState()==zSceneEntry::SceneEntry_Death)
-	Zebra::logger->debug("%s ÑÓ³Ù¸´»îÊ±¼ä %u", name, delay);
-    //Channel::sendNine(this, "ÒÆ¶¯ÑÓ³Ù3 %u ºÁÃë", delay);
+	Zebra::logger->debug("%s Ó³Ù¸Ê± %u", name, delay);
+    //Channel::sendNine(this, "Æ¶Ó³3 %u ", delay);
 }
 
 /**
- * \brief ¼ì²éNpcÊÇ·ñÒÑ¾­µ½´ï¿ÉÒÔ¹¥»÷Ê±¼ä
- * \param ct µ±Ç°Ê±¼ä
- * \return ÅĞ¶ÏÊÇ·ñ³É¹¦
+ * \brief NpcÇ·Ñ¾Ô¹Ê±
+ * \param ct Ç°Ê±
+ * \return Ğ¶Ç·É¹
  */
 bool SceneNpc::checkAttackTime(const zRTime &ct) const
 {
@@ -1787,25 +1789,25 @@ bool SceneNpc::checkAttackTime(const zRTime &ct) const
 }
 
 /**
- * \brief ÉèÖÃNpcÏÂÒ»´Î¹¥»÷Ê±¼ä
- * \param ct µ±Ç°Ê±¼ä
+ * \brief NpcÒ»Î¹Ê±
+ * \param ct Ç°Ê±
  */
 void SceneNpc::setAttackTime(const zRTime &ct)
 {
-    //°üÀ¨960ºÁÃë²¥·Å¶¯»­Ê±¼ä
+    //960ë²¥Å¶Ê±
     nextAttackTime = ct;
     nextAttackTime.addDelay((int)(npc->adistance/aspeedRate));
 #ifdef _XWL_DEBUG
     //if (!isSpecialNpc())
-    //	Zebra::logger->debug("%s ÏÂ´Î¹¥»÷ %d ºÁÃë", name, (int)(npc->adistance/aspeedRate));
+    //	Zebra::logger->debug("%s Â´Î¹ %d ", name, (int)(npc->adistance/aspeedRate));
 #endif
     //nextAttackTime.addDelay(npc->distance + 960);
 }
 
 /**
- * \brief ÉèÖÃNpcÏÂÒ»´Î¹¥»÷Ê±¼ä
- * \param ct µ±Ç°Ê±¼ä
- * \param delay ÑÓ³ÙÊ±¼ä£¬ºÁÃë
+ * \brief NpcÒ»Î¹Ê±
+ * \param ct Ç°Ê±
+ * \param delay Ó³Ê±ä£¬
  */
 void SceneNpc::setAttackTime(const zRTime &ct, const int delay)
 {
@@ -1814,9 +1816,9 @@ void SceneNpc::setAttackTime(const zRTime &ct, const int delay)
 }
 
 /**
- * \brief ÅĞ¶ÏÊÇ·ñ¿ÉÒÔµôÂäÎïÆ·
- * \param ct µ±Ç°Ê±¼ä
- * \return ÊÇ·ñ¿ÉÒÔµôÂäÎïÆ·
+ * \brief Ğ¶Ç·ÔµÆ·
+ * \param ct Ç°Ê±
+ * \return Ç·ÔµÆ·
  */
 bool SceneNpc::canLostObject(const zRTime &ct)
 {
@@ -1824,14 +1826,14 @@ bool SceneNpc::canLostObject(const zRTime &ct)
 	{
 		reliveTime = SceneTimeTick::currentTime;
 		reliveTime.addDelay(define->interval * 1000); 
-		if (2==npc->kind || 4==npc->kind || 5==npc->kind || 31==npc->kind)	//ÌÒ×ÓÔö¼Ó2 4 5 31ÀàĞÍBOSS»÷É±¹«¸æ		
+		if (2==npc->kind || 4==npc->kind || 5==npc->kind || 31==npc->kind)	//2 4 5 31BOSSÉ±		
 		{
-			Zebra::logger->debug("[BOSS]%s(%u) ËÀÍö", name, tempid);
-		//soke Ôö¼ÓBOSSÏÂ´Î¸´»î¹ö¶¯¹«¸æÏÔÊ¾	
-		Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "ÔÂ¹â¹âĞÄ»Å»Å£¬ÓÂÊ¿ÃÇÄ¥µ¶»Å£¬»¹ÓĞ%d·ÖÖÓ %s ½«ÔÚ %s ÖØ·µÈË½ç£¬ÔÙ¶ÈÏÖÉí£¡£¡", define->interval /60,name, scene->getRealName());
-		Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "ÔÂ¹â¹âĞÄ»Å»Å£¬ÓÂÊ¿ÃÇÄ¥µ¶»Å£¬»¹ÓĞ%d·ÖÖÓ %s ½«ÔÚ %s ÖØ·µÈË½ç£¬ÔÙ¶ÈÏÖÉí£¡£¡", define->interval /60,name, scene->getRealName());
+			Zebra::logger->debug("[BOSS]%s(%u) ", name, tempid);
+		//soke BOSSÂ´Î¸Ê¾	
+		Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "Â¹Ä»Å»Å£Ê¿Ä¥Å£%d %s  %s Ø·Ë½ç£¬Ù¶", define->interval /60,name, scene->getRealName());
+		Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "Â¹Ä»Å»Å£Ê¿Ä¥Å£%d %s  %s Ø·Ë½ç£¬Ù¶", define->interval /60,name, scene->getRealName());
 		}
-		//setMoveTime(ct, define->interval * 1000);//ÉèÖÃÖØÉúÊ±¼ä
+		//setMoveTime(ct, define->interval * 1000);//Ê±
 		//setAttackTime(ct, define->interval * 1000);
 		lostObject = false;
 		return true;
@@ -1841,18 +1843,18 @@ bool SceneNpc::canLostObject(const zRTime &ct)
 }
 
 /**
- * \brief ÅĞ¶ÏÊÇ·ñ¿ÉÒÔÖØÉú
- * \param ct µ±Ç°Ê±¼ä
- * \return ÊÇ·ñ¿ÉÒÔÖØÉú
+ * \brief Ğ¶Ç·
+ * \param ct Ç°Ê±
+ * \return Ç·
  */
-// ÌÒ×ÓĞŞ¸´BOSSË¢ĞÂÌáÊ¾±ÈÈç 20 10 1·ÖÖÓµÄÌáÊ¾
+// Ş¸BOSSË¢Ê¾ 20 10 1ÓµÊ¾
 bool SceneNpc::canRelive(const zRTime &ct)
 {
 	if (!lostObject
 			&& ct > reliveTime)
 	{
 		//if (npc->kind==NPC_TYPE_BBOSS || npc->kind==NPC_TYPE_LBOSS || npc->kind==NPC_TYPE_PBOSS)
-		//	Zebra::logger->debug("boss %s(%u) ¸´»î", name, tempid);
+		//	Zebra::logger->debug("boss %s(%u) ", name, tempid);
 		setMoveTime(ct);
 		setAttackTime(ct);
 		notifystep=0;
@@ -1891,8 +1893,8 @@ bool SceneNpc::canRelive(const zRTime &ct)
 			if ((int)((reliveTime.sec()-ct.sec())/60) == timegap)
 			{
 				Cmd::stRefreshBossUserCmd send;
-		        Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "ÔÂ¹â¹âĞÄ»Å»Å£¬ÓÂÊ¿ÃÇÄ¥µ¶»Å£¬»¹ÓĞ%d·ÖÖÓ %s ½«ÔÚ %s ÖØ·µÈË½ç£¬ÔÙ¶ÈÏÖÉí£¡£¡", ((reliveTime.sec()-ct.sec())/60),name, scene->getRealName());
-		        Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "ÔÂ¹â¹âĞÄ»Å»Å£¬ÓÂÊ¿ÃÇÄ¥µ¶»Å£¬»¹ÓĞ%d·ÖÖÓ %s ½«ÔÚ %s ÖØ·µÈË½ç£¬ÔÙ¶ÈÏÖÉí£¡£¡", ((reliveTime.sec()-ct.sec())/60),name, scene->getRealName());				
+		        Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "Â¹Ä»Å»Å£Ê¿Ä¥Å£%d %s  %s Ø·Ë½ç£¬Ù¶", ((reliveTime.sec()-ct.sec())/60),name, scene->getRealName());
+		        Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "Â¹Ä»Å»Å£Ê¿Ä¥Å£%d %s  %s Ø·Ë½ç£¬Ù¶", ((reliveTime.sec()-ct.sec())/60),name, scene->getRealName());				
 				strncpy(send.mapName,this->scene->getName(),sizeof(send.mapName));
 				//send.x = this->getPos().x;
 				//send.y = this->getPos().y;
@@ -1944,16 +1946,16 @@ bool SceneNpc::canRelive(const zRTime &ct)
 }
 
 /**
- * \brief ½«ÃüÁî×ª·¢µ½Session·şÎñÆ÷
+ * \brief ×ªSession
  *
- * \param ptNullCmd ´ı×ª·¢µÄÃüÁî
- * \param nCmdLen ÃüÁî³¤¶È
+ * \param ptNullCmd ×ª
+ * \param nCmdLen î³¤
  */
 bool SceneNpc::forwardSession(const Cmd::stNullUserCmd *ptNullCmd, const unsigned int nCmdLen)
 {
 	if(nCmdLen > zSocket::MAX_USERDATASIZE)
 	{
-		Zebra::logger->debug("ÏûÏ¢Ô½½ç(%d,%d)",ptNullCmd->byCmd,ptNullCmd->byParam);
+		Zebra::logger->debug("Ï¢Ô½(%d,%d)",ptNullCmd->byCmd,ptNullCmd->byParam);
 	}
 	BYTE buf[zSocket::MAX_DATASIZE];
 	Cmd::Session::t_Session_ForwardUser *sendCmd=(Cmd::Session::t_Session_ForwardUser *)buf;
@@ -1965,9 +1967,9 @@ bool SceneNpc::forwardSession(const Cmd::stNullUserCmd *ptNullCmd, const unsigne
 }
 
 /**
- * \brief »ñÈ¡NpcÀàĞÍ
- * ¾²Ì¬µÄ»¹ÊÇ¶¯Ì¬·ÖÅäµÄ
- * \return NpcÀàĞÍ
+ * \brief È¡Npc
+ * Ì¬Ä»Ç¶Ì¬
+ * \return Npc
  */
 const SceneNpc::SceneNpcType &SceneNpc::getSceneNpcType() const
 {
@@ -1975,9 +1977,9 @@ const SceneNpc::SceneNpcType &SceneNpc::getSceneNpcType() const
 }
 
 /**
- * \brief Ìî³äNPC×Ô¼ºµÄĞÅÏ¢µ½½á¹¹ÖĞ
+ * \brief NPCÔ¼Ï¢á¹¹
  *
- * \param data ÒªÌî³äµÄ½á¹¹
+ * \param data ÒªÄ½á¹¹
  */
 void SceneNpc::full_t_NpcData(Cmd::t_NpcData &data)
 {
@@ -1992,9 +1994,9 @@ void SceneNpc::full_t_NpcData(Cmd::t_NpcData &data)
     data.level = getLevel();
 }
 /**
- * \brief Ìî³äNPC×Ô¼ºµÄĞÅÏ¢µ½½á¹¹ÖĞ
+ * \brief NPCÔ¼Ï¢á¹¹
  *
- * \param data ÒªÌî³äµÄ½á¹¹
+ * \param data ÒªÄ½á¹¹
  */
 void SceneNpc::full_t_MapNpcData(Cmd::t_MapNpcData &data)
 {
@@ -2002,22 +2004,22 @@ void SceneNpc::full_t_MapNpcData(Cmd::t_MapNpcData &data)
 	full_all_UState(data.byState);
 }
 /**
- * \brief Ìî³äNPC×Ô¼ºµÄĞÅÏ¢µ½½á¹¹ÖĞ
+ * \brief NPCÔ¼Ï¢á¹¹
  *
- * \param data ÒªÌî³äµÄ½á¹¹
+ * \param data ÒªÄ½á¹¹
  */
 void SceneNpc::full_t_MapNpcDataAndPos(Cmd::t_MapNpcDataPos &data)
 {
 	full_t_MapNpcData(*(Cmd::t_MapNpcData*)&data);
-	//×ø±ê
+	//
 	data.x=getPos().x;
 	data.y=getPos().y;
 	data.byDir=getDir();
 }
 /**
- * \brief Ìî³äNPC×Ô¼ºµÄĞÅÏ¢µ½½á¹¹ÖĞ
+ * \brief NPCÔ¼Ï¢á¹¹
  *
- * \param data ÒªÌî³äµÄ½á¹¹
+ * \param data ÒªÄ½á¹¹
  */
 void SceneNpc::full_t_MapNpcDataState(Cmd::t_MapNpcDataState &data)
 {
@@ -2025,21 +2027,21 @@ void SceneNpc::full_t_MapNpcDataState(Cmd::t_MapNpcDataState &data)
 	data.num = full_UState(data.state);
 }
 /**
- * \brief Ìî³äNPC×Ô¼ºµÄĞÅÏ¢µ½½á¹¹ÖĞ
+ * \brief NPCÔ¼Ï¢á¹¹
  *
- * \param data ÒªÌî³äµÄ½á¹¹
+ * \param data ÒªÄ½á¹¹
  */
 void SceneNpc::full_t_MapNpcDataAndPosState(Cmd::t_MapNpcDataPosState &data)
 {
 	full_t_NpcData(*((Cmd::t_NpcData*)&data));
-	//×ø±ê
+	//
 	data.x=getPos().x;
 	data.y=getPos().y;
 	data.byDir=getDir();
 	data.num = full_UState(data.state);
 }
 /**
- * \brief Ìî³äÄ§·¨Î»ÖÃĞÅÏ¢µ½½á¹¹ÖĞ
+ * \brief Ä§Î»Ï¢á¹¹
  *
  */
 void SceneNpc::full_stRTMagicPosUserCmd(Cmd::stRTMagicPosUserCmd &ret) const
@@ -2052,8 +2054,8 @@ void SceneNpc::full_stRTMagicPosUserCmd(Cmd::stRTMagicPosUserCmd &ret) const
 }
 
 /**
- * \brief Npc¶¯×÷
- * \return ¶¯×÷Ö´ĞĞÊÇ·ñ³É¹¦
+ * \brief Npc
+ * \return Ö´Ç·É¹
  */
 void SceneNpc::action(const zRTime& ctv)
 {
@@ -2066,7 +2068,7 @@ void SceneNpc::action(const zRTime& ctv)
 	if (_one_sec(ctv)) 
 	{
 		this->skillStatusM.timer();
-		//TODOÖ»ÓĞÔÚ·¢Éú±ä»¯Ê±²Å·¢ËÍ
+		//TODOÖ»Ú·ä»¯Ê±Å·
 		if(hp != this->getMaxHP() && getState() == zSceneEntry::SceneEntry_Normal)
 		{
 			sendtoSelectedHpAndMp();
@@ -2078,27 +2080,27 @@ void SceneNpc::action(const zRTime& ctv)
 	switch(getState())
 	{
 		case zSceneEntry::SceneEntry_Normal:
-			//ÆÕÍ¨µÄNpc
+			//Í¨Npc
 			normalAction();
 			break;
 		case zSceneEntry::SceneEntry_Death:
-			//ËÀÍöµÄNpc
+			//Npc
 			{
 				deathAction();
 			}
 			break;
 		case zSceneEntry::SceneEntry_Hide:
 			hideAction();
-			//Òş²ØµÄNpc
+			//ØµNpc
 			//do nothing
 			break;
 	}
 }
 
 /**
- * \brief ³¡¾°ÉÏNpcµÄAIÖ÷´¦Àíº¯Êı
- * \param ctv µ±Ç°Ê±¼ä
- * \param affectNpc Òª´¦ÀíµÄnpcÁĞ±í
+ * \brief NpcAI
+ * \param ctv Ç°Ê±
+ * \param affectNpc ÒªnpcĞ±
  */
 void SceneNpc::AI(const zRTime& ctv, MonkeyNpcs &affectNpc,const DWORD group , const bool every)
 {
@@ -2106,7 +2108,7 @@ void SceneNpc::AI(const zRTime& ctv, MonkeyNpcs &affectNpc,const DWORD group , c
 	MonkeyNpcs::iterator oldit;
 	for(MonkeyNpcs::iterator it=affectNpc.begin();it!=affectNpc.end();)
 	{
-		/// Èç¹û²»ÔÚµ±Ç°·Ö×é´¦Àí²¢ÇÒ²»ĞèÒªÈ«²¿´¦ÀíµÄÊ±ºò,¾Í·ÅÆú±¾´ÎÑ­»·¶Ô¸ÃnpcµÄ´¦Àí
+		/// ÚµÇ°é´¦Ò²ÒªÈ«Ê±,Í·Ñ­Ô¸npcÄ´
 		if (every || ((*it)->tempid % MAX_NPC_GROUP == group))
 		{
 			if ((*it)->needClear())
@@ -2117,16 +2119,16 @@ void SceneNpc::AI(const zRTime& ctv, MonkeyNpcs &affectNpc,const DWORD group , c
 				affectNpc.erase(oldit);
 				Scene *mScene = delNpc->scene;
 
-				//Í¨Öª¿Í»§¶ËÉ¾³ıNPC
+				//Í¨ÖªÍ»É¾NPC
 				Cmd::stRemoveMapNpcMapScreenUserCmd removeNpc;
 				removeNpc.dwMapNpcDataPosition = delNpc->tempid;
 				mScene->sendCmdToNine(delNpc->getPosI(), &removeNpc, sizeof(removeNpc));
-				//´ÓµØÍ¼ºÍ¹ÜÀíÆ÷ÖĞÉ¾³ıÕâ¸öNPC
+				//ÓµÍ¼Í¹É¾NPC
 				mScene->removeNpc(delNpc);
 				SceneNpcManager::getMe().removeSceneNpc(delNpc);
-				SceneNpcManager::getMe().removeSpecialNpc(delNpc); //×íÃÎĞŞ¸´¶¯Ì¬µØÍ¼
-				//SceneNpcManager::getMe().removeSpecialNpc(delNpc); //ÒÑ¾­±»É¾³ıÁË£¬Ã»ÓĞ±ØÒªÖØ¸´µ÷ÓÃ
-				//Zebra::logger->trace("%s, É¾³ınpc %s(%u)", __FUNCTION__, delNpc->name, delNpc->tempid);
+				SceneNpcManager::getMe().removeSpecialNpc(delNpc); //Ş¸Ì¬Í¼
+				//SceneNpcManager::getMe().removeSpecialNpc(delNpc); //Ñ¾É¾Ë£Ã»Ğ±ÒªØ¸
+				//Zebra::logger->trace("%s, É¾npc %s(%u)", __FUNCTION__, delNpc->name, delNpc->tempid);
 				SAFE_DELETE(delNpc);
 			}
 			else
@@ -2143,10 +2145,10 @@ void SceneNpc::AI(const zRTime& ctv, MonkeyNpcs &affectNpc,const DWORD group , c
 }
 
 /**
- * \brief ²éÕÒÕıÔÚ¸ú×ÙµÄµĞÈË
+ * \brief Ú¸ÙµÄµ
  *
- * \param entry Êä³ö£¬ÕÒµ½µÄ¶ÔÏó
- * \return ÊÇ·ñ²éÕÒ³É¹¦
+ * \param entry ÒµÄ¶
+ * \return Ç·Ò³É¹
  */
 bool SceneNpc::checkChaseAttackTarget(SceneEntryPk *&entry)
 {
@@ -2168,21 +2170,21 @@ bool SceneNpc::checkChaseAttackTarget(SceneEntryPk *&entry)
 				switchTarget = true;
 			}
 		}
-		if (NULL == entry//ÕÒ²»µ½Ä¿±ê£¬ÏÂÏß»òÕß»»µØÍ¼
-				|| entry->getState() != zSceneEntry::SceneEntry_Normal//ÒşÉí»òËÀÍö
+		if (NULL == entry//Ò²Ä¿ê£¬ß»ß»Í¼
+				|| entry->getState() != zSceneEntry::SceneEntry_Normal//
 				|| (!scene->zPosShortRange(getPos(), entry->getPos(), npc_lost_target_region) && !lockTarget)
-				|| !canReach(entry) //¼´Ê¹ÍùÇ°×ßÒ²¹¥»÷²»µ½
-				//|| ((master==NULL) ?false:!scene->zPosShortRange(getPos(), master->getPos(), npc_chase_region+1))//³¬³ö¸ú×Ù·¶Î§
+				|| !canReach(entry) //Ê¹Ç°Ò²
+				//|| ((master==NULL) ?false:!scene->zPosShortRange(getPos(), master->getPos(), npc_chase_region+1))//Ù·Î§
 				|| (NPC_AI_PATROL==AIDefine.type&&!entry->isRedNamed())
 				|| (!(canFight()))
-				|| entry->hideme)	//²»ÄÜÕ½¶·
+				|| entry->hideme)	//Õ½
 		{
 #ifdef _XWL_DEBUG
 			//if (entry && !scene->zPosShortRange(getPos(), entry->getPos(), npc_lost_target_region))
-			//Zebra::logger->debug("%s->%s ¾àÀë³¬¹ı %u ¸ñ", name, entry->name, npc_lost_target_region);
+			//Zebra::logger->debug("%s->%s ë³¬ %u ", name, entry->name, npc_lost_target_region);
 #endif
 			if (!chaseSecondTarget()&&!chaseItsMaster())
-				unChaseUser();//·ÅÆú×·×Ù
+				unChaseUser();//×·
 		}
 		else
 		{
@@ -2196,14 +2198,14 @@ bool SceneNpc::checkChaseAttackTarget(SceneEntryPk *&entry)
 					setCurTarget(entry, true);
 					clearDefTarget();
 #ifdef _XWL_DEBUG
-					//Zebra::logger->debug("%s ÇĞ»»¹¥»÷·ÀÓùÄ¿±ê %s", name, entry->name);
+					//Zebra::logger->debug("%s Ğ»Ä¿ %s", name, entry->name);
 #endif
 				}
 				return true;
 			}
 			else
 			{
-				unChaseUser();//·ÅÆú×·×Ù
+				unChaseUser();//×·
 			}
 		}
 	}
@@ -2214,11 +2216,11 @@ bool SceneNpc::checkChaseAttackTarget(SceneEntryPk *&entry)
 
 
 /**
- * \brief ÅĞ¶ÏµĞÈËÊÇ·ñÔÚ¹¥»÷·¶Î§ÄÚ
+ * \brief Ğ¶ÏµÇ·Ú¹Î§
  *
  *
- * \param entry µĞÈËÖ¸Õë
- * \return ÊÇ·ñÔÚ¹¥»÷·¶Î§ÄÚ
+ * \param entry Ö¸
+ * \return Ç·Ú¹Î§
  */
 bool SceneNpc::inRange(SceneEntryPk * entry)
 {
@@ -2228,16 +2230,16 @@ bool SceneNpc::inRange(SceneEntryPk * entry)
 
 	switch(atype)
 	{
-		case NPC_ATYPE_NEAR:	/// ½ü¾àÀë¹¥»÷
-		case NPC_ATYPE_MNEAR:	/// ½ü¾àÀë·¨Êõ¹¥»÷
+		case NPC_ATYPE_NEAR:	/// ë¹¥
+		case NPC_ATYPE_MNEAR:	/// ë·¨
 			if (!scene->zPosShortRange(getPos(), entry->getPos(), 1))
 			{
-				//Zebra::logger->debug("½ü¾àÀë¹¥»÷²»³É¹¦");
+				//Zebra::logger->debug("ë¹¥É¹");
 				return false;
 			}
 			break;
-		case NPC_ATYPE_MFAR:	/// ·¨ÊõÔ¶¾àÀë¹¥»÷
-		case NPC_ATYPE_FAR:		/// Ô¶¾àÀë¹¥»÷
+		case NPC_ATYPE_MFAR:	/// Ô¶ë¹¥
+		case NPC_ATYPE_FAR:		/// Ô¶ë¹¥
 			if (!scene->zPosShortRange(getPos(), entry->getPos(), 6))
 			{
 				if (getPetType()!=Cmd::PET_TYPE_NOTPET && scene->zPosShortRange(getPos(), entry->getPos(), 10))
@@ -2259,15 +2261,15 @@ bool SceneNpc::inRange(SceneEntryPk * entry)
 }
 
 /**
- * \brief ÅĞ¶ÏÒÆ¶¯ºóµĞÈËÊÇ·ñÔÚ¹¥»÷·¶Î§ÄÚ
+ * \brief Ğ¶Æ¶Ç·Ú¹Î§
  *
  *
- * \param entry µĞÈËÖ¸Õë
- * \return ÊÇ·ñÔÚ¹¥»÷·¶Î§ÄÚ
+ * \param entry Ö¸
+ * \return Ç·Ú¹Î§
  */
 bool SceneNpc::canReach(SceneEntryPk *entry)
 {
-	//Ö»ÓĞ³èÎïÅĞ¶ÏÕâ¸ö·¶Î§
+	//Ö»Ğ³Ğ¶Î§
 	switch (getPetType())
 	{
 		case Cmd::PET_TYPE_NOTPET:
@@ -2303,11 +2305,11 @@ bool SceneNpc::canReach(SceneEntryPk *entry)
 	   else
 	   */
 	{
-		x = 7;//³èÎï¾ÍÊÇ7
+		x = 7;//7
 		y = 7;
 	}
 
-	//±»°üÎ§»òÎŞ·¨×ß¶¯
+	//Î§Ş·ß¶
 	if (!canMove() || isSurrounded())
 	{
 		c = getPos();
@@ -2320,12 +2322,12 @@ bool SceneNpc::canReach(SceneEntryPk *entry)
 	npc->getATypeAndAction(atype,action);
 	switch(atype)
 	{
-		case NPC_ATYPE_NEAR:	/// ½ü¾àÀë¹¥»÷
-		case NPC_ATYPE_MNEAR:	/// ·¨Êõ½ü¾àÀë¹¥»÷
+		case NPC_ATYPE_NEAR:	/// ë¹¥
+		case NPC_ATYPE_MNEAR:	/// ë¹¥
 			atkRange = 1;
 			break;
-		case NPC_ATYPE_MFAR:	/// ·¨ÊõÔ¶¾àÀë¹¥»÷
-		case NPC_ATYPE_FAR:	/// Ô¶¾àÀë¹¥»÷
+		case NPC_ATYPE_MFAR:	/// Ô¶ë¹¥
+		case NPC_ATYPE_FAR:	/// Ô¶ë¹¥
 			atkRange = 6;
 			break;
 		default:
@@ -2343,26 +2345,26 @@ bool SceneNpc::canReach(SceneEntryPk *entry)
 }
 
 /**
- * \brief ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¹¥»÷¸Ã¶ÔÏó
+ * \brief Ğ¶Ç·Ô¹Ã¶
  *
  *
- * \param entry ¶ÔÊÖ
- * \return ÊÇ·ñ¿ÉÒÔ¹¥»÷
+ * \param entry 
+ * \return Ç·Ô¹
  */
 bool SceneNpc::canAttack(SceneEntryPk *entry)
 {
-	//¼ì²éNpcÊÇ·ñ¿ÉÒÔ¹¥»÷
+	//NpcÇ·Ô¹
 	if (!checkAttackTime(SceneTimeTick::currentTime))// || !zMisc::selectByPercent(50))
 		return false;
 
-	if (!attackAction) return false; //²»¹¥»÷µ«ÊÇ×·×Ù
+	if (!attackAction) return false; //×·
 	return true;
 }
 
 /**
- * \brief Npc¹¥»÷Íæ¼Ò
- * \param entry Íæ¼Ò
- * \return ¹¥»÷ÊÇ·ñ³É¹¦
+ * \brief Npc
+ * \param entry 
+ * \return Ç·É¹
  */
 bool SceneNpc::attackTarget(SceneEntryPk *entry)
 {
@@ -2372,13 +2374,13 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 	}
 	if (!canAttack(entry)) return false;
 
-	//by=>friday Õ½³µÔØ¾ßÄ£Ê½±£»¤ - NPC²»ÄÜ¹¥»÷Õ½³µÍæ¼Ò
+	//by=>friday Õ½Ø¾Ä£Ê½ - NPCÜ¹Õ½
 	if (entry && entry->getType() == zSceneEntry::SceneEntry_Player)
 	{
 		SceneUser* targetUser = (SceneUser*)entry;
 		if (targetUser->zhanche_vehicle_mode)
 		{
-			// Zebra::logger->debug("[Õ½³µ±£»¤] NPC %s ³¢ÊÔ¹¥»÷Õ½³µÔØ¾ßÄ£Ê½Íæ¼Ò %s£¬¹¥»÷±»×èÖ¹", this->name, targetUser->name);
+			// Zebra::logger->debug("[Õ½] NPC %s Ô¹Õ½Ø¾Ä£Ê½ %sÖ¹", this->name, targetUser->name);
 			return false;
 		}
 	}
@@ -2388,7 +2390,7 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 			this->getTopMaster() &&
 			this->getTopMaster()->getType() == zSceneEntry::SceneEntry_Player)
 	{
-		if (!(this->isPkZone(entry) && entry->isPkZone(this))) // ĞÂ¼Ó&&this->isPkZone(pDef)
+		if (!(this->isPkZone(entry) && entry->isPkZone(this))) // Â¼&&this->isPkZone(pDef)
 		{
 			return false;
 		}
@@ -2398,13 +2400,13 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 	BYTE action = 0;
 	npc->getATypeAndAction(atype,action);
 
-	//³É¹¦¹¥»÷ÓÃ»§
+	//É¹Ã»
 	if (entry && this->npc->kind != NPC_TYPE_SURFACE) 
 	{
 		setDir(getPos().getDirect(entry->getPos()));
 #ifdef _XWL_DEBUG
 		//if (getPetType()!=Cmd::PET_TYPE_NOTPET)
-		//	Zebra::logger->debug("%s ÉèÖÃ·½Ïò %s", name, entry->name);
+		//	Zebra::logger->debug("%s Ã· %s", name, entry->name);
 #endif
 	}
 
@@ -2415,7 +2417,7 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 
 	switch(atype)
 	{
-		case NPC_ATYPE_NEAR:	/// ½ü¾àÀë¹¥»÷
+		case NPC_ATYPE_NEAR:	/// ë¹¥
 			{
 				if (npc->skill)
 					att.wdMagicType = npc->skill;
@@ -2424,7 +2426,7 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 				att.byAction = Ani_Attack;
 			}
 			break;
-		case NPC_ATYPE_FAR:		/// Ô¶¾àÀë¹¥»÷
+		case NPC_ATYPE_FAR:		/// Ô¶ë¹¥
 			{
 				if (npc->skill)
 					att.wdMagicType = npc->skill;
@@ -2484,7 +2486,7 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 	//scene->sendCmdToNine(getPosI(), &att, sizeof(att), false);
 
 	this->skillValue.init();
-	this->skillStatusM.processPassiveness();// ´¦ÀíÎÒµÄ±»¶¯×´Ì¬Ó°Ïì
+	this->skillStatusM.processPassiveness();// ÒµÄ±×´Ì¬Ó°
 
 	//if (zMisc::selectByPercent(this->npc->rating))
 	{
@@ -2492,8 +2494,8 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 
 		switch(atype)
 		{
-			case NPC_ATYPE_NEAR:	/// ½ü¾àÀë¹¥»÷
-			case NPC_ATYPE_FAR:		/// Ô¶¾àÀë¹¥»÷
+			case NPC_ATYPE_NEAR:	/// ë¹¥
+			case NPC_ATYPE_FAR:		/// Ô¶ë¹¥
 				{
 					if (entry)
 					{
@@ -2511,7 +2513,7 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 			case NPC_ATYPE_MFAR:
 			case NPC_ATYPE_MNEAR:
 				{
-					//×ßÄ§·¨¹¥»÷
+					//Ä§
 					if (entry)
 					{
 						if (this->checkMagicFlyRoute(entry,(atype==2||atype==3)?AttackFly:AttackNear))
@@ -2559,7 +2561,7 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 
 		if (entry)
 		{
-			if (this->giddy>0) //Å­ºğÑµÁ·´¦Àí
+			if (this->giddy>0) //Å­Ñµ
 			{
 				if (zMisc::selectByPercent(giddy))
 				{
@@ -2606,7 +2608,7 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 		pUser->packs.equip.costAttackDurByPet(pUser);
 	}
 
-	//ÉèÖÃÏÂÒ»´Î¹¥»÷µÄÊ±¼ä
+	//Ò»Î¹Ê±
 	setAttackTime(SceneTimeTick::currentTime);
 	if (nextMoveTime>SceneTimeTick::currentTime)
 		delayMoveTime(720);
@@ -2682,7 +2684,7 @@ int drop_odds(WORD player_level, WORD npc_level, DWORD npc_kind)
 	if (odds>100) odds=100;
 	if (npc_kind==NPC_TYPE_DUCKHIT || npc_kind==NPC_TYPE_RESOURCE) odds = 100;
 #ifdef _XWL_DEBUG
-	Zebra::logger->debug("±¬ÂÊËğºÄ %u", 100-odds);
+	Zebra::logger->debug(" %u", 100-odds);
 #endif
 	return odds;
 }
@@ -2715,21 +2717,21 @@ int drop_odds(WORD player_level, WORD npc_level, DWORD npc_kind)
 	if (odds>100) odds=100;
 	if (npc_kind==NPC_TYPE_DUCKHIT || npc_kind==NPC_TYPE_RESOURCE) odds = 100;
 #ifdef _XWL_DEBUG
-	Zebra::logger->debug("±¬ÂÊËğºÄ %u", 100-odds);
+	Zebra::logger->debug(" %u", 100-odds);
 #endif
 	return odds;
 }*/
 
 /**
- * \brief ËÀÍöNpcµÄ¶¯×÷
- * \return ¶¯×÷Ö´ĞĞÊÇ·ñ³É¹¦
+ * \brief NpcÄ¶
+ * \return Ö´Ç·É¹
  */
 bool SceneNpc::deathAction()
 {
 	My_FunctionTime_wrapper(__PRETTY_FUNCTION__);
 	if (canLostObject(SceneTimeTick::currentTime))
 	{
-		//Zebra::logger->debug("%s ËÀÍö", name);
+		//Zebra::logger->debug("%s ", name);
 		uint64_t value=1; //by=>friday
 		uint64_t value1=0; //by=>friday
 		uint64_t value2=0; //by=>friday
@@ -2752,7 +2754,7 @@ bool SceneNpc::deathAction()
 				std::vector<TeamMember>::iterator it = team.member.begin();
 				for(; it!=team.member.end(); ++it) {
 					SceneUser* member = SceneUserManager::getMe().getUserByTempID(it->tempid);
-					if (member && (member->charbase.level < 20 || //soke ÕâÀïÊÇÈËÎïÓë¹ÖÎïÏà²îµÈ¼¶µôÎïÆ·
+					if (member && (member->charbase.level < 20 || //soke È¼Æ·
 								scene->checkTwoPosIInNine(pUser->getPosI() , member->getPosI()) ||
 								scene->checkTwoPosIInNine(this->getPosI() , member->getPosI()) )) {
 						//moved from attackDeathNpc by lqy, avoid unfair bonus
@@ -2812,7 +2814,7 @@ bool SceneNpc::deathAction()
 
 		for(NpcLostObject::const_iterator it = nlo.begin(); it != nlo.end(); it++)
 		{
-		//soke µôÂäÎïÆ·µÄ¹ÖÎïID
+		//soke Æ·Ä¹ID
 			if (!((npc->id>=21501 && npc->id<=21511) ||
 				  (npc->id>=26501 && npc->id<=26511) ||
 				  (npc->id>=30051 && npc->id<=30102)))
@@ -2830,7 +2832,7 @@ bool SceneNpc::deathAction()
 				{
 					if(ob->id == 665)
 					{
-						//·ÖÅäÒø×Ó
+						//
 						distributeMoney(num);
 					}
 					else
@@ -2839,8 +2841,8 @@ bool SceneNpc::deathAction()
 						if(pUser && pUser->team.getLeader()&& this->npc->kind != NPC_TYPE_RESOURCE)
 						{
 						    SceneUser *leader = SceneUserManager::getMe().getUserByTempID(pUser->team.getLeader());
-							//ÅĞ±ğ×é¶ÓÇé¿öÏÂËù°üº¬BOSSÀàĞÍÊÇ·ñ½ÓÊÜÎïÆ·±£»¤Ê±¼ä
-							//ºìÉ«bossÔö¼Ó¹éÊô
+							//Ğ±BOSSÇ·Æ·Ê±
+							//É«bossÓ¹
 							// if (pUser && this->npc->kind == NPC_TYPE_REDBOSS)
 							// {
                             //     if(leader && leader->team.isSpecialObj())
@@ -2898,7 +2900,7 @@ bool SceneNpc::deathAction()
 									{
 										if (pUser->packs.uom.space(pUser) >= 1 && pUser->packs.addObject(o, true, AUTO_PACK))
 										{
-				                            //soke ÌØ¶¨ÀàĞÍĞèÒª°ó¶¨
+				                            //soke Ø¶Òª
                                             o->checkXinBind();
 											added = true;
 											Cmd::stAddObjectPropertyUserCmd status;
@@ -2909,14 +2911,14 @@ bool SceneNpc::deathAction()
 										else
 										{
 											addnum -= o->data.dwNum;
-											Channel::sendSys(pUser , Cmd::INFO_TYPE_FAIL, "ÄãµÄ°ü¹üÒÑÂú");
+											Channel::sendSys(pUser , Cmd::INFO_TYPE_FAIL, "Ä°");
 											scene->addObject(ob, o->data.dwNum, getPos(), dwNpcLockedUser, id);
 
 
 
 											if (callback.num() || added)
 											{
-												zObject::logger(o->createid,o->data.qwThisID,o->data.strName,addnum,addnum,1,this->scene->id,pUser->scene->name,pUser->id,pUser->name,"²É¼¯µÃµ½",o->base,o->data.kind,o->data.upgrade);
+												zObject::logger(o->createid,o->data.qwThisID,o->data.strName,addnum,addnum,1,this->scene->id,pUser->scene->name,pUser->id,pUser->name,"É¼Ãµ",o->base,o->data.kind,o->data.upgrade);
 												OnGet event(o->data.dwObjectID);
 												EventTable::instance().execute(*pUser, event);
 												if (ScriptQuest::get_instance().has(ScriptQuest::OBJ_GET, o->data.dwObjectID))
@@ -2936,9 +2938,9 @@ bool SceneNpc::deathAction()
 							}
 							else
 							{
-								//ÁµÁµºìÉ«bossÔö¼Ó¹éÊô
-								// //ÅĞ±ğËù°üº¬BOSSÀàĞÍÊÇ·ñ½ÓÊÜÎïÆ·±£»¤Ê±¼ä
-								//ÊÀ½çboss¹ú¼Ò¹éÊô
+								//É«bossÓ¹
+								// //Ğ±BOSSÇ·Æ·Ê±
+								//bossÒ¹
 								// if (pUser && this->npc->id == 144001)
 							    // {
 								    scene->addObject2(ob, num, getPos(), dwNpcLockedUser, id , true);
@@ -2957,8 +2959,8 @@ bool SceneNpc::deathAction()
 				}
 			}
 		}
-		//»êÆÇµôÂä
-		if (zMisc::/*selectByPercent*//*ÒªÇó¸Ä³ÉÍò·ÖÖ®¼¸ÂÊ*/selectByTenTh((unsigned int)npc->soulrate) && zMisc::selectByPercent(drop_odds(player_level, npc->level, npc->kind)) ) { //by=>friday
+		//Çµ
+		if (zMisc::/*selectByPercent*//*ÒªÄ³Ö®*/selectByTenTh((unsigned int)npc->soulrate) && zMisc::selectByPercent(drop_odds(player_level, npc->level, npc->kind)) ) { //by=>friday
 
 			//zObjectB *base = objectbm.get(SoulStone::id());
 			zObjectB *base = objectbm.get(SoulStone::id(npc->trait));
@@ -2972,7 +2974,7 @@ bool SceneNpc::deathAction()
 			}
 		}
 
-		//´¥·¢¹¥³Ç
+		//
 		if (canRush())
 			createRush();
 
@@ -2985,20 +2987,20 @@ bool SceneNpc::deathAction()
 		{
 			if (!isRushNpc)
 				setClearState();
-			//Zebra::logger->debug("±ê¼Ç¶¯Ì¬npc %s", name);
-			//¶¯Ì¬·ÖÅäµÄNpcĞèÒª»ØÊÕ×ÊÔ´
-			//Zebra::logger->debug("TODO ¶¯Ì¬Npc£¬ĞèÒªÉ¾³ı");
-			/*TODO ¶¯Ì¬Npc£¬ĞèÒªÉ¾³ı
+			//Zebra::logger->debug("Ç¶Ì¬npc %s", name);
+			//Ì¬NpcÒªÔ´
+			//Zebra::logger->debug("TODO Ì¬NpcÒªÉ¾");
+			/*TODO Ì¬NpcÒªÉ¾
 			  scene->removeNpc(sceneNpc, false);
 			  SceneNpcManager::getMe().removeSceneNpc(sceneNpc);
 			  SAFE_DELETE(sceneNpc);
 			// */
-			//ÕâÀïĞ¡ĞÄ£¬Õâ¸öÄÚ´æÒÑ¾­ÊÍ·ÅÁË£¬ÕâÖ®ºó²»ÄÜÔÚÊ¹ÓÃÕâ¸ö±äÁ¿ÁË
+			//Ğ¡Ä£Ú´Ñ¾Í·Ë£Ö®Ê¹
 		}
 		else if (scene->randPosByRegion(define->region.index, pos))
 		{
-			//ÖØÉú
-			isUse = false; // °ÑÊ¬ÌåÊ¹ÓÃ×´Ì¬Ï´µô¡£
+			//
+			isUse = false; // Ê¬Ê¹×´Ì¬Ï´
 			clearUState(Cmd::USTATE_DEATH);
 			Cmd::stRemoveMapNpcMapScreenUserCmd removeNpc;
 			removeNpc.dwMapNpcDataPosition = tempid;
@@ -3006,12 +3008,12 @@ bool SceneNpc::deathAction()
 
 			hp = this->getMaxHP();
 			recoverUnder30 = false;
-			//´ÓÍ·¿ªÊ¼°´ÕÕÂ·ÏßÒÆ¶¯
+			//Í·Ê¼Â·Æ¶
 			if (AIC) AIC->on_relive();
 
 			if (define->initstate == zSceneEntry::SceneEntry_Normal)
 			{
-				//²éÕÒ·Ç×èµ²µã³É¹¦
+				//Ò·èµ²É¹
 				scene->setBlock(pos);
 				setState(zSceneEntry::SceneEntry_Normal);
 			}
@@ -3024,7 +3026,7 @@ bool SceneNpc::deathAction()
 				{
 					this->sendMeToNine();
 				}
-				//ÕÙ»½npcµÄ³èÎï
+				//Ù»npcÄ³
 				if (!define->petList.empty())
 				{
 					for (std::map<DWORD, std::pair<DWORD, DWORD> >::const_iterator it=define->petList.begin(); it!=define->petList.end(); it++)
@@ -3040,7 +3042,7 @@ bool SceneNpc::deathAction()
 						}
 					}
 				}
-				//°ë³èÎï
+				//
 				if (!define->dieList.empty())
 				{
 					for (std::list< std::pair<DWORD,zPos> >::const_iterator it=define->dieList.begin(); it!=define->dieList.end(); it++)
@@ -3049,45 +3051,45 @@ bool SceneNpc::deathAction()
 						if (pet)
 						{
 							pet->setPetAI(Cmd::PETAI_ATK_ACTIVE);
-							Zebra::logger->debug("%s ÕÙ»½³èÎï %s", name, pet->name);
+							Zebra::logger->debug("%s Ù» %s", name, pet->name);
 						}
 					}
 				}
 
-				if (npc->kind==2 || npc->kind==4 || npc->kind==5 || npc->kind==31) //ÌÒ×ÓĞŞ¸ÄBOSSÒÑ¾­Ë¢ĞÂÌáÊ¾
+				if (npc->kind==2 || npc->kind==4 || npc->kind==5 || npc->kind==31) //Ş¸BOSSÑ¾Ë¢Ê¾
 				{
-					Zebra::logger->debug("[BOSS]%s(%u) ¸´»î pos=(%u,%u)", name, tempid, pos.x, pos.y);
-				  //soke Ôö¼ÓBOSS¸´»î¹«¸æ ÀàĞÍ 2 ¡¢3 ¡¢31
-		//		   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s ÒÑ¾­³öÏÖÔÚ %s ", name, scene->getRealName());
-				   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s ÒÑ¾­³öÏÖÔÚ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
-				   Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%s ÒÑ¾­³öÏÖÔÚ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);	
-				   //Í¨ÖªSession ¸Ä±äÏà¹ØBOSSµÄ¸´»î±äÁ¿
+					Zebra::logger->debug("[BOSS]%s(%u)  pos=(%u,%u)", name, tempid, pos.x, pos.y);
+				  //soke BOSSî¹«  2 3 31
+		//		   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s Ñ¾ %s ", name, scene->getRealName());
+				   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s Ñ¾ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
+				   Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%s Ñ¾ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);	
+				   //Í¨ÖªSession Ä±BOSSÄ¸
 					Cmd::Session::t_BossDieInfo_SceneSession BossSend;
 					BossSend.NpcID = npc->id;
 					BossSend.CountryID = scene->getCountryID();
 					bcopy(scene->getRealName(),BossSend.MapName, MAX_NAMESIZE );
-					BossSend.KillState = 0; //¸ü¸Ä´æ»î×´Ì¬
-					BossSend.ReviveTime = 0; //¸ü¸Ä¸´»îÊ±¼ä
+					BossSend.KillState = 0; //Ä´×´Ì¬
+					BossSend.ReviveTime = 0; //Ä¸Ê±
 					sessionClient->sendCmd(&BossSend, sizeof(BossSend)); 
 				  }								   
 				   
 				}
 				/*
-				if (npc->kind==31) //ÌÒ×ÓĞŞ¸ÄBOSSÒÑ¾­Ë¢ĞÂÌáÊ¾--×Ï
+				if (npc->kind==31) //Ş¸BOSSÑ¾Ë¢Ê¾--
 				{
 
-					Zebra::logger->debug("[BOSS]%s(%u) ¸´»î pos=(%u,%u)", name, tempid, pos.x, pos.y);
-				   //soke Ôö¼ÓBOSS¸´»î¹«¸æ ÀàĞÍ 2 ¡¢3 ¡¢31 ¡¢33 ¡¢34 ¡¢35
-				   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s ÒÑ¾­³öÏÖÔÚ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
-				   Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%s ÒÑ¾­³öÏÖÔÚ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
+					Zebra::logger->debug("[BOSS]%s(%u)  pos=(%u,%u)", name, tempid, pos.x, pos.y);
+				   //soke BOSSî¹«  2 3 31 33 34 35
+				   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s Ñ¾ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
+				   Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%s Ñ¾ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
 
-				  	//Í¨ÖªSession ¸Ä±äÏà¹ØBOSSµÄ¸´»î±äÁ¿
+				  	//Í¨ÖªSession Ä±BOSSÄ¸
 					Cmd::Session::t_BossDieInfo_SceneSession BossSend;
 					BossSend.NpcID = npc->id;
 					BossSend.CountryID = scene->getCountryID();
 					bcopy(scene->getRealName(),BossSend.MapName, MAX_NAMESIZE );
-					BossSend.KillState = 0; //¸ü¸Ä´æ»î×´Ì¬
-					BossSend.ReviveTime = 0; //¸ü¸Ä¸´»îÊ±¼ä
+					BossSend.KillState = 0; //Ä´×´Ì¬
+					BossSend.ReviveTime = 0; //Ä¸Ê±
 					sessionClient->sendCmd(&BossSend, sizeof(BossSend)); 
 				}	
 				*/				
@@ -3095,7 +3097,7 @@ bool SceneNpc::deathAction()
 			else
 			{
 				setState(zSceneEntry::SceneEntry_Death);
-				Zebra::logger->debug("[BOSS]%s(%u) ¸´»îÊ§°Ü pos=(%u,%u)", name, tempid, pos.x, pos.y);
+				Zebra::logger->debug("[BOSS]%s(%u) Ê§ pos=(%u,%u)", name, tempid, pos.x, pos.y);
 			}
 
 			if (this->id == COUNTRY_MAIN_FLAG)
@@ -3116,9 +3118,9 @@ bool SceneNpc::deathAction()
 
 
 /*
- * \brief Òş²Ønpc
+ * \brief npc
  *
- * \showDelay Òş²ØµÄÊ±¼ä
+ * \showDelay ØµÊ±
  */
 void SceneNpc::hideMe(int showDelay)
 {
@@ -3130,14 +3132,14 @@ void SceneNpc::hideMe(int showDelay)
     showTime = SceneTimeTick::currentTime;
     showTime.addDelay(showDelay);
 #ifdef _XWL_DEBUG
-    Zebra::logger->debug("npc %s Òş²Ø%dºÁÃë", npc->name, showDelay);
+    Zebra::logger->debug("npc %s %d", npc->name, showDelay);
 #endif
 }
 
 /*
- * \brief npcÒşÉí×´Ì¬µÄĞĞÎª
+ * \brief npc×´Ì¬Îª
  *
- * \return ÊÇ·ñÖ´ĞĞ³É¹¦
+ * \return Ç·Ö´Ğ³É¹
  */
 bool SceneNpc::hideAction()
 {
@@ -3148,31 +3150,31 @@ bool SceneNpc::hideAction()
 		scene->setBlock(getPos());
 		sendMeToNine();
 #ifdef _XWL_DEBUG
-		Zebra::logger->debug("npc %s ½áÊøÒşÉí", name);
+		Zebra::logger->debug("npc %s ", name);
 #endif
 	}
     return true;
 }
 
 /**
- * \brief Ñ°Â·¹ı³ÌÖĞÅĞ¶ÏÖĞ¼äµãÊÇ·ñ¿É´ïÄ¿µÄµØ
- * \param tempPos Ñ°Â·¹ı³ÌµÄÖĞ¼äµã
- * \param destPos Ä¿µÄµã×ø±ê
- * \param radius Ñ°Â··¶Î§£¬³¬³ö·¶Î§µÄÊÓÎªÄ¿µÄµØ²»¿É´ï
- * \return ·µ»ØÊÇ·ñ¿Éµ½´ïÄ¿µÄµØ
+ * \brief Ñ°Â·Ğ¶Ğ¼Ç·É´Ä¿Äµ
+ * \param tempPos Ñ°Â·ÌµĞ¼
+ * \param destPos Ä¿Äµ
+ * \param radius Ñ°Â·Î§Î§ÎªÄ¿ÄµØ²É´
+ * \return Ç·ÉµÄ¿Äµ
  */
 bool SceneNpc::moveable(const zPos &tempPos, const zPos &destPos, const int radius)
 {
 	return (scene->zPosShortRange(tempPos, destPos, radius)
-			&& (!scene->checkBlock(tempPos) //Ä¿±êµã¿É´ï£¬»òÕßÊÇ×îÖÕÄ¿±êµã
+			&& (!scene->checkBlock(tempPos) //Ä¿É´ï£¬Ä¿
 				|| tempPos == destPos));
 }
 
 /**
- * \brief NpcÏòÄ³Ò»¸ö·½ÏòÒÆ¶¯
- * \param direct ·½Ïò
- * \param step ÒÆ¶¯µÄ²½³¤
- * \return ÒÆ¶¯ÊÇ·ñ³É¹¦
+ * \brief NpcÄ³Ò»Æ¶
+ * \param direct 
+ * \param step Æ¶Ä²
+ * \return Æ¶Ç·É¹
  */
 bool SceneNpc::move(const int direct, const int step)
 {
@@ -3185,14 +3187,14 @@ bool SceneNpc::move(const int direct, const int step)
 	{
 		return true;
 	}
-	//Zebra::logger->debug("ÒÆ¶¯²½³¤£º%u", step);
+	//Zebra::logger->debug("Æ¶%u", step);
 	lastPos2 = lastPos1;
 	lastPos1 = pos;
 	zPosI oldPosI = getPosI();
 	zPos oldPos = getPos(),  newPos = getPos();
 	newPos.x += (step*walk_adjust[direct][0]);
 	newPos.y += (step*walk_adjust[direct][1]);
-	//¼ì²éÄ¿±êµã×èµ²ÒÔ¼°ÊÇ·ñºÏ·¨
+	//Ä¿èµ²Ô¼Ç·Ï·
 	if (scene->checkBlock(newPos))
 	{
 		//Zebra::logger->debug("%u, %u, %s, %u, %u, %u", id, tempid, name, direct, getPos().x, getPos().y);
@@ -3213,7 +3215,7 @@ bool SceneNpc::move(const int direct, const int step)
 		{
 			cmd.bySpeed = 3;
 #ifdef _XWL_DEBUG
-			//Zebra::logger->debug("%s ÒÆ¶¯²½³¤ 2", name);
+			//Zebra::logger->debug("%s Æ¶ 2", name);
 #endif
 		}
 		cmd.x = newPos.x;
@@ -3236,9 +3238,9 @@ bool SceneNpc::move(const int direct, const int step)
 		}
 	}
 
-	//ÉèÖÃÏÂÒ»´ÎÒÆ¶¯Ê±¼ä
+	//Ò»Æ¶Ê±
 	setMoveTime(SceneTimeTick::currentTime);
-	//¶ÔÏÂ´Î¹¥»÷Ê±¼äÔì³ÉµÄÓ°Ïì£ºÆÕÍ¨¹ÖÒÆ¶¯Ê±¼ä£» ³èÎï£ºÒÆ¶¯Ê±¼äµÄÒ»°ë
+	//Â´Î¹Ê±ÉµÓ°ì£ºÍ¨Æ¶Ê±ä£» ï£ºÆ¶Ê±Ò»
 	if (getPetType()==Cmd::PET_TYPE_NOTPET || getPetType()==Cmd::PET_TYPE_SEMI)
 	{
 		if (nextAttackTime>SceneTimeTick::currentTime)
@@ -3258,11 +3260,11 @@ bool SceneNpc::move(const int direct, const int step)
 }
 
 /**
- * \brief Ë²¼äÒÆ¶¯
+ * \brief Ë²Æ¶
  *
  *
- * \param newPos Ä¿±êÎ»ÖÃ
- * \return ÊÇ·ñ³É¹¦
+ * \param newPos Ä¿Î»
+ * \return Ç·É¹
  */
 bool SceneNpc::warp(const zPos &newPos,bool ignore)
 {
@@ -3309,51 +3311,51 @@ bool SceneNpc::warp(const zPos &newPos,bool ignore)
 }
 
 /**
- * \brief Ê¹Îï¼şÏòÄ³Ò»¸öµãÒÆ¶¯
- * ´øÑ°Â·Ëã·¨µÄÒÆ¶¯£¬²»¹ıÕâÀïÖ»ÊÇ·â×°ÁËÒ»ÏÂ£¬ÓÉÓÚ²»Í¬µÄnpc²½³¤²»Í¬£¬ÔÚÕâÀïµ÷ÓÃ²»Í¬²½³¤µÄA*Ëã·¨
- * \param srcPos Æğµã×ø±ê
- * \param destPos Ä¿µÄµØ×ø±ê
- * \return ÒÆ¶¯ÊÇ·ñ³É¹¦
+ * \brief Ê¹Ä³Ò»Æ¶
+ * Ñ°Â·ã·¨Æ¶Ö»Ç·×°Ò»Â£Ú²Í¬npcÍ¬Ã²Í¬A*ã·¨
+ * \param srcPos 
+ * \param destPos Ä¿Äµ
+ * \return Æ¶Ç·É¹
  */
 bool SceneNpc::gotoFindPath(const zPos &srcPos, const zPos &destPos)
 {
     if(id==27 || id==28 || id==29)
-	//Ìú¼×ÍÜÒ»´ÎÌøÁ½¸ñ£¬ËùÒÔ²½³¤Îª2
+	//Ò»Ô²Îª2
 	return zAStar<2>::gotoFindPath(srcPos, destPos);
     else
-	//ÆÕÍ¨¹ÖÎïÒ»´ÎÖ»ĞĞ×ßÒ»²½£¬ËùÒÔ²½³¤Îª1
+	//Í¨Ò»Ö»Ò»Ô²Îª1
 	return zAStar<>::gotoFindPath(srcPos, destPos);
 }
 
 /**
- * \brief NpcÏòÄ³Ò»¸öµãÒÆ¶¯
- * ²»´øÑ°Â·Ëã·¨µÄÒÆ¶¯£¬²»¹ıÕâÀïÖ»ÊÇ·â×°ÁËÒ»ÏÂ£¬ÓÉÓÚ²»Í¬µÄnpc²½³¤²»Í¬£¬ÔÚÕâÀïµ÷ÓÃ²»Í¬²½³¤µÄA*Ëã·¨
- * \param pos Ä¿µÄµØ×ø±ê
- * \return ÒÆ¶¯ÊÇ·ñ³É¹¦
+ * \brief NpcÄ³Ò»Æ¶
+ * Ñ°Â·ã·¨Æ¶Ö»Ç·×°Ò»Â£Ú²Í¬npcÍ¬Ã²Í¬A*ã·¨
+ * \param pos Ä¿Äµ
+ * \return Æ¶Ç·É¹
  */
 bool SceneNpc::goTo(const zPos &pos)
 {
     if(id==27 || id==28 || id==29)
-	//Ìú¼×ÍÜÒ»´ÎÌøÁ½¸ñ£¬ËùÒÔ²½³¤Îª2
+	//Ò»Ô²Îª2
 	return zAStar<2>::goTo(getPos(), pos);
     else
-	//ÆÕÍ¨¹ÖÎïÒ»´ÎÖ»ĞĞ×ßÒ»²½£¬ËùÒÔ²½³¤Îª1
+	//Í¨Ò»Ö»Ò»Ô²Îª1
 	return zAStar<>::goTo(getPos(), pos);
 }
 
 /**
- * \brief NpcËæ»úÏòÄ³Ò»¸ö·½ÏòÒÆ¶¯
- * ²»¹ıÕâÀïÖ»ÊÇ·â×°ÁËÒ»ÏÂ£¬ÓÉÓÚ²»Í¬µÄnpc²½³¤²»Í¬£¬ÔÚÕâÀïµ÷ÓÃ²»Í¬²½³¤µÄA*Ëã·¨
- * \param direct Ëæ»ú·½Ïò
- * \return ÒÆ¶¯ÊÇ·ñ³É¹¦
+ * \brief NpcÄ³Ò»Æ¶
+ * Ö»Ç·×°Ò»Â£Ú²Í¬npcÍ¬Ã²Í¬A*ã·¨
+ * \param direct 
+ * \return Æ¶Ç·É¹
  */
 bool SceneNpc::shiftMove(const int direct)
 {
     if(id==27 || id==28 || id==29)
-	//Ìú¼×ÍÜÒ»´ÎÌøÁ½¸ñ£¬ËùÒÔ²½³¤Îª2
+	//Ò»Ô²Îª2
 	return zAStar<2>::shiftMove(direct);
     else
-	//ÆÕÍ¨¹ÖÎïÒ»´ÎÖ»ĞĞ×ßÒ»²½£¬ËùÒÔ²½³¤Îª1
+	//Í¨Ò»Ö»Ò»Ô²Îª1
 	return zAStar<>::shiftMove(direct);
 }
 
@@ -3378,7 +3380,7 @@ void SceneNpc::clearStateToNine(WORD state)
 	}
 }
 /**
- * \brief ÉèÖÃÄ³¸ö×´Ì¬¸øÓÃ»§
+ * \brief Ä³×´Ì¬Ã»
  *
  * \author zjw
  */
@@ -3403,9 +3405,9 @@ void SceneNpc::setStateToNine(WORD state)
 	}
 }
 /**
- * \brief Í¨Öª¿Í»§¶ËÏÔÊ¾×´Ì¬ÌØĞ§
- * \param state ×´Ì¬ÌØĞ§±àºÅ
- * \param isShow ³öÏÖ»¹ÊÇÏûÊ§
+ * \brief Í¨ÖªÍ»Ê¾×´Ì¬Ğ§
+ * \param state ×´Ì¬Ğ§
+ * \param isShow Ö»Ê§
  */
 void SceneNpc::showCurrentEffect(const WORD &state, bool isShow,bool notify)
 {
@@ -3422,8 +3424,8 @@ void SceneNpc::showCurrentEffect(const WORD &state, bool isShow,bool notify)
 }
 
 /**
- * \brief ½ÇÉ«±»»÷ÍËN¸ñ
- * \param dwAttTempID ¹¥»÷ÕßµÄÁÙÊ±ID
+ * \brief É«N
+ * \param dwAttTempID ßµÊ±ID
  * \param grids
  * \author fqnewman
  */
@@ -3441,8 +3443,8 @@ void SceneNpc::standBack(const DWORD dwAttTempID, DWORD grids)
 }
 
 /**
- * \brief ½«¹¥»÷Ä¿±ê»»³ÉdwTempIDËùÖ¸ÏòµÄ½ÇÉ«Íæ¼Ò
- * \param dwTempID Ä¿±ê½ÇÉ«µÄÁÙÊ±ID
+ * \brief Ä¿ê»»dwTempIDÖ¸Ä½É«
+ * \param dwTempID Ä¿É«Ê±ID
  * \author fqnewman
  */
 void SceneNpc::changeAttackTarget(const DWORD &dwTempID)
@@ -3459,7 +3461,7 @@ void SceneNpc::changeAttackTarget(const DWORD &dwTempID)
 }
 
 /**
- * \brief ÈÃ½ÇÉ«ËÀÍö
+ * \brief Ã½É«
  * \author fqnewman
  */
 void SceneNpc::toDie(const DWORD &dwTempID)
@@ -3479,9 +3481,9 @@ void SceneNpc::toDie(const DWORD &dwTempID)
 }
 
 /**
- * \brief ÅĞ¶Ï½ÇÉ«ÊÇ·ñËÀÍö
+ * \brief Ğ¶Ï½É«Ç·
  * \author fqnewman
- * \return trueÎªËÀÍö
+ * \return trueÎª
  */
 bool SceneNpc::isDie()
 {
@@ -3491,10 +3493,10 @@ bool SceneNpc::isDie()
 
 
 /**
- * \brief µÃµ½npcµÄµÈ¼¶
+ * \brief ÃµnpcÄµÈ¼
  *
  *
- * \return µÈ¼¶
+ * \return È¼
  */
 DWORD SceneNpc::getLevel() const
 {
@@ -3502,7 +3504,7 @@ DWORD SceneNpc::getLevel() const
 }
 
 /**
- * \brief ĞèÒªµÄÖ°ÒµÀàĞÍ£¬¾ö¶¨¿ÉÒÔÊ¹ÓÃµÄ¼¼ÄÜÀàĞÍ
+ * \brief ÒªÖ°ÒµÍ£Ê¹ÃµÄ¼
  * \author fqnewman
  */
 bool SceneNpc::needType(const DWORD &needtype)
@@ -3511,7 +3513,7 @@ bool SceneNpc::needType(const DWORD &needtype)
 }
 
 /**
- * \brief ĞèÒªµÄÖ°ÒµÀàĞÍ£¬¾ö¶¨¿ÉÒÔÊ¹ÓÃµÄ¼¼ÄÜÀàĞÍ
+ * \brief ÒªÖ°ÒµÍ£Ê¹ÃµÄ¼
  * \author fqnewman
  */
 bool SceneNpc::addSkillToMe(zSkill *skill)
@@ -3520,9 +3522,9 @@ bool SceneNpc::addSkillToMe(zSkill *skill)
 }
 
 /**
- * \brief ÊÇ·ñÓĞ¸Ã¼¼ÄÜĞèÒªµÄÎäÆ÷
+ * \brief Ç·Ğ¸Ã¼Òª
  * \author fqnewman
- * \return true ÓĞ false Ã»ÓĞ
+ * \return true  false Ã»
  */
 bool SceneNpc::needWeapon(DWORD skillid)
 {
@@ -3530,10 +3532,10 @@ bool SceneNpc::needWeapon(DWORD skillid)
 }
 
 /**
- * \brief ÊÇ·ñPkÇøÓò
- * \param other PKÏà¹ØÈË
+ * \brief Ç·Pk
+ * \param other PK
  * \author fqnewman
- * \return true ÊÇ false ·ñ
+ * \return true  false 
  */
 bool SceneNpc::isPkZone(SceneEntryPk *other)
 {
@@ -3541,11 +3543,11 @@ bool SceneNpc::isPkZone(SceneEntryPk *other)
 }
 
 /**
- * \brief ÒÀÀµÎïÆ·ÏûºÄĞÍ·¨Êõ
- * \param object ÏûºÄÎïÆ·µÄÀàĞÍ
- * \param num ÏûºÄÎïÆ·µÄÊıÁ¿
+ * \brief Æ·Í·
+ * \param object Æ·
+ * \param num Æ·
  * \author fqnewman
- * \return true ÏûºÄ³É¹¦ false Ê§°Ü
+ * \return true Ä³É¹ false Ê§
  */
 bool SceneNpc::reduce(const DWORD &object, const BYTE num)
 {
@@ -3553,11 +3555,11 @@ bool SceneNpc::reduce(const DWORD &object, const BYTE num)
 }
 
 /**
- * \brief ¼ì²é¿ÉÏûºÄÎïÆ·ÊÇ·ñ×ã¹»
- * \param object ÏûºÄÎïÆ·µÄÀàĞÍ
- * \param num ÏûºÄÎïÆ·µÄÊıÁ¿
+ * \brief Æ·Ç·ã¹»
+ * \param object Æ·
+ * \param num Æ·
  * \author fqnewman
- * \return true ×ã¹» false ²»¹»
+ * \return true ã¹» false 
  */
 bool SceneNpc::checkReduce(const DWORD &object, const BYTE num)
 {
@@ -3565,10 +3567,10 @@ bool SceneNpc::checkReduce(const DWORD &object, const BYTE num)
 }
 
 /**
- * \brief Ê©·Å¼¼ÄÜËùµ¼ÖÂµÄÏûºÄMP,HP,SP
- * \param base ¼¼ÄÜ»ù±¾ÊôĞÔ¶ÔÏó
+ * \brief Ê©Å¼ÂµMP,HP,SP
+ * \param base Ü»Ô¶
  * \author fqnewman
- * \return true ÏûºÄ³É¹¦ false Ê§°Ü
+ * \return true Ä³É¹ false Ê§
  */
 bool SceneNpc::doSkillCost(const zSkillB *base)
 {
@@ -3576,10 +3578,10 @@ bool SceneNpc::doSkillCost(const zSkillB *base)
 }
 
 /**
- * \brief ¼ì²éÊ©·Å¼¼ÄÜËùµ¼ÖÂµÄÏûºÄMP,HP,SPÊÇ·ñ×ã¹»
- * \param base ¼¼ÄÜ»ù±¾ÊôĞÔ¶ÔÏó
+ * \brief Ê©Å¼ÂµMP,HP,SPÇ·ã¹»
+ * \param base Ü»Ô¶
  * \author fqnewman
- * \return true ÏûºÄ³É¹¦ false Ê§°Ü
+ * \return true Ä³É¹ false Ê§
  */
 bool SceneNpc::checkSkillCost(const zSkillB *base)
 {
@@ -3587,9 +3589,9 @@ bool SceneNpc::checkSkillCost(const zSkillB *base)
 }
 
 /**
- * \brief ¼ì²é×ÔÉíµÄÊ©·Å³É¹¦¼¸ÂÊ£¬¾ö¶¨Õâ´Î¼¼ÄÜÊÇ·ñ¿ÉÒÔÊ©·Å
+ * \brief Ê©Å³É¹Ê£Î¼Ç·Ê©
  * \author fqnewman
- * \return true ³É¹¦ false Ê§°Ü
+ * \return true É¹ false Ê§
  */
 bool SceneNpc::checkPercent()
 {
@@ -3597,18 +3599,18 @@ bool SceneNpc::checkPercent()
 }
 
 /**
- * \brief ¸Ä±ä½ÇÉ«µÄhp
- * \param hp ±ä¸üµÄHP
+ * \brief Ä±É«hp
+ * \param hp HP
  * \author fqnewman
  */
-//soke ÊôĞÔÍ»ÆÆ ÉËº¦Ô½½ç£¨´ò¹ÖµôÑª£©
-uint64_t SceneNpc::directDamage(SceneEntryPk *pAtt, const uint64_t &dam, bool notify) //by=>friday ĞŞ¸ÄÎªÖ§³Ö64Î»ÎŞ·ûºÅÉËº¦
+//soke Í» ËºÔ½ç£¨ÖµÑª
+uint64_t SceneNpc::directDamage(SceneEntryPk *pAtt, const uint64_t &dam, bool notify) //by=>friday Ş¸ÎªÖ§64Î»Ş·Ëº
 {
 
 	SceneEntryPk::directDamage(pAtt, dam, notify);
 
-	uint64_t reduceHP=0; //by=>friday ĞŞ¸´ÀàĞÍ²»Æ¥Åä£¬¸ÄÎªÎŞ·ûºÅÀàĞÍ
-	if (hp >= dam) //by=>friday ĞŞ¸´ÎŞ·ûºÅÏÂÒç³öÎÊÌâ
+	uint64_t reduceHP=0; //by=>friday Ş¸Í²Æ¥ä£¬ÎªŞ·
+	if (hp >= dam) //by=>friday Ş¸Ş·
 	{
 		hp -= dam;
 		reduceHP = dam;
@@ -3644,11 +3646,11 @@ uint64_t SceneNpc::directDamage(SceneEntryPk *pAtt, const uint64_t &dam, bool no
 }
 
 /**
- * \brief ´¦ÀínpcËÀÍö
+ * \brief npc
  *
  *
- * \param pAtt Ğ×ÊÖ
- * \return ÊÇ·ñËÀÍö
+ * \param pAtt 
+ * \return Ç·
  */
 bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 {
@@ -3661,7 +3663,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 		DWORD dwAttUserID = 0;
 		bool isAntiAtt = false;
 
-		// Èç¹ûÕÙ»½
+		// Ù»
 		mymaster = this->getTopMaster();
 		if (mymaster->summon != this) mymaster = NULL;
 		switch(pAtt->getType())
@@ -3700,11 +3702,11 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						case NPC_TYPE_AUCTION:
 							if (attCountryID!=scene->getCountryID())
 							{
-					//			Zebra::logger->debug("----------¼ÓÔØ¹¦ÄÜNPC±»Íâ¹úÈËÉ±ËÀ¹ú¼Ò¹«¸æ----------");
+					//			Zebra::logger->debug("----------Ø¹NPCÉ±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "%sNPC %s(%u,%u) ±» %s(%s) É±ËÀ", scene->getRealName(), name, pos.x, pos.y, temp->name, SceneManager::getInstance().getCountryNameByCountryID(attCountryID));
+								snprintf(send.info, MAX_CHATINFO, "%sNPC %s(%u,%u)  %s(%s) É±", scene->getRealName(), name, pos.x, pos.y, temp->name, SceneManager::getInstance().getCountryNameByCountryID(attCountryID));
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3712,32 +3714,32 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							break;
 					}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				    //soke Ôö¼Ó¹úÍâ»÷É±±¾¹úNPC¹ú¼Ò¹«¸æ ¿ªÊ¼
+				    //soke Ó¹É±NPCÒ¹ Ê¼
 		          /*switch(npc->kind)
 			        {
-				      //case NPC_TYPE_NORMAL:              /// ÆÕÍ¨ÀàĞÍ   1   °× °×É«µÄÆÕÍ¨¹ÖÎï¾Í²»ÉÏ¹«¸æÁË
-				      //case NPC_TYPE_BBOSS:              /// ´óBossÀàĞÍ  2   ÂÌ
-				      //case NPC_TYPE_LBOSS:              /// Ğ¡BossÀàĞÍ  3          Õâ¸öÒ²²»¿¼ÂÇÁË
-				      //case NPC_TYPE_PBOSS:              /// ×ÏBossÀàĞÍ  31  ×Ï
-				      //case NPC_TYPE_BACKBONE:		      /// ¾«Ó¢ÀàĞÍ  4   À¶
-				      //case NPC_TYPE_GOLD:		          /// »Æ½ğÀàĞÍ  5  »Æ
-				      //case NPC_TYPE_SUMMONS:		      /// ÕÙ»½ÀàĞÍ  11   ÕÙ»½µÄÒ²²»¼ÓÁË
-				      //case NPC_TYPE_AGGRANDIZEMENT:	  /// Ç¿»¯ÀàĞÍ  13  È¡ÏûÁË
-				      //case NPC_TYPE_ABERRANCE:		  /// ±äÒìÀàĞÍ  14  È¡ÏûÁË
-				      //case NPC_TYPE_BACKBONEBUG:		  /// ¾«¹ÖÀàĞÍ  10  È¡ÏûÁË
-				      //case NPC_TYPE_PET:	              /// ³èÎïÀàĞÍ  9
-				      //case NPC_TYPE_TOTEM:			  /// Í¼ÌÚÀàĞÍ  12  »ğÁéÖ®ÀàµÄ
-				      //case NPC_TYPE_HUMAN:	          ///ÈËĞÍ        0
-				      //case NPC_TYPE_WILDHORSE:          /// Ò°ÂíÀàĞÍ  18
-				      //case NPC_TYPE_DUCKHIT:	          /// ¶×ÏÂ²ÅÄÜ´òµÄnpc ±¦Ïä ²İÖ®ÀàµÄ  21
-				      //case NPC_TYPE_BANNER:	          /// ÆìÖÄÀàĞÍ  22
-				      //case NPC_TYPE_TRAP:               /// ÏİÚåÀàĞÍ  23
+				      //case NPC_TYPE_NORMAL:              /// Í¨   1    É«Í¨Í²Ï¹
+				      //case NPC_TYPE_BBOSS:              /// Boss  2   
+				      //case NPC_TYPE_LBOSS:              /// Ğ¡Boss  3          Ò²
+				      //case NPC_TYPE_PBOSS:              /// Boss  31  
+				      //case NPC_TYPE_BACKBONE:		      /// Ó¢  4   
+				      //case NPC_TYPE_GOLD:		          /// Æ½  5  
+				      //case NPC_TYPE_SUMMONS:		      /// Ù»  11   Ù»Ò²
+				      //case NPC_TYPE_AGGRANDIZEMENT:	  /// Ç¿  13  È¡
+				      //case NPC_TYPE_ABERRANCE:		  ///   14  È¡
+				      //case NPC_TYPE_BACKBONEBUG:		  ///   10  È¡
+				      //case NPC_TYPE_PET:	              ///   9
+				      //case NPC_TYPE_TOTEM:			  /// Í¼  12  Ö®
+				      //case NPC_TYPE_HUMAN:	          ///        0
+				      //case NPC_TYPE_WILDHORSE:          /// Ò°  18
+				      //case NPC_TYPE_DUCKHIT:	          /// Â²Ü´npc  Ö®  21
+				      //case NPC_TYPE_BANNER:	          ///   22
+				      //case NPC_TYPE_TRAP:               ///   23
 							if (attCountryID!=scene->getCountryID())
 							{
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Õæ²»ĞÒ£¬ ÎÒ¹úBOSS %s ÔÚ%s(%u,%u)ÓÎÍæÊ±±»%sµÄ%s»÷É±£¡", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s %s(%u,%u)Ê±%s%sÉ±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3745,38 +3747,38 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							break;
 					}*/
 
-					//sky ÖĞÁ¢È¥»÷É±¹«¸æ
+					//sky È¥É±
 					switch(npc->kind)
 					{
-					case NPC_TYPE_BBOSS:              /// ´óBossÀàĞÍ  2   ÂÌ
+					case NPC_TYPE_BBOSS:              /// Boss  2   
 						if (attCountryID!=scene->getCountryID())
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ÕæÅ££¬%sµÄ%sÔÚ%s(%u,%u)»÷É±BOSS %s(ÂÌ)£¡", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Å£%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;
-					case NPC_TYPE_PBOSS: //×Ï
+					case NPC_TYPE_PBOSS: //
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP3,"À÷º¦£¡%sµÄ%sÔÚ%s(%u,%u)»÷É±BOSS %s(×Ï)£¡", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP3,"%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;
-					case NPC_TYPE_BACKBONE: //³È
+					case NPC_TYPE_BACKBONE: //
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP4,"À÷º¦£¡%sµÄ%sÔÚ%s(%u,%u)»÷É±BOSS %s(³È)£¡", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP4,"%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;
-					case NPC_TYPE_GOLD: //ºì
+					case NPC_TYPE_GOLD: //
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"À÷º¦£¡%sµÄ%sÔÚ%s(%u,%u)»÷É±BOSS %s(ºì)£¡", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;			
-					case NPC_TYPE_REDBOSS: //ºì
+					case NPC_TYPE_REDBOSS: //
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"À÷º¦£¡%sµÄ%sÔÚ%s(%u,%u)»÷É±BOSS %s(ºì)£¡", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;						
 					default:
@@ -3785,14 +3787,14 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 
 			        switch(npc->kind)
 			        {
-                        case NPC_TYPE_DUCKHIT:	          /// ¶×ÏÂ²ÅÄÜ´òµÄnpc ±¦Ïä ²İÖ®ÀàµÄ  21
+                        case NPC_TYPE_DUCKHIT:	          /// Â²Ü´npc  Ö®  21
 							if (attCountryID!=scene->getCountryID())
 							{
-					//		Zebra::logger->debug("----------¼ÓÔØnpc ±¦Ïä¡¢²İÖ®ÀàµÄ£¨21£©±»Íâ¹úÈË²É¼¯¹ú¼Ò¹«¸æ----------");
+					//		Zebra::logger->debug("----------npc ä¡¢Ö®Ä£21Ë²É¼Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "ÕæÒÅº¶£¬ ÎÒ¹ú%sµÄ %s(%u,%u)±»%sµÄ%sËÑ¹ÎÒ»¿ÕÁË£¡",  scene->getRealName(), name, pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "Åº Ò¹%s %s(%u,%u)%s%sÑ¹Ò»Ë£",  scene->getRealName(), name, pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3802,76 +3804,76 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 
 			        switch(npc->kind)
 			       {
-				        case NPC_TYPE_BACKBONE:		      /// ¾«Ó¢ÀàĞÍ  4   ³È
+				        case NPC_TYPE_BACKBONE:		      /// Ó¢  4   
 							if (attCountryID!=scene->getCountryID())
 							{
-					//			Zebra::logger->debug("----------¼ÓÔØÀ¶É«BOSS£¨4£©±»Íâ¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+					//			Zebra::logger->debug("----------É«BOSS4Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Õæ²»ĞÒ£¬ ÎÒ¹úBOSS %s(³È)ÔÚ%s(%u,%u)±»%sµÄ%sÁèÈèÏÂÓöÄÑ£¡", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÑ£", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
-				        case NPC_TYPE_GOLD:		          /// »Æ½ğÀàĞÍ  5  ºì
+				        case NPC_TYPE_GOLD:		          /// Æ½  5  
 							if (attCountryID!=scene->getCountryID())
 							{
-					//			Zebra::logger->debug("----------¼ÓÔØ»ÆÉ«BOSS£¨5£©±»Íâ¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+					//			Zebra::logger->debug("----------Ø»É«BOSS5Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Õæ²»ĞÒ£¬ ÎÒ¹úBOSS %s(ºì)ÔÚ%s(%u,%u)±»%sµÄ%sÉ±º¦ÁË£¡", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÉ±Ë£", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
-				        case NPC_TYPE_BBOSS:              /// ´óBossÀàĞÍ  2   ÂÌ
+				        case NPC_TYPE_BBOSS:              /// Boss  2   
 							if (attCountryID!=scene->getCountryID())
 							{
-							//	Zebra::logger->debug("----------¼ÓÔØÂÌÉ«BOSS£¨2£©±»Íâ¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+							//	Zebra::logger->debug("----------É«BOSS2Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Õæ²»ĞÒ£¬ ÎÒ¹úBOSS %s(ÂÌ)ÔÚ%s(%u,%u)±»%sµÄ%s²ĞÈÌµÄÉ±º¦£¡", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÌµÉ±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
-				        case NPC_TYPE_PBOSS:              /// ×ÏBossÀàĞÍ  31  ×Ï
+				        case NPC_TYPE_PBOSS:              /// Boss  31  
 							if (attCountryID!=scene->getCountryID())
 							{
-						//		Zebra::logger->debug("----------¼ÓÔØ×ÏÉ«BOSS£¨31£©±»Íâ¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+						//		Zebra::logger->debug("----------É«BOSS31Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Õæ²»ĞÒ£¬ ÎÒ¹úBOSS %s(×Ï)ÔÚ%s(%u,%u)±»%sµÄ%s²ĞÈÌµÄÉ±º¦£¡", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÌµÉ±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
-				        case NPC_TYPE_REDBOSS:		          /// »Æ½ğÀàĞÍ  33  ºì
+				        case NPC_TYPE_REDBOSS:		          /// Æ½  33  
 							if (attCountryID!=scene->getCountryID())
 							{
-					//			Zebra::logger->debug("----------¼ÓÔØ»ÆÉ«BOSS£¨5£©±»Íâ¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+					//			Zebra::logger->debug("----------Ø»É«BOSS5Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Õæ²»ĞÒ£¬ ÎÒ¹úBOSS %s(ºì)ÔÚ%s(%u,%u)±»%sµÄ%sÉ±º¦ÁË£¡", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÉ±Ë£", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
 						default:
 							break;
 					}
-					//soke Ôö¼Ó¹úÍâ»÷É±±¾¹úNPC¹ú¼Ò¹«¸æ ½áÊø
+					//soke Ó¹É±NPCÒ¹ 
 
 			        switch(npc->kind)
 			        {
-                        case NPC_TYPE_DUCKHIT:	          /// ¶×ÏÂ²ÅÄÜ´òµÄnpc ±¦Ïä ²İÖ®ÀàµÄ  21
-							if (attCountryID=scene->getCountryID())//soke Çó·´ 
+                        case NPC_TYPE_DUCKHIT:	          /// Â²Ü´npc  Ö®  21
+							if (attCountryID=scene->getCountryID())//soke  
 							{
-						//	Zebra::logger->debug("----------¼ÓÔØnpc ±¦Ïä¡¢²İÖ®ÀàµÄ£¨21£©±»±¾¹úÈË²É¼¯¹ú¼Ò¹«¸æ----------");
+						//	Zebra::logger->debug("----------npc ä¡¢Ö®Ä£21Ë²É¼Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "ÕæÒÅº¶£¬ %sµÄ%s(%u,%u)±»%sËÑ¹ÎÒ»¿ÕÁË£¡",  scene->getRealName(), name, pos.x, pos.y,/* SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name);
+								snprintf(send.info, MAX_CHATINFO, "Åº %s%s(%u,%u)%sÑ¹Ò»Ë£",  scene->getRealName(), name, pos.x, pos.y,/* SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3881,58 +3883,58 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 
 			        switch(npc->kind)
 			        {
-				        case NPC_TYPE_BACKBONE:		      /// ¾«Ó¢ÀàĞÍ  4   ³È
+				        case NPC_TYPE_BACKBONE:		      /// Ó¢  4   
 							if (attCountryID=scene->getCountryID())
 							{
-						//		Zebra::logger->debug("----------¼ÓÔØÀ¶É«BOSS£¨4£©±»±¾¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+						//		Zebra::logger->debug("----------É«BOSS4Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "ÎÒ¹úµÄ%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s(³È)£¡",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
-				        case NPC_TYPE_GOLD:		          /// »Æ½ğÀàĞÍ  5  ºì
+				        case NPC_TYPE_GOLD:		          /// Æ½  5  
 							if (attCountryID=scene->getCountryID())
 							{
-						//		Zebra::logger->debug("----------¼ÓÔØ»ÆÉ«BOSS£¨5£©±»±¾¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+						//		Zebra::logger->debug("----------Ø»É«BOSS5Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "ÎÒ¹úµÄ%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s(ºì)£¡",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
-				        case NPC_TYPE_BBOSS:              /// ´óBossÀàĞÍ  2   ÂÌ
+				        case NPC_TYPE_BBOSS:              /// Boss  2   
 							if (attCountryID=scene->getCountryID())
 							{
-						//		Zebra::logger->debug("----------¼ÓÔØÂÌÉ«BOSS£¨2£©±»±¾¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+						//		Zebra::logger->debug("----------É«BOSS2Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "ÎÒ¹úµÄ%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s(ÂÌ)£¡",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
-						case NPC_TYPE_PBOSS:              /// ×ÏBossÀàĞÍ  31  ×Ï
+						case NPC_TYPE_PBOSS:              /// Boss  31  
 							if (attCountryID=scene->getCountryID())
 							{
-						//		Zebra::logger->debug("----------¼ÓÔØ×ÏÉ«BOSS£¨31£©±»±¾¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+						//		Zebra::logger->debug("----------É«BOSS31Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Ìì°¡£¬ ÎÒ¹úµÄ%sÔÚ%s(%u,%u)³É¹¦»÷É±³¬¼¶BOSS %s(×Ï)£¡",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "ì°¡ Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
-				        case NPC_TYPE_REDBOSS:		          /// »Æ½ğÀàĞÍ  33  ºì
+				        case NPC_TYPE_REDBOSS:		          /// Æ½  33  
 							if (attCountryID=scene->getCountryID())
 							{
-						//		Zebra::logger->debug("----------¼ÓÔØ»ÆÉ«BOSS£¨5£©±»±¾¹úÈË»÷É±¹ú¼Ò¹«¸æ----------");
+						//		Zebra::logger->debug("----------Ø»É«BOSS5Ë»É±Ò¹----------");
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "ÎÒ¹úµÄ%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s(ºì)£¡",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3941,7 +3943,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 					}
 
 
-					if (npc->id==30034)//É±ËÀµäÓü¹Ù
+					if (npc->id==30034)//É±
 					{
 						SceneUser * u = (SceneUser *)pAtt;
 						if (u->isRedNamed())
@@ -3949,12 +3951,12 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							u->charbase.goodness = (DWORD)Cmd::GOODNESS_2_1;
 							while (!u->pkState.cancelProtect(u));
 
-							Channel::sendSys(u, Cmd::INFO_TYPE_EXP, "ÄãÉ±ËÀµäÓü¹Ù£¬Çå³ıÁË×Ô¼ºËùÓĞµÄ·¸×ï¼ÇÂ¼");
-							Zebra::logger->debug("[¼àÓü]%s É±ËÀµäÓü¹Ù", u->name);
+							Channel::sendSys(u, Cmd::INFO_TYPE_EXP, "É±Ù£Ô¼ĞµÄ·Â¼");
+							Zebra::logger->debug("[]%s É±", u->name);
 						}
 					}
 
-					if (npc->id==144001)//ÊÀ½çBOSS
+					if (npc->id==144001)//BOSS
 					{
 						// SceneUser * u = (SceneUser *)pAtt;
 						// if(u)
@@ -3965,17 +3967,17 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 		
 						// 	}
 						// 	else{
-						// 		Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"¹§Ï²³ş¹úÍæ¼Ò³É¹¦»÷É±ÊÀ½çBOSS£¬»ñµÃ¹éÊôÈ¨£¡£¡£¡" );	
-						// 		Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL,"¹§Ï²³ş¹úÍæ¼Ò³É¹¦»÷É±ÊÀ½çBOSS£¬»ñµÃ¹éÊôÈ¨£¡£¡£¡");
+						// 		Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"Ï²Ò³É¹É±BOSSÃ¹È¨" );	
+						// 		Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL,"Ï²Ò³É¹É±BOSSÃ¹È¨");
 						
 						// 	}
 						// }
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"ÊÀ½çBOSSÒÑ±»»÷É±£¡£¡£¡" );	
-						Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL,"ÊÀ½çBOSSÒÑ±»»÷É±£¡£¡£¡");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"BOSSÑ±É±" );	
+						Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL,"BOSSÑ±É±");
 						
 					}
 
-					if (npc->id==140003)//É±ËÀÉ¢²ÆÖí
+					if (npc->id==140003)//É±É¢
 					{
 						zRTime cur_time;
 						cur_time.now();
@@ -3986,11 +3988,11 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						Zebra::global["killpigtime"]=a;
 						sprintf(a, "%ld", time2);
 						Zebra::global["killpigtime_hm"]=a;
-						//·¢¸ø¿Í»§¶ËÊ±¼ä¿ªÊ¼¼ÆÊ±
+						//Í»Ê±ä¿ªÊ¼Ê±
 						Cmd::stJingcaiReturnKillPigTimeCmd ret;
 						ret.killpigtime = atol(Zebra::global["killpigtime"].c_str());
 						ret.killpigtime_hm = atol(Zebra::global["killpigtime_hm"].c_str());
-						Scene * s = SceneManager::getInstance().getSceneByName("ÖĞÁ¢Çø¡¤¹¦Ñ«·ûµØÍ¼");
+						Scene * s = SceneManager::getInstance().getSceneByName("Ñ«Í¼");
 						s->sendCmdToScene(&ret, sizeof(ret));	
 						int kaijiang =0;
 						if(time2<10)
@@ -4000,15 +4002,15 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						else{
 							kaijiang = time2%10;
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP,"±¾ÆÚĞÒÔËÊı×Ö¾º²Â½á¹ûÊÇ£º%dºÅ", kaijiang);	
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP,"Ö¾Â½Ç£%d", kaijiang);	
 						Cmd::Session::t_Gxjckj_SceneSession send;
 						send.index = kaijiang;
 						sessionClient->sendCmd(&send, sizeof(send));
 
-						//¹¦Ñ«¾º²Â¿ª½±
+						//Ñ«Â¿
 						
 					}
-					if (npc->id==54100)//É±ËÀºº¹ú¹ú¼ÒïÚ³µ
+					if (npc->id==54100)//É±Ú³
 					{
 						zNpcB *base = npcbm.get(54099);
 						t_NpcDefine define;
@@ -4034,7 +4036,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							}
 						}
 						/*
-						for(int i=0;i<16;i++)//µôÂä»Æ½ğÏÉ³ú
+						for(int i=0;i<16;i++)//Æ½É³
 						{
 							if (ob2)
 							{
@@ -4046,7 +4048,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						 iter++)
 						{
 							char a[MAX_NAMESIZE];
-							sprintf(a, "%s »÷É±¹ú¼ÒïÚ³µ", u->name);
+							sprintf(a, "%s É±Ú³", u->name);
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
 							sprintf(send.info, a);
@@ -4055,15 +4057,15 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 
 							// Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "ºº¹úµÄ¹ú¼ÒïÚ³µÒÑ±»½ÙÂÓ£¬Ö»Ê£ÏÂ¹âÍºÍºµÄÆÆ³µÁË£¬ÕæÊÇÌ«¶ªÈËÁË£¡");
+							sprintf(send.info, "Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ºº¹úµÄ¹ú¼ÒïÚ³µÒÑ±»½ÙÂÓ£¬Ö»Ê£ÏÂ¹âÍºÍºµÄÆÆ³µÁË£¬ÕæÊÇÌ«¶ªÈËÁË£¡");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
 						ScenesService::getInstance().han_biaoche->setClearState();
 						ScenesService::getInstance().han_biaoche = NULL;
 					}
-					if (npc->id==54098)//É±ËÀ³ş¹ú¹ú¼ÒïÚ³µ
+					if (npc->id==54098)//É±Ú³
 					{
 						zNpcB *base = npcbm.get(54099);
 						t_NpcDefine define;
@@ -4089,7 +4091,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							}
 						}
 						/*
-						for(int i=0;i<16;i++)//µôÂä»Æ½ğÏÉ³ú
+						for(int i=0;i<16;i++)//Æ½É³
 						{
 							if (ob2)
 							{
@@ -4101,7 +4103,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						 iter++)
 						{
 							char a[MAX_NAMESIZE];
-							sprintf(a, "%s »÷É±¹ú¼ÒïÚ³µ", u->name);
+							sprintf(a, "%s É±Ú³", u->name);
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
 							sprintf(send.info, a);
@@ -4110,23 +4112,79 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							
 							// Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "³ş¹úµÄ¹ú¼ÒïÚ³µÒÑ±»½ÙÂÓ£¬Ö»Ê£ÏÂ¹âÍºÍºµÄÆÆ³µÁË£¬ÕæÊÇÌ«¶ªÈËÁË£¡");
+							sprintf(send.info, "Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"³ş¹úµÄ¹ú¼ÒïÚ³µÒÑ±»½ÙÂÓ£¬Ö»Ê£ÏÂ¹âÍºÍºµÄÆÆ³µÁË£¬ÕæÊÇÌ«¶ªÈËÁË£¡");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
 						ScenesService::getInstance().chu_biaoche->setClearState();
 						ScenesService::getInstance().chu_biaoche = NULL;
 					}
 
+					if (npc->id==54376)//É±Ú³
+					{
+						zNpcB *base = npcbm.get(54099);
+						t_NpcDefine define;
+						define.id = base->id;
+						strcpy(define.name, base->name);
+						define.pos = getPos();
+						define.num = 1;
+						define.interval = 0; 
+						define.initstate = zSceneEntry::SceneEntry_Normal;
+						define.width = 2;
+						define.height = 2;
+						define.scriptID = 0;
+						scene->initRegion(define.region, define.pos, define.width, define.height);
+						ScenesService::getInstance().wei_biaoche2 = scene->summonOneNpc<SceneNpc>(define, define.pos, base);
+						SceneUser * u = (SceneUser *)pAtt;
+						zObjectB *ob = objectbm.get(123123);
+						//zObjectB *ob2 = objectbm.get(20800);
+						for(int i=0;i<100;i++)
+						{
+							if (ob)
+							{
+								scene->addObject2(ob,100,getPos(),u->id);
+							}
+						}
+						/*
+						for(int i=0;i<16;i++)//Æ½É³
+						{
+							if (ob2)
+							{
+								scene->addObject2(ob2,50,getPos(),u->id);
+							}
+						}
+						*/
+						for (SceneManager::CountryMap_iter iter = SceneManager::getInstance().country_info.begin(); iter != SceneManager::getInstance().country_info.end();
+						 iter++)
+						{
+							char a[MAX_NAMESIZE];
+							sprintf(a, "%s É±Ú³", u->name);
+							Cmd::Session::t_countryNotify_SceneSession send;
+							bzero(send.info, sizeof(send.info));
+							sprintf(send.info, a);
+							send.dwCountryID = iter->second.id;
+							sessionClient->sendCmd(&send, sizeof(send));
+							
+							// Cmd::Session::t_countryNotify_SceneSession send;
+							bzero(send.info, sizeof(send.info));
+							sprintf(send.info, "Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
+							send.dwCountryID = iter->second.id;
+							sessionClient->sendCmd(&send, sizeof(send));
+						}
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
+						ScenesService::getInstance().wei_biaoche->setClearState();
+						ScenesService::getInstance().wei_biaoche = NULL;
+					}
 
 
-					/*Ë½ÈËïÚ³µµôÂä
+
+					/*Ë½Ú³
 					if ((npc->id>=54035 && npc->id<=54038) || (npc->id>=54060 && npc->id<=54063)|| (npc->id>=54081 && npc->id<=54087))
 					{
 						SceneUser * u = (SceneUser *)pAtt;
 						zObjectB *ob2 = objectbm.get(20801);
-						for(int i=0;i<10;i++)//µôÂä»Æ½ğÏÉ²ù
+						for(int i=0;i<10;i++)//Æ½É²
 						{
 							if (ob2)
 							{
@@ -4135,58 +4193,58 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						}
 					}
 					*/
-					if (npc->id==144007)//É±ËÀ³ş¹úBOSS
+					if (npc->id==144007)//É±BOSS
 					{
 						char a[16];
 						sprintf(a, "%d", 1);
 						Zebra::global["BOSS_CHU"]=a;
 					}
-					if (npc->id==144008)//É±ËÀºº¹úBOSS
+					if (npc->id==144008)//É±BOSS
 					{
 						char a[16];
 						sprintf(a, "%d", 1);
 						Zebra::global["BOSS_HAN"]=a;
 					}
 
-					if (npc->id==40001)//¸±±¾¹ÖÎï1
+					if (npc->id==40001)//1
 					{
 						SceneUser * u = (SceneUser *)pAtt;
 						if(u->charbase.fba1 <=0 )
 						{
-							Gm::gomap(u, "name=ÖĞÁ¢Çø¡¤»Ê³Ç pos=832,699");
+							Gm::gomap(u, "name=Ê³ pos=832,699");
 							return true;
 						}
 
 						u->charbase.fba1--;	
 					}
-					if (npc->id==40002)//¸±±¾¹ÖÎï2
+					if (npc->id==40002)//2
 					{
 						SceneUser * u = (SceneUser *)pAtt;
 						if(u->charbase.fba2 <=0 )
 						{
-							Gm::gomap(u, "name=ÖĞÁ¢Çø¡¤»Ê³Ç pos=832,699");
+							Gm::gomap(u, "name=Ê³ pos=832,699");
 							return true;
 						}
 
 						u->charbase.fba2--;	
 					}
-					if (npc->id==40003)//¸±±¾¹ÖÎï3
+					if (npc->id==40003)//3
 					{
 						SceneUser * u = (SceneUser *)pAtt;
 						if(u->charbase.fba3 <=0 )
 						{
-							Gm::gomap(u, "name=ÖĞÁ¢Çø¡¤»Ê³Ç pos=832,699");
+							Gm::gomap(u, "name=Ê³ pos=832,699");
 							return true;
 						}
 
 						u->charbase.fba3--;	
 					}
-					if (npc->id==40004)//¸±±¾¹ÖÎï4
+					if (npc->id==40004)//4
 					{
 						SceneUser * u = (SceneUser *)pAtt;
 						if(u->charbase.fba4 <=0 )
 						{
-							Gm::gomap(u, "name=ÖĞÁ¢Çø¡¤»Ê³Ç pos=832,699");
+							Gm::gomap(u, "name=Ê³ pos=832,699");
 							return true;
 						}
 
@@ -4253,38 +4311,38 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 
 			sessionClient->sendCmd(&send, sizeof(send));
 		}
-	    //31ÀàĞÍµÄNpcËÀÍö
+	    //31ÍµNpc
 		if (npc->kind==2 || npc->kind==4 || npc->kind==5 || npc->kind==31)
 		{	
 			Cmd::Session::t_BossDieInfo_SceneSession BossSend;
 			BossSend.NpcID = npc->id;
 			BossSend.CountryID = scene->getCountryID();
 			bcopy(scene->getRealName(),BossSend.MapName, MAX_NAMESIZE);
-			BossSend.KillState = 1; //¸ü¸Ä´æ»î×´Ì¬
+			BossSend.KillState = 1; //Ä´×´Ì¬
 			BossDieTime = SceneTimeTick::currentTime;
 	        QWORD DieTime = BossDieTime.msecs();
 			BossSend.ReviveTime = DieTime+(define->interval*1000); 
 			sessionClient->sendCmd(&BossSend, sizeof(BossSend));
 		}	
 		if (this->id == COUNTRY_SEC_GEN)
-		{// Í¨ÖªÊØ·½£¬´ó½«¾ü½«ÊÜµ½¹¥»÷
+		{// Í¨ÖªØ·ó½«¾Üµ
 			Cmd::Session::t_countryNotify_SceneSession send;
 			bzero(send.info, sizeof(send.info));
-			sprintf(send.info, "%s", "½ûÎÀ¶Ó³¤ËÀÍö£¬´ó½«¾ü½«ÊÜµ½¹¥»÷!");
+			sprintf(send.info, "%s", "Ó³ó½«¾Üµ!");
 			send.dwCountryID = this->scene->getCountryID();
 			sessionClient->sendCmd(&send, sizeof(send));
 		}
 
 		if (this->id == COUNTRY_SEC_FLAG)
-		{// Í¨ÖªÊØ·½£¬¸±ÆìÊÜµ½¹¥»÷
+		{// Í¨ÖªØ·Üµ
 			Cmd::Session::t_countryNotify_SceneSession send;
 			bzero(send.info, sizeof(send.info));
-			sprintf(send.info, "±¾¹ú %s ¸±Æì(%u,%u)µ¹µØ", this->scene->getRealName(), this->getPos().x, this->getPos().y);
+			sprintf(send.info, " %s (%u,%u)", this->scene->getRealName(), this->getPos().x, this->getPos().y);
 			send.dwCountryID = this->scene->getCountryID();
 			sessionClient->sendCmd(&send, sizeof(send));
 		}
 
-		if (this->id == 58101 && attUnionID>0 && attCountryID > 0) //Èç¹ûËÀÍöµÄÊÇ³ÇÆì£¬ÔòÍ¨Öª»á»°½øĞĞ³ÇÖ÷±ä»»
+		if (this->id == 58101 && attUnionID>0 && attCountryID > 0) //Ç³ì£¬Í¨Öªá»°Ğ³ä»»
 		{
 			Cmd::Session::t_UnionCity_DareResult_SceneSession send;
 			send.dwUserID = pAtt->id;
@@ -4312,10 +4370,10 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 
 #include "script.h"
 /**
- * \brief ÉèÖÃÈÎÎñ×´Ì¬
+ * \brief ×´Ì¬
  *
  *
- * \param user Íæ¼Ò
+ * \param user 
  */
 void SceneNpc::set_quest_status(SceneUser* user)
 {
@@ -4337,13 +4395,13 @@ void SceneNpc::set_quest_status(SceneUser* user)
 	int state = EventManager<OnVisit>::instance().state(*user, event) ;
 	if (state != -1) {
 		setUState(state);
-		//Zebra::logger->debug("NPC(%s), ÈÎÎñ(%d, %d) ", name, id, state);
+		//Zebra::logger->debug("NPC(%s), (%d, %d) ", name, id, state);
 
 	}
 }
 
 /**
- * \brief Ïò9ÆÁ·¢ËÍ×Ô¼ºµÄĞÅÏ¢
+ * \brief 9Ô¼Ï¢
  */
 void SceneNpc::reSendMyMapData()
 {
@@ -4351,23 +4409,23 @@ void SceneNpc::reSendMyMapData()
 }
 
 /**
- * \brief npcÇĞ»»µØÍ¼
- * Ö»ÄÜÔÚÍ¬Ò»·şÎñÆ÷
+ * \brief npcĞ»Í¼
+ * Ö»Í¬Ò»
  *
  *
- * \param newScene ÒªÈ¥µÄµØÍ¼
- * \param pos ÒªÈ¥µÄÎ»ÖÃ
- * \return ÊÇ·ñÇĞ»¯³É¹¦
+ * \param newScene ÒªÈ¥ÄµÍ¼
+ * \param pos ÒªÈ¥Î»
+ * \return Ç·Ğ»É¹
  */
 bool SceneNpc::changeMap(Scene * newScene, const zPos &pos)
 {
 	if (!newScene)
 	{
-		Zebra::logger->error("SceneNpc::changeMap(): ³¢ÊÔÌø×ª²»´æÔÚµÄµØÍ¼ newScene=0");
+		Zebra::logger->error("SceneNpc::changeMap(): ×ªÚµÄµÍ¼ newScene=0");
 		return false;
 	}
 	scene->removeNpc(this);
-	//Í¨Öª¿Í»§¶ËÉ¾³ıNPC
+	//Í¨ÖªÍ»É¾NPC
 	zPosI oldPosI = getPosI();
 	Scene *oldScene=scene;
 
@@ -4376,28 +4434,28 @@ bool SceneNpc::changeMap(Scene * newScene, const zPos &pos)
 
 	if (!newScene->refreshNpc(this, pos))
 	{
-		Zebra::logger->debug("%s Ìø×ªµØÍ¼ %s Ê§°Ü", name, newScene->name);
+		Zebra::logger->debug("%s ×ªÍ¼ %s Ê§", name, newScene->name);
 		return false;
 	}
 	scene = newScene;
-	//É¾³ı¾ÉµØÍ¼ÉÏµÄÎÒ
+	//É¾ÉµÍ¼Ïµ
 	Cmd::stRemoveMapNpcMapScreenUserCmd removeNpc;
 	removeNpc.dwMapNpcDataPosition = tempid;
 	oldScene->sendCmdToNine(oldPosI, &removeNpc, sizeof(removeNpc));
-	//Ìí¼ÓĞÂµØÍ¼µÄÎÒ
+	//ÂµÍ¼
 	this->sendMeToNine();
 
-	Zebra::logger->debug("%s Ìø×ªµØÍ¼ %s (x=%u,y=%u)", name, newScene->name, getPos().x, getPos().y);
+	Zebra::logger->debug("%s ×ªÍ¼ %s (x=%u,y=%u)", name, newScene->name, getPos().x, getPos().y);
 	return true;
 }
 
 /**
- * \brief ÏòÑ¡ÖĞ¸ÃnpcµÄÍæ¼Ò·¢ËÍ¸ÃnpcµÄ×´Ì¬ĞÅÏ¢
+ * \brief Ñ¡Ğ¸npcÒ·Í¸npc×´Ì¬Ï¢
  *
  *
  * \param state npc×´Ì¬
- * \param value ¾ßÌåÊıÖµ
- * \param time ³ÖĞøÊ±¼ä
+ * \param value Öµ
+ * \param time Ê±
  * \return 
  */
 void SceneNpc::sendtoSelectedState(DWORD state , WORD value , WORD time)
@@ -4437,17 +4495,17 @@ void SceneNpc::sendtoSelectedState(DWORD state , WORD value , WORD time)
 }
 
 /**
- * \brief ÏòÑ¡ÖÖ¸ÃnpcµÄÍæ¼Ò·¢ËÍ¸ÃnpcµÄhpºÍnp
+ * \brief Ñ¡Ö¸npcÒ·Í¸npchpnp
  */
 void SceneNpc::sendtoSelectedHpAndMp()
 {
 	Cmd::stRTSelectedHpMpPropertyUserCmd ret;
 	ret.byType = Cmd::MAPDATATYPE_NPC;
-	ret.dwTempID = this->tempid;//ÁÙÊ±±àºÅ
-	ret.dwHP = this->hp;//µ±Ç°Ñª
-	ret.dwMaxHp = getMaxHP();//×î´óhp
-	ret.dwMP = 0;//this->charbase.mp;//µ±Ç°mp
-	ret.dwMaxMp = 0;//this->charstate.maxmp;//×î´ómp
+	ret.dwTempID = this->tempid;//Ê±
+	ret.dwHP = this->hp;//Ç°Ñª
+	ret.dwMaxHp = getMaxHP();//hp
+	ret.dwMP = 0;//this->charbase.mp;//Ç°mp
+	ret.dwMaxMp = 0;//this->charstate.maxmp;//mp
 	//selected_lock.lock();
 	SelectedSet_iterator iter = selected.begin();
 	for(; iter != selected.end() ;)
@@ -4458,7 +4516,7 @@ void SceneNpc::sendtoSelectedHpAndMp()
 			if(this->scene->checkTwoPosIInNine(this->getPosI() , pUser->getPosI()))
 			{
 				pUser->sendCmdToMe(&ret ,sizeof(ret));
-				//Zebra::logger->debug("sendtoSelectedHpAndMp(): ·¢ËÍhpºÍmpµ½ %s", pUser->name);
+				//Zebra::logger->debug("sendtoSelectedHpAndMp(): hpmp %s", pUser->name);
 				iter ++ ;
 				continue;
 			}
@@ -4472,26 +4530,26 @@ void SceneNpc::sendtoSelectedHpAndMp()
 }
 
 /**
- * \brief ÉèÖÃÍ¼ÌÚÏµµÄ³ÖĞøÊ±¼ä
+ * \brief Í¼ÏµÄ³Ê±
  *
- * \param standTime ÑÓ³¤µÄÊ±¼ä
+ * \param standTime Ó³Ê±
  */
 void SceneNpc::setStandingTime(DWORD standTime)
 {
     dwStandTime += standTime;
     dwStandTimeCount=standTime;
 #ifdef _DEBUGLOG
-    if (standTime>0) Zebra::logger->debug("Í¼ÌÚÏµµÄ³ÖĞøÊ±¼ä%u µ±Ç°Ê±¼ä[%u]", standTime, dwStandTime);
+    if (standTime>0) Zebra::logger->debug("Í¼ÏµÄ³Ê±%u Ç°Ê±[%u]", standTime, dwStandTime);
 #endif
 }
 
 
 /**
- * \brief ÅĞ¶ÏnpcµÄÎåĞĞÏà¿Ë
+ * \brief Ğ¶npc
  *
  *
- * \param five ÒªÅĞ¶ÏµÄÎåĞĞÊıÖµ
- * \return 1£º¿Ë 2£º±»¿Ë 0£ºÎŞ¹Ø
+ * \param five ÒªĞ¶ÏµÖµ
+ * \return 1 2 0Ş¹
  */
 int SceneNpc::IsOppose(DWORD five)
 {
@@ -4515,24 +4573,24 @@ int SceneNpc::IsOppose(DWORD five)
 }
 
 /**
- * \brief ÉèÖÃnpcµÄÒÆ¶¯ËÙ¶È±¶ÂÊ
+ * \brief npcÆ¶Ù¶È±
  *
- * \param rate ±¶ÂÊ
+ * \param rate 
  */
 void SceneNpc::setSpeedRate(float rate)
 {
 	speedRate = rate;
 
-	//hp20%ÒÔÏÂËÙ¶È¼Ó±¶
+	//hp20%Ù¶È¼Ó±
 	if (speedUpUnder20)
 		speedRate *= 2.0;
 
 	//this->sendMeToNine();
-	//Channel::sendNine(this, "ÒÆ¶¯ËÙ¶È %f", speedRate);
+	//Channel::sendNine(this, "Æ¶Ù¶ %f", speedRate);
 }
 
 /**
- * \brief ÉèÖÃnpcÔ­Ê¼ËÙ¶È
+ * \brief npcÔ­Ê¼Ù¶
  */
 void SceneNpc::resetSpeedRate()
 {
@@ -4548,60 +4606,60 @@ void SceneNpc::resetSpeedRate()
 
 	if (this->assault) speedRate =4;
 
-	//hp20%ÒÔÏÂËÙ¶È¼Ó±¶
+	//hp20%Ù¶È¼Ó±
 	if (speedUpUnder20)
 		speedRate *= 2.0;
 
 	//this->sendMeToNine();
-	//Channel::sendNine(this, "ÒÆ¶¯ËÙ¶È %f", speedRate);
+	//Channel::sendNine(this, "Æ¶Ù¶ %f", speedRate);
 }
 
 /**
- * \brief ÉèÖÃnpcµÄ¹¥»÷ËÙ¶È±¶ÂÊ
+ * \brief npcÄ¹Ù¶È±
  *
- * \param rate ±¶ÂÊ
+ * \param rate 
  */
 void SceneNpc::setAspeedRate(float rate)
 {
     aspeedRate = rate;
 
-    //hp50%ÒÔÏÂ¹¥»÷ËÙ¶È¼Ó±¶
+    //hp50%Â¹Ù¶È¼Ó±
     if (aspeedUpUnder50)
 		aspeedRate *= 2.0;
 
-    //Channel::sendNine(this, "¹¥»÷ËÙ¶È %f", aspeedRate);
-    //Zebra::logger->debug("%s ÉèÖÃ¹¥»÷ËÙ¶È±¶ÂÊ %f", name, rate);
+    //Channel::sendNine(this, "Ù¶ %f", aspeedRate);
+    //Zebra::logger->debug("%s Ã¹Ù¶È± %f", name, rate);
 }
 
 /**
- * \brief ÉèÖÃnpcÔ­Ê¼¹¥»÷ËÙ¶È
+ * \brief npcÔ­Ê¼Ù¶
  */
 void SceneNpc::resetAspeedRate()
 {
     aspeedRate = 1.0;
 
-    //hp50%ÒÔÏÂ¹¥»÷ËÙ¶È¼Ó±¶
+    //hp50%Â¹Ù¶È¼Ó±
     if (aspeedUpUnder50)
 		aspeedRate *= 2.0;
 
-    //Channel::sendNine(this, "¹¥»÷ËÙ¶È %f", aspeedRate);
+    //Channel::sendNine(this, "Ù¶ %f", aspeedRate);
 }
 
 /**
- * \brief È¡ÏûnpcµÄÖ÷ÈË
+ * \brief È¡npc
  */
 void SceneNpc::clearMaster()
 {
     //master = NULL;
 }
 
-//Ö÷¶¯Ñ°µĞÊ±ÅĞ¶Ï
+//Ñ°Ê±Ğ¶
 /**
- * \brief ÅĞ¶ÏÊÇ·ñ¿ÉËø¶¨Ä¿±ê
+ * \brief Ğ¶Ç·Ä¿
  *
  *
- * \param entry ÒªÅĞ¶ÏµÄÄ¿±ê
- * \return ÊÇ·ñ¿ÉÒÔËø¶¨
+ * \param entry ÒªĞ¶ÏµÄ¿
+ * \return Ç·
  */
 bool SceneNpc::canChaseTarget(const SceneEntryPk * entry)
 {
@@ -4621,7 +4679,7 @@ bool SceneNpc::canChaseTarget(const SceneEntryPk * entry)
 			}
 		case zSceneEntry::SceneEntry_NPC:
 			{
-				//³èÎïÔİÊ±±»¶¯
+				//Ê±
 				if (NPC_TYPE_PET!=/* ((SceneNpc *)entry)-> */npc->kind) return false;
 				if (NPC_AI_PATROL==AIDefine.type)
 				{
@@ -4643,9 +4701,9 @@ bool SceneNpc::canChaseTarget(const SceneEntryPk * entry)
 }
 
 /**
- * \brief npcÊÇ·ñºìÃû
+ * \brief npcÇ·
  *
- * \return ÊÇ·ñºìÃû
+ * \return Ç·
  */
 bool SceneNpc::isRedNamed(bool allRedMode)
 {
@@ -4653,10 +4711,10 @@ bool SceneNpc::isRedNamed(bool allRedMode)
 }
 
 /**
- * \brief ÉèÖÃnpc½Å±¾
+ * \brief npcÅ±
  *
- * \param id ½Å±¾id
- * \return ÊÇ·ñÉèÖÃ³É¹¦
+ * \param id Å±id
+ * \return Ç·Ã³É¹
  */
 bool SceneNpc::setScript(int id)
 {
@@ -4667,7 +4725,7 @@ bool SceneNpc::setScript(int id)
 }
 
 /**
- * \brief Çå³ınpc½Å±¾
+ * \brief npcÅ±
  *
  */
 void SceneNpc::clearScript()
@@ -4677,9 +4735,9 @@ void SceneNpc::clearScript()
 }
 
 /**
- * \brief ¹¥»÷Õß³åÏòÎÒ
- * \param attacktype ¹¥»÷ÕßµÄÀàĞÍ
- * \param tempid ¹¥»÷ÕßµÄÁÙÊ±id
+ * \brief ß³
+ * \param attacktype ßµ
+ * \param tempid ßµÊ±id
  * \author fqnewman
  */
 void SceneNpc::assaultMe(BYTE attacktype, DWORD tempid)
@@ -4714,12 +4772,12 @@ void SceneNpc::assaultMe(BYTE attacktype, DWORD tempid)
 }
 
 /**
- * \brief ¶ÔÄ¿±êÊ¹ÓÃ¼¼ÄÜ
+ * \brief Ä¿Ê¹Ã¼
  *
  *
- * \param target Ä¿±ê
- * \param id ¼¼ÄÜid
- * \return ÊÇ·ñÊ¹ÓÃ³É¹¦
+ * \param target Ä¿
+ * \param id id
+ * \return Ç·Ê¹Ã³É¹
  */
 bool SceneNpc::useSkill(SceneEntryPk * target, DWORD id)
 {
@@ -4745,12 +4803,12 @@ bool SceneNpc::useSkill(SceneEntryPk * target, DWORD id)
 	att.wdMagicType = id;
 	switch(atype)
 	{
-		case NPC_ATYPE_NEAR:	/// ½ü¾àÀë¹¥»÷
+		case NPC_ATYPE_NEAR:	/// ë¹¥
 			{
 				att.byAction = Ani_Attack;
 			}
 			break;
-		case NPC_ATYPE_FAR:		/// Ô¶¾àÀë¹¥»÷
+		case NPC_ATYPE_FAR:		/// Ô¶ë¹¥
 			{
 				att.byAction = Ani_Attack;
 			}
@@ -4805,13 +4863,13 @@ bool SceneNpc::useSkill(SceneEntryPk * target, DWORD id)
 }
 
 /**
- * \brief npcËæ»úËµ»°
+ * \brief npcËµ
  *
- * \param type Ëµ»°µÄÀàĞÍ
+ * \param type Ëµ
  */
 void SceneNpc::randomChat(NpcChatType type)
 {
-	//soke ÕâÀïÊÇËæ»úËµ»°NPCµÄÀàĞÍ
+	//soke ËµNPC
 	if ((npc->kind!=0)
 			&&(npc->kind!=1)
 			&&(npc->kind!=2)
@@ -4839,11 +4897,11 @@ void SceneNpc::randomChat(NpcChatType type)
 	if (SceneNpcManager::getMe().getNpcCommonChat(type, str))
 		Channel::sendNine(this, str);
 	//else
-	//	Zebra::logger->debug("È¡µÃËµ»°ÄÚÈİÊ§°Ü type=%d", type);
+	//	Zebra::logger->debug("È¡ËµÊ§ type=%d", type);
 }
 
 /**
- * \brief ½ÇÉ«ÖĞÁË¿Ö¾åĞ§¹û
+ * \brief É«Ë¿Ö¾Ğ§
  */
 bool SceneNpc::dreadProcess()
 {
@@ -4865,9 +4923,9 @@ bool SceneNpc::dreadProcess()
 }
 
 /**
- * \brief µÃµ½npcµÄ¹¥»÷ÀàĞÍ
+ * \brief ÃµnpcÄ¹
  *
- * \return ¹¥»÷ÀàĞÍ
+ * \return 
  */
 BYTE SceneNpc::getAType()
 {
@@ -4878,28 +4936,28 @@ BYTE SceneNpc::getAType()
 }
 
 /**
- * \brief ÅĞ¶ÏÊÇ·ñºìÃû
+ * \brief Ğ¶Ç·
  *
- * \return ÊÇ·ñºìÃû
+ * \return Ç·
  */
 bool SceneNpc::isRedNamed(bool allRedMode) const
 {
     return false;
 }
 /**
- * \brief Ìî³ä³èÎïĞÅÏ¢µÄ½á¹¹
+ * \brief Ï¢Ä½á¹¹
  *
  *
- * \param data ½á¹¹µØÖ·
+ * \param data á¹¹Ö·
  */     
 void SceneNpc::full_PetDataStruct(Cmd::t_PetData & data)
 {
 }
 
 /**
- * \brief ÊÇ·ñÖ÷¶¯¹¥»÷
+ * \brief Ç·
  *
- * \return ÊÇ·ñÖ÷¶¯¹¥»÷
+ * \return Ç·
  */
 bool SceneNpc::isActive()
 {
@@ -4907,9 +4965,9 @@ bool SceneNpc::isActive()
 }
 
 /**
- * \brief ÊÇ·ñ¿ÉÒÔÕ½¶·
+ * \brief Ç·Õ½
  *
- * \return ÊÇ·ñ¿ÉÒÔÕ½¶·
+ * \return Ç·Õ½
  */
 bool SceneNpc::canFight()
 {
@@ -4917,9 +4975,9 @@ bool SceneNpc::canFight()
 }
 
 /**
- * \brief ÊÇ·ñ¿ÉÒÔÒÆ¶¯
+ * \brief Ç·Æ¶
  *
- * \return ÊÇ·ñ¿ÉÒÔÒÆ¶¯
+ * \return Ç·Æ¶
  */
 bool SceneNpc::canMove()
 {
@@ -4927,9 +4985,9 @@ bool SceneNpc::canMove()
 }
 
 /**
- * \brief µÃµ½³èÎïµÄÀàĞÍ
+ * \brief Ãµ
  *
- * \return ³èÎïÀàĞÍ
+ * \return 
  */
 Cmd::petType SceneNpc::getPetType()
 {
@@ -4937,8 +4995,8 @@ Cmd::petType SceneNpc::getPetType()
 }
 
 /**
- * \brief ±ê¼ÇnpcÎªÇå³ı×´Ì¬
- * ÏÂ´ÎÑ­»·Ê±Çå³ı
+ * \brief npcÎª×´Ì¬
+ * Â´Ñ­Ê±
  */
 void SceneNpc::setClearState()
 {
@@ -4950,13 +5008,13 @@ void SceneNpc::setClearState()
 		scene->bossMap.erase(COUNTRY_MAIN_GEN);
 	if (scene->bossMap[id]==this)
 		scene->bossMap.erase(id);
-    //Zebra::logger->trace("±ê¼Çnpc %s(%u)", name, tempid);
+    //Zebra::logger->trace("npc %s(%u)", name, tempid);
 }
 
 /**
- * \brief ¼ì²é¸ÃnpcÊÇ·ñÒªÇå³ı
+ * \brief npcÇ·Òª
  *
- * \return ÊÇ·ñÒªÇå³ı
+ * \return Ç·Òª
  */
 bool SceneNpc::needClear()
 {
@@ -4964,9 +5022,9 @@ bool SceneNpc::needClear()
 }
 
 /**
- * \brief ÅĞ¶ÏÊÇ·ñÊÇÈÎÎñnpc
+ * \brief Ğ¶Ç·npc
  *
- * \return ÊÇ·ñÊÇÈÎÎñnpc
+ * \return Ç·npc
  */
 bool SceneNpc::isTaskNpc()
 {
@@ -4979,9 +5037,9 @@ bool SceneNpc::isTaskNpc()
     return false;
 }
 /**
- * \brief ÅĞ¶ÏÊÇ·ñÊÇ¹¦ÄÜnpc
+ * \brief Ğ¶Ç·Ç¹npc
  *
- * \return ÊÇ·ñÊÇ¹¦ÄÜnpc
+ * \return Ç·Ç¹npc
  */
 bool SceneNpc::isFunctionNpc()
 {
@@ -4997,10 +5055,10 @@ bool SceneNpc::isFunctionNpc()
     return false;
 }
 /**
- * \brief ÅĞ¶ÏÊÇ·ñÊÇÌØÊânpc
+ * \brief Ğ¶Ç·npc
  *
- * ÌØÊânpc°üÀ¨³èÎï¡¢boss¡¢ÓĞ¹Ì¶¨½Å±¾µÄnpc
- * \return ÊÇ·ñÊÇÌØÊânpc
+ * npcï¡¢bossĞ¹Ì¶Å±npc
+ * \return Ç·npc
  */
 bool SceneNpc::isSpecialNpc()
 {
@@ -5018,9 +5076,9 @@ bool SceneNpc::isSpecialNpc()
 }
 
 /**
- * \brief µÃµ½ËÙ¶È±¶ÂÊ
+ * \brief ÃµÙ¶È±
  *
- * \return ËÙ¶È±¶ÂÊ
+ * \return Ù¶È±
  */
 float SceneNpc::getSpeedRate()
 {
@@ -5028,7 +5086,7 @@ float SceneNpc::getSpeedRate()
 }
 
 /**
- * \brief ¸Ä±ä²¢Ë¢ĞÂ½ÇÉ«ÊôĞÔ
+ * \brief Ä±ä²¢Ë¢Â½É«
  * \author fqnewman
  */
 void  SceneNpc::changeAndRefreshHMS(bool lock, bool sendData)
@@ -5038,12 +5096,12 @@ void  SceneNpc::changeAndRefreshHMS(bool lock, bool sendData)
 }
 
 /**
- * \brief ÉèÖÃ¹¥»÷Ä¿±ê
+ * \brief Ã¹Ä¿
  * 
  *
- * \param target ¹¥»÷Ä¿±ê
- * \param force Ç¿ÖÆÉèÖÃÄ¿±ê
- * \return ÊÇ·ñ³É¹¦
+ * \param target Ä¿
+ * \param force Ç¿Ä¿
+ * \return Ç·É¹
  */
 bool SceneNpc::setCurTarget(SceneEntryPk * target, bool force)
 {
@@ -5068,13 +5126,13 @@ bool SceneNpc::setCurTarget(SceneEntryPk * target, bool force)
 }
 
 /**
- * \brief ÉèÖÃ¹¥»÷Ä¿±ê
+ * \brief Ã¹Ä¿
  *
  *
- * \param type ¹¥»÷Ä¿±êÀàĞÍ
- * \param id ¹¥»÷Ä¿±êÁÙÊ±ID
- * \param force Ç¿ÖÆÉèÖÃÄ¿±ê
- * \return ÊÇ·ñ³É¹¦
+ * \param type Ä¿
+ * \param id Ä¿Ê±ID
+ * \param force Ç¿Ä¿
+ * \return Ç·É¹
  */
 bool SceneNpc::setCurTarget(DWORD id, DWORD type, bool force)
 {
@@ -5099,22 +5157,22 @@ bool SceneNpc::setCurTarget(DWORD id, DWORD type, bool force)
 }
 
 /**
- * \brief ÕĞ»½³èÎï
+ * \brief Ğ»
  *
- * \param id ³èÎïID
- * \param type ³èÎïÀàĞÍ
- * \param standTime ¸ÃnpcµÄ³ÖĞøÊ±¼ä
- * \param sid ½Å±¾ID
- * \param petName Ö¸¶¨³èÎïµÄÃû×Ö
- * \param anpcid Ç¿»¯µÄ¸½¼ÓnpcID
+ * \param id ID
+ * \param type 
+ * \param standTime npcÄ³Ê±
+ * \param sid Å±ID
+ * \param petName Ö¸
+ * \param anpcid Ç¿Ä¸npcID
  *
- * \return Èç¹û¸Ã³èÎï´æÔÚ£¬·µ»Ø³èÎï¶ÔÏóµÄÖ¸Õë£¬·ñÔòÎªNULL
+ * \return Ã³Ú£Ø³Ö¸ë£¬ÎªNULL
  */
 ScenePet * SceneNpc::summonPet(DWORD id, Cmd::petType type, DWORD standTime, DWORD sid, const char * petName, DWORD anpcid, zPos pos, BYTE vdir)
 {
 	if ((Cmd::PET_TYPE_PET>type)||(Cmd::PET_TYPE_SEMI<type))
 	{
-		Zebra::logger->trace("SceneNpc::summonPet(): %s ÕÙ»½Î´ÖªÀàĞÍµÄ³èÎï type=%d", name, type);
+		Zebra::logger->trace("SceneNpc::summonPet(): %s Ù»Î´ÖªÍµÄ³ type=%d", name, type);
 		return 0;
 	}
 
@@ -5203,11 +5261,11 @@ ScenePet * SceneNpc::summonPet(DWORD id, Cmd::petType type, DWORD standTime, DWO
 				semipetList.push_back(newPet);
 				break;
 			default:
-				Zebra::logger->trace("SceneNpc::summonPet(): Î´ÖªµÄ³èÎïÀàĞÍ %d", type);
+				Zebra::logger->trace("SceneNpc::summonPet(): Î´ÖªÄ³ %d", type);
 				break;
 		}
 
-		Zebra::logger->debug("%s Ôö¼Ó³èÎï %s ÀàĞÍ %d", name, newPet->name, type);
+		Zebra::logger->debug("%s Ó³ %s  %d", name, newPet->name, type);
 	}
 
 	return newPet;
@@ -5215,7 +5273,7 @@ ScenePet * SceneNpc::summonPet(DWORD id, Cmd::petType type, DWORD standTime, DWO
 
 
 /**
- * \brief É¾³ıÒ»¸ö³èÎï
+ * \brief É¾Ò»
  *
  */
 bool SceneNpc::killOnePet(ScenePet * kill)
@@ -5223,7 +5281,7 @@ bool SceneNpc::killOnePet(ScenePet * kill)
 	if (!kill) return false;
 	if (kill->getMaster()!=this)
 	{
-		Zebra::logger->error("[³èÎï]%s(%u) ²»ÊÇNPC %s(%u) µÄ³èÎï£¬kill->getMaster()=%u", kill->name, kill->tempid, name, tempid, kill->getMaster());
+		Zebra::logger->error("[]%s(%u) NPC %s(%u) Ä³ï£¬kill->getMaster()=%u", kill->name, kill->tempid, name, tempid, kill->getMaster());
 		return false;
 	}
 
@@ -5267,12 +5325,12 @@ bool SceneNpc::killOnePet(ScenePet * kill)
 }
 
 /**
- * \brief É¾³ıËùÓĞ³èÎï
+ * \brief É¾Ğ³
  *
  */
 void SceneNpc::killAllPets()
 {
-	//É¾³ıËùÓĞ³èÎï
+	//É¾Ğ³
 #ifdef _XWL_DEBUG
 	//Zebra::logger->debug("SceneNpc::killAllPets(): lock %s type=%u", name, getPetType());
 #endif
@@ -5355,11 +5413,11 @@ void SceneNpc::killAllPets()
 }
 
 /**
- * \brief ¼ì²éÊÇ·ñµ½ÁË»ØÑªµÄÊ±¼ä
+ * \brief Ç·Ë»ÑªÊ±
  *
  *
- * \param ct ÓÃÓÚ±È½ÏµÄÊ±¼ä
- * \return ÊÇ·ñµ½Ê±¼ä
+ * \param ct Ú±È½ÏµÊ±
+ * \return Ç·Ê±
  */
 bool SceneNpc::checkRecoverTime(const zRTime& ct)
 {
@@ -5367,10 +5425,10 @@ bool SceneNpc::checkRecoverTime(const zRTime& ct)
 }
 
 /**
- * \brief ÉèÖÃÏÂ´Î»ØÑªµÄÊ±¼ä
+ * \brief Â´Î»ÑªÊ±
  *
- * \param ct ÑÓ³Ù¿ªÊ¼µÄÊ±¼ä
- * \param delay ÑÓ³Ù
+ * \param ct Ó³Ù¿Ê¼Ê±
+ * \param delay Ó³
  */
 void SceneNpc::setRecoverTime(const zRTime& ct, int delay)
 {
@@ -5379,9 +5437,9 @@ void SceneNpc::setRecoverTime(const zRTime& ct, int delay)
 }
 
 /**
- * \brief ÉèÖÃÖ÷ÈË¹÷Àà¸½¼Ó¹¥»÷Á¦
- * \param mindamage ×îĞ¡¹¥»÷Á¦
- * \param maxdamage ×î´ó¹¥»÷Á¦
+ * \brief Ë¹à¸½Ó¹
+ * \param mindamage Ğ¡
+ * \param maxdamage ó¹¥»
  */
 void SceneNpc::setAppendDamage(DWORD mindamage, DWORD maxdamage)
 {
@@ -5390,8 +5448,8 @@ void SceneNpc::setAppendDamage(DWORD mindamage, DWORD maxdamage)
 }
 
 /**
- * \brief »ñÈ¡×îĞ¡·¨Êõ¹¥»÷Á¦
- * \return ×îĞ¡·¨Êõ¹¥»÷Á¦
+ * \brief È¡Ğ¡
+ * \return Ğ¡
  */
 // uint64_t SceneNpc::getMinMDamage()
 // {
@@ -5402,8 +5460,8 @@ void SceneNpc::setAppendDamage(DWORD mindamage, DWORD maxdamage)
 // }
 
 // /**
-//  * \brief »ñÈ¡×î´ó·¨Êõ¹¥»÷Á¦
-//  * \return ×î´ó·¨Êõ¹¥»÷Á¦
+//  * \brief È¡
+//  * \return 
 //  */
 // uint64_t SceneNpc::getMaxMDamage() 
 // {
@@ -5414,8 +5472,8 @@ void SceneNpc::setAppendDamage(DWORD mindamage, DWORD maxdamage)
 // }
 
 // /**
-//  * \brief »ñÈ¡×îĞ¡ÎïÀí¹¥»÷Á¦
-//  * \return ×îĞ¡ÎïÀí¹¥»÷Á¦
+//  * \brief È¡Ğ¡
+//  * \return Ğ¡
 //  */
 // uint64_t SceneNpc::getMinPDamage()
 // {
@@ -5425,8 +5483,8 @@ void SceneNpc::setAppendDamage(DWORD mindamage, DWORD maxdamage)
 // }
 
 // /**
-//  * \brief »ñÈ¡×î´óÎïÀí¹¥»÷Á¦
-//  * \return ×î´óÎïÀí¹¥»÷Á¦
+//  * \brief È¡
+//  * \return 
 //  */
 // uint64_t SceneNpc::getMaxPDamage()
 // {
@@ -5435,55 +5493,55 @@ void SceneNpc::setAppendDamage(DWORD mindamage, DWORD maxdamage)
 //     return value;
 // }
 /**
- * \brief »ñÈ¡×îĞ¡·¨Êõ¹¥»÷Á¦
- * \return ×îĞ¡·¨Êõ¹¥»÷Á¦
+ * \brief È¡Ğ¡
+ * \return Ğ¡
  */
 uint64_t SceneNpc::getMinMDamage()
 {
     uint64_t positive = this->npc->mdamage+appendMinDamage+skillValue.uppetdamage+skillValue.theurgy_umdam;
     uint64_t negative = skillValue.dmdam+skillValue.theurgy_dmdam;
-    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday ±ÜÃâuint64_tÏÂÒç
+    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday uint64_t
     return value;
 }
 
 /**
- * \brief »ñÈ¡×î´ó·¨Êõ¹¥»÷Á¦
- * \return ×î´ó·¨Êõ¹¥»÷Á¦
+ * \brief È¡
+ * \return 
  */
 uint64_t SceneNpc::getMaxMDamage() 
 {
     uint64_t positive = this->npc->maxmdamage+appendMaxDamage+skillValue.uppetdamage+skillValue.theurgy_umdam;
     uint64_t negative = skillValue.dmdam+skillValue.theurgy_dmdam;
-    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday ±ÜÃâuint64_tÏÂÒç
+    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday uint64_t
     return value;
 }
 
 /**
- * \brief »ñÈ¡×îĞ¡ÎïÀí¹¥»÷Á¦
- * \return ×îĞ¡ÎïÀí¹¥»÷Á¦
+ * \brief È¡Ğ¡
+ * \return Ğ¡
  */
 uint64_t SceneNpc::getMinPDamage()
 {
     uint64_t positive = this->npc->damage+appendMinDamage+skillValue.uppetdamage+skillValue.theurgy_updam;
     uint64_t negative = skillValue.dpdam+skillValue.theurgy_dpdam;
-    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday ±ÜÃâuint64_tÏÂÒç
+    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday uint64_t
     return value;
 }
 
 /**
- * \brief »ñÈ¡×î´óÎïÀí¹¥»÷Á¦
- * \return ×î´óÎïÀí¹¥»÷Á¦
+ * \brief È¡
+ * \return 
  */
 uint64_t SceneNpc::getMaxPDamage()
 {
     uint64_t positive = this->npc->maxdamage+appendMaxDamage+skillValue.uppetdamage+skillValue.theurgy_updam;
     uint64_t negative = skillValue.dpdam+skillValue.theurgy_dpdam;
-    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday ±ÜÃâuint64_tÏÂÒç
+    uint64_t value = (positive >= negative) ? (positive - negative) : 0;  //by=>friday uint64_t
     return value;
 }
 /**
- * \brief »ñÈ¡×îĞ¡·¨Êõ·ÀÓùÁ¦
- * \return ×îĞ¡·¨Êõ·ÀÓùÁ¦
+ * \brief È¡Ğ¡
+ * \return Ğ¡
  */
 // uint64_t SceneNpc::getMinMDefence()
 // {
@@ -5496,13 +5554,13 @@ uint64_t SceneNpc::getMinMDefence()
 {
     uint64_t base = this->npc->mdefence+skillValue.uppetdefence+skillValue.umdef+skillValue.theurgy_umdef;
     uint64_t reduce = skillValue.theurgy_dmdef;
-    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday ±ÜÃâuint64_tÏÂÒç
+    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday uint64_t
     value = (uint64_t)(value * (1 - skillValue.dmdefp/100.0f));
     return value;
 }
 /**
- * \brief »ñÈ¡×î´ó·¨Êõ·ÀÓùÁ¦
- * \return ×î´ó·¨Êõ·ÀÓùÁ¦
+ * \brief È¡
+ * \return 
  */
 // uint64_t SceneNpc::getMaxMDefence() 
 // {
@@ -5515,13 +5573,13 @@ uint64_t SceneNpc::getMaxMDefence()
 {
     uint64_t base = this->npc->maxmdefence+skillValue.uppetdefence+skillValue.umdef+skillValue.theurgy_umdef;
     uint64_t reduce = skillValue.theurgy_dmdef;
-    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday ±ÜÃâuint64_tÏÂÒç
+    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday uint64_t
     value = (uint64_t)(value * (1 - skillValue.dmdefp/100.0f));
     return value;
 }
 /**
- * \brief »ñÈ¡×îĞ¡ÎïÀí·ÀÓùÁ¦
- * \return ×îĞ¡ÎïÀí·ÀÓùÁ¦
+ * \brief È¡Ğ¡
+ * \return Ğ¡
  */
 // uint64_t SceneNpc::getMinPDefence()
 // {
@@ -5533,13 +5591,13 @@ uint64_t SceneNpc::getMinPDefence()
 {
     uint64_t base = this->npc->pdefence+skillValue.uppetdefence+skillValue.updef+skillValue.theurgy_updef;
     uint64_t reduce = skillValue.theurgy_dpdef;
-    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday ±ÜÃâuint64_tÏÂÒç
+    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday uint64_t
     return value;
 }
 
 /**
- * \brief »ñÈ¡×î´óÎïÀí·ÀÓùÁ¦
- * \return ×î´óÎïÀí·ÀÓùÁ¦
+ * \brief È¡
+ * \return 
  */
 // uint64_t SceneNpc::getMaxPDefence()
 // {
@@ -5551,13 +5609,13 @@ uint64_t SceneNpc::getMaxPDefence()
 {
     uint64_t base = this->npc->maxpdefence+skillValue.uppetdefence+skillValue.updef+skillValue.theurgy_updef;
     uint64_t reduce = skillValue.theurgy_dpdef;
-    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday ±ÜÃâuint64_tÏÂÒç
+    uint64_t value = (base >= reduce) ? (base - reduce) : 0;  //by=>friday uint64_t
     return value;
 }
 /**
- * \brief »ñµÃ×î´óµÄhp
+ * \brief hp
  * \author fqnewman
- * \return ·µ»Ø×î´óÖµ
+ * \return Öµ
  */
 uint64_t SceneNpc::getMaxHP()
 {
@@ -5569,9 +5627,9 @@ uint64_t SceneNpc::getMaxHP()
 }
 
 /**
- * \brief »ñµÃ×î´óµÄhp
+ * \brief hp
  * \author fqnewman
- * \return ·µ»Ø×î´óÖµ
+ * \return Öµ
  */
 uint64_t SceneNpc::getBaseMaxHP()
 {
@@ -5579,7 +5637,7 @@ uint64_t SceneNpc::getBaseMaxHP()
 }
 
 /**
- * \brief Ïò9ÆÁ·¢ËÍ×Ô¼ºµÄÊı¾İ
+ * \brief 9Ô¼
  *
  */
 void SceneNpc::sendMeToNine()
@@ -5604,7 +5662,7 @@ void SceneNpc::sendMeToNine()
 }
 
 /**
- * \brief npc»ØÑª
+ * \brief npcÑª
  *
  */
 bool SceneNpc::recover()
@@ -5620,11 +5678,11 @@ bool SceneNpc::recover()
 
 	if (_3_sec(SceneTimeTick::currentTime))
 	{
-		if (npc->recover.type==1)//°´°Ù·Ö±È»Ø
+		if (npc->recover.type==1)//Ù·Ö±È»
 			hp += tMaxHP*npc->recover.num/100;
-		else if (npc->recover.type==2)//°´ÊıÁ¿
+		else if (npc->recover.type==2)//
 	//		hp += npc->recover.num;
-	        hp += npc->recover.num/10; //soke npc»ØÑª/10
+	        hp += npc->recover.num/10; //soke npcÑª/10
 
 		ret = true;
 	}
@@ -5637,12 +5695,12 @@ bool SceneNpc::recover()
 }
 
 /**
- * \brief ÍÑÀëÕ½¶· 
+ * \brief Õ½ 
  *
  */
 void SceneNpc::leaveBattle()
 {
-	if (aif&AIF_RCV_REST)//ÍÑÀëÕ½¶·»ØÑª
+	if (aif&AIF_RCV_REST)//Õ½Ñª
 	{
 		rcvTimeRest.now();
 		rcvTimeRest.addDelay(30*1000);
@@ -5652,14 +5710,14 @@ void SceneNpc::leaveBattle()
 	lockTarget = false;
 	SceneEntryPk::leaveBattle();
 //#ifdef _XWL_DEBUG
-//	Zebra::logger->debug("%s ÍÑÀëÕ½¶·", name);
+//	Zebra::logger->debug("%s Õ½", name);
 //#endif
 }
 
 /**
- * \brief ÉèÖÃµÚ¶ş¹¥»÷Ä¿±ê
- * \param target Ä¿±êÖ¸Õë
- * \return ÊÇ·ñ³É¹¦
+ * \brief ÃµÚ¶Ä¿
+ * \param target Ä¿Ö¸
+ * \return Ç·É¹
  */
 bool SceneNpc::setSecondTarget(SceneEntryPk * target)
 {
@@ -5668,22 +5726,22 @@ bool SceneNpc::setSecondTarget(SceneEntryPk * target)
 	if (curTargetType==(DWORD)target->getType() && curTargetID==target->tempid) return false;
 	if (!canReach(target)) return false;
 
-	if (target==this) return false;//²»ÉèÖÃ×Ô¼º
-	if (!isEnemy(target)) return false;//²»ÉèÖÃÅóÓÑ
+	if (target==this) return false;//Ô¼
+	if (!isEnemy(target)) return false;//
 
 	secondTargetType = target->getType();
 	secondTargetID = target->tempid;
 #ifdef _XWL_DEBUG
-	//	Zebra::logger->debug("%s ÉèÖÃµÚ¶şÄ¿±ê id=%u type=%u", name, secondTargetID, secondTargetType);
+	//	Zebra::logger->debug("%s ÃµÚ¶Ä¿ id=%u type=%u", name, secondTargetID, secondTargetType);
 #endif
 	return true;
 }
 
 /**
- * \brief ÉèÖÃµÚ¶ş¹¥»÷Ä¿±ê
- * \param id ÁÙÊ±id
- * \param type ÀàĞÍ
- * \return ÊÇ·ñ³É¹¦
+ * \brief ÃµÚ¶Ä¿
+ * \param id Ê±id
+ * \param type 
+ * \return Ç·É¹
  */
 bool SceneNpc::setSecondTarget(DWORD id, DWORD type)
 {
@@ -5700,9 +5758,9 @@ bool SceneNpc::setSecondTarget(DWORD id, DWORD type)
 }
 
 /**
- * \brief µÃµ½´Î¹¥»÷Ä¿±ê
+ * \brief ÃµÎ¹Ä¿
  *
- * \return ´Î¹¥»÷Ä¿±ê
+ * \return Î¹Ä¿
  * 
  */
 SceneEntryPk * SceneNpc::getSecondTarget()
@@ -5719,9 +5777,9 @@ SceneEntryPk * SceneNpc::getSecondTarget()
 }
 
 /**
- * \brief ÉèÖÃµÚ¶ş¹¥»÷Ä¿±êÎªµ±Ç°Ä¿±ê
+ * \brief ÃµÚ¶Ä¿ÎªÇ°Ä¿
  *
- * \return ÊÇ·ñ³É¹¦
+ * \return Ç·É¹
  * 
  */
 bool SceneNpc::chaseSecondTarget()
@@ -5731,7 +5789,7 @@ bool SceneNpc::chaseSecondTarget()
     curTargetID = secondTargetID;
     curTargetType = secondTargetType;
 #ifdef _XWL_DEBUG
-    //Zebra::logger->debug("%s ¹¥»÷µÚ¶şÄ¿±ê id=%u type=%u", name, secondTargetID, secondTargetType);
+    //Zebra::logger->debug("%s Ú¶Ä¿ id=%u type=%u", name, secondTargetID, secondTargetType);
 #endif
     secondTargetID = 0;
     secondTargetType = 0;
@@ -5739,9 +5797,9 @@ bool SceneNpc::chaseSecondTarget()
 }
 
 /**
- * \brief ÉèÖÃµ±Ç°Ä¿±êµÄÖ÷ÈËµ±Ç°Ä¿±ê
+ * \brief ÃµÇ°Ä¿ËµÇ°Ä¿
  *
- * \return ÊÇ·ñ³É¹¦
+ * \return Ç·É¹
  * 
  */
 bool SceneNpc::chaseItsMaster()
@@ -5753,7 +5811,7 @@ bool SceneNpc::chaseItsMaster()
     if (!m || m==c) return false;
 
 #ifdef _XWL_DEBUG
-    //Zebra::logger->debug("%s ¹¥»÷ÆäÖ÷ÈË id=%u type=%u", name, m->tempid, m->getType());
+    //Zebra::logger->debug("%s  id=%u type=%u", name, m->tempid, m->getType());
 #endif
     return setCurTarget(m, true);
 }
@@ -5767,16 +5825,16 @@ void SceneNpc::goToRandomScreen()
 	}
 }
 
-//soke ÕâÀïÊÇ´ó½«¾üÍõµÈ±»¹¥»÷ÉÙ10%Ñª
+//soke Ç´ó½«¾È±10%Ñª
 bool SceneNpc::isMainGeneral()
 {
 	return (id>=58200 && id<58300 && 0==id%10);
 }
 
 /**
- * \brief ¸ù¾İnpcMapÕÙ»½npc£¨³èÎï¡¢HP60%ÒÔÏÂ¡¢ËÀÍöºóÕÙ»½µÄnpc£©
+ * \brief npcMapÙ»npcï¡¢HP60%Â¡Ù»npc
  *
- * \return ÕÙ»½µÄÊıÁ¿
+ * \return Ù»
  */
 int SceneNpc::summonByNpcMap(std::map<DWORD, std::pair<DWORD, DWORD> > map)
 {
@@ -5816,7 +5874,7 @@ int SceneNpc::summonByNpcMap(std::map<DWORD, std::pair<DWORD, DWORD> > map)
 }
 
 	/**
-	 * \brief ÔÚÆÁÄ»ÄÚ¶¨µãÒÆ¶¯
+	 * \brief Ä»Ú¶Æ¶
 	 * \author fqnewman
 	 */
 	void SceneNpc::jumpTo(zPos &newPos)

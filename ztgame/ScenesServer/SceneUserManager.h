@@ -34,10 +34,10 @@ class SceneUserManager:protected zUserManager
 		void removeAllUser();
 		DWORD countUserInOneScene(Scene *scene);
 		DWORD countUserByTask(SceneTask *task);
-		bool GuoJiaBiaoCheJiangLi1(Scene *scene);
-		bool GuoJiaBiaoCheJiangLi2(Scene *scene);
-		bool GuoJiaBiaoCheJiangLi3(Scene *scene);
-		bool GuoJiaBiaoCheJiangLi4(Scene *scene);
+		bool GuoJiaBiaoCheJiangLi1(Scene *scene, DWORD countryID);
+		bool GuoJiaBiaoCheJiangLi2(Scene *scene, DWORD countryID);
+		bool GuoJiaBiaoCheJiangLi3(Scene *scene, DWORD countryID);
+		bool GuoJiaBiaoCheJiangLi4(Scene *scene, DWORD countryID);
 		void countryTrans(DWORD dwCountryID, DWORD dwLevel);
 		void setAntiAtt(DWORD dwType, DWORD dwFromRelationID, DWORD dwToRelationID);
 		void enterWar(Cmd::Session::t_enterWar_SceneSession* cmd);
@@ -48,7 +48,7 @@ class SceneRecycleUserManager: public zEntryManager< zEntryID >
 {
 	private:
 		/**
-		 ** \brief 管理器访问互斥锁
+		 ** \brief 驶
 		 **/
 		zRWLock rwlock;
 		static SceneRecycleUserManager *instance;
@@ -63,8 +63,8 @@ class SceneRecycleUserManager: public zEntryManager< zEntryID >
 		bool canReg(DWORD id);
 		void refresh();
 		/**
-		 ** \brief 对每个用户执行
-		 ** \param exec 执行接口
+		 ** \brief 每没执
+		 ** \param exec 执薪涌
 		 **/
 		template <class YourUserEntry>
 			bool execEveryUser(execEntry<YourUserEntry> &exec)
