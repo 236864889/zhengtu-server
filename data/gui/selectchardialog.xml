@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10
+#define GUI_WS_MODAL		0x20-->
+<gui>
+    <dialog id="4" name="SelectCharDialog" style="21" caption="选择角色" rect="221,157,357,285" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+        <!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+        <script>
+function OnGuiEvent(nEvent,nID,pControl) 
+	if nEvent == 100 then 
+		if nID == 100 then 
+			LoginServer()
+			return true
+		elseif nID == 101 then 
+			ExitLogin()
+			return true
+		elseif nID == 102 then
+			CreateChar()
+			return true
+		end 
+	elseif nEvent == 200 then
+		if nID == 1 then
+			UpdateValue()
+			return true
+		end
+	end 
+	
+	return false 
+end</script>
+        <controls>
+            <!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+            <item id="1" type="ComboBox" style="0" rect="34,8,205,31" textcolor="255,255,255,255" color="255,255,255,255" hotkey="" isdefault="0">
+                <datas>
+                    <item>xuzhao2</item>
+                    <item>xuzhao</item>
+                </datas>
+            </item>
+            <!--
+            <datas>
+                <item>角色1</item>
+                <item>角色2</item>
+                <item>角色3</item>
+            </datas>
+            -->
+            <item id="2" type="Static" style="0" rect="35,55,46,20" textcolor="255,0,255,0" color="255,255,255,255" hotkey="" isdefault="0">职业：</item>
+            <item id="3" type="Static" style="0" rect="86,55,168,19" textcolor="255,255,255,255" color="255,255,255,255" hotkey="" isdefault="0">职业5</item>
+            <item id="4" type="Static" style="0" rect="35,80,46,22" textcolor="255,0,255,0" color="255,255,255,255" hotkey="" isdefault="0">等级：</item>
+            <item id="5" type="Static" style="0" rect="90,80,122,22" textcolor="255,255,255,255" color="255,255,255,255" hotkey="" isdefault="0">1</item>
+            <item id="6" type="Static" style="0" rect="35,107,46,20" textcolor="255,0,255,0" color="255,255,255,255" hotkey="" isdefault="0">国家：</item>
+            <item id="7" type="Static" style="0" rect="86,106,130,17" textcolor="255,255,255,255" color="255,255,255,255" hotkey="" isdefault="0">测试地图</item>
+            <item id="100" type="Button" style="0" rect="119,159,38,24" hotkey="Enter" color="255,255,255,255" textcolor="255,255,255,255" isdefault="0">开始</item>
+            <item id="101" type="Button" style="0" rect="192,160,38,24" hotkey="Esc" color="255,255,255,255" textcolor="255,255,255,255" isdefault="0">退出</item>
+            <item id="102" type="Button" style="0" rect="47,160,38,24" color="255,255,255,255" textcolor="255,255,255,255" isdefault="0" hotkey="">创建</item>
+        </controls>
+    </dialog>
+</gui>

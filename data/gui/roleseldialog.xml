@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by ccc (Ru-Board) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="32" name="RoleSelDialog" style="C" caption="" rect="0,0,1024,768" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="0" hidesoundindex="0">
+		<controls>
+			<!--item id="1" type="Image" style="2" rect="0,0,1024,768" imagerect="0,0,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\logo.gl" group="0" frame="0" backgroud="1"/-->
+			<item id="2" type="Image" style="2" rect="0,0,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="0" backgroud="1"/>
+			<!--0000选角色底.tga-->
+			<item id="3" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="1" backgroud="0"/>
+			<!--0001创建纽和删除钮底.tga-->
+			<item id="7" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="2" framenum="3"/>
+			<!--创建-->
+			<item id="9" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="8" framenum="3"/>
+			<!--删除-->
+			<item id="10" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="11" framenum="3"/>
+			<!--关闭-->
+			<item id="11" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="15" framenum="3"/>
+			<!--进入游戏-->
+			<item id="12" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="5" framenum="3"/>
+			<!--返回-->
+			<item id="13" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="19" framenum="3"/>
+			<!--完成-->
+			<item id="14" type="Static" style="0" rect="276,143,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--名称-->
+			<item id="15" type="Static" style="0" rect="276,165,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--国家-->
+			<item id="16" type="Static" style="0" rect="276,188,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--等级-->
+			<item id="18" type="Static" style="0" rect="700,143,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="19" type="Static" style="0" rect="700,165,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="20" type="Static" style="0" rect="700,188,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="22" type="EditBox" style="8" rect="470,556,50,14" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="6" caretcolor="255,255,255,255"/>
+			<!--验证码-->
+			<item id="23" type="Image" style="2" rect="0,0,1024,195" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="23" backgroud="0"/>
+			<!--上边框-->
+			<!--item id="24" type="Image" style="2" rect="0,0,1024,195" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="5" frame="-1" backgroud="0"/--><!--22-->
+			<!--故事背景-->
+		</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>

@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="15" name="UserInfoDialog" showsoundindex="10103" style="0" rect="135,36,512,613" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="">
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+	return false
+end
+</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="-1" frame="-1"/>
+			<item id="2012" type="Button" sound="10107"   style="0" rect="0,40,33,33" itemrect="0,40,33,33" isdefault="0" pack="data\interfaces3.gl" group="103" frame="1" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			
+			<item id="900" type="Static" style="0" rect="60,453,50,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">物攻:</item>
+			<item id="901" type="Static" style="0" rect="60,470,50,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">魔攻:</item>
+			<item id="902" type="Static" style="0" rect="235,453,50,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">物防:</item>
+			<item id="903" type="Static" style="0" rect="235,470,50,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">魔防:</item>
+
+			<!--5个加号按钮,依次是:体质,力量,敏捷,智力,精神,,,,和游戏里面显示的顺序是不同的-->
+			<item id="200" type="Button" style="0" rect="95,436,70,29" isdefault="0" pack="data\interfaces.gl" group="0" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+				<Tip>增加体质可提高角色的生命值上限,同时提高物理防御力和魔法防御力;当您剩余属性点总数大于等于50时,可以使用快速加点功能</Tip>
+			</item>
+			<item id="201" type="Button" style="0" rect="95,356,70,29" isdefault="0" pack="data\interfaces.gl" group="0" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+				<Tip>增加力量可提高角色的物理攻击力,同时提高物理防御力和生命值上限;当您剩余属性点总数大于等于50时,可以使用快速加点功能</Tip>
+			</item>
+			<item id="202" type="Button" style="0" rect="95,396,70,29" isdefault="0" pack="data\interfaces.gl" group="0" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+				<Tip>增加敏捷可提高角色的物理防御力,同时提高魔法防御力;当您剩余属性点总数大于等于50时,可以使用快速加点功能</Tip>
+			</item>
+			<item id="203" type="Button" style="0" rect="95,376,70,29" isdefault="0" pack="data\interfaces.gl" group="0" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+				<Tip>增加智力可提高角色的魔法攻击力,同时提高魔法防御力和法术值上限;当您剩余属性点总数大于等于50时,可以使用快速加点功能</Tip>
+			</item>
+			<item id="204" type="Button" style="0" rect="95,416,70,29" isdefault="0" pack="data\interfaces.gl" group="0" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+				<Tip>增加精神可提高角色的法术值上限,同时提高魔法防御力;当您剩余属性点总数大于等于50时,可以使用快速加点功能</Tip>
+			</item>
+			
+			<!--披风-->
+			<item id="5" type="Image" style="2" rect="0,0,184,244" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="" group="-1" frame="-1"/>
+			<item id="6" type="Image" style="2" rect="0,0,184,244" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="" group="-1" frame="-1"/>
+			
+			<item id="2" type="Image" style="2" rect="0,0,184,244" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="" group="-1" frame="-1"/>
+			<item id="3" type="Image" style="2" rect="0,0,184,244" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="" group="-1" frame="-1"/>
+			<item id="4" type="Image" style="2" rect="0,0,184,244" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="" group="-1" frame="-1"/>
+			<!--角色界面附件框框-->
+			<item id="152" type="Image" style="2" rect="262,121,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--时装-->
+			<item id="153" type="Image" style="2" rect="225,121,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--天涯玉佩-->
+			<item id="154" type="Image" style="2" rect="9999,121,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--勋章-->
+			<item id="155" type="Image" style="2" rect="4444,4444,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--翅膀-->
+			<item id="156" type="Image" style="2" rect="4444,4444,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--神兵-->
+			<item id="157" type="Image" style="2" rect="4444,4444,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--神兽-->
+			<item id="158" type="Image" style="2" rect="4444,4444,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--尚方宝剑-->
+			<item id="159" type="Image" style="2" rect="9999,9999,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--紫金龙袍-->
+			
+			<!--换装界面附件框框-->
+			<item id="702" type="Image" style="2" rect="262,121,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--时装-->
+			<item id="703" type="Image" style="2" rect="225,121,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--天涯玉佩-->
+			<item id="704" type="Image" style="2" rect="9999,121,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--勋章-->
+			<item id="705" type="Image" style="2" rect="4444,4444,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--翅膀-->
+			<item id="706" type="Image" style="2" rect="4444,4444,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--神兵-->
+			<item id="707" type="Image" style="2" rect="4444,4444,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--神兽-->
+			<item id="708" type="Image" style="2" rect="4444,4444,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--尚方宝剑-->
+			<item id="709" type="Image" style="2" rect="9999,9999,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/><!--紫金龙袍-->
+		    <!--关闭按钮-->
+		    <item id="25" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="3" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+		    <!--角色界面按钮-->
+		    <item id="5" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="3" frame="51" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">装 备</item>
+			 <!--角色属性界面按钮-->
+			<item id="6" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="3" frame="54" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">属 性</item>
+			
+			<item id="7" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1" />
+			
+			<!--他人观看马匹装备界面按钮-->
+			<item id="8" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="3" frame="58" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">马 匹</item>
+            <!--一键换装按钮-->
+            <item id="9" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="3" frame="61" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">一键换装</item>
+			
+			<item id="11" type="Button" sound="10107" style="0" rect="105,220,70,29" isdefault="0" pack="data\interfaces.gl" group="3" frame="64" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,0,0" font="2">
+				<Tip>可将该图标拖放到快捷栏使用</Tip>
+			</item>
+			<item id="12" type="Static" style="0" rect="120,160,200,28" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="2">一键换装设置</item>
+			<item id="13" type="Static" style="0" rect="150,198,200,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0">本套快捷键: Shift + 1</item>
+			<item id="14" type="ComboBox" style="800" rect="155,228,170,27" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"/>
+			<item id="15" type="Button" style="0" rect="238,264,70,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">命名</item>
+			
+			<item id="16" type="Button" style="0" rect="111,315,70,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">清除设置<Tip>清除本套换装的设置</Tip>
+			</item>
+			<item id="17" type="Button" style="0" rect="225,314,70,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">读取装备<Tip>复制当前身上的装备到本套换装</Tip>
+			</item>
+			<item id="18" type="Button" style="0" rect="120,343,70,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">换装<Tip>换上本套设置的装备(保存后才有效)</Tip>
+			</item>
+			<item id="19" type="Button" style="0" rect="120,371,70,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">保存<Tip>保存本套换装的设置</Tip>
+			</item>
+			<!--4个"可以显示其他国家的........按钮"-->
+			<item id="20" type="Button" style="0" rect="94,166,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="27" frame="8" framenum="3">
+				<Tip>可以显示其他玩家的国籍</Tip>
+			</item>
+			<item id="21" type="Button" style="0" rect="94,189,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="27" frame="8" framenum="3">
+				<Tip>可以显示其他玩家的帮会名称</Tip>
+			</item>
+			<item id="22" type="Button" style="0" rect="94,212,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="27" frame="8" framenum="3">
+				<Tip>可以显示其他玩家的家族名称</Tip>
+			</item>
+			<item id="23" type="Button" style="0" rect="94,237,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="27" frame="8" framenum="3">
+				<Tip>可以显示其他玩家的官职</Tip>
+			</item>
+			<item id="24" type="Button" style="0" rect="94,260,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="27" frame="8" framenum="3">
+				<Tip>可以显示其他玩家的称号</Tip>
+			</item>
+			<item id="300" type="Static" style="0" rect="60,400,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="301" type="Static" style="0" rect="60,416,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="302" type="Static" style="0" rect="60,432,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="303" type="Static" style="0" rect="60,448,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="304" type="Static" style="0" rect="60,464,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="305" type="Static" style="0" rect="213,400,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="306" type="Static" style="0" rect="213,416,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="307" type="Static" style="0" rect="213,432,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="308" type="Static" style="0" rect="213,448,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="309" type="Static" style="0" rect="213,464,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="314" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="-1" frame="-1" backgroud="0"/>
+			<item id="315" type="Static" style="0" rect="113,127,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="316" type="Static" style="0" rect="213,127,238,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="400" type="ListBox" style="8" rect="53,400,328,80" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="100" type="Table" rect="345,158,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,158,33,33">帽子</item>
+			<item id="101" type="Table" rect="345,202,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,202,33,33">项连</item>
+			<item id="102" type="Table" rect="48,290,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,290,33,33">手镯R</item>
+			<item id="103" type="Table" rect="48,335,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,335,33,33">手镯L</item>
+			<item id="104" type="Table" rect="345,335,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,335,33,33">界子R</item>
+			<item id="105" type="Table" rect="345,379,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,379,33,33">界子L</item>
+			<item id="106" type="Table" rect="48,379,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,379,33,33">鞋子</item>
+			<item id="107" type="Table" rect="345,290,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,290,33,33">腰带</item>
+			<item id="108" type="Table" rect="345,246,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,246,33,33">衣服</item>
+			<item id="109" type="Table" rect="48,202,33,33" virtual="1" itemrect="48,202,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">武器R</item>
+			<item id="110" type="Table" rect="48,246,33,33" virtual="1" itemrect="48,246,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">武器L</item>
+			<item id="111" type="Table" rect="230,123,33,33" virtual="1" itemrect="230,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">饰品L</item>
+			<item id="112" type="Table" rect="4444,123,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">饰品R</item>
+			<item id="113" type="Table" rect="265,123,33,33" virtual="1" itemrect="265,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">时装</item>
+			<item id="114" type="Table" rect="48,158,33,33" virtual="1" itemrect="48,158,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">天涯玉佩</item>
+			<item id="115" type="Table" rect="303,123,33,33" virtual="1" itemrect="303,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">勋章</item>
+			<item id="116" type="Table" rect="4444,4444,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">翅膀</item>
+			<item id="117" type="Table" rect="4444,4444,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">神兵</item>
+			<item id="118" type="Table" rect="4444,4444,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">神兽</item>
+			<item id="119" type="Table" rect="4444,4444,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">尚方宝剑</item>
+			<item id="120" type="Table" rect="9999,123,33,33" virtual="1" itemrect="9999,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">紫金龙袍</item>
+			<item id="121" type="Table" rect="4444,4444,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">披风</item>
+			
+			<item id="215" type="Table" rect="326,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="326,348,33,33">马脚</item>
+			<item id="216" type="Table" rect="287,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="287,348,33,33">马绳</item>
+			<item id="217" type="Table" rect="248,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="248,348,33,33">马鞍</item>
+			<item id="218" type="Table" rect="209,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="209,348,33,33">护马铠</item>
+			<item id="219" type="Table" rect="170,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="170,348,33,33">马镫</item>
+			<item id="220" type="Table" rect="326,309,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="326,309,33,33">马牌</item>
+			
+			<!--百兽图鉴-->
+			<item id="1300" type="Button" style="0" rect="345,455,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="374" frame="811" framenum="3" bitmapbutton="1">
+				<Tip>怪物图鉴</Tip>
+			</item>
+			<!--装备助手-->
+			<item id="126" type="Button" sound="10107"  style="0" rect="85,415,70,30" isdefault="0" pack="data\activity.gl" group="0" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,227,191,28">装备</item>					
+	    	<!--附件助手-->
+			<item id="1800" type="Button" sound="10107"  style="0" rect="255,415,70,30" isdefault="0" pack="data\activity.gl" group="0" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,227,191,28">附件</item>			
+			<!--五附件助手-->
+           <item id="2501" type="Button" sound="10107"  style="0" rect="90,120,70,30" isdefault="0" pack="data\activity.gl" group="0" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,227,191,28">五附件</item>			
+			<!--附件助手-->
+			<item id="1801" type="Button" sound="10107"  style="0" rect="90,160,70,30" isdefault="0" pack="data\activity.gl" group="0" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,227,191,28">附件</item>			
+			
+			<!--翅膀封印-->
+			<item id="128" type="Button" sound="10107" style="0" rect="0,0,70,30" isdefault="0" pack="data\interfaces.gl" group="3" frame="901" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+				<Tip>神兵跟随</Tip>
+			</item>
+			<!--寒冰麒麟-->
+			<item id="131" type="Button" sound="10107" style="0" rect="0,0,70,30" isdefault="0" pack="data\interfaces.gl" group="3" frame="902" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+				<Tip>寒冰武器外形开启</Tip>147
+			</item>
+			<item id="500" type="Table" rect="345,158,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,158,33,33">帽子</item>
+			<item id="501" type="Table" rect="345,202,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,202,33,33">项连</item>
+			<item id="502" type="Table" rect="48,290,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,290,33,33">手镯R</item>
+			<item id="503" type="Table" rect="48,335,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,335,33,33">手镯L</item>
+			<item id="504" type="Table" rect="345,335,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,335,33,33">界子R</item>
+			<item id="505" type="Table" rect="345,379,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,379,33,33">界子L</item>
+			<item id="506" type="Table" rect="48,379,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,379,33,33">鞋子</item>
+			<item id="507" type="Table" rect="345,290,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,290,33,33">腰带</item>
+			<item id="508" type="Table" rect="345,246,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,246,33,33">衣服</item>
+			<item id="509" type="Table" rect="48,202,33,33" virtual="1" itemrect="48,202,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">武器R</item>
+			<item id="510" type="Table" rect="48,246,33,33" virtual="1" itemrect="48,246,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">武器L</item>
+			<item id="511" type="Table" rect="230,123,33,33" virtual="1" itemrect="230,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">饰品L</item>
+			<item id="512" type="Table" rect="4444,4444,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">饰品R</item>
+			<item id="513" type="Table" rect="265,123,33,33" virtual="1" itemrect="265,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">时装</item>
+			<item id="514" type="Table" rect="48,158,33,33" virtual="1" itemrect="48,158,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">天涯玉佩</item>
+			<item id="515" type="Table" rect="303,123,33,33" virtual="1" itemrect="303,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">勋章</item>
+			<item id="516" type="Table" rect="4444,4444,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">翅膀</item>
+			<item id="517" type="Table" rect="275,407,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="275,407,33,33">马脚</item>
+			<item id="518" type="Table" rect="236,407,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="236,407,33,33">马绳</item>
+			<item id="519" type="Table" rect="197,407,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="197,407,33,33">马鞍</item>
+			<item id="520" type="Table" rect="158,407,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="158,407,33,33">护马铠</item>
+			<item id="521" type="Table" rect="119,407,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="119,407,33,33">马镫</item>
+			<item id="522" type="Table" rect="275,364,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="275,364,33,33">马牌</item>
+			<item id="523" type="Table" rect="147,123,33,33" virtual="1" itemrect="147,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">神兵</item>
+			<item id="524" type="Table" rect="188,123,33,33" virtual="1" itemrect="188,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">神兽</item>
+			<item id="525" type="Table" rect="4444,4444,33,33" virtual="1" itemrect="4444,4444,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">尚方宝剑</item>
+			<item id="526" type="Table" rect="9999,123,33,33" virtual="1" itemrect="9999,123,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">紫金龙袍</item>
+			
+			
+			<item id="1613" type="Button" style="2" rect="216,354,42,42" hotkey="" pack="data\interfaces.gl" group="3" frame="911" bitmapbutton="1" framenum="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"><Tip>在此放入攻击技能，在切换装备后，会自动以其做为对应的默认技能</Tip></item>
+			
+			<!--属性页面修改:将属性标签做成可以移动的-->
+			<item id="601" type="Static" style="0" rect="52,163,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">国籍:</item>
+			<item id="602" type="Static" style="0" rect="52,186,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">帮会:</item>
+			<item id="603" type="Static" style="0" rect="53,211,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">家族:</item>
+			<item id="604" type="Static" style="0" rect="52,235,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">官职:</item>
+			<item id="605" type="Static" style="0" rect="54,260,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">称号:<Tip>请选择要显示的称号</Tip>
+			</item>
+			<item id="606" type="Static" style="0" rect="55,283,60,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">PK状态:</item>
+			<item id="607" type="Static" style="0" rect="194,163,75,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">五行属性:<Tip>对无属性或相克属性的角色和怪物有攻击加成</Tip>
+			</item>
+			<item id="608" type="Static" style="0" rect="194,186,75,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">当前职业:<Tip>职业决定人物的装备和技能</Tip>
+			</item>
+			<item id="609" type="Static" style="0" rect="194,211,60,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">功勋值:<Tip>国家评定人物官位的标准值</Tip>
+			</item>
+			<item id="610" type="Static" style="0" rect="194,235,60,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">文采值:<Tip>可影响人物称号的值</Tip>
+			</item>
+			<item id="611" type="Static" style="0" rect="194,260,90,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">幸运值:<Tip>可以影响打造成功率,攻击命中率等的属性</Tip>
+			</item>
+			<item id="612" type="Static" style="0" rect="194,283,90,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">荣誉值:<Tip>荣誉值可换取双倍经验道具或洗PK值</Tip>
+			</item>
+			<item id="613" type="Static" style="0" rect="54,330,90,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">剩余属性点:<Tip>当前尚未分配的属性点数</Tip>
+			</item>
+			<item id="614" type="Static" style="0" rect="53,355,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">力量:</item>
+			<item id="615" type="Static" style="0" rect="53,375,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">智力:</item>
+			<item id="616" type="Static" style="0" rect="52,395,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">敏捷:</item>
+			<item id="617" type="Static" style="0" rect="52,415,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">精神:</item>
+			<item id="618" type="Static" style="0" rect="52,435,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">体质:</item>
+			<item id="619" type="Static" style="0" rect="52,455,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">重击:<Tip>增加爆击可以提高攻击出现爆击几率</Tip>
+			</item>
+			<item id="620" type="Static" style="0" rect="194,330,80,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">等级排名:</item>
+			<item id="621" type="Static" style="0" rect="194,355,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">物攻:</item>
+			<item id="622" type="Static" style="0" rect="194,375,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">魔攻:</item>
+			<item id="623" type="Static" style="0" rect="194,395,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">物防:</item>
+			<item id="624" type="Static" style="0" rect="194,415,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">魔防:</item>
+			<item id="625" type="Static" style="0" rect="194,435,50,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,230,190,1" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">生命:</item>
+			<item id="626" type="Image" style="2" rect="205,451,50,20" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="5" frame="10"/>
+			<!--个人签名档-->
+			<item id="1000" type="Static" style="0" rect="225,156,150,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">人气：<Tip>签名档照片受人关注的程度</Tip>
+			</item>
+			<item id="1001" type="Static" style="0" rect="225,186,150,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">鲜花：<Tip>收到别人所送的鲜花数量</Tip>
+			</item>
+			<item id="1002" type="Static" style="0" rect="225,216,150,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">爱心：<Tip>爱抚小孩时增加爱心值，上限为100，可到世外桃源 爱心兑换使者处兑换礼品</Tip>
+			</item>
+			<item id="1003" type="Static" style="0" rect="225,246,150,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">籍贯：<Tip>更改地区信息将改变您进入新天地时的国籍和出生点，请谨慎选择</Tip>
+			</item>
+			<item id="1004" type="Static" style="0" rect="225,276,150,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">地区：<Tip>更改地区信息将改变您进入新天地时的国籍和出生点，请谨慎选择</Tip>
+			</item>
+			<item id="1005" type="Static" style="0" rect="225,306,150,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">年龄：</item>
+			<item id="1008" type="Static" style="0" rect="65,345,40,40" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">
+				<Tip>请输入内容，限50个汉字以内</Tip>
+			</item>
+			<!--人气-->
+			<item id="1011" type="EditBox" style="20" rect="275,156,90,25" hotkey="" isdefault="1" color="255,255,255,255" maxCharCount="0" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+			<!--鲜花-->
+			<item id="1012" type="EditBox" style="20" rect="275,186,90,25" hotkey="" isdefault="1" color="255,255,255,255" maxCharCount="0" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+			<!--鸡蛋 、、 风度-->
+			<item id="1013" type="EditBox" style="20" rect="275,216,90,25" hotkey="" isdefault="1" color="255,255,255,255" maxCharCount="0" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+			<!--籍贯>-->
+			<item id="1019" type="ComboBox" rect="275,246,90,25" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"/>
+			<!--地区-->
+			<item id="1020" type="ComboBox" rect="275,276,90,25" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"/>
+			<!--年龄-->
+			<item id="1021" type="ComboBox" rect="275,306,90,25" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"/>
+			<!--item id="1015" type="MLineEditBox" style="103" lineHeight="20" rect="110,328,255,70" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/-->
+			<!--Tab-->
+			<item id="1023" type="Button" sound="10107" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="3" frame="70" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">元 神</item>
+
+			<item id="1103" type="ComboBox" rect="148,425,180,25" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"/>
+			<item id="1107" type="Button" style="0" rect="56,393,100,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">保存签名<Tip>确认您省、市、地区信息、以及个性签名的修改，第一次修改立刻生效，以后修改24小时后生效，只可在原区修改</Tip>
+			</item>
+			<item id="1108" type="Button" style="0" rect="56,423,100,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">马上行动<Tip>为您的心上人献上鲜花，不但可以增加你们之间的爱慕值，而且有可能使她成为光彩动人的“征途宝贝”哦</Tip>
+			</item>
+			<!--剩余时间-->
+			<item id="1105" type="Static" style="0" rect="230,156,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"/>
+			<!--个性秀状态-->
+			<!--item id="1110" type="Static" style="0" rect="100,126,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">个性秀状态：</item-->
+			<!--item id="1111" type="EditBox" style="20" rect="195,123,60,25" hotkey="" isdefault="1" color="255,255,255,255" maxCharCount="0" textcolor="255,255,255,255" caretcolor="255,255,255,255" /-->
+			<!--暂无图片-->
+			<!--item id="1112" type="Image" style="2" rect="76,164,129,166" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="627"/-->
+			<!--法宝标签-->
+		       <item id="1500" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="50" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">法 宝</item>
+
+			<!--附件标签-->
+		     <!--  <item id="2501" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces3.gl" group="60" frame="7" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			
+			-->
+			<!--法宝-->
+			
+			
+		    <item id="1701" type="Image" style="2" rect="380,463,40,40" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="80" frame="20"/>
+			<item id="1800" type="Process" style="0" rect="383,422,0,0" min="0"  max="5000" pos="0" isdefault="0"  textcolor="255,255,0,0" pack="data\interfaces.gl" group="80" frame="21" />		
+			<item id="1801" type="Process" style="0" rect="383,463,0,0" min="0"  max="12000" pos="0" isdefault="0"  textcolor="255,255,0,0" pack="data\interfaces.gl" group="80" frame="21" />		
+		
+			
+			<item id="1802" type="Static" style="0" rect="440,402,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">0/5000</item>
+			
+			<item id="1803" type="Static" style="0" rect="440,443,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">0/12000</item>
+			
+
+			<item id="1702" type="Static" style="0" rect="163,176,45,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">名称：</item>
+			<item id="1707" type="Static" style="0" rect="210,176,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">暂未装备法宝</item>
+			<item id="1703" type="Static" style="0" rect="163,209,45,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">等级：</item>
+			<item id="1708" type="Static" style="0" rect="210,209,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="1704" type="Static" style="0" rect="163,242,45,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">耐久：</item>
+			<item id="1709" type="Static" style="0" rect="210,242,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="1705" type="Static" style="0" rect="58,416,70,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">法宝符石</item>
+			<item id="1706" type="Static" style="0" rect="58,455,70,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,239,196,0">法宝灵石</item>
+		    
+			
+			<item id="1710" type="Static" style="0" rect="60,300,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">增加物理攻击 0</item>
+		    <item id="1711" type="Static" style="0" rect="60,320,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">增加魔法攻击 0</item>
+			<item id="1712" type="Static" style="0" rect="60,340,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">增加物理防御 0</item>
+			<item id="1713" type="Static" style="0" rect="60,360,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">增加魔法防御 0</item>
+			<item id="1714" type="Static" style="0" rect="60,380,200,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">增加生命上限 0</item>
+			
+			<item id="1715" type="Static" style="0" rect="230,300,450,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">= 法宝物理攻击  + 法宝悟性  + 等级 160  + 法宝强化资质</item>
+			<item id="1716" type="Static" style="0" rect="230,320,450,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">= 法宝魔法攻击  + 法宝悟性  + 等级 160  + 法宝强化资质</item>
+			<item id="1717" type="Static" style="0" rect="230,340,450,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">= 法宝物理防御  + 法宝悟性  + 等级 160  + 法宝强化资质</item>
+			<item id="1718" type="Static" style="0" rect="230,360,450,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">= 法宝魔法防御  + 法宝悟性  + 等级 160  + 法宝强化资质</item>
+			<item id="1719" type="Static" style="0" rect="230,380,450,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">= 法宝生命上限  + 法宝悟性  + 等级 160  + 法宝强化资质</item>
+		   
+			<!-- 使用 -->
+		    <!--<item id="1503" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="2" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+		    -->
+			<!-- 帮助 -->
+		    <item id="1504" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="22" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+		    <item id="1505" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="5" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+		    <item id="1506" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="8" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<!--法宝动画-->
+		    <item id="1550" type="Button" sound="10107"  style="0" rect="52,160,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="-1" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="1508" type="Table" rect="469,208,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="469,208,33,33"></item>
+           
+		    <!--<item id="1510" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="16" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>-->
+            
+            <!--<item id="1559" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="15" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            -->
+		    <item id="1520" type="Table"  rect="134,406,33,33" virtual="1" itemrect="134,406,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">></item>
+		    <item id="1521" type="Table"  rect="174,406,33,33" virtual="1" itemrect="174,406,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1522" type="Table"  rect="215,406,33,33" virtual="1" itemrect="215,406,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1523" type="Table"  rect="256,406,33,33" virtual="1" itemrect="256,406,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1524" type="Table"  rect="297,406,33,33" virtual="1" itemrect="297,406,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1525" type="Table"  rect="338,406,33,33" virtual="1" itemrect="338,406,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    
+			<!--火焰-->
+			<item id="1613" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="80" frame="402"/>
+		    
+		    
+		    <item id="1600" type="Table"  rect="134,446,33,33" virtual="1" itemrect="134,446,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1601" type="Table"  rect="174,446,33,33" virtual="1" itemrect="174,446,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1602" type="Table"  rect="215,446,33,33" virtual="1" itemrect="215,446,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1603" type="Table"  rect="256,446,33,33" virtual="1" itemrect="256,446,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1604" type="Table"  rect="297,446,33,33" virtual="1" itemrect="297,446,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <item id="1605" type="Table"  rect="338,446,33,33" virtual="1" itemrect="338,446,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0"></item>
+		    <!--<item id="1611" type="Button" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="333" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+		    <item id="1612" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="450" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+		   -->
+		   <!--
+			<item id="1613" type="Button" style="2" rect="216,354,42,42" hotkey="" pack="data\interfaces.gl" group="3" frame="911" bitmapbutton="1" framenum="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"><Tip>在此放入攻击技能，在切换装备后，会自动以其做为对应的默认技能</Tip></item>
+			-->
+			<!--星宿标签-->
+		   <!--
+		    <item id="2502" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces3.gl" group="60" frame="10" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>			
+			-->
+			<!-- 十二星宿 人物图片 -->
+			<item id="2000" type="Table" rect="48,158,33,33" virtual="1" itemrect="48,158,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">十二星宿·白羊座</item>
+			<item id="2001" type="Table" rect="48,202,33,33" virtual="1" itemrect="48,202,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">十二星宿·金牛座</item>
+			<item id="2002" type="Table" rect="48,246,33,33" virtual="1" itemrect="48,246,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">十二星宿·双子座</item>
+			<item id="2003" type="Table" rect="48,290,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,290,33,33">十二星宿·巨蟹座</item>
+			<item id="2004" type="Table" rect="48,335,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,335,33,33">十二星宿·狮子座</item>
+			<item id="2005" type="Table" rect="48,379,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,379,33,33">十二星宿·处女座</item>
+			<item id="2006" type="Table" rect="345,158,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,158,33,33">十二星宿·天秤座</item>
+			<item id="2007" type="Table" rect="345,202,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,202,33,33">十二星宿·天蝎座</item>
+			<item id="2008" type="Table" rect="345,246,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,246,33,33">十二星宿·射手座</item>
+			<item id="2009" type="Table" rect="345,290,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,290,33,33">十二星宿·摩羯座</item>
+			<item id="2010" type="Table" rect="345,335,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,335,33,33">十二星宿·水瓶座</item>
+			<item id="2011" type="Table" rect="345,379,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,379,33,33">十二星宿·双鱼座</item>
+			
+			
+				<!--元神标签-->
+		    <!--<item id="2500" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces3.gl" group="60" frame="4" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>-->
+				<!--五附件标签-->
+		      <!--<item id="2501" type="Button" sound="10107"  style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces3.gl" group="60" frame="7" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+				-->
+		     	
+				
+			<!--镇魂元神 界面 装备-->
+
+			<item id="1201" type="Table" rect="410,204,33,33" virtual="1" itemrect="412,206,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">镇魂元神</item>
+		
+			<item id="1202" type="Table" rect="65,435,33,33" virtual="1" itemrect="67,437,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">镇魂元神</item>
+			<item id="1203" type="Table" rect="108,435,33,33" virtual="1" itemrect="110,437,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">镇魂元神</item>
+			<item id="1204" type="Table" rect="152,435,33,33" virtual="1" itemrect="154,437,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">镇魂元神</item>
+			<item id="1205" type="Table" rect="196,435,33,33" virtual="1" itemrect="198,437,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">镇魂元神</item>
+			<item id="1206" type="Table" rect="240,435,33,33" virtual="1" itemrect="242,437,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">镇魂元神</item>
+			<item id="1207" type="Table" rect="284,435,33,33" virtual="1" itemrect="286,437,33,33" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">镇魂元神</item>
+
+			<item id="1208" type="Button" sound="10107"  style="0" rect="-60,110,0,0" isdefault="0" pack="data\interfaces.gl" group="80" frame="-1" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            
+			
+			<item id="1210" type="Static" style="0" rect="350,380,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">元神增加物理攻击 0</item>
+		    <item id="1211" type="Static" style="0" rect="350,400,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">元神增加魔法攻击 0</item>
+			<item id="1212" type="Static" style="0" rect="350,420,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">元神增加物理防御 0</item>
+			<item id="1213" type="Static" style="0" rect="350,440,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">元神增加魔法防御 0</item>
+			<item id="1214" type="Static" style="0" rect="350,460,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">元神增加生命上限 0</item>
+			
+			
+			<item id="1216" type="Button" sound="10107"  style="0" rect="450,120,70,30"  isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,227,191,28">助手</item>	
+			
+			<!--称号助手-->
+	        <item id="1721" type="Button" sound="10107" style="0" rect="9999,9999,70,30" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,210,151,0">称号系统</item>
+             <!--头衔-->
+	        <item id="1821" type="Button" sound="10107" style="0" rect="95,123,70,30" isdefault="0" pack="data\activity.gl" group="0" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,210,151,0">头衔</item>
+			<!--修仙系统按钮-->
+			<item id="8889" type="Button" sound="10107" style="0" rect="9999,9999,36,32" isdefault="0" pack="data\interfaces6.gl" group="401" frame="6" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+				<Tip>山河图,内有乾坤,点击可打开进入修仙系统</Tip>
+			</item>
+			 <!--时装魔盒按钮-->
+			<item id="8890" type="Button" sound="10107" style="0" rect="50,417,32,32" isdefault="0" pack="data\interfaces6.gl" group="129" frame="5" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			 <!--能力修炼按钮-->
+			<item id="8891" type="Button" sound="10107" style="0" rect="344,417,32,32" isdefault="0" pack="data\interfaces6.gl" group="580" frame="46" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>能力修炼</Tip></item>
+			<!--别墅小标志-->
+			<item id="8888" type="Button" sound="10107" style="0" rect="299,160,36,36" isdefault="0" pack="data\interfaces5.gl" group="3" frame="1" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--等级封印-->
+	        <item id="1722" type="Button" sound="10107" style="0" rect="277,123,35,30" isdefault="0" pack="data\activity.gl" group="0" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,210,151,0">等级封印</item>
+			
+		</controls>
+	</dialog>
+</gui>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="0" style="10" caption="SampleUI" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" name="SampleUI" rect="-28,-5,600,512">
+        <controls>
+            <item id="10" type="Static" style="0" x="343" y="12" width="164" height="21" hotkey="-842150451" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="343,12,164,21">This is a static control.</item>
+            <item id="12" type="Static" style="0" x="11" y="13" width="334" height="29" hotkey="-842150451" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" rect="11,13,334,29">This static control provides feedback for your action. It will change as you interact with the UI controls.</item>
+            <item id="7" type="Button" style="0" x="85" y="267" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="85,267,80,35">Enable IME</item>
+            <item id="8" type="Button" style="0" x="170" y="269" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="170,269,80,35">Disable IME</item>
+            <item id="5" type="EditBox" style="0" x="8" y="52" width="327" height="32" hotkey="-842150451" isdefault="0" color="255,255,255,255" textcolor="255,0,0,0" rect="8,52,327,32" />
+            <item id="24" type="MLineEditBox" style="1" x="17" y="372" width="333" height="110" hotkey="-842150451" isdefault="0" color="255,255,255,255" textcolor="255,0,0,0" rect="17,372,333,110" />
+            <item id="13" type="Slider" style="0" x="249" y="91" width="200" height="24" hotkey="-842150451" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="100" rect="249,91,200,24" />
+            <item id="14" type="CheckBox" style="0" x="88" y="307" width="345" height="24" hotkey="67" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="88,307,345,24">This is a checkbox with hotkey. Press &apos;C&apos; to toggle the check state.</item>
+            <item id="15" type="CheckBox" style="0" x="87" y="335" width="337" height="24" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="87,335,337,24">This checkbox controls whether edit control text is cleared when Enter is pressed.</item>
+            <item id="9" type="ComboBox" style="0" x="8" y="91" width="218" height="24" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="8,91,218,24">
+                <datas>
+                    <item>组合框 选项</item>
+                    <item>占位符</item>
+                    <item>一更多</item>
+                    <item>我不能够</item>
+                    <item>好, 最后的一,我</item>
+                </datas>
+            </item>
+            <item id="16" type="RadioButton" style="0" x="257" y="228" width="142" height="24" hotkey="0" isdefault="0" group="1" color="255,255,255,255" textcolor="255,255,255,255" rect="257,228,142,24">Radio group 1 Amy</item>
+            <item id="17" type="RadioButton" style="0" x="257" y="252" width="151" height="24" hotkey="0" isdefault="0" group="1" color="255,255,255,255" textcolor="255,255,255,255" rect="257,252,151,24">Radio group 1 Brian</item>
+            <item id="18" type="RadioButton" style="0" x="257" y="276" width="200" height="24" hotkey="0" isdefault="0" group="1" color="255,255,255,255" textcolor="255,255,255,255" rect="257,276,200,24">Radio group 1 Clark</item>
+            <item id="19" type="RadioButton" style="0" x="8" y="275" width="70" height="24" hotkey="0" isdefault="0" group="2" color="255,255,255,255" textcolor="255,255,255,255" rect="8,275,70,24">Single</item>
+            <item id="20" type="RadioButton" style="0" x="8" y="299" width="70" height="24" hotkey="0" isdefault="0" group="2" color="255,255,255,255" textcolor="255,255,255,255" rect="8,299,70,24">Double</item>
+            <item id="21" type="RadioButton" style="0" x="8" y="323" width="70" height="24" hotkey="0" isdefault="0" group="2" color="255,255,255,255" textcolor="255,255,255,255" rect="8,323,70,24">Triple</item>
+            <item id="22" type="ListBox" style="0" x="257" y="126" width="190" height="96" hotkey="-842150451" isdefault="0" color="255,255,255,255" textcolor="255,0,0,0" rect="257,126,190,96">
+                <datas>
+                    <item>单选列表框选项 0</item>
+                    <item>单选列表框选项 1</item>
+                    <item>单选列表框选项 2</item>
+                    <item>单选列表框选项 3</item>
+                    <item>单选列表框选项 4</item>
+                    <item>单选列表框选项 5</item>
+                    <item>单选列表框选项 6</item>
+                    <item>单选列表框选项 7</item>
+                    <item>单选列表框选项 8</item>
+                    <item>单选列表框选项 9</item>
+                    <item>单选列表框选项 10</item>
+                    <item>单选列表框选项 11</item>
+                    <item>单选列表框选项 12</item>
+                    <item>单选列表框选项 13</item>
+                    <item>单选列表框选项 14</item>
+                </datas>
+            </item>
+            <item id="23" type="ListBox" style="1" x="11" y="134" width="206" height="124" hotkey="-842150451" isdefault="0" color="255,255,255,255" textcolor="255,0,0,0" rect="11,134,206,124">
+                <datas>
+                    <item>多选列表框选项 0</item>
+                    <item>多选列表框选项 1</item>
+                    <item>多选列表框选项 2</item>
+                    <item>多选列表框选项 3</item>
+                    <item>多选列表框选项 4</item>
+                    <item>多选列表框选项 5</item>
+                    <item>多选列表框选项 6</item>
+                    <item>多选列表框选项 7</item>
+                    <item>多选列表框选项 8</item>
+                    <item>多选列表框选项 9</item>
+                    <item>多选列表框选项 10</item>
+                    <item>多选列表框选项 11</item>
+                    <item>多选列表框选项 12</item>
+                    <item>多选列表框选项 13</item>
+                    <item>多选列表框选项 14</item>
+                    <item>多选列表框选项 15</item>
+                    <item>多选列表框选项 16</item>
+                    <item>多选列表框选项 17</item>
+                    <item>多选列表框选项 18</item>
+                    <item>多选列表框选项 19</item>
+                    <item>多选列表框选项 20</item>
+                    <item>多选列表框选项 21</item>
+                    <item>多选列表框选项 22</item>
+                    <item>多选列表框选项 23</item>
+                    <item>多选列表框选项 24</item>
+                    <item>多选列表框选项 25</item>
+                    <item>多选列表框选项 26</item>
+                    <item>多选列表框选项 27</item>
+                    <item>多选列表框选项 28</item>
+                    <item>多选列表框选项 29</item>
+                </datas>
+            </item>
+        </controls>
+    </dialog>
+</gui>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="84" name="QueryEveryVipList" style="21"  caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+<!--关闭--><item id="0" type="Button" sound="10107" style="0" rect="780,130,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="51" frame="6" framenum="3"></item>  <!--close-->
+				
+         <item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="0" backgroud="1" />	 		
+                
+                 <!--任务开始-全天-->       
+				  <item id="2" type="Static" style="0" rect="675,580,210,30" hotkey="" font="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>  				 
+<!--当前等级--><item id="47" type="Image" style="2" rect="130,172,70,29" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="1"/>				
+<!--当前点数--><item id="4" type="Static" style="0" rect="540,269,100,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">***</item>
+				
+                <item id="5" type="Static" style="0" rect="170,182,100,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">您当前级别：</item> 
+                <item id="5" type="Static" style="0" rect="450,269,100,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">您当前点数：</item> 
+				
+<!--当前vip--><item id="6" type="Static" style="0" rect="270,182,100,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">***</item>
+								
+				<item id="8" type="Static" style="0" rect="525,308,200,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">***</item>
+				
+				<item id="10" type="Static" style="0" rect="210,365,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,255,0,0">永久特权</item> 
+				<item id="10" type="Static" style="0" rect="185,390,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">★Vip 玩家永久享受</item> 
+				<item id="10" type="Static" style="0" rect="185,410,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">★Vip 玩家永久享受</item> 
+				<item id="10" type="Static" style="0" rect="185,430,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">★Vip 玩家永久享受</item> 	
+				<item id="10" type="Static" style="0" rect="185,450,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">★Vip 玩家永久享受</item> 		
+				<item id="10" type="Static" style="0" rect="185,470,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">★Vip 玩家永久享受</item> 						
+				<item id="10" type="Static" style="0" rect="350,390,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,255,0,255">攻防血量BUFF</item> 
+				<item id="10" type="Static" style="0" rect="350,410,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,255,0,255">炫彩昵称</item> 				
+ 				<item id="10" type="Static" style="0" rect="350,430,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,255,0,255">上线世界提示</item> 
+ 				<item id="10" type="Static" style="0" rect="350,450,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,255,0,255">每日登陆福利</item> 
+ 				<item id="10" type="Static" style="0" rect="350,470,600,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,255,0,255">免费清洗职业</item> 
+				
+<!--领取--> <item id="20" type="Button" sound="10107" style="0" rect="580,480,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="51" frame="9" framenum="3"></item> 
+
+<!--进度条--><item id="40" type="Image" style="2" rect="315,290,500,500" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="8"/>
+<!--进度条--><item id="40" type="Image" style="2" rect="315,290,500,500" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="9"/>
+<!--升级到--><item id="40" type="Image" style="2" rect="445,197,500,500" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="10"/>
+<!--头像框--><item id="41" type="Image" style="2" rect="190,230,500,500" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="13"/>
+<!--头像--><item id="42" type="Image" style="2" rect="211,236,500,500" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.pak" group="33" frame="2"/>
+<!--专属框--><item id="42" type="Image" style="2" rect="505,355,500,500" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="17"/>
+
+<!--礼包--><item id="43" type="Image" style="2" rect="659,392,70,29" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\items.pak" group="0" frame="6420"/>
+<!--特效--><item id="44" type="Image" style="2" rect="545,279,70,29" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="32"/>
+
+
+<!--尊享0--><item id="45" type="Image" style="2" rect="335,170,500,500" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="40"/>
+<!--尊享1--><item id="46" type="Image" style="2" rect="587,170,500,500" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.pak" group="29" frame="51"/>
+
+
+<!--vip10显示 <item id="31" type="Button" style="2" rect="580,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="67" framenum="3" bitmapbutton="1"><Tip>Vip10(金子500锭,精致宝石300个,无暇宝石200个,灵魂丹200个,聚灵丹200个,圣灵石200个)</Tip></item>-->								
+<!--vip9显示 <item id="30" type="Button" style="2" rect="521,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="66" framenum="3" bitmapbutton="1"><Tip>Vip9(金子400锭,精致宝石260个,无暇宝石180个,灵魂丹160个,聚灵丹160个,圣灵石160个)</Tip></item>	-->			
+<!--vip8显示 <item id="29" type="Button" style="2" rect="462,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="65" framenum="3" bitmapbutton="1"><Tip>Vip8(金子350锭,精致宝石220个,无暇宝石160个,灵魂丹140个,聚灵丹140个,圣灵石140个)</Tip></item>	-->			
+<!--vip7显示 <item id="28" type="Button" style="2" rect="404,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="64" framenum="3" bitmapbutton="1"><Tip>Vip7(金子300锭,精致宝石180个,无暇宝石140个,灵魂丹120个,聚灵丹120个,圣灵石210个)</Tip></item>	-->			
+<!--vip6显示 <item id="27" type="Button" style="2" rect="345,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="63" framenum="3" bitmapbutton="1"><Tip>Vip6(金子250锭,精致宝石120个,无暇宝石120个,灵魂丹100个,聚灵丹100个,圣灵石100个)</Tip></item>	-->			
+<!--vip5显示 <item id="26" type="Button" style="2" rect="286,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="62" framenum="3" bitmapbutton="1"><Tip>Vip5(金子200锭,精致宝石80个,无暇宝石80个,灵魂丹80个,聚灵丹80个,圣灵石80个)</Tip></item>		-->		
+<!--vip4显示 <item id="25" type="Button" style="2" rect="228,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="61" framenum="3" bitmapbutton="1"><Tip>Vip4(金子150锭,精致宝石60个,无暇宝石60个,灵魂丹60个,聚灵丹60个,圣灵石60个)</Tip></item>	-->			
+<!--vip3显示 <item id="24" type="Button" style="2" rect="169,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="60" framenum="3" bitmapbutton="1"><Tip>Vip3(金子100锭,精致宝石40个,无暇宝石40个,灵魂丹40个,聚灵丹40个,圣灵石40个)</Tip></item>	-->			
+<!--vip2显示 <item id="23" type="Button" style="2" rect="110,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="59" framenum="3" bitmapbutton="1"><Tip>Vip2(金子50锭,精致宝石20个,无暇宝石20个,灵魂丹20个,聚灵丹20个,圣灵石20个)</Tip></item>	-->			
+<!--vip1显示 <item id="22" type="Button" style="2" rect="53,550,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="29" frame="58" framenum="3" bitmapbutton="1"><Tip>Vip1(金子1锭,精致宝石5个,无暇宝石5个,灵魂丹5个,聚灵丹5个,圣灵丹5个)</Tip></item>	-->			
+<!--问好提示--> <item id="22" type="Button" style="2" rect="745,130,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="51" frame="26" framenum="3" bitmapbutton="1">
+<Tip>尊享会员功能介绍:
+尊享会员功能上线后，每个玩家将会根据账号的充值金额来享受会员福利。
+尊享会员功能分为20个等级，每个等级需要10点vip点数进行升级。
+成为尊享会员后玩家可以每日领取当前等级的各类福利。
+尊享会员还可享受上线全服提示。
+尊享会员还可享受紫色名称。
+尊享会员还可享受攻防血量百分比加成。
+</Tip></item>				
+
+
+
+        </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

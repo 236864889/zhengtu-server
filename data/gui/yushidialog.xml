@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    
+    <dialog id="0" name="YuShiDialog" style="31" caption="" rect="243,175,537,418" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+        
+        <controls>
+            
+            <item id="20" type="Static" style="0" rect="12,10,240,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">御史大夫有权为本国玩家消除红名状态（一个国家最多可任命2位）</item>
+            
+            <item id="8" type="ListBox" style="5" rect="10,90,240,160" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            
+            <item id="9" type="ListBox" style="5" rect="264,29,240,221" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            
+            <item id="21" type="Static" style="0" rect="12,68,240,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">已任命以下国民为：御史大夫</item>
+            
+            <item id="22" type="Static" style="0" rect="269,10,240,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">附近国民</item>
+            
+            <item id="23" type="Static" style="0" rect="13,261,240,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">选中姓名后，点击“撤职-&gt;”收回授权</item>
+            
+            <item id="24" type="Static" style="0" rect="272,260,240,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">选中姓名后，点击“&lt;-任命”任命御史大夫</item>
+            
+            <item id="5" type="Button" style="0" rect="428,348,70,29" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">退出</item>
+            
+            <item id="6" type="Button" style="0" rect="76,299,88,29" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">撤职-&gt;</item>
+            
+            <item id="7" type="Button" style="0" rect="328,301,88,29" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">&lt;-任命</item>
+        
+        </controls>
+        
+        <script></script>
+    
+    </dialog>
+
+</gui>

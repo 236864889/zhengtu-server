@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="GB2312" ?>
+
+<gui>
+    <dialog id="218" name="FurnitureDialog" style="10" icon="1" rect="5,85,364,375" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0"  caption="家具仓库" > 
+        <script>function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+        <controls>           
+            <item id="1" type="Static" rect="7,-29,235,56" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="2" type="Table" rect="-45,-3,303,281" cellWidth="35" cellHeight="35" rowCount="35" showRowCount="8" colCount="8" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" virtual="0" itemrect="0,0,0,0" />
+        </controls>
+    </dialog>
+</gui>

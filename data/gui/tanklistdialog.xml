@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="501" name="TankSetDialog" style="0"  rect="100,100,300,400" >
+    		<controls>
+    		<item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="88" frame="233"/>
+
+    		<item id="5" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="207" framenum="3"><Tip>当包裹里有家族战车道具时，点击此按钮，则可将家族战车添加入家族</Tip></item> 
+
+    	  <item id="4" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="201" framenum="3"><Tip>包裹内必须有战车道具，选中想替换的战车后，点击此按钮</Tip></item> 
+				<item id="3" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="204" framenum="3"><Tip>选中想领取的战车后，点击此按钮</Tip></item>
+			  <item id="2" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="210" framenum="3"><Tip>选中想收回的战车后，点击此按钮</Tip></item>
+			
+			
+				<item id="1" type="ListBox" style="8" rect="27,58,459,103" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+				
+				<item id="6" type="Button" sound="10107" style="0" rect="-286,-4,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/>
+				<item id="7" type="Button" style="0" rect="357,156,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="230" framenum="3"/>
+				</controls>
+    </dialog>
+</gui>

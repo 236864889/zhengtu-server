@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    
+    <dialog id="0" style="21" caption="欢迎进入征途游戏推荐人系统" rect="354,302,332,150" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" name="RecoSysUI" align="12">
+        
+        <controls>
+            
+            <item id="20" type="Static" style="0" x="85" y="22" width="164" height="21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="82,30,164,21">您的推荐人角色名:</item>
+            
+            <item id="10" type="EditBox" style="0" x="88" y="52" width="327" height="32" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="3,53,297,31" maxCharCount="1024" caretcolor="255,255,255,255" />
+            
+            <item id="7" type="Button" style="0" x="180" y="52" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="15,88,70,29">确定</item>
+            
+            <item id="8" type="Button" style="0" x="180" y="88" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="220,89,70,29">放弃</item>
+            
+        
+        </controls>
+    
+        <script></script>
+    </dialog>
+
+</gui>

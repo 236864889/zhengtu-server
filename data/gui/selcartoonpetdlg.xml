@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="0" name="SelCartoonPet" style="21" caption="" rect="490,274,300,220" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>			            
+            <item id="1" type="Static" style="0" rect="45,10,205,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">请选择您要充值的替身宝贝：</item>
+            <item id="2" type="Static" style="0" rect="10,60,250,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">剩余修练时间：0秒</item>
+            <item id="3" type="Static" style="0" rect="10,110,250,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">剩余修练时间：0秒</item>
+            <item id="4" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" rect="10,35,130,24">无</item>        
+ 			<item id="5" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" rect="10,85,140,24">无</item>        
+ 			<item id="6" type="Button" style="0" rect="50,150,80,29" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">充值</item>
+ 			<item id="7" type="Button" style="0" rect="170,150,80,29" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">关闭</item>
+        </controls>
+        <script> 
+        function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+		end
+		</script>
+    </dialog>
+</gui>
+

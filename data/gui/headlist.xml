@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    
+    
+    <dialog id="53" name="HeadDialog" style="14" icon="15" caption="换头像" rect="-20,-20,390,550" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+      <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,390,549" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="49" frame="0" backgroud="1" />
+            <item id="1" type="ListBox" style="8" rect="65,216,190,146" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">           
+            </item>
+             
+            	<item id="2" type="Image" style="2" rect="282,256,70,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="-1" frame="-1" backgroud="0"/>  <!--角色圆圈图片-->
+            	 <item id="3" type="Static" style="0" rect="191,432,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>   
+        <!--银子说明-->  
+            	      
+            
+            <item id="4" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="49" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <!--确定-->
+            <item id="5" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="49" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            
+            <!--取消-->
+        </controls>
+    </dialog>
+</gui>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by ccc (Ru-Board) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="2" name="KeyBoardDlg" style="1" caption="keyboard" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="0" hidesoundindex="0"> 
+		<!--		<popupmenu>
+			<item cmd="1" text="菜单选项1"/>
+			<item cmd="1" text="菜单选项2"/>
+			<item cmd="1" text="菜单选项3"/>
+			<item cmd="1" text="菜单选项4"/>
+			<item separate="1"/>
+			<item cmd="1" text="菜单选项5"/>
+			<item cmd="1" text="菜单选项6"/>
+			<item cmd="1" text="菜单选项7"/>
+		</popupmenu>
+		#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001
+#define EVENT_DIALOG_SHOW					1002
+#define EVENT_DIALOG_HIDE					1003
+#define EVENT_DIALOG_MOVE					1004-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl) 
+	return false 
+end</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+	<item id="0" type="Image" style="2" rect="0,0,0,0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\login_cz.gl" group="6" frame="200">
+		<Tip>软键盘</Tip>
+	</item>
+		
+		<!--number-->
+		<item id="1" type="Button" style="0" rect="0,0,51,30" isdefault="1" pack="data\login_cz.gl" group="6" frame="0" bitmapbutton="1" framenum="3" />
+		<item id="2" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="3" bitmapbutton="1" framenum="3" />
+		<item id="3" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="6" bitmapbutton="1" framenum="3" />
+		<item id="4" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="9" bitmapbutton="1" framenum="3" />
+		<item id="5" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="12" bitmapbutton="1" framenum="3" />
+		<item id="6" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="15" bitmapbutton="1" framenum="3" />
+		<item id="7" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="18" bitmapbutton="1" framenum="3" />
+		<item id="8" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="21" bitmapbutton="1" framenum="3" />
+		<item id="9" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="24" bitmapbutton="1" framenum="3" />
+		<item id="10" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="27" bitmapbutton="1" framenum="3" />
+		
+	    <!--"-"-->
+		<item id="11" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="30" bitmapbutton="1" framenum="3" />
+
+        <!--"back"--> 		
+		<item id="12" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="33" bitmapbutton="1" framenum="3" />
+		
+		<!--CapsLock-->
+		<item id="13" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="36" bitmapbutton="1" framenum="3" />
+
+        <!--a~z-->
+		<item id="20" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="39" bitmapbutton="1" framenum="3" />
+		<item id="21" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="42" bitmapbutton="1" framenum="3" />
+		<item id="22" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="45" bitmapbutton="1" framenum="3" />
+		<item id="23" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="48" bitmapbutton="1" framenum="3" />
+		<item id="24" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="51" bitmapbutton="1" framenum="3" />
+		<item id="25" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="54" bitmapbutton="1" framenum="3" />
+		<item id="26" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="57" bitmapbutton="1" framenum="3" />
+		<item id="27" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="60" bitmapbutton="1" framenum="3" />
+		<item id="28" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="63" bitmapbutton="1" framenum="3" />
+		<item id="29" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="66" bitmapbutton="1" framenum="3" />
+		<item id="30" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="69" bitmapbutton="1" framenum="3" />
+		<item id="31" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="72" bitmapbutton="1" framenum="3" />
+		<item id="32" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="75" bitmapbutton="1" framenum="3" />
+		<item id="33" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="78" bitmapbutton="1" framenum="3" />
+		<item id="34" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="81" bitmapbutton="1" framenum="3" />
+		<item id="35" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="84" bitmapbutton="1" framenum="3" />
+		<item id="36" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="87" bitmapbutton="1" framenum="3" />
+		<item id="37" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="90" bitmapbutton="1" framenum="3" />
+		<item id="38" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="93" bitmapbutton="1" framenum="3" />
+		<item id="39" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="96" bitmapbutton="1" framenum="3" />
+		<item id="40" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="99" bitmapbutton="1" framenum="3" />
+		<item id="41" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="102" bitmapbutton="1" framenum="3" />
+		<item id="42" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="105" bitmapbutton="1" framenum="3" />
+		<item id="43" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="108" bitmapbutton="1" framenum="3" />
+		<item id="44" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="111" bitmapbutton="1" framenum="3" />
+		<item id="45" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="114" bitmapbutton="1" framenum="3" />
+		 
+		<!--,-->
+		<item id="50" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="117" bitmapbutton="1" framenum="3" />
+		
+		<!--enter-->
+		<item id="51" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="120" bitmapbutton="1" framenum="3" />
+		
+		<!--shift-->
+		<item id="52" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login_cz.gl" group="6" frame="123" bitmapbutton="1" framenum="3" />
+			
+		</controls>
+	</dialog>
+</gui>

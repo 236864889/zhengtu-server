@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="53" name="SendMail" style="14" caption="发件箱" rect="0,0,390,550" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,390,550" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="52" frame="19" backgroud="1" />
+            <item id="1" type="MLineEditBox" style="129" lineHeight="20" rect="43,180,300,110" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey="" />
+            <item id="2" type="Button" style="0" rect="40,394,70,29" isdefault="0" pack="data\interfaces.gl" group="3" frame="20" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="3" type="Button" style="0" rect="40,419,70,29" isdefault="0" pack="data\interfaces.gl" group="3" frame="20" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="4" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="52" frame="13" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <!--物品-->
+            <!--item id="5" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="52" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item-->
+            <!--金币-->
+            <item id="6" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="52" frame="16" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <!--银两-->
+            <item id="7" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="52" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <!--发送邮件-->
+            <item id="8" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="52" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <!--清空-->
+            <item id="9" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="51" frame="38" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <!--切换-->
+            <item id="10" type="Table" rect="62,318,38,38" style="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="38" cellHeight="38" rowCount="1" showRowCount="1" colCount="1" itemrect="0,0,0,0" />
+            <item id="11" type="EditBox" style="88" rect="165,149,164,23" hotkey="" maxCharCount="16" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+            <item id="13" type="EditBox" style="a" rect="255,415,38,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <item id="14" type="EditBox" style="a" rect="195,416,38,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <item id="15" type="EditBox" style="a" rect="130,416,39,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />
+            <item id="16" type="EditBox" style="a" rect="283,448,38,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <item id="17" type="EditBox" style="a" rect="224,448,38,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <item id="18" type="EditBox" style="a" rect="160,448,39,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />    
+        </controls>
+    </dialog>
+</gui>

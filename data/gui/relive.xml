@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="100" name="Relive" style="5" caption="" rect="490,274,200,330" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+			<item id="2" type="Button" style="0" rect="19,60,0,0" isdefault="0" pack="data\interfaces.gl" group="70" frame="0" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="3" type="Button" style="0" rect="19,100,0,0" isdefault="0" pack="data\interfaces.gl" group="70" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			
+			<item id="8" type="Button" style="0" rect="19,140,0,0" isdefault="0" pack="data\interfaces.gl" group="70" frame="38" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+
+			<item id="4" type="Button" style="0" rect="19,180,0,0" isdefault="0" pack="data\interfaces.gl" group="70" frame="6" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="6" type="Button" style="0" rect="19,220,0,0" isdefault="0" pack="data\interfaces.gl" group="70" frame="9" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="7" type="Button" style="0" rect="19,260,0,0" isdefault="0" pack="data\interfaces.gl" group="70" frame="12" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+            <!--item id="2" type="Button" style="2" rect="19,60,150,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">安全复活</item>
+            <item id="3" type="Button" style="2" rect="19,100,150,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">原地复活</item>
+			<item id="8" type="Button" style="2" rect="19,140,150,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">原地健康康复</item>
+            <item id="4" type="Button" style="2" rect="19,140,150,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">追捕凶犯1分钟</item>
+            <item id="6" type="Button" style="2" rect="19,180,150,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">追捕凶犯5分钟</item>
+            <item id="7" type="Button" style="2" rect="19,220,150,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">追捕凶犯10分钟</item-->
+            <item id="5" type="Static" style="0" rect="5,17,120,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">请选择康复方式:</item>
+        </controls>
+        <script> 
+        function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+		end
+		</script>
+    </dialog>
+</gui>
+

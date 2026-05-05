@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="23" name="SkillDialog" style="10" caption="技能" rect="287,245,411,307" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="11">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl) 
+end</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+<!--
+			<item id="1" type="Tab" style="0" rect="-1,7,378,211" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">
+				<datas>
+					<item>金</item>
+					<item>火</item>
+					<item>水</item>
+					<item>采集</item>
+					<item>制造</item>
+					<item>发现</item>
+				</datas>
+			</item>
+			<item id="2" type="Static" style="0" rect="24,227,62,16" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">剩余点数：</item>
+			<item id="3" type="EditBox" style="10" rect="89,223,74,22" textcolor="255,255,255,255" hotkey="" isdefault="1" color="255,255,255,255" maxCharCount="1024" caretcolor="255,255,255,255"/>
+	-->
+	    <item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="8" backgroud="1"/>
+	    <item id="1" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="22" framenum="3"/>
+			<item id="2" type="Button" style="0" rect="0,0,32,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="40" framenum="3"/>
+			<item id="3" type="Button" style="0" rect="0,0,32,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="31" framenum="3"/>
+			<item id="4" type="Button" style="0" rect="0,0,32,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="37" framenum="3"/>
+			<item id="5" type="Button" style="0" rect="0,0,32,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="34" framenum="3"/>
+			<item id="6" type="Button" style="0" rect="0,0,32,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="28" framenum="3"/>
+			<item id="7" type="Button" style="0" rect="0,0,32,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="25" framenum="3"/>
+			
+			<item id="10" type="Static" style="0" rect="220,131,50,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255" />
+		  <item id="11" type="Image" style="2" rect="100,100,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="-1" backgroud="0"/>
+		  <item id="12" type="Image" style="2" rect="100,120,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="-1" backgroud="0"/>
+		  <item id="13" type="Image" style="2" rect="100,140,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="-1" backgroud="0"/>
+		  <item id="14" type="Image" style="2" rect="100,160,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="-1" backgroud="0"/>
+		  <item id="15" type="Image" style="2" rect="100,180,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="-1" backgroud="0"/>
+			<item id="16" type="Image" style="2" rect="100,160,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="-1" backgroud="0"/>
+		  <item id="17" type="Image" style="2" rect="100,180,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="-1" backgroud="0"/>
+			
+			<item id="20" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="43" framenum="3"/>
+			<item id="21" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="13" frame="46" framenum="3"/>
+
+		</controls>
+	</dialog>
+</gui>

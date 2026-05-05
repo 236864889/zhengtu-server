@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by any (Ru-Board) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="31" name="PopCreateDialog2" style="5" caption="" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="0" hidesoundindex="0">
+		<controls>
+			<item id="2" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\login.gl" group="0" frame="0"/>
+			<item id="3" type="Image" style="2" rect="-20,-40,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="-1" frame="-1" backgroud="0"/>  <!--角色圆圈图片-->
+			<item id="4" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\login.gl" group="0" frame="13" backgroud="0"/>  <!--膜-->
+			
+     	   		<item id="30" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" pack="data\login.gl" group="0" frame="4" framenum="3"/>   <!--男-->
+			    <item id="31" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" pack="data\login.gl" group="0" frame="1" framenum="3"/>	  <!--女-->
+						
+			
+			<item id="32" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" pack="data\login.gl" group="0" frame="10" framenum="3"/>   <!--选头像左-->
+			<item id="33" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" pack="data\login.gl" group="0" frame="7" framenum="3"/>	  <!--选头像右-->
+		
+		
+		   <item id="34" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" pack="data\login.gl" group="0" frame="15" framenum="3"/>   <!--动画左-->
+			<item id="35" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" pack="data\login.gl" group="0" frame="18" framenum="3"/>	  <!--动画右-->
+		
+		
+		
+		     <item id="40" type="ComboBox"  rect="89,420,126,18"  style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"/> <!--发型-->
+	 	  
+             <item id="41" type="EditBox" style="8" rect="98,190,108,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--姓名-->
+            
+             <item id="42" type="ComboBox"  rect="86,510,130,16"  style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"/>  <!--国家-->
+      
+   
+            <item id="43" type="Slider" style="0" rect="115,445,114,15" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="44" type="Slider" style="0" rect="116,464,114,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="45" type="Slider" style="0" rect="116,484,113,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            
+             
+             
+		</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>
+
+

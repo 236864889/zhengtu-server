@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="69" name="TitleSystem" style="0" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+			<!--背景-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="24" frame="0" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="2" type="Button" sound="10107" style="0" rect="922,45,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="120" frame="40" framenum="3"/>
+			<item id="7" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1"/>
+			<item id="10" type="Button" style="0" rect="147,76,106,36" isdefault="0" pack="data\Interfaces2.gl" group="24" frame="1" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">榜单称号</item>
+			<item id="11" type="Button" style="0" rect="271,76,106,36" isdefault="0" pack="data\Interfaces2.gl" group="24" frame="1" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">永久称号</item>
+			<item id="12" type="Button" style="0" rect="396,76,106,36" isdefault="0" pack="data\Interfaces2.gl" group="24" frame="1" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">永久称号</item>
+			<!--榜单称号页-->
+			<item id="101" type="Button" style="99" rect="81,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="101" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:30000 &#xA;增加双防:30000 &#xA;增加生命:300000 </Tip></item>
+			<item id="102" type="Button" style="99" rect="386,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="102" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:10000 &#xA;增加双防:10000 &#xA;增加生命:100000 </Tip></item>
+			<item id="103" type="Button" style="99" rect="691,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="103" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:60000 &#xA;增加双防:60000 &#xA;增加生命:300000 </Tip></item>
+			<item id="104" type="Button" style="99" rect="81,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="104" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:40000 &#xA;增加双防:40000 &#xA;增加生命:200000 </Tip></item>
+			<item id="105" type="Button" style="99" rect="386,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="105" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:30000 &#xA;增加双防:30000 &#xA;增加生命:150000 </Tip></item>
+			<item id="106" type="Button" style="99" rect="691,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="106" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:20000 &#xA;增加双防:20000 &#xA;增加生命:100000 </Tip></item>
+			<item id="107" type="Button" style="99" rect="81,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="107" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="108" type="Button" style="99" rect="386,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="108" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="109" type="Button" style="99" rect="691,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="109" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:300000 &#xA;增加双防:300000 &#xA;增加生命:1000000 </Tip></item>
+			<item id="110" type="Button" style="99" rect="81,433,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="110" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:150000 &#xA;增加双防:150000 &#xA;增加生命:500000 </Tip></item>
+			<item id="111" type="Button" style="99" rect="386,433,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="111" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="112" type="Button" style="99" rect="691,433,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="112" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			
+			<!--活动称号页-->
+			<item id="201" type="Button" style="99" rect="70,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="101" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="202" type="Button" style="99" rect="386,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="102" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="203" type="Button" style="99" rect="691,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="103" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="204" type="Button" style="99" rect="81,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="104" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="205" type="Button" style="99" rect="386,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="105" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="206" type="Button" style="99" rect="691,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="106" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="207" type="Button" style="99" rect="81,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="107" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="208" type="Button" style="99" rect="386,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="108" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="209" type="Button" style="99" rect="691,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="109" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="210" type="Button" style="99" rect="81,433,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="110" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="211" type="Button" style="99" rect="386,433,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="111" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="212" type="Button" style="99" rect="691,433,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="112" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			
+			<item id="301" type="Button" style="99" rect="81,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="101" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="302" type="Button" style="99" rect="386,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="102" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="303" type="Button" style="99" rect="691,135,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="103" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="304" type="Button" style="99" rect="81,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="104" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="305" type="Button" style="99" rect="386,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="105" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="306" type="Button" style="99" rect="691,235,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="106" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="307" type="Button" style="99" rect="81,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="107" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="308" type="Button" style="99" rect="386,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="108" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="309" type="Button" style="99" rect="691,334,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="109" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="310" type="Button" style="99" rect="81,433,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="110" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="311" type="Button" style="99" rect="386,433,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="111" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<item id="312" type="Button" style="99" rect="691,433,253,75" isdefault="0" pack="data\Interfaces2.gl" group="999" frame="112" bitmapbutton="1" framenum="1" hotkey=""><Tip>激活称号属性:&#xA;增加双攻:5000 &#xA;增加双防:5000 &#xA;增加生命:50000 </Tip></item>
+			<!--勾选按钮-->
+			<item id="1001" type="Button" style="0" rect="0,0,34,34" isdefault="0" pack="data\Interfaces.gl" group="3" frame="20" bitmapbutton="1" framenum="1" hotkey=""/>
+		</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>

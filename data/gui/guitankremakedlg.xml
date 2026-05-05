@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="150" name="CustomDialog" style="10" simplestyle="0" caption="道具打造" rect="-23,-18,390,550" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" bCenter="0" showsoundindex="0" hidesoundindex="0">
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,390,550" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="19" frame="5" backgroud="1" />
+            <item id="1" type="ListBox" style="c" rect="52,180,332,100" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" itemheight="0" />
+            <item id="2" type="ListBox" style="c" rect="52,355,332,106" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" itemheight="0" />
+            <item id="3" type="Static" style="0" rect="178,123,100,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">战车改造</item>
+            <item id="4" type="Static" style="0" rect="191,298,100,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">需要原料</item>
+            <item id="5" type="Static" style="0" rect="55,329,260,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">原料      需求    数量    消耗</item>
+            <item id="6" type="Button" style="0" rect="54,509,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">改造</item>
+            <item id="7" type="Process" style="0" rect="136,516,101,13" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="100" pos="0" needbackground="1" pack="" group="0" frame="0" />
+            <item id="8" type="Static" style="0" rect="279,514,89,24" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">0文</item>
+            <item id="13" type="Button" style="0" rect="271,144,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">显示可造</item>
+        </controls>
+        <script></script>
+    </dialog>
+</gui>

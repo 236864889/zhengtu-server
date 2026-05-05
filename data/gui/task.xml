@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    
+    
+    <dialog id="35" name="TaskDialog" style="0" caption="任务" rect="244,236,585,420" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+        
+        
+        <controls>
+            
+            
+            <item id="0" type="Image" style="2" rect="0,0,386,530" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.pak" group="0" frame="1" backgroud="1" />
+			
+            
+            <item id="1" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+			
+                
+                <datas>
+                    <item>主线</item>
+                    <item>支线</item>
+                    <item>检索</item>
+                </datas>
+			
+            
+            </item>
+            
+            <!--任务列表-->
+            <item id="2" type="ListBox" style="8" rect="15,50,180,112" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">
+                
+                <datas>
+                    <item>1.(1级) 武器选择 </item>
+                </datas>
+            
+            </item>
+            
+            
+	    <!--注销任务-->  
+	    <item id="3" type="Button" style="0" rect="475,369,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255">注销任务</item> 
+            <!--item id="3" type="Button" style="0" rect="184,-119,70,29" isdefault="0" pack="data\interfaces.pak" group="21" frame="7" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item-->
+            
+            <!--任务说明-->  
+            <item id="4" type="MLineTextBox" style="19" rect="215,46,355,307" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" /> 
+            
+            <!--主线-->  
+            <item id="5" type="Button" style="0" rect="-94,-130,70,29" isdefault="0" pack="data\interfaces.pak" group="21" frame="13" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>            
+            
+	     <!--任务列表-->
+            <item id="12" type="ListBox" style="8" rect="15,51,180,112" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+            
+            <!--注销任务-->
+	    <item id="13" type="Button" style="0" rect="475,369,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255">注销任务</item> 
+            <!--item id="13" type="Button" style="0" rect="184,-119,70,29" isdefault="0" pack="data\interfaces.pak" group="21" frame="7" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item-->
+            
+             <!--任务说明-->
+            <item id="14" type="MLineTextBox" style="19" rect="215,46,355,307" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" /> 
+            
+            <!--支线-->
+            <item id="15" type="Button" style="0" rect="-94,-130,70,29" isdefault="0" pack="data\interfaces.pak" group="21" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            
+            
+             <!--检索任务--> 
+            <item id="20" type="Button" style="0" rect="-94,-130,70,29" isdefault="0" pack="data\interfaces.pak" group="21" frame="17" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            
+			<item id="100" type="Button" sound="10107" style="0" rect="-210,-5,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/> 
+			
+            <item id="201" type="MLineTextBox" style="19" rect="215,46,355,307" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" /> 
+            
+        </controls>
+        
+        
+        <script>function OnGuiEvent(nEvent,nID,pControl) 			
+			return false 
+			end
+		</script>
+    
+    
+    </dialog>
+
+
+</gui>

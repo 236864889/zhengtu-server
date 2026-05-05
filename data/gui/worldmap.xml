@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="56" name="worldMap" style="5" rect="0,0,1024,768" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl) --[[处理GUI事件]]
+	return false
+end</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+		<item id="0" type="Image" style="2" rect="98,48,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="-1" frame="-1" backgroud="1" />
+            <item id="1" type="ComboBox" style="0" rect="300,50,122,26" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" />
+            <!--item id="2" type="ComboBox" style="0" rect="700,60,122,26" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" /-->
+            <item id="3" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="6" frame="30" bitmapbutton="1" framenum="3" hotkey="">
+			<Tip>切换到国家地图</Tip>
+		</item>
+		<item id="4" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="6" frame="27" bitmapbutton="1" framenum="3" hotkey="">
+			<Tip>切换到世界地图</Tip>
+		</item>
+		<item id="5" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="6" frame="33" bitmapbutton="1" framenum="3" hotkey="">
+			<Tip>缩小</Tip>
+		</item>
+		<item id="6" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="6" frame="36" bitmapbutton="1" framenum="3" hotkey="">
+			<Tip>关闭</Tip>
+		</item>
+		</controls>
+	</dialog>
+</gui>

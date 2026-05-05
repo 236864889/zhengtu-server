@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>      
+    <dialog id="35" name="TaskDialog" style="10" caption="鲜花排行榜" rect="319,119,386,530" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12"> 
+        <controls>
+             <!--背景-->
+            <item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="407" frame="3" backgroud="1" />
+	    	<!--关闭按钮 -->
+			<item id="1" type="Button" style="0" rect="0,0,30,30" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="407" frame="11" framenum="3"/>
+        
+        	<item id="2" type="ListBox" style="8" rect="-10000,-10000,180,100" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1"/>
+        	<item id="11" type="ListBox" style="8" rect="256,232,470,400" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" /><!--排行榜排列范围 -->		
+     
+	        <!--今日鲜花榜 -->
+        	<item id="101" type="Button" style="0" rect="56,176,180,100" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="407" frame="14" framenum="3"/>
+           <!--查看装备 -->
+           <item id="1101" type="Static" style="0" rect="61,623,180,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"/> 		 
+		   <item id="1102" type="Button" style="0" rect="610,635,0,0" isdefault="0" pack="data\interfaces2.gl" group="407" frame="17" bitmapbutton="1" framenum="3" hotkey=""/>	
+		    <item id="1119" type="Static" style="0" rect="53,360,180,290" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0">查看装备
+
+		
+		
+		
+		
+		
+				
+领取奖励
+</item>		
+		<item id="1120" type="Static" style="0" rect="53,330,180,290" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0">
+说明：		
+
+
+你可以通过点击这些玩家的名称，然后再选择右下角的“查看装备”按钮，方便的查看高级玩家们的装备情况，学习更多装备知识。
+
+
+
+
+每天第一名获得“征途宝贝”称号有属性加成，收花达到20万=专属称号1个，收花达到40万=天使时装1件，收花达到60万=天使马1头
+</item>			   
+	  </controls>
+    </dialog>
+
+
+</gui>

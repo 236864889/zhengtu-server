@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="1005" name="UserNotion" style="4" rect="255,100,800,600" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="">
+        <controls>
+            <!--<item id="1" type="Static" style="0" rect="21,20,230,21" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">请选择您对我们公司的意见：</item>
+			-->	
+			<item id="1" type="Image" rect="0,0,0,0" style="2" pack="data\interfaces.gl" group="142" frame="2" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1"/>
+			
+        	<item id="2" type="Button" sound="10107" style="0" rect="-104,-2,-70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/> 		<!--关闭-->		<!--关闭-->	 
+        	
+        	           
+            <item id="3" type="Button" style="2" rect="300,498,70,29" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,255,255">提交</item>
+
+            <item id="5" type="Button" style="2" rect="530,118,70,29" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,255,255">重置</item>
+<!--
+            <item id="10" type="CheckBox" style="5"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="40,55,700,24">自动充值如背包中金子数目小于10两，\n将无法自动冲值如背包中金子数目小于10两，将无法自动冲值如背包中金子数目小于10两，将无法自动冲值</item>
+            <item id="11" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="40,115,345,24"></item>
+            <item id="12" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="40,175,345,24"></item>   
+            <item id="13" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="40,235,345,24"></item>   
+            <item id="14" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="40,295,345,24"></item>  
+            <item id="15" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="40,355,345,24"></item>  
+            <item id="16" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="40,415,345,24"></item>  
+
+-->	
+<!--
+            <item id="20" type="Static" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="60,59,300,48"><Tip>如背包中金子数目小于10两，将无法自动冲值。</Tip></item>
+-->	
+
+			<!--正文信息
+            <item id="21" type="Static" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="70,119,345,48"></item>
+            <item id="22" type="Static" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="70,179,345,48"></item>
+            <item id="23" type="Static" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="70,239,345,48"></item>
+            <item id="24" type="Static" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="70,299,345,48"></item>
+            <item id="25" type="Static" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="70,359,345,48"></item>
+            <item id="26" type="Static" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="70,419,345,48"></item>
+
+			<item id="30" type="Static" style="0"  isdefault="0" color="255,255,255,0" textcolor="255,255,255,0" rect="13,53,20,48" font="2">A</item>
+            <item id="31" type="Static" style="0"  isdefault="0" color="255,255,255,0" textcolor="255,255,255,0" rect="13,113,20,48" font="2">B</item>
+            <item id="32" type="Static" style="0"  isdefault="0" color="255,255,255,0" textcolor="255,255,255,0" rect="13,173,20,48" font="2">C</item>
+            <item id="33" type="Static" style="0"  isdefault="0" color="255,255,255,0" textcolor="255,255,255,0" rect="13,233,20,48" font="2">D</item>
+            <item id="34" type="Static" style="0"  isdefault="0" color="255,255,255,0" textcolor="255,255,255,0" rect="13,293,20,48" font="2">E</item>
+            <item id="35" type="Static" style="0"  isdefault="0" color="255,255,255,0" textcolor="255,255,255,0" rect="13,353,20,48" font="2">F</item>
+            <item id="36" type="Static" style="0"  isdefault="0" color="255,255,255,0" textcolor="255,255,255,0" rect="13,413,20,48" font="2">G</item>
+        -->
+			<item id="41" type="ScrollBar" style="1" rect="632,101,33,464" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="26" frame="3"></item>
+			<!--
+			<item id="41" type="ScrollBar" style="10" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="26" frame="3"></item>
+			-->
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

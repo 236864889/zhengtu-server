@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="1001" name="mainsafetyuser" style="25" caption="" rect="365,373,405,250" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+        	  
+        	                   
+   <item id="1" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="25,20,340,140">   警告!有人正试图从其它机器登陆该游戏帐号！为了您的账号安全，我们建议您暂时不要退出游戏，并且到</item>
+
+   <item id="3" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="25,80,200,20">“降龙武僧”登陆器公告栏</item>  
+                    
+<item id="4" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="25,110,340,140">上的“密码修改”页面中修改您的密码。另外，请务必认真保管好您的超级密码，并且增加安全时限的时间，否则一切后果自负。</item>
+           
+           <!--close--> 
+           <item id="2" type="Button" sound="10107" style="0" rect="-401,-17,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/>         
+           <!--绑定地址-->     
+    <item id="5" type="Button" style="2" rect="64,174,88,29" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,239,196,0">绑定地址</item>
+    
+    <!--安全时限--> 
+	<item id="6" type="Button" style="2" rect="218,174,88,29" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,239,196,0">安全时限</item>   
+	       
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

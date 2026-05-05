@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="100" name="SelectMarryType" style="5" caption="" rect="590,274,151,220" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+			<item id="4" type="Button" sound="10107" style="0" rect="-650,-17,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/>
+            <item id="1" type="Button" style="2" rect="19,60,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">普通婚礼</item>
+            <item id="2" type="Button" style="2" rect="19,100,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">特级婚礼</item>
+            <item id="3" type="Button" style="2" rect="19,140,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">豪华婚礼</item>
+            <item id="5" type="Static" style="0" rect="5,17,120,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">请选择婚礼类型:</item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

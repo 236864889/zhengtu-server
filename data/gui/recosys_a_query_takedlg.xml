@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    
+    
+    
+    <dialog id="0" style="21" caption="欢迎进入征途游戏推荐人系统" rect="400,301,332,350" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" name="RecoSysBUI" align="12">
+        
+        
+        
+        <controls>
+            
+            
+            
+            <item id="10" type="Static" style="0" x="85" y="22" width="220" height="21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="22,63,220,21">被推荐人</item>
+						
+            
+            
+            <item id="11" type="Static" style="0" x="85" y="22" width="220" height="21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="120,63,220,21">提取等级</item>           
+            
+            
+            
+            <item id="12" type="Static" style="0" x="85" y="22" width="220" height="21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="220,64,220,19">累计奖金</item>
+         
+            
+
+            
+            
+            
+            <item id="14" type="Static" style="0" x="85" y="22" width="220" height="21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="52,201,220,21">累计奖励银子:</item>
+            
+            
+            
+            <item id="15" type="Static" style="0" x="85" y="22" width="220" height="21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="53,227,220,21">本次可提取银子:</item>
+            
+            
+            
+            <item id="7" type="Button" style="0" x="180" y="52" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="31,270,70,29">提取</item>
+            
+            
+            
+            <item id="8" type="Button" style="0" x="180" y="88" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="205,268,70,29">取消</item>
+            
+        
+            <item id="20" type="ListBox" style="8" rect="9,87,301,112" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+        
+        
+        </controls>
+    
+        
+        
+        <script></script>
+    
+    
+    </dialog>
+
+
+
+</gui>

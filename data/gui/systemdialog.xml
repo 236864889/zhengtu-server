@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="3" name="SystemDialog" style="10" caption="系统设置" rect="226,187,571,394" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="10111">
+        <!--#define EVENT_BUTTON_CLICKED100
+#define EVENT_COMBOBOX_SELECTION_CHANGED200
+#define EVENT_RADIOBUTTON_CHANGED   300
+#define EVENT_CHECKBOX_CHANGED  400
+#define EVENT_SLIDER_VALUE_CHANGED  500
+#define EVENT_EDITBOX_STRING600
+#define EVENT_EDITBOX_CHANGE700
+#define EVENT_LISTBOX_ITEM_DBLCLK   800
+#define EVENT_LISTBOX_SELECTION 900
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001
+#define EVENT_TAB_SELECTION_CHANGED			2000-->
+    <script>
+    function InitTab()
+		this:AddControl2TabByID(4,0,100)
+		this:AddControl2TabByID(4,0,101)
+		this:AddControl2TabByID(4,0,102)
+		this:AddControl2TabByID(4,0,103)
+		this:AddControl2TabByID(4,0,104)
+		this:AddControl2TabByID(4,0,105)
+		this:AddControl2TabByID(4,0,106)
+		this:AddControl2TabByID(4,0,107)
+		this:AddControl2TabByID(4,0,108)
+		this:AddControl2TabByID(4,0,109)
+		this:AddControl2TabByID(4,1,200)
+		this:AddControl2TabByID(4,1,201)
+		this:AddControl2TabByID(4,1,202)
+		this:AddControl2TabByID(4,1,203)
+		this:AddControl2TabByID(4,1,204)
+		this:AddControl2TabByID(4,1,205)
+		this:AddControl2TabByID(4,1,206)
+		this:AddControl2TabByID(4,1,207)
+		this:AddControl2TabByID(4,1,208)
+		this:AddControl2TabByID(4,1,209)
+		this:AddControl2TabByID(4,1,210)
+		this:AddControl2TabByID(4,1,211)
+		this:AddControl2TabByID(4,1,212)
+		this:AddControl2TabByID(4,1,213)		
+		this:AddControl2TabByID(4,2,300)
+		this:AddControl2TabByID(4,2,301)
+		this:AddControl2TabByID(4,2,302)
+		this:AddControl2TabByID(4,2,303)
+		this:AddControl2TabByID(4,2,304)
+		this:AddControl2TabByID(4,2,305)
+		this:AddControl2TabByID(4,2,306)	
+		this:AddControl2TabByID(4,2,307)	
+		this:AddControl2TabByID(4,2,308)
+		this:AddControl2TabByID(4,2,309)
+		this:AddControl2TabByID(4,2,310)
+		this:AddControl2TabByID(4,2,311)
+		this:AddControl2TabByID(4,2,312)
+		this:AddControl2TabByID(4,2,313)
+		this:AddControl2TabByID(4,2,314)
+		this:AddControl2TabByID(4,2,315)
+		this:AddControl2TabByID(4,2,316)
+		this:AddControl2TabByID(4,2,317)		
+		this:AddControl2TabByID(4,2,318)
+		this:AddControl2TabByID(4,2,319)
+		this:AddControl2TabByID(4,3,400)
+		this:AddControl2TabByID(4,3,401)		
+		this:AddControl2TabByID(4,3,403)		
+		this:AddControl2TabByID(4,3,404)
+		this:AddControl2TabByID(4,3,405)
+		this:AddControl2TabByID(4,3,406)
+		this:AddControl2TabByID(4,3,407)
+		this:AddControl2TabByID(4,4,500)
+		this:AddControl2TabByID(4,4,501)
+		this:AddControl2TabByID(4,4,502)
+		this:AddControl2TabByID(4,4,503)
+		this:AddControl2TabByID(4,4,504)
+		this:AddControl2TabByID(4,4,505)
+		this:AddControl2TabByID(4,4,506)
+		this:AddControl2TabByID(4,4,507)
+		this:AddControl2TabByID(4,4,508)
+		this:AddControl2TabByID(4,4,509)
+    end
+    
+    function InitButton()
+		this:SetButtonGroup(10,1);
+		this:SetButtonGroup(11,1);
+		this:SetButtonGroup(12,1);
+		this:SetButtonGroup(13,1);
+		this:SetButtonGroup(14,1);
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()	
+			InitButton()
+			return true		
+		end
+		return false
+	end
+	</script>
+    <controls>
+            <!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->   
+            <item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="29" frame="0" backgroud="1" />
+            <item id="2" type="Button" style="0" rect="0,27,0,0" isdefault="0" pack="data\interfaces.gl" group="29" frame="16" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="3" type="Button" style="0" rect="0,27,0,0" isdefault="0" pack="data\interfaces.gl" group="29" frame="19" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="4" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+			<datas>
+                    <item>视频</item>
+                    <item>音频</item>
+                    <item>聊天</item>
+                    <item>功能</item>
+                    <item>其他</item>
+                </datas>
+			</item>
+            <item id="10" type="Button" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="29" frame="1" bitmapbutton="1" framenum="3"></item>
+            <item id="11" type="Button" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="29" frame="4" bitmapbutton="1" framenum="3"></item>
+            <item id="12" type="Button" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="29" frame="7" bitmapbutton="1" framenum="3"></item>
+            <item id="13" type="Button" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="29" frame="10" bitmapbutton="1" framenum="3"></item>
+            <item id="14" type="Button" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="29" frame="13" bitmapbutton="1" framenum="3"></item>
+            <item id="15" type="Button" style="0" rect="0,27,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="29" frame="22" bitmapbutton="1" framenum="3"><Tip>点击此按钮,系统以最流畅的游戏速度匹配视频设置</Tip></item>
+            <item id="16" type="Button" style="0" rect="0,27,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="29" frame="25" bitmapbutton="1" framenum="3"><Tip>点击此按钮,系统以最好的游戏效果匹配视频设置</Tip></item>
+            <item id="100" type="Static" style="0" rect="57,158,63,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">分辩率：</item>
+			<item id="101" type="ComboBox" style="0" rect="51,186,122,27" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+            <item id="102" type="Static" style="0" rect="51,218,65,21" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">色彩模式：</item>
+            <item id="103" type="ComboBox" style="0" rect="51,242,122,26" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>            
+            <item id="104" type="CheckBox" style="0" rect="220,157,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启窗口模式</item>
+            <item id="105" type="CheckBox" style="0" rect="220,182,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启垂直同步<Tip>将您的游戏帧数与显示器的刷新率同步，可防止画面撕裂</Tip>
+            </item>
+            <item id="106" type="CheckBox" style="0" rect="220,207,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启光影效果<Tip>开启白天黑夜效果</Tip>
+            </item>
+            <item id="107" type="CheckBox" style="0" rect="220,232,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启天气效果<Tip>开启这个选项能体会到游戏中的天气变化,当出现花屏时请关闭此选项</Tip></item>
+            <item id="108" type="CheckBox" style="0" rect="220,257,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">使用硬件鼠标指针<Tip>开启这个选项能获得最佳的运行表现，除非您遇到了图标问题</Tip>
+            </item>
+            <item id="109" type="CheckBox" style="0" rect="220,282,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">启用纹理压缩<Tip>开启这个选项能提高运行速度，如遇篮屏花屏等显示问题请去掉此项</Tip>
+            </item>
+            <item id="200" type="CheckBox" style="0" rect="70,160,63,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">音效</item> 
+            <item id="201" type="CheckBox" style="0" rect="100,190,90,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">场景音效</item>
+            <item id="202" type="CheckBox" style="0" rect="100,220,90,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">环境音效</item>
+            <item id="203" type="CheckBox" style="0" rect="100,250,90,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">背景音乐</item>
+            <item id="210" type="Slider" style="0" rect="200,164,160,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" min="0" max="100" />
+            <item id="211" type="Slider" style="0" rect="200,194,160,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" min="0" max="100" />
+            <item id="212" type="Slider" style="0" rect="200,224,160,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" min="0" max="100" />
+            <item id="213" type="Slider" style="0" rect="200,254,160,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" min="0" max="100" />
+            
+            <item id="300" type="CheckBox" style="0" rect="50,160,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启轻声频道<Tip>开启轻声频道可收到九屏范围内的轻声聊天信息</Tip></item>
+            <item id="301" type="CheckBox" style="0" rect="50,190,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启国家频道<Tip>开启国家频道可收到隶属国家的国聊信息</Tip></item>
+            <item id="302" type="CheckBox" style="0" rect="50,220,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启地区频道<Tip>开启地区频道可收到当前区域范围内的聊天信息</Tip></item>
+            <item id="303" type="CheckBox" style="0" rect="50,250,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启密聊频道<Tip>开启密聊频道可收到他人发送给你的悄悄话信息</Tip></item>
+            <item id="304" type="CheckBox" style="0" rect="215,160,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启帮会频道<Tip>开启帮会频道可收到所在帮会的聊天信息</Tip></item>
+            <item id="305" type="CheckBox" style="0" rect="215,190,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启队伍频道<Tip>开启队伍频道可在组队后收到组内成员的聊天信息</Tip></item>
+            <item id="306" type="CheckBox" style="0" rect="215,220,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启家族频道<Tip>开启家族频道可收到所在家族的聊天信息</Tip></item>
+            <item id="307" type="CheckBox" style="0" rect="215,250,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启好友频道<Tip>开启好友频道可在好友频道内收到所有好友的聊天信息</Tip></item>      
+            <item id="308" type="CheckBox" style="0" rect="50,280,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启师门频道<Tip>开启师门频道可收到自己的师傅与徒弟的聊天信息，该频道不可改变聊天字体颜色</Tip></item> 
+            <item id="309" type="CheckBox" style="0" rect="215,280,125,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">开启世界频道<Tip>开启世界频道可收到他国人员的世界聊天信息，该频道不可改变聊天字体颜色</Tip></item>    
+            <item id="310" type="Static" rect="180,164,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>点击可以改变轻声频道颜色</Tip>
+            </item>
+            <item id="311" type="Static" rect="180,194,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>点击可以改变国家频道颜色</Tip>
+            </item>
+            <item id="312" type="Static" rect="180,224,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>点击可以改变地区频道颜色</Tip>
+            </item>
+            <item id="313" type="Static" rect="180,254,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>点击可以改变密聊频道颜色</Tip>
+            </item>
+            <item id="314" type="Static" rect="345,164,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>点击可以改变帮会频道颜色</Tip>
+            </item>  
+            <item id="315" type="Static" rect="345,194,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>点击可以改变队伍频道颜色</Tip>
+            </item>
+            <item id="316" type="Static" rect="345,224,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>点击可以改变家族频道颜色</Tip>
+            </item>
+            <item id="317" type="Static" rect="345,254,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>点击可以改变好友频道颜色</Tip>
+            </item>
+            <item id="318" type="Static" rect="180,284,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>颜色块颜色固定,不可点击</Tip>
+            </item>
+            <item id="319" type="Static" rect="345,284,30,20" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+                <Tip>颜色块颜色固定,不可点击</Tip>
+            </item>
+            <item id="400" type="CheckBox" style="0" rect="60,170,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">允许组队<Tip>选择允许组队可以成功与他人成功组队，不选择将不能与他人组队</Tip></item>
+            <item id="401" type="CheckBox" style="0" rect="60,210,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">允许交易<Tip>选择允许交易可以成功与他人交易，不选择将不能与他人交易</Tip></item>
+            <!--item id="402" type="CheckBox" style="0" rect="60,250,123,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">自动寻路<Tip>开启家族频道可收到所在家族的聊天信息</Tip></item-->
+            <item id="403" type="CheckBox" style="0" rect="240,170,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">允许加入家族<Tip>选择允许加入家族可以成功加入到家族，不选择将不能加入到家族</Tip></item>
+            <item id="404" type="CheckBox" style="0" rect="240,210,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">允许加入帮会<Tip>选择允许加入帮会可以成功加入到帮会，不选择将不能加入到帮会</Tip></item>
+            <item id="405" type="CheckBox" style="0" rect="60,250,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">允许加为好友<Tip>选择允许加为好友可以成功接收结拜请求，不选择将接收不到结拜请求</Tip></item>
+            <item id="406" type="CheckBox" style="0" rect="240,250,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">允许加入师门<Tip>选择允许加入师门可以成功接收收徒请求，不选择将接收不到收徒请求</Tip></item>
+            <item id="407" type="CheckBox" style="0" rect="60,290,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">允许小游戏<Tip>选择允许小游戏可以成功接收小游戏邀请，不选择将接收不到小游戏邀请。</Tip></item>
+            <item id="500" type="CheckBox" style="0" rect="70,170,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">显示小头像<Tip>选择显示小头像在游戏中会出现自身人物头像，不选择将不出现自身人物头像</Tip></item>
+            <item id="501" type="CheckBox" style="0" rect="70,200,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">显示小地图<Tip>选择显示小地图游戏中会出现小地图，不选择将不出现小地图</Tip></item>
+            <item id="502" type="CheckBox" style="0" rect="70,230,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">自动寻怪<Tip>选择自动寻怪玩家可不控制角色，角色将自动寻找怪物练级，组合快捷键CTR+Z可开启和关闭自动寻怪功能。</Tip></item>
+            <item id="503" type="CheckBox" style="0" rect="225,170,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">显示玩家名字<Tip>选择显示玩家名字可显示所有玩家的名字，不显示玩家名字能够使游戏更加流畅</Tip></item>
+            <item id="504" type="CheckBox" style="0" rect="225,200,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">显示帮助教程<Tip>选择显示帮助教程在游戏中会出现各种帮助提示，不选择将不出现帮助提示</Tip></item>
+            <item id="505" type="CheckBox" style="0" rect="225,230,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">小地图全显示<Tip>选择小地图全显示会在小地图中出现所有人物、NPC、以及怪物的缩略显示</Tip></item>
+            <item id="506" type="CheckBox" style="0" rect="70,260,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">自动寻路<Tip>选择自动寻路，在游戏中左键点击地面，角色可自动饶过障碍到达</Tip></item>
+            <item id="507" type="CheckBox" style="0" rect="225,260,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">显示地上物品<Tip>选择显示地上物品，游戏中显示所有地上物品的名字</Tip></item>
+            <item id="508" type="CheckBox" style="0" rect="70,290,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">断线重连<Tip>选择断线重连，断线后系统自动重新连接服务器</Tip></item>
+            <item id="509" type="CheckBox" style="0" rect="225,290,123,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">显示特效<Tip>选择显示特效，可以在游戏中看到绚丽的技能效果</Tip></item>
+        </controls>
+    </dialog>
+</gui>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="10000" name="GuiSiRenBieShuManagerDlg" style="0" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+			<!--背景-->
+			<item id="0" type="Image" style="2" rect="0,0,1178,736" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces5.gl" group="3" frame="0" backgroud="1" enbaleFocus="1"/>
+			<!--关闭按钮-->
+			<item id="1" type="Button" sound="10107" style="0" rect="963,19,52,52" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="3" frame="8" framenum="3"/>
+			<!--材料格子-->
+			<item id="80" type="Table" virtual="1" style="1" rect="790,471,32,32" itemrect="790,471,32,32" cellWidth="34" cellHeight="34" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--提交按钮-->
+			<item id="100" type="Button" style="0" rect="874,477,120,46" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces5.gl" group="3" frame="23" backgroud="0" enbaleFocus="true" framenum="3" bitmapbutton="1">建造别墅</item>
+		    <!--状态通知-->
+			<item id="110" type="Static" style="0" rect="793,545,255,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"></item>
+			
+			 <!--培养属性-->
+			<item id="201" type="Static" style="0" rect="757,120,230,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">别墅等级:</item>
+			<item id="202" type="Static" style="0" rect="830,120,170,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"/>
+			  <!--成长进度-->			
+			<item id="203" type="Static" style="0" rect="757,150,230,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">建造进度：</item>
+			<item id="204" type="Image" style="2" rect="830,150,240,20" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces5.gl" group="3" frame="80"/>
+         	<item id="205" type="Process" style="0" rect="830,150,0,0" hotkey="" isdefault="1" font="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="10000" pos="0" pack="data\interfaces5.gl" group="3" frame="81"/>		
+		    <item id="206" type="Static" style="0" rect="830,150,230,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"/>
+		    <!--提升人物属性加成：-->
+		    <item id="210" type="Static" style="0" rect="757,180,230,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">别墅专属Buff加成：</item>
+		    <item id="211" type="Static" style="0" rect="757,210,230,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">提升攻击：</item>
+		    <item id="212" type="Static" style="0" rect="857,210,140,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">***</item>
+		    <item id="213" type="Static" style="0" rect="757,240,230,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">提升防御：</item>
+		    <item id="214" type="Static" style="0" rect="857,240,140,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">***</item>
+		    <item id="215" type="Static" style="0" rect="757,270,230,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">生命值上限：</item>
+		    <item id="216" type="Static" style="0" rect="857,270,140,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">***</item>
+		  	</controls>
+	</dialog>
+</gui>

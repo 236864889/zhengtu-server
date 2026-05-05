@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by VinsonGong (GongWenBing) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>   <!--
+     <dialog id="191" name="RestrictionsMoney"  showsoundindex="10104"  style="21" caption="每日银子交易限额" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="11" >-->
+	<dialog id="191" name="RestrictionsMoney" style="10" caption="" rect="102,365,458,328" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="0" hidesoundindex="0"> 
+     <script>
+function OnGuiEvent(nEvent,nID,pControl)
+	return false
+end
+     </script>
+         <controls>
+         <!--
+         <item id="10" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="140" frame="23"> </item>-->
+         
+			<item id="21" type="Static" style="0" rect="12,20,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">每次上线一定时间之后才能进</item>
+			<item id="22" type="Static" style="0" rect="12,40,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">行以下操作：</item><!--
+			<item id="23" type="Static" style="0" rect="12,60,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆将物品交易给其他玩家</item>-->
+			<item id="24" type="Static" style="0" rect="12,60,250,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆将物品交易给其他玩家</item>
+			<item id="25" type="Static" style="0" rect="12,80,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆将银子交易给其他玩家</item>
+			<item id="26" type="Static" style="0" rect="12,100,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆购买地摊物品</item>
+			<item id="27" type="Static" style="0" rect="12,120,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆摆摊出售物品</item>
+			<item id="28" type="Static" style="0" rect="12,140,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆邮寄物品</item>
+			<item id="29" type="Static" style="0" rect="12,160,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆邮寄银子</item>
+			<item id="42" type="Static" style="0" rect="12,180,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆提取收费邮件中的物品</item>
+			<item id="30" type="Static" style="0" rect="12,200,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆竞拍物品</item>
+			<item id="31" type="Static" style="0" rect="12,220,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆一口价购买物品</item>
+			<item id="32" type="Static" style="0" rect="12,240,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆拍卖自己的物品</item>
+			<item id="42" type="Static" style="0" rect="12,260,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">◆进入小游戏财富场</item>
+			<item id="33" type="Static" style="0" rect="245,20,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">当前设定的安全时限：</item>
+			<item id="34" type="Static" style="0" rect="245,40,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"></item>
+			<item id="35" type="Static" style="0" rect="245,60,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">本次上线安全时间倒计时：</item>
+			<item id="36" type="Static" style="0" rect="245,80,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"></item>
+			<item id="37" type="Static" style="0" rect="215,110,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" font="1"></item>
+			<item id="40" type="Static" style="0" rect="215,130,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" font="1"></item>
+			<item id="41" type="Static" style="0" rect="215,150,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" font="1"></item>
+			<item id="38" type="Static" style="0" rect="245,180,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">重新设定时限：</item>
+			<item id="39" type="Static" style="0" rect="300,200,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">小时       分</item>
+			
+			<item id="200" type="EditBox" style="2" rect="245,200,50,20" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="24"/>
+			<item id="201" type="EditBox" style="2" rect="330,200,50,20" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="59"/>
+			
+			<item id="50" type="Button" style="0" rect="220,230,70,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">修改</item>
+			<item id="51" type="Button" style="0" rect="340,230,88,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">不修改</item>
+			<item id="52" type="Button" style="0" rect="-338,-9,42,29" isdefault="0" pack="data\interfaces.gl" group="144" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			
+         </controls>
+     </dialog>
+</gui>

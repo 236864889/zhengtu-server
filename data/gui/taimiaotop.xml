@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>      
+    <dialog id="35" name="TaskDialog" style="10" caption="排行榜" rect="319,119,386,530" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12"> 
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="1" frame="30" backgroud="1" />
+			<item id="2" type="ListBox" style="8" rect="25,80,180,100" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			
+			<item id="21" type="ListBox" style="8" rect="235,140,470,420" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="22" type="Static" style="0" rect="380,76,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">太庙资源排行榜</item>
+			<item id="23" type="Static" style="0" rect="230,114,500,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">   国家        当前资源    今日太庙效果  该国掠夺本国砖数</item>
+					
+	  </controls>
+    </dialog>
+
+
+</gui>

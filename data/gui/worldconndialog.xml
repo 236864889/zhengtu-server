@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+<dialog id="40" name="WorldConnDialog" style="0" showsoundindex="10106"  caption="社会关系" rect="50,100,350,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+
+<script>
+function OnGuiEvent(nEvent,nID,pControl) 
+return false
+end</script>
+<controls>
+<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="150" backgroud="1"/>
+
+
+<item id="10" type="ScrollTab" style="10" rect="135,243,261,310" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" >
+		<datas>
+			<item>帮会</item>
+			<item>家族</item>
+			<item>师门</item>
+			<item>好友\夫妻</item>
+			<item>附近玩家</item>
+			<item>功能NPC</item>
+			<item>黑名单</item>
+			<item>仇人</item>
+		</datas>
+</item>
+
+<item id="100" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="150" backgroud="0"/>
+<item id="101" type="ListBox" style="c" rect="85,136,737,302" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+<item id="104" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="157" framenum="3"> 
+<Tip>给所有好友留言</Tip>
+</item> 
+<item id="105" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="160" framenum="3">  
+<Tip>把列表中选中角色加入自己的黑名单</Tip>
+</item> 
+<item id="106" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="163" framenum="3">  
+<Tip>收看所有好友给你的留言</Tip>
+</item> 
+<item id="107" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="74" frame="50" framenum="3">
+</item> 
+<item id="108" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="169" framenum="3">  
+<Tip>可输入玩家的名字，申请添加相应玩家为好友</Tip>
+</item> 
+<item id="109" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="184" framenum="3"> 
+<Tip>在好友名单中删除当前选中玩家</Tip>
+</item> 
+<item id="110" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="74" frame="53" framenum="3">
+</item> 
+<item id="111" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="178" framenum="3">  
+<Tip>选中列表中玩家,点击此按钮可以邀请对方加入队伍</Tip>
+</item> 
+
+
+<item id="200" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="200" backgroud="0"/>
+<item id="201" type="ListBox" style="8" rect="85,168,737,221" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+<item id="202" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="201" framenum="3">  
+<Tip>发布家族公告给族人看,只能族长发布</Tip>
+</item> 
+<item id="203" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="204" framenum="3">  
+<Tip>将选中族人开除出家族</Tip>
+</item> 
+<item id="204" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="207" framenum="3">  
+<Tip>离开这个家族</Tip>
+</item> 
+<item id="205" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="210" framenum="3"> 
+<Tip>可以输入玩家姓名将其招入家族</Tip>
+</item> 
+<item id="210" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="213" framenum="3"> 
+<Tip>把选中族人的称号更改</Tip>
+</item> 
+<item id="211" type="Button" style="0" rect="52,42,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="1" frame="4" framenum="3"> 
+<Tip>查看家族占领NPC的信息</Tip>
+</item> 
+<item id="212" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="219" framenum="3"> 
+<Tip>家族聊天频道</Tip>
+</item>
+<item id="2139" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="222" framenum="3"> 
+<Tip>家族功能说明</Tip>
+</item>
+
+
+<item id="206" type="Static" style="10" rect="180,79,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">家族名称</item>  
+<item id="207" type="Static" style="10" rect="395,79,116,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">族长名字</item>  
+<item id="208" type="Static" style="10" rect="185,107,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">繁荣度<Tip>家族在线的人数越多，繁荣度增长的越快</Tip></item>  
+<item id="209" type="Static" style="10" rect="575,79,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">等级<Tip>当家族繁荣度和家族资金达到升级要求时，族长可在家族地图中的家族长老处升级家族</Tip></item>  
+
+<item id="220" type="MLineEditBox" maxCharCount="200" lineHeight="11" style="9" rect="88,385,384,123" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+
+<item id="300" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="0" backgroud="0"/>
+<item id="301" type="ListBox" style="8" rect="85,168,737,221" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+<item id="302" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="1" framenum="3">  
+<Tip>发布公告给帮会成员看,只有帮主可以发布</Tip>
+</item> 
+<item id="303" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="4" framenum="3">  
+<Tip>给选中的族长赋予权利</Tip>
+</item> 
+<item id="304" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="7" framenum="3">  
+<Tip>更改选中族长的称号</Tip>
+</item> 
+<item id="307" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="16" framenum="3">  
+<Tip>可以输入族长姓名将其招入帮会</Tip>
+</item> 
+<item id="308" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="19" framenum="3">  
+<Tip>将选中的族长和整个家族开除出帮会</Tip>
+</item> 
+<item id="309" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="22" framenum="3">
+<Tip>离开这个帮会,只有族长可以</Tip>
+</item> 
+<item id="310" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="25" framenum="3">
+<Tip>帮会聊天频道</Tip>
+</item>
+<item id="3119" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="28" framenum="3">
+<Tip>帮会功能的说明信息</Tip>
+</item>  
+
+<item id="320" type="MLineEditBox" maxCharCount="200" lineHeight="11" style="9" rect="88,385,384,123" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+<item id="310" type="Static" style="10" rect="180,79,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">帮会名称</item>  
+<item id="311" type="Static" style="10" rect="395,79,116,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">族长名字</item>  
+<item id="312" type="Static" style="10" rect="185,107,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">繁荣度<Tip>帮会在线的人数越多，繁荣度增长的越快</Tip></item>  
+<item id="313" type="Static" style="10" rect="575,79,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">行动力</item>  
+
+
+<item id="400" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="62" backgroud="0"/>
+<item id="401" type="ListBox" style="c" rect="85,139,737,245" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+
+<item id="403" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="53" framenum="3">  
+<Tip>点击此按钮,可以离开当前所在师门(徒弟可以使用)</Tip>
+</item> 
+<item id="404" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="56" framenum="3">  
+<Tip>可输入玩家名字,并把相应的玩家加为自己的徒弟</Tip>
+</item> 
+<item id="405" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="59" framenum="3">  
+<Tip>在徒弟列表里选中某一玩家,点击此按钮可将选中的玩家踢出师门(师傅可以使用)</Tip>
+</item> 
+
+<item id="406" type="Static" style="10" rect="92,76,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">师门名称</item>  
+<item id="420" type="MLineEditBox" maxCharCount="200" lineHeight="11" style="9" rect="89,389,384,123" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+
+
+<item id="500" type="Image" style="2" rect="52,58,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="100" backgroud="0"/>
+<item id="501" type="ListBox" style="8" rect="59,212,336,258" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+<item id="504" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="107" framenum="3"/>  
+<item id="505" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="110" framenum="3"/>  
+<item id="506" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="113" framenum="3"/>  
+<item id="507" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="116" framenum="3"/>  
+<item id="508" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="119" framenum="3"/>  
+<item id="509" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="122" framenum="3"/>  
+
+
+<item id="600" type="Image" style="2" rect="52,58,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="99" backgroud="0"/>
+<item id="601" type="ListBox" style="8" rect="59,212,336,258" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+<item id="604" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="107" framenum="3"/>  
+<item id="605" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="110" framenum="3"/>  
+<item id="606" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="113" framenum="3"/>  
+<item id="607" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="116" framenum="3"/>  
+<item id="608" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="119" framenum="3"/>  
+<item id="609" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="122" framenum="3"/>  
+
+
+<item id="700" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="150" backgroud="0"/>
+<item id="701" type="ListBox" style="8" rect="86,139,737,298" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+<item id="704" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="157" framenum="3"> 
+<Tip>给所有好友留言</Tip>
+</item> 
+<item id="705" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="160" framenum="3">  
+<Tip>可输入玩家的名字，把相应的玩家加入自己的黑名单</Tip>
+</item> 
+<item id="706" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="163" framenum="3">  
+<Tip>收看所有好友给你的留言</Tip>
+</item> 
+<item id="707" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="166" framenum="3">  
+<Tip></Tip>
+</item> 
+<item id="708" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="169" framenum="3">  
+<Tip>可输入玩家的名字，申请添加相应玩家为好友</Tip>
+</item> 
+<item id="709" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="172" framenum="3"> 
+<Tip>在黑名单中删除当前选中玩家</Tip>
+</item> 
+<item id="710" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="175" framenum="3">  
+<Tip></Tip>
+</item> 
+<item id="711" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="178" framenum="3">  
+<Tip>选中列表中玩家,点击此按钮可以邀请对方加入队伍</Tip>
+</item> 
+
+<item id="800" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="150" backgroud="0"/>
+<item id="801" type="ListBox" style="8" rect="86,139,737,298" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+<item id="804" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="157" framenum="3"/>  
+<item id="805" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="160" framenum="3"/>  
+<item id="806" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="163" framenum="3"/>  
+<item id="807" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="166" framenum="3"/>  
+<item id="808" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="169" framenum="3"/>  
+<item id="809" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="172" framenum="3"/>  
+<item id="810" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="175" framenum="3"/>  
+<item id="811" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="178" framenum="3"/>
+
+
+<item id="102" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="151" framenum="3"/>  
+<item id="103" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="154" framenum="3"/>  
+<item id="120" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="181" framenum="3"/>  
+<item id="901" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="414" framenum="3"/>  
+
+
+
+<item id="502" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="101" framenum="3"/>  
+<item id="503" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="104" framenum="3"/>  
+
+
+<item id="1000" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="300" framenum="3"/>  
+<item id="1002" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="306" framenum="3"/>  
+<item id="1003" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="309" framenum="3"/> 
+<!--    <item id="1001" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="303" framenum="3"/>  -->
+<item id="1004" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="312" framenum="3"/>   
+<item id="1005" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="320" framenum="3"/> 
+<item id="1" type="CheckBox" rect="682,76,102,23" style="8" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+<item id="3" type="Button" sound="10107" style="0" rect="48,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/> 
+</controls>
+</dialog>
+</gui>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    
+    
+    <dialog id="52" name="HairColor" style="14" icon="15" caption="美发" rect="-20,-20,390,550" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+      <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,390,549" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="28" frame="8" backgroud="1" />
+            <item id="6" type="Static" style="0" rect="178,453,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>        
+            <item id="7" type="Static" style="0" rect="178,473,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            
+            <item id="20" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="28" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="21" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="28" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            
+            <item id="40" type="Slider" style="0" rect="124,286,168,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="41" type="Slider" style="0" rect="125,310,168,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="42" type="Slider" style="0" rect="125,336,168,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="50" type="Static" style="0" rect="119,453,194,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="50" type="Static" style="0" rect="178,213,194,23" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">10两</item>
+        </controls>
+    </dialog>
+</gui>

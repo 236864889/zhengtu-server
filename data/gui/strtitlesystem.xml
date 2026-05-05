@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="69" name="TitleSystem" style="0" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+			<!--背景-->
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="65" frame="0" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="1" type="Button" sound="10107" style="0" rect="402,40,42,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="65" frame="33" framenum="3"/>
+			 <item id="10" type="Static" style="0" rect="50,80,387,120" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,215,0"> 1、头衔1需要头衔令才能进行升级&#xA; 2、达到一定等级可激活头衔&#xA; 3、提升头衔等级可获得相应的属性加成</item>
+
+			<item id="100" type="Static" style="0" rect="65,278,74,30" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,50,205,50" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,46,139,87" enbaleFocus="false" textEffect="1">基础属性</item>
+			<item id="101" type="Static" style="0" rect="59,306,40,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,50,205,50" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,50,205,50" enbaleFocus="false" textEffect="1">双攻：</item>
+			<item id="102" type="Static" style="0" rect="59,330,40,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,50,205,50" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,50,205,50" enbaleFocus="false" textEffect="1">双防：</item>
+			<item id="103" type="Static" style="0" rect="59,353,40,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,50,205,50" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,50,205,50" enbaleFocus="false" textEffect="1">血量：</item>
+	         
+	        <item id="106" type="Static" style="0" rect="94,306,70,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1">0</item>
+            <item id="107" type="Static" style="0" rect="94,330,70,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1">0</item>
+            <item id="108" type="Static" style="0" rect="94,353,70,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1">0</item>
+
+	        <item id="200" type="Static" style="0" rect="295,278,74,30" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,220,20,60" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,238,232,170" enbaleFocus="false" textEffect="1">下级属性</item>
+            <item id="201" type="Static" style="0" rect="289,306,60,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,220,20,60" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,248,220" enbaleFocus="false" textEffect="1">双攻：</item>
+            <item id="202" type="Static" style="0" rect="289,330,60,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,220,20,60" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,248,220" enbaleFocus="false" textEffect="1">双防：</item>
+            <item id="203" type="Static" style="0" rect="289,353,60,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,220,20,60" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,248,220" enbaleFocus="false" textEffect="1">血量：</item>    
+          	 
+          	<item id="206" type="Static" style="0" rect="324,306,70,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1">0</item>
+            <item id="207" type="Static" style="0" rect="324,330,70,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1">0</item>
+            <item id="208" type="Static" style="0" rect="324,353,70,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1">0</item>
+
+            <item id="50" type="Image" style="2" rect="281,224,50,50" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="65" frame="42" backgroud="0" scale9="0,0,0,0" enbaleFocus="false" />	
+            <item id="51" type="Image" style="2" rect="286,229,50,50" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="65" frame="42" backgroud="0" scale9="0,0,0,0" enbaleFocus="false" />	
+
+
+			
+
+          <!--材料格子背景-->
+		    <item id="20" type="Image" style="2" rect="218,406,46,48" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="65" frame="36" backgroud="0" scale9="0,0,0,0" enbaleFocus="false" />	
+			<!--材料格子-->
+			<item id="21" type="Table" virtual="1" style="1" rect="226,415,34,34" cellWidth="34" cellHeight="34" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="226,415,34,34"/>
+           
+            <item id="27" type="Static" style="0" rect="169,462,170,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1"></item>
+            
+           <!--进度条背景-->
+		   
+			<item id="29" type="Image" style="2" rect="44,197,373,20" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="65" frame="40"/>
+         	<item id="30" type="Process" style="0" rect="50,200,0,0" hotkey="" isdefault="1" font="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="10000" pos="0" pack="data\interfaces2.gl" group="65" frame="41"/>
+			<item id="300" type="Static" style="0" rect="150,200,200,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1">0</item>
+            
+	        <item id="888" type="Button" style="0" rect="204,491,70,30" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces2.pak" group="65" frame="30" framenum="3" bitmapbutton="1">提升</item>
+				</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>

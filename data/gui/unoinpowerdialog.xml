@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="81" name="ChangeCountryDialog" style="4" caption="" rect="3,83,550,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+        	  <item id="0" type="Image" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="54" frame="0" backgroud="1"/>
+
+        	  
+            <item id="2" type="ListBox" style="c" rect="25,50,327,86" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						<item id="3" type="ListBox" style="c" rect="25,208,327,89" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						<item id="4" type="Static" style="10" rect="94,20,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0"></item>              
+						<item id="5" type="Static" style="10" rect="33,180,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0"></item>              
+						
+        		<item id="10" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="54" frame="7" framenum="3"/>  
+						<item id="11" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="54" frame="10" framenum="3"/>  
+						<item id="12" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="54" frame="1" framenum="3"/>  
+						<item id="13" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="54" frame="4" framenum="3"/>  
+
+ 
+			   </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

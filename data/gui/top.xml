@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>      
+    <dialog id="35" name="TaskDialog" style="10" caption="排行榜" rect="319,119,386,530" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12"> 
+        <controls>
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces5.gl" group="1" frame="0" backgroud="1" />
+			<item id="999" type="Image" style="2" rect="203,83,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces5.gl" group="1" frame="-1"/>
+			<item id="2" type="ListBox" style="8" rect="25,86,176,130" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="11" type="ListBox" style="8" rect="220,139,548,413" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="12" type="Static" style="0" rect="405,80,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">个人等级排行榜 </item>
+			<item id="13" type="Static" style="0" rect="211,115,550,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">名次  玩家名字         国家  等级       所属帮会         奖励</item>
+
+			<item id="41" type="ListBox" style="8" rect="220,139,548,413" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="42" type="Static" style="0" rect="405,80,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">今日护国英雄榜 </item>
+			<item id="43" type="Static" style="0" rect="211,115,550,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">玩家姓名            所属帮会       击败敌人数</item>
+
+			<item id="51" type="ListBox" style="8" rect="220,139,548,413" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="52" type="Static" style="0" rect="405,80,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">昨日护国英雄榜</item>
+			<item id="53" type="Static" style="0" rect="211,115,550,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">玩家姓名            所属帮会       击败敌人数</item>
+
+			<item id="31" type="ListBox" style="8" rect="220,139,548,413" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="32" type="Static" style="0" rect="405,80,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">个人战力排行榜</item>  
+			<item id="33" type="Static" style="0" rect="211,115,550,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">名次  玩家名字         国家   战力值      所属帮会        奖励</item>
+			
+			<item id="61" type="ListBox" style="8" rect="220,139,548,413" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="62" type="Static" style="0" rect="405,80,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">个人积分排行榜 </item>
+			<item id="63" type="Static" style="0" rect="211,115,550,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">名次  玩家名字        国家   当前持有积分点数</item>
+			
+			<item id="1121" type="Button" style="0" rect="637,556,0,0" isdefault="0" pack="data\interfaces5.gl" group="1" frame="49" bitmapbutton="1" framenum="3" hotkey="">查看装备</item>
+			<item id="1122" type="Button" style="0" rect="637,556,0,0" isdefault="0" pack="data\interfaces5.gl" group="1" frame="49" bitmapbutton="1" framenum="3" hotkey="">查看装备</item>
+			<item id="1123" type="Button" style="0" rect="637,556,0,0" isdefault="0" pack="data\interfaces5.gl" group="1" frame="49" bitmapbutton="1" framenum="3" hotkey="">查看装备</item>
+		    <item id="1119" type="Static" style="0" rect="25,200,180,290" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">查看装备
+
+		
+		
+		
+		
+		
+				
+
+</item>		
+		<item id="1120" type="Static" style="0" rect="25,170,180,290" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0" font="1">
+说明：		
+
+你可以通过点击这些玩家的名称，然后再选择右下角的“查看装备”按钮，方便的查看高级玩家们的装备情况，学习更多装备知识。
+
+
+</item>		
+        <item id="209" type="Static" style="0" rect="220,568,180,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"/>  
+			
+	  </controls>
+    </dialog>
+
+
+</gui>

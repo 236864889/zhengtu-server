@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="300" name="SysOutputDialog" style="144" rect="50,85,200,450" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="系统输出">
+	 
+		<controls>
+			<item id="1" type="MLineTextBox" style="1a9" lineHeight="20" rect="3,13,200,50" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+			<item id="3" type="Button" style="0" rect="141,266,88,-35" isdefault="0" pack="data\interfaces.gl" group="5" frame="56" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>信息滚动开启/关闭</Tip>
+			</item>
+		</controls>
+	</dialog>
+</gui>

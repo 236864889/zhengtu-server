@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="1000" name="exitgame" style="5" caption="" rect="565,373,205,220" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+        	 <item id="2" type="Button" sound="10107" style="0" rect="-601,-17,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/> 		<!--关闭-->		<!--关闭-->	            
+            <item id="6" type="Button" style="0" rect="-210,-85,220,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0" pack="data\interfaces.gl" group="58" frame="670" bitmapbutton="1" framenum="3"></item>  <!--修理-->
+			<!--
+		  <item id="7" type="Button" style="0" rect="-210,-85,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0" pack="data\interfaces.gl" group="58" frame="673" bitmapbutton="1" framenum="3"></item>
+-->
+		  <item id="3" type="Button" style="0" rect="-210,-50,220,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0" pack="data\interfaces.gl" group="58" frame="676" bitmapbutton="1" framenum="3"><Tip>Ctrl+W </Tip></item><!--召唤-->
+            <item id="4" type="Button" style="0" rect="-210,-15,120,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0" pack="data\interfaces.gl" group="58" frame="679" bitmapbutton="1" framenum="3"></item><!--归还-->
+            <item id="5" type="Static" style="0" rect="10,160,165,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0" >召唤战车快捷键Ctrl+W</item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

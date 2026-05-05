@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="10000" name="GuiXinShouYinDaoDlg" style="0" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+			<!--背景-->
+			<item id="0" type="Image" style="2" rect="0,0,597,337" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="47" frame="13" backgroud="1" enbaleFocus="1"/>
+			<!--关闭按钮-->
+			<item id="1" type="Button" sound="10107" style="0" rect="331,246,154,43" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="47" frame="2" framenum="3"/>
+		</controls>
+	</dialog>
+</gui>

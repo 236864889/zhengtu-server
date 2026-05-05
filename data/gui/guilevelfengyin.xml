@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="10000" name="GuiLevelFengYin" style="21" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+		 <!--背景-->
+		 <item id="0" type="Image" style="2" rect="0,0,648,431" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="218" frame="10" backgroud="1" enbaleFocus="1" />
+		<!--关闭按钮-->
+		<item id="1" type="Button" sound="10107" style="0" rect="583,82,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="3" frame="8" framenum="3"/>
+            
+        <item id="10" type="Image" style="2" rect="105,149,87,17" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="218" frame="21" backgroud="0" enbaleFocus="0" />
+		<item id="11" type="Image" style="2" rect="105,179,87,17" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="218" frame="22" backgroud="0" enbaleFocus="0" />
+		<item id="12" type="Image" style="2" rect="105,209,87,17" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="218" frame="23" backgroud="0" enbaleFocus="0" />
+		
+		<item id="20" type="Static" style="0" rect="204,149,512,18" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="0">每个星期五解封等级</item>
+        
+		<item id="21" type="Static" style="0" rect="204,178,512,18" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="0"></item>
+        <item id="22" type="Static" style="0" rect="204,208,512,18" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="0"></item>
+
+		</controls>
+	</dialog>
+</gui>

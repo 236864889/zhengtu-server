@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="201" name="TankSetDialog" style="10"  rect="100,100,300,400" >
+    		<controls>
+    		<item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="-1" frame="-1"/>
+
+    		
+    		<item id="22" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1" />
+
+    	  <item id="4" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="2" framenum="3"></item> 
+				<item id="3" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="5" framenum="3"></item>
+			
+			
+				<item id="1" type="ListBox" style="8" rect="31,151,190,250" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+				<item id="2" type="ListBox" style="8" rect="328,152,190,250" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+				
+				
+ 
+
+				<item id="5" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="23" framenum="3"></item> 
+				<item id="6" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="26" framenum="3"></item> 
+				<item id="7" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="8" framenum="3"></item> 
+				<item id="8" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="14" framenum="3"></item>
+				
+				<item id="9" type="Static" style="10" rect="54,96,450,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">*********家族:</item>  
+  
+        <item id="12" type="Static" style="10" rect="119,83,200,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">人名</item>  
+
+				<item id="13" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="88" frame="17" framenum="3"></item>
+				
+				
+				<item id="14" type="Static" style="10" rect="31,129,300,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">当前车上成员</item>
+        <item id="15" type="Static" style="10" rect="331,129,200,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">家族成员</item>
+				
+				 <item id="16" type="Static" style="10" rect="31,83,200,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">战车指挥</item>  
+				
+				<item id="17" type="Static" style="10" rect="380,431,200,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">相克攻击力增强50%</item>  
+				<item id="18" type="Static" style="10" rect="31,415,450,40" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137">车主选中一位家族成员作为当前目标，使用快捷键Ctrl+A，即可邀请该成员上车</item>
+
+				</controls>
+    </dialog>
+</gui>

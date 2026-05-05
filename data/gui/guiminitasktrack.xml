@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by VinsonGong (GongWenBing) -->
+<!-- Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>   
+     <dialog id="100323" name="MiniQuestTrack" style="0" rect="607,298,221,349" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" caption="" showsoundindex="10112" hidesoundindex="10113" simplestyle="0" align="0" bCenter="0">
+     <script>
+function OnGuiEvent(nEvent,nID,pControl)
+	return false
+end
+     </script>
+         <controls>
+        
+		<!--鑳屾櫙鍥剧墖-->
+			<item id="100" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3" hotkey=""></item>
+			<item id="101" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3" hotkey=""></item>
+			<item id="102" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3" hotkey=""></item>
+			<item id="103" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="-1" frame="-1" bitmapbutton="1" framenum="4" hotkey=""></item>
+			<item id="104" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="-1" frame="-1" bitmapbutton="1" framenum="4" hotkey=""></item>
+			<item id="105" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="-1" frame="-1" bitmapbutton="1" framenum="4" hotkey=""></item>
+			<item id="106" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="-1" frame="-1"></item>
+			<item id="108" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3"></item>
+			<item id="109" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3"></item>
+			<item id="113" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3"></item>
+			<item id="114" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3"></item>
+			<item id="111" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3"></item>
+			<item id="115" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="1"></item>
+			<item id="116" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3" hotkey=""></item>
+			<item id="208" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="3"></item>
+			<item id="209" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="1"></item>
+			<!--鏄剧ず鏍囬??-->
+			
+			<item id="0" type="Image" style="2" rect="0,0,221,349" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="1" frame="386" backgroud="1" />
+			
+			<item id="3" type="Static" style="c" rect="45,35,60,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,245,228,159" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" >任务追踪</item>
+			<item id="4" type="Button" style="0" rect="23,31,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="1" frame="389" framenum="1" bitmapbutton="1">
+                <Tip>隐藏任务追踪</Tip>
+            </item>
+
+            <item id="5" type="Button" style="0" rect="23,31,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="1" frame="388" framenum="1" bitmapbutton="1">
+                <Tip>显示任务追踪</Tip>
+            </item>
+         
+            <item id="6" type="MLineTextBox" style="0" rect="13,52,199,170" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" />
+            <item id="7" type="Image" style="2" rect="114,48,64,64" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="278" frame="94" backgroud="0" />
+			
+			
+
+		</controls>
+        <hierarchy>
+            <group name=" 组1" ids="3,4,5,6,7" />
+        </hierarchy>
+        <CustomElement />
+    </dialog>
+</gui>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="65" name="stockDialog" style="0" caption="" rect="100,50,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+        	<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="65" frame="0" backgroud="1"/>
+            <item id="1" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+				<datas>
+                    <item>取出资金</item>
+                    <item>注入资金</item>
+                    <item>买入金子</item>
+                    <item>卖出金子</item>
+                    <item>撤销单子</item>
+                    <item>买入查询</item>
+                    <item>卖出查询</item>
+                </datas>
+            </item>
+            <item id="2" type="ListBox" style="A" rect="463,78,313,144" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="25"></item>
+            <item id="3" type="Button" style="0" rect="765,11,0,0" isdefault="0" pack="data\interfaces.gl" group="6" frame="36" bitmapbutton="1" framenum="3" hotkey=""><Tip>关闭</Tip></item>
+            <item id="4" type="Static" style="0" rect="74,427,145,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="5" type="Static" style="0" rect="266,427,145,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="6" type="ListBox" style="A" rect="463,222,313,144" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="25"></item>
+			<item id="10" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="65" frame="1" bitmapbutton="1" framenum="3"/>
+            <item id="11" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="65" frame="4" bitmapbutton="1" framenum="3"/>
+            <item id="12" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="65" frame="7" bitmapbutton="1" framenum="3"/> 
+            <item id="13" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="65" frame="10" bitmapbutton="1" framenum="3"/>           
+            <item id="14" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="65" frame="13" bitmapbutton="1" framenum="3"/>
+            <item id="15" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="66" frame="7" bitmapbutton="1" framenum="3"/>
+            <item id="16" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="66" frame="1" bitmapbutton="1" framenum="3"/>
+            <item id="17" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="67" frame="5" bitmapbutton="1" framenum="3"/>
+            <item id="18" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="67" frame="2" bitmapbutton="1" framenum="3"/>
+            <item id="19" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="69" frame="5" bitmapbutton="1" framenum="3"/>
+            <item id="20" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="69" frame="2" bitmapbutton="1" framenum="3"/>
+            
+            <!--账户管理(注入资金)-->
+            <item id="101" type="EditBox" style="a" rect="80,120,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" align="4"/>
+            <item id="102" type="EditBox" style="a" rect="190,120,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="103" type="EditBox" style="a" rect="300,120,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="104" type="EditBox" style="a" rect="80,177,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" align="4"/>
+            <item id="105" type="EditBox" style="a" rect="190,177,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="106" type="EditBox" style="a" rect="300,177,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="107" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="66" frame="4" bitmapbutton="1" framenum="3"/>
+            
+            <!--账户管理(取出资金)-->
+            <item id="201" type="EditBox" style="a" rect="80,120,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" align="4"/>
+            <item id="202" type="EditBox" style="a" rect="190,120,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="203" type="EditBox" style="a" rect="300,120,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="204" type="EditBox" style="a" rect="80,177,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" align="4"/>
+            <item id="205" type="EditBox" style="a" rect="190,177,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="206" type="EditBox" style="a" rect="300,177,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="207" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="66" frame="4" bitmapbutton="1" framenum="3"/>
+            
+            <!--委托(买入金子)-->
+            <item id="301" type="EditBox" style="a" rect="115,102,140,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="10" minNumber="0" maxNumber="9999999999" caretcolor="255,255,255,255" align="4"/>
+            <item id="302" type="EditBox" style="a" rect="80,137,190,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="10" minNumber="0" maxNumber="9999999999" caretcolor="255,255,255,255"  align="4"/>
+            <item id="303" type="Static" style="0" rect="131,172,186,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+            <item id="304" type="Static" style="0" rect="98,207,210,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+            <item id="305" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="67" frame="8" bitmapbutton="1" framenum="3"/>
+            
+            <!--委托(卖出金子)-->
+            <item id="401" type="EditBox" style="a" rect="115,102,140,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="10" minNumber="0" maxNumber="9999999999" caretcolor="255,255,255,255" align="4"/>
+            <item id="402" type="EditBox" style="a" rect="80,137,190,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="10" minNumber="0" maxNumber="9999999999" caretcolor="255,255,255,255"  align="4"/>
+            <item id="403" type="Static" style="0" rect="131,172,186,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+            <item id="404" type="Static" style="0" rect="98,207,210,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+            <item id="405" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="67" frame="8" bitmapbutton="1" framenum="3"/>
+            
+            <!--撤单-->
+            <item id="501" type="ListBox" style="A" rect="26,79,417,210" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" ></item>
+            <item id="502" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="68" frame="1" bitmapbutton="1" framenum="3"/>
+            
+            <!--查询(买入查询)-->
+            <item id="601" type="ListBox" style="A" rect="26,79,417,290" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" ></item>           
+            
+            <!--查询(卖出查询)-->
+            <item id="701" type="ListBox" style="A" rect="26,79,417,290" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" ></item>
+            
+            <!--欢迎您使用股票交易系统-->
+            <item id="801" type="Static" style="0" rect="70,180,350,30" font="2" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">欢迎您使用股票交易系统!</item>
+        </controls>
+        <script>function InitTab()				
+		this:AddControl2TabByID(1,0,101)
+		this:AddControl2TabByID(1,0,102)
+		this:AddControl2TabByID(1,0,103)
+		this:AddControl2TabByID(1,0,104)
+		this:AddControl2TabByID(1,0,105)		
+		this:AddControl2TabByID(1,0,106)
+		this:AddControl2TabByID(1,0,107)
+		this:AddControl2TabByID(1,0,15)
+		this:AddControl2TabByID(1,0,16)		
+		this:AddControl2TabByID(1,1,201)
+		this:AddControl2TabByID(1,1,202)
+		this:AddControl2TabByID(1,1,203)
+		this:AddControl2TabByID(1,1,204)
+		this:AddControl2TabByID(1,1,205)		
+		this:AddControl2TabByID(1,1,206)
+		this:AddControl2TabByID(1,1,207)
+		this:AddControl2TabByID(1,1,15)
+		this:AddControl2TabByID(1,1,16)		
+		this:AddControl2TabByID(1,2,301)
+		this:AddControl2TabByID(1,2,302)
+		this:AddControl2TabByID(1,2,303)
+		this:AddControl2TabByID(1,2,304)
+		this:AddControl2TabByID(1,2,305)
+		this:AddControl2TabByID(1,2,17)
+		this:AddControl2TabByID(1,2,18)				
+		this:AddControl2TabByID(1,3,401)
+		this:AddControl2TabByID(1,3,402)
+		this:AddControl2TabByID(1,3,403)
+		this:AddControl2TabByID(1,3,404)
+		this:AddControl2TabByID(1,3,405)
+		this:AddControl2TabByID(1,3,17)
+		this:AddControl2TabByID(1,3,18)			
+		this:AddControl2TabByID(1,4,501)
+		this:AddControl2TabByID(1,4,502)				
+		this:AddControl2TabByID(1,5,601)
+		this:AddControl2TabByID(1,5,19)
+		this:AddControl2TabByID(1,5,20)		
+		this:AddControl2TabByID(1,6,701)
+		this:AddControl2TabByID(1,6,19)
+		this:AddControl2TabByID(1,6,20)
+		this:AddControl2TabByID(1,7,801)
+    end
+    
+    function InitButton()
+		this:SetButtonGroup(11,1)
+		this:SetButtonGroup(12,1)
+		this:SetButtonGroup(13,1)
+		this:SetButtonGroup(14,1)
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl)
+		if nEvent == 1001 then
+			InitTab()	
+			InitButton()
+			return true		
+		end
+		return false
+	end
+		</script>
+    </dialog>
+</gui>

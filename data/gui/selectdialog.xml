@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="100" name="Relive" style="5" caption="" rect="490,228,202,311" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+            <item id="1" type="Static" style="0" rect="15,9,180,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">请选择要去的地方:</item>
+            <item id="2" type="ListBox" style="0" rect="-13,25,199,214" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="3" type="Button" style="2" rect="18,247,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+            <item id="4" type="Button" style="2" rect="94,248,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

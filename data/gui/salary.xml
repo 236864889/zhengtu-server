@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    
+    
+    <dialog id="52" name="Salary" style="21" caption="发工资" rect="-20,-20,390,550" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+      <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,390,549" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces_cz.gl" group="27" frame="0" backgroud="1" />
+            <item id="1" type="Static" style="0" rect="159,122,150,50" hotkey="" isdefault="0"  font = "2" color="255,255,255,0" textcolor="255,255,255,0">领取工资</item>   
+            <item id="2" type="Static" style="0" rect="60,198,290,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">60级以上玩家均可在（福利姐姐）处领取自己每月的工资。（每次领取将消耗400点荣誉值）</item>  
+            <item id="3" type="Static" style="0" rect="60,248,290,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">每日工资数额取决于您当前的等级。</item>
+            <!--item id="3" type="Static" style="0" rect="60,248,290,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">每日工资数额取决于您当前的等级和该月的在线时长。</item-->              
+            <item id="4" type="Button" sound="10107" style="0" rect="361,96,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="3" frame="4" framenum="3"/> 
+            <item id="5" type="Image" style="2" rect="33,90,390,549" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="22" frame="4" backgroud="0" />			
+            <item id="8" type="Static" style="0" rect="60,180,290,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">每月1日 0：00---31日0：00，</item>   
+            
+                        
+            <item id="4" type="Static" style="0" rect="60,310,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">当前等级：</item>  
+            <item id="5" type="Static" style="0" rect="60,330,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">当前荣誉值：</item>  
+            <!--item id="6" type="Static" style="0" rect="92,350,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">在线时长：</item-->  
+            <item id="7" type="Static" style="0" rect="92,360,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">可领取的工资：</item>  
+            
+            <item id="10" type="Static" style="0" rect="210,310,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">***</item>  
+            <item id="11" type="Static" style="0" rect="210,330,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">***</item>  
+            <!--item id="12" type="Static" style="0" rect="210,350,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">***</item-->    
+            <item id="13" type="Static" style="0" rect="210,360,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">***</item>  
+            
+            <!--item id="14" type="Static" style="0" rect="60,350,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">本月</item-->  
+            <item id="15" type="Static" style="0" rect="60,360,290,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0">今日</item>  
+            
+            
+
+            <item id="20" type="Button" style="2" rect="70,432,70,29" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">领取</item>
+            <item id="21" type="Button" style="2" rect="220,432,70,29" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item>
+            
+              
+        </controls>
+    </dialog>
+</gui>

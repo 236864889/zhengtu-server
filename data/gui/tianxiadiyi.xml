@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="69" name="tianxiadiyi" style="0" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+			<!--背景-->
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="5" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="1" type="Button" sound="10107" style="0" rect="1200,10,42,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="65" frame="33" framenum="3"/>
+			<item id="2" type="Static" style="0" rect="30,40,1180,30" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,0,0">天下第一赛事说明：每周一至周六玩家可参与报名，比赛时间为每周日晚8点，比赛时间到准时传送参赛选手，每轮比赛时长为3分钟，3分钟内击杀对手获得积分，3分钟结束后积分高者晋级下一轮，中途退出游戏自动视为弃权，对手自动晋级，比赛采用32进16进8进4进2进1天梯制，未满32人也可开赛，如若参赛人数为单数，则最后一名报名者自动晋级第一轮，参赛即可获得大量奖励！</item>
+			
+			<!--附件助手-->
+           <item id="1800" type="Button" sound="10107"  style="0" rect="570,500,70,30" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,227,191,28">我要报名</item>			
+
+			<!--三十二强-->
+			<item id="101" type="Static" style="0" rect="30,95,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="102" type="Static" style="0" rect="30,127,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="105" type="Static" style="0" rect="30,158,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="106" type="Static" style="0" rect="30,190,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="109" type="Static" style="0" rect="30,223,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="110" type="Static" style="0" rect="30,254,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="113" type="Static" style="0" rect="30,286,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="114" type="Static" style="0" rect="30,317,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="117" type="Static" style="0" rect="30,348,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="118" type="Static" style="0" rect="30,380,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="121" type="Static" style="0" rect="30,412,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="122" type="Static" style="0" rect="30,443,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="125" type="Static" style="0" rect="30,475,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="126" type="Static" style="0" rect="30,506,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="129" type="Static" style="0" rect="30,538,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="130" type="Static" style="0" rect="30,570,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			
+
+			<item id="103" type="Static" style="0" rect="1140,95,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="104" type="Static" style="0" rect="1140,127,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="107" type="Static" style="0" rect="1140,158,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="108" type="Static" style="0" rect="1140,190,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="111" type="Static" style="0" rect="1140,223,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="112" type="Static" style="0" rect="1140,254,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="115" type="Static" style="0" rect="1140,286,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="116" type="Static" style="0" rect="1140,317,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="119" type="Static" style="0" rect="1140,348,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="120" type="Static" style="0" rect="1140,380,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="123" type="Static" style="0" rect="1140,412,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="124" type="Static" style="0" rect="1140,443,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="127" type="Static" style="0" rect="1140,475,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="128" type="Static" style="0" rect="1140,506,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="131" type="Static" style="0" rect="1140,538,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			<item id="132" type="Static" style="0" rect="1140,570,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">等待报名</item>
+			
+			
+			
+			<item id="1001" type="Image" style="2" rect="115,98,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="40"/>
+			<item id="1002" type="Image" style="2" rect="115,127,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="41"/>
+			<item id="1005" type="Image" style="2" rect="115,161,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="40"/>
+			<item id="1006" type="Image" style="2" rect="115,190,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="41"/>
+			<item id="1009" type="Image" style="2" rect="115,226,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="40"/>
+			<item id="1010" type="Image" style="2" rect="115,254,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="41"/>
+			<item id="1013" type="Image" style="2" rect="115,289,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="40"/>
+			<item id="1014" type="Image" style="2" rect="115,317,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="41"/>
+			<item id="1017" type="Image" style="2" rect="115,351,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="40"/>
+			<item id="1018" type="Image" style="2" rect="115,380,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="41"/>
+			<item id="1021" type="Image" style="2" rect="115,415,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="40"/>
+			<item id="1022" type="Image" style="2" rect="115,444,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="41"/>
+			<item id="1025" type="Image" style="2" rect="115,478,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="40"/>
+			<item id="1026" type="Image" style="2" rect="115,507,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="41"/>
+			<item id="1029" type="Image" style="2" rect="115,541,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="40"/>
+			<item id="1030" type="Image" style="2" rect="115,571,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="41"/>
+			
+			<item id="1003" type="Image" style="2" rect="1050,98,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="42"/>
+			<item id="1004" type="Image" style="2" rect="1050,127,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="43"/>
+			<item id="1007" type="Image" style="2" rect="1050,161,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="42"/>
+			<item id="1008" type="Image" style="2" rect="1050,190,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="43"/>
+			<item id="1011" type="Image" style="2" rect="1050,226,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="42"/>
+			<item id="1012" type="Image" style="2" rect="1050,254,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="43"/>
+			<item id="1015" type="Image" style="2" rect="1050,289,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="42"/>
+			<item id="1016" type="Image" style="2" rect="1050,317,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="43"/>
+			<item id="1019" type="Image" style="2" rect="1050,351,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="42"/>
+			<item id="1020" type="Image" style="2" rect="1050,380,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="43"/>
+			<item id="1023" type="Image" style="2" rect="1050,415,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="42"/>
+			<item id="1024" type="Image" style="2" rect="1050,444,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="43"/>
+			<item id="1027" type="Image" style="2" rect="1050,478,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="42"/>
+			<item id="1028" type="Image" style="2" rect="1050,507,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="43"/>
+			<item id="1031" type="Image" style="2" rect="1050,541,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="42"/>
+			<item id="1032" type="Image" style="2" rect="1050,571,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="43"/>
+			
+			
+			<!--十六强-->
+			<item id="201" type="Static" style="0" rect="150,111,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="202" type="Static" style="0" rect="150,174,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="205" type="Static" style="0" rect="150,238,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="206" type="Static" style="0" rect="150,301,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="209" type="Static" style="0" rect="150,364,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="210" type="Static" style="0" rect="150,428,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="213" type="Static" style="0" rect="150,491,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="214" type="Static" style="0" rect="150,554,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			
+			<item id="203" type="Static" style="0" rect="1020,111,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="204" type="Static" style="0" rect="1020,174,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="207" type="Static" style="0" rect="1020,238,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="208" type="Static" style="0" rect="1020,301,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="211" type="Static" style="0" rect="1020,364,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="212" type="Static" style="0" rect="1020,428,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="215" type="Static" style="0" rect="1020,491,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="216" type="Static" style="0" rect="1020,554,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+
+			
+			<item id="2001" type="Image" style="2" rect="226,115,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="36"/>
+			<item id="2002" type="Image" style="2" rect="226,160,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="37"/>
+			<item id="2005" type="Image" style="2" rect="226,242,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="36"/>
+			<item id="2006" type="Image" style="2" rect="226,288,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="37"/>
+			<item id="2009" type="Image" style="2" rect="226,368,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="36"/>
+			<item id="2010" type="Image" style="2" rect="226,414,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="37"/>
+			<item id="2013" type="Image" style="2" rect="226,495,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="36"/>
+			<item id="2014" type="Image" style="2" rect="226,540,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="37"/>
+			
+			<item id="2003" type="Image" style="2" rect="938,115,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="38"/>
+			<item id="2004" type="Image" style="2" rect="938,160,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="39"/>
+			<item id="2007" type="Image" style="2" rect="938,242,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="38"/>
+			<item id="2008" type="Image" style="2" rect="938,288,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="39"/>
+			<item id="2011" type="Image" style="2" rect="938,368,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="38"/>
+			<item id="2012" type="Image" style="2" rect="938,414,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="39"/>
+			<item id="2015" type="Image" style="2" rect="938,495,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="38"/>
+			<item id="2016" type="Image" style="2" rect="938,540,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="39"/>
+			
+			<!--八强-->
+			<item id="301" type="Static" style="0" rect="260,143,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="302" type="Static" style="0" rect="260,269,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="305" type="Static" style="0" rect="260,396,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="306" type="Static" style="0" rect="260,523,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			
+			<item id="303" type="Static" style="0" rect="910,143,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="304" type="Static" style="0" rect="910,269,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="307" type="Static" style="0" rect="910,396,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="308" type="Static" style="0" rect="910,523,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			
+			
+			<item id="3001" type="Image" style="2" rect="338,146,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="32"/>
+			<item id="3002" type="Image" style="2" rect="338,222,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="33"/>
+			<item id="3005" type="Image" style="2" rect="338,399,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="32"/>
+			<item id="3006" type="Image" style="2" rect="338,477,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="33"/>
+			
+			<item id="3003" type="Image" style="2" rect="824,146,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="34"/>
+			<item id="3004" type="Image" style="2" rect="824,222,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="35"/>
+			<item id="3007" type="Image" style="2" rect="824,399,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="34"/>
+			<item id="3008" type="Image" style="2" rect="824,477,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="35"/>
+			
+			<!--四强-->
+			<item id="401" type="Static" style="0" rect="370,206,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="402" type="Static" style="0" rect="370,460,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			
+			<item id="403" type="Static" style="0" rect="795,206,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="404" type="Static" style="0" rect="795,460,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			
+			<item id="4001" type="Image" style="2" rect="451,210,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="28"/>
+			<item id="4002" type="Image" style="2" rect="451,350,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="29"/>
+			
+			<item id="4003" type="Image" style="2" rect="711,211,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="30"/>
+			<item id="4004" type="Image" style="2" rect="711,350,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="113" frame="31"/>
+			
+			
+			<!--总决赛-->
+			<item id="501" type="Static" style="0" rect="480,334,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			<item id="502" type="Static" style="0" rect="685,334,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			
+			
+			<!--冠军-->
+			<item id="601" type="Static" style="0" rect="590,269,200,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,168,165,165">虚位以待</item>
+			
+			
+			
+			<item id="999" type="Static" style="2" rect="450,100,700,40" hotkey="" isdefault="0" font="2" color="255,0,255,0" textcolor="255,0,255,0">距离比赛开始还剩 2分钟</item>
+			
+			</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>
