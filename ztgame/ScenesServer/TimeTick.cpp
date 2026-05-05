@@ -3865,8 +3865,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 					{
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
-						snprintf(mapName, MAX_NAMESIZE, "");
-						Scene * scene = SceneManager::getInstance().getSceneByName(mapName);
+						snprintf(mapName, MAX_NAMESIZE, "%s", "王城");
+						Scene * scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(1, 139));
 						if (!scene)
 						{
 							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲͼ mapName=%s", mapName);
@@ -3901,7 +3901,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳѴ֣ͷǰ߾");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"汉国家镖车已经从王城出发");
 						ScenesService::getInstance().hanbiaoche_type = 0;
 					}					
 				}
@@ -3917,8 +3917,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 					{
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
-						snprintf(mapName, MAX_NAMESIZE, "");
-						Scene * scene = SceneManager::getInstance().getSceneByName(mapName);
+						snprintf(mapName, MAX_NAMESIZE, "%s", "王城");
+						Scene * scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(2, 139));
 						if (!scene)
 						{
 							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲͼ mapName=%s", mapName);
@@ -3953,7 +3953,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳѴ֣ͷǰ߾");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"楚国家镖车已经从王城出发");
 						ScenesService::getInstance().chubiaoche_type = 0;
 					}					
 				}
@@ -3968,8 +3968,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 					{
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
-						snprintf(mapName, MAX_NAMESIZE, "");
-						Scene * scene = SceneManager::getInstance().getSceneByName(mapName);
+						snprintf(mapName, MAX_NAMESIZE, "%s", "王城");
+						Scene * scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 139));
 						if (!scene)
 						{
 							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲͼ mapName=%s", mapName);
@@ -4004,7 +4004,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 								send.dwCountryID = iter->second.id;
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳѴ֣ͷǰ߾");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"魏国家镖车已经从王城出发");
 						ScenesService::getInstance().weibiaoche_type = 0;
 					}					
 				}
@@ -9812,4 +9812,3 @@ My_FunctionTime_wrapper::~My_FunctionTime_wrapper()
 	my_func.inc(_func, 1000000L * (_tv_2.tv_sec - _tv_1.tv_sec) + _tv_2.tv_usec - _tv_1.tv_usec);
 }
 #endif
-
