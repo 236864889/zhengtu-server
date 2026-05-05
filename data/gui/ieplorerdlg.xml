@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="1222" name="GMBoardDlg" style="0" rect="154,128,445,330" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="GM留言">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+    function InitTab()
+    end
+    
+    function InitButton()
+		this:SetButtonGroup(6,1);
+		this:SetButtonGroup(7,1);
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()	
+			InitButton()
+			return true		
+		end
+		return false
+	end
+	</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<!--底图-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="144" frame="0"/>
+			<!--help framebox-->
+			<item id="2" type="ListBox" style="8" rect="60,100,660,448" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0255,255"/>
+			<!--科技-->
+			<!--minimize-->
+			<item id="3" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="144" frame="10" framenum="3"/>
+			<!--close-->
+			<item id="4" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="144" frame="4" framenum="3"/>
+			<!--tab1-->
+			<item id="6" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="144" frame="1" framenum="3"/>
+			<!--tab2-->
+			<item id="7" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="144" frame="7" framenum="3"/>
+		</controls>
+	</dialog>
+</gui>

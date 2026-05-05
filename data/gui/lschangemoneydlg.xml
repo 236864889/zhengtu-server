@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="19" name="LSChangeMoneyDlg" style="21" caption="" rect="332,293,332,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+        <!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+        <script>
+        function InitTab()
+         
+		this:AddControl2TabByID(4,0,101)
+		this:AddControl2TabByID(4,0,102)
+		this:AddControl2TabByID(4,0,103)
+		this:AddControl2TabByID(4,0,104)
+		this:AddControl2TabByID(4,0,105)
+		this:AddControl2TabByID(4,0,106)
+ 
+		
+	 
+		this:AddControl2TabByID(4,1,201)
+		this:AddControl2TabByID(4,1,202)
+		
+		this:AddControl2TabByID(4,1,209)
+		this:AddControl2TabByID(4,1,210)
+		this:AddControl2TabByID(4,1,211)
+    end
+    
+    function InitButton()
+		this:SetButtonGroup(2,1);
+		this:SetButtonGroup(3,1);
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()
+			InitButton()
+			return true		
+		end
+		return false
+	end
+		</script>
+        <controls>
+            <!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+	       <item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="0" backgroud="1"/>
+	       
+            
+            <item id="2" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="1" framenum="3"/> 		<!--兑换豆子-->	
+			
+			
+			   	<item id="3" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="4" framenum="3"/>  <!--兑换银子-->			   	
+			   	
+		   <item id="4" type="Tab" style="2" rect="0,30,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+				<datas>
+                    <item>购买仙丹</item>
+                    <item>提取仙丹</item>
+                </datas>
+			</item>
+			            
+			
+			<!--现有豆子**文--> 
+            <item id="5" type="Static" style="0" rect="50,180,160,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+            <!--现有银两*定*两*文-->
+            <item id="6" type="Static" style="0" rect="50,200,240,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+                     
+            <item id="7" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="7" framenum="3"/>  <!--确定-->
+			   	
+			<item id="8" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="10" framenum="3"/>  <!--取消-->
+			   	
+                
+       	   	<item id="9" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="13" framenum="3"/>  <!--CLOSE-->
+                	   	
+                	   	
+			<item id="101" type="Static" style="0" rect="50,65,238,32" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">仙宿丹：1两银子/粒</item>
+            <item id="102" type="Static" style="0" rect="50,82,238,32" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">每秒恢复生命值400点,持续10秒</item>
+            
+            <item id="106" type="Static" style="0" rect="50,100,200,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">请输入你想购买的仙丹数量</item>
+            <item id="103" type="EditBox" style="2" rect="50,120,200,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="100000" caretcolor="255,255,255,255" align="4"/>
+            <item id="104" type="Static" style="0" rect="260,120,50,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">粒</item>
+
+		<!--您将支付*定*两*文-->
+			<item id="105" type="Static" style="0" rect="50,140,200,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+            
+
+              
+            
+         <item id="201" type="Static" style="0" rect="50,70,400,32" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">您所提取的仙丹将保存在您的包裹中</item>            
+            <item id="202" type="Static" style="0" rect="50,90,238,32" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">请输入您想要提取的仙丹数量</item>
+          
+          <!--  
+            <item id="203" type="EditBox" style="2" rect="50,110,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="10" caretcolor="255,255,255,255" align="4"/>
+            <item id="204" type="Static" style="0" rect="110,110,20,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">锭</item>
+                        
+            <item id="205" type="EditBox" style="2" rect="140,110,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" align="4"/>
+            
+            <item id="206" type="Static" style="0" rect="200,110,20,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">两</item>
+                        
+            <item id="207" type="EditBox" style="2" rect="230,110,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="100000" caretcolor="255,255,255,255" align="4"/>
+            
+            <item id="208" type="Static" style="0" rect="290,110,20,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">文</item>
+-->
+                        
+            <!--您将支付-->
+            <item id="209" type="Static" style="0" rect="50,140,200,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+                        
+            <item id="210" type="EditBox" style="2" rect="50,120,200,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="100000" caretcolor="255,255,255,255" align="4"/>
+            <item id="211" type="Static" style="0" rect="260,120,50,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">粒</item>
+          
+        
+        </controls>
+    </dialog>
+</gui>

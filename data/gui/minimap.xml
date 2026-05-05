@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="19" name="MiniMap" style="106" rect="51,85,260,150" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="c" caption="" showsoundindex="10112" hidesoundindex="10113">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>		
+function OnGuiEvent(nEvent,nID,pControl) --[[处理GUI事件]]
+	if nEvent == 100 then
+		if nID == 100 then
+			this:OnOffMiniMap()
+			return true
+		elseif nID == 101 then
+			this:OnOffMiniMap()
+			return true
+		elseif nID == 102 then
+			this:OnOffLageMap()
+			return true
+		elseif nID == 103 then
+			this:OnLargeMiniMap()
+			return true
+		elseif nID == 104 then
+			this:OnSmallMiniMap()
+			return true
+		elseif nID == 105 then
+			 this:OnAddPrivateChat()
+			 return ture
+		elseif nID == 107 then
+			this:OnAddGMMsg()
+		    return true
+		elseif nID == 109 then
+			this:OnAutoReply()
+			return true		
+		elseif nID == 111 then
+			this:OnClickSafetyUser()
+			return true	
+		elseif nID == 113 then
+			this:OnEveryTaskDlg()
+			return true
+		elseif nID == 114 then
+            this:OnClickHeroListBoard()
+            return true			
+		elseif nID == 250 then
+			this:OnClickLanding()
+			return true		
+		end
+    	elseif nEvent == 1005 then
+		this:OnAutoReplyMenuCmd(nID)
+		return true
+	end
+	return false
+end
+</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},	
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};
+	elseif nID == 60 then
+		    this:OnEveryZhanliDlg()
+			return true			
+-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces1.gl" group="19" frame="103"/>
+			<item id="2" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="19" frame="104"/>
+			<item id="3" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="19" frame="1113"/>
+			<item id="10" type="Image" style="2" rect="0,0,221,28" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="0" frame="400" backgroud="0" />
+		    <item id="20" type="Image" style="2" rect="0,0,221,290" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="0" frame="399" backgroud="0" />			
+			<item id="13" type="Static" style="c" rect="40,35,100,15" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,245,228,159" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" >任务追踪</item>
+			<item id="14" type="Button" style="0" rect="23,31,28,28" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="0" frame="401" framenum="3" bitmapbutton="1">
+                <Tip>隐藏任务追踪</Tip>
+            </item>
+
+            <item id="15" type="Button" style="0" rect="23,31,28,28" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="0" frame="404" framenum="3" bitmapbutton="1">
+                <Tip>显示任务追踪</Tip>
+            </item>
+            <!-- 任务框大小-->
+            <item id="16" type="MLineTextBox" style="19" rect="0,230,210,350" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<!-- 箭头-->
+            <item id="17" type="Image" style="2" rect="114,48,64,64" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="278" frame="0" backgroud="0" />
+			<item id="100" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="100" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>隐藏小地图</Tip>
+			</item>
+			
+			<item id="101" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="109" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>显示小地图</Tip>
+			</item>
+			
+			<item id="102" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="106" bitmapbutton="1" framenum="3" hotkey="M">
+				<Tip>显示大地图(M)</Tip>
+			</item>
+			
+			<item id="103" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="224" bitmapbutton="1" framenum="4" hotkey="">
+			</item>
+			
+			<item id="104" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="228" bitmapbutton="1" framenum="4" hotkey="">
+			</item>
+			<item id="105" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="406" bitmapbutton="1" framenum="4" hotkey="R">
+			    <Tip>对话(R)</Tip>
+			 </item>
+			 <item id="106" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="1" frame="409">
+				<Tip>服务器状态显示灯</Tip>
+			</item>
+<!--
+			<item id="107" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="413" bitmapbutton="1" framenum="3"></item>
+-->			
+			<item id="108" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="417" bitmapbutton="1" framenum="3"><Tip>你有新邮件了</Tip></item>
+			<item id="109" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="420" bitmapbutton="1" framenum="3"><Tip>自动回复</Tip></item>
+			<!--item id="110" type="Button" style="0" rect="0,0,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="264" frame="85" framenum="1" bitmapbutton="1">
+            <Tip>小游戏</Tip>
+            </item-->
+			<item id="113" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces_cz.gl" group="137" frame="7" bitmapbutton="1" framenum="3"><Tip>每日任务活动</Tip></item>
+			<item id="114" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="701" bitmapbutton="1" framenum="3"><Tip>排行榜</Tip></item>
+			<item id="111" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="2100" bitmapbutton="1" framenum="3"><Tip>财产保护</Tip></item>
+			<item id="115" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="131" frame="3" bitmapbutton="1" framenum="1"><Tip>Boss</Tip></item>
+			
+			<item id="116" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="1114" bitmapbutton="1" framenum="3" hotkey=""></item>
+			
+			<item id="208" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="19" frame="417" bitmapbutton="1" framenum="3"><Tip>你没有新邮件</Tip></item>
+			<item id="209" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="601" bitmapbutton="1" framenum="1"><Tip>你有新邮件了</Tip></item>
+		
+			
+		</controls>
+	</dialog>
+</gui>

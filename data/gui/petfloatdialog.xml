@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10
+#define GUI_WS_MODAL		0x20
+#define Gui_WS_NOSKIN		0x40
+#define GUI_WS_AUTOANCHOR	0x80 // 自动停靠-->
+<gui>
+	<dialog id="35" name="PetFloatDialog" style="0" rect="21,645,362,79" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<!--#define EVENT_BUTTON_CLICKED                100
+		#define EVENT_COMBOBOX_SELECTION_CHANGED    200		
+		#define EVENT_RADIOBUTTON_CHANGED           300		
+		#define EVENT_CHECKBOX_CHANGED              400		
+		#define EVENT_SLIDER_VALUE_CHANGED          500		
+		#define EVENT_EDITBOX_STRING                600
+		#define EVENT_EDITBOX_CHANGE                700		
+		#define EVENT_LISTBOX_ITEM_DBLCLK           800
+		#define EVENT_LISTBOX_SELECTION             900		
+		#define EVENT_DIALOG_RESIZE					1000
+		#define EVENT_DIALOG_CREATE					1001-->
+	<script>
+		function OnGuiEvent(nEvent,nID,pControl)
+		return false
+		end
+	</script>
+	<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+			{GUI_CONTROL_BUTTON,"Button"},
+			{GUI_CONTROL_STATIC,"Static"},
+			{GUI_CONTROL_CHECKBOX,"CheckBox"},
+			{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+			{GUI_CONTROL_COMBOBOX,"ComboBox"},
+			{GUI_CONTROL_SLIDER,"Slider"},
+			{GUI_CONTROL_EDITBOX,"EditBox"},
+			{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+			{GUI_CONTROL_LISTBOX,"ListBox"},
+			{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+			{GUI_CONTROL_IMAGE,"Image"},
+			{GUI_CONTROL_ITEMCELL,"ItemCell"},
+			{GUI_CONTROL_TABLE,"Table"},
+			{GUI_CONTROL_TAB,"Tab"},
+			{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+			};-->
+		<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="25" frame="17"/>
+		<item id="2" type="Static" style="0" rect="4,4,111,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+		<item id="11" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="19" bitmapbutton="1" framenum="3" hotkey="Ctrl+Q">
+			<Tip>跟随并且攻击主人正在攻击的目标(Ctrl+Q)</Tip>
+		</item>
+		<item id="12" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="31" bitmapbutton="1" framenum="3" hotkey="Ctrl+W">
+			<Tip>驻守(Ctrl+W)</Tip>
+		</item>
+		<item id="13" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="38" bitmapbutton="1" framenum="3" hotkey="Ctrl+E">
+			<Tip>选择攻击目标(Ctrl+E)</Tip>
+		</item>
+		<item id="14" type="Button" style="0" rect="125,30,0,0" isdefault="0" pack="data\icons.gl" group="-1" frame="-1" bitmapbutton="1" framenum="1" hotkey=""></item>	
+		<item id="15" type="Button" style="0" rect="165,30,0,0" isdefault="0" pack="data\icons.gl" group="-1" frame="-1" bitmapbutton="1" framenum="1" hotkey=""></item>
+		<item id="16" type="Button" style="0" rect="205,30,0,0" isdefault="0" pack="data\icons.gl" group="-1" frame="-1" bitmapbutton="1" framenum="1" hotkey=""></item>
+		<item id="17" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="28" bitmapbutton="1" framenum="3" hotkey="Ctrl+A">
+			<Tip>攻击所有敌人(Ctrl+A)</Tip>
+		</item>
+		<item id="18" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="22" bitmapbutton="1" framenum="3" hotkey="Ctrl+S">
+			<Tip>攻击正在攻击主人的敌人(Ctrl+S)</Tip>
+		</item>
+		<item id="19" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="25" bitmapbutton="1" framenum="3" hotkey="Ctrl+D">
+			<Tip>休息(Ctrl+D)</Tip>
+		</item>
+		
+	</controls>
+	</dialog>
+</gui>

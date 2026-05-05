@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by any (Ru-Board) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="8" name="ItemDialog" style="10" showsoundindex="10104" rect="402,28,390,580" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>function OnGuiEvent(nEvent,nID,pControl) --[[处理GUI事件]]
+	if nEvent == 100 then
+		if nID == 4 then		--[[金币]]	
+			this:OnMoveMoney()
+			return true
+		end
+	end
+	return false
+end
+</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="1" type="Image" rect="0,0,390,580" style="2" pack="data\interfaces1.gl" group="26" frame="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1"/>
+			<item id="2" type="Table" style="1" rect="50,153,266,234" cellWidth="38" cellHeight="39" rowCount="6" showRowCount="6" colCount="7" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" virtual="0" itemrect="50,153,267,235"/>
+			<!--item id="13" type="Image" style="2" rect="70,400,70,409" isdefault="0" color="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="153" frame="1000"/-->
+			<item id="10" type="Button" sound="10107" style="0" rect="298,87,0,0" isdefault="0" pack="data\interfaces1.gl" group="25" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="3" type="EditBox" style="1a" rect="275,488,106,19" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="1024" caretcolor="255,255,255,255" minNumber="2147483647" maxNumber="2147483647"/>
+			<item id="4" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="4" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+						<Tip>当前拥有的银子数量;银子可用于购买游戏中的各类物品;目前银子的最大上限是90000锭。</Tip>
+			</item> 
+			<item id="12" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="4" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+						<Tip>当前拥有的金子数量;金子可用于购买高级原材料和特殊物品;目前金子的最大上限为10万锭。</Tip>
+			</item> 
+			<item id="5" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="4" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+	    		<item id="8" type="Button" style="0" rect="110,118,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces.pak" group="4" frame="662" framenum="3" bitmapbutton="1">商<Tip>随身功能，可购买物品</Tip>
+            		</item>
+			<!--显示装备  -->
+			<item id="6" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces1.gl" group="26" frame="28" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--隐藏装备 -->
+			<item id="0" type="Image" style="2" rect="0,0,384,516" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="26" frame="0" backgroud="1"/>
+			<item id="10" type="Static" style="0" rect="170,93,164,21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" >包裹</item>
+<!--金子 --><item id="20" type="EditBox" style="1a" rect="134,453,200,19" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="1024" caretcolor="255,255,255,255" minNumber="2147483647" maxNumber="2147483647"/>
+<!--银子 --><item id="11" type="EditBox" style="1a" rect="134,481,106,19" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="1024" caretcolor="255,255,255,255" minNumber="2147483647" maxNumber="2147483647"/>
+<!--绑银 --><item id="30" type="EditBox" style="1a" rect="134,511,106,19" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="1024" caretcolor="255,255,255,255" minNumber="2147483647" maxNumber="2147483647"/>
+			<item id="100" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="4" frame="51" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>当前积分数量,用于积分商城购买物品道具,购买后为绑定。</Tip></item> 
+
+		    <item id="300" type="Table" rect="125,399,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="125,399,33,33">包裹1</item>
+			<item id="301" type="Table" rect="207,399,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="207,399,33,33">包裹2</item>
+			<!--item id="303" type="Button" style="0" rect="243,400,70,409" isdefault="0" pack="data\interfaces1.gl" group="4" frame="4" bitmapbutton="1" framenum="3" hotkey=""><Tip>切换与主包裹同时打开状态</Tip></item-->
+			<!--item id="308" type="Button" style="0" rect="280,400,70,409" isdefault="0" pack="data\interfaces1.gl" group="4" frame="7" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>整理包裹</Tip></item-->
+				
+			<item id="308" type="Button" style="0" rect="259,400,70,409" isdefault="0" pack="data\interfaces1.gl" group="1" frame="65" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>整理包裹</Tip>
+			</item>
+			<item id="309" type="Button" style="0" rect="66,400,36,29" isdefault="0" pack="data\interfaces1.gl" group="134" frame="14" bitmapbutton="1" framenum="3" hotkey="K">
+				<Tip>摆摊(K)</Tip>
+				</item>
+			<item id="360" type="Button" style="0" rect="140,118,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces6.pak" group="80" frame="1" framenum="3" bitmapbutton="1">自<Tip>自动使用道具</Tip></item>
+		    <item id="361" type="Button" style="0" rect="170,118,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces6.pak" group="80" frame="1" framenum="3" bitmapbutton="1">回<Tip>回收道具物品</Tip></item>
+		    <item id="362" type="Button" style="0" rect="200,118,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces6.pak" group="80" frame="1" framenum="3" bitmapbutton="1">换<Tip>转换职业装备武器</Tip></item>
+			<item id="363" type="Button" style="0" rect="230,118,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces6.pak" group="80" frame="1" framenum="3" bitmapbutton="1">仓<Tip>随身仓库</Tip></item>
+			<item id="364" type="Button" style="0" rect="260,118,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces6.pak" group="80" frame="1" framenum="3" bitmapbutton="1">打<Tip>随身打造</Tip></item>
+			<item id="365" type="Button" style="0" rect="290,118,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces6.pak" group="80" frame="1" framenum="3" bitmapbutton="1">改<Tip>随身改造</Tip></item>
+		
+		</controls>
+	</dialog>
+</gui>

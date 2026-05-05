@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    
+    
+    
+    <dialog id="0" style="21" caption="欢迎进入征途游戏师徒系统" rect="474,323,332,350" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" name="MasterUI" align="12">
+        
+        
+        
+        <controls>
+            
+            
+            
+            <item id="10" type="Static" style="0" x="85" y="22" width="220" height="21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="37,150,220,21">累计进贡</item>
+						
+            
+            
+            <item id="11" type="Static" style="0" x="85" y="22" width="220" height="21" hotkey="-" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="39,185,220,21">本次可提取</item>  
+            
+                       
+            <item id="7" type="Button" style="0" x="180" y="52" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="31,270,70,29">提取</item>
+         
+            
+          
+           
+
+        
+        </controls>
+    
+        
+        
+        <script></script>
+    
+    
+    </dialog>
+
+
+
+</gui>

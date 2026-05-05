@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="30" name="ItemReBindDialog" style="14" caption="重新绑定" rect="-23,-18,550,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+        	  <item id="0" type="Image" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="19" frame="5" backgroud="1"/>
+
+						
+
+        	  <item id="1" type="Static" style="10"  rect="317,517,50,12" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">0</item>
+            <item id="2" type="Static" style="0" rect="80,467,250,90" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">需求信息：</item>
+            <item id="3" type="Button" style="0" rect="65,508,51,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">绑定</item>
+            <item id="5" type="ListBox" style="c" rect="52,355,332,106" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						
+        		<item id="7" type="ListBox" style="c" rect="52,180,332,100" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+       			<item id="8" type="Static" style="0" rect="200,126,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">重新绑定</item>
+        		<item id="9" type="Static" style="0" rect="191,298,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">需要原料</item>
+        		
+						<item id="6" type="Static" style="0" rect="65,329,260,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">原料      需求    数量    消耗</item>
+				
+						
+        		<item id="10" type="Process" style="0" rect="140,515,101,13" min="0"  max="100" pos="0" isdefault="0"  textcolor="255,255,0,0" pack="data\interfaces.gl" group="19" frame="7" />
+        		
+        		<!--item id="4" type="Button" style="0" rect="283,145,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">显示可造</item-->
+        
+        	  <item id="100" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="19" frame="12" framenum="1"/>
+			      <item id="101" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="19" frame="10" framenum="1"/>
+			      <item id="102" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="19" frame="13" framenum="1"/>
+			      <item id="103" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="19" frame="11" framenum="1"/>  
+			   
+			   		 <item id="200" type="Static" style="0" rect="107,465,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3"></item>
+						<item id="201" type="Static" style="0" rect="253,465,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3"></item>
+						<item id="202" type="Static" style="0" rect="107,485,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3"></item>
+						<item id="203" type="Static" style="0" rect="253,485,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3"></item>
+
+			   </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

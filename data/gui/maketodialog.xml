@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="56" name="MakeToDialog" style="2000" rect="0,255,386,530" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="11" caption="">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+	return false
+end
+</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="31" frame="0"/>
+<!-- 关闭按钮 --><item id="999" type="Button" sound="10107" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="25" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="1" type="Static" style="2" rect="317,517,50,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">0</item>
+			<item id="2" type="Static" style="2" rect="230,192,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">11111</item>
+		  
+			<item id="200" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="31" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="201" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="31" frame="13" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="202" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="31" frame="7" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="203" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="31" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="204" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="31" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+			<item id="100" type="Table" rect="194,369,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="195,371,33,33">装备</item>
+			<item id="101" type="Table" rect="122,344,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="122,344,33,33">材料1</item>
+			<item id="102" type="Table" rect="122,400,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="122,400,33,33">材料2</item>
+			<item id="103" type="Table" rect="266,344,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="266,344,33,33">材料3</item>
+			<item id="104" type="Table" rect="266,400,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="266,400,33,33">材料4</item>
+      
+			<item id="3" type="Tab" style="2" rect="-48,-10,313,337" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1" font="1" />
+            <item id="20" type="Button" style="0" rect="205,290,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">5</item>
+            <item id="4" type="Static" style="0" rect="138,295,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">合成基数</item>        		
+	 		<item id="5" type="Static" style="2" rect="74,192,150,60" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">2222</item>
+			
+			<item id="21" type="Button" style="0" rect="219,293,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">自动冲星</item>
+			<item id="22" type="ComboBox" style="0" rect="109,293,100,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">          
+				<datas>
+                    <item data="1">冲到15星</item>
+                    <item data="2">冲到13星</item>
+                    <item data="3">冲到12星</item>
+                    <item data="4">冲到11星</item>
+                </datas>
+            </item>
+
+	 	</controls>
+	</dialog>
+</gui>

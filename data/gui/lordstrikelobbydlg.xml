@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="85" name="LordStrikeLobby" style="0" caption="" rect="5,150,464,430" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+    <controls>
+    <item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="135" frame="0"/>
+    <item id="2" type="Tree" style="12" rect="15,64,200,510" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+        
+    <!--close-->
+	<item id="3" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="135" frame="1" bitmapbutton="1" framenum="3" hotkey="Esc" color="255,255,255,255" textcolor="255,255,255,255"/>
+	
+    <!--设置--> 	
+	<item id="4" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="135" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+		
+		
+    <!--退出-->
+  <item id="5" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="135" frame="7" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+  
+  <item id="6" type="MLineTextBox" style="8" lineHeight="20" rect="222,67,517,496" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+  
+     <!--兑换豆子-->
+    <item id="7" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="135" frame="15" bitmapbutton="18" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+  
+   <!--最小化-->
+    <item id="8" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="135" frame="18" bitmapbutton="18" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+  
+		
+	</controls>
+    <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

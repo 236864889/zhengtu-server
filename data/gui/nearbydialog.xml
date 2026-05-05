@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="40" name="WorldConnDialog" style="10" showsoundindex="10106"  caption="社会关系" rect="500,15,350,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		
+		<script>
+function OnGuiEvent(nEvent,nID,pControl) 
+return false
+end</script>
+		<controls>
+						<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="150" backgroud="1"/>
+						
+			      
+			      <item id="10" type="ScrollTab" style="10" rect="87,184,261,310" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" >
+								<datas>
+									<item>帮会</item>
+									<item>家族</item>
+									<item>师门</item>
+									<item>好友\夫妻</item>
+									<item>附近玩家</item>
+									<item>功能NPC</item>
+									<item>黑名单</item>
+								</datas>
+						</item>
+						
+						<item id="100" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="150" backgroud="0"/>
+						<item id="101" type="ListBox" style="8" rect="49,206,336,233" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						
+						<item id="104" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="157" framenum="3"/>  
+            <item id="105" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="160" framenum="3"/>  
+            <item id="106" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="163" framenum="3"/>  
+            <item id="107" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="166" framenum="3"/>  
+            <item id="108" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="169" framenum="3"/>  
+            <item id="109" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="172" framenum="3"/>  
+			      
+						
+						<item id="200" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="200" backgroud="0"/>
+						<item id="201" type="ListBox" style="8" rect="49,206,336,172" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						<item id="202" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="201" framenum="3"/>  
+			   	  <item id="203" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="204" framenum="3"/>  
+						<item id="204" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="207" framenum="3"/>  
+            <item id="205" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="210" framenum="3"/>  
+            <item id="206" type="Static" style="10" rect="136,151,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0">家族名称</item>  
+			      <item id="220" type="MLineEditBox" maxCharCount="200" lineHeight="11" style="9" rect="55,380,243,124" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+						
+						<item id="300" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="0" backgroud="0"/>
+						<item id="301" type="ListBox" style="8" rect="49,206,336,153" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						<item id="302" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="1" framenum="3"/>  
+			   	  <item id="303" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="4" framenum="3"/>  
+						<item id="304" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="7" framenum="3"/>  
+            <item id="305" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="10" framenum="3"/>  
+   
+            <item id="307" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="16" framenum="3"/>  
+            <item id="308" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="19" framenum="3"/>  
+            <item id="309" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="22" framenum="3"/>
+            <item id="310" type="Static" style="10" rect="136,151,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0">帮会名称</item>  
+			      <item id="320" type="MLineEditBox" maxCharCount="200" lineHeight="11" style="9" rect="55,360,243,114" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			      
+						
+						<item id="400" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="62" backgroud="0"/>
+						<item id="401" type="ListBox" style="8" rect="49,206,336,172" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						<item id="402" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="50" framenum="3"/>  
+			   	  <item id="403" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="53" framenum="3"/>  
+						<item id="404" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="56" framenum="3"/>  
+            <item id="405" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="59" framenum="3"/>  
+            <item id="406" type="Static" style="10" rect="136,151,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0">师门名称</item>  
+			      <item id="420" type="MLineEditBox" maxCharCount="200" lineHeight="11" style="9" rect="55,380,243,124" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+						
+			      
+			      <item id="500" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="100" backgroud="0"/>
+						<item id="501" type="ListBox" style="8" rect="49,206,336,258" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+									
+						<item id="504" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="107" framenum="3">  
+                   <Tip>选中列表中玩家,点击此按钮可以和对方聊天</Tip>
+						</item>
+            <item id="505" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="110" framenum="3">  
+                   <Tip>选中列表中玩家,点击此按钮可以申请添加好友</Tip>
+						</item>
+            <item id="506" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="113" framenum="3">  
+                   <Tip>选中列表中玩家,点击此按钮可以申请与对方交易</Tip>
+						</item>
+            <item id="507" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="116" framenum="3">  
+                   <Tip></Tip>
+						</item>
+            <item id="508" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="119" framenum="3">  
+                   <Tip>选中列表中NPC,点击此按钮可以自动寻路到对方位置</Tip>
+						</item>
+            <item id="509" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="122" framenum="3">  
+			              <Tip>选中列表中玩家,点击此按钮可以邀请对方加入队伍</Tip>
+						</item>
+			      
+			      <item id="600" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="99" backgroud="0"/>
+						<item id="601" type="ListBox" style="8" rect="49,206,336,258" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						<item id="604" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="107" framenum="3">  
+                   <Tip>选中列表中玩家,点击此按钮可以和对方聊天</Tip>
+						</item>
+            <item id="605" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="110" framenum="3">  
+                   <Tip>选中列表中玩家,点击此按钮可以申请添加好友</Tip>
+						</item>
+            <item id="606" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="113" framenum="3">  
+                   <Tip>选中列表中玩家,点击此按钮可以申请与对方交易</Tip>
+						</item>
+            <item id="607" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="116" framenum="3">  
+                   <Tip></Tip>
+						</item>
+            <item id="608" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="119" framenum="3">  
+                   <Tip>选中列表中NPC,点击此按钮可以自动寻路到对方位置</Tip>
+						</item>
+            <item id="609" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="122" framenum="3">  
+			              <Tip>选中列表中玩家,点击此按钮可以邀请对方加入队伍</Tip>
+						</item>
+
+						<item id="700" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="150" backgroud="0"/>
+						<item id="701" type="ListBox" style="8" rect="49,206,336,233" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						<item id="704" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="157" framenum="3"/>  
+            <item id="705" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="160" framenum="3"/>  
+            <item id="706" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="163" framenum="3"/>  
+            <item id="707" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="166" framenum="3"/>  
+            <item id="708" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="169" framenum="3"/>  
+            <item id="709" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="172" framenum="3"/>  
+						
+						
+						<item id="102" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="151" framenum="3"/>  
+			   	  <item id="103" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="154" framenum="3"/>  
+						
+						<item id="502" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="101" framenum="3"/>  
+			   	  <item id="503" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="104" framenum="3"/>  
+
+
+						<item id="1000" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="300" framenum="3"/>  
+            <item id="1002" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="306" framenum="3"/>  
+            <item id="1003" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="309" framenum="3"/> 
+        <!--    <item id="1001" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="303" framenum="3"/>  
+						<item id="1004" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="312" framenum="3"/>   -->
+						
+						
+						 <item id="2" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="316" backgroud="0"/>
+						<item id="1" type="CheckBox" rect="358,148,102,23" style="8" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+		</controls>
+	</dialog>
+</gui>

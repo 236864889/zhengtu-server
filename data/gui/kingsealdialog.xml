@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="0" style="21" caption="" rect="332,293,440,354" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" name="KingSeal"  align="12">
+        <controls>
+         <!--标题-->                     
+	    <item id="20" type="Static" style="0" x="8" y="22" width="164" height="21" hotkey="" isdefault="0" color="255,255,255,0" textcolor="255,255,255,0" rect="135,6,164,21">请选择要去的地方：</item>
+         <!--左边列表--> 
+        <item id="21" type="Static" style="0" x="8" y="22" width="164" height="21" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" rect="8,30,164,21">选择地图（本国）</item>
+        <item id="8" type="ListBox" style="5" rect="-8,50,205,160" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"> </item>
+	    <item id="22" type="Static" style="0" x="8" y="220" width="164" height="21" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" rect="8,220,164,21">请输入坐标(x,y)：</item>            
+        <item id="5" type="EditBox" style="4" x="8" y="241" width="164" height="32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="0,0,0,0" rect="8,241,164,32" />
+	    <item id="6" type="Button" style="0" x="20" y="280" width="80" height="35" hotkey="Enter" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" rect="108,287,70,29">确定</item>
+        <item id="7" type="Button" style="0" x="100" y="280" width="80" height="35" hotkey="Esc" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" rect="231,287,70,29">取消</item>
+        <!--右边列表-->
+        <item id="100" type="Static" style="0" x="8" y="22" width="164" height="21" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" rect="210,31,200,21">去外敌入侵地点（本国）</item>
+        <item id="101" type="ListBox" style="5" rect="196,51,220,215" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"> </item>
+        </controls>
+    </dialog>
+</gui>

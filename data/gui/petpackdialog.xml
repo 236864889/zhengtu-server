@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<gui>
+    <dialog id="56" name="PetPackDialg" style="10" caption="替身宝宝包裹" rect="20,20,390,550" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+            <item id="0" type="Image" rect="0,0,0,0" style="2" pack="data\interfaces.gl" group="60" frame="35" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1"/>
+            <item id="2" type="Table" style="1" rect="53,154,304,380" cellWidth="38" cellHeight="38" rowCount="10" showRowCount="10" colCount="8" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" virtual="0" itemrect="0,0,0,0"/>
+            <item id="3" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="36" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>让您的替身宝贝将该包裹内的物品全部卖出，每次操作将损耗其30点精气。</Tip></item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl)
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

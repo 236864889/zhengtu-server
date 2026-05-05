@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by any (Ru-Board) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="2" name="MainDialog" style="106" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="22">
+		<!--#define EVENT_BUTTON_CLICKED                100
+#define EVENT_RBUTTON_CLICKED				101
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+	if nEvent == 100 then
+		if nID == 666 then
+			OnTabSuoDi()
+			return true
+		elseif nID == 10 then
+			OnOffAutoAttackSummon()
+			return true
+		elseif nID == 11 then 
+			OnOffItemDialog()
+			return true
+		elseif nID == 12 then
+			OnOffUserInfoDialog()
+			return true
+		elseif nID == 13 then
+			AddWorldConnDialog()
+			return true
+		elseif nID == 14 then
+			OnOffTradeDialog()
+			return true
+		elseif nID == 15 then
+			OnOffPetDialog()
+			return true		
+		elseif nID == 17 then
+			OnOffSkillDialog()
+			return true
+		elseif nID == 18 then
+			AddTaskDialog()
+			return true
+		elseif nID == 19 then
+			OnOffNearbyPlayer()
+			return true
+		elseif nID == 20 then
+			OnRide()
+			return true
+		elseif nID == 21 then
+			OnSitDown()
+			return true
+		elseif nID == 22 then
+			OnFollowEvent()
+			return true
+		elseif nID == 23 then
+			OnLookAtEvent()
+			return true
+		elseif nID == 24 then
+			OnOffSysDialog()
+			return true
+		elseif nID == 25 then
+			OnOffAutoAttackDlg()
+			return true
+		elseif nID == 30 then
+			ChangeAttackMode(0)
+			return true
+		elseif nID == 31 then
+			ChangeAttackMode(1)
+			return true
+		elseif nID == 32 then
+			ChangeAttackMode(2)
+			return true
+		elseif nID == 33 then
+			ChangeAttackMode(3)
+			return true
+		elseif nID == 34 then
+			ChangeAttackMode(4)
+			return true
+		elseif nID == 35 then
+			ChangeAttackMode(5)
+			return true
+		elseif nID == 36 then
+			ChangeAttackMode(6)
+			return true	
+		elseif nID == 37 then
+			ChangeAttackMode(7)
+			return true
+		elseif nID == 200 then
+			OnOffFloatAccessKeyDialog()
+			return true
+		elseif nID == 201 then
+			OnOffFloatControlDialog()
+			return true
+		elseif nID == 202 then
+			OnOffWalkRunButton()
+			return true
+		elseif nID == 203 then
+			OnOffWalkRunButton()
+			return true
+		elseif nID == 204 then
+			CloseMiniMap()
+			return true
+		elseif nID == 402 then
+		    OnEveryVipDlg()
+		    return true
+        elseif nID == 500 then
+		    OnEveryVipDlg()
+		    return true	
+        elseif nID == 126 then
+		    OnRecastDialog()
+		    return true	
+		elseif nID == 510 then
+		    OnEveryMallDialog()
+		    return true	
+		 elseif nID == 511 then
+		    OnEveryMingrenDialog()
+		    return true	     
+		 elseif nID == 512 then
+		    OnEveryVipDialog()
+		    return true		
+		elseif nID == 514 then
+		    OnEveryZhanliDialog()
+		    return true	
+		elseif nID == 515 then
+		    OnFubenDialog()
+		    return true
+		elseif nID == 522 then
+		    OnRenwuDialog()
+		    return true
+		elseif nID == 520 then
+		    OnChongzhiDialog()
+		    return true			
+		elseif nID == 100 then
+			ParseAccessBtnClickEvent( 0 )
+			return true
+		elseif nID == 101 then
+			ParseAccessBtnClickEvent( 1 )
+			return true
+		elseif nID == 102 then
+			ParseAccessBtnClickEvent( 2 )
+			return true
+		elseif nID == 103 then
+			ParseAccessBtnClickEvent( 3 )
+			return true
+		elseif nID == 104 then
+			ParseAccessBtnClickEvent( 4 )
+			return true
+		elseif nID == 105 then
+			ParseAccessBtnClickEvent( 5 )
+			return true
+		elseif nID == 106 then
+			ParseAccessBtnClickEvent( 6 )
+			return true
+		elseif nID == 107 then
+			ParseAccessBtnClickEvent( 7 )
+			return true
+		elseif nID == 108 then
+			ParseAccessBtnClickEvent( 8 )
+			return true
+		elseif nID == 109 then
+			ParseAccessBtnClickEvent( 9 )
+			return true
+		elseif nID == 110 then
+			ParseAccessBtnClickEvent( 10 )
+			return true
+		elseif nID == 111 then
+			ParseAccessBtnClickEvent( 11 )
+			return true	
+		end
+	elseif nEvent == 101 then
+		if nID == 100 then
+			ParseAccessBtnClickEvent( 0 )
+			return true
+		elseif nID == 101 then
+			ParseAccessBtnClickEvent( 1 )
+			return true
+		elseif nID == 102 then
+			ParseAccessBtnClickEvent( 2 )
+			return true
+		elseif nID == 103 then
+			ParseAccessBtnClickEvent( 3 )
+			return true
+		elseif nID == 104 then
+			ParseAccessBtnClickEvent( 4 )
+			return true
+		elseif nID == 105 then
+			ParseAccessBtnClickEvent( 5 )
+			return true
+		elseif nID == 106 then
+			ParseAccessBtnClickEvent( 6 )
+			return true
+		elseif nID == 107 then
+			ParseAccessBtnClickEvent( 7 )
+			return true
+		elseif nID == 108 then
+			ParseAccessBtnClickEvent( 8 )
+			return true
+		elseif nID == 109 then
+			ParseAccessBtnClickEvent( 9 )
+			return true
+		elseif nID == 110 then
+			ParseAccessBtnClickEvent( 10 )
+			return true
+		elseif nID == 111 then
+			ParseAccessBtnClickEvent( 11 )
+			return true		
+		end
+	end
+	return false
+end
+</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces_cz.gl" group="1" frame="0"/>
+			
+			<item id="3" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces_cz.gl" group="1" frame="245"/>
+					
+			<item id="2" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces_cz.gl" group="1" frame="300"/>
+			
+			<item id="10" type="Button" style="0" rect="0,0,30,30" isdefault="0" pack="data\interfaces.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="Ctrl+Z">
+				<Tip>自动打怪</Tip>
+			</item>
+			<item id="666" type="Button" style="0" rect="0,0,30,30" isdefault="0" pack="data\interfaces.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="Tab">
+				<Tip>TAB索敌</Tip>
+			</item>
+			<item id="11" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="43" bitmapbutton="1" framenum="3" hotkey="B">
+				<Tip>包裹(B)</Tip>
+			</item>
+			<item id="12" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="25" bitmapbutton="1" framenum="3" hotkey="C">
+				<Tip>人物(C)</Tip>
+			</item>
+			<item id="13" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="13" bitmapbutton="1" framenum="3" hotkey="O">
+				<Tip>社会(O)</Tip>
+			</item>
+			<item id="14" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="28" bitmapbutton="1" framenum="3" hotkey="U">
+				<Tip>交易(U)</Tip>
+			</item>
+			<item id="15" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="31" bitmapbutton="1" framenum="3" hotkey="N">
+				<Tip>宠物(N)</Tip>
+			</item>
+			<item id="16" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="200" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>攻击模式(Ctrl+X)</Tip>
+			</item>
+			<item id="17" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="40" bitmapbutton="1" framenum="3" hotkey="V">
+				<Tip>技能(V)</Tip>
+			</item>
+			<item id="18" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="112" bitmapbutton="1" framenum="3" hotkey="L">
+				<Tip>任务(L)</Tip>
+			</item>
+			<item id="19" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="85" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>附近玩家(F)</Tip>
+			</item>
+			<item id="20" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="7" bitmapbutton="1" framenum="3" hotkey="T">
+				<Tip>骑马(T)</Tip>
+			</item>
+			<item id="21" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="63" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>打坐（D）“打坐”可以使人物每2秒获得额外的2%生命值与法术值恢复，但人物处于该状态下时物防与魔防会下降至正常值的60%</Tip>
+			</item>
+			<item id="22" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="69" bitmapbutton="1" framenum="3" hotkey="G">
+				<Tip>跟随(G)</Tip>
+			</item>
+			<item id="23" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="82" bitmapbutton="1" framenum="3" hotkey="J">
+				<Tip>观察(J)</Tip>
+			</item>
+			<item id="24" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="19" bitmapbutton="1" framenum="3" hotkey="S">
+				<Tip>系统设置(S)</Tip>
+			</item>
+             <!-- 桃子 修复屏幕老显示挂机字样的问题-->
+			<item id="25" type="Button" style="0" rect="10000,10000,0,0" isdefault="0" pack="data\MainUI.gl" group="1" frame="19" bitmapbutton="1" framenum="3" hotkey="Ctrl+F12">
+				<Tip>挂机(CTRL+F12)</Tip>
+			</item>
+
+			<item id="30" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,240,193,104">和平<Tip>该攻击模式下，无法对玩家或友好的NPC发动攻击，使用键盘 CTRL+X 键可以切换攻击模式</Tip></item>
+			<item id="31" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,240,193,104">全体<Tip>该攻击模式下，可以主动攻击所有的可攻击目标，使用键盘 CTRL+X 键可以切换攻击模式</Tip></item>
+			<item id="32" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,240,193,104">组队<Tip>该攻击模式下，除增益法术，其余的攻击或伤害法术将不会对同一队伍的玩家产生作用，使用键盘 CTRL+X 键可以切换攻击模式</Tip></item>
+			<item id="33" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,240,193,104">帮会<Tip>该攻击模式下，除增益法术，其余的攻击或伤害法术将不会对同一帮会的成员产生作用，使用键盘 CTRL+X 键可以切换攻击模式</Tip></item>
+			<item id="34" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,240,193,104">家族<Tip>该攻击模式下，除增益法术，其余的攻击或伤害法术将不会对同一家族的成员产生作用，使用键盘 CTRL+X 键可以切换攻击模式</Tip></item>
+			<item id="35" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,240,193,104">国家<Tip>该攻击模式下，除增益法术，其余的攻击或伤害法术将不会对同一国籍的玩家产生作用，使用键盘 CTRL+X 键可以切换攻击模式</Tip></item>
+			<item id="36" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,240,193,104">善恶<Tip>该攻击模式下，除增益法术，其余的攻击或伤害法术将不会对白名和绿名的玩家产生作用，使用键盘 CTRL+X 键可以切换攻击模式</Tip></item>
+			<item id="37" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,240,193,104">盟国<Tip>该攻击模式下，除增益法术，其余的攻击或伤害法术将不会对本国和盟国的玩家产生作用，使用键盘 CTRL+X 键可以切换攻击模式</Tip></item>			
+			<item id="100" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F1</Tip>
+			</item>
+			<item id="101" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F2</Tip>
+			</item>
+			<item id="102" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F3</Tip>
+			</item>
+			<item id="103" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F4</Tip>
+			</item>
+			<item id="104" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F5</Tip>
+			</item>
+			<item id="105" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F6</Tip>
+			</item>
+			<item id="106" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F7</Tip>
+			</item>
+			<item id="107" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F8</Tip>
+			</item>
+			<item id="108" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F9</Tip>
+			</item>
+			<item id="109" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F10</Tip>
+			</item>
+			<item id="110" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F11</Tip>
+			</item>
+			
+			<item id="111" type="Button" style="0" rect="0,0,30,30" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>F12</Tip>
+			</item>
+			
+			<item id="120" type="Button" style="0" rect="0,0,16,16" isdefault="0" pack="data\Interfaces.gl" group="5" frame="56" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>系统消息开关</Tip>
+			</item>
+		
+			<item id="121" type="MLineTextBox" style="1B9" rect="0,0,200,280" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			
+			<item id="200" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="400" bitmapbutton="1" framenum="3" hotkey="W">
+				<Tip>隐藏/展开快捷工具栏(W)</Tip>
+			</item>
+			<item id="201" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="403" bitmapbutton="1" framenum="3" hotkey="E">
+				<Tip>隐藏/展开功能组件栏(E)</Tip>
+			</item>
+			
+			<item id="902" type="Static" style="0" rect="25,650,320,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false"></item>
+			<item id="903" type="Static" style="1" rect="500,10,450,30" hotkey="" isdefault="0" font="2" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false"></item>
+			
+					
+			<item id="300" type="Table" rect="928,728,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="928,728,33,33">包裹1</item>
+			<item id="301" type="Table" rect="968,728,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="968,728,33,33">包裹2</item>
+			
+			<item id="500" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="6" frame="8" bitmapbutton="1" framenum="3" hotkey=""></item><!--VIP-->
+			
+
+			
+			<item id="126" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces6.gl" group="0" frame="109" bitmapbutton="1" framenum="3" hotkey=""/> <!--每日登陆奖励-->
+
+			<item id="511" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces6.gl" group="0" frame="103" bitmapbutton="1" framenum="3" hotkey=""/><!-- 鲜花榜单 -->
+			
+			<item id="512" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces6.gl" group="0" frame="106" bitmapbutton="1" framenum="3" hotkey=""/>	<!-- 会员服务 -->
+			
+			<item id="514" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces6.gl" group="0" frame="100" bitmapbutton="1" framenum="3" hotkey=""/>	<!-- 战力榜单 -->
+			
+			<item id="515" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces6.gl" group="0" frame="115" bitmapbutton="1" framenum="3" hotkey=""/>	<!-- 副本 -->
+			<!-- 充值积分商城 -->
+			<item id="510" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces6.gl" group="0" frame="112" bitmapbutton="1" framenum="3" hotkey=""/>
+			<!-- 活动任务 -->
+			<item id="522" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="0" bitmapbutton="1" framenum="3" hotkey=""/>
+            <!-- 游戏攻略 -->
+			<!--<item id="523" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces6.gl" group="0" frame="121" bitmapbutton="1" framenum="3" hotkey=""/>-->
+
+			<item id="1001" type="Button" style="0" rect="23,31,28,28" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="0" frame="401" framenum="3" bitmapbutton="1">
+                <Tip>隐藏快捷图标</Tip>
+            </item>
+
+            <item id="1002" type="Button" style="0" rect="23,31,28,28" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="0" frame="404" framenum="3" bitmapbutton="1">
+                <Tip>显示快捷图标</Tip>
+            </item>
+            <item id="600" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.pak" group="19" frame="2200" backgroud="0" />
+            <item id="601" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="5" frame="10" backgroud="0" />
+		</controls>
+	</dialog>
+</gui>

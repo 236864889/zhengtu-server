@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="11" name="NameMoneyInputBoxDialog" style="21" caption="" rect="332,293,332,300" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+        <!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+        <script>
+function OnGuiEvent(nEvent,nID,pControl) 
+	if nEvent == 100 then
+		if nID == 5 then
+			this:OnMoneyInputBoxEnter(true)
+			return true
+		elseif nID == 6 then
+			this:OnMoneyInputBoxEnter(false)
+			return true
+		end
+	end
+	return false 
+end</script>
+        <controls>
+            <!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+            <item id="1" type="Static" style="0" rect="12,50,238,32" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">请输入对方名字</item>
+            
+            <item id="2" type="EditBox" style="2" rect="20,150,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" align="4"/>
+            <item id="3" type="EditBox" style="2" rect="120,150,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+			<item id="4" type="EditBox" style="2" rect="220,150,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255"  align="4"/>
+            <item id="5" type="Button" style="0" rect="69,210,51,30" hotkey="Enter" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+            <item id="6" type="Button" style="0" rect="174,210,51,30" hotkey="Esc" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item>
+            <item id="7" type="Static" style="0" rect="80,154,30,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">锭</item>
+            <item id="8" type="Static" style="0" rect="180,154,30,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">两</item>
+            <item id="9" type="Static" style="0" rect="280,154,30,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">文</item>
+            <item id="10" type="Static" style="0" rect="12,121,238,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">name</item>
+            <item id="11" type="EditBox" style="0" rect="24,83,200,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="32" caretcolor="255,255,255,255"  align="4"/>           
+        </controls>
+    </dialog>
+</gui>
+
+<!--
+ <item id="1" type="Static" style="0" rect="12,49,238,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"></item>
+            <item id="2" type="EditBox" style="2" rect="20,150,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="100" caretcolor="255,255,255,255" />
+            <item id="3" type="EditBox" style="2" rect="120,150,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <item id="4" type="EditBox" style="2" rect="220,150,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <item id="5" type="Button" style="0" rect="69,210,70,29" hotkey="Enter" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="6" type="Button" style="0" rect="174,210,70,29" hotkey="Esc" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="7" type="Static" style="0" rect="80,154,30,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"></item>
+            <item id="8" type="Static" style="0" rect="180,154,30,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"></item>
+            <item id="9" type="Static" style="0" rect="280,154,30,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"></item>
+            <item id="10" type="Static" style="0" rect="12,121,238,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">输入银两(二两一分钟)</item>
+            <item id="11" type="EditBox" style="2" rect="24,83,185,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="32" minNumber="0" maxNumber="2147483647" caretcolor="255,255,255,255" />
+-->

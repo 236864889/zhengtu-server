@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="GB2312"?>
+<gui>
+	<dialog id="20" name="MatrixPasswordDlg" style="1" caption="Matrix" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="0" hidesoundindex="0"> 
+		
+	<script>
+		function OnGuiEvent(nEvent,nID,pControl) 
+			return false 
+		end
+	</script>
+		<controls>
+		
+		<item id="10" type="Image" style="2" rect="0,0,0,0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\login.gl" group="10" frame="0">		
+		</item>
+		
+		
+		<item id="11" type="Static" style="0" rect="40,45,280,160" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+		
+		
+		<!--"矩阵位置"-->
+		<item id="12" type="Static" style="0" rect="130,25,130,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+		
+		<item id="13" type="EditBox" style="9D" rect="54,79,180,18" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="48" caretcolor="255,255,255,255"/>
+		
+		<item id="14" type="Button" style="0" rect="170,255,0,0" isdefault="0" pack="data\login.gl" group="10" frame="1" bitmapbutton="1" framenum="3"/>
+		
+		<item id="15" type="Button" style="0" rect="80,255,0,0" isdefault="0" pack="data\login.gl" group="10" frame="4" bitmapbutton="1" framenum="3" />
+		
+		<!--number:0~9-->
+		<item id="1" type="Button" style="0" rect="35,202,70,29" isdefault="1" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3" />
+		<item id="2" type="Button" style="0" rect="70,202,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3" />
+		<item id="3" type="Button" style="0" rect="105,202,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3" />
+		<item id="4" type="Button" style="0" rect="140,202,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3" />
+		<item id="5" type="Button" style="0" rect="175,202,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3" />
+		<item id="6" type="Button" style="0" rect="107,238,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3"/>
+		<item id="7" type="Button" style="0" rect="142,238,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3" />
+		<item id="8" type="Button" style="0" rect="177,238,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3" />
+		<item id="9" type="Button" style="0" rect="212,238,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3"/>
+		<item id="0" type="Button" style="0" rect="247,238,70,29" isdefault="0" pack="data\login.gl" group="10" frame="7" bitmapbutton="1" framenum="3" />
+			 
+		</controls>
+	</dialog>
+</gui>

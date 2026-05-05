@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by ccc (Ru-Board) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="1" name="LoginDialog" style="4" caption="游戏登陆" rect="0,0,1024,768" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12" showsoundindex="0" hidesoundindex="0">
+		<!--		<popupmenu>
+			<item cmd="1" text="菜单选项1"/>
+			<item cmd="1" text="菜单选项2"/>
+			<item cmd="1" text="菜单选项3"/>
+			<item cmd="1" text="菜单选项4"/>
+			<item separate="1"/>
+			<item cmd="1" text="菜单选项5"/>
+			<item cmd="1" text="菜单选项6"/>
+			<item cmd="1" text="菜单选项7"/>
+		</popupmenu>
+		#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001
+#define EVENT_DIALOG_SHOW					1002
+#define EVENT_DIALOG_HIDE					1003
+#define EVENT_DIALOG_MOVE					1004-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl) 
+	return false 
+end</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<!--item id="1" type="Image" style="2" rect="0,0,1024,768" imagerect="1024,0,1024,768" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\logo.gl" group="0" frame="0" align="12" /-->
+			<item id="2" type="Image" style="2" rect="0,0,1024,768" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\login.gl" group="4" frame="0"/>
+			<item id="3" type="EditBox" style="8C" rect="743,269,143,22" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="48" caretcolor="255,255,255,255"/>
+			<item id="4" type="EditBox" style="89" rect="743,297,143,22" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/>
+			<item id="5" type="Button" style="0" rect="0,0,51,30" isdefault="1" pack="data\login.gl" group="4" frame="1" bitmapbutton="1" framenum="3" hotkey="Enter"/>
+			<item id="6" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\login.gl" group="4" frame="4" bitmapbutton="1" framenum="3" hotkey="Esc"/>
+			<!--item id="7" type="Static" style="0" rect="1024,719,1080,160" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/-->
+			<!--公告-->
+			<item id="7" type="Static" style="0" rect="15,719,1080,160" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="8" type="Button" style="0" rect="892,268,21,21" isdefault="0" pack="data\login.gl" group="4" frame="8" bitmapbutton="1" framenum="3"><Tip>保存帐号</Tip></item>
+			<item id="9" type="Button" style="0" rect="893,296,70,29" isdefault="0" pack="data\login.gl" group="4" frame="11" bitmapbutton="1" framenum="3"><Tip>软键盘</Tip></item>
+			<item id="1119" type="Button" style="0" rect="922,296,70,29" isdefault="0" pack="data\login.gl" group="4" frame="14" bitmapbutton="1" framenum="3"><Tip>修改密码</Tip></item>		
+			<!--公告-->  
+			<!--item id="100" type="EditBox" style="8" rect="207,124,40,14" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="6" caretcolor="255,255,255,255"/-->
+			<item id="99" type="Image" style="2" rect="0,0,1024,768" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\login.gl" group="5" frame="18"/>
+			<item id="100" type="EditBox" style="8" rect="207,124,40,14" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="6" caretcolor="255,255,255,255"/>
+		</controls>
+	</dialog>
+</gui>

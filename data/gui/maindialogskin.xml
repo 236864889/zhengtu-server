@@ -1,0 +1,1034 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<skin>
+	<defaltElements>
+		<dialog>
+			<caption>
+				<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="17,269,224,18">
+					<blendColor defaultColor="0,0,0,0">
+						<state state="NORMAL" color="255,255,255,255"/>
+						<state state="DISABLED" color="200,128,128,128"/>
+						<state state="HIDDEN" color="0,0,0,0"/>
+						<state state="FOCUS" color="255,255,255,255"/>
+						<state state="MOUSEOVER" color="255,255,255,255"/>
+						<state state="PRESSED" color="255,255,255,255"/>
+					</blendColor>
+				</image>
+				<font font="0" format="4">
+					<blendColor defaultColor="0,0,0,0">
+						<state state="NORMAL" color="255,255,255,255"/>
+						<state state="DISABLED" color="200,128,128,128"/>
+						<state state="HIDDEN" color="0,0,0,0"/>
+						<state state="FOCUS" color="255,255,255,255"/>
+						<state state="MOUSEOVER" color="255,255,255,255"/>
+						<state state="PRESSED" color="255,255,255,255"/>
+					</blendColor>
+				</font>
+			</caption>
+		</dialog>
+		<controls>
+			<control type="CloseBox">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="245,229,19,19">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="0,0,0,0"/>
+							<state state="MOUSEOVER" color="0,0,0,0"/>
+							<state state="PRESSED" color="0,0,0,0"/>
+						</blendColor>
+					</image>
+					<font font="0" format="5">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="264,229,19,19">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="0,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="0,0,0,0"/>
+						</blendColor>
+					</image>
+					<font font="0" format="5">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="2">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="283,229,19,19">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="0,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="0,0,0,0"/>
+							<state state="MOUSEOVER" color="0,0,0,0"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="5">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="Button">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="0,0,136,54">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="150,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="200,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="5">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="136,0,136,54">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="0,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="30,255,255,255"/>
+							<state state="MOUSEOVER" color="160,255,255,255"/>
+							<state state="PRESSED" color="60,0,0,0"/>
+						</blendColor>
+					</image>
+					<font font="0" format="5">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="Static">
+				<element index="0">
+					<font font="0" format="5">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="CheckBox">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="0,54,27,27">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="150,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="200,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="4">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="27,54,27,27">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="4">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="RadioButton">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="54,54,27,27">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="150,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="200,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="4">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="81,54,27,27">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="4">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="ComboBox">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="7,81,240,42">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="150,200,200,200"/>
+							<state state="DISABLED" color="70,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="170,230,230,230"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="5">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="272,0,53,49">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="150,255,255,255"/>
+							<state state="DISABLED" color="70,255,255,255"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="200,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,150,150,150"/>
+						</blendColor>
+					</image>
+					<font font="0" format="5">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="2">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="7,123,234,142">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="3">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="7,266,234,23">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="Slider">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="1,290,279,41">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="150,255,255,255"/>
+							<state state="DISABLED" color="70,255,255,255"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="200,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="248,55,41,41">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="EditBox">
+				<element index="0">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="2">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="3">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="4">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="5">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="6">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="7">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="8">
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="MLineEditBox">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="14,90,227,23">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="8,82,6,8">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="2">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="14,82,227,8">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="3">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="241,82,5,8">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="4">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="8,90,6,23">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="5">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="241,90,5,23">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="6">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="8,113,6,8">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="7">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="14,113,227,8">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="8">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="241,113,5,8">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="ListBox">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="13,124,228,141">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,0,0,0"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,0,0,0"/>
+							<state state="MOUSEOVER" color="255,0,0,0"/>
+							<state state="PRESSED" color="255,0,0,0"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="17,269,224,18">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="ScrollBar">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="243,144,22,11">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="255,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="243,124,22,20">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="255,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="2">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="243,155,22,21">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="255,200,200,200"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="3">
+					<image graphicPack="data\interfaces.gl" group="0" frame="0" rect="266,123,20,44">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+			<control type="Table">
+				<element index="0">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="0,0,46,45">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="1">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="46,0,33,45">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="2">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="79,0,47,45">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="3">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="0,45,46,33">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="4">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="46,45,33,33">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="5">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="79,45,47,33">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="6">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="0,78,46,47">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="7">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="46,78,33,47">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+				<element index="8">
+					<image graphicPack="data\interfaces.gl" group="0" frame="1" rect="79,78,47,47">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</image>
+					<font font="0" format="0">
+						<blendColor defaultColor="204,204,204,204">
+							<state state="NORMAL" color="255,255,255,255"/>
+							<state state="DISABLED" color="200,128,128,128"/>
+							<state state="HIDDEN" color="0,0,0,0"/>
+							<state state="FOCUS" color="255,255,255,255"/>
+							<state state="MOUSEOVER" color="255,255,255,255"/>
+							<state state="PRESSED" color="255,255,255,255"/>
+						</blendColor>
+					</font>
+				</element>
+			</control>
+		</controls>
+	</defaltElements>
+</skin>

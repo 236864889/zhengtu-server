@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="0" style="21" caption="欢迎进入征途游戏大厅" rect="332,293,332,150" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" name="GiveGiftUI"  align="12">
+        <controls>
+            <item id="10" type="Static" style="0" x="85" y="22" width="164" height="21" hotkey="-842150451" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="85,22,164,21">请选择喜欢的游戏吧!</item>
+            <item id="7" type="Button" style="0" x="180" y="52" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="180,52,80,35">比数字</item>
+            <item id="8" type="Button" style="0" x="180" y="88" width="80" height="35" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="180,88,80,35">取消</item>
+            
+        </controls>
+    </dialog>
+</gui>

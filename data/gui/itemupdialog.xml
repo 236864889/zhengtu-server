@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="30" name="ItemUpDialog" style="14" caption="装备升级" rect="-23,-18,550,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+        	  <item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="19" frame="3" backgroud="1"/>
+
+
+        	  <item id="1" type="Static" style="2" rect="317,517,50,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">0</item>
+            <item id="2" type="Static" style="0" rect="80,479,250,90" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">需求信息：</item>
+            <item id="3" type="Button" style="0" rect="65,506,51,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">升级</item>
+            <item id="5" type="ListBox" style="4" rect="61,347,310,110" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						<item id="6" type="Static" style="0" rect="72,331,260,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">原料      需求    数量   消耗</item>
+        		<item id="7" type="ListBox" style="4" rect="63,182,310,110" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+       			<item id="8" type="Static" style="0" rect="200,126,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">装备升级</item>
+        		<item id="9" type="Static" style="0" rect="191,298,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">需要宝石</item>
+
+        </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

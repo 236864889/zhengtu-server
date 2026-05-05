@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by VinsonGong (GongWenBing) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>   
+     <dialog id="200" name="NoticeDialog"  showsoundindex="10104"  style="4" caption="重要公告信息" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="11" >
+         <controls>         
+         
+         <item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="150,255,255,255" textcolor="150,255,255,255" backgroud="1" pack="data\interfaces.gl" group="149" frame="4" > </item>
+         <!--
+         <item id="2" type="ListBox" style="8" rect="20,50,285,510" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="78"></item>
+         <item id="3" type="ListBox" style="8" rect="20,50,285,510" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="78"></item>
+         <item id="3" type="ListBox" style="8" rect="20,50,285,510" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="78"></item>
+         <item id="5" type="ListBox" style="8" rect="20,50,285,510" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="78"></item>-->
+         
+			<item id="2" type="MLineTextBox" style="8" lineHeight="20" rect="28,50,285,510" isdefault="0" color="255,255,255,255" maxCharCount="1000" caretcolor="150,255,255,255" hotkey=""/>
+			<item id="3" type="MLineTextBox" style="8" lineHeight="20" rect="28,50,285,510" isdefault="0" color="255,255,255,255" maxCharCount="1000" caretcolor="150,255,255,255" hotkey=""/>
+			<item id="4" type="MLineTextBox" style="8" lineHeight="20" rect="28,50,285,510" isdefault="0" color="255,255,255,255" maxCharCount="1000" caretcolor="150,255,255,255" hotkey=""/>
+			<item id="5" type="MLineTextBox" style="8" lineHeight="20" rect="28,50,285,510" isdefault="0" color="255,255,255,255" maxCharCount="1000" caretcolor="150,255,255,255" hotkey=""/>
+         
+         <item id="6" type="Static" style="0" rect="110,6,210,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">重要公告信息</item>
+         
+         <item id="7" type="Button" style="2" rect="125,563,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="150,255,196,0">确定</item>
+         
+         <item id="8" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="150,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="149" frame="5" framenum="3"/>
+         
+         <item id="9" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="150,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="149" frame="8" framenum="3"/>
+         
+         <item id="10" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="150,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="149" frame="11" framenum="3"/>
+         
+         <item id="11" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="150,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="149" frame="14" framenum="3"/>
+         
+         <item id="12" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1"/>
+         </controls>
+     </dialog>
+</gui>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    
+    <dialog id="0" name="kingaward" icon="33" style="31" caption="" rect="330,156,364,476" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+        
+        <controls>
+            
+            <item id="20" type="Static" style="0" rect="3,-25,230,21" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">请选择要册封的国民：</item>
+            
+            <item id="8" type="ListBox" style="100" rect="-55,10,339,220" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+            
+            <item id="21" type="Static" style="0" rect="-41,239,200,21" hotkey="" isdefault="1" color="255,255,0,0" textcolor="255,255,0,0" >国王最多能册封50名官员</item>
+            
+            <item id="22" type="Static" style="0" rect="-41,261,200,21" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" >请输入新封号：</item>
+             <item id="23" type="Static" style="0" rect="-43,284,300,21" hotkey="" isdefault="1" color="255,0,255,0" textcolor="255,0,255,0" >（不输入任何字符则取消原封号）</item>
+           
+            <item id="5" type="EditBox" style="0" rect="-42,310,305,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255" />
+            
+            <item id="6" type="Button" style="0" rect="-5,348,70,29" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+            
+            <item id="7" type="Button" style="0" rect="142,348,70,29" hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item>
+        
+            <item id="30" type="Image" style="2" rect="-75,-20,364,67" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="139" frame="0" backgroud="0" />
+        </controls>
+        
+        <script></script>
+    
+    </dialog>
+
+</gui>

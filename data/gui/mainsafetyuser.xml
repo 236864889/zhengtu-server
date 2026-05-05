@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="1001" name="mainsafetyuser" style="10" caption="" rect="565,373,205,305" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+        	  
+        	                   
+        <item id="1" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="25,10,140,80">   使用密码对您的贵重财产和50级以上角色进行保护，有效保护你的帐户安全！
+   </item>
+                         
+         <item id="2" type="Button" style="2" rect="44,107,200,29" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,239,196,0">保护设置<Tip>设置需要保护的具体内容</Tip></item>
+         
+         <item id="3" type="Button" style="2" rect="44,145,200,29" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,239,196,0">临时取消<Tip>可以让系统暂时取消对您的财产所作的保护(对已绑定装备和角色的保护不能被临时取消)，并在您下线后自动为您恢复保护的功能</Tip></item>
+
+	<item id="5" type="Button" style="2" rect="44,183,200,29" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,239,196,0">修改密码<Tip>对财产保护密码进行修改</Tip></item>
+	<item id="6" type="Button" style="2" rect="44,221,200,29" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,239,196,0">取消密码<Tip>申请取消您现在的财产保护密码，7日后生效</Tip></item>
+             
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

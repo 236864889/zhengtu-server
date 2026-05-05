@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    
+    
+    
+    
+    <dialog id="0" name="SampleUI" style="10" caption="SampleUI" rect="159,126,700,530" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        
+        
+        
+        
+        <controls>
+            
+            
+            
+            
+            <item id="0" type="Image" style="2" rect="0,0,700,530" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="130" frame="0" backgroud="1" />
+            
+            
+            
+            
+            <item id="11" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces.pak" group="130" frame="23" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+                
+                
+                
+                
+                <Tip>请您下注</Tip>
+            
+            
+            
+            
+            </item>
+            
+            
+            
+            
+            <item id="12" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces.pak" group="130" frame="19" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+                
+                
+                
+                
+                <Tip>对方下注</Tip>
+            
+            
+            
+            
+            </item>
+            
+            
+            
+            
+            <item id="13" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces.pak" group="130" frame="15" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+                
+                
+                
+                
+                <Tip>停止</Tip>
+            
+            
+            
+            
+            </item>
+            
+            
+            
+            
+            <item id="14" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces.pak" group="130" frame="11" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+                
+                
+                
+                
+                <Tip>开始</Tip>
+            
+            
+            
+            
+            </item>
+            
+            
+            
+            
+            <item id="15" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces.pak" group="130" frame="7" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+                
+                
+                
+                
+                <Tip>发送</Tip>
+            
+            
+            
+            
+            </item>
+            
+            
+            
+            
+            <item id="16" type="Button" style="0" rect="0,0,88,29" isdefault="0" pack="data\interfaces.pak" group="130" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+                
+                
+                
+                
+                <Tip>表情</Tip>
+            
+            
+            
+            
+            </item>
+            
+            
+            
+            
+            <item id="17" type="MLineTextBox" style="2a9" lineHeight="20" rect="192,323,342,157" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey="" />
+            
+            
+            
+            
+            <item id="18" type="EditBox" style="28" rect="199,487,224,20" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="1024" caretcolor="255,255,255,255" />
+            
+            
+            
+            
+            <item id="19" type="Static" style="0" rect="53,363,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">rrr</item>
+            
+            
+            
+            
+            <item id="20" type="Static" style="0" rect="40,211,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">第二次掷得</item>
+            
+            
+            
+            
+            <item id="21" type="Static" style="0" rect="39,130,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">第一次掷得</item>
+            
+            
+            
+            
+            <item id="22" type="Static" style="0" rect="562,129,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">第一次掷得</item>
+            
+            
+            
+            
+            <item id="23" type="Static" style="0" rect="563,211,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">第二次掷得</item>
+            
+            
+            
+            
+            <item id="24" type="Static" style="0" rect="563,291,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">第三次掷得</item>
+            
+            
+            
+            
+            <item id="25" type="Static" style="0" rect="44,291,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">第三次掷得</item>
+            
+            
+            
+            
+            <item id="26" type="Static" style="0" rect="574,363,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">a</item>
+
+						
+            <item id="40" type="Static" style="0" rect="265,262,240,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">请您在[0]秒内点击停止按钮!</item>
+            
+            
+            <item id="27" type="Static" style="0" rect="414,79,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0">10两</item>
+
+            
+            
+            <item id="28" type="Static" style="0" rect="71,333,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0">999锭43两6文</item>
+        
+
+            <item id="31" type="Image" style="2" rect="286,155,72,72" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="130" frame="43" backgroud="0" />
+
+
+            <item id="32" type="Image" style="2" rect="365,155,72,72" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="130" frame="43" backgroud="0" />
+        
+
+            <item id="34" type="Image" style="2" rect="66,418,59,59" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="33" frame="1" backgroud="0" />
+
+
+            <item id="35" type="Image" style="2" rect="587,418,59,59" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="33" frame="2" backgroud="0" />
+  
+
+            <item id="44" type="Image" style="2" rect="54,407,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="1" frame="243" backgroud="0" />
+
+
+            <item id="45" type="Image" style="2" rect="54,407,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="1" frame="244" backgroud="0" />       
+        
+
+            <item id="54" type="Image" style="2" rect="576,408,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="1" frame="243" backgroud="0" />
+
+
+            <item id="55" type="Image" style="2" rect="576,408,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="1" frame="244" backgroud="0" />       
+
+        
+        
+        </controls>
+        
+        
+        
+        
+        <script></script>
+    
+    
+    
+    
+    </dialog>
+
+
+
+
+</gui>

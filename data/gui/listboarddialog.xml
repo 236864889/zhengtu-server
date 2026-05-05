@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+<dialog id="192" name="ListBoardDialog" style="0" caption="排行榜" rect="266,217,748,590" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+
+        <controls>
+        	  
+        <item id="0" type="Image" style="2" rect="0,0,271,451" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="174" frame="1" backgroud="1" />
+	    
+        <item id="1" type="Button" sound="10107" style="0" rect="-528,-1,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/>              
+           <item id="3" type="Button" style="0" rect="29,22,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">个人名次排行榜</item>
+           <item id="4" type="Button" style="0" rect="29,54,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">个人战力排行榜</item>
+           <item id="5" type="Button" style="0" rect="29,86,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">今日英雄排行榜</item>
+           <item id="6" type="Button" style="0" rect="29,118,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">昨日英雄排行榜</item>
+           <item id="7" type="Button" style="0" rect="29,9999,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">个人积分排行榜</item>
+           <item id="71" type="Image" style="2" rect="29,150,216,39" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="173" frame="1" backgroud="0" />
+    
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="84" name="QueryOccupierList" style="21"  caption="" rect="100,150,560,420" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+        	 		
+        <item id="2" type="ListBox" style="4" rect="0,35,540,300" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+        
+        <item id="3" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="0,18,40,21">名次</item>
+		<item id="4" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="130,18,40,21">玩家</item>	
+		<item id="5" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="220,18,20,21">胜</item>					
+        <item id="6" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="300,18,20,21">负</item>		
+        <item id="7" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,18,20,21">和</item>		
+        <item id="8" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="460,18,40,21">总分</item>		
+        
+        <item id="10" type="Button" style="0" showsoundindex="91001" rect="222,350,60,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+ 
+			   </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

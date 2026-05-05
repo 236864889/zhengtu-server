@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    
+    <dialog id="69" name="plugdialog" style="0" rect="350,150,386,530" bCenter="1" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="内挂界面">
+
+        <script>function OnGuiEvent(nEvent,nID,pControl) --[[处理GUI事件]]
+end</script>
+        <controls>
+
+	  <!-- 挂机设置页面 -->
+      <item id="0" type="Image" style="2" rect="0,0,386,530" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="75" frame="0" backgroud="1" />
+      
+	  <!-- 仙系专用页面 -->
+	  <item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="75" frame="1"/>
+      
+	  <!-- TBL切换 -->
+	  <item id="10" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1" />
+	 
+	 <!-- 挂机设置按钮 -->
+      <item id="11" type="Button"  style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="75" frame="3" framenum="3"></item>
+	  
+	  <!-- 仙系专用按钮 -->
+      <item id="12" type="Button"  style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="75" frame="6" framenum="3"></item>
+
+      <!-- 关闭按钮 -->
+      <item id="14" type="Button" sound="10107" style="0" rect="-142,4,0,0" hotkey="Esc" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/>
+      
+	  <!-- 推荐设置 -->
+      <item id="15" type="Button"  style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="75" frame="21" framenum="3"><Tip>点击后自动将挂机方案设置为官方推荐模式，达到一键开启效果</Tip></item>
+	  
+	  <!-- 图文帮助 -->
+      <item id="22" type="Button"  style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="75" frame="50" framenum="3"></item>
+	  
+	  <!-- 保存设置 -->
+      <item id="23" type="Button"  style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="75" frame="12" framenum="3"><Tip>点击后将保存你目前所设置的内容，在下次进入游戏时会根据你的角色名称自动读取保存的配置方案。（可记录多个角色）</Tip></item>
+      
+      <!--基本设置页面内容-->
+	  
+	  <!-- 开启挂机 -->
+	  <item id="25" type="CheckBox" style="0" rect="35,68,90,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,0,0"  >开启挂机<Tip>勾选则开启全自动挂机</Tip></item>
+	  <!-- 自动打怪 -->
+	  <item id="26" type="CheckBox" style="0" rect="125,68,90,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10"  >自动打怪<Tip>勾选后角色会自动寻找怪物并攻击</Tip></item>
+	  <!-- 定点打怪 -->
+	  <item id="27" type="CheckBox" style="0" rect="215,68,90,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10"  >定点打怪<Tip>勾选后以当前坐标为准，任何情况下人物角色都不会移动</Tip></item>
+	  <!-- 范围打怪 -->
+	  <item id="28" type="CheckBox" style="0" rect="305,68,90,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10"  >范围打怪<Tip>勾选后以当前坐标为准</Tip></item>
+	  
+	  <item id="29" type="Static" style="0" rect="405,73,80,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">范围原点:</item>
+	  
+	  <!-- 范围 X -->
+	  <item id="30" type="EditBox" style="2" rect="458,65,30,26" hotkey="" maxCharCount="1" minNumber="0" maxNumber="9" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+	  <!-- 范围 Y -->
+	  <item id="31" type="EditBox" style="2" rect="488,65,30,26" hotkey="" maxCharCount="1" minNumber="0" maxNumber="9" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+	  
+	   <item id="32" type="Static" style="0" rect="540,73,80,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">范围半径:</item>
+	   
+	   <!-- 半径 -->
+	   <item id="33" type="EditBox" style="2" rect="595,65,30,26" hotkey="" maxCharCount="1" minNumber="0" maxNumber="9" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+	  
+      <!-- 远程拾取 -->
+	  <item id="34" type="CheckBox" style="0" rect="40,240,110,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10" >远程拾取<Tip>勾选后自己杀怪掉落的物品会直接掉落背包，所有BOSS除外</Tip></item>
+
+	  <!-- 自动组队-->
+	  <item id="36" type="CheckBox" style="0" rect="220,100,90,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10" >自动组队<Tip>勾选后自动根据组队列表邀请组队</Tip></item>
+	  
+	  <!-- 选择队友 -->
+	  <item id="35" type="ComboBox" style="200" ebstyle="88" rect="215,142,130,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+	  <!--增加队友-->
+	  <item id="37" type="Button" style="0" rect="17,-94,0,0" isdefault="0" pack="data\interfaces.gl" group="147" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+	  <!--减少队友-->
+	  <item id="38" type="Button" style="0" rect="15,-94,0,0" isdefault="0" pack="data\interfaces.gl" group="147" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+	  <!--队员显示-->
+	  <item id="41" type="ListBox" style="8" rect="220,170,165,60" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="20"></item>
+	  
+	  <!-- 排除物品 -->
+	  <item id="43" type="MLineEditBox" style="9" rect="35,270,365,65" lineHeight="15" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="128" caretcolor="255,255,255,255" ></item>
+
+      <!-- 物品过滤设置-->
+      <item id="45" type="Button"  style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="75" frame="18" framenum="3"></item>
+      
+      <item id="47" type="Static" style="0" rect="220,125,150,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">队员列表设置：</item>
+	  <item id="48" type="Static" style="0" rect="40,265,380,16" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">物品过滤关键字设置，输入则不拾取（任意关键字以“;”隔开）</item>
+
+      <item id="199" type="Static" style="0" rect="397,100,150,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">挂机保护设置</item>
+	  
+	  <!-- 红药使用 -->
+	  <item id="200" type="CheckBox" style="0" rect="397,124,20,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,0,0"  ><Tip>当生命值低于设定数值时，自动按顺序使用“补血丹、还神丹、仙宿丹、九华丹、还魂丹、大还丹、小还丹”</Tip></item>
+	  <!-- 蓝药使用 -->
+	  <item id="201" type="CheckBox" style="0" rect="397,151,20,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,0,0"  ><Tip>当魔法值低于设定数值时，自动按顺序使用“清心露、丹凤露、百花露、天星露、灵玉露、定心露”</Tip></item>
+	  <!-- 红药购买 -->
+	  <item id="202" type="CheckBox" style="0" rect="397,178,20,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,0,0"  ><Tip>自动购买所设置的加生命值药品</Tip></item>
+	  <!-- 蓝药购买 -->
+	  <item id="203" type="CheckBox" style="0" rect="397,205,20,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,0,0"  ><Tip>自动购买所设置的加魔法值药品</Tip></item>
+	  
+      <item id="204" type="Static" style="0" rect="420,127,200,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">生命值低于      % 自动使用红药</item>
+      <item id="205" type="Static" style="0" rect="420,154,200,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">魔法值低于      % 自动使用蓝药</item>
+      <item id="206" type="Static" style="0" rect="420,181,200,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">保证包内有20个</item>
+      <item id="207" type="Static" style="0" rect="420,208,200,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">保证包内有20个</item>
+	  
+	  <!-- 红药列表 -->
+	  <item id="51" type="ComboBox" style="800" rect="507,177,100,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+	  <!-- 蓝药列表 -->
+	  <item id="52" type="ComboBox" style="800" rect="507,205,100,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+	  <!-- 生命值% -->
+	  <item id="208" type="EditBox" style="2" rect="482,120,30,26" hotkey="" maxCharCount="1" minNumber="0" maxNumber="9" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+	  <!-- 法术值% -->
+	  <item id="209" type="EditBox" style="2" rect="482,147,30,26" hotkey="" maxCharCount="1" minNumber="0" maxNumber="9" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+	  
+      <item id="220" type="Static" style="0" rect="397,245,150,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">宠物保护设置</item>
+	  
+	  <item id="221" type="CheckBox" style="0" rect="397,273,20,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,0,0"  ><Tip>设定时间间隔为宠物施放增益或加血技能</Tip></item>
+	  <item id="222" type="CheckBox" style="0" rect="397,300,20,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,0,0"  ><Tip>当宠物死亡后使用所设置的技能复活或重新召唤</Tip></item>
+      <item id="223" type="Static" style="0" rect="420,277,200,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">每     秒对宠物使用</item>
+      <item id="224" type="Static" style="0" rect="420,304,200,24" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">宠物死亡后使用技能</item>
+	  <item id="225" type="EditBox" style="2" rect="432,272,30,26" hotkey="" maxCharCount="3" minNumber="0" maxNumber="999" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+	  <item id="226" type="ComboBox" style="800" rect="530,272,105,25" hotkey="" font="0" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+	  <item id="227" type="ComboBox" style="800" rect="530,300,105,25" font="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+	 
+	  <item id="300" type="Static" style="0" rect="30,125,150,24" font="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">技能列表设置：</item>
+	  
+	  <!-- 技能选择 左右长度-->
+	  <item id="301" type="ComboBox" style="800" rect="30,142,130,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+	  <!-- 技能选择 + -->
+	  <item id="302" type="Button" style="0" rect="-168,-94,0,0" isdefault="0" pack="data\interfaces.gl" group="147" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+	   <!-- 技能选择 - -->
+	  <item id="303" type="Button" style="0" rect="-170,-94,0,0" isdefault="0" pack="data\interfaces.gl" group="147" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+	  <!-- 技能选择 上下列表-->
+	  <item id="304" type="ListBox" style="8" rect="30,170,171,60" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="20"></item>
+	  <item id="305" type="CheckBox" style="0" rect="30,100,120,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10"  >自动施放技能<Tip>当人物身上的状态技能消失时，系统会根据技能设置列表自动施放技能</Tip></item>
+	  
+	  <!--  仙术设置  -->
+	  
+	  <!-- 开启辅助 -->
+	  <item id="60" type="CheckBox" style="0" rect="40,68,120,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,0,10"  >开启辅助<Tip>勾选则开启仙系辅助功能</Tip></item>
+	  <!-- 自动打坐 -->
+	  <item id="61" type="CheckBox" style="0" rect="132,68,120,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10"  >自动打坐<Tip>勾选后角色会在空闲时自动跑回休息坐标打坐(与“自动打怪”为二选一)</Tip></item>
+	  <!-- 复活队友 -->
+	  <item id="62" type="CheckBox" style="0" rect="224,68,120,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10"  >复活队友<Tip>当队友死亡时，自动施放“起死回生”技能复活队友</Tip></item>
+	  <!-- 自动隐身 -->
+	  <item id="80" type="CheckBox" style="0" rect="316,68,160,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,204,165,10"  >自动隐身<Tip>勾选则开启自动隐身功能，当角色被怪攻击时自动施放仙术中人系的“隐身”技能，不被攻击则不施放</Tip></item>
+
+	  <item id="73" type="Static" style="0" rect="415,72,80,24" font="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0">打坐坐标：</item>
+	  <!-- 打坐 x -->
+	  <item id="63" type="EditBox" style="2" rect="475,65,30,25" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="999"/> 
+	  <!-- 打坐 y -->
+	  <item id="64" type="EditBox" style="2" rect="505,65,30,25" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="999"/>
+	  <!-- 当前坐标 -->
+      <item id="65" type="Button"  style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="75" frame="15" framenum="3"></item>
+	  	        <!-- 过滤白色装备 -->
+	  <item id="90" type="CheckBox" style="0" rect="30,345,110,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,255,255" >过滤白色<Tip>勾选后自己杀怪掉落的白色装备不会自动拾取</Tip></item>
+	        <!-- 过滤蓝色装备 -->
+	  <item id="91" type="CheckBox" style="0" rect="130,345,110,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,0,0,255" >过滤蓝色<Tip>勾选后自己杀怪掉落的蓝色装备不会自动拾取</Tip></item>
+	        <!-- 过滤金色装备 -->
+	  <item id="92" type="CheckBox" style="0" rect="230,345,110,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,255,215,0" >过滤金色<Tip>勾选后自己杀怪掉落的金色装备不会自动拾取</Tip></item>
+	        <!-- 过滤绿色装备 -->
+	  <item id="93" type="CheckBox" style="0" rect="330,345,110,21" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,0,255,0" >过滤绿色<Tip>勾选后自己杀怪掉落的绿色装备不会自动拾取</Tip></item>
+
+        </controls>
+    </dialog>
+</gui>
