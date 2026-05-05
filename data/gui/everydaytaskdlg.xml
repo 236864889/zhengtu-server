@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="15" name="QueryEveryTaskList" showsoundindex="10103" style="0" rect="135,36,512,613" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="">
+		<controls>QueryEveryTaskList
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="587" frame="10" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="1" type="Button" style="0" rect="613,31,24,24" isdefault="0" pack="data\interfaces6.gl" group="3" frame="8" bitmapbutton="1" framenum="3" hotkey=""/>
+		    <item id="5" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1"/>
+			<!--导航按钮-->
+			<item id="21" type="Button" style="0" rect="73,62,113,40" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="587" frame="21" framenum="3" bitmapbutton="1" enbaleFocus="1" enableFocus="1"/>
+	        <!--导航按钮-->
+			<item id="22" type="Button" style="0" rect="185,62,113,40" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="587" frame="24" framenum="3" bitmapbutton="1" enbaleFocus="1" enableFocus="1"/>			
+
+			<!--任务文字介绍-->
+			<item id="101" type="Image" style="2" rect="71,103,0,0" isdefault="0" backgroud="0" pack="data\interfaces6.gl" group="587" frame="9" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="201" type="Button" style="0" rect="83,114,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="202" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="301" type="Static" style="0" rect="138,114,130,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">缉拿大盗</item>
+			<item id="401" type="Static" style="0" rect="138,139,130,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">次数:3次/日</item>
+			<item id="501" type="Button" style="0" rect="275,114,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="56" bitmapbutton="1" framenum="3" hotkey=""/>		
+			<!--任务文字介绍-->
+			<item id="102" type="Image" style="2" rect="71,176,0,0" isdefault="0" backgroud="0" pack="data\interfaces6.gl" group="587" frame="9" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="202" type="Button" style="0" rect="83,188,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="207" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="302" type="Static" style="0" rect="138,188,130,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">国家任务</item>
+			<item id="402" type="Static" style="0" rect="138,213,130,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">次数:1次/日</item>
+			<item id="502" type="Button" style="0" rect="275,188,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="56" bitmapbutton="1" framenum="3" hotkey=""/>		
+			<!--任务文字介绍-->
+			<item id="103" type="Image" style="2" rect="71,249,0,0" isdefault="0" backgroud="0" pack="data\interfaces6.gl" group="587" frame="9" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="203" type="Button" style="0" rect="83,261,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="305" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="303" type="Static" style="0" rect="138,261,130,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">皇族龙脉</item>
+			<item id="403" type="Static" style="0" rect="138,286,130,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">次数:3次/日</item>
+			<item id="503" type="Button" style="0" rect="275,261,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="56" bitmapbutton="1" framenum="3" hotkey=""/>					
+			<!--任务文字介绍-->
+			<item id="104" type="Image" style="2" rect="71,322,0,0" isdefault="0" backgroud="0" pack="data\interfaces6.gl" group="587" frame="9" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="204" type="Button" style="0" rect="83,334,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="203" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="304" type="Static" style="0" rect="138,334,130,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">十二生肖</item>
+			<item id="404" type="Static" style="0" rect="138,359,130,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">次数:3次/日</item>	
+			<item id="504" type="Button" style="0" rect="275,334,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="56" bitmapbutton="1" framenum="3" hotkey=""/>					
+			
+			<!--任务文字介绍-->
+			<item id="105" type="Image" style="2" rect="342,103,0,0" isdefault="0" backgroud="0" pack="data\interfaces6.gl" group="587" frame="9" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="205" type="Button" style="0" rect="353,114,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="306" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="305" type="Static" style="0" rect="409,114,130,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">英雄试炼</item>
+			<item id="405" type="Static" style="0" rect="409,139,130,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">次数:1次/日</item>
+			<item id="505" type="Button" style="0" rect="547,114,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="56" bitmapbutton="1" framenum="3" hotkey=""/>
+			<!--任务文字介绍-->
+			<item id="106" type="Image" style="2" rect="342,176,0,0" isdefault="0" backgroud="0" pack="data\interfaces6.gl" group="587" frame="9" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="206" type="Button" style="0" rect="353,188,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="302" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="306" type="Static" style="0" rect="409,188,130,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">追忆任务</item>
+			<item id="406" type="Static" style="0" rect="409,213,130,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">次数:3次/日</item>
+			<item id="506" type="Button" style="0" rect="547,188,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="56" bitmapbutton="1" framenum="3" hotkey=""/>
+			<!--任务文字介绍-->
+			<item id="107" type="Image" style="2" rect="342,249,0,0" isdefault="0" backgroud="0" pack="data\interfaces6.gl" group="587" frame="9" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="207" type="Button" style="0" rect="353,261,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="205" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="307" type="Static" style="0" rect="409,261,130,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">暗杀太子</item>
+			<item id="407" type="Static" style="0" rect="409,286,130,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">次数:5次/日</item>
+			<item id="507" type="Button" style="0" rect="547,261,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="56" bitmapbutton="1" framenum="3" hotkey=""/>
+			<!--任务文字介绍-->
+			<item id="108" type="Image" style="2" rect="342,322,0,0" isdefault="0" backgroud="0" pack="data\interfaces6.gl" group="587" frame="9" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="208" type="Button" style="0" rect="353,334,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="206" bitmapbutton="1" framenum="1" hotkey=""/>			
+			<item id="308" type="Static" style="0" rect="409,334,130,21" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3">刺探情报</item>
+			<item id="408" type="Static" style="0" rect="409,359,130,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">次数:1次/日</item>
+			<item id="508" type="Button" style="0" rect="547,334,0,0" isdefault="0" pack="data\interfaces6.gl" group="587" frame="56" bitmapbutton="1" framenum="3" hotkey=""/>
+		
+			<!--上一页-->
+			<item id="801" type="Button" style="0" rect="244,408,60,25" isdefault="0" pack="data\interfaces6.gl" group="57" frame="91" bitmapbutton="1" framenum="3" hotkey=""/>
+			<!--下一页-->
+			<item id="802" type="Button" style="0" rect="374,408,60,25" isdefault="0" pack="data\interfaces6.gl" group="57" frame="94" bitmapbutton="1" framenum="3" hotkey=""/>
+	        <!--页数-->
+	        <item id="803" type="Static" style="0" rect="320,408,50,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">1/1</item>
+			
+
+
+<!--
+                <item id="2" type="ListBox" style="8" rect="32,80,741,373" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+ 
+                <item id="3" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="40,85,110,26">   全天<Tip>可接任务的时间</Tip></item>
+                <item id="4" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="160,85,110,26">暗杀太子<Tip>任务名称</Tip></item>
+                <item id="5" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,85,300,26">王城·九公主(850,442)<Tip>任务引导</Tip></item>
+                <item id="6" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="710,85,110,26">0/1<Tip>可接任务的次数</Tip></item>
+
+		<item id="7" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="40,105,110,26">12:00-23:59<Tip>可接任务的时间</Tip></item>
+                <item id="8" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="160,105,110,26">太庙搬砖<Tip>任务名称</Tip></item>
+                <item id="9" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,105,300,26">      敌国太庙<Tip>任务引导</Tip></item>
+                <item id="10" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="710,105,110,26">0/3<Tip>可接任务的次数</Tip></item>
+
+		<item id="11" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="40,125,110,26">18:00-23:59<Tip>可接任务的时间</Tip></item>
+                <item id="12" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="160,125,110,26">山外山<Tip>任务名称</Tip></item>
+                <item id="13" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,125,300,26">王城·大剑师(814,525)<Tip>任务引导</Tip></item>
+                <item id="14" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="710,125,110,26">0/1<Tip>可接任务的次数</Tip></item>
+
+		<item id="15" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="40,145,110,26">   全天<Tip>可接任务的时间</Tip></item>
+                <item id="16" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="160,145,110,26">王城运镖<Tip>任务名称</Tip></item>
+                <item id="17" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,145,300,26">王城·郑镖头(828,528)<Tip>任务引导</Tip></item>
+                <item id="18" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="710,145,110,26">0/2<Tip>可接任务的次数</Tip></item>
+
+		<item id="19" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="40,165,110,26">12:00-23:59<Tip>可接任务的时间</Tip></item>
+                <item id="20" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="160,165,110,26">圣海屠龙<Tip>任务名称</Tip></item>
+                <item id="21" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,165,300,26">王城·西施(856,510)<Tip>任务引导</Tip></item>
+                <item id="22" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="710,165,110,26">0/1<Tip>可接任务的次数</Tip></item>
+
+		<item id="19" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="40,185,110,26">12:00-23:59<Tip>可接任务的时间</Tip></item>
+                <item id="20" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="160,185,110,26">刺探情报<Tip>任务名称</Tip></item>
+                <item id="21" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,185,300,26">边境·兵马大元帅(209,137)<Tip>任务引导</Tip></item>
+                <item id="22" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="710,185,110,26">0/2<Tip>可接任务的次数</Tip></item>
+
+		<item id="19" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="40,205,110,26">06:00-23:59<Tip>可接任务的时间</Tip></item>
+                <item id="20" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="160,205,110,26">十二生肖<Tip>任务名称</Tip></item>
+                <item id="21" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,205,300,26">家族·密集收藏家(909,473)<Tip>任务引导</Tip></item>
+                <item id="22" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="710,205,110,26">0/1<Tip>可接任务的次数</Tip></item>
+
+		<item id="19" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="40,225,110,26">   全天<Tip>可接任务的时间</Tip></item>
+                <item id="20" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="160,225,110,26">桃源温泉<Tip>任务名称</Tip></item>
+                <item id="21" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="380,225,300,26">中立区·世外桃源<Tip>任务引导</Tip></item>
+                <item id="22" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="710,225,110,26">0/1<Tip>可接任务的次数</Tip></item>
+-->
+		</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>

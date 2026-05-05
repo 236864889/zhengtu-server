@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="101" name="applyconnDialog" style="14"  caption="" rect="-23,-18,450,400" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0">
+        <controls>
+        	  <item id="10" type="Image" style="2" rect="0,0,100,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="54" frame="50" backgroud="1"/>
+
+						<item id="3" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="54" frame="58" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+						<item id="4" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="54" frame="61" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="5" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="54" frame="52" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+						<item id="6" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="54" frame="55" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+
+					  <item id="7" type="ListBox" style="c" rect="53,204,331,294" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+       			
+			   </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

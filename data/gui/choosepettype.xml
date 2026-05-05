@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="1000" name="ChoosePet" style="5" caption="" rect="465,400,200,180" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+        <controls>
+        
+        	 <item id="2" type="Button" sound="10107" style="0" rect="-606,-17,60,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/> 		<!--关闭-->		<!--关闭-->	            
+            <item id="3" type="Button" style="0" rect="20,48,20,10" hotkey="" bitmapbutton="1" isdefault="0"  color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="60" frame="51" framenum="3"><Tip>系统免费帮助你寻找与你相同等级的角色领养你的替身宝贝。选择此选项，功能就开启，无论你是否在线。
+</Tip></item>
+            <item id="4" type="Button" style="0" rect="20,95,20,10" hotkey="" bitmapbutton="1" isdefault="0"  color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="60" frame="51" framenum="3"><Tip>系统帮助你寻找高出你等级30级的角色领养你的替身宝贝。对方将收取每小时2两75文金子的费用，从你替身宝贝的剩余修炼时间中扣除。选择此选项，功能就开启，无论你是否在线。</Tip></item>
+            
+            <item id="10" type="Static" style="0" rect="3,10,230,21" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">领养方式选择</item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

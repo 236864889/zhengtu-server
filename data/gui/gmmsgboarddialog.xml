@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="1222" name="GMBoardDlg" style="0" rect="154,128,445,330" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="GM留言">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+    function InitTab()
+		this:AddControl2TabByID(2,0,100)
+		this:AddControl2TabByID(2,0,101)
+		this:AddControl2TabByID(2,0,102)
+		this:AddControl2TabByID(2,0,103)
+		this:AddControl2TabByID(2,0,104)
+		this:AddControl2TabByID(2,0,105)
+		this:AddControl2TabByID(2,0,106)
+		this:AddControl2TabByID(2,0,107)
+		this:AddControl2TabByID(2,0,108)
+		this:AddControl2TabByID(2,0,109)
+
+		this:AddControl2TabByID(2,1,200)	
+		this:AddControl2TabByID(2,1,201)
+		this:AddControl2TabByID(2,1,202)
+		this:AddControl2TabByID(2,1,203)
+		this:AddControl2TabByID(2,1,204)
+		this:AddControl2TabByID(2,1,205)
+		this:AddControl2TabByID(2,1,206)
+		this:AddControl2TabByID(2,1,207)
+			
+		this:AddControl2TabByID(2,2,300)	
+			
+		this:AddControl2TabByID(2,3,400)
+		this:AddControl2TabByID(2,3,401)
+		this:AddControl2TabByID(2,3,402)
+		this:AddControl2TabByID(2,3,403)
+		this:AddControl2TabByID(2,3,404)
+		this:AddControl2TabByID(2,3,405)
+		this:AddControl2TabByID(2,3,406)
+		this:AddControl2TabByID(2,3,407)
+		this:AddControl2TabByID(2,3,408)
+		this:AddControl2TabByID(2,3,409)		
+		
+		this:AddControl2TabByID(2,4,500)
+		
+    end
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()	
+			return true		
+		end
+		return false
+	end
+    </script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="50" frame="0"/>
+			<!--底图-->
+			<item id="1" type="ComboBox" rect="118,53,429,23" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			<datas>
+				<item>外挂举报</item>
+					<item>bug提交</item>
+					<item>游戏建议意见</item>
+					<item>不良游戏现象举报</item>
+					<item>游戏内容咨询</item>
+			</datas>
+			</item>
+			<item id="2" type="Tab" style="2" rect="64,474,211,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+				<datas>
+					<item>外</item>
+                    <item>BUG</item>
+                    <item>游</item>
+                    <item>不</item>
+                    <item>内</item>
+				</datas>
+			</item>
+			<!--外挂举报-->
+			<item id="100" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="50" frame="2"/>
+			<item id="101" type="EditBox" style="28" rect="176,87,257,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="32" caretcolor="255,255,255,255"/> <!--您所举报的角色名称-->
+			<item id="102" type="EditBox" style="28" rect="202,117,45,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="8" caretcolor="255,255,255,255"/> <!--国家-->
+			<item id="103" type="EditBox" style="28" rect="288,117,109,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--地图-->
+			<item id="104" type="EditBox" style="28" rect="463,115,77,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="8" caretcolor="255,255,255,255"/> <!--大致坐标-->
+			<item id="105" type="EditBox" style="28" rect="170,145,48,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--year-->
+			<item id="106" type="EditBox" style="28" rect="242,145,44,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--month-->
+			<item id="107" type="EditBox" style="28" rect="301,145,48,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--day-->
+			<item id="108" type="EditBox" style="28" rect="367,145,49,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--time-->
+			<item id="109" type="EditBox" style="28" rect="129,175,305,18" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255"/> <!--疑似外挂名称-->
+			
+			
+			<!--bug提交-->
+			<item id="200" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="50" frame="1"/>
+			<item id="201" type="EditBox" style="28" rect="163,106,59,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="8" caretcolor="255,255,255,255"/> <!--国家-->
+			<item id="202" type="EditBox" style="28" rect="267,106,126,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--地图-->
+			<item id="203" type="EditBox" style="28" rect="463,106,75,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="8" caretcolor="255,255,255,255"/> <!--大致坐标-->
+			<item id="204" type="EditBox" style="28" rect="143,156,48,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--year-->
+			<item id="205" type="EditBox" style="28" rect="209,156,47,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--month-->
+			<item id="206" type="EditBox" style="28" rect="275,156,49,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--day-->
+			<item id="207" type="EditBox" style="28" rect="338,156,50,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--time-->
+			
+			<!--游戏建议意见-->
+			<item id="300" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="50" frame="3"/>
+			
+			<!--不良游戏现象举报-->
+			<item id="400" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="50" frame="4"/>
+			<item id="401" type="ComboBox" rect="169,82,379,23" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			
+				<datas>
+					<item>刷屏骂人</item>
+					<item>恶意PK</item>
+					<item>恶意堵路</item>
+					<item>线上交易欺诈</item>
+					<item>传播其他游戏广告</item>
+					<item>传播色情、反动信息</item>
+					<item>冒充官方人员扰乱游戏环境</item>
+					<item>创建不当角色名称</item>
+					<item>传播、散布任何外挂程序</item>
+					<item>其他</item>
+				</datas>
+			
+			</item>
+			<item id="402" type="EditBox" style="28" rect="172,117,262,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="32" caretcolor="255,255,255,255"/> <!--您所举报的角色名称-->
+			<item id="403" type="EditBox" style="28" rect="153,147,63,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="8" caretcolor="255,255,255,255"/> <!--国家-->
+			<item id="404" type="EditBox" style="28" rect="258,146,117,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--地图-->
+			<item id="405" type="EditBox" style="28" rect="445,145,97,18" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="8" caretcolor="255,255,255,255"/> <!--大致坐标-->
+			<item id="406" type="EditBox" style="28" rect="109,177,44,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--year-->
+			<item id="407" type="EditBox" style="28" rect="175,177,46,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--month-->
+			<item id="408" type="EditBox" style="28" rect="240,177,46,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--day-->
+			<item id="409" type="EditBox" style="28" rect="303,177,48,15" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="16" caretcolor="255,255,255,255"/> <!--time-->
+			
+			
+			<!--游戏内容咨询-->
+			<item id="500" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="50" frame="5"/>
+			
+			
+			<item id="4" type="MLineEditBox" style="2b" lineHeight="20" rect="36,121,515,192" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="512" caretcolor="255,255,255,255" hotkey=""/>
+			<item id="5" type="ComboBox" rect="38,361,135,23" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+				<datas>
+					<item>电话</item>
+					<item>手机</item>
+					<item>E-MAIL</item>
+					<item>传真</item>
+				</datas>
+			</item>
+			<!--电话类型-->
+			<item id="6" type="EditBox" style="28" rect="181,361,351,18" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="64" caretcolor="255,255,255,255"/>
+			<!--具体电话号码-->
+			<item id="7" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="50" frame="6" framenum="3"/>
+			<!--close-->
+			<item id="8" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="50" frame="9" framenum="3"/>
+			<!--cancel-->
+			<item id="9" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="50" frame="12" framenum="3"/>
+			<!--commit-->
+		</controls>
+	</dialog>
+</gui>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="69" name="HelpDialog" style="0" rect="340,60,512,613" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="装备引导">
+		<script>
+    function InitTab()
+	
+		this:AddControl2TabByID(4,0,80)
+		this:AddControl2TabByID(4,0,120)
+		this:AddControl2TabByID(4,0,125)
+		this:AddControl2TabByID(4,0,124)
+		
+		this:AddControl2TabByID(4,1,80)
+		this:AddControl2TabByID(4,1,120)
+		this:AddControl2TabByID(4,1,125)
+		this:AddControl2TabByID(4,1,130)
+		
+		this:AddControl2TabByID(4,2,80)
+		this:AddControl2TabByID(4,2,120)
+		this:AddControl2TabByID(4,2,125)
+		this:AddControl2TabByID(4,2,131)
+		
+		this:AddControl2TabByID(4,3,80)
+		this:AddControl2TabByID(4,3,120)
+		this:AddControl2TabByID(4,3,125)
+		this:AddControl2TabByID(4,3,132)
+		
+		this:AddControl2TabByID(4,4,80)
+		this:AddControl2TabByID(4,4,120)
+		this:AddControl2TabByID(4,4,125)
+		this:AddControl2TabByID(4,4,133)
+		
+		this:AddControl2TabByID(4,5,80)
+		this:AddControl2TabByID(4,5,120)
+		this:AddControl2TabByID(4,5,125)
+		this:AddControl2TabByID(4,5,134)
+		
+		this:AddControl2TabByID(4,6,80)
+		this:AddControl2TabByID(4,6,120)
+		this:AddControl2TabByID(4,6,125)
+		this:AddControl2TabByID(4,6,135)
+		
+		this:AddControl2TabByID(4,7,80)
+		this:AddControl2TabByID(4,7,120)
+		this:AddControl2TabByID(4,7,125)
+		this:AddControl2TabByID(4,7,136)
+		
+		this:AddControl2TabByID(4,8,80)
+		this:AddControl2TabByID(4,8,120)
+		this:AddControl2TabByID(4,8,125)
+		this:AddControl2TabByID(4,8,137)
+		
+		this:AddControl2TabByID(4,9,80)
+		this:AddControl2TabByID(4,9,120)
+		this:AddControl2TabByID(4,9,125)
+		this:AddControl2TabByID(4,9,138)
+		
+		this:AddControl2TabByID(4,10,80)
+		this:AddControl2TabByID(4,10,120)
+		this:AddControl2TabByID(4,10,125)
+		this:AddControl2TabByID(4,10,139)
+		
+		this:AddControl2TabByID(4,11,80)
+		this:AddControl2TabByID(4,11,120)
+		this:AddControl2TabByID(4,11,125)
+		this:AddControl2TabByID(4,11,140)
+		
+		this:AddControl2TabByID(4,12,80)
+		this:AddControl2TabByID(4,12,120)
+		this:AddControl2TabByID(4,12,125)
+		this:AddControl2TabByID(4,12,141)
+		
+		this:AddControl2TabByID(4,13,80)
+		this:AddControl2TabByID(4,13,120)
+		this:AddControl2TabByID(4,13,125)
+		this:AddControl2TabByID(4,13,142)
+		
+		this:AddControl2TabByID(4,14,80)
+		this:AddControl2TabByID(4,14,120)
+		this:AddControl2TabByID(4,14,125)
+		this:AddControl2TabByID(4,14,143)
+		
+		this:AddControl2TabByID(4,15,80)
+		this:AddControl2TabByID(4,15,120)
+		this:AddControl2TabByID(4,15,125)
+		this:AddControl2TabByID(4,15,144)
+		
+		
+		this:AddControl2TabByID(4,16,80)
+		this:AddControl2TabByID(4,16,120)
+		this:AddControl2TabByID(4,16,125)
+		this:AddControl2TabByID(4,16,145)
+		
+		this:AddControl2TabByID(4,17,80)
+		this:AddControl2TabByID(4,17,120)
+		this:AddControl2TabByID(4,17,125)
+		this:AddControl2TabByID(4,17,146)
+		
+		this:AddControl2TabByID(4,18,80)
+		this:AddControl2TabByID(4,18,120)
+		this:AddControl2TabByID(4,18,125)
+		this:AddControl2TabByID(4,18,147)
+		
+    end
+    
+    function InitButton()
+		this:SetButtonGroup(11,1);
+		this:SetButtonGroup(12,1);
+		this:SetButtonGroup(13,1);
+		this:SetButtonGroup(14,1);
+		this:SetButtonGroup(15,1);
+		this:SetButtonGroup(16,1);
+		this:SetButtonGroup(17,1);			
+		this:SetButtonGroup(18,1);	
+		this:SetButtonGroup(19,1);
+		this:SetButtonGroup(20,1);		
+		this:SetButtonGroup(21,1);		
+		this:SetButtonGroup(22,1);		
+		this:SetButtonGroup(23,1);		
+		this:SetButtonGroup(24,1);
+		this:SetButtonGroup(25,1);
+		this:SetButtonGroup(26,1);
+		this:SetButtonGroup(27,1);
+		this:SetButtonGroup(28,1);
+		this:SetButtonGroup(29,1);
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()	
+			InitButton()
+			return true		
+		end
+		return false
+	end
+	</script>
+		<controls>
+			<!--设置背景图片-->
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="275" frame="23" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="2" type="Button" sound="10107" style="0" rect="785,29,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="8" frame="8" framenum="3"/>
+			<!--人物装备-->
+			<item id="5" type="Button" style="0" rect="40,35,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.pak" group="8" frame="1" framenum="3" bitmapbutton="1"/>
+			<!--附件装备按钮 by=>friday-->
+			<item id="201" type="Button" style="0" rect="200,35,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces7.pak" group="120" frame="100" framenum="3" bitmapbutton="1"></item>
+			<item id="2000" type="Image" style="2" rect="20,81,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces3.gl" group="400" frame="2"/>
+			<!--选择TAB-->
+			<item id="4" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+				<datas>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+					<item/>
+				</datas>
+			</item>
+			<!--页面TAB按钮-->
+			<item id="11" type="Button" style="0" rect="50,87,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">勋章升级</item>
+			<item id="12" type="Button" style="0" rect="50,117,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">寒冰升级</item>
+			<item id="13" type="Button" style="0" rect="509999,136,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">翅膀升级</item>
+			<item id="14" type="Button" style="0" rect="509999,164,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">神兵升级</item>
+			<item id="15" type="Button" style="0" rect="50,147,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">神兽升级</item>
+			<item id="16" type="Button" style="0" rect="50,177,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">璀璨镶嵌</item>
+			<item id="17" type="Button" style="0" rect="50,207,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">神兽镶嵌</item>
+			<item id="18" type="Button" style="0" rect="509999,276,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">尚方宝剑升级</item>
+			<item id="19" type="Button" style="0" rect="509999,304,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">紫金龙袍升级</item>
+			<item id="20" type="Button" style="0" rect="509999,332,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">十二星宿升级</item>
+			<item id="21" type="Button" style="0" rect="50,237,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">神斧镶嵌</item>
+			<item id="22" type="Button" style="0" rect="50,267,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">黑曜镶嵌</item>
+			<item id="23" type="Button" style="0" rect="50,297,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">精金镶嵌</item>
+			<item id="24" type="Button" style="0" rect="50,327,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">金箍咒强化</item>
+			<item id="25" type="Button" style="0" rect="50,357,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">金箍咒字纹</item>
+			<item id="26" type="Button" style="0" rect="50,387,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">金箍咒淬炼</item>
+			<item id="27" type="Button" style="0" rect="50,417,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">寒冰神炼</item>
+			<item id="28" type="Button" style="0" rect="50,447,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">寒冰字纹</item>
+			<item id="29" type="Button" style="0" rect="50,477,180,540" isdefault="0" font="1" pack="data\interfaces3.gl" group="400" frame="14" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">寒冰纹章</item>
+			<!--右侧页面-->
+			<item id="36" type="Static" style="0" rect="345,235,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">当前操作的装备：</item>
+			<item id="37" type="Static" style="0" rect="345,335,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">所需材料：</item>
+			<item id="38" type="Static" style="0" rect="345,380,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">所需费用：</item>
+			<!--装备格子图片-->
+			<item id="30" type="Image" style="2" rect="478,207,85,88" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces3.gl" group="400" frame="53"/>
+			<!--材料格子图片-->
+			<item id="31" type="Image" style="2" rect="478,310,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces3.gl" group="400" frame="54"/>
+			<!--价格显示-->
+			<item id="117" type="Static" style="0" rect="410,377,300,28" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"/>
+			<!--装备格子-->
+			<item id="80" type="Table" virtual="1" style="1" rect="494,224,32,32" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="494,224,32,32"/>
+			<!--材料格子1-->
+			<item id="120" type="Table" rect="494,325,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="42" cellHeight="42" rowCount="0" showRowCount="0" colCount="0" itemrect="494,325,33,33">材料1</item>
+			<!--item id="121" type="Table" rect="226,259,42,42" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="42" cellHeight="42" rowCount="0" showRowCount="0" colCount="0" itemrect="226,259,42,42">材料2</item>
+			<item id="122" type="Table" rect="486,199,42,42" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="42" cellHeight="42" rowCount="0" showRowCount="0" colCount="0" itemrect="486,199,42,42">材料3</item>
+			<item id="123" type="Table" rect="486,259,42,42" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="42" cellHeight="42" rowCount="0" showRowCount="0" colCount="0" itemrect="486,259,42,42">材料4</item-->
+			<!--说明文字-->
+			<item id="125" type="Static" style="0" rect="395,285,300,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" font="3"/>
+			<!--勋章升级-->
+			<item id="124" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--寒冰升级-->
+			<item id="130" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--翅膀升级-->
+			<item id="131" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--神兵升级-->
+			<item id="132" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--神兽升级-->
+			<item id="133" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--璀璨镶嵌-->
+			<item id="134" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">璀璨镶嵌</item>
+			<!--神兽宝石镶嵌-->
+			<item id="135" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">宝石镶嵌</item>
+			<!--尚方宝剑升级-->
+			<item id="136" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--紫金龙袍升级-->
+			<item id="137" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--十二星宿升级-->
+			<item id="138" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--宣花镶嵌-->
+			<item id="139" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--黑曜镶嵌-->
+			<item id="140" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--精金镶嵌-->
+			<item id="141" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--精金镶嵌-->
+			<item id="142" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--精金镶嵌-->
+			<item id="143" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--精金镶嵌-->
+			<item id="144" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--精金镶嵌-->
+			<item id="145" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--精金镶嵌-->
+			<item id="146" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+			<!--精金镶嵌-->
+			<item id="147" type="Button" style="0" rect="476,410,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="400" frame="26" framenum="3" bitmapbutton="1">升级</item>
+				
+			</controls>
+	</dialog>
+</gui>

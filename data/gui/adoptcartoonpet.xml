@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+<dialog id="40" name="AdopyCartoonPet" style="0" showsoundindex="10106"  caption="宠物领养" rect="50,100,350,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+
+<script>
+function OnGuiEvent(nEvent,nID,pControl) 
+return false
+end</script>
+<controls>
+
+<item id="900" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="407" backgroud="1"/>
+<item id="901" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="414" framenum="3"></item>
+<item id="902" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="408" framenum="3"><Tip>您每领养1个替身宝贝可以为您提供额外的5%经验加乘,最多可以同时领养5个</Tip></item>
+<item id="903" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="411" framenum="3"></item>
+<item id="904" type="ListBox" style="8" rect="84,138,737,310" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+
+<item id="102" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="151" framenum="3"/>  
+<item id="103" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="154" framenum="3"/>  
+<item id="120" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="181" framenum="3"/>  
+
+<!--item id="502" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="101" framenum="3"/>  
+<item id="503" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="104" framenum="3"/-->  
+
+
+<item id="1000" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="300" framenum="3"/>  
+<item id="1002" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="306" framenum="3"/>  
+<item id="1003" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="309" framenum="3"/> 
+<!--    <item id="1001" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="30" frame="303" framenum="3"/>  -->
+<item id="1004" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="312" framenum="3"/>   
+<item id="1005" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="320" framenum="3"/> 	
+<item id="1" type="CheckBox" rect="682,76,102,23" style="8" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+<item id="3" type="Button" sound="10107" style="0" rect="48,58,0,0" hotkey="o" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/> 
+</controls>
+</dialog>
+</gui>

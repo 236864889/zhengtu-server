@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by any (Ru-Board) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="31" name="RoleLoginDialog" style="4" caption="" rect="0,0,1024,768" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+			
+			
+			<item id="22" type="Image" style="2" rect="0,0,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="10" frame="-1" backgroud="0"/>
+			
+			<item id="0" type="Image" style="2" rect="0,0,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="33" backgroud="0"/>
+				
+			<item id="23" type="Image" style="2" rect="0,0,1024,768" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="10" frame="-1" backgroud="0"/>
+
+		
+			
+			<item id="7" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="3" framenum="3"/>
+			<item id="8" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="0" framenum="3"/>
+			<item id="13" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="21" framenum="3"/>
+			
+			<item id="14" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="9" framenum="3"/>
+			<item id="15" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="12" framenum="3"/>
+			<item id="16" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="15" framenum="3"/>
+			<item id="17" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="6" framenum="3"/>
+			<item id="18" type="Button" style="0" rect="0,0,1024,768" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="8" frame="18" framenum="3"/>
+			<item id="19" type="Static" style="0" rect="931,261,238,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">aaa</item>
+			<item id="20" type="Static" style="0" rect="935,286,238,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">bbb</item>
+			<item id="21" type="EditBox" style="28" rect="924,234,50,14" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="30" caretcolor="255,255,255,255"/>
+			
+		</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>

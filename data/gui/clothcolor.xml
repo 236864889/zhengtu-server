@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="55" name="ClothColorDialog" icon="14" style="14" caption="服装染色" rect="-20,-20,390,550" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+            <item id="0" type="Image" style="2" rect="-2,-2,390,550" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="28" frame="0" backgroud="1" />
+            <item id="4" type="Slider" style="0" rect="125,283,165,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="5" type="Slider" style="0" rect="125,308,165,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="6" type="Slider" style="0" rect="125,333,165,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="9" type="Static" style="0" rect="99,450,230,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="20" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="28" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="21" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="28" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

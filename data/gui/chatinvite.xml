@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="63" name="chatinvite" style="20" caption="" rect="230,150,300,270" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+            <item id="0" type="Image" rect="0,0,0,0" style="2" pack="data\interfaces.gl" group="11" frame="150" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1"/>
+            <item id="3" type="EditBox" style="88" rect="22,61,180,26" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="32" caretcolor="255,255,255,255"/>
+        	  
+        		<item id="1" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="11" frame="151" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+        		<item id="2" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="11" frame="154" bitmapbutton="1" framenum="3" hotkey="R" color="255,255,255,255" textcolor="255,255,255,255"/>
+       
+            <item id="4" type="ListBox" style="8" rect="22,109,182,111" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						
+						 <item id="10" type="Static" style="10" rect="73,14,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">私聊邀请</item>  
+						 <item id="11" type="Static" style="10" rect="23,41,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">私聊对象</item>  
+						 <item id="12" type="Static" style="10" rect="23,90,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">历史对象</item>  
+						   
+											 
+        </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="219" name="HomePetDialog" style="0" simplestyle="0" caption="" rect="5,85,413,501" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" bCenter="0" showsoundindex="0" hidesoundindex="0">
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,413,501" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="180" frame="0" backgroud="1" />
+            <item id="11" type="Static" style="0" rect="33,50,342,81" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">我是幸运数字我是幸运数字我是幸运数字我是幸运数字我是幸运数字我是幸运数字我是幸运数字我是幸运数字我是幸运数字</item>
+            <item id="1" type="Button" style="0" rect="0,-4,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="180" frame="28" framenum="3" bitmapbutton="1"></item>
+            <item id="2" type="Button" style="0" rect="0,-4,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="180" frame="22" framenum="3" bitmapbutton="1"></item>
+            <item id="3" type="Button" style="0" rect="-389,-1,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="58" frame="323" framenum="3" bitmapbutton="1"></item>
+            <item id="12" type="Static" style="0" rect="40,270,330,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,250,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">该幸运数字当前所有人累计放入：</item>
+            <item id="13" type="Static" style="0" rect="40,290,330,50" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">
+</item>
+            <item id="14" type="Static" style="0" rect="40,340,330,20" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,250,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">你放入了：</item>
+            <item id="15" type="Static" style="0" rect="40,360,330,50" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255"></item>
+            <item id="100" type="Table" style="0" rect="187,158,33,33" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" virtual="1" itemrect="187,158,33,33" />
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

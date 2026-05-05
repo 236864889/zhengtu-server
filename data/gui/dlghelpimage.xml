@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="72" name="DlgHelpImage" style="10"  rect="100,100,722,507" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="热情帮助">
+        <controls>
+			<item id="0" type="Image" style="2" rect="0,0,722,507" isdefault="0" pack="data\HelpImage.gl" group="0" frame="0" backgroud="1" />
+            <item id="2" type="Button" style="0" rect="60,473,133,22" isdefault="0" pack="data\Interfaces1.gl" group="1" frame="56" bitmapbutton="1" framenum="3"  hotkey="" />    
+            <item id="3" type="Button" style="0" rect="412,473,133,22" isdefault="0" pack="data\Interfaces1.gl" group="1" frame="56" bitmapbutton="1" framenum="3"  hotkey="" />
+        </controls>
+    </dialog>
+</gui>

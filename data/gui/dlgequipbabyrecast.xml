@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="69" name="HelpDialog" style="0" rect="340,60,512,613" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="图鉴助手">
+		<script>
+    function InitTab()
+    
+		this:AddControl2TabByID(4,0,80)
+		this:AddControl2TabByID(4,0,120)
+		this:AddControl2TabByID(4,0,124)
+		this:AddControl2TabByID(4,0,125)
+		
+    end
+    
+    function InitButton()
+	 	this:SetButtonGroup(11,1);
+
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()	
+			InitButton()
+			return true		
+		end
+		return false
+	end
+	</script>
+		<controls>
+			<!--设置背景图片-->
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="374" frame="82" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="2" type="Button" sound="10107" style="0" rect="313,22,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="374" frame="77" framenum="3"/>
+			<!--人物装备
+			<item id="3" type="Button" style="0" rect="40,35,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.pak" group="888888" frame="1" framenum="3" bitmapbutton="1"/-->
+			<!--选择TAB-->
+			
+			<!--页面TAB按钮-->
+			<item id="11" type="Button" style="0" rect="50,53,100,30" isdefault="0" font="1" pack="data\interfaces2.gl" group="374" frame="1617" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">强化进阶</item>
+
+			<!--右侧页面-->
+			<item id="36" type="Static" style="0" rect="61,150,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">当前操作的装备：</item>
+			<item id="37" type="Static" style="0" rect="95,240,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">所需材料：</item>
+			<item id="38" type="Static" style="0" rect="93,301,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">所需费用：</item>
+			<!--装备格子图片-->
+			<item id="30" type="Image" style="2" rect="160,136,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="8" frame="17"/>
+			<!--材料格子图片-->
+			<item id="31" type="Image" style="2" rect="160,220,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="8" frame="17"/>
+			<!--价格显示-->
+			<item id="117" type="Static" style="0" rect="153,301,145,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"/>
+			<!--装备格子-->
+			<item id="80" type="Table" virtual="1" style="1" rect="166,142,33,33" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="166,142,33,33"/>
+			<!--材料格子1-->
+			<item id="120" type="Table" rect="166,226,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="42" cellHeight="42" rowCount="0" showRowCount="0" colCount="0" itemrect="166,226,33,33">材料</item>
+			<!--说明文字-->
+			<item id="125" type="Static" style="0" rect="52,350,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" font="3"/>
+			<!--图鉴进阶-->
+			<item id="124" type="Button" style="0" rect="135,383,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="374" frame="85" framenum="3" bitmapbutton="1"/>
+			</controls>
+	</dialog>
+</gui>

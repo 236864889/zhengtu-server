@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="69" name="HelpDialog" style="0" rect="340,60,512,613" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="元神助手">
+		<script>
+    function InitTab()
+    
+		this:AddControl2TabByID(4,0,80)
+		this:AddControl2TabByID(4,0,120)
+		this:AddControl2TabByID(4,0,124)
+		this:AddControl2TabByID(4,0,125)
+		
+		this:AddControl2TabByID(4,1,80)
+		this:AddControl2TabByID(4,1,120)
+		this:AddControl2TabByID(4,1,130)
+		this:AddControl2TabByID(4,1,125)
+		
+		this:AddControl2TabByID(4,2,80)
+		this:AddControl2TabByID(4,2,120)
+		this:AddControl2TabByID(4,2,131)
+		this:AddControl2TabByID(4,2,125)
+		
+    end
+    
+    function InitButton()
+	 	this:SetButtonGroup(11,1);
+	 	this:SetButtonGroup(12,1);
+	 	this:SetButtonGroup(13,1);
+
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()	
+			InitButton()
+			return true		
+		end
+		return false
+	end
+	</script>
+		<controls>
+			<!--设置背景图片-->
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="11" frame="0" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="2" type="Button" sound="10107" style="0" rect="319,11,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces3.gl" group="11" frame="5" framenum="3"/>
+			<!--人物装备
+			<item id="3" type="Button" style="0" rect="40,35,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.pak" group="888888" frame="1" framenum="3" bitmapbutton="1"/-->
+			<!--选择TAB-->
+			<item id="4" type="Tab" style="2" rect="-330,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1"  font="3">
+				<datas>
+					<item/>
+					<item/>
+					<item/>
+				</datas>
+			</item>
+			<!--页面TAB按钮-->
+			<item id="11" type="Button" style="0" rect="18,263,100,30" isdefault="0" font="1" pack="data\interfaces3.gl" group="11" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">元神升级</item>
+			<item id="12" type="Button" style="0" rect="120,263,100,30" isdefault="0" font="1" pack="data\interfaces3.gl" group="11" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">元神装备升级</item>
+			<item id="13" type="Button" style="0" rect="222,263,100,30" isdefault="0" font="1" pack="data\interfaces3.gl" group="11" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,0,255" textcolor="255,200,200,0">元神宝石镶嵌</item>
+
+			<!--右侧页面-->
+			<item id="36" type="Static" style="0" rect="64,97,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">当前操作的装备</item>
+			<item id="37" type="Static" style="0" rect="205,97,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">所需材料</item>
+			<item id="38" type="Static" style="0" rect="64,185,120,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,200,200,0" isHeryLink="0">所需费用：</item>
+			<!--装备格子图片-->
+			<item id="30" type="Image" style="2" rect="84,116,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="8" frame="17"/>
+			<!--材料格子图片-->
+			<item id="31" type="Image" style="2" rect="205,116,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="8" frame="17"/>
+			<!--价格显示-->
+			<item id="117" type="Static" style="0" rect="127,185,145,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"/>
+			<!--装备格子-->
+			<item id="80" type="Table" virtual="1" style="1" rect="92,123,33,33" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="92,123,33,33"/>
+			<!--材料格子1-->
+			<item id="120" type="Table" rect="213,123,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="42" cellHeight="42" rowCount="0" showRowCount="0" colCount="0" itemrect="213,123,33,33">材料</item>
+			<!--说明文字-->
+			<item id="125" type="Static" style="0" rect="64,210,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0" font="3"/>
+			<!--元神修炼-->
+			<item id="124" type="Button" style="0" rect="135,228,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.pak" group="8" frame="11" framenum="3" bitmapbutton="1">进阶</item>
+			<!--法宝进阶-->
+			<item id="130" type="Button" style="0" rect="135,228,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.pak" group="8" frame="11" framenum="3" bitmapbutton="1">进阶</item>
+			<!--宝石镶嵌-->
+			<item id="131" type="Button" style="0" rect="135,228,70,29" hotkey="" isdefault="0" font="3" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.pak" group="8" frame="11" framenum="3" bitmapbutton="1">镶嵌</item>
+			</controls>
+	</dialog>
+</gui>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by VinsonGong (GongWenBing) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>   
+     <dialog id="202" name="goodHelper"  showsoundindex="10104"  style="4" caption="好帮手" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="11" >
+         <controls>         
+         
+         <item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="150,255,255,255" textcolor="150,255,255,255" backgroud="1" pack="data\interfaces.gl" group="144" frame="21" > </item>
+
+         <item id="11" type="Button" sound="10107"  style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="144" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,0" font="1">我的VIP<Tip>VIP功能领取</Tip></item>
+         
+         <item id="12" type="Button" sound="10107"  style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="144" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,0" font="1">金币指南<Tip>金币指南</Tip></item>
+		 
+		 <item id="13" type="Button" sound="10107"  style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="144" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,0" font="1">资料片帮助<Tip>新资料片引导帮助</Tip></item>
+                  
+         </controls>
+     </dialog>
+</gui>

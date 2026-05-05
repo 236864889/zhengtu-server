@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="41" name="CountryDialog" style="0" caption="国家" rect="50,100,880,590" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		
+		<script>
+function OnGuiEvent(nEvent,nID,pControl) 
+return false
+end</script>
+		<controls>
+            <item id="1" type="Image" style="2" rect="0,0,880,590" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="2" frame="0" backgroud="1" />
+				<item id="2" type="Button" sound="10107" style="0" rect="48,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/> 		<!--关闭-->	
+			
+			
+			   	<item id="3" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="300" framenum="3"/>  <!--帮会-->
+			   	
+            <item id="4" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="306" framenum="3"/>  <!--好友-->
+            
+            <item id="5" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="309" framenum="3"/>  <!--家族-->
+            
+            <item id="6" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="312" framenum="3"/> 
+            
+            <item id="7" type="Button" sound="10107" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="320" framenum="3"/>  <!--国家-->
+			
+						
+            <!--
+			<item id="10" type="ListBox" style="8" rect="86,192,726,98" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0255,255" />科技-->
+			<!--item id="11" type="MLineEditBox" style="8" rect="39,262,288,161" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" /--><!--官员-->
+			  <item id="11" type="MLineEditBox" maxCharCount="255" lineHeight="11" style="2b" rect="88,355,375,130" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" /><!--公告-->
+  	        		
+			<item id="12" type="ListBox" style="8" rect="82,180,372,105" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" /><!--军队-->
+			<item id="13" type="ListBox" style="8" rect="82,277,372,60" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" /><!--军队成员-->		
+					
+			<item id="15" type="Static" style="10" rect="139,113,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137"></item>    <!--国家--> 
+			<item id="16" type="Static" style="10" rect="310,113,130,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137"></item>  <!--国王--> 
+			<item id="17" type="Static" style="10" rect="487,113,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0"></item>  <!--荣誉--> 
+			<item id="18" type="Static" style="10" rect="697,113,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,137"></item>  <!--今日税率--> 
+                        
+						 
+            <item id="20" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="1" framenum="3"><Tip>暂未开放</Tip></item>  <!--论坛-->
+            <item id="21" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="4" framenum="3"><Tip>暂未开放</Tip></item>  <!--财政-->
+            <item id="22" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="7" framenum="3"><Tip>暂未开放</Tip></item>  <!--军事-->
+            <item id="23" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="10" framenum="3"><Tip>可以连接Blog查询国家的历史事件</Tip></item> <!--外交-->  
+            
+             <item id="24" type="Button" style="0" rect="52,58,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="13" framenum="3"><Tip>国家公告</Tip></item>  <!--国家公告-->  
+             
+             
+			<item id="25" type="Static" style="10" rect="630,190,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,137"></item>    <!--国王--> 
+			<item id="26" type="Static" style="10" rect="510,265,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,137"></item>    <!--元帅--> 
+			<item id="27" type="Static" style="10" rect="680,265,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,137"></item>    <!--宰相--> 
+			<item id="28" type="Static" style="10" rect="510,352,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,137"></item>    <!--捕头--> 
+			<item id="29" type="Static" style="10" rect="680,352,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,137"></item>    <!--御史大夫--> 
+			<item id="30" type="Static" style="10" rect="510,440,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,137"></item>    <!--捕头--> 
+			<item id="31" type="Static" style="10" rect="680,440,98,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,137"></item>    <!--御史大夫--> 
+			
+			<item id="32" type="Static" style="10" rect="580,160,250,60" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,200"><Tip>发动奇袭战，国战，国战反攻，复仇战，凤凰城自行车赛，国探，国运，禁言，结盟，解盟，使用王者之印，任命和罢免官员</Tip></item>  
+			<item id="33" type="Static" style="10" rect="480,230,140,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,200"><Tip>发动奇袭战，国战，国战反攻，复仇战，箭雨发动，使用王者之印，任命和罢免一名捕头</Tip></item> 
+			<item id="34" type="Static" style="10" rect="650,230,140,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,200"><Tip>发动国运，国探，凤凰城自行车赛，禁言，使用王者之印。任命和罢免一名御史大夫</Tip></item> 
+			<item id="35" type="Static" style="10" rect="480,310,140,80" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,200"><Tip>PK不红名，发动奇袭战，国战，国战反攻，复仇战，箭雨发动，使用王者之印</Tip></item>  
+			<item id="36" type="Static" style="10" rect="650,310,140,80" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,200"><Tip>发布国运，国探，凤凰城自行车赛，禁言，使用王者之印</Tip></item> 
+			<item id="37" type="Static" style="10" rect="480,390,140,80" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,200"><Tip>PK不红名，发动奇袭战，国战，国战反攻，复仇战，箭雨发动，使用王者之印</Tip></item>    
+			<item id="38" type="Static" style="10" rect="650,390,140,80" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,200"><Tip>发布国运，国探，凤凰城自行车赛，禁言，使用王者之印</Tip></item>
+			
+			<item id="40" type="Static" style="10" rect="530,464,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,200">以上所有官员都能使用王者之印</item>    <!--御史大夫--> 
+  	        <!-- 城县按钮的闪光图片 -->
+			<!--
+            <item id="936" type="Image" style="2" rect="532,515,95,95" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="710" backgroud="0"/>
+-->
+		</controls>
+	</dialog>
+</gui>

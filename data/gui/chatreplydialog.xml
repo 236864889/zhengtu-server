@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="31" name="chatreplyDialog" style="0" caption="邀请请求" rect="230,150,280,250" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+            <item id="1" type="Button" style="0" rect="79,188,70,29" hotkey="Enter" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+            <item id="3" type="RadioButton" style="0" rect="62,73,150,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1">参与</item>
+            <item id="4" type="RadioButton" style="0" rect="62,110,150,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1">不参与</item>
+            <item id="5" type="RadioButton" style="0" rect="62,150,150,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1">保留请求X分钟</item>
+            <item id="6" type="Static" style="0" rect="39,37,200,38" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+        </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

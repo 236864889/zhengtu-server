@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="84" name="QueryLoginList" style="21"  caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+                <item id="0" type="Button" sound="10107" style="0" rect="693,27,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="6" frame="5" framenum="3"></item>  <!--close-->
+
+        	    <item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="6" frame="4" backgroud="1" />	 
+
+				<item id="3" type="Button" sound="10107" style="0" rect="277,420,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces1.gl" group="6" frame="16" framenum="3"></item>    
+               
+                <item id="4" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,100,200,26">★ 每日登陆福利公告</item>
+                <item id="5" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,120,550,26">★ 亲爱的玩家，每日登陆福利将获得金子*100锭  </item>
+				<item id="5" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,160,550,26">★ 全新魔盒：时装、翅膀、披风、称号、坐骑（200种随意切换）</item>
+				<item id="7" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,180,550,26">★ 天降洪福、迷宫、自行车、家族战车</item>
+				<item id="8" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,200,550,26">★ 专属轰天特效版本、触发被动技能</item>
+				<item id="8" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,220,550,26">★ TAB自动锁人、稳定流畅不掉线、</item>
+				<item id="8" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,240,550,26">★ 全新家族系统：战车、家族BS、家族修炼</item>
+				<item id="9" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,260,550,26">★ 武器互换、任意装备互换、自动使用物品、自动回收！</item>
+				<item id="9" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,280,550,26">★ 全自动1V1比武报名、段位赛</item>
+				<item id="9" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,300,550,26">★ 小人特效、天赋技能、专属BUFF</item>
+				<item id="9" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,320,550,26">★ 新SVIP特效、专属地图、专属副本、</item>
+				<item id="9" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,140,550,26">★ 每天0点刷新登陆福利，每人每天只能领取一次福利。</item>
+				<item id="9" type="Static" style="0"  hotkey="0" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" rect="100,380,550,26">          ★★★欢迎来到星辰征途★★★         </item>
+
+
+
+
+        </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

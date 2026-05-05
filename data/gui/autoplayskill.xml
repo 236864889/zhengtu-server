@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by VinsonGong (GongWenBing) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui> 
+	<dialog id="191" name="AutoPlaySkill" style="10" caption="自动释放技能" rect="102,365,458,308" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="11" showsoundindex="0" hidesoundindex="0"> 
+     <script>
+function OnGuiEvent(nEvent,nID,pControl)
+	return false
+end
+     </script>
+         <controls>
+         
+          <item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="147" frame="0" backgroud="1"/>
+          
+          <!--
+         <item id="20" type="Static" style="0" rect="12,20,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">向自己释放技能</item>
+         <item id="21" type="Static" style="0" rect="12,50,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">技能列表</item>
+         <item id="22" type="Static" style="0" rect="12,250,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">向队友释放技能</item>
+         <item id="23" type="Static" style="0" rect="12,280,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">技能列表</item>
+         
+-->
+			<item id="51" type="Button" style="0" rect="0,-27,0,0" isdefault="0" pack="data\interfaces.gl" group="147" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>添加技能到列表中</Tip></item>
+			<item id="52" type="Button" style="0" rect="0,-27,0,0" isdefault="0" pack="data\interfaces.gl" group="147" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>取消列表中的技能</Tip></item>
+			<item id="53" type="Button" style="0" rect="0,-27,0,0" isdefault="0" pack="data\interfaces.gl" group="147" frame="7" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>添加技能到列表中</Tip></item>
+			<item id="54" type="Button" style="0" rect="0,-27,0,0" isdefault="0" pack="data\interfaces.gl" group="147" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>取消列表中的技能</Tip></item>
+			<item id="55" type="Button" style="0" rect="60,123,42,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">充值<Tip>充值</Tip></item>
+			
+			
+			<item id="56" type="Button" style="0" rect="210,308,42,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">开始<Tip>开始自动释放技能，开启此功能后，每5分钟扣除剩余时间5分钟，不足5分钟按5分钟计算</Tip></item>
+			<item id="57" type="Button" style="0" rect="300,308,42,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">停止<Tip>停止自动释放技能</Tip></item>
+			<item id="58" type="Button" style="0" rect="210,475,42,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">开始<Tip>开始自动释放技能，开启此功能后，每5分钟扣除剩余时间10分钟，不足10分钟按10分钟计算</Tip></item>
+			<item id="59" type="Button" style="0" rect="300,475,42,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">停止<Tip>停止自动释放技能</Tip></item>
+			
+			
+			<item id="200" type="EditBox" style="2" rect="210,208,80,25" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="5000"/> 
+			<item id="201" type="EditBox" style="2" rect="210,376,80,25" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="5000"/> 
+			
+			<item id="100" type="ListBox" style="8" rect="60,240,320,67" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="20"></item>
+			<item id="101" type="ListBox" style="8" rect="60,408,320,67" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="20"></item>
+			
+			<item id="15" type="CheckBox" style="0"  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" rect="60,153,95,24">自动充值<Tip>如背包中银子数目小于1锭，将无法自动充值。</Tip></item> 
+			
+			<item id="10" type="ComboBox" style="800" rect="50,208,140,27" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+			<item id="11" type="ComboBox" style="800" rect="50,376,140,27" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+         </controls>
+    </dialog>
+</gui>
+         

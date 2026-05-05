@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="100" name="addmemberdialog" style="1" caption="" rect="490,230,290,308" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+            <item id="1" type="Static" style="0" rect="22,10,250,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="2" type="ListBox" style="8" rect="20,88,252,166" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+            <item id="3" type="Button" style="0" rect="0,0,80,29" isdefault="0" pack="data\interfaces.pak" group="54" frame="201" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="4" type="Button" style="0" rect="0,0,80,29" isdefault="0" pack="data\interfaces.pak" group="54" frame="204" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="5" type="EditBox" style="88" rect="21,50,247,22" hotkey="" isdefault="1" color="255,255,255,255" maxCharCount="32" textcolor="255,255,255,255" caretcolor="255,255,255,255" />
+            <item id="0" type="Image" rect="0,0,290,308" style="2" pack="data\interfaces.pak" group="54" frame="200" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" />
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

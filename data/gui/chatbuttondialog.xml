@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="36" name="Dialog" style="104" rect="0,0,44,154" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="">
+        <!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+        <script>
+function OnGuiEvent(nEvent,nID,pControl) --[[处理GUI事件]]
+	return false
+end</script>
+        <controls>
+        <item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="5" frame="30"/>
+        <item id="2" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="5" frame="19"/>
+        <item id="100" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="19" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向周围九屏范围内所有的玩家发送消息(CTRL+1)</Tip>
+			</item>
+			<!--
+			<item id="101" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="22" bitmapbutton="1" framenum="3">
+				<Tip>私聊频道</Tip>
+			</item>
+			-->
+			<item id="102" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="1" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向所有在线的帮会成员发送消息(CTRL+6)</Tip>
+			</item>
+			<item id="103" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="10" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向队伍中的成员发送消息(CTRL+3)</Tip>
+			</item>
+			<item id="104" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="25" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向所有在线的好友成员发送消息(CTRL+4)</Tip>
+			</item>
+			<item id="105" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="13" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向全国区域内的玩家发送消息(CTRL+5)</Tip>
+			</item>
+			<item id="106" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="7" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向所有在同一张地图区域内的玩家发送消息(CTRL+2)</Tip>
+			</item>
+			<item id="107" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="16" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向所有在线的家族成员发送消息(CTRL+7)</Tip>
+			</item>
+			<item id="108" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="31" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向世界区域内的玩家发送消息(CTRL+9)</Tip>
+			</item>
+			<item id="109" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="34" bitmapbutton="1" framenum="3">
+				<Tip>使用该频道可以向自己的师傅和徒弟发送消息(CTRL+8)</Tip>
+			</item>
+			
+			<!-- <item id="16" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="200" bitmapbutton="1" framenum="3" hotkey="Tab">
+				<Tip>；聊天类型(Tab)</Tip>
+			</item> -->
+		
+         </controls>
+    </dialog>
+    
+</gui>

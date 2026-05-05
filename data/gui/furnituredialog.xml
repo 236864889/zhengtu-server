@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="218" name="NpcTradeDialog" style="0"  rect="5,85,364,430" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" >
+        <!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+        <script>function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+        <controls>
+            <!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+           <item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="150" frame="0"/>
+						<item id="20" type="Table" rect="79,93,200,200" cellWidth="35" cellHeight="35" rowCount="6" showRowCount="6" colCount="10" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" virtual="0" itemrect="0,0,0,0" />
+
+            <item id="3" type="Tab" style="2" rect="-48,-10,313,337" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1" />
+            
+            <item id="100" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="150" frame="13" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+		 				<item id="101" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="150" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+						<item id="102" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="150" frame="16" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+						<item id="103" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="150" frame="22" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            
+            <item id="1" type="Static" rect="144,117,300,40" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,242,0">小屋名称</item>
+            <item id="2" type="Table" rect="79,94,443,246" cellWidth="35" cellHeight="35" rowCount="15" showRowCount="7" colCount="12" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" virtual="0" itemrect="0,0,0,0" />
+        		<item id="5" type="Static" rect="62,382,500,29" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">左键:拿起或收起家具；空格键:调整方向；</item>
+        		
+        		<item id="10" type="Button" style="0" rect="423,342,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">移动家具<Tip>快捷键：F2  点击按钮后，鼠标将变为手的形态，可以拿起房间中的任意一件家具重新摆放它的位置</Tip></item>
+            <item id="11" type="Button" style="0" rect="419,104,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">房屋命名</item>
+        		<item id="12" type="Button" style="0" rect="419,136,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">房屋升级</item>
+            <item id="13" type="Button" style="0" rect="419,168,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">补充体力<Tip>每天都可以在家中补充一次体力，使您达到“精力充沛” 的状态</Tip></item>
+            <item id="15" type="Button" style="0" rect="419,200,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">打扫房间<Tip>你的家每天都需要打扫！好好照看，就会提高房屋的成长度噢！</Tip></item>
+            <item id="18" type="Button" style="0" rect="419,232,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">房屋帮助</item>
+            <item id="19" type="Button" style="0" rect="419,264,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">新手帮助</item>
+        		<item id="14" type="Button" style="0" rect="469,378,70,29" hotkey="Esc" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">退出</item>
+        		<item id="16" type="Button" style="0" rect="90,342,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">全部收起</item>
+            <item id="17" type="Button" style="0" rect="178,342,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">收起<Tip>快捷键：F3  点击按钮后，鼠标将变为手的形态，可以收起房间中的任意一件家具</Tip></item>
+            <item id="9" type="Button" style="0" rect="248,342,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">销毁<Tip>用于销毁不需要的家具。点击按钮后鼠标变为“锤子”的形态，用锤子点击你想要销毁的家具，确认后即可销毁</Tip></item>
+            <item id="8" type="ComboBox" style="0" rect="435,67,110,26" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item> 
+
+            <item id="20" type="ListBox" style="8" rect="70,124,475,209" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+        
+            <item id="21" type="Static" rect="140,103,500,29" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">姓名                     最后来访时间</item>
+        		<item id="22" type="Button" style="0" rect="467,342,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">送客<Tip>送客</Tip></item>
+        		<item id="23" type="Button" style="0" rect="70,342,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">邀请朋友</item>
+        		
+        		
+        		<item id="30" type="MLineTextBox" style="28" lineHeight="16" rect="74,93,480,55" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+            <item id="31" type="MLineTextBox" style="28" lineHeight="16" rect="74,144,480,200" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+       			<item id="32" type="Button" style="0" rect="70,342,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">主人留言</item>
+            <item id="33" type="Button" style="0" rect="443,342,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">我要留言</item>
+
+        </controls>
+    </dialog>
+</gui>

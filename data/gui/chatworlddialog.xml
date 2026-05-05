@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<gui>
+    <dialog id="12" name="ChatworldDialog" style="0"  rect="154,128,445,330" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="社会关系">        
+        <script>
+			function InitTab()			
+			this:AddControl2TabByID(2,0,101)
+			this:AddControl2TabByID(2,1,201)
+			this:AddControl2TabByID(2,2,301)
+			this:AddControl2TabByID(2,3,401)
+			end
+			
+			function InitButton()
+				this:SetButtonGroup(11,1);
+				this:SetButtonGroup(12,1);
+				this:SetButtonGroup(13,1);
+				this:SetButtonGroup(14,1);
+			end
+    
+			function OnGuiEvent(nEvent,nID,pControl) 
+				if nEvent == 1001 then
+					InitTab()	
+					InitButton()
+				return true		
+				end
+			return false
+			end
+		</script>
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="11" frame="86"/>
+            <item id="1" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="87" framenum="3"></item>
+            <item id="2" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+			<datas>
+                    <item>家族</item>
+                    <item>好友</item>
+                    <item>帮会</item>
+                    <item>附近玩家</item>
+                </datas>
+			</item>           
+            <item id="11" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="90" framenum="3"></item>
+            <item id="12" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="93" framenum="3"></item>
+            <item id="13" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="105" framenum="3"></item>
+            <item id="14" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="96" framenum="3"></item>
+            <item id="101" type="ListBox" style="8" rect="30,85,360,212" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+            <item id="201" type="ListBox" style="8" rect="30,85,360,212" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+            <item id="301" type="ListBox" style="8" rect="30,85,360,212" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+            <item id="401" type="ListBox" style="8" rect="30,85,360,212" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+        </controls>
+    </dialog>
+</gui>

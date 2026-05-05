@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="GB2312"?>
+<gui>
+	<dialog id="73" name="GuiMaigcboxdlg" style="0" rect="0,0,630,600" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="神谕魔盒">
+		<controls>
+			<!--背景图-->
+			<item id="0" type="Image" style="2" rect="0,0,630,600" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="129" frame="0" backgroud="1"/>
+            <!--关闭按钮-->
+			<item id="1" type="Button" sound="10107" style="0" rect="602,8,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="65" frame="33" framenum="3"/>
+			 <!--材料格子-->
+			<item id="2" type="Table" virtual="1" style="1" rect="711,506,34,34" itemrect="711,506,34,34" cellWidth="34" cellHeight="34" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="111" type="Static" style="0" rect="15,573,250,19" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"/>
+            
+			<!--上一页-->
+			<item id="3" type="Button" style="0" rect="273,572,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="21" bitmapbutton="1" framenum="3" hotkey=""/>
+			<!--下一页按钮-->
+			<item id="4" type="Button" style="0" rect="340,572,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="18" bitmapbutton="1" framenum="3" hotkey=""/>
+
+            <!--导航列表-->
+			<item id="5" type="ListBox" style="a" rect="10000,10000,130,175" hotkey="" isdefault="0" color="255,204,165,10" textcolor="255,204,165,10"/> 
+              <!--页数-->
+             <item id="6" type="Static" style="0" rect="303,573,40,19" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"/>
+              <!--等级-->
+             <item id="7" type="Static" style="0" rect="37,50,105,21" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"/>
+			  
+
+              <!--进度条背景-->
+            <item id="8" type="Image" style="1" rect="125,50,425,15" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="196" frame="19" backgroud="0" enbaleFocus="false" />
+            <!--进度条-->
+            <item id="9" type="Process" style="1" rect="130,53,0,0"  min="0" max="10000" pos="0"  isdefault="1" pack="data\interfaces6.gl" group="196" frame="20"/>
+			<item id="112" type="Static" style="0" rect="280,48,100,19" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0"/>
+            
+            <!--////////// 第1行x1 /////////////////////////-->
+			<!--格子背景--><item id="11" type="Image" style="2" rect="10,200,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="129" frame="13"/>
+			<!--时装格子--><item id="12" type="Table"  style="1" rect="21,318,38,38"  itemrect="21,318,38,38"  virtual="1" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--时装名称--><item id="13" type="Static" style="0" rect="82,210,240,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0"/>			
+		    <!--时装模型--><item id="14" type="Static" style="0" rect="82,235,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"></item>	
+		    <!--穿戴按钮--><item id="15" type="CheckBox" style="3" rect="92,360,20,18" hotkey=""  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1"/>
+		    <!--进阶等级--><item id="16" type="Image" style="2" rect="146,300,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="-1" frame="-1"/>
+		    <!--进阶按钮--><item id="17" type="Button" style="0" rect="154,325,48,23" isdefault="0" pack="data\interfaces6.gl" group="129" frame="46" bitmapbutton="1" framenum="3" hotkey=""/>
+		    <!--////////// 第1行x2 /////////////////////////-->
+		    <!--格子背景--><item id="21" type="Image" style="2" rect="216,200,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="129" frame="13"/>
+			<!--时装格子--><item id="22" type="Table"  style="1" rect="226,318,38,38"  itemrect="226,318,38,38"  virtual="1" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--时装名称--><item id="23" type="Static" style="0" rect="288,210,240,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0"/>			
+		    <!--时装模型--><item id="24" type="Static" style="0" rect="288,235,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"></item>	
+		    <!--穿戴按钮--><item id="25" type="CheckBox" style="3" rect="298,360,20,18" hotkey=""  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1"/>
+		    <!--进阶等级--><item id="26" type="Image" style="2" rect="350,300,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="-1" frame="-1"/>
+		    <!--进阶按钮--><item id="27" type="Button" style="0" rect="356,325,48,23" isdefault="0" pack="data\interfaces6.gl" group="129" frame="46" bitmapbutton="1" framenum="3" hotkey=""/>
+		    <!--////////// 第1行x3 /////////////////////////-->
+		    <!--格子背景--><item id="31" type="Image" style="2" rect="420,200,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="129" frame="13"/>
+			<!--时装格子--><item id="32" type="Table"  style="1" rect="431,318,38,38"  itemrect="431,318,38,38"  virtual="1" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--时装名称--><item id="33" type="Static" style="0" rect="493,210,240,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0"/>			
+		    <!--时装模型--><item id="34" type="Static" style="0" rect="493,235,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"></item>	
+		    <!--穿戴按钮--><item id="35" type="CheckBox" style="3" rect="503,360,20,18" hotkey=""  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1"/>
+		    <!--进阶等级--><item id="36" type="Image" style="2" rect="553,300,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="-1" frame="-1"/>
+		    <!--进阶按钮--><item id="37" type="Button" style="0" rect="559,325,48,23" isdefault="0" pack="data\interfaces6.gl" group="129" frame="46" bitmapbutton="1" framenum="3" hotkey=""/>
+		    
+		    <!--////////// 第2行x1 /////////////////////////-->
+			<!--格子背景--><item id="41" type="Image" style="2" rect="10,380,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="129" frame="13"/>
+			<!--时装格子--><item id="42" type="Table"  style="1" rect="21,500,38,38"  itemrect="21,500,38,38"  virtual="1" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--时装名称--><item id="43" type="Static" style="0" rect="82,390,240,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0"/>			
+		    <!--时装模型--><item id="44" type="Static" style="0" rect="82,415,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"></item>	
+		    <!--穿戴按钮--><item id="45" type="CheckBox" style="3" rect="92,540,20,18" hotkey=""  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1"/>
+		    <!--进阶等级--><item id="46" type="Image" style="2" rect="146,485,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="-1" frame="-1"/>
+		    <!--进阶按钮--><item id="47" type="Button" style="0" rect="154,510,48,23" isdefault="0" pack="data\interfaces6.gl" group="129" frame="46" bitmapbutton="1" framenum="3" hotkey=""/>
+		    <!--////////// 第2行x2 /////////////////////////-->
+		    <!--格子背景--><item id="51" type="Image" style="2" rect="216,380,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="129" frame="13"/>
+			<!--时装格子--><item id="52" type="Table"  style="1" rect="226,500,38,38"  itemrect="226,500,38,38"  virtual="1" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--时装名称--><item id="53" type="Static" style="0" rect="288,390,240,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0"/>			
+		    <!--时装模型--><item id="54" type="Static" style="0" rect="288,415,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"></item>	
+		    <!--穿戴按钮--><item id="55" type="CheckBox" style="3" rect="298,540,20,18" hotkey=""  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1"/>
+		    <!--进阶等级--><item id="56" type="Image" style="2" rect="350,485,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="-1" frame="-1"/>
+		    <!--进阶按钮--><item id="57" type="Button" style="0" rect="356,510,48,23" isdefault="0" pack="data\interfaces6.gl" group="129" frame="46" bitmapbutton="1" framenum="3" hotkey=""/>
+		    <!--////////// 第2行x3 /////////////////////////-->
+		    <!--格子背景--><item id="61" type="Image" style="2" rect="420,380,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="129" frame="13"/>
+			<!--时装格子--><item id="62" type="Table"  style="1" rect="431,500,38,38"  itemrect="431,500,38,38"  virtual="1" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<!--时装名称--><item id="63" type="Static" style="0" rect="493,390,240,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0"/>			
+		    <!--时装模型--><item id="64" type="Static" style="0" rect="493,415,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"></item>	
+		    <!--穿戴按钮--><item id="65" type="CheckBox" style="3" rect="503,540,20,18" hotkey=""  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" group="1"/>
+		    <!--进阶等级--><item id="66" type="Image" style="2" rect="553,485,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="-1" frame="-1"/>
+		    <!--进阶按钮--><item id="67" type="Button" style="0" rect="559,510,48,23" isdefault="0" pack="data\interfaces6.gl" group="129" frame="46" bitmapbutton="1" framenum="3" hotkey=""/>
+			<!--界面-->
+			<!--////////// 第1行x1 /////////////////////////-->
+			<!--格子背景--><item id="101" type="Image" style="2" rect="10,200,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\activity.gl" group="0" frame="1"/>
+			<!--时装格子--><item id="102" type="Table"  style="1" rect="21,318,38,38"  itemrect="21,318,38,38"  virtual="1" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+		    
+		    <item id="1001" type="Button" style="0" rect="8,162,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="107" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,239,196,0">时装</item>
+			<item id="1003" type="Button" style="0" rect="56,162,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="107" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,239,196,0">披风</item>
+			<item id="1004" type="Button" style="0" rect="104,162,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="107" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,239,196,0">翅膀</item>
+			<item id="1005" type="Button" style="0" rect="152,162,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="107" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,239,196,0">坐骑</item>
+			<item id="1002" type="Button" style="0" rect="200,162,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="107" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,239,196,0">称号</item>
+			<item id="1006" type="Button" style="0" rect="248,162,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="107" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,239,196,0">界面</item>
+			<item id="1007" type="Button" style="0" rect="296,162,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="107" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,239,196,0">头像</item>
+			<item id="1008" type="Button" style="0" rect="344,162,70,29" isdefault="0" pack="data\interfaces6.gl" group="129" frame="107" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,239,196,0">足迹</item>
+	
+		   		</controls>
+	</dialog>
+</gui>

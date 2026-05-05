@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="0" name="ChatOutputDialog" style="146" rect="50,35,260,130" colortopleft="100,50,50,50" colortopright="100,50,50,50" colorbottomleft="100,50,50,50" colorbottomright="100,50,50,50" align="0" caption="聊天输出">
+		<controls>
+			<item id="1" type="MLineTextBox" style="7F9" lineHeight="20" rect="3,13,310,115" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+			<item id="2" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="50" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>改变区域</Tip>
+			</item>
+			<item id="3" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="56" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>信息滚动开启/关闭</Tip>
+			</item>
+			<item id="4" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="53" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>聊天开启/关闭</Tip>
+			</item>
+			<item id="5" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="68" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>左键单击展开,右键单击选择频道</Tip>
+			</item>
+			<item id="6" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="71" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>左键单击隐藏,右键单击选择频道</Tip>
+			</item>
+			
+		</controls>
+	</dialog>
+</gui>

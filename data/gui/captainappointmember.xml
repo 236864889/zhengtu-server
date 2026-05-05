@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GB2312" ?>
+
+<gui>
+    <dialog id="59" name="KingAppointDlg" style="10" icon="32" rect="0,0,420,460" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="">
+        
+        <script>function OnGuiEvent(nEvent,nID,pControl) --[[处理GUI事件]]
+end</script>
+        <controls>
+            
+			<!--item id="0" type="Image" style="2" rect="0,0,390,549" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="27" frame="0" backgroud="1" /-->
+			<item id="0" type="Image" style="2" rect="0,0,386,530" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="141" frame="14" backgroud="1" />
+	        
+	        <item id="1" type="ListBox" style="8" rect="50,179,330,115" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255">
+            </item>
+            <item id="2" type="ListBox" style="8" rect="50,345,330,128" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255">
+            </item>
+         <!--   
+            <item id="3" type="Static" style="0" rect="-96,-23,240,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			玩家名称</item>
+            <item id="4" type="Static" style="0" rect="106,-23,220,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			玩家等级</item>
+            <item id="5" type="Static" style="0" rect="-96,118,240,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			玩家名称</item>
+            <item id="6" type="Static" style="0" rect="106,118,220,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			玩家等级</item>
+			<item id="7" type="Static" style="0" rect="0,-20,240,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			</item>
+			<item id="8" type="Static" style="0" rect="-98,101,240,32" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			待选玩家名单</item>
+			-->
+			<item id="9" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.pak" group="141" frame="19" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+			<Tip>国王、国家队队长可以使用此功能挑选队员加入国家队。</Tip>
+			</item>
+			<item id="10" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.pak" group="141" frame="22" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">
+			<Tip>国王、国家队队长可以使用此功能从国家队中移除一名队员。</Tip>
+			</item>
+			<item id="11" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.pak" group="141" frame="16" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			
+        </controls>
+    </dialog>
+</gui>

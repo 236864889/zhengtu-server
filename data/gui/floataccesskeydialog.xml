@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10
+#define GUI_WS_MODAL		0x20
+#define Gui_WS_NOSKIN		0x40
+#define GUI_WS_AUTOANCHOR	0x80 // 自动停靠-->
+<gui>
+	<dialog id="51" name="FloatAccessKeyDialog" style="144" rect="151,180,250,155" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+	if nEvent == 100 then
+		if nID == 100 then
+			ParseFloatAccessBtnClickEvent( 0 )
+			return true
+		elseif nID == 101 then
+			ParseFloatAccessBtnClickEvent( 1 )
+			return true
+		elseif nID == 102 then
+			ParseFloatAccessBtnClickEvent( 2 )
+			return true
+		elseif nID == 103 then
+			ParseFloatAccessBtnClickEvent( 3 )
+			return true
+		elseif nID == 104 then
+			ParseFloatAccessBtnClickEvent( 4 )
+			return true
+		elseif nID == 105 then
+			ParseFloatAccessBtnClickEvent( 5 )
+			return true
+		elseif nID == 106 then
+			ParseFloatAccessBtnClickEvent( 6 )
+			return true
+		elseif nID == 107 then
+			ParseFloatAccessBtnClickEvent( 7 )
+			return true
+		elseif nID == 108 then
+			ParseFloatAccessBtnClickEvent( 8 )
+			return true
+		elseif nID == 109 then
+			ParseFloatAccessBtnClickEvent( 9 )
+			return true
+		end
+	elseif nEvent == 101 then
+		if nID == 100 then
+			ParseFloatAccessBtnClickEvent( 0 )
+			return true
+		elseif nID == 101 then
+			ParseFloatAccessBtnClickEvent( 1 )
+			return true
+		elseif nID == 102 then
+			ParseFloatAccessBtnClickEvent( 2 )
+			return true
+		elseif nID == 103 then
+			ParseFloatAccessBtnClickEvent( 3 )
+			return true
+		elseif nID == 104 then
+			ParseFloatAccessBtnClickEvent( 4 )
+			return true
+		elseif nID == 105 then
+			ParseFloatAccessBtnClickEvent( 5 )
+			return true
+		elseif nID == 106 then
+			ParseFloatAccessBtnClickEvent( 6 )
+			return true
+		elseif nID == 107 then
+			ParseFloatAccessBtnClickEvent( 7 )
+			return true
+		elseif nID == 108 then
+			ParseFloatAccessBtnClickEvent( 8 )
+			return true
+		elseif nID == 109 then
+			ParseFloatAccessBtnClickEvent( 9 )
+			return true
+		end
+	end
+	return false
+end
+</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces_cz.gl" group="1" frame="119"/>
+			
+			<item id="100" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>0</Tip>
+			</item>
+			<item id="101" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>1</Tip>
+			</item>
+			<item id="102" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>2</Tip>
+			</item>
+			<item id="103" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>3</Tip>
+			</item>
+			<item id="104" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>4</Tip>
+			</item>
+			<item id="105" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>5</Tip>
+			</item>
+			<item id="106" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>6</Tip>
+			</item>
+			<item id="107" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>7</Tip>
+			</item>
+			<item id="108" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>8</Tip>
+			</item>
+			<item id="109" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\icons.gl" group="1" frame="100" bitmapbutton="1" framenum="0" hotkey="">
+				<Tip>9</Tip>
+			</item>
+			
+		</controls>
+	</dialog>
+</gui>

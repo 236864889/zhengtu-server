@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="2100" name="exitgame" style="4" caption="" rect="550,525,205,250" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+		<item id="0" type="Image" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\Interfaces1.gl" group="47" frame="2" backgroud="1" />
+		<item id="1" type="Process" style="0" rect="3,1,0,0" min=0  max=100 pos=0 isdefault="0" textcolor="255,255,0,0" pack="data\Interfaces1.gl" group="47" frame="3" />
+		<item id="10" type="Static" style="0" rect="40,4,200,192" hotkey="-" isdefault="0" color="255,0,255,137" textcolor="255,0,255,137" >拆除太庙中··· </item>
+        </controls>
+    </dialog>
+</gui>

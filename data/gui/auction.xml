@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="3" name="AuctionDialog" style="0" caption="拍卖" rect="0,100,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="10111">
+        <!--#define EVENT_BUTTON_CLICKED100
+#define EVENT_COMBOBOX_SELECTION_CHANGED200
+#define EVENT_RADIOBUTTON_CHANGED   300
+#define EVENT_CHECKBOX_CHANGED  400
+#define EVENT_SLIDER_VALUE_CHANGED  500
+#define EVENT_EDITBOX_STRING600
+#define EVENT_EDITBOX_CHANGE700
+#define EVENT_LISTBOX_ITEM_DBLCLK   800
+#define EVENT_LISTBOX_SELECTION 900
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001
+#define EVENT_TAB_SELECTION_CHANGED			2000-->
+        <script>
+    function InitTab()
+		this:AddControl2TabByID(2,0,100)
+		this:AddControl2TabByID(2,0,101)
+		this:AddControl2TabByID(2,0,102)
+		this:AddControl2TabByID(2,0,103)
+		this:AddControl2TabByID(2,0,104)
+		this:AddControl2TabByID(2,0,105)
+		this:AddControl2TabByID(2,0,106)
+		this:AddControl2TabByID(2,0,107)
+		this:AddControl2TabByID(2,0,108)
+		this:AddControl2TabByID(2,0,109)
+		this:AddControl2TabByID(2,0,110)
+		this:AddControl2TabByID(2,0,111)	
+		this:AddControl2TabByID(2,0,120)	
+		this:AddControl2TabByID(2,1,200)	
+		this:AddControl2TabByID(2,1,201)		
+		this:AddControl2TabByID(2,1,202)
+		this:AddControl2TabByID(2,1,203)
+		this:AddControl2TabByID(2,1,204)
+		this:AddControl2TabByID(2,1,205)
+		this:AddControl2TabByID(2,1,206)
+		this:AddControl2TabByID(2,1,207)
+		this:AddControl2TabByID(2,1,208)
+		this:AddControl2TabByID(2,1,209)
+		this:AddControl2TabByID(2,1,210)	
+		this:AddControl2TabByID(2,1,211)
+		this:AddControl2TabByID(2,1,212)			
+		this:AddControl2TabByID(2,1,220)
+		this:AddControl2TabByID(2,2,300)	
+		this:AddControl2TabByID(2,2,301)
+		this:AddControl2TabByID(2,2,302)	
+		this:AddControl2TabByID(2,2,303)	
+		this:AddControl2TabByID(2,2,304)	
+		this:AddControl2TabByID(2,2,305)	
+		this:AddControl2TabByID(2,2,306)	
+		this:AddControl2TabByID(2,2,307)
+		this:AddControl2TabByID(2,2,308)		
+		this:AddControl2TabByID(2,2,309)
+		this:AddControl2TabByID(2,2,310)
+		this:AddControl2TabByID(2,2,311)
+		this:AddControl2TabByID(2,2,312)
+		this:AddControl2TabByID(2,2,313)
+		this:AddControl2TabByID(2,2,314)
+		this:AddControl2TabByID(2,2,315)
+		this:AddControl2TabByID(2,2,316)
+		this:AddControl2TabByID(2,2,317)
+		this:AddControl2TabByID(2,2,318)
+		this:AddControl2TabByID(2,2,319)
+		this:AddControl2TabByID(2,2,320)
+    end
+    
+    function InitButton()
+		this:SetButtonGroup(3,1);
+		this:SetButtonGroup(4,1);
+		this:SetButtonGroup(5,1);
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()	
+			InitButton()
+			return true		
+		end
+		return false
+	end
+	</script>
+        <controls>
+            <!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+            <item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="0" backgroud="1" />
+            <item id="2" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+                <datas>
+                    <item></item>
+                    <item></item>
+                    <item></item>
+                </datas>
+            </item>
+            <item id="3" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="2" bitmapbutton="1" framenum="3"></item>
+            <item id="4" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="5" bitmapbutton="1" framenum="3"></item>
+            <item id="5" type="Button" style="0" rect="0,0,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="8" bitmapbutton="1" framenum="3"></item>
+            <item id="6" type="EditBox" style="8" rect="93,23,120,20" hotkey="" maxCharCount="16" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+            <item id="7" type="EditBox" style="a" rect="300,23,32,20" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="999" /> 
+            <item id="8" type="ComboBox" style="0" rect="405,18,68,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">          
+				<datas>
+                    <item data="3">金色</item>
+                    <item data="1">普通</item>
+                    <item data="2">蓝色</item>
+                    <item data="5">神圣</item>
+                </datas>
+            </item>
+            <item id="9" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="12" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="10" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="24" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>            
+            <item id="12" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="51" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="100" type="Table" rect="142,87,38,380" style="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="38" cellHeight="38" rowCount="10" showRowCount="10" colCount="1" itemrect="0,0,0,0" virtual="0" />
+            <item id="101" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="27" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="102" type="ListBox" style="a" rect="186,82,581,392" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="39"/>
+            <item id="103" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="15" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="104" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="18" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="105" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="64" backgroud="0" />
+            <item id="106" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="65" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="107" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="68" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="108" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="71" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>  
+            <item id="109" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="74" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="110" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="77" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="111" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="83" backgroud="0" />
+            <item id="120" type="EditBox" style="2" rect="619,23,32,20" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="9999" />
+            
+            <item id="200" type="Table" rect="142,87,38,380" style="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="38" cellHeight="38" rowCount="10" showRowCount="10" colCount="1" itemrect="0,0,0,0" virtual="0" />
+			<item id="201" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="54" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="202" type="ListBox" style="a" rect="186,82,581,392" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="39"/>
+			<item id="203" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="15" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="204" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="18" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="205" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="64" backgroud="0" />
+            <item id="206" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="65" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="207" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="68" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="208" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="71" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>  
+            <item id="209" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="74" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="210" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="77" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="211" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="83" backgroud="0" />
+            <item id="212" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="81" backgroud="0" />
+            <item id="220" type="EditBox" style="2" rect="619,23,32,20" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="9999" />
+            
+            <item id="300" type="Table" rect="227,88,38,380" style="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="38" cellHeight="39" rowCount="10" showRowCount="10" colCount="1" itemrect="0,0,0,0" virtual="0" />
+            <item id="301" type="EditBox" style="a" rect="41,215,43,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />
+            <item id="302" type="EditBox" style="a" rect="105,215,29,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <item id="303" type="EditBox" style="a" rect="157,215,29,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <!--item id="304" type="EditBox" style="a" rect="60,236,100,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" /-->
+            <item id="305" type="EditBox" style="a" rect="41,310,43,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />
+            <item id="306" type="EditBox" style="a" rect="105,310,29,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <item id="307" type="EditBox" style="a" rect="157,310,29,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+            <!--item id="308" type="EditBox" style="a" rect="60,330,100,22" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" /-->
+            <item id="309" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="45" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+            <item id="310" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="48" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="311" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="27" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="312" type="ListBox" style="a" rect="270,82,499,392" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemheight="39"/>
+            <item id="313" type="Table" rect="136,70,38,38" style="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="38" cellHeight="38" rowCount="1" showRowCount="1" colCount="1" itemrect="0,0,0,0" />
+            <item id="314" type="Button" style="0" rect="140,125,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="61" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="315" type="Button" style="0" rect="140,145,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="61" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="316" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="15" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="317" type="Button" style="0" rect="0,0,70,29" isdefault="0" pack="data\interfaces.gl" group="55" frame="18" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="318" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="80" backgroud="0" />
+            <item id="319" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="55" frame="82" backgroud="0" />
+            <item id="320" type="EditBox" style="2" rect="619,23,32,20" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="9999" />
+        </controls>
+    </dialog>
+</gui>

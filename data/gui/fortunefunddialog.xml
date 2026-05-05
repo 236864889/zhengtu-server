@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by VinsonGong (GongWenBing) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="150" name="ForTuneFundDialog" showsoundindex="10103" style="10" caption="储蓄系统" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="11"><!-- 135,36,512,613 -->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+	return false
+end
+     </script>
+		<controls>
+		
+			<item id="99" type="Button" style="1" rect="33,2,70,29" isdefault="0" pack="data\interfaces.gl" group="144" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255" ></item>
+		
+			<item id="10" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="140" frame="23"> </item>  
+			<item id="20" type="Button" style="0" rect="-8,0,70,29" isdefault="0" pack="data\interfaces.gl" group="146" frame="8" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="21" type="Button" style="0" rect="-21,0,70,29" isdefault="0" pack="data\interfaces.gl" group="146" frame="5" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="22" type="Button" style="0" rect="-34,0,70,29" isdefault="0" pack="data\interfaces.gl" group="146" frame="2" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+			<item id="23" type="Button" style="0" rect="334,375,70,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+			<item id="24" type="Button" style="0" rect="344,367,88,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">帐目明细</item>
+			<item id="25" type="Button" style="0" rect="236,200,70,29" isdefault="0" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="0" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255">领取</item>
+			<item id="200" type="EditBox" style="2" rect="168,147,60,20" hotkey="" maxCharCount="3" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" caretcolor="255,255,255,255" minNumber="0" maxNumber="10000"/> 
+			<item id="7" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1"/>
+			<item id="301" type="Static" style="0" rect="100,100,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1"/>
+			<item id="302" type="Static" style="0" rect="100,124,350,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1"/>
+			<item id="303" type="Static" style="0" rect="100,148,150,10" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">我要投入</item>
+			<item id="350" type="Static" style="0" rect="234,148,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">000 </item>
+			
+			<item id="304" type="Static" style="0" rect="274,148,450,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">点  折合金子           购买增值保险</item>
+			<item id="380" type="Static" style="0" rect="378,148,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"> </item>
+			<item id="305" type="Static" style="0" rect="100,196,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">即刻返还：</item>
+			<item id="306" type="Static" style="0" rect="100,220,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">60级：</item>
+			<item id="307" type="Static" style="0" rect="100,244,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">70级：</item>
+			<item id="308" type="Static" style="0" rect="100,268,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">80级：</item>
+			<item id="309" type="Static" style="0" rect="100,292,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">90级：</item>
+			<item id="310" type="Static" style="0" rect="100,316,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">100级：</item>
+			<item id="311" type="Static" style="0" rect="100,340,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">110级：</item>
+			<item id="312" type="Static" style="0" rect="300,220,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">120级：</item>
+			<item id="313" type="Static" style="0" rect="300,244,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">130级：</item>
+			<item id="314" type="Static" style="0" rect="300,268,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">140级：</item>
+			<item id="315" type="Static" style="0" rect="300,292,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">150级：</item>
+			<item id="316" type="Static" style="0" rect="300,316,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">160级：</item>
+			<item id="317" type="Static" style="0" rect="100,360,350,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">返还总计(金子)：</item>
+			<item id="384" type="Static" style="0" rect="220,360,350,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"></item>
+			<item id="318" type="Static" style="0" rect="100,100,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1"/>
+			<item id="319" type="Static" style="0" rect="100,124,600,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">已购买增值保险       点，折合金子     锭    两</item>
+			<item id="381" type="Static" style="0" rect="370,124,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"></item>
+			<!--<item id="382" type="Static" style="0" rect="450,124,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">还可购买增值保险：</item>-->
+			<item id="320" type="Static" style="0" rect="100,172,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">各级返还总计：</item>
+			<item id="321" type="Static" style="0" rect="100,196,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">60级：</item>
+			<item id="322" type="Static" style="0" rect="100,220,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">70级：</item>
+			<item id="323" type="Static" style="0" rect="100,244,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">80级：</item>
+			<item id="324" type="Static" style="0" rect="100,268,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">90级：</item>
+			<item id="325" type="Static" style="0" rect="100,292,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">100级：</item>
+			<item id="326" type="Static" style="0" rect="100,316,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">110级：</item>
+			<item id="327" type="Static" style="0" rect="350,196,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">120级：</item>
+			<item id="328" type="Static" style="0" rect="350,220,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">130级：</item>
+			<item id="329" type="Static" style="0" rect="350,244,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">140级：</item>
+			<item id="330" type="Static" style="0" rect="350,268,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">150级：</item>
+			<item id="331" type="Static" style="0" rect="350,292,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">160级：</item>
+			<item id="332" type="Static" style="0" rect="100,336,450,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">返还总计：</item>
+			<item id="383" type="Static" style="0" rect="220,336,450,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1"></item>
+			<item id="333" type="Static" style="0" rect="100,100,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1"/>
+			<item id="334" type="Static" style="0" rect="100,124,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">已领取（金子）：</item>
+			<item id="336" type="Static" style="0" rect="100,148,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">未来可领取（金子）：</item>
+			<item id="335" type="Static" style="0" rect="100,172,250,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1">当前可领取（金子）：</item>  
+			
+		</controls>
+	</dialog>
+</gui>

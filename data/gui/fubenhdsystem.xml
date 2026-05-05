@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="69" name="FubenhdSystem" style="0" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+			<!--背景-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="96" frame="3" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="8" type="Button" sound="10107" style="0" rect="700,105,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="120" frame="40" framenum="3"/>
+			<item id="10" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1"/>
+			<item id="11" type="Button" style="0" rect="60,470,106,36" isdefault="0" pack="data\Interfaces2.gl" group="24" frame="1" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">BOSS副本</item>
+            <item id="12" type="Button" style="0" rect="180,470,106,36" isdefault="0" pack="data\Interfaces2.gl" group="24" frame="1" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">竞技副本</item>
+	        <item id="13" type="Button" style="0" rect="300,470,106,36" isdefault="0" pack="data\Interfaces2.gl" group="24" frame="1" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">材料副本</item>
+		
+            <!--BOSS副本页-->
+			<item id="101" type="Button" style="0" rect="63,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="101" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="102" type="Button" style="0" rect="192,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="102" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="103" type="Button" style="0" rect="321,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="103" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="104" type="Button" style="0" rect="450,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="1044" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="105" type="Button" style="0" rect="579,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="1054" bitmapbutton="1" framenum="1" hotkey=""/>
+				
+			<!--竞技副本页-->
+			<item id="201" type="Button" style="0" rect="63,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="201" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="202" type="Button" style="0" rect="192,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="202" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="203" type="Button" style="0" rect="321,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="203" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="204" type="Button" style="0" rect="450,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="204" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="205" type="Button" style="0" rect="579,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="205" bitmapbutton="1" framenum="1" hotkey=""/>
+			
+			<!--材料副本页-->
+			<item id="301" type="Button" style="0" rect="63,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="301" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="302" type="Button" style="0" rect="192,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="302" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="303" type="Button" style="0" rect="321,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="303" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="304" type="Button" style="0" rect="450,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="304" bitmapbutton="1" framenum="1" hotkey=""/>
+			<item id="305" type="Button" style="0" rect="579,116,129,262" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="305" bitmapbutton="1" framenum="1" hotkey=""/>
+	        
+	        <!--镇妖塔说明 &#xA; -->
+			<item id="1001" type="Static" style="0" rect="45,388,675,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">每天 20:00 - 21:00 开放镇妖塔副本&#xA;   击杀妖塔内的守卫和BOSS可掉落进入下一层的道具！镇妖塔一共25层，每到一层可领取一次材料奖励！镇妖塔25层将在活动时间内刷新超级BOSS!</item>		
+			<!--封龙之地说明-->
+			<item id="1002" type="Static" style="0" rect="45,388,675,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">每天 21:00 - 22:00 开放封龙之地副本&#xA;   副本内刷新超级BOSS,击杀可获得海量奖励,更有VIP点卡、幸运星等材料掉落</item>
+			<!--财神宝地说明-->
+			<item id="1003" type="Static" style="0" rect="45,388,675,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">每天 18:00 - 23:59 开放财神宝地副本&#xA;   副本内刷新超级BOSS,击杀可获得大量金子和工资银子,副本BOSS死亡后1小时复活</item>		
+
+			<!--竞技比赛说明-->
+			<item id="2001" type="Static" style="0" rect="45,388,675,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">每天 20:00 - 20:30 开放竞技比赛活动&#xA;   此项竞技赛,必须组队进入,非单人比赛,组队进入争夺地图中央的积分旗,那个团队砍倒积分旗(刷新时间10秒刷新),团队将获得不等量积分点数奖励, 队伍有人死亡，在当前地图复活点复活!此项比赛不区分国家为世界比赛 </item>
+	
+            <!--附件材料副本说明-->
+			<item id="3001" type="Static" style="0" rect="45,388,675,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">每天 06:00 - 23:59 开放附件材料副本&#xA;   副本内BOSS掉落大量专属材料,BOSS 15分钟复活一次 (副本次数要击杀BOSS后才计算1次)&#xA;会员VIP权益:尊享VIP会员可购买额外副本次数【购买副本次数价格：1次/2锭金子】 &#xA; VIP2:1次/日 VIP4:2次/日 VIP6:3次/日 VIP8:4次/日 VIP10:5次/日</item>
+           <!--元神材料副本说明-->
+			<item id="3002" type="Static" style="0" rect="45,388,675,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">每天 06:00 - 23:59 开放元神材料副本&#xA;   副本内BOSS掉落大量专属材料,BOSS 15分钟复活一次 (副本次数要击杀BOSS后才计算1次)&#xA;会员VIP权益:尊享VIP会员可购买额外副本次数【购买副本次数价格：1次/2锭金子】 &#xA; VIP2:1次/日 VIP4:2次/日 VIP6:3次/日 VIP8:4次/日 VIP10:5次/日</item>
+			<!--补天材料副本说明-->
+			<item id="3003" type="Static" style="0" rect="45,388,675,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">每天 06:00 - 23:59 开放补天材料副本&#xA;   副本内BOSS掉落大量专属材料,BOSS 15分钟复活一次 (副本次数要击杀BOSS后才计算1次)&#xA;会员VIP权益:尊享VIP会员可购买额外副本次数【购买副本次数价格：1次/2锭金子】 &#xA; VIP2:1次/日 VIP4:2次/日 VIP6:3次/日 VIP8:4次/日 VIP10:5次/日</item>
+			<!--头衔材料副本说明-->
+			<item id="3004" type="Static" style="0" rect="45,388,675,70" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="1">每天 06:00 - 23:59 开放头衔材料副本&#xA;   副本内BOSS掉落大量专属材料,BOSS 15分钟复活一次 (副本次数要击杀BOSS后才计算1次)&#xA;会员VIP权益:尊享VIP会员可购买额外副本次数【购买副本次数价格：1次/2锭金子】 &#xA; VIP2:1次/日 VIP4:2次/日 VIP6:3次/日 VIP8:4次/日 VIP10:5次/日</item>
+	
+
+			<item id="3101" type="Static" style="0" rect="0,0,124,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="3102" type="Static" style="0" rect="0,0,124,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="3103" type="Static" style="0" rect="0,0,124,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+			<item id="3104" type="Static" style="0" rect="0,0,124,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"/>
+	
+	        <!--购买副本材料进入次数-->
+			<item id="77" type="Button" style="0" rect="0,0,130,34" isdefault="0" pack="data\Interfaces1.gl" group="5" frame="203" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">购买</item>
+			<!--选择副本后弹出进入副本按钮-->
+			<item id="88" type="Button" style="0" rect="0,0,130,34" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="4" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">进入副本</item>
+			<!--选择副本后弹出进入副本按钮-->
+			<item id="99" type="Button" style="0" rect="0,0,130,34" isdefault="0" pack="data\Interfaces2.gl" group="96" frame="4" bitmapbutton="1" framenum="3" color="255,255,255,255" textcolor="255,255,255,255">参加活动</item>
+		</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>

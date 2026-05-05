@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by VinsonGong (GongWenBing) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>   
+     <dialog id="202" name="GuiHorseBookdlg"  showsoundindex="10104"  style="0" caption="坐骑图鉴" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" >
+         <controls>         
+         <!--背景-->
+         <item id="0" type="Image" style="2" rect="-4,-115,390,550" isdefault="0" color="150,255,255,255" textcolor="150,255,255,255" backgroud="1" pack="data\interfaces.gl" group="25" frame="613" > </item>
+		<!--关闭按钮-->
+		<item id="1" type="Button" sound="10107" style="0" rect="361,97,42,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="3" frame="4" framenum="3"/>
+ 
+        <!--材料格子-->
+		<item id="5" type="Table" virtual="1" style="1" rect="92,453,34,34" itemrect="92,453,34,34" cellWidth="34" cellHeight="34" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+        <!--进度条-->
+        <item id="7" type="Process" style="0" rect="62,418,0,0" hotkey="" isdefault="1" font="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="100" pos="0" pack="data\interfaces6.gl" group="135" frame="105"/>
+ 
+         <!--升级进阶按钮-->
+         <item id="10" type="Button" sound="10107" style="0" rect="143,467,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="150,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="65" frame="30" framenum="3">图鉴进阶</item>
+         <!--领取马铠按钮-->
+         <item id="11" type="Button" sound="10107" style="0" rect="285,467,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="150,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="65" frame="30" framenum="3">领取马铠</item>
+
+         <!--图鉴名字-->
+         <item id="20" type="Image" style="2" rect="132,133,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="135" frame="100" backgroud="0" />
+         <!--图鉴模型-->
+         <item id="21" type="Image" style="2" rect="136,196,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="135" frame="0" backgroud="0" />
+          <!--图鉴等阶-->
+         <item id="22" type="Image" style="2" rect="177,384,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="-1" frame="-1" backgroud="0" />
+  
+         </controls>
+     </dialog>
+</gui>	

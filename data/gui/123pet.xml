@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="52" name="GuiPetDialog" style="10" caption="宠物" icon="0" rect="317,109,390,550" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12" showsoundindex="10109">
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,390,550" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="25" frame="0" backgroud="1" />
+            <item id="1" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+                <datas>
+                    <item>马匹</item>
+                    <item>宠物</item>
+                    <item>保镖</item>
+                    <item>替身</item>
+                </datas>
+            </item>
+            <item id="2" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="3" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="4" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="7" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>	
+            <item id="5" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="31" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="14" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="-1" frame="-1" backgroud="0" />
+            <item id="20" type="Button" style="0" rect="10000,10000,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>跟随</Tip></item>
+			<item id="21" type="Button" style="0" rect="10000,10000,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="13" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>弃马</Tip></item>
+            <!--30-39是马铠属性页面48是圣光-->
+			<item id="30" type="Static" style="0" rect="60,400,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="31" type="Static" style="0" rect="60,416,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="32" type="Static" style="0" rect="60,432,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="33" type="Static" style="0" rect="60,448,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="34" type="Static" style="0" rect="60,464,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="35" type="Static" style="0" rect="213,400,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="36" type="Static" style="0" rect="213,416,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="37" type="Static" style="0" rect="213,432,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="38" type="Static" style="0" rect="213,448,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="39" type="Static" style="0" rect="213,464,150,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="0"></item>
+			<item id="48" type="Button" style="0" rect="91,194,70,29" isdefault="1" pack="data\interfaces.gl" group="25" frame="200" bitmapbutton="1" framenum="1"><Tip>“圣光”，三级训练后坐骑所拥有的效果。让你的坐骑看起来更加神俊。</Tip></item> />
+            <!--100-111是宠物属性页面112是编辑名字编辑框113是编辑名字修改-->
+			<item id="100" type="Static" style="0" rect="105,390,130,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="101" type="Static" style="0" rect="90,406,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="102" type="Static" style="0" rect="90,422,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="103" type="Static" style="0" rect="90,438,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="104" type="Static" style="0" rect="90,454,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="105" type="Static" style="0" rect="90,470,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="106" type="Static" style="0" rect="270,390,130,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="107" type="Static" style="0" rect="255,406,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="108" type="Static" style="0" rect="255,422,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="109" type="Static" style="0" rect="255,438,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="110" type="Static" style="0" rect="255,454,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="111" type="Static" style="0" rect="255,470,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="112" type="EditBox" style="8" rect="70,161,93,20" hotkey="" maxCharCount="12" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="113" type="Button" style="0" rect="0,0,0,0" isdefault="1" pack="data\interfaces.gl" group="25" frame="34" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="114" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="-1" frame="-1" backgroud="0" />		
+            <!--200-211是宠物属性页面212是编辑名字编辑框213是编辑名字修改-->
+			<item id="200" type="Static" style="0" rect="105,390,530,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="201" type="Static" style="0" rect="90,406,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="202" type="Static" style="0" rect="90,422,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="203" type="Static" style="0" rect="90,438,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="204" type="Static" style="0" rect="90,454,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="205" type="Static" style="0" rect="90,470,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="206" type="Static" style="0" rect="270,390,130,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="207" type="Static" style="0" rect="255,406,250,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="208" type="Static" style="0" rect="255,422,250,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="209" type="Static" style="0" rect="255,438,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="210" type="Static" style="0" rect="255,454,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="211" type="Static" style="0" rect="255,470,100,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="212" type="EditBox" style="8" rect="70,161,93,20" hotkey="" maxCharCount="12" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="213" type="Button" style="0" rect="0,0,0,0" isdefault="1" pack="data\interfaces.gl" group="25" frame="34" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+			<item id="214" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="-1" frame="-1" backgroud="0" />	
+            <!--300-211是宠物属性页面212是编辑名字编辑框213是编辑名字修改-->
+			<item id="300" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>充值</Tip></item>
+			<item id="301" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="4" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>使当前替身宝贝跟随您，同时只能放出1只替身宝贝(放出时点自动修理按钮)</Tip></item> 
+			<item id="302" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="7" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>上一个</Tip></item>
+			<item id="303" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>将正在处于认领或等待认领的替身宝贝收回，只有那样您才可以提取累积的经验值</Tip></item> 
+			<item id="304" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="13" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>下一个</Tip></item> 
+			<item id="305" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="16" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>修改名字</Tip></item>
+			<item id="306" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="19" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>喂食</Tip></item>
+			<item id="307" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="22" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>提取经验值</Tip></item>
+			<item id="308" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="25" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>收回当前正在跟随您的替身宝贝使其进入休息状态</Tip></item>
+			<item id="309" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="28" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>使当前替身宝贝进入等待认领状态，通过认领可以为您累积额外的经验值，只有为其充值之后才可以使用该功能</Tip></item>
+			<item id="310" type="Image" style="2" rect="30,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="-1" frame="-1" backgroud="0" />
+			<item id="311" type="EditBox" style="8" rect="145,124,127,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="12" caretcolor="255,255,255,255" />			
+            <item id="312" type="Static" style="0" rect="104,153,70,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="313" type="Static" style="0" rect="225,153,40,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="314" type="Static" style="0" rect="322,153,40,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="315" type="Static" style="0" rect="144,368,190,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="316" type="Static" style="0" rect="63,173,300,20" hotkey="" isdefault="0" color="255,0,255,0" textcolor="255,0,255,0" font="1"></item>
+            <item id="317" type="Static" style="0" rect="113,465,255,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" font="1"></item>
+            <item id="318" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="39" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>自动修理已装备的物品,每次消耗4小时充值时间,不损耗耐久值</Tip></item>
+            <item id="319" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="60" frame="42" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>关闭自动修理</Tip></item>
+            <!--215-220马装和马牌位置-->
+		    <item id="215" type="Table" rect="326,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="326,348,33,33">马脚</item>
+	        <item id="216" type="Table" rect="287,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="287,348,33,33">马绳</item>
+	        <item id="217" type="Table" rect="248,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="248,348,33,33">马鞍</item>
+	        <item id="218" type="Table" rect="209,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="209,348,33,33">护马铠</item>
+	        <item id="219" type="Table" rect="170,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="170,348,33,33">马镫</item>
+ 	        <item id="220" type="Table" rect="326,311,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="326,311,33,33">马牌</item>
+			
+			<item id="601" type="Button" style="0" rect="323,183,48,48" isdefault="0" pack="data\interfaces2.gl" group="135" frame="200" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>坐骑图鉴,激活升级后可领取马铠</Tip></item>
+        
+	  </controls>
+        <script>
+        function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+		end
+		</script>
+    </dialog>
+</gui>

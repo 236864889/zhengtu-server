@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="3" name="ChatOutputDialog" style="144" rect="50,85,260,150" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="聊天输出">
+	<script>
+	function OnGuiEvent(nEvent,nID,pControl)
+	    if nEvent == 1001 then
+			this:AddControl2TabByID(8,0,1)
+			this:AddControl2TabByID(8,1,11)
+			this:AddControl2TabByID(8,2,21)
+			
+			this:SetButtonGroup(5,1);
+			this:SetButtonGroup(6,1);
+			this:SetButtonGroup(7,1);
+		
+			return true		
+		end
+		return false
+	end
+	</script>
+		<controls>
+			<item id="1" type="MLineTextBox" style="1F9" lineHeight="20" rect="3,13,310,95" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+			<item id="11" type="MLineTextBox" style="1F9" lineHeight="20" rect="3,13,310,95" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+			<item id="21" type="MLineTextBox" style="1F9" lineHeight="20" rect="3,13,310,95" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+		    <item id="2" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="41" frame="50" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>改变区域</Tip>
+			</item>
+			  <item id="3" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="41" frame="56" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>信息滚动开启/关闭</Tip>
+			</item>
+			<item id="4" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces1.gl" group="41" frame="53" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>聊天开启/关闭</Tip>
+			</item>
+			<!-- <item id="5" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="59" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>全部聊天信息</Tip>
+			</item>		
+			<item id="6" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="62" bitmapbutton="1" framenum="3" hotkey="">				<Tip>右键可以选择你想要的聊天信息,左键打开该信息页面</Tip>
+			</item>	
+			<item id="7" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="65" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>右键可以选择你想要的聊天信息,左键打开该信息页面</Tip>
+			</item>	 -->	
+			<item id="8" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+			<datas>
+                    <item>全部</item>
+                    <item>自定义1</item>
+                    <item>自定义2</item>
+            </datas>
+			</item>
+		</controls>
+	</dialog>
+</gui>

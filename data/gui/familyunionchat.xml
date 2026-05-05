@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<gui>
+    <dialog id="12" name="ChatDialog" style="0"  rect="154,128,445,330" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="私人聊天">        
+        <script>
+			function OnGuiEvent(nEvent,nID,pControl) --[[处理GUI事件]]
+			return false
+			end
+		</script>
+        <controls>
+            <item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="11" frame="85"/>
+            <item id="1" type="MLineTextBox" style="2A9" lineHeight="20" rect="44,116,235,258" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+            <item id="2" type="EditBox" style="28" rect="41,382,302,20" hotkey="" isdefault="1" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="1024" caretcolor="255,255,255,255" />
+            <item id="3" type="Static" style="0" rect="294,91,100,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">人员列表</item>
+            <item id="4" type="ListBox" style="8" rect="292,116,146,230" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+        	<item id="5" type="Static" style="0" rect="180,62,200,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">聊天</item>           
+            <item id="102" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="51" framenum="3"></item>
+            <item id="104" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="63" framenum="3"></item>
+            <item id="106" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="79" framenum="3"></item>	  
+            <item id="107" type="Button" style="0" rect="0,0,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="11" frame="82" framenum="3"></item>
+            <!--item id="108" type="CheckBox" rect="90,92,20,17" style="8" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" checked="0"></item-->
+        </controls>
+    </dialog>
+</gui>

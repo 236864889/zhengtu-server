@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="30" name="CGuiFamilyBossGrow" style="0" caption="家族boss成长度" rect="-23,-18,550,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+        <controls>
+        	  <item id="0" type="Image" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="201" frame="0" backgroud="1"/>
+
+			<!--关闭-->
+			<item id="200" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="201" frame="4" bitmapbutton="1" framenum="2" hotkey="Esc"></item>
+        	<item id="1" type="Static" style="0"  rect="28,7,150,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">家族BOSS</item>
+            <item id="2" type="Static" style="0" rect="48,50,150,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">家族BOSS当前等级:</item>
+            <item id="3" type="Static" style="0" rect="200,50,150,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,170,250,170">1级</item>
+            <item id="4" type="Static" style="0" rect="48,70,150,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">当前经验值:</item>
+            <item id="5" type="Static" style="0" rect="200,70,150,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,170,250,170">0/1000</item>
+
+<!--             <item id="6" type="Image" style="2" rect="200,70,100,15" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="19" frame="6"/>
+   -->          
+            <item id="12" type="Static" style="0" rect="134,167,150,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,246,201,3">将食物放入此处</item>
+            <item id="13" type="Button" style="0" rect="154,190,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">喂养</item>
+            <item id="16" type="Button" style="0" rect="300,50,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">召唤</item>
+            <item id="15" type="Image" rect="168,118,35,35" style="2" pack="data\interfaces.gl" group="27" frame="2" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0"/>
+            
+			<item id="14" type="Table" style="1" rect="170,120,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" virtual="0" itemrect="0,0,0,0"/>
+			
+		</controls>
+        
+    </dialog>
+</gui>
+

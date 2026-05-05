@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="200" name="clearpoint" style="0" caption="" rect="590,274,151,220" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+        	<item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="63" frame="0" backgroud="1"/>
+        	<item id="2" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="47" framenum="3"/> 		<!--关闭-->	
+        	
+        	
+            	   	<item id="3" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="63" frame="1" framenum="3"/>  <!--力量-->
+			   	
+			   		   	<item id="4" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="63" frame="4" framenum="3"/>  <!--智力-->
+			   	
+			   		   	<item id="5" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="63" frame="7" framenum="3"/>  <!--敏捷-->
+			   	
+			   		   	<item id="6" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="63" frame="10" framenum="3"/>  <!--精神-->
+			   	
+			   		   	<item id="7" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="63" frame="13" framenum="3"/>  <!--体质-->
+			   	
+			   	
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

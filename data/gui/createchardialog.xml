@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="6" name="CreateCharDialog" style="21" caption="创建角色" rect="139,114,359,364" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl) 
+	if nEvent == 100 then 
+		if nID == 8 then
+			Create()
+		elseif nID == 9 then
+			CancelCreate()
+		end
+	elseif nEvent == 300 then
+		if nID == 3 or nID == 4 then
+			this:GetControl(6):SetVisible(false)
+			this:GetControl(7):SetVisible(false)
+			local n = this:GetCheckedRadioButton( 3,4)
+			this:GetControl(6+n):SetVisible(true)
+		end
+	elseif nEvent == 1001 then
+		this:GetControl(3):SetChecked( true)
+		this:GetControl(7):SetVisible( false)
+	end 
+	return false 
+end</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="1" type="Static" style="0" rect="21,20,46,21" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">名字：</item>
+			<item id="2" type="EditBox" style="0" rect="69,12,160,31" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="1024" caretcolor="255,255,255,255"/>
+			<item id="3" type="RadioButton" rect="81,98,46,22" color="255,255,255,255" textcolor="255,255,255,255" style="0" hotkey="" isdefault="0" group="1">男</item>
+			<item id="4" type="RadioButton" rect="149,99,48,21" color="255,255,255,255" textcolor="255,255,255,255" style="0" hotkey="" isdefault="0" group="1">女</item>
+			<item id="5" type="Static" style="0" rect="21,67,46,21" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">职业：</item>
+			<item id="6" type="ComboBox" style="5" rect="69,55,161,31" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255">
+				<datas>
+					<item data="1">侠客</item>
+					<item data="4">箭侠</item>
+					<item data="16">天师</item>
+					<item data="64">法师</item>
+				</datas>
+			</item>
+			<item id="7" type="ComboBox" style="5" rect="69,55,161,31" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255">
+				<datas>
+					<item data="2">侠女</item>
+					<item data="8">箭灵</item>
+					<item data="32">美女</item>
+					<item data="128">仙女</item>
+				</datas>
+			</item>
+			<item id="8" type="Button" style="0" rect="66,236,38,24" hotkey="Esc" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">创建</item>
+			<item id="9" type="Button" style="0" rect="179,235,38,24" hotkey="Esc" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item>
+		</controls>
+	</dialog>
+</gui>

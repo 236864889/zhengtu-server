@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by VinsonGong (GongWenBing) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="196" name="BicycleCompetitionItem" style="4" showsoundindex="10104" rect="32,672,76,38" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="">
+     <script>
+function OnGuiEvent(nEvent,nID,pControl)
+	return false
+end
+     </script>
+     
+          <controls>
+          <item id="1" type="Image" rect="0,0,0,0" style="2" pack="data\interfaces.gl" group="148" frame="8" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1"/>
+
+<item id="2" type="Button" style="0" rect="5,5,0,0" isdefault="0" pack="data\interfaces.gl" group="148" frame="11" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+<item id="3" type="Button" style="0" rect="45,5,0,0" isdefault="0" pack="data\interfaces.gl" group="148" frame="11" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+		  </controls>
+		  
+    </dialog>
+</gui>

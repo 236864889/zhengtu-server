@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="60" name="ChatSelect" style="6" rect="0,0,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="22">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+	return false
+end
+</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="5" frame="0"/>
+			<item id="2" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="4" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>表情</Tip>
+			</item>
+			<item id="3" type="EditBox" style="A8" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255"/>
+
+			<!--
+			<item id="100" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="19" bitmapbutton="1" framenum="3">
+				<Tip>轻声频道</Tip>
+			</item>
+			<item id="101" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="22" bitmapbutton="1" framenum="3">
+				<Tip>私聊频道</Tip>
+			</item>
+			<item id="102" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="1" bitmapbutton="1" framenum="3">
+				<Tip>帮会频道</Tip>
+			</item>
+			<item id="103" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="10" bitmapbutton="1" framenum="3">
+				<Tip>队伍频道</Tip>
+			</item>
+			<item id="105" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="13" bitmapbutton="1" framenum="3">
+				<Tip>国家频道</Tip>
+			</item>
+			<item id="106" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="7" bitmapbutton="1" framenum="3">
+				<Tip>区域频道</Tip>
+			</item>
+			<item id="107" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="5" frame="16" bitmapbutton="1" framenum="3">
+				<Tip>家族频道</Tip>
+			</item>
+			-->
+		</controls>
+	</dialog>
+</gui>

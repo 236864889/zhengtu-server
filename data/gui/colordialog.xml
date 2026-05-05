@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8-->
+<gui>
+    <dialog id="63" name="ColorDialog" style="25" caption="颜色输入" rect="375,75,288,210" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+            <item id="1" type="Static" style="0" rect="30,30,200,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <item id="2" type="Slider" style="0" rect="55,75,146,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="3" type="Slider" style="0" rect="55,100,146,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="4" type="Slider" style="0" rect="55,125,146,14" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="255" />
+            <item id="5" type="Static" style="0" rect="220,75,40,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">0</item>
+            <item id="6" type="Static" style="0" rect="220,100,40,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">0</item>
+            <item id="7" type="Static" style="0" rect="220,125,40,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">0</item>
+            <item id="11" type="Static" style="0" rect="15,75,20,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">红</item>
+            <item id="12" type="Static" style="0" rect="15,100,20,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">绿</item>
+            <item id="13" type="Static" style="0" rect="15,125,20,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">蓝</item>
+            <item id="8" type="Button" style="0" rect="40,145,70,29" hotkey="Y" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+            <item id="9" type="Button" style="0" rect="164,145,70,29" hotkey="N" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

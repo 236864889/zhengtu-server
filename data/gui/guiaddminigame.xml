@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    
+    <dialog id="11" name="BuyBuxuedan" style="21" caption="" rect="332,293,332,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+        <script>
+		function OnGuiEvent(nEvent,nID,pControl) 
+			if nEvent == 100 then
+				if nID == 6 then
+					this:OnZJDBoxEnter(true)
+					return true
+				elseif nID == 7 then
+					this:OnZJDBoxEnter(false)
+					return true
+				end
+			end
+			return false 
+		end</script>
+        <controls>
+        <item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="0" backgroud="1"/>
+        
+        <item id="4" type="Button" style="0" rect="50,85,70,29" isdefault="1" pack="data\items.gl" group="0" frame="1512" bitmapbutton="1" framenum="1" />
+        
+        <item id="6" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="7" framenum="3"/>  <!--确定-->
+			
+		<item id="7" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="10" framenum="3"/>  <!--取消-->
+		
+		<item id="8" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="136" frame="13" framenum="3"/>  <!--CLOSE-->
+ 	    
+ 	    
+ 	    <item id="10" type="Static" style="0" rect="100,80,260,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">补血丹      10文银子/粒</item>
+ 	    <item id="11" type="Static" style="0" rect="100,110,260,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">恢复生命值200点</item>
+ 	    
+ 	    <item id="12" type="Static" style="0" rect="50,130,260,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">要买多少？</item>
+ 	    <item id="5" type="EditBox" style="2" rect="50,130,200,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="10000" caretcolor="255,255,255,255" align="4"></item>
+        <item id="22" type="Static" style="0" rect="270,130,50,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">粒</item>
+ 	    
+ 	    <item id="13" type="Static" style="0" rect="50,200,100,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">现有银两  </item>
+ 	    <item id="14" type="Static" style="0" rect="150,200,260,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+ 	 <!--  <item id="15" type="Static" style="0" rect="50,210,100,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">现有背包空位  </item>
+ 	    <item id="16" type="Static" style="0" rect="150,210,100,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+ 	    <item id="17" type="Static" style="0" rect="250,210,260,24" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">个</item>
+ 	  -->  
+            
+        </controls>
+        
+        <script></script>
+    
+    </dialog>
+
+</gui>
+

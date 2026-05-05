@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="3000" name="CountryTechDialog" style="0" caption="国家科技" rect="0,100,0,0" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="10111">
+        <!--#define EVENT_BUTTON_CLICKED100
+#define EVENT_COMBOBOX_SELECTION_CHANGED200
+#define EVENT_RADIOBUTTON_CHANGED   300
+#define EVENT_CHECKBOX_CHANGED  400
+#define EVENT_SLIDER_VALUE_CHANGED  500
+#define EVENT_EDITBOX_STRING600
+#define EVENT_EDITBOX_CHANGE700
+#define EVENT_LISTBOX_ITEM_DBLCLK   800
+#define EVENT_LISTBOX_SELECTION 900
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001
+#define EVENT_TAB_SELECTION_CHANGED			2000-->
+        <script>
+    function InitTab()
+		this:AddControl2TabByID(2,0,100)
+		this:AddControl2TabByID(2,0,101)
+		this:AddControl2TabByID(2,0,102)
+		this:AddControl2TabByID(2,0,103)
+		
+		this:AddControl2TabByID(2,1,200)	
+		this:AddControl2TabByID(2,1,201)
+		this:AddControl2TabByID(2,1,202)
+		this:AddControl2TabByID(2,1,203)
+			
+		this:AddControl2TabByID(2,2,300)
+		this:AddControl2TabByID(2,2,301)
+		this:AddControl2TabByID(2,2,302)
+		this:AddControl2TabByID(2,2,303)
+    end
+    
+    function InitButton()
+		this:SetButtonGroup(3,1);
+		this:SetButtonGroup(4,1);
+		this:SetButtonGroup(5,1);
+    end
+    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		if nEvent == 1001 then
+			InitTab()	
+			InitButton()
+			return true		
+		end
+		return false
+	end
+	</script>
+        <controls>
+            <!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="27" backgroud="1" />
+			<item id="2" type="Tab" style="2" rect="64,474,211,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+							<datas>
+								<item>进行中研究</item>
+								<item>投票</item>
+								<item>研究员</item>
+							</datas>
+			</item>
+			           
+			
+			<!--进行中研究-->
+			<item id="100" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="27" backgroud="0"/><!--底框-->
+             <item id="101" type="ListBox" style="8" rect="30,63,656,226" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />   
+             <!--item id="102" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="28" backgroud="0"/--><!--进度条框-->
+             <!--item id="102" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="29" backgroud="0"/--><!--进度条-->
+             <!--item id="103" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="30" framenum="3"/--><!--研究-->
+             
+             <!--BALLOT-->  
+             <item id="200" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="36" backgroud="0"/><!--底框-->                   
+            <item id="201" type="ListBox" style="8" rect="30,63,656,122" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+                <item id="202" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="41" framenum="3"/>  <!--ok-->
+            <item id="203" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="44" framenum="3"/>  <!--cancle-->
+            
+            <!--researcher-->
+             <item id="300" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="40" backgroud="0"/><!--底框-->
+            <item id="301" type="ListBox" style="8" rect="30,63,656,122" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+                <item id="302" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="41" framenum="3"/>  <!--ok-->
+            <item id="303" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="44" framenum="3"/>  <!--cancle-->
+           
+            
+            <item id="10" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="47" framenum="3"/>  <!--close-->
+            <!--item id="11" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="50" framenum="3"/-->  <!--checkbox-->
+            
+            
+			 	<item id="3" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="23" framenum="3"/>  <!--进行中研究-->
+			   	
+            <item id="4" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="33" framenum="3"/>  <!--投票-->
+            
+            <item id="5" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="37" framenum="3"/>  <!--研究员-->
+        </controls>
+    </dialog>
+</gui>

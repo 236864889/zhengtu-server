@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="10000" name="GuiItemZhuanHuanDlg" style="0" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<controls>
+		 <!--背景-->
+		 <item id="0" type="Image" style="2" rect="0,0,648,431" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="583" frame="2" backgroud="1" enbaleFocus="1" />
+		<!--关闭按钮-->
+		<item id="1" type="Button" sound="10107" style="0" rect="465,22,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="3" frame="8" framenum="3"/>
+     
+        <item id="11" type="CheckBox" style="0" rect="197,85,97,21" hotkey="" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">战士武器<Tip>勾选转换后的武器类型为(刀),勾选此项,无需勾选物魔类别</Tip></item>
+        <item id="12" type="CheckBox" style="0" rect="293,85,97,21" hotkey="" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">法师武器<Tip>勾选转换后的武器类型为(仗),勾选此项,无需勾选物魔类别</Tip></item>
+        <item id="13" type="CheckBox" style="0" rect="388,85,97,21" hotkey="" group="1" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">弓手武器<Tip>勾选转换后的武器类型为(弓),勾选此项,无需勾选物魔类别</Tip></item>
+        <item id="14" type="CheckBox" style="0" rect="197,113,97,21" hotkey="" group="1" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">仙术武器<Tip>勾选转换后的武器类型为(扇),勾选此项,无需勾选物魔类别</Tip></item>
+        <item id="15" type="CheckBox" style="0" rect="293,113,97,21" hotkey="" group="1" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">召唤武器<Tip>此职业未开放,不可勾选</Tip></item>
+        <item id="16" type="CheckBox" style="0" rect="388,113,97,21" hotkey="" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">刺客武器<Tip>勾选转换后的武器类型为(刃),勾选此项,无需勾选物魔类别</Tip></item>
+        <item id="17" type="CheckBox" style="0" rect="197,139,97,21" hotkey="" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">卫士武器<Tip>勾选转换后的武器类型为(剑),勾选此项,需要勾选物魔类别</Tip></item>
+        <item id="18" type="CheckBox" style="0" rect="293,139,97,21" hotkey="" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">枪兵武器<Tip>勾选转换后的武器类型为(枪),勾选此项,需要勾选物魔类别</Tip></item>
+        
+        <item id="31" type="CheckBox" style="0" rect="197,209,97,21" hotkey="" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">物理装备<Tip>转换后的装备为XXX装备(物),召唤 卫士 枪系全系装备需要勾选此项,其职业防具首饰需要勾选此项</Tip></item>
+        <item id="32" type="CheckBox" style="0" rect="293,209,97,21" hotkey="" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0">魔法装备<Tip>转换后的装备为XXX装备(魔),召唤 卫士 枪系全系装备需要勾选此项,其职业防具首饰需要勾选此项</Tip></item>
+        
+	    <!--材料格子-->
+		<item id="80" type="Table" virtual="1" style="1" rect="317,297,42,42" cellWidth="34" cellHeight="34" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="317,297,34,34"/>
+
+        <item id="100" type="Button" style="0" rect="215,366,70,30" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,246,201,3" pack="data\interfaces6.pak" group="3" frame="1" backgroud="0" enbaleFocus="true" framenum="3" bitmapbutton="1">转换</item>
+		
+		<item id="1000" type="Static" style="0" rect="13,76,175,273" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0">1.装备转换说明：&#xA;&#xA;  转换前勾你需要转换的目标职业装备和物魔类别. &#xA;&#xA;2.职业武器物魔类别说明：&#xA;&#xA;   除 刀 杖  弓 扇 刃  不需要类别勾选,其他部位 如 副手 首饰  防具 装备都需要勾选类别选项&#xA;&#xA;3. 特别说明：&#xA;&#xA;  转换装备会继承原装备的所有属性,勾选的选项是针对转换后的装备指定,所以转换前请仔细阅读说明&#xA; &#xA;4.转换所需费用:  5锭金子/1次 </item>
+		</controls>
+	</dialog>
+</gui>

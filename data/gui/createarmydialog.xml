@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="110" name="CreateArmyDialog" style="21" caption="" rect="332,293,332,161" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="12">
+       
+        <controls>
+       
+            <item id="1" type="Static" style="0" rect="16,20,60,52" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">军队名:</item>
+            <item id="2" type="EditBox" style="0" rect="74,18,168,24" hotkey="" isdefault="1" color="255,255,255,255" maxCharCount="8" textcolor="255,255,255,255" caretcolor="255,255,255,255"/>
+             <item id="7" type="Static" style="0" rect="245,20,60,52" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">(最多可输入4个汉字)</item>
+            <item id="3" type="ComboBox" style="200" rect="75,63,172,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10" />      
+            <item id="4" type="Static" style="0" rect="15,64,60,52" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">将军名:</item>
+            <item id="5" type="Button" style="0" rect="36,94,70,29" hotkey="Enter" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+            <item id="6" type="Button" style="0" rect="156,93,70,29" hotkey="Esc" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item>
+        </controls>
+    </dialog>
+</gui>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GB2312"?>
+<gui>
+	<dialog id="73" name="GuiAutoItemDlg" caption="自动使用物品" style="0" rect="0,0,630,600" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" >
+		<controls>
+			<!--背景图-->
+			<item id="0" type="Image" style="2" rect="0,0,420,517" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="81" frame="0" backgroud="1"/>
+            <!--关闭按钮-->
+			<item id="1" type="Button" sound="10107" style="0" rect="171,7,23,23" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="81" frame="1" framenum="3"/>
+            <!--材料格子-->
+			<item id="10" type="Table" virtual="1" style="1" rect="78,49,34,34" itemrect="78,49,34,34" cellWidth="34" cellHeight="34" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"/>
+            <!--开始按钮-->
+			<item id="100" type="Button"  style="0" rect="40,99,72,26" hotkey="" bitmapbutton="1" isdefault="0" font="0" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces6.gl" group="81" frame="5" framenum="3">开始</item>
+			 <!--结束按钮-->
+			<item id="101" type="Button"  style="0" rect="100,99,72,26" hotkey="" bitmapbutton="1" isdefault="0" font="0" color="255,255,255,255" textcolor="255,231,190,0" pack="data\interfaces6.gl" group="81" frame="5" framenum="3">停止</item>
+		</controls>
+	</dialog>
+</gui>

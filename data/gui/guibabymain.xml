@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+       <dialog id="63" name="GuiBabyMain" style="10"  rect="256,166,490,440" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" >
+        <controls>
+        <!--下面是小孩的控件-->
+		<item id="2000" type="Image" style="2" rect="0,0,770,441" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="236" frame="19"/>
+	
+
+
+				<item id="310" type="Image" style="2" rect="31,91,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="-1" frame="-1" backgroud="0" />
+			
+     <!--<item id="2072" type="Button" style="0" rect="521,316,88,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="236" frame="9" bitmapbutton="1" framenum="3">带小孩在身边</item>-->
+     
+			
+     
+   
+				<item id="2022" type="MLineTextBox" style="19" rect="281,199,124,283" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"  font="1"></item>
+				
+				<item id="3000" type="Button" style="2" rect="291,440,0,0" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,240,199,0">喂养</item>
+				<item id="2999" type="Image" style="2" rect="300,345,0,0" isdefault="0" backgroud="0" pack="data\Interfaces3.gl" group="3" frame="14" color="255,255,255,255" textcolor="255,255,255,255" />
+				<item id="3001" type="Static" style="0" centre="1" rect="280,400,235,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0">需要银子：5锭 </item><!-- 工资 -->
+				<item id="3002" type="Static" style="0" centre="1" rect="280,420,235,21" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0" isHeryLink="0">升级需要：练习册</item><!-- 材料 -->
+				<item id="3003" type="Table" virtual="1" style="1" rect="307,353,42,42" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="307,353,37,37"/>
+
+		
+					
+			 <item id="2087" type="Button" style="2" rect="65,192,20,25" hotkey="" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item><!--<Tip>小孩时装</Tip>-->
+			 <item id="2088" type="Button" style="2" rect="65,237,20,25" hotkey="" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item><!--<Tip>小孩时装</Tip>-->
+			 <item id="2089" type="Button" style="2" rect="65,282,20,25" hotkey="" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item><!--<Tip>小孩时装</Tip>-->
+			 <item id="2090" type="Button" style="2" rect="185,192,20,25" hotkey="" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item><!--<Tip>小孩时装</Tip>-->
+			 <item id="2091" type="Button" style="2" rect="185,237,20,25" hotkey="" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item><!--<Tip>小孩时装</Tip>-->
+			 <item id="2092" type="Button" style="2" rect="185,282,20,25" hotkey="" pack="data\interfaces.gl" group="-1" frame="-1" bitmapbutton="1" framenum="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"></item><!--<Tip>小孩时装</Tip>-->
+			<!--<item id="8001" type="Image" style="2" rect="185,237,42,42" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="3" frame="155"/>
+		<item id="8002" type="Image" style="2" rect="185,282,42,42" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="3" frame="155"/>
+-->
+			<item id="8001" type="Image" style="2" rect="180,190,42,42" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="3" frame="155" backgroud="0" />
+			<item id="8002" type="Image" style="2" rect="180,235,42,42" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="3" frame="155" backgroud="0" />
+			<item id="8003" type="Image" style="2" rect="180,280,42,42" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="3" frame="155" backgroud="0" />
+			
+			<item id="8004" type="Image" style="2" rect="60,190,42,42" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="3" frame="155" backgroud="0" />
+			<item id="8005" type="Image" style="2" rect="60,235,42,42" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="3" frame="155" backgroud="0" />
+			<item id="8006" type="Image" style="2" rect="60,280,42,42" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="3" frame="155" backgroud="0" />
+
+			<item id="4000" type="Table" virtual="1" style="1" rect="65,192,42,42" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="65,192,37,37"/>
+			<item id="4001" type="Table" virtual="1" style="1" rect="65,237,42,42" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="65,237,37,37"/>
+			<item id="4002" type="Table" virtual="1" style="1" rect="65,282,42,42" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="65,282,37,37"/>
+			<item id="4003" type="Table" virtual="1" style="1" rect="185,192,42,42" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="185,192,37,37"/>
+			<item id="4004" type="Table" virtual="1" style="1" rect="185,237,42,42" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="185,237,37,37"/>
+			<item id="4005" type="Table" virtual="1" style="1" rect="185,282,42,42" cellWidth="42" cellHeight="42" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="185,282,37,37" />
+
+			<item id="999" type="Image" style="2" rect="-105,20,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="-1" frame="-1" backgroud="0" />
+				
+
+			
+			<item id="2242" type="Static" style="0" rect="425,170,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">名字: </item>
+            <item id="2243" type="Static" style="0" rect="470,170,100,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">小宝宝</item>
+            <item id="2244" type="Static" style="0" rect="600,170,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">性别：</item>
+            <item id="2245" type="Static" style="0" rect="640,170,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">男</item>
+            <item id="2246" type="Static" style="0" rect="425,188,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">生日： </item>
+            <item id="2247" type="Static" style="0" rect="470,188,160,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">2023年12月20日</item>
+			
+         
+			
+			<item id="2291" type="Static" style="0" rect="380,493,200,160" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">技能点数：0</item>
+			
+            <item id="2258" type="Static" style="0" rect="425,332,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">技能： </item>
+			
+			<item id="101" type="Button" style="2" rect="425,360,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="1" frame="3452" bitmapbutton="1" framenum="1"/>
+			<item id="102" type="Button" style="2" rect="495,360,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="1" frame="3455" bitmapbutton="1" framenum="1"/>
+			<item id="103" type="Button" style="2" rect="565,360,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="1" frame="3458" bitmapbutton="1" framenum="1"/>
+			<item id="104" type="Button" style="2" rect="635,360,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="1" frame="3461" bitmapbutton="1" framenum="1"/>
+			<item id="105" type="Button" style="2" rect="705,360,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\icons.gl" group="1" frame="3537" bitmapbutton="1" framenum="1"/>
+			
+			
+			<item id="301" type="Static" style="0" rect="435,410,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">0级</item>
+			<item id="302" type="Static" style="0" rect="505,410,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">0级</item>
+			<item id="303" type="Static" style="0" rect="575,410,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">0级</item>
+			<item id="304" type="Static" style="0" rect="645,410,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">0级</item>
+			<item id="305" type="Static" style="0" rect="715,410,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">0级</item>
+			
+			<item id="201" type="Button" style="2" rect="415,430,0,0" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,240,199,0">升级</item>
+			<item id="202" type="Button" style="2" rect="485,430,0,0" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,240,199,0">升级</item>
+			<item id="203" type="Button" style="2" rect="555,430,0,0" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,240,199,0">升级</item>
+			<item id="204" type="Button" style="2" rect="625,430,0,0" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,240,199,0">升级</item>
+			<item id="205" type="Button" style="2" rect="695,430,0,0" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,240,199,0">升级</item>
+			
+            <item id="2260" type="Static" style="0" rect="105,187,80,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">  小宝宝<Tip>小孩名字</Tip></item>
+           
+			<!--1000-1099位置在小孩动画下方  -->	
+			<item id="1000" type="Static" style="0" rect="55,350,100,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0"> 当前等级:1</item>
+			<item id="1001" type="Static" style="0" rect="133,350,150,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0"></item>
+			<item id="1002" type="Static" style="0" rect="55,385,300,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0"> 经验:0/2000</item>
+			<item id="1003" type="Static" style="0" rect="133,385,300,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0"></item>
+			<item id="1004" type="Process" style="0" rect="65,370,165,13" min="0"  max="50" pos="0" isdefault="0"  textcolor="255,255,0,0" pack="data\interfaces.gl" group="236" frame="16" />		
+			<item id="1005" type="Process" style="0" rect="65,405,165,13" min="0"  max="2000" pos="0" isdefault="0"  textcolor="255,255,0,0" pack="data\interfaces.gl" group="236" frame="16" />
+			<item id="1006" type="Button" style="2" rect="4444,4444,0,0" hotkey="" isdefault="0"  color="255,255,255,255" textcolor="255,240,199,0">孩子跟随</item>
+			<item id="1007" type="Static" style="0" rect="50,350,180,75" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0"><Tip>带孩子去上课、儿童乐园以及完成周游列国时会获得经验，这些经验会存储在经验池中，点击提取经验按钮可将其中的经验提取到升级经验中，每次提取经验需要家庭作业1本。注意：经验池中的经验是无法保留到24点之后的哦。</Tip></item>
+			<!--1100-1199位置在小孩基础信息tab页  -->
+			
+         
+            <item id="1120" type="Static" style="0" rect="425,206,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">力量: </item>
+            <item id="1121" type="Static" style="0" rect="470,206,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">100</item>
+            <item id="1122" type="Static" style="0" rect="515,206,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0"></item>
+            <item id="1123" type="Static" style="0" rect="570,206,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">物攻:</item>
+            <item id="1124" type="Static" style="0" rect="610,206,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0">100</item>
+            
+			<item id="1125" type="Static" style="0" rect="425,224,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">智力:</item>
+            <item id="1126" type="Static" style="0" rect="470,224,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">100</item>
+            <item id="1127" type="Static" style="0" rect="515,224,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0"></item>
+            <item id="1128" type="Static" style="0" rect="570,224,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">魔攻:</item>
+            <item id="1129" type="Static" style="0" rect="610,224,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0">100</item>
+            
+            <item id="1130" type="Static" style="0" rect="425,242,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">敏捷: </item>
+            <item id="1131" type="Static" style="0" rect="470,242,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">100</item>
+            <item id="1132" type="Static" style="0" rect="515,242,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0"></item>
+            <item id="1133" type="Static" style="0" rect="570,242,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">物防:</item>
+            <item id="1134" type="Static" style="0" rect="610,242,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0">100</item>
+            
+			<item id="1135" type="Static" style="0" rect="425,260,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">精神:</item>			
+            <item id="1136" type="Static" style="0" rect="470,260,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">100</item>
+            <item id="1137" type="Static" style="0" rect="515,260,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0"></item>
+            <item id="1138" type="Static" style="0" rect="570,260,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">魔防:</item>
+            <item id="1139" type="Static" style="0" rect="610,260,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0">200</item>
+            
+            <item id="1140" type="Static" style="0" rect="425,278,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">体质: </item>            
+            <item id="1141" type="Static" style="0" rect="470,278,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">200</item>
+            <item id="1142" type="Static" style="0" rect="515,278,110,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0"></item>
+            <item id="1143" type="Static" style="0" rect="570,278,70,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,196,0">生命:</item>
+            <item id="1144" type="Static" style="0" rect="610,278,180,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,196,0">10000</item>
+				
+		
+            <item id="1160" type="Static" style="0" rect="425,296,348,40" isdefault="0" textcolor="255,222,225,14">孩子的攻、防、血量将来可以永久性增加到父亲或母亲身上。</item>
+            
+			<item id="2293" type="Button" style="2" rect="680,123,0,0" isdefault="0" textcolor="255,255,196,0"  hotkey=""><Tip>点击弹出孩子图文帮助页面</Tip>图文帮助</item>
+           </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

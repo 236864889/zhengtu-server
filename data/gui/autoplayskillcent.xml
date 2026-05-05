@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="955" name="CartoonAddCent" style="1" caption="自动释放技能充值" rect="253,211,368,242" colortopleft="200,98,300,200" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" showsoundindex="10111">
+        <!--#define EVENT_BUTTON_CLICKED100
+#define EVENT_COMBOBOX_SELECTION_CHANGED200
+#define EVENT_RADIOBUTTON_CHANGED   300
+#define EVENT_CHECKBOX_CHANGED  400
+#define EVENT_SLIDER_VALUE_CHANGED  500
+#define EVENT_EDITBOX_STRING600
+#define EVENT_EDITBOX_CHANGE700
+#define EVENT_LISTBOX_ITEM_DBLCLK   800
+#define EVENT_LISTBOX_SELECTION 900
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001
+#define EVENT_TAB_SELECTION_CHANGED			2000-->
+    <script>    
+    function OnGuiEvent(nEvent,nID,pControl) 
+		return false
+	end
+	</script>
+        <controls>  
+        <item id="1" type="Static" style="0" rect="30,30,330,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">每12两银子换取1小时自动释放技能时间</item>
+        <item id="2" type="Static" style="0" rect="30,60,70,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">您将支付</item>
+        <item id="3" type="Static" style="0" rect="30,90,250,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">自动释放技能时间</item>
+        <item id="4" type="Static" style="0" rect="30,120,70,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">剩余银子</item>
+        <item id="5" type="Button" style="0" rect="40,160,51,30" hotkey="Enter" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">确定</item>
+        <item id="6" type="Button" style="0" rect="230,160,51,30" hotkey="Esc" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item>
+        <!--item id="7" type="Static" style="0" rect="230,60,70,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">金子</item-->
+        <item id="9" type="Static" style="0" rect="170,90,250,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">0</item>
+        <item id="10" type="Static" style="0" rect="100,120,200,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255">0</item>
+        <item id="11" type="EditBox" style="2" rect="95,56,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="480" caretcolor="255,255,255,255" />
+        <item id="12" type="EditBox" style="2" rect="166,58,50,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+        <item id="14" type="Static" style="0" rect="145,60,30,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">锭</item>
+        <item id="15" type="Static" style="0" rect="217,60,30,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0">两</item>
+        </controls>
+    </dialog>
+</gui>

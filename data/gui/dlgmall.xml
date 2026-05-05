@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="73" name="DlgMall" style="0" rect="50,100,612,520" colortopleft="200,50,50,50" colortopright="200,50,50,50" colorbottomleft="200,50,50,50" colorbottomright="200,50,50,50" align="0" caption="商城"> 
+	<controls>
+				<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\MallUI.gl" group="0" frame="0" backgroud="1" />   
+				<item id="256" type="Static" style="0" rect="435,112,300,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0">商品限购区</item>
+				<!-- <item id="256" type="Static" style="0" rect="400,80,500,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0">充值添加微信领取微信礼包，GM微信：Y11205201</item> -->
+<!--关闭页面--><item id="1" type="Button" style="0" rect="885,27,0,0" isdefault="0" pack="data\Interfaces1.gl" group="8" frame="8" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--快速充值--><item id="2" type="Button" style="0" rect="100,108,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="330" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--上一页--><item id="3" type="Button" style="0" rect="232,128,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="7" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--下一页--><item id="4" type="Button" style="0" rect="212,128,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="10" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--引导页面--><item id="5" type="ListBox" style="a" rect="100,110,135,175" hotkey="" isdefault="0" color="255,204,165,10" textcolor="255,204,165,10" font="2" visible="0"/>
+<!--翻页--><item id="6" type="Static" style="0" rect="697,570,50,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,255" />
+<!--剩余点数--><item id="7" type="Static" style="0" rect="220,560,238,25" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+
+<!--类别左滑按钮-->
+<item id="98" type="Button" style="0" rect="50,70,30,40" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\Interfaces3.gl" group="14" frame="404" bitmapbutton="1" framenum="3" font="1"></item>
+<!--类别右滑按钮-->
+<item id="99" type="Button" style="0" rect="862,70,30,40" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\Interfaces3.gl" group="14" frame="401" bitmapbutton="1" framenum="3" font="1"></item>
+
+<!--类别按钮一行排列-->
+<!--商品限购区-->
+<item id="101" type="Button" style="0" rect="75,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">商品限购</item>
+<!--热卖商品区-->
+<item id="102" type="Button" style="0" rect="205,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">热卖商品</item>
+<!--便利道具区-->
+<item id="103" type="Button" style="0" rect="335,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">便利道具</item>
+<!--坐骑系列区-->
+<item id="104" type="Button" style="0" rect="465,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">坐骑系列</item>
+<!--精品材料区-->
+<item id="105" type="Button" style="0" rect="595,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">精品材料</item>
+<!--其他商品区-->
+<item id="106" type="Button" style="0" rect="725,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">其他商品</item>
+<!--VIP专区-->
+<item id="107" type="Button" style="0" rect="855,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">VIP专区</item>
+<!--时装专区-->
+<item id="108" type="Button" style="0" rect="985,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">时装专区</item>
+<!--武器专区-->
+<item id="109" type="Button" style="0" rect="1115,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">武器专区</item>
+<!--宠物专区-->
+<item id="110" type="Button" style="0" rect="1245,66,85,40" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" pack="data\MallUI.gl" group="0" frame="33" framenum="3" font="1">宠物专区</item>
+
+<!--商品区域开始-->
+<!--第一排1--> 			
+<!--商品框--><item id="11" type="Image" style="2" rect="88,135,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="17"/><!--限购1个新框-->
+<!--商品名--><item id="12" type="Static" style="0" rect="158,143,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="13" type="Table" virtual="1" style="1" rect="112,172,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="112,172,35,35"/>
+<!--购买商--><item id="14" type="Button" style="0" rect="270,181,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="15" type="Static" style="0" rect="203,162,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="200" type="Static" style="0" rect="158,162,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="201" type="Static" style="0" rect="158,179,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限购：3次</item>
+<!--购买价--><item id="202" type="Static" style="0" rect="158,196,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,255" font="0" visible="0">推荐购买：每日必买</item>
+<!--第一排2--> 
+<!--商品框--><item id="16" type="Image" style="2" rect="88,210,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="17"/>
+<!--商品名--><item id="17" type="Static" style="0" rect="158,218,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="18" type="Table" virtual="1" style="1" rect="112,247,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="112,247,35,35"/>
+<!--购买商--><item id="19" type="Button" style="0" rect="270,256,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="20" type="Static" style="0" rect="203,237,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="203" type="Static" style="0" rect="158,237,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="204" type="Static" style="0" rect="158,254,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限量：1次</item>
+<!--购买价--><item id="205" type="Static" style="0" rect="158,271,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,255" font="0" visible="0">推荐购买：土豪必买</item>
+<!--第一排3--> 
+<!--商品框--><item id="21" type="Image" style="2" rect="88,285,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="17"/>
+<!--商品名--><item id="22" type="Static" style="0" rect="158,293,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="23" type="Table" virtual="1" style="1" rect="112,322,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="112,322,35,35"/>
+<!--购买商--><item id="24" type="Button" style="0" rect="270,331,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="25" type="Static" style="0" rect="203,312,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="206" type="Static" style="0" rect="158,312,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="207" type="Static" style="0" rect="158,329,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限购：不限制</item>
+<!--购买价--><item id="208" type="Static" style="0" rect="158,346,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,255" font="0" visible="0">推荐购买：1次</item>
+<!--第一排4--> 
+<!--商品框--><item id="26" type="Image" style="2" rect="88,360,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="17"/>
+<!--商品名--><item id="27" type="Static" style="0" rect="158,368,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="28" type="Table" virtual="1" style="1" rect="112,397,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="112,397,35,35"/>
+<!--购买商--><item id="29" type="Button" style="0" rect="270,406,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="30" type="Static" style="0" rect="203,387,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="209" type="Static" style="0" rect="158,387,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="210" type="Static" style="0" rect="158,404,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限购：1次</item>
+<!--购买价--><item id="211" type="Static" style="0" rect="158,421,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,255" font="0" visible="0">建议购买：1次</item>
+<!--第一排5-->
+<!--商品框--><item id="31" type="Image" style="2" rect="88,435,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="17"/>
+<!--商品名--><item id="32" type="Static" style="0" rect="158,443,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="33" type="Table" virtual="1" style="1" rect="112,472,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="112,472,35,35"/>
+<!--购买商--><item id="34" type="Button" style="0" rect="270,481,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="35" type="Static" style="0" rect="203,462,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="212" type="Static" style="0" rect="158,462,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="213" type="Static" style="0" rect="158,479,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限购：1次</item>
+<!--购买价--><item id="214" type="Static" style="0" rect="158,496,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,255" font="0" visible="0">建议购买：1次</item>
+<!--第二排1-->
+<!--商品框--><item id="36" type="Image" style="2" rect="340,135,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="37" type="Static" style="0" rect="410,143,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="38" type="Table" virtual="1" style="1" rect="364,172,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="364,172,35,35"/>
+<!--购买商--><item id="39" type="Button" style="0" rect="522,181,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="40" type="Static" style="0" rect="455,162,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="215" type="Static" style="0" rect="410,162,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="216" type="Static" style="0" rect="410,179,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限量：1次</item>
+<!--购买价--><item id="217" type="Static" style="0" rect="410,196,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">建议购买：1次</item>
+<!--第二排2-->
+<!--商品框--><item id="41" type="Image" style="2" rect="340,210,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="42" type="Static" style="0" rect="410,218,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="43" type="Table" virtual="1" style="1" rect="364,247,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="364,247,35,35"/>
+<!--购买商--><item id="44" type="Button" style="0" rect="522,256,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="45" type="Static" style="0" rect="455,237,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="218" type="Static" style="0" rect="410,237,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="219" type="Static" style="0" rect="410,254,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限购：1次</item>
+<!--购买价--><item id="220" type="Static" style="0" rect="410,271,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">建议购买：1次</item>
+<!--第二排3-->
+<!--商品框--><item id="46" type="Image" style="2" rect="340,285,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="47" type="Static" style="0" rect="410,293,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="48" type="Table" virtual="1" style="1" rect="364,322,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="364,322,35,35"/>
+<!--购买商--><item id="49" type="Button" style="0" rect="522,331,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="50" type="Static" style="0" rect="455,312,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="221" type="Static" style="0" rect="410,312,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="222" type="Static" style="0" rect="410,329,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限购：1次</item>
+<!--购买价--><item id="223" type="Static" style="0" rect="410,346,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">推荐购买：1次</item>
+<!--第二排4-->
+<!--商品框--><item id="51" type="Image" style="2" rect="340,360,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="52" type="Static" style="0" rect="410,368,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="53" type="Table" virtual="1" style="1" rect="364,397,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="364,397,35,35"/>
+<!--购买商--><item id="54" type="Button" style="0" rect="522,406,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="55" type="Static" style="0" rect="455,387,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="224" type="Static" style="0" rect="410,387,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="225" type="Static" style="0" rect="410,404,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限购：1次</item>
+<!--购买价--><item id="226" type="Static" style="0" rect="410,421,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">建议购买：1次</item>
+<!--第二排5-->		
+<!--商品框--><item id="56" type="Image" style="2" rect="340,435,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="57" type="Static" style="0" rect="410,443,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="58" type="Table" virtual="1" style="1" rect="364,472,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="364,472,35,35"/>
+<!--购买商--><item id="59" type="Button" style="0" rect="522,481,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="60" type="Static" style="0" rect="455,462,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="227" type="Static" style="0" rect="410,462,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="228" type="Static" style="0" rect="410,479,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限量：1次</item>
+<!--购买价--><item id="229" type="Static" style="0" rect="410,496,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">推荐购买：1次</item>
+<!--第三排1-->
+<!--商品框--><item id="61" type="Image" style="2" rect="592,135,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="62" type="Static" style="0" rect="662,143,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="63" type="Table" virtual="1" style="1" rect="616,172,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="616,172,35,35"/>
+<!--购买商--><item id="64" type="Button" style="0" rect="774,181,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="65" type="Static" style="0" rect="707,162,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="230" type="Static" style="0" rect="662,162,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="231" type="Static" style="0" rect="662,179,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限量：1次</item>
+<!--购买价--><item id="232" type="Static" style="0" rect="662,196,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">推荐购买：1次</item>
+<!--第三排2-->
+<!--商品框--><item id="66" type="Image" style="2" rect="592,210,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="67" type="Static" style="0" rect="662,218,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="68" type="Table" virtual="1" style="1" rect="616,247,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="616,247,35,35"/>
+<!--购买商--><item id="69" type="Button" style="0" rect="774,256,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="70" type="Static" style="0" rect="707,237,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="233" type="Static" style="0" rect="662,237,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="234" type="Static" style="0" rect="662,254,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限量：1次</item>
+<!--购买价--><item id="235" type="Static" style="0" rect="662,271,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">推荐购买：1次</item>
+<!--第三排3-->
+<!--商品框--><item id="71" type="Image" style="2" rect="592,285,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="72" type="Static" style="0" rect="662,293,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="73" type="Table" virtual="1" style="1" rect="616,322,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="616,322,35,35"/>
+<!--购买商--><item id="74" type="Button" style="0" rect="774,331,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="75" type="Static" style="0" rect="707,312,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="236" type="Static" style="0" rect="662,312,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="237" type="Static" style="0" rect="662,329,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限量：1次</item>
+<!--购买价--><item id="238" type="Static" style="0" rect="662,346,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">推荐购买：1次</item>
+<!--第三排4-->
+<!--商品框--><item id="76" type="Image" style="2" rect="592,360,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="77" type="Static" style="0" rect="662,368,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="78" type="Table" virtual="1" style="1" rect="616,397,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="616,397,35,35"/>
+<!--购买商--><item id="79" type="Button" style="0" rect="774,406,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="80" type="Static" style="0" rect="707,387,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="239" type="Static" style="0" rect="662,387,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="240" type="Static" style="0" rect="662,404,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限量：1次</item>
+<!--购买价--><item id="241" type="Static" style="0" rect="662,421,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">推荐购买：1次</item>
+<!--第三排5-->
+<!--商品框--><item id="81" type="Image" style="2" rect="592,435,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\MallUI.gl" group="0" frame="25"/>
+<!--商品名--><item id="82" type="Static" style="0" rect="662,443,140,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,112" font="0"/>
+<!--商品格--><item id="83" type="Table" virtual="1" style="1" rect="616,472,35,35" cellWidth="35" cellHeight="35" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="616,472,35,35"/>
+<!--购买商--><item id="84" type="Button" style="0" rect="774,481,0,0" isdefault="0" pack="data\MallUI.gl" group="0" frame="13" bitmapbutton="1" framenum="3" hotkey=""/>
+<!--购买价--><item id="85" type="Static" style="0" rect="707,462,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0"/>
+<!--购买价--><item id="242" type="Static" style="0" rect="662,462,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,0" font="0" visible="0">折扣价：</item>
+<!--购买价--><item id="243" type="Static" style="0" rect="662,479,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,0,255,255" font="0" visible="0">每日限量：1次</item>
+<!--购买价--><item id="244" type="Static" style="0" rect="662,496,110,17" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="0" visible="0">推荐购买：1次</item>
+	</controls>
+    </dialog>
+</gui>

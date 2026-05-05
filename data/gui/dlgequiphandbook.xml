@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="15" name="UserInfoDialog" showsoundindex="10103" style="0" rect="135,36,512,613" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" caption="">
+		<controls>
+			<!--背景图
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.gl" group="374" frame="61" backgroud="1"/>
+-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="-1" frame="-1"/>
+			<!--关闭按钮-->
+			<item id="10" type="Button" style="0" rect="750,25,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces2.pak" group="374" frame="77" framenum="3" bitmapbutton="1"/>
+			<item id="101" type="Image" style="2" rect="143,88,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="1225"/>
+			<item id="102" type="Image" style="2" rect="269,88,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="1228"/>
+			<item id="103" type="Image" style="2" rect="394,88,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="1231"/>
+			<item id="104" type="Image" style="2" rect="519,88,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="1234"/>
+			<item id="105" type="Image" style="2" rect="645,88,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="1237"/>
+			<item id="106" type="Image" style="2" rect="143,233,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="1240"/>
+			<item id="107" type="Image" style="2" rect="269,233,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="1243"/>
+			<item id="108" type="Image" style="2" rect="394,233,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="905"/>
+			<item id="109" type="Image" style="2" rect="519,235,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="1774"/>
+			<item id="110" type="Image" style="2" rect="645,233,91,132" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces2.gl" group="374" frame="912"/>
+			<!--上面是百兽图鉴的灰框-->
+			<item id="151" type="Image" style="2" rect="382,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="152" type="Image" style="2" rect="420,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="153" type="Image" style="2" rect="458,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="154" type="Image" style="2" rect="496,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="155" type="Image" style="2" rect="534,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="156" type="Image" style="2" rect="572,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="157" type="Image" style="2" rect="610,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="158" type="Image" style="2" rect="648,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="159" type="Image" style="2" rect="686,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<item id="160" type="Image" style="2" rect="724,452,33,33" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces.gl" group="3" frame="155"/>
+			<!--上面是图鉴装备框框-->
+			<item id="7" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1"/>
+	
+			<item id="25" type="Static" style="0" rect="140,420,160,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">进阶物攻：</item>
+			<item id="26" type="Static" style="0" rect="250,420,160,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">进阶魔攻：</item>
+			<item id="27" type="Static" style="0" rect="140,450,160,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">进阶物防：</item>
+			<item id="28" type="Static" style="0" rect="250,450,160,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">进阶魔防：</item>
+			<item id="29" type="Static" style="0" rect="140,480,160,20" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255">进阶生命：</item>
+	
+			<item id="30" type="Static" style="0" rect="386,412,366,93" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,0,255,0">世界等级越高，获得的能力值越多。黄字为该卡牌拥有的最大能力值，绿字为实际获得的能力值</item>
+	
+			<!-- 下面是百兽图鉴的装备位置-->
+			<item id="1301" type="Table" rect="384,454,33,33" virtual="1" style="0" itemrect="384,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴1</item>
+			<item id="1302" type="Table" rect="422,454,33,33" virtual="1" style="0" itemrect="422,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴2</item>
+			<item id="1303" type="Table" rect="460,454,33,33" virtual="1" style="0" itemrect="460,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴3</item>
+			<item id="1304" type="Table" rect="498,454,33,33" virtual="1" style="0" itemrect="498,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴4</item>
+			<item id="1305" type="Table" rect="536,454,33,33" virtual="1" style="0" itemrect="536,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴5</item>
+			<item id="1306" type="Table" rect="574,454,33,33" virtual="1" style="0" itemrect="574,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴6</item>
+			<item id="1307" type="Table" rect="612,454,33,33" virtual="1" style="0" itemrect="612,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴7</item>
+			<item id="1308" type="Table" rect="650,454,33,33" virtual="1" style="0" itemrect="650,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴8</item>
+			<item id="1309" type="Table" rect="688,454,33,33" virtual="1" style="0" itemrect="688,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴9</item>
+			<item id="1310" type="Table" rect="726,454,33,33" virtual="1" style="0" itemrect="726,454,33,33" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0">图鉴10</item>
+			<!--百兽图鉴按钮-->
+			<item id="5" type="Button" sound="10107" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces2.gl" group="374" frame="66" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+           <!--百兽图鉴强化按钮-->
+			<item id="888" type="Button" sound="10107" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces2.gl" group="374" frame="85" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+
+		</controls>
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+	</dialog>
+</gui>

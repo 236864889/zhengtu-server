@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="1000" name="exitgame" style="5" caption="" rect="565,373,205,300" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="10">
+        <controls>
+        	 <item id="2" type="Button" sound="10107" style="0" rect="-601,-17,70,29" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="58" frame="323" framenum="3"/> 		<!--关闭-->		<!--关闭-->	            
+            <item id="3" type="Button" style="2" rect= "44,15,220,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,200,0">角色选择</item>
+            <item id="4" type="Button" style="2" rect= "44,57,120,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,200,0">登出帐号</item>
+            <item id="5" type="Button" style="2" rect= "44,99,120,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,200,0">游戏大区</item>
+            <item id="6" type="Button" style="2" rect="44,141,120,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,200,0">关闭游戏</item>
+            <item id="7" type="Button" style="2" rect="44,183,120,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,200,0">小游戏大厅</item>
+	    <item id="8" type="Button" style="2" rect="44,225,120,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,200,0">游戏帮助</item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>

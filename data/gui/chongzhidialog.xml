@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<gui>
+    <dialog id="219" name="HomePetDialog" style="0" simplestyle="0" caption="" rect="5,85,413,501" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0" bCenter="0" showsoundindex="0" hidesoundindex="0">
+        <controls>
+            
+			<item id="0" type="Image" style="2" rect="0,0,413,501" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces5.pak" group="0" frame="1" backgroud="1" />
+            <item id="3" type="Button" style="0" rect="-140,-1,70,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="58" frame="323" framenum="3" bitmapbutton="1"></item>
+            
+          </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

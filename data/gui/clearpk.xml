@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    
+    
+<dialog id="111" name="ClearPkDialog" icon = "10" style="14" caption="洗红名" rect="10,80,350,440" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+            <item id="1" type="ListBox" style="0" rect="-47,70,305,235" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+            <item id="3" type="Static" style="0" rect="-17,0,260,50" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">御史大夫有权为本国玩家消除红名状态，但该国民必须付出足够数量的软皮料作为代价</item>
+            <item id="2" type="Static" style="0" rect="-31,55,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0">附近国民（红名）</item>
+            <item id="4" type="Button" style="0" rect="-13,311,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="49" frame="1" framenum="3">确定</item>
+            <item id="5" type="Button" style="0" rect="145,310,70,29" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="49" frame="4" framenum="3">取消</item>
+        		<item id="6" type="Static" style="0" rect="120,55,150,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">所需软皮料</item>
+        </controls>
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+    </dialog>
+</gui>
+

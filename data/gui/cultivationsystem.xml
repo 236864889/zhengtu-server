@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="69" name="CultivationSystem" style="0" caption="" rect="111,118,802,532" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+		<controls>
+			<!--背景-->
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="401" frame="0" backgroud="1"/>
+			<!--关闭按钮-->
+			<item id="1" type="Button" sound="10107" style="0" rect="805,30,42,42" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.gl" group="65" frame="33" framenum="3"/>
+			<!--人物纸娃娃男-->
+			<item id="11" type="Image" style="2" rect="105,120,300,300" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="401" frame="1" backgroud="0" enbaleFocus="true"/>
+			<!--人物纸娃娃女-->
+			<item id="12" type="Image" style="2" rect="105,120,300,300" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="401" frame="2" backgroud="0" enbaleFocus="true"/>
+			<!--材料格子-->
+			<item id="21" type="Table" virtual="1" style="1" rect="515,327,43,43" cellWidth="34" cellHeight="34" rowCount="1" showRowCount="1" colCount="1" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" itemrect="515,327,34,34"/>
+			<!--材料说明文字-->
+			<item id="22" type="Static" style="0" rect="562,318,200,15" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" isHeryLink="0" mouseOverColor="255,255,255,255" mouseDownColor="255,255,255,255" enbaleFocus="false" textEffect="1"/>
+			<!--进度条背景-->
+			<item id="29" type="Image" style="2" rect="88,88,180,20" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces6.gl" group="401" frame="8"/>
+			<item id="30" type="Process" style="0" rect="91,90,-1,-1" hotkey="" isdefault="1" font="0" color="255,255,255,255" textcolor="255,255,255,255" min="0" max="10000" pos="0" pack="data\interfaces6.gl" group="401" frame="7"/>
+		
+            <!--天赋技能Icon-->
+			<item id="51" type="Button" style="0" rect="493,201,29,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="401" frame="11" framenum="1" bitmapbutton="1"></item>
+			<item id="52" type="Button" style="0" rect="493,241,29,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="401" frame="13" framenum="1" bitmapbutton="1"></item>
+			<item id="53" type="Button" style="0" rect="649,201,29,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="401" frame="15" framenum="1" bitmapbutton="1"></item>
+			<!--提升按钮-->
+			<item id="201" type="Button" style="0" rect="582,350,82,28" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,0,0,0" pack="data\interfaces6.pak" group="401" frame="3" framenum="3" bitmapbutton="1">修炼提升</item>
+			<item id="202" type="Button" style="0" rect="524,224,82,28" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="401" frame="31" framenum="3" bitmapbutton="1">提升</item>
+			<item id="203" type="Button" style="0" rect="524,264,82,28" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="401" frame="31" framenum="3" bitmapbutton="1">提升</item>
+			<item id="204" type="Button" style="0" rect="681,224,82,28" hotkey="" isdefault="0" font="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces6.pak" group="401" frame="31" framenum="3" bitmapbutton="1">提升</item>
+			<item id="888" type="CheckBox" style="0" rect="585,289,72,21" hotkey="" isdefault="0"  font="1" color="255,255,255,255" textcolor="255,0,255,0"  >自动<Tip>勾选后可自动修炼提升</Tip></item>
+		</controls>
+	</dialog>
+</gui>

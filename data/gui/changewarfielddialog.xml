@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="81" name="ChangeCountryDialog" style="14" caption="" rect="-23,-18,550,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <controls>
+        	  <item id="0" type="Image" style="0" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="53" frame="1" backgroud="1"/>
+             <item id="1" type="Static" style="10" rect="188,206,120,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,0,0">1</item>              
+            <item id="2" type="ListBox" style="c" rect="52,302,332,188" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+						
+        		<item id="10" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="53" frame="2" framenum="3"/>  
+						<item id="11" type="Button" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="53" frame="5" framenum="3"/>  
+
+ 
+			   </controls>
+        <script>
+function OnGuiEvent(nEvent,nID,pControl)
+end
+</script>
+    </dialog>
+</gui>

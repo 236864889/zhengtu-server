@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+    <dialog id="88" name="LordStrikeGameBk" style="0" caption="" rect="5,150,464,500" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+    <controls>
+  
+    <item id="0" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="133" frame="23"/>
+	
+	<!--关闭-->
+		<item id="1" type="Button" style="0" showsoundindex="91001" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="132" frame="5" bitmapbutton="1" framenum="3" hotkey="Esc" color="255,255,255,255" textcolor="255,255,255,255"/>
+	
+	 
+	<item id="2" type="ScrollBar" style="10" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="26" frame="3"/>
+	 
+	
+<item id="8" type="ListBox" style="18" rect="766,247,230,200" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+<item id="9" type="MLineTextBox" style="2A9" lineHeight="20" rect="766,481,239,230" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey=""/>
+    
+		
+		
+ <item id="10" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="132" frame="50" bitmapbutton="1" framenum="3" hotkey="">
+			<Tip>表情</Tip>
+</item>
+<item id="11" type="EditBox" style="28" rect="767,716,100,25" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="64" caretcolor="255,255,255,255"/>
+			
+
+<item id="12" type="Button" style="0" showsoundindex="91001" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="132" frame="34" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+	 
+   
+  <item id="14" type="Button" style="0" showsoundindex="91001" rect="884,717,0,0" isdefault="0" pack="data\interfaces.gl" group="133" frame="20" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+	 
+
+			
+ 				
+  <item id="15" type="Static" style="0" rect="835,76,150,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+  <item id="16" type="Static" style="0" rect="835,96,100,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+  <item id="17" type="Static" style="0" rect="835,114,100,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+  <item id="18" type="Static" style="0" rect="835,134,100,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+  <item id="19" type="Static" style="0" rect="835,154,100,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+  <item id="20" type="Static" style="0" rect="835,174,100,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+  <item id="21" type="Static" style="0" rect="835,194,100,20" textcolor="255,0,255,0" hotkey="" isdefault="0" color="255,255,255,255"></item>
+  	  
+  	  
+  	   <!--最小化-->
+    <item id="31" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="132" frame="56" bitmapbutton="18" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+    
+     	
+  	   	  	 <!--帮助-->
+    <item id="32" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="133" frame="10" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+  	   	
+  	   	 <!--设置-->
+    <item id="33" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="133" frame="13" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+    
+     <!--逃跑-->
+    <item id="34" type="Button" style="0" rect="0,0,0,0" showsoundindex="91001" isdefault="0" pack="data\interfaces.gl" group="133" frame="16" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"/>
+    
+      
+	</controls>
+ <script>
+	function OnGuiEvent(nEvent,nID,pControl)
+    end
+</script>
+    </dialog>
+</gui>

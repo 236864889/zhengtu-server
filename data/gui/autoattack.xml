@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!-- 自动挂机界面         time:100515        name:star -->
+
+<gui>
+    <dialog id="53" name="AutoAttack" style="10" caption="自动挂机" rect="160,50,675,604" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+        <script>function OnGuiEvent(nEvent,nID,pControl) 
+			return false
+			end
+		</script>
+        <controls>
+
+            <item id="200" type="Button" style="0" rect="0,-10,18,18" isdefault="0" pack="data\Interfaces1.gl" group="4" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="201" type="Button" style="0" rect="0,-10,18,18" isdefault="0" pack="data\Interfaces1.gl" group="4" frame="6" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="202" type="Button" style="0" rect="0,-5,18,18" isdefault="0" pack="data\Interfaces1.gl" group="4" frame="50" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="0" type="Image" style="2" rect="0,0,675,604" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\Interfaces1.gl" group="4" frame="0" backgroud="1" />
+
+            <!-- 开启挂机 -->
+            <item id="1" type="Button" style="0" rect="39,62,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="101" type="Static" style="0" rect="60,63,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,250,8,25">开启挂机</item>
+
+            <!-- 自动打怪 -->
+            <item id="2" type="Button" style="0" rect="130,62,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="102" type="Static" style="0" rect="149,63,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">自动打怪</item>
+
+            <!-- 定点打怪 -->
+            <item id="3" type="Button" style="0" rect="219,62,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="103" type="Static" style="0" rect="240,63,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">定点打怪</item>
+
+            <!-- 范围打怪 -->
+            <item id="4" type="Button" style="0" rect="311,62,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="104" type="Static" style="0" rect="332,63,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">范围打怪</item>
+
+           <item id="105" type="Static" style="0" rect="402,63,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">范围原点:</item>
+
+            <!-- 范围X -->
+	    <item id="50" type="Image" style="2" rect="470,60,29,13" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="4" frame="104"/>
+
+            <item id="5" type="EditBox" style="a" rect="472,65,29,13" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />
+            <!-- 范围Y -->
+	    <item id="51" type="Image" style="2" rect="500,60,29,13" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="4" frame="104"/>
+
+            <item id="6" type="EditBox" style="a" rect="502,65,29,13" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />
+            <!-- 范围半径 -->
+
+
+           <item id="106" type="Static" style="0" rect="530,63,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">范围半径:</item>
+
+	    <item id="52" type="Image" style="2" rect="598,60,29,13" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="4" frame="104"/>
+
+            <item id="7" type="EditBox" style="a" rect="600,65,29,13" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />
+            
+            <!-- 自动放技--> 
+            <item id="8" type="Button" style="0" rect="30,99,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item> 
+
+           <item id="107" type="Static" style="0" rect="50,100,160,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">自动施放技能</item>
+
+           <item id="108" type="Static" style="0" rect="31,120,160,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">技能列表设置:</item>
+
+            <!-- 选择技能 选择长度-->
+	    <item id="12" type="ComboBox" style="0" rect="30,143,130,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+
+            <!-- 技能显示 上下进度条 -->
+            <item id="14" type="ListBox" style="8" rect="36,162,165,60" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" /> 
+
+            <!-- 技能++ --> 
+            <item id="17" type="Button" style="0" rect="159,143,18,18" isdefault="0" pack="data\Interfaces.gl" group="0" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item> 
+            <!-- 技能"--" -->
+            <item id="18" type="Button" style="0" rect="181,143,18,18" isdefault="0" pack="data\Interfaces.gl" group="0" frame="24" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+
+            <!-- 自动组队-->
+            <item id="9" type="Button" style="0" rect="219,99,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="109" type="Static" style="0" rect="240,100,160,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">自动组队</item>
+
+            <item id="110" type="Static" style="0" rect="219,120,160,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">队员列表设置:</item>
+
+
+	    <!-- 选择队友 选择长度-->
+	    <item id="13" type="ComboBox" style="0" rect="213,143,130,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+ 
+ 	    <!-- 队员显示 上下进度条-->
+            <item id="15" type="ListBox" style="8" rect="158,162,228,60" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" /> 
+
+            <!-- 组队"++" -->
+            <item id="19" type="Button" style="0" rect="343,143,18,18" isdefault="0" pack="data\Interfaces.gl" group="0" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <!-- 组队-- -->
+            <item id="20" type="Button" style="0" rect="365,143,18,18" isdefault="0" pack="data\Interfaces.gl" group="0" frame="24" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>   
+
+            <!-- 远程拾取-->
+            <item id="10" type="Button" style="0" rect="39,235,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="111" type="Static" style="0" rect="62,235,160,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">远程拾取</item>
+
+           <item id="112" type="Static" style="0" rect="39,258,350,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">物品过滤设置,输入则不拾取（关键字以“:”隔开）</item>
+
+            <!-- 物品过滤设置-->
+            <item id="11" type="Button" style="0" rect="6,-8,83,25" isdefault="0" pack="data\Interfaces1.gl" group="4" frame="18" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+           
+            <!-- 排除物品 -->
+            <item id="16" type="MLineEditBox" style="29" lineHeight="20" rect="37,268,355,55" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="100" caretcolor="255,255,255,255" hotkey="" />  
+          
+           <item id="113" type="Static" style="0" rect="395,100,160,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">挂机保护设置</item>
+
+            <!-- 红药使用 --> 
+
+            <item id="21" type="Button" style="0" rect="395,120,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item> 
+
+           <item id="114" type="Static" style="0" rect="415,121,160,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">生命值低于</item>
+
+	    <item id="60" type="Image" style="2" rect="497,118,29,13" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="4" frame="104"/>
+
+            <!-- %红药 -->
+            <item id="25" type="EditBox" style="a" rect="502,120,28,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+
+           <item id="115" type="Static" style="0" rect="516,121,160,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">% 自动使用红药</item>
+
+            <!-- 蓝药使用 -->
+            <item id="23" type="Button" style="0" rect="395,145,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="116" type="Static" style="0" rect="415,145,160,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">魔法值低于</item>
+
+	    <item id="61" type="Image" style="2" rect="497,143,29,13" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="4" frame="104"/>
+
+            <!-- %蓝药 -->
+            <item id="26" type="EditBox" style="a" rect="502,145,28,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="2" minNumber="0" maxNumber="99" caretcolor="255,255,255,255" />
+
+           <item id="117" type="Static" style="0" rect="516,145,160,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">% 自动使用蓝药</item>
+
+            <!-- 红药数量 -->
+            <item id="22" type="Button" style="0" rect="395,174,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="118" type="Static" style="0" rect="415,175,160,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">保证包内有20个</item>
+
+           <!-- 红药列表 -->
+	   <item id="27" type="ComboBox" style="0" rect="527,173,105,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>  
+
+            <!-- 蓝药数量 -->
+            <item id="24" type="Button" style="0" rect="395,202,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="119" type="Static" style="0" rect="415,203,160,18" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">保证包内有20个</item>
+     
+            <!-- 蓝药列表 -->
+	    <item id="28" type="ComboBox" style="0" rect="527,201,105,23" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+
+
+           <item id="120" type="Static" style="0" rect="395,233,160,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">宠物保护设置</item>
+
+            <!-- 宠物 -->
+            <item id="80" type="Button" style="0" rect="395,260,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="130" type="Static" style="0" rect="414,261,160,15" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">每</item>
+
+	    <item id="131" type="Image" style="2" rect="430,257,29,13" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="4" frame="104"/>
+
+            <item id="132" type="Static" style="0" rect="459,261,160,15" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">秒对宠物使用</item>
+
+	    <!-- 使用技能-->
+	    <item id="133" type="ComboBox" style="0" rect="556,260,77,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+
+            <!-- 宠物 -->
+            <item id="134" type="Button" style="0" rect="395,290,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+            <item id="135" type="Static" style="0" rect="414,291,160,15" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">宠物死亡后使用技能</item>
+
+	    <!-- 使用技能-->
+	    <item id="136" type="ComboBox" style="0" rect="556,290,77,20" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+
+            <!-- 开启辅助 -->
+            <item id="29" type="Button" style="0" rect="39,367,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="140" type="Static" style="0" rect="60,369,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,250,8,25">开启辅助</item>
+            <!-- 自动打坐 -->
+            <item id="30" type="Button" style="0" rect="130,367,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="141" type="Static" style="0" rect="149,369,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">自动打坐</item>
+
+            <!-- 复活队友 -->
+            <item id="31" type="Button" style="0" rect="219,367,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="142" type="Static" style="0" rect="240,369,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">复活队友</item>
+
+            <!-- 自动隐身 -->
+            <item id="32" type="Button" style="0" rect="311,367,18,18" isdefault="0" pack="data\Interfaces1.gl" group="26" frame="3" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+           <item id="143" type="Static" style="0" rect="332,369,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">自动隐身</item>
+       
+           <item id="144" type="Static" style="0" rect="402,369,80,24" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">打坐坐标:</item>
+
+            <!-- 打坐X -->
+	    <item id="145" type="Image" style="2" rect="470,365,29,13" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="4" frame="104"/>
+
+            <item id="33" type="EditBox" style="a" rect="472,370,32,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />
+            <!-- 打坐Y -->
+	    <item id="146" type="Image" style="2" rect="500,365,29,13" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces1.gl" group="4" frame="104"/>
+
+            <item id="34" type="EditBox" style="a" rect="502,370,32,16" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" maxCharCount="4" minNumber="0" maxNumber="1000" caretcolor="255,255,255,255" />
+            <!-- 当前坐标 -->
+            <item id="35" type="Button" style="0" rect="0,298,83,25" isdefault="0" pack="data\Interfaces1.gl" group="4" frame="15" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+
+            <!-- 推荐设置 -->
+            <item id="40" type="Button" style="0" rect="-10,224,92,26" isdefault="0" pack="data\Interfaces1.gl" group="4" frame="21" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+            <!-- 保存设置 -->
+            <item id="41" type="Button" style="0" rect="0,224,92,26" isdefault="0" pack="data\Interfaces1.gl" group="4" frame="12" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
+
+        </controls>
+    </dialog>
+</gui>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10
+#define GUI_WS_MODAL		0x20
+#define Gui_WS_NOSKIN		0x40
+#define GUI_WS_AUTOANCHOR	0x80 // 自动停靠-->
+<gui>
+	<dialog id="34" name="FloatDialog" style="144" rect="151,180,250,155" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+		<!--#define EVENT_BUTTON_CLICKED                100
+
+#define EVENT_COMBOBOX_SELECTION_CHANGED    200
+
+#define EVENT_RADIOBUTTON_CHANGED           300
+
+#define EVENT_CHECKBOX_CHANGED              400
+
+#define EVENT_SLIDER_VALUE_CHANGED          500
+
+#define EVENT_EDITBOX_STRING                600
+#define EVENT_EDITBOX_CHANGE                700
+
+#define EVENT_LISTBOX_ITEM_DBLCLK           800
+#define EVENT_LISTBOX_SELECTION             900
+
+#define EVENT_DIALOG_RESIZE					1000
+#define EVENT_DIALOG_CREATE					1001-->
+		<script>
+function OnGuiEvent(nEvent,nID,pControl)
+	if nEvent == 100 then		
+		if nID == 16 then
+			OnOffSysDialog()
+			return true
+		elseif nID == 11 then 
+			OnOffShopDialog()
+			return true		
+		elseif nID == 13 then
+    	    ShowEmotionDialog()
+    	    return true
+		elseif nID == 14 then
+			OnRide()
+			return true
+		elseif nID == 18 then
+			LogoutGame(true)
+			return true	
+		elseif nID == 10 then
+			OnOffPetDialog()
+			return true	
+		elseif nID ==17 then
+			ShowHelpDialog()
+			return true	
+		elseif nID == 19 then
+			OnOffNatioanalMapDialog()
+			return true
+		elseif nID ==20 then
+			OnRide()
+			return true
+		elseif nID ==21 then
+			OnSitDown()
+			return true
+		elseif nID ==24 then
+			OnOffSysDialog()
+			return true
+		elseif nID == 25 then
+			OnOffAutoAttackDlg();
+			return true
+		elseif nID == 26 then
+			OnRunSiRenBieShuDialog();
+			return true	
+		elseif nID == 27 then
+			OnUserClickButton1();
+			return true
+		elseif nID == 28 then
+			OnUserClickButton2();
+			return true	
+		elseif nID == 29 then
+			OnUserClickButton3();
+			return true
+		elseif nID == 30 then
+			OnUserClickButton4();
+			return true
+		end
+	end
+	return false
+end
+</script>
+		<controls>
+			<!--static stControlTypeDesc guiControlTypeDesc[] = {
+	{GUI_CONTROL_BUTTON,"Button"},
+	{GUI_CONTROL_STATIC,"Static"},
+	{GUI_CONTROL_CHECKBOX,"CheckBox"},
+	{GUI_CONTROL_RADIOBUTTON,"RadioButton"},
+	{GUI_CONTROL_COMBOBOX,"ComboBox"},
+	{GUI_CONTROL_SLIDER,"Slider"},
+	{GUI_CONTROL_EDITBOX,"EditBox"},
+	{GUI_CONTROL_MLEDITBOX,"MLineEditBox"},
+	{GUI_CONTROL_LISTBOX,"ListBox"},
+	{GUI_CONTROL_SCROLLBAR,"ScrollBar"},
+	{GUI_CONTROL_IMAGE,"Image"},
+	{GUI_CONTROL_ITEMCELL,"ItemCell"},
+	{GUI_CONTROL_TABLE,"Table"},
+	{GUI_CONTROL_TAB,"Tab"},
+	{GUI_CONTROL_CLOSEBOX,"CloseBox"},
+};-->
+			<item id="1" type="Image" style="2" rect="0,0,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="1" pack="data\interfaces.gl" group="1" frame="92"/>
+			<item id="11" type="Button" style="0" rect="0,29,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="1" bitmapbutton="1" framenum="3" hotkey="K">
+				<Tip>摆摊(K)</Tip>
+			</item>
+			<item id="13" type="Button" style="0" rect="0,29,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="66" bitmapbutton="1" framenum="3" hotkey="I">
+				<Tip>情感(I)</Tip>
+			</item>
+			<item id="17" type="Button" style="0" rect="0,29,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="78" bitmapbutton="1" framenum="3" hotkey="H">
+				<Tip>帮助(H)</Tip>
+			</item>
+			<item id="18" type="Button" style="0" rect="0,29,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="22" bitmapbutton="1" framenum="3" hotkey="Esc">
+				<Tip>登出(Esc)</Tip>
+			</item>
+			<!--item id="19" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="1" frame="239" bitmapbutton="1" framenum="3" hotkey="Y">
+				<Tip>国家地图(Y)</Tip>
+			</item-->
+			
+			<item id="20" type="Button" style="0" rect="0,29,0,0" isdefault="0" pack="data\interfaces.gl" group="101" frame="7" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>骑马(T)</Tip>
+			</item>
+			<item id="21" type="Button" style="0" rect="0,29,0,0" isdefault="0" pack="data\interfaces.gl" group="101" frame="63" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>打坐（D）“打坐”可以使人物每2秒获得额外的2%生命值与法术值恢复，但人物处于该状态下时物防与魔防会下降至正常值的60%</Tip>
+			</item>
+			<item id="24" type="Button" style="0" rect="0,29,0,0" isdefault="0" pack="data\interfaces.gl" group="101" frame="19" bitmapbutton="1" framenum="3" hotkey="">
+				<Tip>系统设置(S)</Tip>
+			</item>
+			<item id="25" type="Button" style="0" rect="32,29,0,0" isdefault="0" pack="data\interfaces1.gl" group="4" frame="100" bitmapbutton="1" framenum="3" hotkey="">
+			        <Tip>全自动辅助系统(CTRL+F12)</Tip>
+				</item>
+			<item id="26" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces5.gl" group="3" frame="10" bitmapbutton="1" framenum="1" hotkey="">
+			        <Tip>进入私人别墅</Tip>
+				</item>	
+			<item id="27" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces5.gl" group="0" frame="2" bitmapbutton="1" framenum="1" hotkey="">
+			        <Tip>敬请期待</Tip>
+				</item>
+			<item id="28" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces5.gl" group="0" frame="3" bitmapbutton="1" framenum="1" hotkey="">
+			        <Tip>敬请期待</Tip>
+				</item>
+			<item id="29" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces5.gl" group="0" frame="4" bitmapbutton="1" framenum="1" hotkey="">
+			        <Tip>敬请期待</Tip>
+				</item>
+			<item id="30" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces5.gl" group="0" frame="5" bitmapbutton="1" framenum="1" hotkey="">
+			        <Tip>敬请期待</Tip>
+				</item>								
+			
+		</controls>
+	</dialog>
+</gui>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by xuzhao (xuzhao) -->
+<!--// Dialog Style:
+#define GUI_WS_TOPMOST		0x1
+#define GUI_WS_BOTTOMMOST	0x2
+#define GUI_WS_NOMOVE		0x4
+#define GUI_WS_RESIZEING	0x8
+#define GUI_WS_CLOSEBOX		0x10-->
+<gui>
+	<dialog id="56" name="countrywarante" style="1" showsoundindex="10106"  caption="guozhan" rect="3,83,350,400" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" >
+		
+		
+		 <script>
+					function InitTab()
+						this:AddControl2TabByID(1,0,100)
+						this:AddControl2TabByID(1,0,101)
+			 
+						this:AddControl2TabByID(1,1,200)
+						this:AddControl2TabByID(1,1,201)
+				 							
+						this:AddControl2TabByID(1,2,300)
+						this:AddControl2TabByID(1,2,301)
+				 
+						this:AddControl2TabByID(1,3,400)
+						this:AddControl2TabByID(1,3,401)
+						this:AddControl2TabByID(1,3,402)
+						this:AddControl2TabByID(1,3,403)
+						this:AddControl2TabByID(1,3,404)
+						this:AddControl2TabByID(1,3,405)
+						this:AddControl2TabByID(1,3,406)
+						this:AddControl2TabByID(1,3,407)
+						this:AddControl2TabByID(1,3,410)
+						this:AddControl2TabByID(1,3,411)
+					end
+					
+					function InitButton()
+						this:SetButtonGroup(10,1);
+						this:SetButtonGroup(11,1);
+						this:SetButtonGroup(12,1);
+						this:SetButtonGroup(13,1);
+					end
+					
+					function OnGuiEvent(nEvent,nID,pControl) 
+						if nEvent == 1001 then
+							InitTab()	
+							InitButton()
+							return true		
+						end
+						return false
+					end
+		</script>
+		<controls>
+			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="20" backgroud="1"/>						
+			      
+			<item id="1" type="Tab" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" align="1">
+			<datas>
+                    <item>近期国战</item>
+                    <item>已有注单</item>
+                    <item>领取奖金</item>
+                    <item>个人帐户</item>
+                </datas>
+			</item>
+		
+		
+            <!--近期国战-->
+			<item id="100" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="20" backgroud="0"/><!--底框-->
+            
+			<item id="101" type="ListBox" style="0" rect="30,113,752,305" hotkey="" isdefault="0" color="255,255,255,255" itemHeight="460" textcolor="255,255,255,255" />
+			
+			
+			<!--已投注-->	
+			<item id="200" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="21" backgroud="0"/><!--底框-->		
+			<item id="201" type="ListBox" style="0" rect="30,113,752,305" hotkey="" isdefault="0" color="255,255,255,255" itemHeight="32" textcolor="255,255,255,255" />
+					
+					
+			<!--领取奖金-->	
+			<item id="300" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="22" backgroud="0"/><!--底框-->
+			<item id="301" type="ListBox" style="0" rect="30,113,762,305" hotkey="" isdefault="0" color="255,255,255,255" itemHeight="32" textcolor="255,255,255,255" />
+						
+						
+			<!--我的帐户-->
+			<item id="400" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="23" backgroud="0"/><!--底框-->
+			
+		 	<item id="401" type="Static" rect="120,100,300,32" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+		 	您的帐户中现有补血丹</item>	
+		 	<item id="402" type="Static" rect="400,115,100,32" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">
+			</item>		
+			<item id="403" type="Static" rect="400,100,140,32" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			粒</item>	
+			
+			
+			<item id="404" type="Static" rect="126,148,320,32" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			请输入您要提取的补血丹数量：</item>	
+			
+			<item id="405" type="EditBox" style="84" rect="223,188,219,28" textcolor="255,255,255,255" hotkey="" isdefault="0" color="255,255,255,255" maxCharCount="48" caretcolor="255,255,255,255"/>
+			
+			
+			<item id="406" type="Static" rect="365,177,180,32" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">
+			粒</item>	
+			<item id="407" type="Static" rect="222,247,340,32"  style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10"></item>
+		 	  
+		 	  
+		 	  <item id="410" type="Button" sound="10107" style="0" rect="272,348,0,0" hotkey=""  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255"  framenum="3">确定</item>> 
+		     <item id="411" type="Button" sound="10107" style="0" rect="461,348,0,0" hotkey=""  isdefault="0" color="255,255,255,255" textcolor="255,255,255,255">取消</item> 
+  		 	  	 
+            
+      
+            
+           <!--EXIT-->
+		   <item id="2" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="30" framenum="3"/> 
+            <!--close-->		   
+		    <item id="3" type="Button" sound="10107" style="0"  rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="59" frame="47" framenum="3"/> 
+		    
+		    	<item id="4" type="Static" rect="-6,435,620,32" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,204,165,10">	奖金可在“领取奖金”中查看和领取，领取后将存入“我的帐户”供你随时提取！</item>	
+	   
+            <!--tab*button--> 		   
+            <item id="10" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="1" framenum="3"/> 
+            
+            <item id="11" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="4" framenum="3"/> 
+            
+            <item id="12" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="7" framenum="3"/> 
+            
+            <item id="13" type="Button" sound="10107" style="0" rect="0,0,0,0" hotkey="" bitmapbutton="1" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.gl" group="140" frame="10" framenum="3"/> 
+            
+            
+            
+        	</controls>
+	</dialog>
+</gui>
