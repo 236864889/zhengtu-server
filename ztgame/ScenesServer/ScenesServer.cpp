@@ -3,7 +3,7 @@
  * \version  $Id: ScenesServer.cpp  $
  * \author  
  * \date 
- * \brief zebra项目场景服务器，游戏绝大部分内容都在本实现
+ * \brief zebra脧卯脛驴鲁隆戮掳路镁脦帽脝梅拢卢脫脦脧路戮酶麓贸虏驴路脰脛脷脠脻露录脭脷卤戮脢碌脧脰
  */
 
 #include "zSubNetService.h"
@@ -19,6 +19,7 @@
 #include "TimeTick.h"
 #include "zDatabaseManager.h"
 #include "SceneNpcManager.h"
+#include "SceneUserManager.h"
 #include "NpcTrade.h"
 #include "MessageSystem.h"
 #include "QuestTable.h"
@@ -34,31 +35,31 @@
 #include "GameConfigMgr.h"
 #include "Scene.h"
 #include "GlobalBox.h"
-#include "FuBenMgr.h" //副本
-#include "MallTrade.h" //新商城
-#include "fjconfig.h"//五附件	
+#include "FuBenMgr.h" //赂卤卤戮
+#include "MallTrade.h" //脨脗脡脤鲁脟
+#include "fjconfig.h"//脦氓赂陆录镁	
 
 ScenesService *ScenesService::instance = NULL;
 bool ScenesService::reload=false;
 zLogger * ScenesService::gm_logger = NULL;
 zLogger * ScenesService::objlogger = NULL;
 zLogger * ScenesService::wg_logger = NULL;
-//soke 转生增加的技能和属性点
+//soke 脳陋脡煤脭枚录脫碌脛录录脛脺潞脥脢么脨脭碌茫
 WORD trun_point_rate = 0;
 WORD trun_skill_rate = 0;
 Cmd::stChannelChatUserCmd * ScenesService::pStampData = 0;
-/// 判国所需经费
-unsigned int cancel_country_need_money = 50000; //默认五锭
-unsigned int is_cancel_country = 0; // 是否允许叛国
+/// 脜脨鹿煤脣霉脨猫戮颅路脩
+unsigned int cancel_country_need_money = 50000; //脛卢脠脧脦氓露搂
+unsigned int is_cancel_country = 0; // 脢脟路帽脭脢脨铆脜脩鹿煤
 
 //std::string COfflineSkillStatus::rootpath = "";
 
 /**
- * \brief 初始化网络服务器程序
+ * \brief 鲁玫脢录禄炉脥酶脗莽路镁脦帽脝梅鲁脤脨貌
  *
- * 实现了虚函数<code>zService::init</code>
+ * 脢碌脧脰脕脣脨茅潞炉脢媒<code>zService::init</code>
  *
- * \return 是否成功
+ * \return 脢脟路帽鲁脡鹿娄
  */
 bool ScenesService::init()
 {
@@ -66,7 +67,7 @@ bool ScenesService::init()
 		return false; */
 	for(int i=0; i<13; i++) countryPower[i]=1;
 
-	//初始化连接线程池
+	//鲁玫脢录禄炉脕卢陆脫脧脽鲁脤鲁脴
 	int state = state_none;
 	Zebra::to_lower(Zebra::global["initThreadPoolState"]);
 	if ("repair" == Zebra::global["initThreadPoolState"]
@@ -74,7 +75,7 @@ bool ScenesService::init()
 		state = state_maintain;
 	taskPool = new zTCPTaskPool(atoi(Zebra::global["threadPoolCapacity"].c_str()), state,5000);
 	
-	//soke转生角色属性点和技能点从配置读取
+	//soke脳陋脡煤陆脟脡芦脢么脨脭碌茫潞脥录录脛脺碌茫麓脫脜盲脰脙露脕脠隆
 	trun_point_rate = atoi(Zebra::global["trun_point_rate"].c_str());
 	trun_skill_rate = atoi(Zebra::global["trun_skill_rate"].c_str());
 	if (NULL == taskPool
@@ -91,81 +92,81 @@ bool ScenesService::init()
 
 	const Cmd::Super::ServerEntry *serverEntry = NULL;
 
-	//连接档案服务器
+	//脕卢陆脫碌碌掳赂路镁脦帽脝梅
 	serverEntry = getServerEntryByType(RECORDSERVER);
 	if (NULL == serverEntry)
 	{
-		Zebra::logger->error("不能找到档案服务器相关信息，不能连接档案服务器");
+		Zebra::logger->error("虏禄脛脺脮脪碌陆碌碌掳赂路镁脦帽脝梅脧脿鹿脴脨脜脧垄拢卢虏禄脛脺脕卢陆脫碌碌掳赂路镁脦帽脝梅");
 		return false;
 	}
-	recordClient = new RecordClient("档案服务器", serverEntry->pstrExtIP, serverEntry->wdExtPort);
+	recordClient = new RecordClient("碌碌掳赂路镁脦帽脝梅", serverEntry->pstrExtIP, serverEntry->wdExtPort);
 	if (NULL == recordClient)
 	{
-		Zebra::logger->error("没有足够内存，不能建立档案服务器客户端实例");
+		Zebra::logger->error("脙禄脫脨脳茫鹿禄脛脷麓忙拢卢虏禄脛脺陆篓脕垄碌碌掳赂路镁脦帽脝梅驴脥禄搂露脣脢碌脌媒");
 		return false;
 	}
 	if (!recordClient->connectToRecordServer())
 	{
-		Zebra::logger->error("连接档案服务器失败 %s", __PRETTY_FUNCTION__);
+		Zebra::logger->error("脕卢陆脫碌碌掳赂路镁脦帽脝梅脢搂掳脺 %s", __PRETTY_FUNCTION__);
 		return false;
 	}
 	if(recordClient->start())
-		Zebra::logger->info("初始化Record服务器模块(%s:%ld)...成功",serverEntry->pstrExtIP,serverEntry->wdExtPort);
+		Zebra::logger->info("鲁玫脢录禄炉Record路镁脦帽脝梅脛拢驴茅(%s:%ld)...鲁脡鹿娄",serverEntry->pstrExtIP,serverEntry->wdExtPort);
 
-	//连接Session服务器
+	//脕卢陆脫Session路镁脦帽脝梅
 	serverEntry = getServerEntryByType(SESSIONSERVER);
 	if (NULL == serverEntry)
 	{
-		Zebra::logger->error("不能找到Session服务器相关信息，不能连接Session服务器");
+		Zebra::logger->error("虏禄脛脺脮脪碌陆Session路镁脦帽脝梅脧脿鹿脴脨脜脧垄拢卢虏禄脛脺脕卢陆脫Session路镁脦帽脝梅");
 		return false;
 	}
-	sessionClient = new SessionClient("Session服务器", serverEntry->pstrExtIP, serverEntry->wdExtPort);
+	sessionClient = new SessionClient("Session路镁脦帽脝梅", serverEntry->pstrExtIP, serverEntry->wdExtPort);
 	if (NULL == sessionClient)
 	{
-		Zebra::logger->error("没有足够内存，不能建立Session服务器客户端实例");
+		Zebra::logger->error("脙禄脫脨脳茫鹿禄脛脷麓忙拢卢虏禄脛脺陆篓脕垄Session路镁脦帽脝梅驴脥禄搂露脣脢碌脌媒");
 		return false;
 	}
 	if (!sessionClient->connectToSessionServer())
 	{
-		Zebra::logger->error("连接Session服务器失败 %s", __PRETTY_FUNCTION__);
+		Zebra::logger->error("脕卢陆脫Session路镁脦帽脝梅脢搂掳脺 %s", __PRETTY_FUNCTION__);
 		return false;
 	}
 	if(sessionClient->start())
-		Zebra::logger->info("初始化Session服务器模块(%s:%ld)...成功",serverEntry->pstrExtIP,serverEntry->wdExtPort);
+		Zebra::logger->info("鲁玫脢录禄炉Session路镁脦帽脝梅脛拢驴茅(%s:%ld)...鲁脡鹿娄",serverEntry->pstrExtIP,serverEntry->wdExtPort);
 
-	//连接小游戏服务器
+	//脕卢陆脫脨隆脫脦脧路路镁脦帽脝梅
 	serverEntry = getServerEntryByType(MINISERVER);
 	if (NULL == serverEntry)
 	{
-		Zebra::logger->error("不能找到小游戏服务器相关信息，不能连接小游戏服务器");
+		Zebra::logger->error("虏禄脛脺脮脪碌陆脨隆脫脦脧路路镁脦帽脝梅脧脿鹿脴脨脜脧垄拢卢虏禄脛脺脕卢陆脫脨隆脫脦脧路路镁脦帽脝梅");
 		return false;
 	}
-	miniClient = new MiniClient("小游戏服务器", serverEntry->pstrExtIP, serverEntry->wdExtPort,serverEntry->wdServerID);
+	miniClient = new MiniClient("脨隆脫脦脧路路镁脦帽脝梅", serverEntry->pstrExtIP, serverEntry->wdExtPort,serverEntry->wdServerID);
 	if (NULL == miniClient)
 	{
-		Zebra::logger->error("没有足够内存，不能建立小游戏服务器客户端实例");
+		Zebra::logger->error("脙禄脫脨脳茫鹿禄脛脷麓忙拢卢虏禄脛脺陆篓脕垄脨隆脫脦脧路路镁脦帽脝梅驴脥禄搂露脣脢碌脌媒");
 		return false;
 	}
 	if (!miniClient->connectToMiniServer())
 	{
-		Zebra::logger->error("连接小游戏服务器失败 %s", __PRETTY_FUNCTION__);
+		Zebra::logger->error("脕卢陆脫脨隆脫脦脧路路镁脦帽脝梅脢搂掳脺 %s", __PRETTY_FUNCTION__);
 		return false;
 	}
 	if (miniClient->start())
-		Zebra::logger->info("初始化Mini服务器模块(%s:%ld)...成功",serverEntry->pstrExtIP,serverEntry->wdExtPort);
+		Zebra::logger->info("鲁玫脢录禄炉Mini路镁脦帽脝梅脛拢驴茅(%s:%ld)...鲁脡鹿娄",serverEntry->pstrExtIP,serverEntry->wdExtPort);
 
 	if (SceneNpcManager::getMe().init())
 	{
-		Zebra::logger->info("初始化NPC管理器...成功");
+		Zebra::logger->info("鲁玫脢录禄炉NPC鹿脺脌铆脝梅...鲁脡鹿娄");
 	}
 
 	if(SceneTimeTick::getInstance().start())
-		Zebra::logger->info("初始化TimeTick模块...成功");
+		Zebra::logger->info("鲁玫脢录禄炉TimeTick脛拢驴茅...鲁脡鹿娄");
 
-	//加载基本数据
+	//录脫脭脴禄霉卤戮脢媒戮脻
 	if(!loadAllBM())
 	{
-		Zebra::logger->error("初始化基本数据模块...失败");
+		Zebra::logger->error("鲁玫脢录禄炉禄霉卤戮脢媒戮脻脛拢驴茅...脢搂掳脺");
 		return false;
 	}
 	char srv[256];
@@ -173,7 +174,7 @@ bool ScenesService::init()
 	sprintf(srv , "WS[%d]",getServerID());
 	objlogger = new zLogger(srv);
 	objlogger->setLevel(Zebra::global["log"]);
-	//设置写本地日志文件
+	//脡猫脰脙脨麓卤戮碌脴脠脮脰戮脦脛录镁
 	if ("" != Zebra::global["objlogfilename"])
 	{
 		bzero(srv, sizeof(srv));
@@ -208,183 +209,183 @@ bool ScenesService::init()
 		wg_logger->addLocalFileLog(Zebra::global["wg_logfile"]);
 	wg_logger->removeConsoleLog();
 
-	Zebra::logger->info("加载特征码文件...，大小 %u", updateStampData());
+	Zebra::logger->info("录脫脭脴脤脴脮梅脗毛脦脛录镁...拢卢麓贸脨隆 %u", updateStampData());
 
 	if (!SceneManager::getInstance().init())
 	{
-		Zebra::logger->error("初始化场景管理器...失败");
+		Zebra::logger->error("鲁玫脢录禄炉鲁隆戮掳鹿脺脌铆脝梅...脢搂掳脺");
 		return false;
 	}
 	else
-		Zebra::logger->info("初始化场景管理器...成功");
+		Zebra::logger->info("鲁玫脢录禄炉鲁隆戮掳鹿脺脌铆脝梅...鲁脡鹿娄");
 
-	//副本新
+	//赂卤卤戮脨脗
     if ( FuBenMgr::getMe().init() )
     {
-		Zebra::logger->info("初始化副本管理器...成功");
+		Zebra::logger->info("鲁玫脢录禄炉赂卤卤戮鹿脺脌铆脝梅...鲁脡鹿娄");
     }
 
 	if(!NpcTrade::getInstance().init())
 	{
-		Zebra::logger->error("初始化NPC交易配置模块...失败");
+		Zebra::logger->error("鲁玫脢录禄炉NPC陆禄脪脳脜盲脰脙脛拢驴茅...脢搂掳脺");
 		return false;
 	}
-	//TZ 2023 10 15新商城
+	//TZ 2023 10 15脨脗脡脤鲁脟
 	if(!MallTrade::getInstance().init()){
-		Zebra::logger->error("初始化商城配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脡脤鲁脟脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
 	// zRTime cccaaa;
 	// cccaaa.now();
-	// if(cccaaa.sec() >= 1729458831)//醉梦 后门 2024年5月1日后场景将无法启动
+	// if(cccaaa.sec() >= 1729458831)//脳铆脙脦 潞贸脙脜 2024脛锚5脭脗1脠脮潞贸鲁隆戮掳陆芦脦脼路篓脝么露炉
 	// {
-	// 	Zebra::logger->error("初始化商城配置文件失败");
+	// 	Zebra::logger->error("鲁玫脢录禄炉脡脤鲁脟脜盲脰脙脦脛录镁脢搂掳脺");
 	// 	exit(0);
 	// }
 	
 	
 	
 	if(!fjconfig::getInstance().init()){
-		Zebra::logger->error("初始化剑冢配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉陆拢脷拢脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 	if(!fjconfig::getInstance().initztz()){
-		Zebra::logger->error("初始化征途传配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脮梅脥戮麓芦脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 	if(!fjconfig::getInstance().initshengxiao()){
-		Zebra::logger->error("初始化生肖配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脡煤脨陇脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 	if(!fjconfig::getInstance().initshengqi()){
-		Zebra::logger->error("初始化圣器配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脢楼脝梅脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 	
 	if(! fjconfig::getInstance().initjingmai()){
-		Zebra::logger->error("初始化经脉配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉戮颅脗枚脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
 	if(! fjconfig::getInstance().initTouxian()){
-		Zebra::logger->error("初始化头衔配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脥路脧脦脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
 	if(! fjconfig::getInstance().initChenghao()){
-		Zebra::logger->error("初始化称号配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉鲁脝潞脜脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//儿女
+	//露霉脜庐
 	if(! fjconfig::getInstance().initErnv()){
-		Zebra::logger->error("初始化生儿育女配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脡煤露霉脫媒脜庐脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//回收系統
+	//禄脴脢脮脧碌陆y
 	if(! fjconfig::getInstance().initHuishou()){
-		Zebra::logger->error("初始化回收系统配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉禄脴脢脮脧碌脥鲁脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//云天别墅
+	//脭脝脤矛卤冒脢没
 	if(! fjconfig::getInstance().initBieshu()){
-		Zebra::logger->error("初始化云天别墅配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脭脝脤矛卤冒脢没脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 	
-	//能力修炼
+	//脛脺脕娄脨脼脕露
 	if(! fjconfig::getInstance().initXiulian()){
-		Zebra::logger->error("初始化能力修炼配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛脺脕娄脨脼脕露脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//坐骑图鉴
+	//脳酶脝茂脥录录酶
 	if(! fjconfig::getInstance().initZuoqi()){
-		Zebra::logger->error("初始化坐骑图鉴配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脳酶脝茂脥录录酶脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//时装魔盒
+	//脢卤脳掳脛搂潞脨
 	if(! fjconfig::getInstance().initMohe()){
-		Zebra::logger->error("初始化魔盒配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//时装魔盒
+	//脢卤脳掳脛搂潞脨
 	if(! fjconfig::getInstance().initShizhuang()){
-		Zebra::logger->error("初始化魔盒【时装类】配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨隆戮脢卤脳掳脌脿隆驴脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 	
-	//时装魔盒
+	//脢卤脳掳脛搂潞脨
 	if(! fjconfig::getInstance().initShiZhuangLevel()){
-		Zebra::logger->error("初始化魔盒【时装进阶类】配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨隆戮脢卤脳掳陆酶陆脳脌脿隆驴脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//时装魔盒
+	//脢卤脳掳脛搂潞脨
 	if(! fjconfig::getInstance().initPifeng()){
-		Zebra::logger->error("初始化魔盒【披风类】配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨隆戮脜没路莽脌脿隆驴脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//时装魔盒
+	//脢卤脳掳脛搂潞脨
 	if(! fjconfig::getInstance().initPiFengLevel()){
-		Zebra::logger->error("初始化魔盒【披风进阶类】配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨隆戮脜没路莽陆酶陆脳脌脿隆驴脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//时装魔盒
+	//脢卤脳掳脛搂潞脨
 	if(! fjconfig::getInstance().initChibang()){
-		Zebra::logger->error("初始化魔盒【翅膀类】配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨隆戮鲁谩掳貌脌脿隆驴脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//时装魔盒
+	//脢卤脳掳脛搂潞脨
 	if(! fjconfig::getInstance().initChiBangLevel()){
-		Zebra::logger->error("初始化魔盒【翅膀进阶类】配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨隆戮鲁谩掳貌陆酶陆脳脌脿隆驴脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
 
-	//时装魔盒
+	//脢卤脳掳脛搂潞脨
 	if(! fjconfig::getInstance().initZuoqi2()){
-		Zebra::logger->error("初始化魔盒【坐骑类】配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨隆戮脳酶脝茂脌脿隆驴脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
-	//时装魔盒  魔盒界面
+	//脢卤脳掳脛搂潞脨  脛搂潞脨陆莽脙忙
 	if(! fjconfig::getInstance().initJiemian()){
-		Zebra::logger->error("初始化魔盒【界面类】配置文件失败");
+		Zebra::logger->error("鲁玫脢录禄炉脛搂潞脨隆戮陆莽脙忙脌脿隆驴脜盲脰脙脦脛录镁脢搂掳脺");
 		return false;
 	}
-	//初始化天下第一
+	//鲁玫脢录禄炉脤矛脧脗碌脷脪禄
 	for (int i = 0; i < 32; i++)
 	{
 		tianxia[i].jifen=0;
 		tianxia[i].saidian=-1;
 		tianxia[i].userid = 0;
 	}
-	Zebra::logger->info("初始化天下第一系统成功");
+	Zebra::logger->info("鲁玫脢录禄炉脤矛脧脗碌脷脪禄脧碌脥鲁鲁脡鹿娄");
 
-	//初始化迷宫系统
+	//鲁玫脢录禄炉脙脭鹿卢脧碌脥鲁
 	for (int i = 0; i < 25; i++)
 	{
 		migong[i].ceng=i+1;
 		migong[i].password=zMisc::randBetween(1,3);
 	}
-	Zebra::logger->info("初始化迷宫系统成功");
+	Zebra::logger->info("鲁玫脢录禄炉脙脭鹿卢脧碌脥鲁鲁脡鹿娄");
 
-	//反外挂初始化
+	//路麓脥芒鹿脪鲁玫脢录禄炉
 	fanwaigua = true;
 	fanwaiguarongcuo = 0;
-	Zebra::logger->info("初始化反作弊系统成功");
+	Zebra::logger->info("鲁玫脢录禄炉路麓脳梅卤脳脧碌脥鲁鲁脡鹿娄");
 	
 	///////////////////////////////////////
 	if(!MessageSystem::getInstance().init())
 	{
-		Zebra::logger->error("初始化Message消息模块...失败");
+		Zebra::logger->error("鲁玫脢录禄炉Message脧没脧垄脛拢驴茅...脢搂掳脺");
 		return false;
 	}
 
@@ -393,13 +394,13 @@ bool ScenesService::init()
 
 	if(!QuestTable::instance().init())
 	{
-		Zebra::logger->error("初始化任务模块...失败");
+		Zebra::logger->error("鲁玫脢录禄炉脠脦脦帽脛拢驴茅...脢搂掳脺");
 		return false;
 	}
 
 	if(!GameConfigMgr::getMe().init())
 	{
-		Zebra::logger->error("初始化场景服务器温泉配置...失败");
+		Zebra::logger->error("鲁玫脢录禄炉鲁隆戮掳路镁脦帽脝梅脦脗脠陋脜盲脰脙...脢搂掳脺");
 		return false;
 	}
 
@@ -414,24 +415,26 @@ bool ScenesService::init()
 	
 	if(!MagicRangeInit::getInstance().init())
 	{
-		Zebra::logger->error("初始化攻击范围定义模块...失败");
+		Zebra::logger->error("鲁玫脢录禄炉鹿楼禄梅路露脦搂露篓脪氓脛拢驴茅...脢搂掳脺");
 		return false;
 	}
 
 	if(!globalBox::getInstance().init())
 	{
-		Zebra::logger->error("初始化宝箱模块...失败");
+		Zebra::logger->error("鲁玫脢录禄炉卤娄脧盲脛拢驴茅...脢搂掳脺");
 		return false;
 	}
 
 	CountryDareM::getMe().init();
 	CountryTechM::getMe().init();
+	SceneUserManager::getMe().loadGuoJiaBiaoCheRewardConfig();
+
 	CountryAllyM::getMe().init();
 
 /*
 	if(!COfflineSkillStatus::init())
 	{
-		Zebra::logger->error("初始化技能离线状态记录模块...失败");
+		Zebra::logger->error("鲁玫脢录禄炉录录脛脺脌毛脧脽脳麓脤卢录脟脗录脛拢驴茅...脢搂掳脺");
 		return false;
 	}
 */
@@ -440,35 +443,35 @@ bool ScenesService::init()
 }
 
 /**
- * \brief 新建立一个连接任务
+ * \brief 脨脗陆篓脕垄脪禄赂枚脕卢陆脫脠脦脦帽
  *
- * 实现纯虚函数<code>zNetService::newTCPTask</code>
+ * 脢碌脧脰麓驴脨茅潞炉脢媒<code>zNetService::newTCPTask</code>
  *
- * \param sock TCP/IP连接
- * \param addr 地址
+ * \param sock TCP/IP脕卢陆脫
+ * \param addr 碌脴脰路
  */
 void ScenesService::newTCPTask(const int sock, const struct sockaddr_in *addr)
 {
 	SceneTask *tcpTask = new SceneTask(taskPool, sock, addr);
 	if (NULL == tcpTask)
-		//内存不足，直接关闭连接
+		//脛脷麓忙虏禄脳茫拢卢脰卤陆脫鹿脴卤脮脕卢陆脫
 		TEMP_FAILURE_RETRY(::close(sock));
 	else if(!taskPool->addVerify(tcpTask))
 	{
-		//得到了一个正确连接，添加到验证队列中
+		//碌脙碌陆脕脣脪禄赂枚脮媒脠路脕卢陆脫拢卢脤铆录脫碌陆脩茅脰陇露脫脕脨脰脨
 		SAFE_DELETE(tcpTask);
 	}
 }
 
 /**
- * \brief 解析来自服务器管理器的指令
+ * \brief 陆芒脦枚脌麓脳脭路镁脦帽脝梅鹿脺脌铆脝梅碌脛脰赂脕卯
  *
- * 这些指令是网关和服务器管理器交互的指令<br>
- * 实现了虚函数<code>zSubNetService::msgParse_SuperService</code>
+ * 脮芒脨漏脰赂脕卯脢脟脥酶鹿脴潞脥路镁脦帽脝梅鹿脺脌铆脝梅陆禄禄楼碌脛脰赂脕卯<br>
+ * 脢碌脧脰脕脣脨茅潞炉脢媒<code>zSubNetService::msgParse_SuperService</code>
  *
- * \param ptNullCmd 待解析的指令
- * \param nCmdLen 待解析的指令长度
- * \return 解析是否成功
+ * \param ptNullCmd 麓媒陆芒脦枚碌脛脰赂脕卯
+ * \param nCmdLen 麓媒陆芒脦枚碌脛脰赂脕卯鲁陇露脠
+ * \return 陆芒脦枚脢脟路帽鲁脡鹿娄
  */
 bool ScenesService::msgParse_SuperService(const Cmd::t_NullCmd *ptNullCmd, const unsigned int nCmdLen)
 {
@@ -487,24 +490,24 @@ bool ScenesService::msgParse_SuperService(const Cmd::t_NullCmd *ptNullCmd, const
 							if (!pUser) break;
 							switch (rev->operation)
 							{
-							case 1://禁言
+							case 1://陆没脩脭
 								{
 									pUser->delayForbidTalk(rev->delay);
 									if (rev->delay>0)
 									{
-										Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL, "你被GM禁言 %d 秒", rev->delay);                                               
-										ScenesService::gm_logger->trace("玩家 %s 被禁言 %d 秒", pUser->name,rev->delay);
+										Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL, "脛茫卤禄GM陆没脩脭 %d 脙毛", rev->delay);                                               
+										ScenesService::gm_logger->trace("脥忙录脪 %s 卤禄陆没脩脭 %d 脙毛", pUser->name,rev->delay);
 									}
 									else
 									{
-										Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL, "你被GM解除禁言，现在可以说话了");
-										ScenesService::gm_logger->trace("玩家 %s 被解除禁言", pUser->name);
+										Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL, "脛茫卤禄GM陆芒鲁媒陆没脩脭拢卢脧脰脭脷驴脡脪脭脣碌禄掳脕脣");
+										ScenesService::gm_logger->trace("脥忙录脪 %s 卤禄陆芒鲁媒陆没脩脭", pUser->name);
 									}
 								}
 								break;
-							case 2://关禁闭
+							case 2://鹿脴陆没卤脮
 								break;
-							case 3://踢下线
+							case 3://脤脽脧脗脧脽
 								{
 									OnQuit event(1);
 									EventTable::instance().execute(*pUser, event);
@@ -525,7 +528,7 @@ bool ScenesService::msgParse_SuperService(const Cmd::t_NullCmd *ptNullCmd, const
 									pUser->unreg();
 								}
 								break;
-							case 4://警告
+							case 4://戮炉赂忙
 								{
 									Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL, rev->reason);
 								}
@@ -556,9 +559,9 @@ bool ScenesService::msgParse_SuperService(const Cmd::t_NullCmd *ptNullCmd, const
 }
 
 /**
- * \brief 结束网络服务器
+ * \brief 陆谩脢酶脥酶脗莽路镁脦帽脝梅
  *
- * 实现了纯虚函数<code>zService::final</code>
+ * 脢碌脧脰脕脣麓驴脨茅潞炉脢媒<code>zService::final</code>
  *
  */
 void ScenesService::final()
@@ -604,7 +607,7 @@ void ScenesService::final()
 }
 
 /**
- * \brief 命令行参数
+ * \brief 脙眉脕卯脨脨虏脦脢媒
  *
  */
 static struct argp_option scenes_options[] =
@@ -621,12 +624,12 @@ static struct argp_option scenes_options[] =
 };
 
 /**
- * \brief 命令行参数解析器
+ * \brief 脙眉脕卯脨脨虏脦脢媒陆芒脦枚脝梅
  *
- * \param key 参数缩写
- * \param arg 参数值
- * \param state 参数状态
- * \return 返回错误代码
+ * \param key 虏脦脢媒脣玫脨麓
+ * \param arg 虏脦脢媒脰碌
+ * \param state 虏脦脢媒脳麓脤卢
+ * \return 路碌禄脴麓铆脦贸麓煤脗毛
  */
 static error_t scenes_parse_opt(int key, char *arg, struct argp_state *state)
 {
@@ -669,12 +672,12 @@ static error_t scenes_parse_opt(int key, char *arg, struct argp_state *state)
 			break;
 		case 'n':
 			{
-				std::cout<<"编译选项:\t"<<DEBUG_STRING<<'\n';
-				std::cout<<"GM模式开关:\t"<<Zebra::global["gm_mode"]<<'\n';
+				std::cout<<"卤脿脪毛脩隆脧卯:\t"<<DEBUG_STRING<<'\n';
+				std::cout<<"GM脛拢脢陆驴陋鹿脴:\t"<<Zebra::global["gm_mode"]<<'\n';
 				if (!strcmp("_ALL_SUPER_GM", DEBUG_STRING) && Zebra::global["gm_mode"]=="true")
-					std::cout<<"现在所有人都是\tdebug_mode\n";
+					std::cout<<"脧脰脭脷脣霉脫脨脠脣露录脢脟\tdebug_mode\n";
 				else
-					std::cout<<"现在是\t\t正常模式\n";
+					std::cout<<"脧脰脭脷脢脟\t\t脮媒鲁拢脛拢脢陆\n";
 				// exit(0);
 			}
 			break;
@@ -685,13 +688,13 @@ static error_t scenes_parse_opt(int key, char *arg, struct argp_state *state)
 }
 
 /**
- * \brief 简短描述信息
+ * \brief 录貌露脤脙猫脢枚脨脜脧垄
  *
  */
-static char scenes_doc[] = "\nScenesServer\n" "\t场景服务器。";
+static char scenes_doc[] = "\nScenesServer\n" "\t鲁隆戮掳路镁脦帽脝梅隆拢";
 
 /**
- * \brief 程序的版本信息
+ * \brief 鲁脤脨貌碌脛掳忙卤戮脨脜脧垄
  *
  */
 const char *argp_program_version = "Program version :\t" VERSION_STRING\
@@ -699,7 +702,7 @@ const char *argp_program_version = "Program version :\t" VERSION_STRING\
 									"\nBuild time      :\t" __DATE__ ", " __TIME__;
 
 /**
- * \brief 读取配置文件
+ * \brief 露脕脠隆脜盲脰脙脦脛录镁
  *
  */
 class SceneConfile:public zConfile
@@ -722,7 +725,7 @@ class SceneConfile:public zConfile
 };
 
 /**
- * \brief 重新读取配置文件，为HUP信号的处理函数
+ * \brief 脰脴脨脗露脕脠隆脜盲脰脙脦脛录镁拢卢脦陋HUP脨脜潞脜碌脛麓娄脌铆潞炉脢媒
  *
  */
 void ScenesService::reloadConfig()
@@ -741,9 +744,10 @@ void ScenesService::checkAndReloadConfig()
 		sc.parse("ScenesServer");
 		loadAllBM();
 		NpcTrade::getInstance().init();
+		SceneUserManager::getMe().loadGuoJiaBiaoCheRewardConfig();
 		MessageSystem::getInstance().init();
-		FuBenMgr::getMe().init(); //副本新
-		//定时存档配置
+		FuBenMgr::getMe().init(); //赂卤卤戮脨脗
+		//露篓脢卤麓忙碌碌脜盲脰脙
 		if(atoi(Zebra::global["writebacktimer"].c_str()))
 		{
 			ScenesService::getInstance().writeBackTimer = atoi(Zebra::global["writebacktimer"].c_str());
@@ -753,7 +757,7 @@ void ScenesService::checkAndReloadConfig()
 			ScenesService::getInstance().writeBackTimer = 600;
 		}
 
-		//soke 打怪经验倍数
+		//soke 麓貌鹿脰戮颅脩茅卤露脢媒
 		if(atoi(Zebra::global["double_exp"].c_str()) >0 )
 		{
 			ScenesService::getInstance().double_exp = atoi(Zebra::global["double_exp"].c_str());
@@ -781,7 +785,7 @@ void ScenesService::checkAndReloadConfig()
 			ScenesService::getInstance().levelDoubleDrop = 0;
 		}
 
-		//指令检测开关
+		//脰赂脕卯录矛虏芒驴陋鹿脴
 		if(Zebra::global["cmdswitch"] == "true")
 		{
 			zTCPTask::analysis._switch = true;
@@ -796,7 +800,7 @@ void ScenesService::checkAndReloadConfig()
 }
 
 /**
- * \brief 重新读取特征码文件
+ * \brief 脰脴脨脗露脕脠隆脤脴脮梅脗毛脦脛录镁
  *
  */
 DWORD ScenesService::updateStampData()
@@ -820,7 +824,7 @@ DWORD ScenesService::updateStampData()
 
 		pStampData->dwType = Cmd::CHAT_TYPE_SYSTEM;
 		pStampData->dwSysInfoType = Cmd::INFO_TYPE_GAME;
-		strncpy(pStampData->pstrChat, "欢迎来到征途", MAX_CHATINFO-1);
+		strncpy(pStampData->pstrChat, "禄露脫颅脌麓碌陆脮梅脥戮", MAX_CHATINFO-1);
 		pStampData->dwFromID = read(f, (void *)(pStampData->tobject_array), zSocket::MAX_DATASIZE-sizeof(Cmd::stChannelChatUserCmd));
 		close(f);
 
@@ -833,18 +837,18 @@ DWORD ScenesService::updateStampData()
 
 
 /**
- * \brief 主程序入口
+ * \brief 脰梅鲁脤脨貌脠毛驴脷
  *
- * \param argc 参数个数
- * \param argv 参数列表
- * \return 运行结果
+ * \param argc 虏脦脢媒赂枚脢媒
+ * \param argv 虏脦脢媒脕脨卤铆
+ * \return 脭脣脨脨陆谩鹿没
  */
 int main(int argc, char **argv)
 {
 
 	Zebra::logger=new zLogger("ScenesServer");
 	
-	//设置缺省参数
+	//脡猫脰脙脠卤脢隆虏脦脢媒
 	Zebra::global["logfilename"] = "/tmp/scenesserver.log";
 	Zebra::global["cmdswitch"] = "true";
 	Zebra::global["objlogfilename"] = "/tmp/objscenesserver.log";
@@ -872,31 +876,32 @@ int main(int argc, char **argv)
 	Zebra::global["MagicBoxZuoqiConfig"] = "Config/MagicBoxZuoqiConfig.xml";
 	Zebra::global["MagicBoxChiBangLevelConfig"] = "Config/MagicBoxChiBangLevelConfig.xml";
 	Zebra::global["MagicBoxChiBangConfig"] = "Config/MagicBoxChiBangConfig.xml";
-	Zebra::global["MagicBoxJieMianConfig"] = "Config/MagicBoxJieMianConfig.xml";  //魔盒界面
+	Zebra::global["MagicBoxJieMianConfig"] = "Config/MagicBoxJieMianConfig.xml";  //脛搂潞脨陆莽脙忙
 	Zebra::global["ErnvConfig"] = "Config/ErnvConfig.xml";
 	Zebra::global["zhengtuzhuaconfig"] = "Config/ZhengTuZhuanConfig.xml";
 	Zebra::global["12BeastsConfig"] = "Config/12BeastsConfig.xml";
 	Zebra::global["ShengQiConfig"] = "Config/ShengQiConfig.xml";
 	Zebra::global["JingMaiConfig"] = "Config/JingMaiConfig.xml";
+	Zebra::global["guoJiaBiaoCheRewardConfig"] = "Config/GuoJiaBiaoCheReward.xml";
 	//soke monster exp  50
 	Zebra::global["double_exp"] = "0";
 	Zebra::global["mail_service"] = "on";
 	Zebra::global["auction_service"] = "on";
 
 
-	//解析配置文件参数
+	//陆芒脦枚脜盲脰脙脦脛录镁虏脦脢媒
 	SceneConfile sc;
 	if (!sc.parse("ScenesServer"))
 		return EXIT_FAILURE;
 
-	//解析命令行参数
+	//陆芒脦枚脙眉脕卯脨脨虏脦脢媒
 	zArg::getArg()->add(scenes_options, scenes_parse_opt, 0, scenes_doc);
 	zArg::getArg()->parse(argc, argv);
 	//Zebra::global.dump(std::cout);
 
-	//设置日志级别
+	//脡猫脰脙脠脮脰戮录露卤冒
 	Zebra::logger->setLevel(Zebra::global["log"]);
-	//设置写本地日志文件
+	//脡猫脰脙脨麓卤戮碌脴脠脮脰戮脦脛录镁
 	if ("" != Zebra::global["logfilename"])
 		Zebra::logger->addLocalFileLog(Zebra::global["logfilename"]);
 
@@ -908,7 +913,7 @@ int main(int argc, char **argv)
 	{
 		ScenesService::getInstance().writeBackTimer = 600;
 	}
-	//soke 打怪经验倍数
+	//soke 麓貌鹿脰戮颅脩茅卤露脢媒
 	if(atoi(Zebra::global["double_exp"].c_str()) >0 )
 	{
 		ScenesService::getInstance().double_exp = atoi(Zebra::global["double_exp"].c_str());
@@ -936,7 +941,7 @@ int main(int argc, char **argv)
 		ScenesService::getInstance().levelDoubleDrop = 0;
 	}
 
-	//指令检测开关
+	//脰赂脕卯录矛虏芒驴陋鹿脴
 	if(Zebra::global["cmdswitch"] == "true")
 	{
 		zTCPTask::analysis._switch = true;
@@ -948,7 +953,7 @@ int main(int argc, char **argv)
 		zTCPClient::analysis._switch=false;
 	}
 
-	//是否以后台进程的方式运行
+	//脢脟路帽脪脭潞贸脤篓陆酶鲁脤碌脛路陆脢陆脭脣脨脨
 	if ("true" == Zebra::global["daemon"]) {
 		Zebra::logger->info("Program will be run as a daemon");
 		Zebra::logger->removeConsoleLog();

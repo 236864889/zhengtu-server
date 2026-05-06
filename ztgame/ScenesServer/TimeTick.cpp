@@ -200,7 +200,12 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().hanbiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("Ͻ");
+					Scene * s = SceneManager::getInstance().getSceneByName("南郊");
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 135));
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 135));
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 135));
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 135));
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 135));
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
@@ -221,7 +226,12 @@ void SceneTimeTick::run()
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳϽ");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("Ͻ");
+				Scene * scene2 = SceneManager::getInstance().getSceneByName("南郊");
+				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 135));
+				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 135));
+				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 135));
+				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 135));
+				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 135));
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().hanbiaoche_type == 7)
@@ -503,7 +513,12 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().hanbiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("߾");
+					Scene * s = SceneManager::getInstance().getSceneByName("边境");
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 137));
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 137));
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 137));
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 137));
+					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 137));
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
@@ -525,7 +540,12 @@ void SceneTimeTick::run()
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("߾");
+				Scene * scene3 = SceneManager::getInstance().getSceneByName("边境");
+				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 137));
+				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 137));
+				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 137));
+				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 137));
+				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 137));
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().hanbiaoche_type == 29)
 				{
@@ -822,8 +842,12 @@ void SceneTimeTick::run()
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳѰȫʹﵽ߾ͷ");
-						ScenesService::getInstance().han_biaoche->setClearState();
-						ScenesService::getInstance().han_biaoche = NULL;
+							if (ScenesService::getInstance().han_biaoche)
+								ScenesService::getInstance().han_biaoche->setClearState();
+							if (ScenesService::getInstance().han_biaoche2)
+								ScenesService::getInstance().han_biaoche2->setClearState();
+							ScenesService::getInstance().han_biaoche = NULL;
+							ScenesService::getInstance().han_biaoche2 = NULL;
 						ScenesService::getInstance().hanbiaoche_type = 0;
 						//ڳ
 						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi1(scene3, 8);
@@ -923,7 +947,7 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().hanbiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("Ͻ");
+					Scene * s = SceneManager::getInstance().getSceneByName("南郊");
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
@@ -944,7 +968,7 @@ void SceneTimeTick::run()
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳϽ");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("Ͻ");
+				Scene * scene2 = SceneManager::getInstance().getSceneByName("南郊");
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().hanbiaoche_type == 7)
@@ -1226,7 +1250,7 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().hanbiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("߾");
+					Scene * s = SceneManager::getInstance().getSceneByName("边境");
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
@@ -1248,7 +1272,7 @@ void SceneTimeTick::run()
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("߾");
+				Scene * scene3 = SceneManager::getInstance().getSceneByName("边境");
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().hanbiaoche_type == 29)
 				{
@@ -1545,11 +1569,15 @@ void SceneTimeTick::run()
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ĺڳ(ѱ)Ѱȫʹﵽ߾ͷ");
-						ScenesService::getInstance().han_biaoche2->setClearState();
-						ScenesService::getInstance().han_biaoche2 = NULL;
+							if (ScenesService::getInstance().han_biaoche)
+								ScenesService::getInstance().han_biaoche->setClearState();
+							if (ScenesService::getInstance().han_biaoche2)
+								ScenesService::getInstance().han_biaoche2->setClearState();
+							ScenesService::getInstance().han_biaoche = NULL;
+							ScenesService::getInstance().han_biaoche2 = NULL;
 						ScenesService::getInstance().hanbiaoche_type = 0;
 						//ڳ
-						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi2(scene3, 8);
+						// Damaged escorts are recycled at the destination without sending rewards.
 					}
 				}
 			}
@@ -1647,7 +1675,7 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().chubiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("Ͻ");
+					Scene * s = SceneManager::getInstance().getSceneByName("南郊");
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
@@ -1668,7 +1696,7 @@ void SceneTimeTick::run()
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳϽ");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("Ͻ");
+				Scene * scene2 = SceneManager::getInstance().getSceneByName("南郊");
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().chubiaoche_type == 7)
@@ -1950,7 +1978,7 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().chubiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("߾");
+					Scene * s = SceneManager::getInstance().getSceneByName("边境");
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
@@ -1972,7 +2000,7 @@ void SceneTimeTick::run()
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("߾");
+				Scene * scene3 = SceneManager::getInstance().getSceneByName("边境");
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().chubiaoche_type == 29)
 				{
@@ -2269,8 +2297,12 @@ void SceneTimeTick::run()
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳѰȫʹﵽ߾ͷ");
-						ScenesService::getInstance().chu_biaoche->setClearState();
-						ScenesService::getInstance().chu_biaoche = NULL;
+							if (ScenesService::getInstance().chu_biaoche)
+								ScenesService::getInstance().chu_biaoche->setClearState();
+							if (ScenesService::getInstance().chu_biaoche2)
+								ScenesService::getInstance().chu_biaoche2->setClearState();
+							ScenesService::getInstance().chu_biaoche = NULL;
+							ScenesService::getInstance().chu_biaoche2 = NULL;
 						ScenesService::getInstance().chubiaoche_type = 0;
 						//ڳ
 						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi3(scene3, 3);
@@ -2371,7 +2403,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 
 				if(ScenesService::getInstance().weibiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("Ͻ");
+					Scene * s = SceneManager::getInstance().getSceneByName("南郊");
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
@@ -2392,7 +2424,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳϽ");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("Ͻ");
+				Scene * scene2 = SceneManager::getInstance().getSceneByName("南郊");
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().weibiaoche_type == 7)
@@ -2674,7 +2706,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 
 				if(ScenesService::getInstance().weibiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("߾");
+					Scene * s = SceneManager::getInstance().getSceneByName("边境");
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
@@ -2696,7 +2728,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("߾");
+				Scene * scene3 = SceneManager::getInstance().getSceneByName("边境");
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().weibiaoche_type == 29)
 				{
@@ -2993,8 +3025,9 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳѰȫʹﵽ߾ͷ");
-						ScenesService::getInstance().wei_biaoche->setClearState();
-						ScenesService::getInstance().wei_biaoche = NULL;
+							if (ScenesService::getInstance().wei_biaoche)
+								ScenesService::getInstance().wei_biaoche->setClearState();
+							ScenesService::getInstance().wei_biaoche = NULL;
 						ScenesService::getInstance().weibiaoche_type = 0;
 						//ڳ
 						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi3(scene3, 3);
@@ -3094,7 +3127,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 
 				if(ScenesService::getInstance().chubiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("Ͻ");
+					Scene * s = SceneManager::getInstance().getSceneByName("南郊");
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
@@ -3115,7 +3148,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ĹڳϽ");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("Ͻ");
+				Scene * scene2 = SceneManager::getInstance().getSceneByName("南郊");
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().chubiaoche_type == 7)
@@ -3397,7 +3430,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 
 				if(ScenesService::getInstance().chubiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("߾");
+					Scene * s = SceneManager::getInstance().getSceneByName("边境");
 					if (!s)
 					{
 						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
@@ -3419,7 +3452,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("߾");
+				Scene * scene3 = SceneManager::getInstance().getSceneByName("边境");
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().chubiaoche_type == 29)
 				{
@@ -3716,11 +3749,15 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
 						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ĺڳ(ѱ)Ѱȫʹﵽ߾ͷ");
-						ScenesService::getInstance().chu_biaoche2->setClearState();
-						ScenesService::getInstance().chu_biaoche2 = NULL;
+							if (ScenesService::getInstance().chu_biaoche)
+								ScenesService::getInstance().chu_biaoche->setClearState();
+							if (ScenesService::getInstance().chu_biaoche2)
+								ScenesService::getInstance().chu_biaoche2->setClearState();
+							ScenesService::getInstance().chu_biaoche = NULL;
+							ScenesService::getInstance().chu_biaoche2 = NULL;
 						ScenesService::getInstance().chubiaoche_type = 0;
 						//ڳ
-						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi4(scene3, 3);
+						// Damaged escorts are recycled at the destination without sending rewards.
 					}
 				}
 			}
@@ -3865,11 +3902,15 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 					{
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
-						snprintf(mapName, MAX_NAMESIZE, "%s", "王城");
-						Scene * scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(1, 139));
+						snprintf(mapName, MAX_NAMESIZE, "%s", "wangcheng");
+						Scene * scene = SceneManager::getInstance().getSceneByName("韩国·王城");
 						if (!scene)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲͼ mapName=%s", mapName);
+							scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 139));
+						}
+						if (!scene)
+						{
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 8, 139, mapName, "韩国·王城");
 							return;
 						}
 						zNpcB *base = npcbm.get(54100);
@@ -3901,7 +3942,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"汉国家镖车已经从王城出发");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"韩国家镖车已经从王城出发");
 						ScenesService::getInstance().hanbiaoche_type = 0;
 					}					
 				}
@@ -3917,11 +3958,15 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 					{
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
-						snprintf(mapName, MAX_NAMESIZE, "%s", "王城");
-						Scene * scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(2, 139));
+						snprintf(mapName, MAX_NAMESIZE, "%s", "wangcheng");
+						Scene * scene = SceneManager::getInstance().getSceneByName("楚国·王城");
 						if (!scene)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲͼ mapName=%s", mapName);
+							scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 139));
+						}
+						if (!scene)
+						{
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 12, 139, mapName, "楚国·王城");
 							return;
 						}
 						zNpcB *base = npcbm.get(54098);
@@ -3968,11 +4013,15 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 					{
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
-						snprintf(mapName, MAX_NAMESIZE, "%s", "王城");
-						Scene * scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 139));
+						snprintf(mapName, MAX_NAMESIZE, "%s", "wangcheng");
+						Scene * scene = SceneManager::getInstance().getSceneByName("魏国·王城");
 						if (!scene)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲͼ mapName=%s", mapName);
+							scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 139));
+						}
+						if (!scene)
+						{
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 3, 139, mapName, "魏国·王城");
 							return;
 						}
 						zNpcB *base = npcbm.get(54376);

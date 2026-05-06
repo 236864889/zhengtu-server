@@ -4048,7 +4048,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						 iter++)
 						{
 							char a[MAX_NAMESIZE];
-							sprintf(a, "%s ɱڳ", u->name);
+							sprintf(a, "%s damaged escort", u->name);
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
 							sprintf(send.info, a);
@@ -4057,11 +4057,11 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 
 							// Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "Ĺڳѱӣֻʣ¹ͺͺƳˣ̫ˣ");
+							sprintf(send.info, "Escort damaged, keep escorting");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ĺڳѱӣֻʣ¹ͺͺƳˣ̫ˣ");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Escort damaged, keep escorting");
 						ScenesService::getInstance().han_biaoche->setClearState();
 						ScenesService::getInstance().han_biaoche = NULL;
 					}
@@ -4103,7 +4103,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						 iter++)
 						{
 							char a[MAX_NAMESIZE];
-							sprintf(a, "%s ɱڳ", u->name);
+							sprintf(a, "%s damaged escort", u->name);
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
 							sprintf(send.info, a);
@@ -4112,11 +4112,11 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							
 							// Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "Ĺڳѱӣֻʣ¹ͺͺƳˣ̫ˣ");
+							sprintf(send.info, "Escort damaged, keep escorting");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ĺڳѱӣֻʣ¹ͺͺƳˣ̫ˣ");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Escort damaged, keep escorting");
 						ScenesService::getInstance().chu_biaoche->setClearState();
 						ScenesService::getInstance().chu_biaoche = NULL;
 					}
@@ -4159,7 +4159,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						 iter++)
 						{
 							char a[MAX_NAMESIZE];
-							sprintf(a, "%s ɱڳ", u->name);
+							sprintf(a, "%s damaged escort", u->name);
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
 							sprintf(send.info, a);
@@ -4421,33 +4421,50 @@ bool SceneNpc::changeMap(Scene * newScene, const zPos &pos)
 {
 	if (!newScene)
 	{
-		Zebra::logger->error("SceneNpc::changeMap(): תڵĵͼ newScene=0");
+		Zebra::logger->error("SceneNpc::changeMap(): target scene is null");
 		return false;
 	}
-	scene->removeNpc(this);
-	//֪ͨͻɾNPC
-	zPosI oldPosI = getPosI();
-	Scene *oldScene=scene;
 
-	//this->pos = pos;
+	Scene *oldScene = scene;
+	if (!oldScene)
+	{
+		Zebra::logger->error("SceneNpc::changeMap(): old scene is null npc=%s(%u)", name, tempid);
+		return false;
+	}
 
+	const zPos oldPos = getPos();
+	const zPosI oldPosI = getPosI();
+	const uint64_t oldHP = hp;
+	const uint64_t oldLastHP = lasthp;
 
+	oldScene->removeNpc(this);
 	if (!newScene->refreshNpc(this, pos))
 	{
-		Zebra::logger->debug("%s תͼ %s ʧ", name, newScene->name);
+		Zebra::logger->debug("SceneNpc::changeMap(): npc=%s(%u) target=%s pos=(%u,%u) failed, restoring old scene=%s pos=(%u,%u)",
+				name, tempid, newScene->name, pos.x, pos.y, oldScene->name, oldPos.x, oldPos.y);
+		scene = oldScene;
+		hp = oldHP;
+		lasthp = oldLastHP;
+		oldScene->refreshNpc(this, oldPos);
+		this->sendMeToNine();
 		return false;
 	}
+
 	scene = newScene;
-	//ɾɵͼϵ
+	hp = oldHP;
+	lasthp = oldLastHP;
+
 	Cmd::stRemoveMapNpcMapScreenUserCmd removeNpc;
 	removeNpc.dwMapNpcDataPosition = tempid;
 	oldScene->sendCmdToNine(oldPosI, &removeNpc, sizeof(removeNpc));
-	//µͼ
 	this->sendMeToNine();
 
-	Zebra::logger->debug("%s תͼ %s (x=%u,y=%u)", name, newScene->name, getPos().x, getPos().y);
+	Zebra::logger->debug("SceneNpc::changeMap(): npc=%s(%u) target=%s pos=(%u,%u) hp=%llu/%llu",
+			name, tempid, newScene->name, getPos().x, getPos().y,
+			(unsigned long long)hp, (unsigned long long)getMaxHP());
 	return true;
 }
+
 
 /**
  * \brief ѡиnpcҷ͸npc״̬Ϣ

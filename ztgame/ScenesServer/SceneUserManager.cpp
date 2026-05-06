@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <list>
 #include <sstream>
+#include <vector>
 
 #include "RecordCommand.h"
 #include "RecordClient.h"
@@ -14,9 +15,90 @@
 #include "SessionCommand.h"
 #include "SceneManager.h"
 #include "script.h"
+#include "zXMLParser.h"
 
 SceneUserManager *SceneUserManager::sum(NULL);
 SceneRecycleUserManager *SceneRecycleUserManager::instance(NULL);
+
+namespace
+{
+	struct GuoJiaBiaoCheRewardItem
+	{
+		DWORD id;
+		DWORD num;
+		DWORD bind;
+	};
+
+	struct GuoJiaBiaoCheRewardConfig
+	{
+		std::vector<GuoJiaBiaoCheRewardItem> items;
+		char sysMsg[256];
+		char worldMsg[256];
+	};
+
+	GuoJiaBiaoCheRewardConfig g_guoJiaBiaoCheRewards[5];
+
+	void setRewardMsg(GuoJiaBiaoCheRewardConfig &reward, const char *sysMsg, const char *worldMsg)
+	{
+		bzero(reward.sysMsg, sizeof(reward.sysMsg));
+		bzero(reward.worldMsg, sizeof(reward.worldMsg));
+		snprintf(reward.sysMsg, sizeof(reward.sysMsg), "%s", sysMsg ? sysMsg : "");
+		snprintf(reward.worldMsg, sizeof(reward.worldMsg), "%s", worldMsg ? worldMsg : "");
+	}
+
+	void addRewardItem(GuoJiaBiaoCheRewardConfig &reward, DWORD id, DWORD num, DWORD bind)
+	{
+		GuoJiaBiaoCheRewardItem item;
+		item.id = id;
+		item.num = num;
+		item.bind = bind;
+		reward.items.push_back(item);
+	}
+
+	void initDefaultGuoJiaBiaoCheRewards()
+	{
+		for (int i = 0; i < 5; ++i)
+		{
+			g_guoJiaBiaoCheRewards[i].items.clear();
+			setRewardMsg(g_guoJiaBiaoCheRewards[i], "Escort reward received", "Escort reward: %s%s protected the escort");
+		}
+
+		addRewardItem(g_guoJiaBiaoCheRewards[1], 123123, 5000, 1);
+		addRewardItem(g_guoJiaBiaoCheRewards[1], 120048, 500, 1);
+		setRewardMsg(g_guoJiaBiaoCheRewards[1], "Escort reward received: 5000/500", "Escort reward: %s%s protected an intact escort");
+
+		setRewardMsg(g_guoJiaBiaoCheRewards[2], "", "");
+
+		addRewardItem(g_guoJiaBiaoCheRewards[3], 123123, 5000, 1);
+		addRewardItem(g_guoJiaBiaoCheRewards[3], 120048, 500, 1);
+		setRewardMsg(g_guoJiaBiaoCheRewards[3], "Escort reward received: 5000/500", "Escort reward: %s%s protected an intact escort");
+
+		setRewardMsg(g_guoJiaBiaoCheRewards[4], "", "");
+	}
+
+	void grantGuoJiaBiaoCheReward(SceneUser *user, DWORD rewardID)
+	{
+		if (!user || rewardID >= 5)
+			return;
+
+		GuoJiaBiaoCheRewardConfig &reward = g_guoJiaBiaoCheRewards[rewardID];
+		for (std::vector<GuoJiaBiaoCheRewardItem>::const_iterator it = reward.items.begin(); it != reward.items.end(); ++it)
+		{
+			char fetchCmd[128];
+			snprintf(fetchCmd, sizeof(fetchCmd), "id=%u num=%u bind=%u", it->id, it->num, it->bind);
+			Gm::fetch(user, fetchCmd);
+		}
+
+		if (reward.sysMsg[0])
+			Channel::sendSys(user, Cmd::INFO_TYPE_GAME, "%s", reward.sysMsg);
+		if (reward.worldMsg[0])
+		{
+			Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, reward.worldMsg,
+					SceneManager::getInstance().getCountryNameByCountryID(user->charbase.country), user->charbase.name);
+		}
+	}
+}
+
 bool SceneUserManager::getUniqeID(DWORD& tempid)
 {
 	return true;
@@ -114,6 +196,68 @@ SceneUser * SceneUserManager::getUserByTempIDOut( DWORD tempid)
 		return ret;
 }
 
+bool SceneUserManager::loadGuoJiaBiaoCheRewardConfig()
+{
+	initDefaultGuoJiaBiaoCheRewards();
+
+	std::string configFile = Zebra::global["guoJiaBiaoCheRewardConfig"];
+	if (configFile.empty())
+		configFile = "Config/GuoJiaBiaoCheReward.xml";
+
+	zXMLParser xml;
+	if (!xml.initFile(configFile))
+	{
+		Zebra::logger->debug("load escort reward config failed, use defaults file=%s", configFile.c_str());
+		return false;
+	}
+
+	xmlNodePtr root = xml.getRootNode("guojiaBiaoCheRewards");
+	if (!root)
+	{
+		Zebra::logger->debug("escort reward config root missing, use defaults file=%s", configFile.c_str());
+		return false;
+	}
+
+	xmlNodePtr rewardNode = xml.getChildNode(root, "reward");
+	while (rewardNode)
+	{
+		DWORD rewardID = 0;
+		if (xml.getNodePropNum(rewardNode, "id", &rewardID, sizeof(rewardID)) && rewardID > 0 && rewardID < 5)
+		{
+			GuoJiaBiaoCheRewardConfig parsed;
+			parsed.items.clear();
+			setRewardMsg(parsed, g_guoJiaBiaoCheRewards[rewardID].sysMsg, g_guoJiaBiaoCheRewards[rewardID].worldMsg);
+
+			char msg[256];
+			if (xml.getNodePropStr(rewardNode, "sysMsg", msg, sizeof(msg)))
+				snprintf(parsed.sysMsg, sizeof(parsed.sysMsg), "%s", msg);
+			if (xml.getNodePropStr(rewardNode, "worldMsg", msg, sizeof(msg)))
+				snprintf(parsed.worldMsg, sizeof(parsed.worldMsg), "%s", msg);
+
+			xmlNodePtr itemNode = xml.getChildNode(rewardNode, "item");
+			while (itemNode)
+			{
+				DWORD itemID = 0;
+				DWORD num = 0;
+				DWORD bind = 1;
+				xml.getNodePropNum(itemNode, "id", &itemID, sizeof(itemID));
+				xml.getNodePropNum(itemNode, "num", &num, sizeof(num));
+				xml.getNodePropNum(itemNode, "bind", &bind, sizeof(bind));
+				if (itemID && num)
+					addRewardItem(parsed, itemID, num, bind);
+				itemNode = xml.getNextNode(itemNode, "item");
+			}
+
+			if (!parsed.items.empty())
+				g_guoJiaBiaoCheRewards[rewardID] = parsed;
+		}
+		rewardNode = xml.getNextNode(rewardNode, "reward");
+	}
+
+	Zebra::logger->info("load escort reward config success file=%s", configFile.c_str());
+	return true;
+}
+
 bool SceneUserManager::GuoJiaBiaoCheJiangLi1(Scene *scene, DWORD countryID)
 {
 	struct GuoJiaBiaoCheJiangLi : public execEntry<SceneUser>
@@ -126,14 +270,7 @@ bool SceneUserManager::GuoJiaBiaoCheJiangLi1(Scene *scene, DWORD countryID)
 		bool exec(SceneUser *u)
 		{
 			if (u->scene && u->scene->id == scene->id && u->charbase.country == countryID)
-			{
-				Gm::fetch(u, "id=123123 num=5000 bind=1");
-				Gm::fetch(u, "id=120048 num=500 bind=1");
-				//Gm::fetch(u, "id=120052 num=400 bind=1");
-				//Gm::fetch(u, "id=20800 num=100 bind=1");
-				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "ϲɹػ˹ڳ,óֵ5000500");
-				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "ϲ%s%sɹػ˹ڳ,óֵ5000500", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // 
-			}
+				grantGuoJiaBiaoCheReward(u, 1);
 			return true;
 		}
 	};
@@ -144,33 +281,11 @@ bool SceneUserManager::GuoJiaBiaoCheJiangLi1(Scene *scene, DWORD countryID)
 
 bool SceneUserManager::GuoJiaBiaoCheJiangLi2(Scene *scene, DWORD countryID)
 {
-	struct GuoJiaBiaoCheJiangLi : public execEntry<SceneUser>
-	{
-		Scene *scene;
-		DWORD countryID;
-		GuoJiaBiaoCheJiangLi(Scene *s, DWORD c) : scene(s), countryID(c)
-		{
-		}
-		bool exec(SceneUser *u)
-		{
-			if (u->scene && u->scene->id == scene->id && u->charbase.country == countryID)
-			{
-				Gm::fetch(u, "id=123123 num=3000 bind=1");
-				Gm::fetch(u, "id=120048 num=200 bind=1");
-				//Gm::fetch(u, "id=120052 num=200 bind=1");
-				//Gm::fetch(u, "id=20800 num=100 bind=1");
-				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "ϲɹػ˹ڳ,óֵ3000200");
-				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "ϲ%s%sɹػ˹ڳ,óֵ3000200", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // 
-							
-			}
-			return true;
-		}
-	};
-	GuoJiaBiaoCheJiangLi exec(scene, countryID);
-	SceneUserManager::getMe().execEveryUser(exec);
+	(void)scene;
+	(void)countryID;
+	// Damaged escorts are allowed to finish and be recycled, but do not send rewards.
 	return true;
 }
-
 
 bool SceneUserManager::GuoJiaBiaoCheJiangLi3(Scene *scene, DWORD countryID)
 {
@@ -184,15 +299,7 @@ bool SceneUserManager::GuoJiaBiaoCheJiangLi3(Scene *scene, DWORD countryID)
 		bool exec(SceneUser *u)
 		{
 			if (u->scene && u->scene->id == scene->id && u->charbase.country == countryID)
-			{
-				Gm::fetch(u, "id=123123 num=5000 bind=1");
-				Gm::fetch(u, "id=120048 num=500 bind=1");
-				//Gm::fetch(u, "id=120052 num=400 bind=1");
-				//Gm::fetch(u, "id=20800 num=100 bind=1");
-				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "ϲɹػ˹ڳ,óֵ5000500");
-				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "ϲ%s%sɹػ˹ڳ,óֵ5000500", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // 
-			
-			}
+				grantGuoJiaBiaoCheReward(u, 3);
 			return true;
 		}
 	};
@@ -201,32 +308,11 @@ bool SceneUserManager::GuoJiaBiaoCheJiangLi3(Scene *scene, DWORD countryID)
 	return true;
 }
 
-
 bool SceneUserManager::GuoJiaBiaoCheJiangLi4(Scene *scene, DWORD countryID)
 {
-	struct GuoJiaBiaoCheJiangLi : public execEntry<SceneUser>
-	{
-		Scene *scene;
-		DWORD countryID;
-		GuoJiaBiaoCheJiangLi(Scene *s, DWORD c) : scene(s), countryID(c)
-		{
-		}
-		bool exec(SceneUser *u)
-		{
-			if (u->scene && u->scene->id == scene->id && u->charbase.country == countryID)
-			{
-				Gm::fetch(u, "id=123123 num=3000 bind=1");
-				Gm::fetch(u, "id=120048 num=200 bind=1");
-				//Gm::fetch(u, "id=120052 num=200 bind=1");
-				//Gm::fetch(u, "id=20800 num=100 bind=1");
-				Channel::sendSys(u, Cmd::INFO_TYPE_GAME, "ϲɹػ˹ڳ,óֵ3000200");
-				Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "ϲ%s%sɹػ˹ڳ,óֵ3000200", SceneManager::getInstance().getCountryNameByCountryID(u->charbase.country), u->charbase.name); // 
-			}
-			return true;
-		}
-	};
-	GuoJiaBiaoCheJiangLi exec(scene, countryID);
-	SceneUserManager::getMe().execEveryUser(exec);
+	(void)scene;
+	(void)countryID;
+	// Damaged escorts are allowed to finish and be recycled, but do not send rewards.
 	return true;
 }
 

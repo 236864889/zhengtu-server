@@ -38,6 +38,7 @@ class SceneUserManager:protected zUserManager
 		bool GuoJiaBiaoCheJiangLi2(Scene *scene, DWORD countryID);
 		bool GuoJiaBiaoCheJiangLi3(Scene *scene, DWORD countryID);
 		bool GuoJiaBiaoCheJiangLi4(Scene *scene, DWORD countryID);
+		bool loadGuoJiaBiaoCheRewardConfig();
 		void countryTrans(DWORD dwCountryID, DWORD dwLevel);
 		void setAntiAtt(DWORD dwType, DWORD dwFromRelationID, DWORD dwToRelationID);
 		void enterWar(Cmd::Session::t_enterWar_SceneSession* cmd);
