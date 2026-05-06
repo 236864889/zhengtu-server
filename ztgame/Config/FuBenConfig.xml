@@ -20,5 +20,6 @@
     UserMinLvLimit  玩家最低等级限制
     UserMaxLvLimit  玩家最高等级限制
     -->
-    <FuBen FBID="1" FBType="1" FBMapID="20011" FBCounID="6" FBName="云天别墅" StartTime="20240401 00:00:00" LastTime="86400" MaxOpenNumPerDay="86400" MaxEnterNumPerDay="86400" MaxUserCount="1" MaxFBCount="40" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="30" UserMaxLvLimit="220"/>
+    <FuBen FBID="1" FBType="1" FBMapID="20011" FBCounID="6" FBName="云天别墅" StartTime="20240401 00:00:00" LastTime="86340" MaxOpenNumPerDay="86340" MaxEnterNumPerDay="86340" MaxUserCount="200" MaxFBCount="200" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="30" UserMaxLvLimit="300"/>
+	<FuBen FBID="8" FBType="8" FBMapID="20012" FBCounID="6" FBName="家族地图" StartTime="20240401 00:00:00" LastTime="86340" MaxOpenNumPerDay="86340" MaxEnterNumPerDay="86340" MaxUserCount="200" MaxFBCount="200" IsNeedTeam="0"  MinTeamMembNum="2" UserMinLvLimit="30" UserMaxLvLimit="300"/>
 </Config>

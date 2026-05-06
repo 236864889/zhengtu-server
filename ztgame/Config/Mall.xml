@@ -2,62 +2,22 @@
 <!-- edited with XMLSpy v2005 sp2 U (http://www.altova.com) by ccc (Ru-Board) -->
 <!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by fuzb -->
 <wares>
-	<info num="10"/>
-	<!-- 商品限购区 -->
-	<ware1>
-		<item id="50316" action="1"/>
-		<item id="50317" action="1"/>
-		<item id="50318" action="1"/>
-	</ware1>
-	
-	<!-- 热卖商品区 -->
-	<ware2>
 		<item id="50319" action="1"/>
 		<item id="50320" action="1"/>
-		<item id="50321" action="1"/>
-	</ware2>
-	
-	<!-- 便利道具区 -->
-	<ware3>
+		
 		<item id="50322" action="1"/>
 		<item id="50323" action="1"/>
-	</ware3>
-	
-	<!-- 坐骑系列区 -->
-	<ware4>
-		<item id="50324" action="1"/>
+
 		<item id="50325" action="1"/>
-	</ware4>
-	
-	<!-- 精品材料区 -->
-	<ware5>
 		<item id="50326" action="1"/>
-		<item id="50327" action="1"/>
-	</ware5>
-	
-	<!-- 其他商品区 -->
-	<ware6>
+
 		<item id="50328" action="1"/>
 		<item id="50329" action="1"/>
-	</ware6>
-	
-	<!-- VIP专区 -->
-	<ware7>
-		<item id="50330" action="1"/>
-	</ware7>
-	
-	<!-- 时装专区 -->
-	<ware8>
-		<item id="50332" action="1"/>
-	</ware8>
-	
-	<!-- 武器专区 -->
-	<ware9>
-		<item id="50333" action="1"/>
-	</ware9>
-	
-	<!-- 宠物专区 -->
-	<ware10>
-		<item id="50334" action="1"/>
-	</ware10>
+		<item id="120047" action="1"/>
+		<item id="120055" action="1"/>
+		<item id="120057" action="1"/>
+		<item id="50341" action="1"/>
+		<item id="50342" action="1"/>
+		<item id="50343" action="1"/>
+		<item id="50344" action="1"/>
 </wares>

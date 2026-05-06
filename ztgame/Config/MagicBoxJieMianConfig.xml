@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312"?>
+<config>
+    <!-- 魔盒-界面类配置；字段必须与 ScenesServer/fjconfig.cpp::initJiemian() 一致 -->
+    <meridianMap>
+        <meridian index="1">
+            <pointMap>
+                <!--
+                  name: 界面名
+                  exp: 该界面激活后提供的魔盒经验
+                  jihuoID: 激活所需道具ID
+                  jihuoNum: 激活所需道具数量
+                  activityNum: 前端显示用活跃值/数量
+                  dongtai: 动态标记（客户端状态位）
+                -->
+                <point name="基础界面" exp="0"   jihuoID="0"      jihuoNum="0" activityNum="0"  dongtai="0"/>
+                <point name="青龙界面" exp="50"  jihuoID="120001" jihuoNum="1" activityNum="10" dongtai="1"/>
+                <point name="白虎界面" exp="120" jihuoID="120002" jihuoNum="2" activityNum="20" dongtai="1"/>
+                <point name="朱雀界面" exp="260" jihuoID="120003" jihuoNum="3" activityNum="30" dongtai="2"/>
+                <point name="玄武界面" exp="480" jihuoID="120004" jihuoNum="5" activityNum="40" dongtai="2"/>
+            </pointMap>
+        </meridian>
+    </meridianMap>
+</config>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<fabao itemid="1132,1133,1134,1135,1136,8561,8562,8563,8564,8565,8566,8567,8568,8569,8570,8571,8572,8573,8574,8575,8576,8577,8578,1151,1166,1262,1315,1330,1331,1332,1333,1334,1335,1336,1337,1338,1339,1340,1341,1342,1343,1344,1345,1346,1347,1348,1349,1350,1351,1352,1353,1354" skillid="30008,30009,10018,10019,10020,10022,10023,10024,10025,10026,10027,10028,10029">
+	<!--法宝数据配置 id为物品baseid-->
+	<fabaocon id="1127" name="混天绫" frame="201" magic="1028"/>
+	<fabaocon id="1128" name="定海神针" frame="203" magic="1030"/>
+	<fabaocon id="1129" name="金刚镯" frame="202" magic="1029"/>
+	<fabaocon id="1130" name="昆仑镜" frame="204" magic="1031"/>
+	<!-- 
+  <fabaocon id="" name="" frame=""></fabaocon>
+  <fabaocon id="" name="" frame=""></fabaocon>
+  <fabaocon id="" name="" frame=""></fabaocon> -->
+	<!--被动技能配置-->
+	<passkill id="201" name="神力" icous="101" desc="法宝力量值增加30点"/>
+	<passkill id="202" name="防御" icous="105" desc="法宝敏捷值增加30点"/>
+	<passkill id="203" name="专注" icous="109" desc="法宝精神值增加30点"/>
+	<passkill id="204" name="通灵" icous="113" desc="法宝智力值增加30点"/>
+	<passkill id="205" name="坚韧" icous="117" desc="法宝体质值增加30点"/>
+	<passkill id="206" name="强攻" icous="121" desc="法宝力量值提高10%"/>
+	<passkill id="207" name="疾风" icous="125" desc="法宝敏捷值提高10%"/>
+	<passkill id="208" name="冥思" icous="129" desc="法宝智力值提高10%"/>
+	<passkill id="209" name="凝神" icous="133" desc="法宝精神值提高10%"/>
+	<passkill id="210" name="守护" icous="137" desc="法宝体质值提高10%"/>
+	<passkill id="211" name="醍醐灌顶" icous="141" desc="法宝资质增加1点"/>
+	<passkill id="212" name="穿刺" icous="145" desc="法宝加成给主人的物理攻击提高10%"/>
+	<passkill id="213" name="魔法之魂" icous="149" desc="法宝加成给主人的魔法攻击提高10%"/>
+	<passkill id="214" name="护体" icous="153" desc="法宝加成给主人的物理防御提高10%"/>
+	<passkill id="215" name="神佑" icous="157" desc="法宝加成给主人的魔法防御提高10%"/>
+	<passkill id="216" name="意志" icous="161" desc="法宝加成给主人的生命值提高10%"/>
+	<passkill id="217" name="大智若愚" icous="165" desc="法宝资质增加1点"/>
+	<passkill id="218" name="顿悟" icous="168" desc="法宝资质增加1点"/>
+	<!--等级、最大经验值配置-->
+	<level num="1" exp="100"/>
+	<level num="2" exp="150"/>
+	<level num="3" exp="200"/>
+	<level num="4" exp="250"/>
+	<level num="5" exp="300"/>
+	<level num="6" exp="350"/>
+	<level num="7" exp="400"/>
+	<level num="8" exp="450"/>
+	<level num="9" exp="500"/>
+	<level num="10" exp="550"/>
+	<level num="11" exp="600"/>
+	<level num="12" exp="700"/>
+	<level num="13" exp="800"/>
+	<level num="14" exp="900"/>
+	<level num="15" exp="1000"/>
+	<level num="16" exp="1200"/>
+	<level num="17" exp="1400"/>
+	<level num="18" exp="1650"/>
+	<level num="19" exp="1900"/>
+	<level num="20" exp="2200"/>
+	<level num="21" exp="2500"/>
+	<level num="22" exp="2900"/>
+	<level num="23" exp="3300"/>
+	<level num="24" exp="3700"/>
+	<level num="25" exp="4100"/>
+	<level num="26" exp="4500"/>
+	<level num="27" exp="5000"/>
+	<level num="28" exp="5500"/>
+	<level num="29" exp="5600"/>
+	<level num="30" exp="6000"/>
+	<level num="31" exp="6500"/>
+	<level num="32" exp="7000"/>
+	<level num="33" exp="7500"/>
+	<level num="34" exp="8000"/>
+	<level num="35" exp="8500"/>
+	<level num="36" exp="9000"/>
+	<level num="37" exp="9500"/>
+	<level num="38" exp="10000"/>
+	<level num="39" exp="10500"/>
+	<level num="40" exp="11000"/>
+	<level num="41" exp="11500"/>
+	<level num="42" exp="12000"/>
+	<level num="43" exp="12500"/>
+	<level num="44" exp="13000"/>
+	<level num="45" exp="13500"/>
+	<level num="46" exp="14000"/>
+	<level num="47" exp="14500"/>
+	<level num="48" exp="15000"/>
+	<level num="49" exp="15500"/>
+	<level num="50" exp="16000"/>
+	<level num="51" exp="16500"/>
+	<level num="52" exp="17000"/>
+	<level num="53" exp="17500"/>
+	<level num="54" exp="18000"/>
+	<level num="55" exp="18500"/>
+	<level num="56" exp="19000"/>
+	<level num="57" exp="19500"/>
+	<level num="58" exp="20000"/>
+	<level num="59" exp="21000"/>
+	<level num="60" exp="22000"/>
+	<level num="61" exp="23000"/>
+	<level num="62" exp="24000"/>
+	<level num="63" exp="25000"/>
+	<level num="64" exp="26000"/>
+	<level num="65" exp="27000"/>
+	<level num="66" exp="28000"/>
+	<level num="67" exp="29000"/>
+	<level num="68" exp="30000"/>
+	<level num="69" exp="32000"/>
+	<level num="70" exp="34000"/>
+	<level num="71" exp="36000"/>
+	<level num="72" exp="38000"/>
+	<level num="73" exp="40000"/>
+	<level num="74" exp="42000"/>
+	<level num="75" exp="44000"/>
+	<level num="76" exp="46000"/>
+	<level num="77" exp="48000"/>
+	<level num="78" exp="50000"/>
+	<level num="79" exp="55000"/>
+	<level num="80" exp="60000"/>
+	<level num="81" exp="65000"/>
+	<level num="82" exp="70000"/>
+	<level num="83" exp="75000"/>
+	<level num="84" exp="80000"/>
+	<level num="85" exp="85000"/>
+	<level num="86" exp="90000"/>
+	<level num="87" exp="95000"/>
+	<level num="88" exp="100000"/>
+	<level num="89" exp="110000"/>
+	<level num="90" exp="120000"/>
+	<level num="91" exp="125000"/>
+	<level num="92" exp="130000"/>
+	<level num="93" exp="135000"/>
+	<level num="94" exp="145000"/>
+	<level num="95" exp="155000"/>
+	<level num="96" exp="165000"/>
+	<level num="97" exp="175000"/>
+	<level num="98" exp="185000"/>
+	<level num="99" exp="195000"/>
+	<level num="100" exp="200000"/>
+	<level num="101" exp="210000"/>
+	<level num="102" exp="220000"/>
+	<level num="103" exp="230000"/>
+	<level num="104" exp="240000"/>
+	<level num="105" exp="250000"/>
+	<level num="106" exp="260000"/>
+	<level num="107" exp="270000"/>
+	<level num="108" exp="280000"/>
+	<level num="109" exp="290000"/>
+	<level num="110" exp="300000"/>
+	<level num="111" exp="310000"/>
+	<level num="112" exp="320000"/>
+	<level num="113" exp="330000"/>
+	<level num="114" exp="340000"/>
+	<level num="115" exp="350000"/>
+	<level num="116" exp="360000"/>
+	<level num="117" exp="370000"/>
+	<level num="118" exp="380000"/>
+	<level num="119" exp="390000"/>
+	<level num="120" exp="400000"/>
+	<level num="121" exp="410000"/>
+	<level num="122" exp="420000"/>
+	<level num="123" exp="430000"/>
+	<level num="124" exp="440000"/>
+	<level num="125" exp="450000"/>
+	<level num="126" exp="460000"/>
+	<level num="127" exp="470000"/>
+	<level num="128" exp="480000"/>
+	<level num="129" exp="490000"/>
+	<level num="130" exp="500000"/>
+	<level num="131" exp="510000"/>
+	<level num="132" exp="520000"/>
+	<level num="133" exp="530000"/>
+	<level num="134" exp="540000"/>
+	<level num="135" exp="550000"/>
+	<level num="136" exp="560000"/>
+	<level num="137" exp="570000"/>
+	<level num="138" exp="580000"/>
+	<level num="139" exp="590000"/>
+	<level num="140" exp="600000"/>
+	<level num="141" exp="610000"/>
+	<level num="142" exp="620000"/>
+	<level num="143" exp="630000"/>
+	<level num="144" exp="640000"/>
+	<level num="145" exp="650000"/>
+	<level num="146" exp="660000"/>
+	<level num="147" exp="670000"/>
+	<level num="148" exp="680000"/>
+	<level num="149" exp="690000"/>
+	<level num="150" exp="700000"/>
+	<level num="151" exp="800000"/>
+	<level num="152" exp="810000"/>
+	<level num="153" exp="820000"/>
+	<level num="154" exp="830000"/>
+	<level num="155" exp="840000"/>
+	<level num="156" exp="850000"/>
+	<level num="157" exp="860000"/>
+	<level num="158" exp="870000"/>
+	<level num="159" exp="880000"/>
+	<level num="160" exp="890000"/>
+	<level num="161" exp="900000"/>
+	<level num="162" exp="910000"/>
+	<level num="163" exp="920000"/>
+	<level num="164" exp="930000"/>
+	<level num="165" exp="940000"/>
+	<level num="166" exp="950000"/>
+	<level num="167" exp="960000"/>
+	<level num="168" exp="970000"/>
+	<level num="169" exp="980000"/>
+	<level num="170" exp="990000"/>
+	<level num="171" exp="1000000"/>
+	<level num="172" exp="1100000"/>
+	<level num="173" exp="1200000"/>
+	<level num="174" exp="1300000"/>
+	<level num="175" exp="1400000"/>
+	<level num="176" exp="1500000"/>
+	<level num="177" exp="1600000"/>
+	<level num="178" exp="1700000"/>
+	<level num="179" exp="1800000"/>
+	<level num="180" exp="1900000"/>
+	<level num="181" exp="2000000"/>
+	<level num="182" exp="2100000"/>
+	<level num="183" exp="2200000"/>
+	<level num="184" exp="2300000"/>
+	<level num="185" exp="2400000"/>
+	<level num="186" exp="2500000"/>
+	<level num="187" exp="2600000"/>
+	<level num="188" exp="2700000"/>
+	<level num="189" exp="2800000"/>
+	<level num="190" exp="2900000"/>
+	<level num="191" exp="3000000"/>
+	<level num="192" exp="4000000"/>
+	<level num="193" exp="5000000"/>
+	<level num="194" exp="6000000"/>
+	<level num="195" exp="7000000"/>
+	<level num="196" exp="8000000"/>
+	<level num="197" exp="9000000"/>
+	<level num="198" exp="10000000"/>
+	<level num="199" exp="11000000"/>
+	<level num="200" exp="12000000"/>
+	<level num="201" exp="13000000"/>
+	<level num="202" exp="14000000"/>
+	<level num="203" exp="15000000"/>
+	<level num="204" exp="16000000"/>
+	<level num="205" exp="17000000"/>
+	<level num="206" exp="18000000"/>
+	<level num="207" exp="19000000"/>
+	<level num="208" exp="20000000"/>
+	<level num="209" exp="21000000"/>
+	<level num="210" exp="22000000"/>
+	<level num="211" exp="23000000"/>
+	<level num="212" exp="24000000"/>
+	<level num="213" exp="25000000"/>
+	<level num="214" exp="26000000"/>
+	<level num="215" exp="27000000"/>
+	<level num="216" exp="28000000"/>
+	<level num="217" exp="29000000"/>
+	<level num="218" exp="30000000"/>
+	<level num="219" exp="31000000"/>
+	<level num="220" exp="32000000"/>
+</fabao>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<config>
+	<!-- 坐骑图鉴配置 -->
+	<meridianMap>
+		<meridian index="1">
+			<pointMap>
+				<!--  level:等级[非坐骑图鉴等级] exp:当前等级所加经验 costID:扣除道具 salary:单次扣工资(文)  -->
+				<point level="0" exp="10" costID="852" salary="10000" ll="10" zl="10" mj="10" js="10" tz="10" speed="10" wugong="1" mogong="1" wufang="1" mofang="1" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="1" exp="10" costID="852" salary="10000" ll="20" zl="20" mj="20" js="20" tz="20" speed="10" wugong="2" mogong="2" wufang="2" mofang="2" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="2" exp="10" costID="852" salary="10000" ll="30" zl="30" mj="30" js="30" tz="30" speed="10" wugong="2" mogong="2" wufang="2" mofang="2" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="3" exp="10" costID="852" salary="10000" ll="40" zl="40" mj="40" js="40" tz="40" speed="10" wugong="3" mogong="3" wufang="3" mofang="3" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="4" exp="10" costID="852" salary="10000" ll="50" zl="50" mj="50" js="50" tz="50" speed="10" wugong="3" mogong="3" wufang="3" mofang="3" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="5" exp="10" costID="852" salary="10000" ll="60" zl="60" mj="60" js="60" tz="60" speed="10" wugong="4" mogong="4" wufang="4" mofang="4" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="6" exp="10" costID="852" salary="10000" ll="70" zl="70" mj="70" js="70" tz="70" speed="10" wugong="4" mogong="4" wufang="4" mofang="4" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="7" exp="10" costID="852" salary="10000" ll="80" zl="80" mj="80" js="80" tz="80" speed="10" wugong="5" mogong="5" wufang="5" mofang="5" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="8" exp="10" costID="852" salary="10000" ll="90" zl="90" mj="90" js="90" tz="91" speed="10" wugong="5" mogong="5" wufang="5" mofang="5" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="9" exp="10" costID="852" salary="10000" ll="100" zl="100" mj="100" js="100" tz="100" speed="10" wugong="6" mogong="6" wufang="6" mofang="6" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="10" exp="10" costID="852" salary="10000" ll="110" zl="110" mj="110" js="110" tz="110" speed="10" wugong="6" mogong="6" wufang="6" mofang="6" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				
+				<point level="11" exp="10" costID="852" salary="10000" ll="120" zl="120" mj="120" js="120" tz="120" speed="10" wugong="7" mogong="7" wufang="7" mofang="7" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="12" exp="10" costID="852" salary="10000" ll="130" zl="130" mj="130" js="130" tz="130" speed="10" wugong="7" mogong="7" wufang="7" mofang="7" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="13" exp="10" costID="852" salary="10000" ll="140" zl="140" mj="140" js="140" tz="140" speed="10" wugong="8" mogong="8" wufang="8" mofang="8" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="14" exp="10" costID="852" salary="10000" ll="150" zl="150" mj="150" js="150" tz="150" speed="10" wugong="8" mogong="8" wufang="8" mofang="8" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="15" exp="10" costID="852" salary="10000" ll="160" zl="160" mj="160" js="160" tz="160" speed="10" wugong="9" mogong="9" wufang="9" mofang="9" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="16" exp="10" costID="852" salary="10000" ll="170" zl="170" mj="170" js="170" tz="170" speed="10" wugong="9" mogong="9" wufang="9" mofang="9" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="17" exp="10" costID="852" salary="10000" ll="180" zl="180" mj="180" js="180" tz="180" speed="10" wugong="10" mogong="10" wufang="10" mofang="10" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="18" exp="10" costID="852" salary="10000" ll="190" zl="190" mj="190" js="190" tz="190" speed="10" wugong="10" mogong="10" wufang="10" mofang="10" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="19" exp="10" costID="852" salary="10000" ll="200" zl="200" mj="200" js="200" tz="200" speed="10" wugong="11" mogong="11" wufang="11" mofang="11" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="20" exp="10" costID="852" salary="10000" ll="210" zl="210" mj="210" js="210" tz="210" speed="10" wugong="11" mogong="11" wufang="11" mofang="11" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				
+				<point level="21" exp="10" costID="852" salary="10000" ll="220" zl="220" mj="220" js="220" tz="220" speed="10" wugong="12" mogong="12" wufang="12" mofang="12" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="22" exp="10" costID="852" salary="10000" ll="230" zl="230" mj="230" js="230" tz="230" speed="10" wugong="12" mogong="12" wufang="12" mofang="12" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="23" exp="10" costID="852" salary="10000" ll="240" zl="240" mj="240" js="240" tz="240" speed="10" wugong="13" mogong="13" wufang="13" mofang="13" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="24" exp="10" costID="852" salary="10000" ll="250" zl="250" mj="250" js="250" tz="250" speed="10" wugong="13" mogong="13" wufang="13" mofang="13" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="25" exp="10" costID="852" salary="10000" ll="260" zl="260" mj="260" js="260" tz="260" speed="10" wugong="14" mogong="14" wufang="14" mofang="14" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="26" exp="10" costID="852" salary="10000" ll="270" zl="270" mj="270" js="270" tz="270" speed="10" wugong="14" mogong="14" wufang="14" mofang="14" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="27" exp="10" costID="852" salary="10000" ll="280" zl="280" mj="280" js="280" tz="280" speed="10" wugong="15" mogong="15" wufang="15" mofang="15" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="28" exp="10" costID="852" salary="10000" ll="290" zl="290" mj="290" js="290" tz="290" speed="10" wugong="15" mogong="15" wufang="15" mofang="15" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="29" exp="10" costID="852" salary="10000" ll="300" zl="300" mj="300" js="300" tz="300" speed="10" wugong="16" mogong="16" wufang="16" mofang="16" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="30" exp="10" costID="852" salary="10000" ll="310" zl="310" mj="310" js="310" tz="310" speed="10" wugong="16" mogong="16" wufang="16" mofang="16" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				
+				<point level="31" exp="10" costID="852" salary="10000" ll="320" zl="320" mj="320" js="320" tz="320" speed="10" wugong="17" mogong="17" wufang="17" mofang="17" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="32" exp="10" costID="852" salary="10000" ll="330" zl="330" mj="330" js="330" tz="330" speed="10" wugong="18" mogong="18" wufang="18" mofang="18" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="33" exp="10" costID="852" salary="10000" ll="340" zl="340" mj="340" js="340" tz="340" speed="10" wugong="18" mogong="18" wufang="18" mofang="18" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="34" exp="10" costID="852" salary="10000" ll="350" zl="350" mj="350" js="350" tz="350" speed="10" wugong="19" mogong="19" wufang="19" mofang="19" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="35" exp="10" costID="852" salary="10000" ll="360" zl="360" mj="360" js="360" tz="360" speed="10" wugong="19" mogong="19" wufang="19" mofang="19" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="36" exp="10" costID="852" salary="10000" ll="370" zl="370" mj="370" js="370" tz="370" speed="10" wugong="20" mogong="20" wufang="20" mofang="20" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="37" exp="10" costID="852" salary="10000" ll="380" zl="380" mj="380" js="380" tz="380" speed="10" wugong="20" mogong="20" wufang="20" mofang="20" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="38" exp="10" costID="852" salary="10000" ll="390" zl="390" mj="390" js="390" tz="390" speed="10" wugong="21" mogong="20" wufang="20" mofang="20" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="39" exp="10" costID="852" salary="10000" ll="400" zl="450" mj="450" js="450" tz="450" speed="10" wugong="21" mogong="21" wufang="21" mofang="21" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				<point level="40" exp="10" costID="852" salary="10000" ll="450" zl="450" mj="450" js="450" tz="450" speed="10" wugong="24" mogong="24" wufang="24" mofang="24" pDam="200" mDam="200" pDef="200" mDef="200" hp="2000"/>
+				
+				
+			</pointMap>
+		</meridian>
+	</meridianMap>
+</config>

@@ -15,22 +15,22 @@
 				<point id="6" stateID="1606" pDam="20000" mDam="20000" pDef="20000" mDef="20000" hp="100000"/>
 				<point id="7" stateID="1607" pDam="20000" mDam="20000" pDef="20000" mDef="20000" hp="20000"/>
 				<point id="8" stateID="1608" pDam="20000" mDam="20000" pDef="20000" mDef="20000" hp="20000"/>
-				<point id="9" stateID="1609" pDam="20000" mDam="20000" pDef="20000" mDef="20000" hp="20000"/>
-				<point id="10" stateID="1610" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="11" stateID="1611" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="12" stateID="1612" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="13" stateID="1701" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="14" stateID="1702" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="15" stateID="1703" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="16" stateID="1704" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="17" stateID="1705" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="18" stateID="1706" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="19" stateID="1707" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="20" stateID="1708" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="21" stateID="1709" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="22" stateID="1710" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="23" stateID="1711" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
-				<point id="24" stateID="1712" pDam="1000" mDam="1000" pDef="1000" mDef="1000" hp="1000"/>
+				<point id="9" stateID="1609" pDam="300000" mDam="300000" pDef="300000" mDef="300000" hp="1000000"/>
+				<point id="10" stateID="1610" pDam="150000" mDam="150000" pDef="150000" mDef="150000" hp="500000"/>
+				<point id="11" stateID="1611" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="12" stateID="1612" pDam="100000" mDam="100000" pDef="80000" mDef="80000" hp="1000000"/>
+				<point id="13" stateID="1701" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="14" stateID="1702" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="15" stateID="1703" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="16" stateID="1704" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="17" stateID="1705" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="18" stateID="1706" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="19" stateID="1707" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="20" stateID="1708" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="21" stateID="1709" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="22" stateID="1710" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="23" stateID="1711" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="24" stateID="1712" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
 				<point id="25" stateID="1801" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
 				<point id="26" stateID="1802" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
 				<point id="27" stateID="1803" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
@@ -43,6 +43,34 @@
 				<point id="34" stateID="1810" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
 				<point id="35" stateID="1811" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
 				<point id="36" stateID="1812" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+
+				<point id="37" stateID="1813" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="38" stateID="1814" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="39" stateID="1815" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="40" stateID="1816" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="41" stateID="1817" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="42" stateID="1818" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="43" stateID="1819" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="44" stateID="1820" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="45" stateID="1821" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="46" stateID="1822" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="47" stateID="1823" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="48" stateID="1824" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+
+				<point id="49" stateID="1825" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="50" stateID="1826" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="51" stateID="1827" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="52" stateID="1828" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="53" stateID="1829" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="54" stateID="1830" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="55" stateID="1831" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="56" stateID="1832" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="57" stateID="1833" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="58" stateID="1834" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="59" stateID="1835" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+				<point id="60" stateID="1836" pDam="5000" mDam="5000" pDef="5000" mDef="5000" hp="50000"/>
+
+
 			</pointMap>
 		</meridian>
 	</meridianMap>
