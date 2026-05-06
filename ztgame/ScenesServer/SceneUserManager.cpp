@@ -63,14 +63,14 @@ namespace
 			setRewardMsg(g_guoJiaBiaoCheRewards[i], "Escort reward received", "Escort reward: %s%s protected the escort");
 		}
 
-		addRewardItem(g_guoJiaBiaoCheRewards[1], 123123, 5000, 1);
-		addRewardItem(g_guoJiaBiaoCheRewards[1], 120048, 500, 1);
+		addRewardItem(g_guoJiaBiaoCheRewards[1], 795, 5000, 1);
+		addRewardItem(g_guoJiaBiaoCheRewards[1], 799, 500, 1);
 		setRewardMsg(g_guoJiaBiaoCheRewards[1], "Escort reward received: 5000/500", "Escort reward: %s%s protected an intact escort");
 
 		setRewardMsg(g_guoJiaBiaoCheRewards[2], "", "");
 
-		addRewardItem(g_guoJiaBiaoCheRewards[3], 123123, 5000, 1);
-		addRewardItem(g_guoJiaBiaoCheRewards[3], 120048, 500, 1);
+		addRewardItem(g_guoJiaBiaoCheRewards[3], 799, 5000, 1);
+		addRewardItem(g_guoJiaBiaoCheRewards[3], 795, 500, 1);
 		setRewardMsg(g_guoJiaBiaoCheRewards[3], "Escort reward received: 5000/500", "Escort reward: %s%s protected an intact escort");
 
 		setRewardMsg(g_guoJiaBiaoCheRewards[4], "", "");
@@ -113,7 +113,7 @@ SceneUserManager &SceneUserManager::getMe()
 	if(sum==NULL)
 	{
 		sum=new SceneUserManager();
-		//Zebra::logger->debug("写:(=%u , 写=%u)" , sum->rwlock.rd_count , sum->rwlock.wr_count);
+		//Zebra::logger->debug("д:(=%u , д=%u)" , sum->rwlock.rd_count , sum->rwlock.wr_count);
 	}
 	return *sum;
 }
@@ -122,7 +122,7 @@ void SceneUserManager::destroyMe()
 {
 	if(sum!=NULL)
 	{
-		//Zebra::logger->debug("写:(=%u , 写=%u)" , sum->rwlock.rd_count , sum->rwlock.wr_count);
+		//Zebra::logger->debug("д:(=%u , д=%u)" , sum->rwlock.rd_count , sum->rwlock.wr_count);
 		SAFE_DELETE(sum);
 	}
 }
@@ -392,14 +392,14 @@ void SceneUserManager::removeUserByTask(SceneTask *task)
 			pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//pUser->killAllPets();
 			pUser->unreg();
-			Zebra::logger->trace("没%s(%ld)卸注",pUser->name,pUser->id);
+			Zebra::logger->trace("û%s(%ld)жע",pUser->name,pUser->id);
 		}
 		else
 		{
 			SceneUser *pUser=SceneUserManager::getMe().getUserByIDOut(*iter);
 			if(pUser)
 			{
-				Zebra::logger->trace("没%s(%ld)卸注,诙取",pUser->name,pUser->id);
+				Zebra::logger->trace("û%s(%ld)жע,ڶȡ",pUser->name,pUser->id);
 				Cmd::Record::t_RemoveUser_SceneRecord rec_ret;
 				rec_ret.accid = pUser->accid;
 				rec_ret.id = pUser->id;
@@ -439,7 +439,7 @@ void SceneUserManager::removeAllUser()
 		{
 			//pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//SceneUserManager::getMe().removeUser(pUser);
-			Zebra::logger->trace("没%s(%ld)乇卸",pUser->name,pUser->id);
+			Zebra::logger->trace("û%s(%ld)رж",pUser->name,pUser->id);
 			OnQuit event(1);
 			EventTable::instance().execute(*pUser, event);
 			execute_script_event(pUser,"quit");
@@ -447,7 +447,7 @@ void SceneUserManager::removeAllUser()
 			pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//pUser->killAllPets();
 			pUser->unreg();
-			//通知胤
+			//֪ͨط
 			Cmd::Scene::t_Unreg_LoginScene retgate;
 			retgate.dwUserID = pUser->id;
 			retgate.dwSceneTempID = pUser->scene->tempid;
@@ -485,7 +485,7 @@ void SceneUserManager::removeUserInOneScene(Scene *scene)
 		{
 			//pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//SceneUserManager::getMe().removeUser(pUser);
-			Zebra::logger->trace("没%s(%ld)卸爻注",pUser->name,pUser->id);
+			Zebra::logger->trace("û%s(%ld)жسע",pUser->name,pUser->id);
 			OnQuit event(1);
 			EventTable::instance().execute(*pUser, event);
 			execute_script_event(pUser,"quit");
@@ -493,7 +493,7 @@ void SceneUserManager::removeUserInOneScene(Scene *scene)
 			pUser->save(Cmd::Record::LOGOUT_WRITEBACK);
 			//pUser->killAllPets();
 			pUser->unreg();
-			//通知胤
+			//֪ͨط
 			Cmd::Scene::t_Unreg_LoginScene retgate;
 			retgate.dwUserID = pUser->id;
 			retgate.dwSceneTempID = pUser->scene->tempid;
@@ -561,14 +561,14 @@ void SceneUserManager::enterWar(Cmd::Session::t_enterWar_SceneSession* cmd)
 				if (ptCmd->dwStatus == 1)
 				{
 #ifdef _ALL_SUPER_GM					
-					Zebra::logger->debug("前战录: %u", su->warSize());
-					Zebra::logger->debug("战: toRelation:%u, isAtt:%u", 
+					Zebra::logger->debug("ǰս¼: %u", su->warSize());
+					Zebra::logger->debug("ս: toRelation:%u, isAtt:%u", 
 							ptCmd->dwToRelationID, ptCmd->isAtt);
 #endif
 					su->addWarRecord(ptCmd->dwWarType, ptCmd->dwToRelationID, ptCmd->isAtt);
 
 #ifdef _ALL_SUPER_GM					
-					Zebra::logger->debug("前战录: %u", su->warSize());
+					Zebra::logger->debug("ǰս¼: %u", su->warSize());
 #endif					
 
 					if (ptCmd->isAntiAtt)
@@ -587,24 +587,24 @@ void SceneUserManager::enterWar(Cmd::Session::t_enterWar_SceneSession* cmd)
 				else
 				{
 #ifdef _ALL_SUPER_GM					
-					Zebra::logger->debug("前战录: %u", su->warSize());
-					Zebra::logger->debug("删战: toRelation:%u, isAtt:%u", 
+					Zebra::logger->debug("ǰս¼: %u", su->warSize());
+					Zebra::logger->debug("ɾս: toRelation:%u, isAtt:%u", 
 							ptCmd->dwToRelationID, ptCmd->isAtt);
 #endif					
 
 					su->removeWarRecord(ptCmd->dwWarType, ptCmd->dwToRelationID);
 					
 #ifdef _ALL_SUPER_GM					
-					Zebra::logger->debug("前战录: %u", su->warSize());
+					Zebra::logger->debug("ǰս¼: %u", su->warSize());
 #endif					
 
 					//if (!su->isSpecWar(Cmd::COUNTRY_FORMAL_DARE))
-					//{// 诠战状态
+					//{// ڹս״̬
 						su->setDeathBackToMapID(su->scene);
 					//}
 				}
 
-				//su->sendNineToMe(); // 时露战状态
+				//su->sendNineToMe(); // ʱ¶ս״̬
 				//FunctionTimes times(40,__FUNCTION__);
 				su->setStateToNine(Cmd::USTATE_WAR);
 			}
@@ -647,7 +647,7 @@ void SceneUserManager::countryTrans(DWORD dwCountryID, DWORD dwLevel)
 					pUser->charbase.exploit = 0;
 				}
 
-				Channel::sendSys(pUser, Cmd::INFO_TYPE_EXP, "燃朔台英碌惚谎≌�");
+				Channel::sendSys(pUser, Cmd::INFO_TYPE_EXP, "ȼ˷̨Ӣµ㱻ѡս");
 			}
 		}
 
@@ -706,7 +706,7 @@ bool SceneRecycleUserManager::canReg(DWORD id)
 	}
 	else
 	{
-		Zebra::logger->debug("却时俅蔚陆:%s",ret->name);
+		Zebra::logger->debug("ȴʱٴε½:%s",ret->name);
 		rwlock.wrlock();
 		SceneRecycleUserManager::getInstance().removeUser(ret);
 		ret->gatetask=NULL;
@@ -791,7 +791,7 @@ void SceneUserManager::removeUserToHuangcheng(Scene *scene)
 		SceneUser *pUser=SceneUserManager::getMe().getUserByID(*iter);
 		if(pUser)
 		{
-			Gm::gomap(pUser, "name=食 type=4");
+			Gm::gomap(pUser, "name=ʳ type=4");
 		}
 	}
 }

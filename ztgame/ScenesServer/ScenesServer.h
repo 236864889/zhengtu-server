@@ -3,7 +3,7 @@
  * \version  $Id: ScenesServer.h  $
  * \author  
  * \date 
- * \brief zebraÄ¿Ï·ó²¿·Ý¶Ú±Êµ
+ * \brief zebra0‘70Ð5Ù7õ31¥41‘70µ6
  */
 
 #ifndef _ScenesServer_h_
@@ -14,14 +14,14 @@
 #include "SceneManager.h"
 #include "zMisc.h"
 
-//soke×ªÓµÄ¼ÜºÔµ
+//soke0û80ã30‘41Ÿ40é7
 extern WORD trun_point_rate;
 extern WORD trun_skill_rate;
 /**
- * \brief å³¡
+ * \brief Ï¿
  *
- * Ï·ó²¿·Ý¶Ú±Êµ<br>
- * Ê¹SingletonÄ£Ê½Ö¤Ò»Ö»Ò»Êµ
+ * 0Ð5Ù7õ31¥41‘70µ6<br>
+ * 0¶0Singleton000¶40ô80Ý50÷10Ý50µ6
  *
  */
 class ScenesService : public zSubNetService
@@ -29,20 +29,20 @@ class ScenesService : public zSubNetService
 
 	public:
 		int writeBackTimer;
-		//sky ÂµÒ»á¹¹
+		//sky 0…80Ý55ú5
 		struct txdy_info
 		{
-			int userid;//É«id
-			char username[MAX_NAMESIZE];//É«
+			int userid;//0®2id
+			char username[MAX_NAMESIZE];//0®2
 			int saidian;//
 			int jifen;//
 		};
 		txdy_info tianxia[32];
 
-		//Í£×´Ì¬
+		//0Æ50ü80Á0
 		bool fanwaigua;
 		DWORD fanwaiguarongcuo;
-		//Ô¹ÏµÍ³ Ê¼
+		//0ê10Ð30È1 0¶3
 		struct migong_info
 		{
 			int ceng;
@@ -52,19 +52,19 @@ class ScenesService : public zSubNetService
 		
 		migong_info migong[25];
 		
-		SceneNpc * han_biaoche;//Ú³
-		SceneNpc * han_biaoche2;//Ú³
+		SceneNpc * han_biaoche;//ºº¹úÍêºÃïÚ³µ
+		SceneNpc * han_biaoche2;//ºº¹úÆÆËðïÚ³µ
 		
-		SceneNpc * chu_biaoche;//Ú³ 
-		SceneNpc * chu_biaoche2;//Ú³
-		SceneNpc * wei_biaoche;//é­å›½é•–è½¦
-		SceneNpc * wei_biaoche2;//é­å›½æ®‹ç ´é•–è½¦
+		SceneNpc * chu_biaoche;//³þ¹úÍêºÃïÚ³µ
+		SceneNpc * chu_biaoche2;//³þ¹úÆÆËðïÚ³µ
+		SceneNpc * wei_biaoche;//Îº¹úÍêºÃïÚ³µ
+		SceneNpc * wei_biaoche2;//Îº¹úÆÆËðïÚ³µ
 
 		int hanbiaoche_type;
 		int chubiaoche_type;
 		int weibiaoche_type;
 		///////////////////////////////
-		//soke Ö¾é±¶
+		//soke 0÷4÷z
 		int double_exp;
 		///////////////////////////////
 		bool double_drop;
@@ -80,7 +80,7 @@ class ScenesService : public zSubNetService
 		{
 			instance = NULL;
 
-			//Ø±ß³Ì³
+			//1„91±90Á7
 			if (taskPool)
 			{
 				taskPool->final();
@@ -107,9 +107,9 @@ class ScenesService : public zSubNetService
 		}
 
 		/**
-		 * \brief Î¨Ò»Êµ
+		 * \brief ¦·0Ý50µ6
 		 *
-		 * \return Î¨Ò»Êµ
+		 * \return ¦·0Ý50µ6
 		 */
 		static ScenesService &getInstance()
 		{
@@ -120,7 +120,7 @@ class ScenesService : public zSubNetService
 		}
 
 		/**
-		 * \brief Í·Î¨Ò»Êµ
+		 * \brief 0È5¦·0Ý50µ6
 		 *
 		 */
 		static void delInstance()
@@ -137,7 +137,7 @@ class ScenesService : public zSubNetService
 
 		//GM_logger
 		static zLogger* gm_logger;
-		//Æ·log
+		//03log
 		static zLogger* objlogger;
 		//_logger
 		static zLogger* wg_logger;
@@ -149,20 +149,20 @@ class ScenesService : public zSubNetService
 	private:
 
 		/**
-		 * \brief Î¨Ò»ÊµÖ¸
+		 * \brief ¦·0Ý50µ60ö8
 		 *
 		 */
 		static ScenesService *instance;
 		/**
-		 * \brief Â¶È¡Ã±Ö¾
+		 * \brief 0…90§00Š90÷4
 		 *
 		 */
 		static bool reload;
 
-		zTCPTaskPool *taskPool;				/**< TCPÓ³ØµÖ¸ */
+		zTCPTaskPool *taskPool;				/**< TCP0ã11…30ö8 */
 
 		/**
-		 * \brief ìº¯
+		 * \brief ƒ4Õ4
 		 *
 		 */
 		ScenesService() : zSubNetService("", SCENESSERVER)

@@ -3,7 +3,7 @@
  * \version  $Id: TimeTick.cpp  $
  * \author  
  * \date 
- * \brief 时氐
+ * \brief ʱص
  */
 
 
@@ -32,8 +32,24 @@
 zRTime SceneTimeTick::currentTime;
 SceneTimeTick *SceneTimeTick::instance = NULL;
 
+
+namespace
+{
+	static Scene *getCountryEscortScene(DWORD countryID, DWORD areaID)
+	{
+		DWORD mapID = SceneManager::getInstance().buildMapID(countryID, areaID);
+		return SceneManager::getInstance().getSceneByID(mapID);
+	}
+
+	static void logCountryEscortScene(const char *tag, DWORD countryID, DWORD areaID, Scene *scene)
+	{
+		DWORD mapID = SceneManager::getInstance().buildMapID(countryID, areaID);
+		Zebra::logger->debug("country escort scene %s countryID=%u areaID=%u mapID=%u scene=%s", tag ? tag : "", countryID, areaID, mapID, scene ? scene->name : "NULL");
+	}
+}
+
 /**
- * \brief 图氐
+ * \brief ͼص
  */
 struct EverySceneEntryAction : public SceneCallBack
 {
@@ -46,8 +62,8 @@ struct EverySceneEntryAction : public SceneCallBack
 			if(scene->SceneEntryAction(SceneTimeTick::currentTime, group))
 			{
 				/**
-				 * 要态卸氐图哦
-				 * ^-^ 诘叱蹋没只要注牡
+				 * Ҫ̬жصͼŶ
+				 * ^-^ ڵ̣߳ûֻҪעĵ
 				 */
 				SceneTaskManager::getInstance().execEvery();
 			}
@@ -57,7 +73,7 @@ struct EverySceneEntryAction : public SceneCallBack
 };
 
 /**
- * \brief npc拥ai斜
+ * \brief npcӵaiб
  */
 /*class AddSpecialNpcCallBack : public specialNpcCallBack
 {
@@ -78,7 +94,7 @@ struct EverySceneEntryAction : public SceneCallBack
 };*/
 
 /**
- * \brief 时循投时录影npc ai
+ * \brief ʱѭͶʱ¼Ӱnpc ai
  */
 void SceneTimeTick::run()
 {
@@ -89,7 +105,7 @@ void SceneTimeTick::run()
 	while(!isFinal())
 	{
 		zThread::msleep((10-t)>0?(10-t):1);
-		//取前时
+		//ȡǰʱ
 		currentTime.now();
 
 		if (_five_sec(currentTime)) {
@@ -108,15 +124,20 @@ void SceneTimeTick::run()
 		//SceneNpcManager::getMe().execAllSpecialNpc(asncb);
 		SceneNpc::AI(currentTime, SceneNpcManager::getMe().getSepcialNpc(),step,t > timeout_value2);
 
-		//诔
-		if(ScenesService::getInstance().han_biaoche!=NULL)//诔
+		//ڳ
+		if(ScenesService::getInstance().han_biaoche!=NULL)//ڳ
 		{
 			ScenesService::getInstance().han_biaoche->skillStatusM.clearActiveSkillStatusOnlyUseToStatus48();
 			if (ScenesService::getInstance().han_biaoche->checkMoveTime(SceneTimeTick::currentTime) && ScenesService::getInstance().han_biaoche->canMove())
 			{
 				zPos pos;
 				pos = zPos(865, 572);
-				Scene * scene = SceneManager::getInstance().getSceneByName("");
+				Scene * scene = ScenesService::getInstance().han_biaoche->scene;
+				if (!scene)
+				{
+					Zebra::logger->info("country escort current scene is null ptr=han_biaoche");
+					return;
+				}
 				if(ScenesService::getInstance().hanbiaoche_type == 0)
 				{
 					if(!ScenesService::getInstance().han_biaoche->gotoFindPath(ScenesService::getInstance().han_biaoche->getPos(),pos))
@@ -200,15 +221,10 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().hanbiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("鍗楅儕");
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 135));
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 135));
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 135));
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 135));
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 135));
+					Scene * s = getCountryEscortScene(8, 135);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
 						return;
 					}
 					if(ScenesService::getInstance().han_biaoche->changeMap(s, zPos(26, 24)))
@@ -219,19 +235,14 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔辖");
+							sprintf(send.info, "国家镖车出现在南郊");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔辖");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在南郊");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("鍗楅儕");
-				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 135));
-				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 135));
-				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 135));
-				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 135));
-				if (!scene2) scene2 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 135));
+				Scene * scene2 = getCountryEscortScene(8, 135);
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().hanbiaoche_type == 7)
@@ -513,15 +524,10 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().hanbiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("杈瑰");
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 137));
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 137));
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 137));
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 137));
-					if (!s) s = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 137));
+					Scene * s = getCountryEscortScene(8, 137);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图呔");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
 						return;
 					}
 					if(ScenesService::getInstance().han_biaoche->changeMap(s, zPos(31,277)))
@@ -532,20 +538,15 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔诒呔");
+							sprintf(send.info, "国家镖车出现在边境");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔诒呔");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在边境");
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("杈瑰");
-				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 137));
-				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 137));
-				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 137));
-				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 137));
-				if (!scene3) scene3 = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 137));
+				Scene * scene3 = getCountryEscortScene(8, 137);
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().hanbiaoche_type == 29)
 				{
@@ -837,11 +838,11 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔寻全痛锏竭就�");
+							sprintf(send.info, "国家镖车安全到达边境镖头");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔寻全痛锏竭就�");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车安全到达边境镖头");
 							if (ScenesService::getInstance().han_biaoche)
 								ScenesService::getInstance().han_biaoche->setClearState();
 							if (ScenesService::getInstance().han_biaoche2)
@@ -849,7 +850,7 @@ void SceneTimeTick::run()
 							ScenesService::getInstance().han_biaoche = NULL;
 							ScenesService::getInstance().han_biaoche2 = NULL;
 						ScenesService::getInstance().hanbiaoche_type = 0;
-						//诔
+						//ڳ
 						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi1(scene3, 8);
 					}
 				}
@@ -863,7 +864,12 @@ void SceneTimeTick::run()
 			{
 				zPos pos;
 				pos = zPos(865, 572);
-				Scene * scene = SceneManager::getInstance().getSceneByName("");
+				Scene * scene = ScenesService::getInstance().han_biaoche2->scene;
+				if (!scene)
+				{
+					Zebra::logger->info("country escort current scene is null ptr=han_biaoche2");
+					return;
+				}
 				if(ScenesService::getInstance().hanbiaoche_type == 0)
 				{
 					if(!ScenesService::getInstance().han_biaoche2->gotoFindPath(ScenesService::getInstance().han_biaoche2->getPos(),pos))
@@ -947,10 +953,10 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().hanbiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("鍗楅儕");
+					Scene * s = getCountryEscortScene(8, 135);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
 						return;
 					}
 					if(ScenesService::getInstance().han_biaoche2->changeMap(s, zPos(26, 24)))
@@ -961,14 +967,14 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔辖");
+							sprintf(send.info, "国家镖车出现在南郊");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔辖");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在南郊");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("鍗楅儕");
+				Scene * scene2 = getCountryEscortScene(8, 135);
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().hanbiaoche_type == 7)
@@ -1250,10 +1256,10 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().hanbiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("杈瑰");
+					Scene * s = getCountryEscortScene(8, 137);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图呔");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
 						return;
 					}
 					if(ScenesService::getInstance().han_biaoche2->changeMap(s, zPos(31,277)))
@@ -1264,15 +1270,15 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔诒呔");
+							sprintf(send.info, "国家镖车出现在边境");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔诒呔");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在边境");
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("杈瑰");
+				Scene * scene3 = getCountryEscortScene(8, 137);
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().hanbiaoche_type == 29)
 				{
@@ -1564,11 +1570,11 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔(驯)寻全痛锏竭就�");
+							sprintf(send.info, "破损国家镖车安全到达边境镖头");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔(驯)寻全痛锏竭就�");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"破损国家镖车安全到达边境镖头");
 							if (ScenesService::getInstance().han_biaoche)
 								ScenesService::getInstance().han_biaoche->setClearState();
 							if (ScenesService::getInstance().han_biaoche2)
@@ -1576,22 +1582,27 @@ void SceneTimeTick::run()
 							ScenesService::getInstance().han_biaoche = NULL;
 							ScenesService::getInstance().han_biaoche2 = NULL;
 						ScenesService::getInstance().hanbiaoche_type = 0;
-						//诔
+						//ڳ
 						// Damaged escorts are recycled at the destination without sending rewards.
 					}
 				}
 			}
 		}
 
-		//诔
-		if(ScenesService::getInstance().chu_biaoche!=NULL)//诔
+		//ڳ
+		if(ScenesService::getInstance().chu_biaoche!=NULL)//ڳ
 		{
 			ScenesService::getInstance().chu_biaoche->skillStatusM.clearActiveSkillStatusOnlyUseToStatus48();
 			if (ScenesService::getInstance().chu_biaoche->checkMoveTime(SceneTimeTick::currentTime) && ScenesService::getInstance().chu_biaoche->canMove())
 			{
 				zPos pos;
 				pos = zPos(865, 572);
-				Scene * scene = SceneManager::getInstance().getSceneByName("");
+				Scene * scene = ScenesService::getInstance().chu_biaoche->scene;
+				if (!scene)
+				{
+					Zebra::logger->info("country escort current scene is null ptr=chu_biaoche");
+					return;
+				}
 				if(ScenesService::getInstance().chubiaoche_type == 0)
 				{
 					if(!ScenesService::getInstance().chu_biaoche->gotoFindPath(ScenesService::getInstance().chu_biaoche->getPos(),pos))
@@ -1675,10 +1686,10 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().chubiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("鍗楅儕");
+					Scene * s = getCountryEscortScene(12, 135);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
 						return;
 					}
 					if(ScenesService::getInstance().chu_biaoche->changeMap(s, zPos(26, 24)))
@@ -1689,14 +1700,14 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔辖");
+							sprintf(send.info, "国家镖车出现在南郊");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔辖");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在南郊");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("鍗楅儕");
+				Scene * scene2 = getCountryEscortScene(12, 135);
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().chubiaoche_type == 7)
@@ -1978,10 +1989,10 @@ void SceneTimeTick::run()
 
 				if(ScenesService::getInstance().chubiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("杈瑰");
+					Scene * s = getCountryEscortScene(12, 137);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图呔");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
 						return;
 					}
 					if(ScenesService::getInstance().chu_biaoche->changeMap(s, zPos(31,277)))
@@ -1992,15 +2003,15 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔诒呔");
+							sprintf(send.info, "国家镖车出现在边境");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔诒呔");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在边境");
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("杈瑰");
+				Scene * scene3 = getCountryEscortScene(12, 137);
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().chubiaoche_type == 29)
 				{
@@ -2292,11 +2303,11 @@ void SceneTimeTick::run()
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔寻全痛锏竭就�");
+							sprintf(send.info, "国家镖车安全到达边境镖头");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔寻全痛锏竭就�");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车安全到达边境镖头");
 							if (ScenesService::getInstance().chu_biaoche)
 								ScenesService::getInstance().chu_biaoche->setClearState();
 							if (ScenesService::getInstance().chu_biaoche2)
@@ -2304,22 +2315,27 @@ void SceneTimeTick::run()
 							ScenesService::getInstance().chu_biaoche = NULL;
 							ScenesService::getInstance().chu_biaoche2 = NULL;
 						ScenesService::getInstance().chubiaoche_type = 0;
-						//诔
-						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi3(scene3, 3);
+						//ڳ
+						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi3(scene3, 12);
 					}
 				}
 			}
 			
 		}
 
-if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
+if(ScenesService::getInstance().wei_biaoche!=NULL)//ڳ
 		{
 			ScenesService::getInstance().wei_biaoche->skillStatusM.clearActiveSkillStatusOnlyUseToStatus48();
 			if (ScenesService::getInstance().wei_biaoche->checkMoveTime(SceneTimeTick::currentTime) && ScenesService::getInstance().wei_biaoche->canMove())
 			{
 				zPos pos;
 				pos = zPos(865, 572);
-				Scene * scene = SceneManager::getInstance().getSceneByName("");
+				Scene * scene = ScenesService::getInstance().wei_biaoche->scene;
+				if (!scene)
+				{
+					Zebra::logger->info("country escort current scene is null ptr=wei_biaoche");
+					return;
+				}
 				if(ScenesService::getInstance().weibiaoche_type == 0)
 				{
 					if(!ScenesService::getInstance().wei_biaoche->gotoFindPath(ScenesService::getInstance().wei_biaoche->getPos(),pos))
@@ -2403,10 +2419,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 				if(ScenesService::getInstance().weibiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("鍗楅儕");
+					Scene * s = getCountryEscortScene(3, 135);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
 						return;
 					}
 					if(ScenesService::getInstance().wei_biaoche->changeMap(s, zPos(26, 24)))
@@ -2417,14 +2433,14 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔辖");
+							sprintf(send.info, "国家镖车出现在南郊");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔辖");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在南郊");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("鍗楅儕");
+				Scene * scene2 = getCountryEscortScene(3, 135);
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().weibiaoche_type == 7)
@@ -2706,10 +2722,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 				if(ScenesService::getInstance().weibiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("杈瑰");
+					Scene * s = getCountryEscortScene(3, 137);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图呔");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
 						return;
 					}
 					if(ScenesService::getInstance().wei_biaoche->changeMap(s, zPos(31,277)))
@@ -2720,15 +2736,15 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔诒呔");
+							sprintf(send.info, "国家镖车出现在边境");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔诒呔");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在边境");
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("杈瑰");
+				Scene * scene3 = getCountryEscortScene(3, 137);
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().weibiaoche_type == 29)
 				{
@@ -3020,16 +3036,16 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔寻全痛锏竭就�");
+							sprintf(send.info, "国家镖车安全到达边境镖头");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔寻全痛锏竭就�");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车安全到达边境镖头");
 							if (ScenesService::getInstance().wei_biaoche)
 								ScenesService::getInstance().wei_biaoche->setClearState();
 							ScenesService::getInstance().wei_biaoche = NULL;
 						ScenesService::getInstance().weibiaoche_type = 0;
-						//诔
+						//ڳ
 						SceneUserManager::getMe().GuoJiaBiaoCheJiangLi3(scene3, 3);
 					}
 				}
@@ -3043,7 +3059,12 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 			{
 				zPos pos;
 				pos = zPos(865, 572);
-				Scene * scene = SceneManager::getInstance().getSceneByName("");
+				Scene * scene = ScenesService::getInstance().chu_biaoche2->scene;
+				if (!scene)
+				{
+					Zebra::logger->info("country escort current scene is null ptr=chu_biaoche2");
+					return;
+				}
 				if(ScenesService::getInstance().chubiaoche_type == 0)
 				{
 					if(!ScenesService::getInstance().chu_biaoche2->gotoFindPath(ScenesService::getInstance().chu_biaoche2->getPos(),pos))
@@ -3127,10 +3148,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 				if(ScenesService::getInstance().chubiaoche_type == 6)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("鍗楅儕");
+					Scene * s = getCountryEscortScene(12, 135);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ");
 						return;
 					}
 					if(ScenesService::getInstance().chu_biaoche2->changeMap(s, zPos(26, 24)))
@@ -3141,14 +3162,14 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔辖");
+							sprintf(send.info, "国家镖车出现在南郊");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔辖");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在南郊");
 					}
 				}
-				Scene * scene2 = SceneManager::getInstance().getSceneByName("鍗楅儕");
+				Scene * scene2 = getCountryEscortScene(12, 135);
 
 				pos = zPos(55,49);
 				if(ScenesService::getInstance().chubiaoche_type == 7)
@@ -3430,10 +3451,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 				if(ScenesService::getInstance().chubiaoche_type == 28)
 				{
-					Scene * s = SceneManager::getInstance().getSceneByName("杈瑰");
+					Scene * s = getCountryEscortScene(12, 137);
 					if (!s)
 					{
-						Zebra::logger->info("doChangeMapAI:npc转图失,未业图呔");
+						Zebra::logger->info("doChangeMapAI:npcתͼʧ,δҵͼ߾");
 						return;
 					}
 					if(ScenesService::getInstance().chu_biaoche2->changeMap(s, zPos(31,277)))
@@ -3444,15 +3465,15 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔诒呔");
+							sprintf(send.info, "国家镖车出现在边境");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔诒呔");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"国家镖车出现在边境");
 					}
 				
 				}
-				Scene * scene3 = SceneManager::getInstance().getSceneByName("杈瑰");
+				Scene * scene3 = getCountryEscortScene(12, 137);
 				pos = zPos(44,260);
 				if(ScenesService::getInstance().chubiaoche_type == 29)
 				{
@@ -3744,11 +3765,11 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔(驯)寻全痛锏竭就�");
+							sprintf(send.info, "破损国家镖车安全到达边境镖头");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"墓诔(驯)寻全痛锏竭就�");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"破损国家镖车安全到达边境镖头");
 							if (ScenesService::getInstance().chu_biaoche)
 								ScenesService::getInstance().chu_biaoche->setClearState();
 							if (ScenesService::getInstance().chu_biaoche2)
@@ -3756,7 +3777,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							ScenesService::getInstance().chu_biaoche = NULL;
 							ScenesService::getInstance().chu_biaoche2 = NULL;
 						ScenesService::getInstance().chubiaoche_type = 0;
-						//诔
+						//ڳ
 						// Damaged escorts are recycled at the destination without sending rewards.
 					}
 				}
@@ -3765,27 +3786,27 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 		//250 usec
 		EverySceneEntryAction esea(step);
-		//械图没氐
+		//еͼûص
 		SceneManager::getInstance().execEveryScene(esea);
 		// if (atoi(Zebra::global["daoban"].c_str()) != 0)
 		// {	
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1,"太么耍然歉未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEJROLL,"娴秸也愿饣ㄇ韭菜�");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
-		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "朔为未权时胤潜耍太");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1,"̫ôˣȻǸδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEJROLL,"浽զGҲԸ⻨Ǯ֪Ǿ²ˣ");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
+		// 	Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5, "˷ΪδȨʱطǱˣ̫");
 		// 	for (SceneManager::CountryMap_iter iter = SceneManager::getInstance().country_info.begin(); iter != SceneManager::getInstance().country_info.end();
 		// 		 iter++)
 		// 	{
 		// 		Cmd::Session::t_countryNotify_SceneSession send;
 		// 		bzero(send.info, sizeof(send.info));
-		// 		sprintf(send.info, "朔为未权时胤潜耍太");
+		// 		sprintf(send.info, "˷ΪδȨʱطǱˣ̫");
 		// 		send.dwCountryID = iter->second.id;\
 		// 		send.infoType = Cmd::INFO_TYPE_FAIL;
 		// 		sessionClient->sendCmd(&send, sizeof(send));
@@ -3803,16 +3824,16 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 #endif
 
 		if (_one_min(currentTime))
-		{//,一卸一全
+		{//,һжһȫ
 		
 			CountryDareM::getMe().timer();
-			//薷态图
+			//޸̬ͼ
 			SceneManager::getInstance().timer();
 			struct tm tv1;
 			time_t timValue = time(NULL);
 			zRTime::getLocalTime(tv1, timValue);
 
-			if (tv1.tm_hour == 19) //BOSS示
+			if (tv1.tm_hour == 19) //BOSSʾ
 			{
 				if (tv1.tm_min == 55)
 				{
@@ -3821,15 +3842,15 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						Cmd::Session::t_countryNotify_SceneSession send;
 						bzero(send.info, sizeof(send.info));
-						sprintf(send.info, "%d 雍蠼旖佃福疃可幻�", abs(60 - tv1.tm_min));
+						sprintf(send.info, "%d Ӻ󽫿콵踣ҿɻý", abs(60 - tv1.tm_min));
 						send.dwCountryID = iter->second.id;
 						sessionClient->sendCmd(&send, sizeof(send));
 					}
-					Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1,"%d 雍蠼旖佃福疃可幻�", abs(60 - tv1.tm_min));
+					Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1,"%d Ӻ󽫿콵踣ҿɻý", abs(60 - tv1.tm_min));
 				}
 			}
 
-			if (tv1.tm_hour == 22) // BOSS示
+			if (tv1.tm_hour == 22) // BOSSʾ
 			{
 				if (tv1.tm_min >=1  && tv1.tm_min <=9 )
 				{
@@ -3838,21 +3859,21 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						Cmd::Session::t_countryNotify_SceneSession send;
 						bzero(send.info, sizeof(send.info));
-						sprintf(send.info, "%d 雍BOSS魔宄惭�1悖蔽灰壳吧�", abs(10 - tv1.tm_min));
+						sprintf(send.info, "%d ӺBOSSħ峲Ѩ1㣬ʱλҿǰɱ", abs(10 - tv1.tm_min));
 						send.dwCountryID = iter->second.id;
 						sessionClient->sendCmd(&send, sizeof(send));
 					}
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d 雍BOSS魔宄惭�1悖蔽灰壳吧�", abs(10 - tv1.tm_min));
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d 雍BOSS魔宄惭�1悖蔽灰壳吧�", abs(10 - tv1.tm_min));
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d 雍BOSS魔宄惭�1悖蔽灰壳吧�", abs(10 - tv1.tm_min));
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d 雍BOSS魔宄惭�1悖蔽灰壳吧�", abs(10 - tv1.tm_min));
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d 雍BOSS魔宄惭�1悖蔽灰壳吧�", abs(10 - tv1.tm_min));
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d 雍BOSS魔宄惭�1悖蔽灰壳吧�", abs(10 - tv1.tm_min));
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d ӺBOSSħ峲Ѩ1㣬ʱλҿǰɱ", abs(10 - tv1.tm_min));
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d ӺBOSSħ峲Ѩ1㣬ʱλҿǰɱ", abs(10 - tv1.tm_min));
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d ӺBOSSħ峲Ѩ1㣬ʱλҿǰɱ", abs(10 - tv1.tm_min));
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d ӺBOSSħ峲Ѩ1㣬ʱλҿǰɱ", abs(10 - tv1.tm_min));
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d ӺBOSSħ峲Ѩ1㣬ʱλҿǰɱ", abs(10 - tv1.tm_min));
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%d ӺBOSSħ峲Ѩ1㣬ʱλҿǰɱ", abs(10 - tv1.tm_min));
 				}
 			
 			}
 
-			if (tv1.tm_hour==0 && (tv1.tm_min==1 || tv1.tm_min==2 || tv1.tm_min==3)) //BOSS 谐 碌一  怨 始
+			if (tv1.tm_hour==0 && (tv1.tm_min==1 || tv1.tm_min==2 || tv1.tm_min==3)) //BOSS г µһ  Թ ʼ
 			{
 				char a[16];
 				Zebra::global["BOSS_CHU"]=a;
@@ -3867,35 +3888,35 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 				Zebra::global["MIGONGNUM2"]=b;
 				Zebra::global["MIGONGNUM3"]=b;
 				Zebra::global["MIGONGWC"]=b;
-				//始碌一
+				//ʼµһ
 				for (int i = 0; i < 32; i++)
 				{
 					ScenesService::getInstance().tianxia[i].jifen=0;
 					ScenesService::getInstance().tianxia[i].saidian=-1;
 					ScenesService::getInstance().tianxia[i].userid = 0;
 				}
-				Zebra::logger->info("始碌一系统晒");
-				//始怨系统
+				Zebra::logger->info("ʼµһϵͳɹ");
+				//ʼԹϵͳ
 				for (int i = 0; i < 25; i++)
 				{
 					ScenesService::getInstance().migong[i].ceng=i+1;
 					ScenesService::getInstance().migong[i].password=zMisc::randBetween(1,3);
 				}
 				
-				Zebra::logger->info("始怨系统晒");
+				Zebra::logger->info("ʼԹϵͳɹ");
 			}
 
-			//诔时===========================================
+			//ڳʱ===========================================
 			int hanguo_time1 = 20;
 			int hanguo_time2 = 50;
-			//诔时===========================================
+			//ڳʱ===========================================
 			int chuguo_time1 = 21;
 			int chuguo_time2 = 20;
 
-			//诔 时
+			//ڳ ʱ
 			if(tv1.tm_hour == hanguo_time1)
 			{
-				if (tv1.tm_min ==  hanguo_time2)//诔始
+				if (tv1.tm_min ==  hanguo_time2)//ڳʼ
 				{
 					//
 					if(!ScenesService::getInstance().han_biaoche)
@@ -3903,20 +3924,20 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
 						snprintf(mapName, MAX_NAMESIZE, "%s", "wangcheng");
-						Scene * scene = SceneManager::getInstance().getSceneByName("闊╁浗路鐜嬪煄");
+						Scene * scene = getCountryEscortScene(8, 139);
 						if (!scene)
 						{
 							scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(8, 139));
 						}
 						if (!scene)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 8, 139, mapName, "闊╁浗路鐜嬪煄");
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 8, 139, mapName, "汉国·王城");
 							return;
 						}
 						zNpcB *base = npcbm.get(54100);
 						if (NULL == base)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: 倩npc时也NPC id=%d", 54100);
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲNPC id=%d", 54100);
 							return;
 						}
 
@@ -3938,20 +3959,20 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔汛郑头前呔");
+							sprintf(send.info, "国家镖车已经从王城出发，前往边境");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"闊╁浗瀹堕晼杞﹀凡缁忎粠鐜嬪煄鍑哄彂");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"汉国国家镖车已经从王城出发");
 						ScenesService::getInstance().hanbiaoche_type = 0;
 					}					
 				}
 			}
 			
-			//诔 时
+			//ڳ ʱ
 			if(tv1.tm_hour == chuguo_time1)
 			{
-				if (tv1.tm_min ==  chuguo_time2)//诔始
+				if (tv1.tm_min ==  chuguo_time2)//ڳʼ
 				{
 					//
 					if(!ScenesService::getInstance().chu_biaoche)
@@ -3959,20 +3980,20 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
 						snprintf(mapName, MAX_NAMESIZE, "%s", "wangcheng");
-						Scene * scene = SceneManager::getInstance().getSceneByName("妤氬浗路鐜嬪煄");
+						Scene * scene = getCountryEscortScene(12, 139);
 						if (!scene)
 						{
 							scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(12, 139));
 						}
 						if (!scene)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 12, 139, mapName, "妤氬浗路鐜嬪煄");
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 12, 139, mapName, "楚国·王城");
 							return;
 						}
 						zNpcB *base = npcbm.get(54098);
 						if (NULL == base)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: 倩npc时也NPC id=%d", 54098);
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲNPC id=%d", 54098);
 							return;
 						}
 
@@ -3994,11 +4015,11 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "墓诔汛郑头前呔");
+							sprintf(send.info, "国家镖车已经从王城出发，前往边境");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"妤氬浗瀹堕晼杞﹀凡缁忎粠鐜嬪煄鍑哄彂");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"楚国家镖车已经从王城出发");
 						ScenesService::getInstance().chubiaoche_type = 0;
 					}					
 				}
@@ -4006,7 +4027,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 				if(tv1.tm_hour == 20)
 			{
-				if (tv1.tm_min ==  20)//诔始
+				if (tv1.tm_min ==  20)//ڳʼ
 				{
 					//
 					if(!ScenesService::getInstance().wei_biaoche)
@@ -4014,20 +4035,20 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						char mapName[MAX_NAMESIZE];
 						bzero(mapName, MAX_NAMESIZE);
 						snprintf(mapName, MAX_NAMESIZE, "%s", "wangcheng");
-						Scene * scene = SceneManager::getInstance().getSceneByName("榄忓浗路鐜嬪煄");
+						Scene * scene = getCountryEscortScene(3, 139);
 						if (!scene)
 						{
 							scene = SceneManager::getInstance().getSceneByID(SceneManager::getInstance().buildMapID(3, 139));
 						}
 						if (!scene)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 3, 139, mapName, "榄忓浗路鐜嬪煄");
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: summon country escort scene failed countryID=%u areaID=%u mapName=%s sceneName=%s", 3, 139, mapName, "魏国·王城");
 							return;
 						}
 						zNpcB *base = npcbm.get(54376);
 						if (NULL == base)
 						{
-							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: 倩npc时也NPC id=%d", 54376);
+							Zebra::logger->debug("PARA_SUMMON_ALLY_NPC: ٻnpcʱҲNPC id=%d", 54376);
 							return;
 						}
 
@@ -4049,17 +4070,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							{
 								Cmd::Session::t_countryNotify_SceneSession send;
 								bzero(send.info, sizeof(send.info));
-								sprintf(send.info, "墓诔汛郑头前呔");
+								sprintf(send.info, "国家镖车已经从王城出发，前往边境");
 								send.dwCountryID = iter->second.id;
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"榄忓浗瀹堕晼杞﹀凡缁忎粠鐜嬪煄鍑哄彂");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"魏国家镖车已经从王城出发");
 						ScenesService::getInstance().weibiaoche_type = 0;
 					}					
 				}
 			}
 
-			if (tv1.tm_hour == 22) // 碌一
+			if (tv1.tm_hour == 22) // µһ
 			{
 				if (tv1.tm_min == 05 )
 				{
@@ -4068,14 +4089,14 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						Cmd::Session::t_countryNotify_SceneSession send;
 						bzero(send.info, sizeof(send.info));
-						sprintf(send.info, "%d 雍蠼侔碌一位选准", abs(10 - tv1.tm_min));
+						sprintf(send.info, "%d Ӻ󽫾ٰµһλѡ׼", abs(10 - tv1.tm_min));
 						send.dwCountryID = iter->second.id;
 						sessionClient->sendCmd(&send, sizeof(send));
 					}
-					Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1,"%d 雍蠼侔碌一位选准", abs(10 - tv1.tm_min));
+					Channel::sendAllInfo(Cmd::INFO_TYPE_YANSE1,"%d Ӻ󽫾ٰµһλѡ׼", abs(10 - tv1.tm_min));
 				}
 			}
-			if (tv1.tm_hour == 22) // 碌一选始
+			if (tv1.tm_hour == 22) // µһѡʼ
 			{
 				if (tv1.tm_min == 10)
 				{
@@ -4084,151 +4105,151 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						ScenesService::getInstance().tianxia[i].jifen =0;
 					}
 					
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");	
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");													
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");	
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");													
 
 					for (int i = 0; i < 32; i++)
 					{
-						if (ScenesService::getInstance().tianxia[i].userid == 0) // 0没
+						if (ScenesService::getInstance().tianxia[i].userid == 0) // 0û
 						{
 							int num = i;  // b
-							if (num % 2 != 0) // 为
+							if (num % 2 != 0) // Ϊ
 							{
-								// 么直一
+								// ôֱһ
 								int lastCharId = ScenesService::getInstance().tianxia[i-1].userid;
-								SceneUser *pUser = SceneUserManager::getMe().getUserByID(lastCharId); // 一
+								SceneUser *pUser = SceneUserManager::getMe().getUserByID(lastCharId); // һ
 								if (pUser)															  // 
 								{
-									// 执懈为1一 十强
+									// ִиΪ1һ ʮǿ
 									ScenesService::getInstance().tianxia[i-1].saidian = 1;
 								}
 								else
 								{
-									// 撸么直影为0 汰
+									// ߣôֱӰΪ0 ̭
 									ScenesService::getInstance().tianxia[i-1].saidian = 0;
 								}
 							}
 						}
 						else
 						{
-							int num = i + 1;  // 前
-							if (num % 2 == 0) // 为双 i i- 1 
+							int num = i + 1;  // ǰ
+							if (num % 2 == 0) // Ϊ˫ i i- 1 
 							{
 								int AChar = ScenesService::getInstance().tianxia[i].userid;
 								int BChar = ScenesService::getInstance().tianxia[i - 1].userid;
 								SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 								SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-								if (pUserA && pUserB)											  // 叶
+								if (pUserA && pUserB)											  // Ҷ
 								{
-									// 执写停始
+									// ִдͣʼ
 									int zu = num / 2; // 
 									switch (zu)
 									{
 									case 1:
 									{
 									
-										Gm::gomap(pUserA, "name=碌一选1 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选1 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ1 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ1 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 2:
 									{
-										Gm::gomap(pUserA, "name=碌一选2 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选2 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ2 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ2 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 3:
 									{
-										Gm::gomap(pUserA, "name=碌一选3 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选3 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ3 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ3 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 4:
 									{
-										Gm::gomap(pUserA, "name=碌一选4 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选4 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ4 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ4 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 5:
 									{
-										Gm::gomap(pUserA, "name=碌一选5 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选5 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ5 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ5 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 6:
 									{
-										Gm::gomap(pUserA, "name=碌一选6 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选6 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ6 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ6 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 7:
 									{
-										Gm::gomap(pUserA, "name=碌一选7 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选7 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ7 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ7 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 8:
 									{
-										Gm::gomap(pUserA, "name=碌一选8 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选8 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ8 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ8 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 9:
 									{
-										Gm::gomap(pUserA, "name=碌一选9 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选9 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ9 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ9 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 10:
 									{
-										Gm::gomap(pUserA, "name=碌一选10 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选10 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ10 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ10 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 11:
 									{
-										Gm::gomap(pUserA, "name=碌一选11 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选11 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ11 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ11 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 12:
 									{
-										Gm::gomap(pUserA, "name=碌一选12 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选12 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ12 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ12 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 13:
 									{
-										Gm::gomap(pUserA, "name=碌一选13 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选13 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ13 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ13 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 14:
 									{
-										Gm::gomap(pUserA, "name=碌一选14 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选14 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ14 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ14 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 15:
 									{
-										Gm::gomap(pUserA, "name=碌一选16 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选16 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ16 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ16 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									case 16:
 									{
-										Gm::gomap(pUserA, "name=碌一选17 pos=48,56");  //远偷图
-										Gm::gomap(pUserB, "name=碌一选17 pos=69,55");  //远偷图
+										Gm::gomap(pUserA, "name=µһѡ17 pos=48,56");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=µһѡ17 pos=69,55");  //Զ͵ͼ
 									}
 									break;
 									}
-									//全状态
+									//ȫ״̬
 									pUserA->pkMode = 1;
 									pUserB->pkMode = 1;
-									// //by=>friday PK模式畹酵�
+									// //by=>friday PKģʽͻ
 									// Cmd::stPKModeUserCmd retA;
 									// retA.byParam = Cmd::PKMODE_USERCMD_PARA; //
 									// retA.byPKMode = 1;
@@ -4239,8 +4260,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									// retB.byPKMode = 1;
 									// pUserB->sendCmdToMe(&retB, sizeof(retB));
 
-									Channel::sendSys(pUserA , Cmd::INFO_TYPE_STATE, "PK谢模式为:全模式.");
-									Channel::sendSys(pUserB , Cmd::INFO_TYPE_STATE, "PK谢模式为:全模式.");
+									Channel::sendSys(pUserA , Cmd::INFO_TYPE_STATE, "PKлģʽΪ:ȫģʽ.");
+									Channel::sendSys(pUserB , Cmd::INFO_TYPE_STATE, "PKлģʽΪ:ȫģʽ.");
 									
 									
 								}
@@ -4252,19 +4273,19 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									}
 									else if (!pUserA) // A
 									{
-										// 撸么直影为0 汰 B为1 16强
+										// ߣôֱӰΪ0 ̭ BΪ1 16ǿ
 										ScenesService::getInstance().tianxia[i].saidian = 0;
 										ScenesService::getInstance().tianxia[i-1].saidian = 1;	
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");	
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"郏%s%s碌一薪战胜纸一郑",SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country),pUserB->charbase.name );																					
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");	
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ۣ%s%sµһнսʤֽһ֣",SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country),pUserB->charbase.name );																					
 									}
 									else if(!pUserB)
 									{ // B
-										// 撸么直影为0 汰 A为1 16强
+										// ߣôֱӰΪ0 ̭ AΪ1 16ǿ
 										ScenesService::getInstance().tianxia[i].saidian = 1;
 										ScenesService::getInstance().tianxia[i-1].saidian = 0;			
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"郏%s%s碌一薪战胜纸一郑",SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country),pUserA->charbase.name );												
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ۣ%s%sµһнսʤֽһ֣",SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country),pUserA->charbase.name );												
 									}
 									
 								}
@@ -4273,7 +4294,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					}
 				}
 			}
-			if (tv1.tm_hour == 22) // 碌一选悖�
+			if (tv1.tm_hour == 22) // µһѡ㣡
 			{
 				if (tv1.tm_min == 14)
 				{
@@ -4281,8 +4302,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if (ScenesService::getInstance().tianxia[i].userid != 0) 
 						{
-							int num = i + 1;  // 前
-							if (num % 2 == 0) // 为双 i i- 1 
+							int num = i + 1;  // ǰ
+							if (num % 2 == 0) // Ϊ˫ i i- 1 
 							{
 								if(ScenesService::getInstance().tianxia[i].saidian !=1 && ScenesService::getInstance().tianxia[i-1].saidian!=1)
 								{
@@ -4297,34 +4318,34 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									}
 									else if (!pUserA) // A
 									{
-										Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
-										// 撸么直影为0 汰 B为1 16强
+										Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
+										// ߣôֱӰΪ0 ̭ BΪ1 16ǿ
 										ScenesService::getInstance().tianxia[i].saidian = 0;
 										ScenesService::getInstance().tianxia[i-1].saidian = 1;	
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"郏%s%s碌一薪战胜纸一郑",SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country),pUserB->charbase.name );												
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ۣ%s%sµһнսʤֽһ֣",SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country),pUserB->charbase.name );												
 									}
 									else if(!pUserB)
 									{ // B
-										// 撸么直影为0 汰 A为1 16强
-										Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
+										// ߣôֱӰΪ0 ̭ AΪ1 16ǿ
+										Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
 										ScenesService::getInstance().tianxia[i].saidian = 1;
 										ScenesService::getInstance().tianxia[i-1].saidian = 0;	
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"郏%s%s碌一薪战胜纸一郑",SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country),pUserA->charbase.name );														
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ۣ%s%sµһнսʤֽһ֣",SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country),pUserA->charbase.name );														
 									}
 
-									if (pUserA && pUserB)	// 叶
+									if (pUserA && pUserB)	// Ҷ
 									{
-										Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-										Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+										Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+										Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 										if(ScenesService::getInstance().tianxia[i].jifen > ScenesService::getInstance().tianxia[i-1].jifen)
 										{
 											ScenesService::getInstance().tianxia[i].saidian = 1;
 											ScenesService::getInstance().tianxia[i-1].saidian = 0;
-											Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"郏%s%s碌一薪战胜纸一郑",SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country),pUserA->charbase.name );												
-											Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");	
-											Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+											Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ۣ%s%sµһнսʤֽһ֣",SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country),pUserA->charbase.name );												
+											Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");	
+											Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 											pUserB->addBindObjectNum(36005,1,0,0,1);
 										}
 										else if(ScenesService::getInstance().tianxia[i].jifen < ScenesService::getInstance().tianxia[i-1].jifen)
@@ -4332,9 +4353,9 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 											ScenesService::getInstance().tianxia[i].saidian = 0;
 											ScenesService::getInstance().tianxia[i-1].saidian = 1;	
 											
-											Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"郏%s%s碌一薪战胜纸一郑",SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country),pUserB->charbase.name );												
-											Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");	
-											Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+											Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ۣ%s%sµһнսʤֽһ֣",SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country),pUserB->charbase.name );												
+											Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");	
+											Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 											pUserA->addBindObjectNum(36005,1,0,0,1);
 										}
 										else{
@@ -4342,18 +4363,18 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 											{
 												ScenesService::getInstance().tianxia[i].saidian = 1;
 												ScenesService::getInstance().tianxia[i-1].saidian = 0;	
-												Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"郏%s%s碌一薪战胜纸一郑",SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country),pUserA->charbase.name );												
-												Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");	
-												Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");	
+												Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ۣ%s%sµһнսʤֽһ֣",SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country),pUserA->charbase.name );												
+												Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");	
+												Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");	
 												pUserB->addBindObjectNum(36005,1,0,0,1);
 											}
 											else
 											{
 												ScenesService::getInstance().tianxia[i].saidian = 0;
 												ScenesService::getInstance().tianxia[i-1].saidian = 1;	
-												Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"郏%s%s碌一薪战胜纸一郑",SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country),pUserB->charbase.name );												
-												Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");	
-												Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+												Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ۣ%s%sµһнսʤֽһ֣",SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country),pUserB->charbase.name );												
+												Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");	
+												Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 												pUserA->addBindObjectNum(36005,1,0,0,1);
 											}	
 										}
@@ -4364,7 +4385,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					}
 				}
 			}
-			if (tv1.tm_hour == 22) // 碌一选始
+			if (tv1.tm_hour == 22) // µһѡʼ
 			{
 				if (tv1.tm_min == 18)
 				{
@@ -4373,14 +4394,14 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						ScenesService::getInstance().tianxia[i].jifen =0;
 					}
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");	
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");	
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");	
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");	
 
 
-					//榇�
+					//鴦
 					int a = 0;
 					int b = 0;
 					int aa=0;
@@ -4389,55 +4410,55 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					b=1;
 					aa=4;
 					bb=5;
-					//一
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 1 || ScenesService::getInstance().tianxia[b].saidian == 1)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选1 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选1 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ1 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ1 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4446,55 +4467,55 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					b=3;
 					aa=6;
 					bb=7;
-					//诙
+					//ڶ
 					if(ScenesService::getInstance().tianxia[a].saidian == 1 || ScenesService::getInstance().tianxia[b].saidian == 1)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选2 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选2 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ2 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ2 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4508,50 +4529,50 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选3 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选3 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ3 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ3 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4565,50 +4586,50 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选4 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选4 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ4 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ4 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4622,50 +4643,50 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选5 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选5 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ5 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ5 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4679,50 +4700,50 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选6 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选6 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ6 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ6 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4736,50 +4757,50 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选7 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选7 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ7 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ7 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4793,50 +4814,50 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选8 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选8 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ8 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ8 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4844,11 +4865,11 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 				}
 			}
 
-			if (tv1.tm_hour == 22) // 碌一选悖�
+			if (tv1.tm_hour == 22) // µһѡ㣡
 			{
 				if (tv1.tm_min == 22)
 				{
-					//榇�
+					//鴦
 					int a = 0;
 					int b = 0;
 					int aa=0;
@@ -4857,37 +4878,37 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					b=1;
 					aa=4;
 					bb=5;
-					//一
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 1 || ScenesService::getInstance().tianxia[b].saidian == 1)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 							int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 2;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 2;
 
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -4895,17 +4916,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -4915,7 +4936,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[A].saidian =2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
@@ -4923,31 +4944,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[B].saidian =2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -4957,37 +4978,37 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					b=3;
 					aa=6;
 					bb=7;
-					//诙
+					//ڶ
 					if(ScenesService::getInstance().tianxia[a].saidian == 1 || ScenesService::getInstance().tianxia[b].saidian == 1)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 							int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 2;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 2;
 
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -4995,17 +5016,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -5015,7 +5036,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[A].saidian =2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
@@ -5023,31 +5044,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[B].saidian =2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -5061,32 +5082,32 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 							int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 2;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 2;
 
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -5094,17 +5115,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -5114,7 +5135,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[A].saidian =2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
@@ -5122,31 +5143,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[B].saidian =2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -5161,32 +5182,32 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 							int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 2;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 2;
 
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -5194,17 +5215,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -5214,7 +5235,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[A].saidian =2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
@@ -5222,31 +5243,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[B].saidian =2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -5263,32 +5284,32 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 							int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 2;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 2;
 
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -5296,17 +5317,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -5316,7 +5337,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[A].saidian =2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
@@ -5324,31 +5345,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[B].saidian =2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -5365,32 +5386,32 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 							int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 2;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 2;
 
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -5398,17 +5419,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -5418,7 +5439,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[A].saidian =2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
@@ -5426,31 +5447,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[B].saidian =2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -5465,32 +5486,32 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 							int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 2;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 2;
 
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -5498,17 +5519,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -5518,7 +5539,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[A].saidian =2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
@@ -5526,31 +5547,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[B].saidian =2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -5560,37 +5581,37 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					b=27;
 					aa=30;
 					bb=31;
-					//诎
+					//ڰ
 					if(ScenesService::getInstance().tianxia[a].saidian == 1 || ScenesService::getInstance().tianxia[b].saidian == 1)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//匹晒
+							//ƥɹ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 							int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 2;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 2;
 
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -5598,18 +5619,18 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 2;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -5619,7 +5640,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[A].saidian =2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
@@ -5627,37 +5648,37 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								int A = ScenesService::getInstance().tianxia[a].saidian == 1?a:b;
 								int B = ScenesService::getInstance().tianxia[aa].saidian == 1?aa:bb;
 								ScenesService::getInstance().tianxia[B].saidian =2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int AChar = ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].userid:ScenesService::getInstance().tianxia[b].userid;
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[a].saidian == 1?ScenesService::getInstance().tianxia[a].saidian=2:ScenesService::getInstance().tianxia[b].saidian=2;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
 					else{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 1 || ScenesService::getInstance().tianxia[bb].saidian == 1)
 						{
-							//A没选,B选
+							//Aûѡ,Bѡ
 							int BChar = ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].userid:ScenesService::getInstance().tianxia[bb].userid;
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // A
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[aa].saidian == 1?ScenesService::getInstance().tianxia[aa].saidian=2:ScenesService::getInstance().tianxia[bb].saidian=2;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
 				}
 			}
-			if (tv1.tm_hour == 22) // 碌一选始
+			if (tv1.tm_hour == 22) // µһѡʼ
 			{
 				if (tv1.tm_min == 24)
 				{
@@ -5665,14 +5686,14 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						ScenesService::getInstance().tianxia[i].jifen =0;
 					}
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");	
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一选诳始透位选郑目源");	
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");	
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһѡڿʼ͸λѡ֣ĿԴ");	
 
 
-					//榇�
+					//鴦
 					int a = 0;
 					int b = 0;
 					int c = 0;
@@ -5689,8 +5710,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					bb=9;
 					cc=12;
 					dd=13;
-					//一
-					//一
+					//һ
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 2 || ScenesService::getInstance().tianxia[b].saidian == 2 || ScenesService::getInstance().tianxia[c].saidian == 2 || ScenesService::getInstance().tianxia[d].saidian == 2)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 2 || ScenesService::getInstance().tianxia[bb].saidian == 2 || ScenesService::getInstance().tianxia[cc].saidian == 2 || ScenesService::getInstance().tianxia[dd].saidian == 2)
@@ -5699,7 +5720,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -5745,31 +5766,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选1 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选1 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ1 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ1 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian =3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian =3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int A=0;
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -5796,7 +5817,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian =3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
@@ -5834,7 +5855,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian =3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -5848,7 +5869,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					bb=11;
 					cc=14;
 					dd=15;
-					//诙
+					//ڶ
 					if(ScenesService::getInstance().tianxia[a].saidian == 2 || ScenesService::getInstance().tianxia[b].saidian == 2 || ScenesService::getInstance().tianxia[c].saidian == 2 || ScenesService::getInstance().tianxia[d].saidian == 2)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 2 || ScenesService::getInstance().tianxia[bb].saidian == 2 || ScenesService::getInstance().tianxia[cc].saidian == 2 || ScenesService::getInstance().tianxia[dd].saidian == 2)
@@ -5857,7 +5878,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -5903,31 +5924,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选2 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选2 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ2 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ2 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian =3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian =3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int A=0;
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -5954,7 +5975,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian =3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
@@ -5992,7 +6013,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian =3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}			
@@ -6006,7 +6027,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					bb=25;
 					cc=28;
 					dd=29;
-					//诙
+					//ڶ
 					if(ScenesService::getInstance().tianxia[a].saidian == 2 || ScenesService::getInstance().tianxia[b].saidian == 2 || ScenesService::getInstance().tianxia[c].saidian == 2 || ScenesService::getInstance().tianxia[d].saidian == 2)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 2 || ScenesService::getInstance().tianxia[bb].saidian == 2 || ScenesService::getInstance().tianxia[cc].saidian == 2 || ScenesService::getInstance().tianxia[dd].saidian == 2)
@@ -6015,7 +6036,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6061,31 +6082,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选3 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选3 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ3 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ3 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian =3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian =3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int A=0;
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6112,7 +6133,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian =3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
@@ -6150,7 +6171,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian =3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}					
@@ -6163,7 +6184,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					bb=27;
 					cc=30;
 					dd=31;
-					//诙
+					//ڶ
 					if(ScenesService::getInstance().tianxia[a].saidian == 2 || ScenesService::getInstance().tianxia[b].saidian == 2 || ScenesService::getInstance().tianxia[c].saidian == 2 || ScenesService::getInstance().tianxia[d].saidian == 2)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 2 || ScenesService::getInstance().tianxia[bb].saidian == 2 || ScenesService::getInstance().tianxia[cc].saidian == 2 || ScenesService::getInstance().tianxia[dd].saidian == 2)
@@ -6172,7 +6193,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6218,31 +6239,31 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一选4 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一选4 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһѡ4 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһѡ4 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian =3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian =3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int A=0;
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6269,7 +6290,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian =3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
@@ -6307,7 +6328,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian =3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}					
@@ -6316,11 +6337,11 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 				}
 			}
 
-			if (tv1.tm_hour == 22) // 碌一选悖�
+			if (tv1.tm_hour == 22) // µһѡ㣡
 			{
 				if (tv1.tm_min == 28)
 				{
-					//榇�
+					//鴦
 					int a = 0;
 					int b = 0;
 					int c = 0;
@@ -6337,7 +6358,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					bb=9;
 					cc=12;
 					dd=13;
-					//一
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 2 || ScenesService::getInstance().tianxia[b].saidian == 2 || ScenesService::getInstance().tianxia[c].saidian == 2 || ScenesService::getInstance().tianxia[d].saidian == 2)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 2 || ScenesService::getInstance().tianxia[bb].saidian == 2 || ScenesService::getInstance().tianxia[cc].saidian == 2 || ScenesService::getInstance().tianxia[dd].saidian == 2)
@@ -6346,7 +6367,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6392,24 +6413,24 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 3;								
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 3;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -6417,17 +6438,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 3;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 3;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -6435,13 +6456,13 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian = 3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian = 3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
@@ -6449,7 +6470,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int A=0;
 							int B=0;
 							int AChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6475,7 +6496,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian=3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
@@ -6510,7 +6531,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian=3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -6526,7 +6547,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					bb=11;
 					cc=14;
 					dd=15;
-					//一
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 2 || ScenesService::getInstance().tianxia[b].saidian == 2 || ScenesService::getInstance().tianxia[c].saidian == 2 || ScenesService::getInstance().tianxia[d].saidian == 2)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 2 || ScenesService::getInstance().tianxia[bb].saidian == 2 || ScenesService::getInstance().tianxia[cc].saidian == 2 || ScenesService::getInstance().tianxia[dd].saidian == 2)
@@ -6535,7 +6556,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6581,24 +6602,24 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 3;								
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 3;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -6606,17 +6627,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 3;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 3;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -6624,13 +6645,13 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian = 3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian = 3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
@@ -6638,7 +6659,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int A=0;
 							int B=0;
 							int AChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6664,7 +6685,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian=3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
@@ -6699,7 +6720,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian=3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -6713,7 +6734,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					bb=25;
 					cc=28;
 					dd=29;
-					//一
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 2 || ScenesService::getInstance().tianxia[b].saidian == 2 || ScenesService::getInstance().tianxia[c].saidian == 2 || ScenesService::getInstance().tianxia[d].saidian == 2)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 2 || ScenesService::getInstance().tianxia[bb].saidian == 2 || ScenesService::getInstance().tianxia[cc].saidian == 2 || ScenesService::getInstance().tianxia[dd].saidian == 2)
@@ -6722,7 +6743,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6768,24 +6789,24 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 3;								
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 3;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -6793,17 +6814,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 3;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 3;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -6811,13 +6832,13 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian = 3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian = 3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
@@ -6825,7 +6846,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int A=0;
 							int B=0;
 							int AChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6851,7 +6872,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian=3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
@@ -6886,7 +6907,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian=3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -6901,7 +6922,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					bb=27;
 					cc=30;
 					dd=31;
-					//一
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 2 || ScenesService::getInstance().tianxia[b].saidian == 2 || ScenesService::getInstance().tianxia[c].saidian == 2 || ScenesService::getInstance().tianxia[d].saidian == 2)
 					{
 						if(ScenesService::getInstance().tianxia[aa].saidian == 2 || ScenesService::getInstance().tianxia[bb].saidian == 2 || ScenesService::getInstance().tianxia[cc].saidian == 2 || ScenesService::getInstance().tianxia[dd].saidian == 2)
@@ -6910,7 +6931,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -6956,24 +6977,24 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 3;								
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36003,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 3;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36003,1,0,0,1);
 								}
 								else
@@ -6981,17 +7002,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 3;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36003,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 3;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36003,1,0,0,1);
 									}
 								}
@@ -6999,13 +7020,13 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian = 3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian = 3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
@@ -7013,7 +7034,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int A=0;
 							int B=0;
 							int AChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 2)
 							{
 								A=a;
@@ -7039,7 +7060,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian=3;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
@@ -7074,7 +7095,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian=3;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -7082,7 +7103,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 				}
 				
 			}
-			if (tv1.tm_hour == 22) // 碌一始
+			if (tv1.tm_hour == 22) // µһʼ
 			{
 				if (tv1.tm_min == 32)
 				{
@@ -7090,12 +7111,12 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					{
 						ScenesService::getInstance().tianxia[i].jifen =0;
 					}
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一诳始透位选郑目源");	
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一诳始透位选郑目源");	
-					//榇�
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһڿʼ͸λѡ֣ĿԴ");	
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһڿʼ͸λѡ֣ĿԴ");	
+					//鴦
 					int a = 0;
 					int b = 0;
 					int c = 0;
@@ -7129,8 +7150,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					ff=25;
 					gg=28;
 					hh=29;
-					//一
-					//一
+					//һ
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 3 || ScenesService::getInstance().tianxia[b].saidian == 3 || ScenesService::getInstance().tianxia[c].saidian == 3 || ScenesService::getInstance().tianxia[d].saidian == 3
 					|| ScenesService::getInstance().tianxia[e].saidian == 3 || ScenesService::getInstance().tianxia[f].saidian == 3 || ScenesService::getInstance().tianxia[g].saidian == 3 || ScenesService::getInstance().tianxia[h].saidian == 3)
 					{
@@ -7141,7 +7162,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -7227,15 +7248,15 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一1 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一1 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһ1 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһ1 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian =4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");						
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");						
 							}
 							else if(!pUserA && pUserB)	// B
 							{
@@ -7244,10 +7265,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int A=0;
 							int AChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -7294,7 +7315,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian =4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
@@ -7351,7 +7372,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian =4;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -7373,8 +7394,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					ff=27;
 					gg=30;
 					hh=31;
-					//一
-					//一
+					//һ
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 3 || ScenesService::getInstance().tianxia[b].saidian == 3 || ScenesService::getInstance().tianxia[c].saidian == 3 || ScenesService::getInstance().tianxia[d].saidian == 3
 					|| ScenesService::getInstance().tianxia[e].saidian == 3 || ScenesService::getInstance().tianxia[f].saidian == 3 || ScenesService::getInstance().tianxia[g].saidian == 3 || ScenesService::getInstance().tianxia[h].saidian == 3)
 					{
@@ -7385,7 +7406,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -7471,29 +7492,29 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一2 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一2 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһ2 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһ2 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian =4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian =4;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
 						else{
-							//A选,B没选
+							//Aѡ,Bûѡ
 							int A=0;
 							int AChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -7540,7 +7561,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian =4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}
 						}
 					}
@@ -7597,17 +7618,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian =4;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
 				}
 			}
-			if (tv1.tm_hour == 22) // 碌一悖�
+			if (tv1.tm_hour == 22) // µһ㣡
 			{
 				if (tv1.tm_min == 36)
 				{
-					//榇�
+					//鴦
 					int a = 0;
 					int b = 0;
 					int c = 0;
@@ -7641,8 +7662,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					ff=25;
 					gg=28;
 					hh=29;
-					//一
-					//一
+					//һ
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 3 || ScenesService::getInstance().tianxia[b].saidian == 3 || ScenesService::getInstance().tianxia[c].saidian == 3 || ScenesService::getInstance().tianxia[d].saidian == 3
 					|| ScenesService::getInstance().tianxia[e].saidian == 3 || ScenesService::getInstance().tianxia[f].saidian == 3 || ScenesService::getInstance().tianxia[g].saidian == 3 || ScenesService::getInstance().tianxia[h].saidian == 3)
 					{
@@ -7653,7 +7674,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -7739,24 +7760,24 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 4;								
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36002,1,0,0,1);
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 4;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36002,1,0,0,1);
 								}
 								else
@@ -7764,17 +7785,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 4;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36002,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 4;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36002,1,0,0,1);	
 									}
 								}
@@ -7782,13 +7803,13 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian = 4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian = 4;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
@@ -7797,7 +7818,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -7886,7 +7907,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian=4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
@@ -7898,7 +7919,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -7987,7 +8008,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian=4;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
@@ -8009,8 +8030,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					ff=27;
 					gg=30;
 					hh=31;
-					//一
-					//一
+					//һ
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 3 || ScenesService::getInstance().tianxia[b].saidian == 3 || ScenesService::getInstance().tianxia[c].saidian == 3 || ScenesService::getInstance().tianxia[d].saidian == 3
 					|| ScenesService::getInstance().tianxia[e].saidian == 3 || ScenesService::getInstance().tianxia[f].saidian == 3 || ScenesService::getInstance().tianxia[g].saidian == 3 || ScenesService::getInstance().tianxia[h].saidian == 3)
 					{
@@ -8021,7 +8042,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -8107,24 +8128,24 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 4;								
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserB->addBindObjectNum(36002,1,0,0,1);	
 								}
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 4;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 									pUserA->addBindObjectNum(36002,1,0,0,1);	
 								}
 								else
@@ -8132,17 +8153,17 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 4;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserB->addBindObjectNum(36002,1,0,0,1);	
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 4;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆喜战胜郑为远却一挚始");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰要伲俳");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ϲսʤ֣ΪԶȴһֿʼ");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭Ҫ٣ٽ");
 										pUserA->addBindObjectNum(36002,1,0,0,1);	
 									}
 								}
@@ -8150,13 +8171,13 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian = 4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian = 4;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 							
 						}
@@ -8165,7 +8186,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -8254,7 +8275,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian=4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");			
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");			
 							}	
 						}
 					}
@@ -8266,7 +8287,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 3)
 							{
 								A=a;
@@ -8355,14 +8376,14 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian=4;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸为远却一挚始");		
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣΪԶȴһֿʼ");		
 							}
 						}
 					}
 
 				}
 			}
-			if (tv1.tm_hour == 22) // 碌一芫始
+			if (tv1.tm_hour == 22) // µһܾʼ
 			{
 				if (tv1.tm_min == 40)
 				{
@@ -8371,12 +8392,12 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						ScenesService::getInstance().tianxia[i].jifen =0;
 					}
 
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一芫诳始透位选郑目源");	
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一芫诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一芫诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一芫诳始透位选郑目源");		
-					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"碌一芫诳始透位选郑目源");	
-					//榇�
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһܾڿʼ͸λѡ֣ĿԴ");	
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһܾڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһܾڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһܾڿʼ͸λѡ֣ĿԴ");		
+					Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"µһܾڿʼ͸λѡ֣ĿԴ");	
+					//鴦
 					int a = 0;
 					int b = 0;
 					int c = 0;
@@ -8443,8 +8464,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					nn=27;
 					oo=30;
 					pp=31;
-					//一
-					//一
+					//һ
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 4 || ScenesService::getInstance().tianxia[b].saidian == 4 || ScenesService::getInstance().tianxia[c].saidian == 4 || ScenesService::getInstance().tianxia[d].saidian == 4
 					|| ScenesService::getInstance().tianxia[e].saidian == 4 || ScenesService::getInstance().tianxia[f].saidian == 4 || ScenesService::getInstance().tianxia[g].saidian == 4 || ScenesService::getInstance().tianxia[h].saidian == 4
 					||ScenesService::getInstance().tianxia[o].saidian == 4 || ScenesService::getInstance().tianxia[i].saidian == 4 || ScenesService::getInstance().tianxia[j].saidian == 4 || ScenesService::getInstance().tianxia[k].saidian == 4
@@ -8459,7 +8480,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 4)
 							{
 								A=a;
@@ -8625,27 +8646,27 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=碌一芫1 pos=48,56");  //远偷图
-								Gm::gomap(pUserB, "name=碌一芫1 pos=69,55");  //远偷图
+								Gm::gomap(pUserA, "name=µһܾ1 pos=48,56");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=µһܾ1 pos=69,55");  //Զ͵ͼ
 							}
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian =5;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸喜赢碌一芫诰");
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);				
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣϲӮµһܾھ");
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);				
 								pUserA->addBindObjectNum(36000,1,0,0,1);	
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian =5;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸喜赢碌一芫诰");
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);	
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣϲӮµһܾھ");
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);	
 								pUserB->addBindObjectNum(36000,1,0,0,1);
 							}
 							
@@ -8655,7 +8676,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 4)
 							{
 								A=a;
@@ -8824,10 +8845,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian =5;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸喜赢碌一芫诰");	
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣϲӮµһܾھ");	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
 								pUserA->addBindObjectNum(36000,1,0,0,1);			
 							}
 						}
@@ -8843,7 +8864,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 4)
 							{
 								A=a;
@@ -9012,10 +9033,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian =5;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸喜赢碌一芫诰");
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣϲӮµһܾھ");
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
 								pUserB->addBindObjectNum(36000,1,0,0,1);	
 							}
 						}
@@ -9023,11 +9044,11 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					
 				}
 			}
-			if (tv1.tm_hour == 22) // 碌一芫悖�
+			if (tv1.tm_hour == 22) // µһܾ㣡
 			{
 				if (tv1.tm_min == 44)
 				{
-					//榇�
+					//鴦
 					int a = 0;
 					int b = 0;
 					int c = 0;
@@ -9094,8 +9115,8 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 					nn=27;
 					oo=30;
 					pp=31;
-					//一
-					//一
+					//һ
+					//һ
 					if(ScenesService::getInstance().tianxia[a].saidian == 4 || ScenesService::getInstance().tianxia[b].saidian == 4 || ScenesService::getInstance().tianxia[c].saidian == 4 || ScenesService::getInstance().tianxia[d].saidian == 4
 					|| ScenesService::getInstance().tianxia[e].saidian == 4 || ScenesService::getInstance().tianxia[f].saidian == 4 || ScenesService::getInstance().tianxia[g].saidian == 4 || ScenesService::getInstance().tianxia[h].saidian == 4
 					||ScenesService::getInstance().tianxia[o].saidian == 4 || ScenesService::getInstance().tianxia[i].saidian == 4 || ScenesService::getInstance().tianxia[j].saidian == 4 || ScenesService::getInstance().tianxia[k].saidian == 4
@@ -9110,7 +9131,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 4)
 							{
 								A=a;
@@ -9276,18 +9297,18 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 
 							SceneUser *pUserA = SceneUserManager::getMe().getUserByID(AChar); // A
 							SceneUser *pUserB = SceneUserManager::getMe().getUserByID(BChar); // B
-							if(pUserA && pUserB)	// 叶
+							if(pUserA && pUserB)	// Ҷ
 							{
-								Gm::gomap(pUserA, "name=食 pos=832,699");  //远偷图
-								Gm::gomap(pUserB, "name=食 pos=832,699");  //远偷图
+								Gm::gomap(pUserA, "name=ʳ pos=832,699");  //Զ͵ͼ
+								Gm::gomap(pUserB, "name=ʳ pos=832,699");  //Զ͵ͼ
 								if (ScenesService::getInstance().tianxia[A].jifen > ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[A].saidian = 5;								
-									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆碌一薪战胜赢碌一芫诰");
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰赢碌一芫蔷");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡µһнսʤӮµһܾھ");
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭ӮµһܾǾ");
 									pUserA->addBindObjectNum(36000,1,0,0,1);
 									pUserB->addBindObjectNum(36001,1,0,0,1);
 									
@@ -9295,10 +9316,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 								else if (ScenesService::getInstance().tianxia[A].jifen < ScenesService::getInstance().tianxia[B].jifen)
 								{
 									ScenesService::getInstance().tianxia[B].saidian = 5;
-									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜纸一郑", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆碌一薪战胜赢碌一芫诰");
-									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰赢碌一芫蔷");
+									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤֽһ֣", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+									Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡µһнսʤӮµһܾھ");
+									Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭ӮµһܾǾ");
 									pUserB->addBindObjectNum(36000,1,0,0,1);
 									pUserA->addBindObjectNum(36001,1,0,0,1);
 								}
@@ -9307,22 +9328,22 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 									if (pUserA->charbase.zhanli > pUserB->charbase.zhanli)
 									{
 										ScenesService::getInstance().tianxia[A].saidian = 5;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆碌一薪战胜赢碌一芫诰");
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰赢碌一芫蔷");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡µһнսʤӮµһܾھ");
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭ӮµһܾǾ");
 										pUserA->addBindObjectNum(36000,1,0,0,1);
 										pUserB->addBindObjectNum(36001,1,0,0,1);
 									}
 									else
 									{
 										ScenesService::getInstance().tianxia[B].saidian = 5;
-										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆碌一薪战胜赢碌一芫诰!");
-										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆只埽汰赢碌一芫蔷");
+										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+										Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡µһнսʤӮµһܾھ!");
+										Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ֻܣ̭ӮµһܾǾ");
 										pUserB->addBindObjectNum(36000,1,0,0,1);
 										pUserA->addBindObjectNum(36001,1,0,0,1);
 									}
@@ -9331,20 +9352,20 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							else if(pUserA && !pUserB)	// A
 							{
 								ScenesService::getInstance().tianxia[A].saidian = 5;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸喜赢碌一芫诰!");
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣϲӮµһܾھ!");
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
 								pUserA->addBindObjectNum(36000,1,0,0,1);				
 											
 							}
 							else if(!pUserA && pUserB)	// B
 							{
 								ScenesService::getInstance().tianxia[B].saidian = 5;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸喜赢碌一芫诰!");	
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣϲӮµһܾھ!");	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
 								pUserB->addBindObjectNum(36000,1,0,0,1);	
 							}
 							
@@ -9354,7 +9375,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 4)
 							{
 								A=a;
@@ -9523,10 +9544,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(pUserA)
 							{
 								ScenesService::getInstance().tianxia[A].saidian=4;
-								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸喜赢碌一芫诰!");	
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendSys(pUserA, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣϲӮµһܾھ!");	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserA->charbase.country), pUserA->charbase.name);
 								pUserA->addBindObjectNum(36000,1,0,0,1);		
 							}	
 						}
@@ -9541,7 +9562,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							int B=0;
 							int AChar = 0;
 							int BChar = 0;
-							//匹晒
+							//ƥɹ
 							if(ScenesService::getInstance().tianxia[a].saidian == 4)
 							{
 								A=a;
@@ -9710,10 +9731,10 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 							if(BChar)
 							{
 								ScenesService::getInstance().tianxia[B].saidian=4;
-								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "碌一隆亩植撸喜赢碌一芫诰!");	
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
-								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "郏%s%s碌一薪战胜赢碌一芫诰", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendSys(pUserB, Cmd::INFO_TYPE_EXP5, "µһ¡ĶֲߣϲӮµһܾھ!");	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
+								Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL, "ۣ%s%sµһнսʤӮµһܾھ", SceneManager::getInstance().getCountryNameByCountryID(pUserB->charbase.country), pUserB->charbase.name);
 								pUserB->addBindObjectNum(36000,1,0,0,1);	
 							}
 						}
@@ -9737,7 +9758,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{       
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "%d 雍侔", abs(20-tv1.tm_min));
+							sprintf(send.info, "%d Ӻٰ", abs(20-tv1.tm_min));
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));	
 						}
@@ -9766,7 +9787,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{       
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "%d 雍侔", abs(20-tv1.tm_min));
+							sprintf(send.info, "%d Ӻٰ", abs(20-tv1.tm_min));
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));	
 						}
@@ -9796,7 +9817,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 						{       
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "%d 雍侔", abs(50-tv1.tm_min));
+							sprintf(send.info, "%d Ӻٰ", abs(50-tv1.tm_min));
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));	
 						}
@@ -9822,7 +9843,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 				}
 			}
 
-			//刷全直
+			//ˢȫֱ
 			if (GlobalVar::server_id()) { //ugly, TO BE FIXED
 
 				ALLVARS(update);
@@ -9838,7 +9859,7 @@ if(ScenesService::getInstance().wei_biaoche!=NULL)//诔
 		t = currentTime.elapse(e);
 		if (t > timeout_value)
 		{
-			Zebra::logger->debug("---------- 1循时 %u ----------", t);
+			Zebra::logger->debug("---------- 1ѭʱ %u ----------", t);
 		}
 #ifdef __MY_FUNCTIONTIME_WRAPPER__
 		My_FunctionTime_wrapper::my_func.reset(currentTime, t > timeout_value);

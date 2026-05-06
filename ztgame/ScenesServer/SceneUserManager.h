@@ -49,7 +49,7 @@ class SceneRecycleUserManager: public zEntryManager< zEntryID >
 {
 	private:
 		/**
-		 ** \brief 驶
+		 ** \brief ʻ
 		 **/
 		zRWLock rwlock;
 		static SceneRecycleUserManager *instance;
@@ -64,8 +64,8 @@ class SceneRecycleUserManager: public zEntryManager< zEntryID >
 		bool canReg(DWORD id);
 		void refresh();
 		/**
-		 ** \brief 每没执
-		 ** \param exec 执薪涌
+		 ** \brief ÿûִ
+		 ** \param exec ִнӿ
 		 **/
 		template <class YourUserEntry>
 			bool execEveryUser(execEntry<YourUserEntry> &exec)
