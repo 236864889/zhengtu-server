@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--
+  国家镖车奖励配置，支持 HUP/reloadConfig 热更新。
+  reward id 对应代码调用：
+    1 = 完好镖车奖励（韩国原车流程）
+    2 = 破损镖车流程保留位（到达后仅回收，不发奖励）
+    3 = 完好镖车奖励（楚/魏原车流程）
+    4 = 破损镖车流程保留位（到达后仅回收，不发奖励）
+  worldMsg 会按顺序传入两个参数：国家名、玩家名；如需展示请保留两个 %s。
+-->
+<guojiaBiaoCheRewards>
+    <reward id="1" sysMsg="Escort reward received: 5000/500" worldMsg="Escort reward: %s%s protected an intact escort">
+        <item id="795" num="5000" bind="1"/>
+        <item id="799" num="500" bind="1"/>
+    </reward>
+
+    <reward id="3" sysMsg="Escort reward received: 5000/500" worldMsg="Escort reward: %s%s protected an intact escort">
+        <item id="799" num="5000" bind="1"/>
+        <item id="795" num="500" bind="1"/>
+    </reward>
+</guojiaBiaoCheRewards>
