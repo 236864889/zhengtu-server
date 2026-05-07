@@ -328,6 +328,8 @@ bool CMainCharacter::RunAutoPickup()
 	SetFrameAllocator fa;
 	tTmpItemVec aItem;
 	GetScene()->GetObjectAtGridRect<CItem,tTmpItemVec >(rc,(tTmpItemVec&)aItem);
+	if( aItem.empty() )
+		return false;
 	qsort(&aItem[0],aItem.size(),sizeof(CItem*),cmpItemByPos);
 	bool retval = false;
 	size_t pickupCount = 0;

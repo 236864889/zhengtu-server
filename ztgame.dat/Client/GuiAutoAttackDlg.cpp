@@ -20,6 +20,7 @@
 #include "./MainCharacter.h"
 #include "./GameAppation.h"
 #include "./GuiMain.h"
+#include "./GuiSystem.h"
 #include "./GuiAutoAttackDlg.h" 
 // 需要在GuiAutoAttackDlg.cpp文件顶部添加以下头文件
 #include "./RoleItem.h"
@@ -101,6 +102,7 @@ static const int BUTTEN_SAVE        			= 23; // 保存设置
 static const int TIME_GOAWAY_ATTRAGIN  = 30;
 ////////////////////star100604
 extern bool g_bSitDownHotKeyActive;
+extern bool g_bAutoFight;
 extern void OnSitDown();
 
 CGuiAutoAttack::CGuiAutoAttack()
@@ -272,6 +274,8 @@ void CGuiAutoAttack::OnCreate()
 	m_iComboBox_HP = 0;
 	m_iComboBox_MP = 0;
 	//m_iNeedToProtect_MP = 0 ;
+	memset(m_dwNeedMedicine_HP, 0, sizeof(m_dwNeedMedicine_HP));
+	memset(m_dwNeedMedicine_MP, 0, sizeof(m_dwNeedMedicine_MP));
 
 	m_dwNeedMedicine_HP[0] = 578;
 	m_dwNeedMedicine_HP[1] = 579;
@@ -433,7 +437,7 @@ bool CGuiAutoAttack::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 		//case BUTTEN_AUTOMAGIC:				return OnAutoUseMagic();
 		//case BUTTEN_AUTOTEAM:				return OnAutoInTeam();
 		//case BUTTEN_AUTOPICKUP:				return OnAutoPicUp();
-		////case BUTTEN_PICKUPSETUP:			return OnAutoPicUp_Setup();
+		case BUTTEN_PICKUPSETUP:			return OnAutoPicUp_Setup();
 
 		//case BUTTEN_PROTECTION_HP:			return OnfProtection_HP();
 		//case BUTTEN_PROTECTION_MP:			return OnfProtection_MP();
@@ -516,6 +520,20 @@ VOID CGuiAutoAttack::OnRender_AutoAtt(float fElapsedTime)
 {
 	static float f_tempTime = 0;
 	OnProtection_Life();
+
+	if( m_fBegin_State && GetGameApplication() && GetGameApplication()->bClientSetted(enumAuto_Kill_Summon) )
+	{
+		CGameScene* pScene = GetScene();
+		CMainCharacter* pMainCharacter = pScene ? pScene->GetMainCharacter() : NULL;
+		if( pMainCharacter )
+		{
+			if( m_fAuto_UseMagic )
+				pMainCharacter->RunAutoWorkSkill();
+
+			if( m_fAuto_PicUp )
+				pMainCharacter->RunAutoPickup();
+		}
+	}
 
 	f_tempTime += fElapsedTime;
 	if( f_tempTime > TIME_GOAWAY_ATTRAGIN)
@@ -643,9 +661,58 @@ bool CGuiAutoAttack::OnAutoPicUp()
 }
 bool CGuiAutoAttack::OnAutoPicUp_Setup()
 {
-	//m_fAuto_PicUp_Setup = !m_fAuto_PicUp_Setup;
-	//SendMailDlg_ButtonSetCheck(BUTTEN_PICKUPSETUP,m_fAuto_PicUp_Setup);	
+	gAutoGameConfig.setCullObject.clear();
 
+	CGuiMLEditBox* pMLEditBox = GetMLEditBox(43);
+	if( pMLEditBox == NULL || pMLEditBox->GetText() == NULL )
+		return true;
+
+	const char* pszText = pMLEditBox->GetText();
+	if( *pszText == '\0' )
+		return true;
+
+	char szKeywords[1024] = {0};
+	strncpy(szKeywords, pszText, sizeof(szKeywords) - 1);
+
+	for( int i = 0; szKeywords[i] != '\0'; ++i )
+	{
+		if( szKeywords[i] == '\r' || szKeywords[i] == '\n' )
+			szKeywords[i] = ';';
+	}
+
+	char* tempStr = _strdup(szKeywords);
+	if( tempStr == NULL )
+		return true;
+
+	char* token = strtok(tempStr, ";");
+	while( token != NULL )
+	{
+		while( *token == ' ' || *token == '\t' )
+			++token;
+
+		char* tokenEnd = token + strlen(token);
+		while( tokenEnd > token && (tokenEnd[-1] == ' ' || tokenEnd[-1] == '\t') )
+		{
+			--tokenEnd;
+			*tokenEnd = '\0';
+		}
+
+		if( *token != '\0' )
+		{
+			for( size_t i = 0; i < g_tableObjectBase.size(); ++i )
+			{
+				if( g_tableObjectBase[i].strName && *g_tableObjectBase[i].strName )
+				{
+					if( strstr(g_tableObjectBase[i].strName, token) )
+						gAutoGameConfig.setCullObject.insert(g_tableObjectBase[i].dwID);
+				}
+			}
+		}
+
+		token = strtok(NULL, ";");
+	}
+
+	free(tempStr);
 	return true;
 }
 
@@ -755,23 +822,32 @@ bool CGuiAutoAttack::OnDelListSkill()
 
 bool CGuiAutoAttack::OnIsGoaway()
 {
-	if(GetGameApplication()->bClientSetted( enumAuto_Kill_Summon ))
+	if( !GetGameApplication() || !GetGameApplication()->bClientSetted( enumAuto_Kill_Summon ) )
+		return false;
+
+	CGameGuiManager* pGuiManager = GetGameGuiManager();
+	if( pGuiManager == NULL || pGuiManager->m_guiAutoAttackDlg == NULL )
+		return false;
+
+	if( !pGuiManager->m_guiAutoAttackDlg->m_fBegin_Range )
+		return false;
+
+	CGameScene* pScene = GetScene();
+	CMainCharacter* pMainCharacter = pScene ? pScene->GetMainCharacter() : NULL;
+	if( pMainCharacter == NULL )
+		return false;
+
+	POINT pos = pMainCharacter->GetGridPos();//GetScene()->PixelPosToGridPos(m_pCharacter->GetPos());
+	POINT posDst;
+	posDst.x = pGuiManager->m_guiAutoAttackDlg->m_iRange_PosX;//m_iRange_PosX
+	posDst.y = pGuiManager->m_guiAutoAttackDlg->m_iRange_PosY;
+	int dis = Scene_GetDis(pos,posDst);
+	if( dis > pGuiManager->m_guiAutoAttackDlg->m_iRange_Range)//m_iRange_Range
 	{
-		if( GetGameGuiManager()->m_guiAutoAttackDlg->m_fBegin_Range )
-		{
-			int dis = 0;
-			POINT pos = GetScene()->GetMainCharacter()->GetGridPos();//GetScene()->PixelPosToGridPos(m_pCharacter->GetPos());
-            POINT posDst;
-			posDst.x = GetGameGuiManager()->m_guiAutoAttackDlg->m_iRange_PosX;//m_iRange_PosX
-			posDst.y = GetGameGuiManager()->m_guiAutoAttackDlg->m_iRange_PosY;
-			dis = Scene_GetDis(pos,posDst);
-			if( dis > GetGameGuiManager()->m_guiAutoAttackDlg->m_iRange_Range)//m_iRange_Range
-			{
-				GetScene()->GetMainCharacter()->Goto( posDst );
-				return true;
-			}
-		}
+		pMainCharacter->Goto( posDst );
+		return true;
 	}
+
 	return false;
 }
 bool CGuiAutoAttack::OnBegin_AttRange_Setup()
@@ -906,30 +982,45 @@ void CGuiAutoAttack::OnProtection_Life()
 	//	return;
 	if(!m_fBegin_State) 
 		return;
-	{////////star100709 及时
-	m_pEditBox_NeedToProtect_HP  = GetEditBox(EDITBO_PUT_HP);
-	m_iNeedToProtect_HP  = strtoul(m_pEditBox_NeedToProtect_HP->GetText(), NULL,10);
-	m_iComboBox_HP = GetComboBox(COMBOBOX_PUT_HP)->GetCurItem();
-	m_pEditBox_NeedToProtect_MP  = GetEditBox(EDITBO_PUT_MP);
-	m_iNeedToProtect_MP  = strtoul(m_pEditBox_NeedToProtect_MP->GetText(), NULL,10);
-	m_iComboBox_MP = GetComboBox(COMBOBOX_PUT_MP)->GetCurItem();
-	}
+
+	CGameScene* pScene = GetScene();
+	CMainCharacter* pMainCharacter = pScene ? pScene->GetMainCharacter() : NULL;
+	if( pMainCharacter == NULL )
+		return;
+
+	CGuiEditBox* pEditBox_HP = GetEditBox(EDITBO_PUT_HP);
+	CGuiComboBox* pComboBox_HP = GetComboBox(COMBOBOX_PUT_HP);
+	if( pEditBox_HP && pEditBox_HP->GetText() )
+		m_iNeedToProtect_HP = strtoul(pEditBox_HP->GetText(), NULL,10);
+	if( pComboBox_HP )
+		m_iComboBox_HP = pComboBox_HP->GetCurItem();
+
+	CGuiEditBox* pEditBox_MP = GetEditBox(EDITBO_PUT_MP);
+	CGuiComboBox* pComboBox_MP = GetComboBox(COMBOBOX_PUT_MP);
+	if( pEditBox_MP && pEditBox_MP->GetText() )
+		m_iNeedToProtect_MP = strtoul(pEditBox_MP->GetText(), NULL,10);
+	if( pComboBox_MP )
+		m_iComboBox_MP = pComboBox_MP->GetCurItem();
+
 	if(m_fProtection_HP && (m_iNeedToProtect_HP != 0) )
 	{
-		if( (GetScene()->GetMainCharacter()->GetMaxHP() * m_iNeedToProtect_HP / 100) > GetScene()->GetMainCharacter()->GetHP())
+		if( m_iComboBox_HP >= 0 && m_iComboBox_HP < (int)(sizeof(m_dwNeedMedicine_HP) / sizeof(m_dwNeedMedicine_HP[0])) && m_dwNeedMedicine_HP[m_iComboBox_HP] != 0 )
 		{
-			GetScene()->GetMainCharacter()->OnUseItem_forAutoAttack(m_dwNeedMedicine_HP[m_iComboBox_HP/* -1*/]);	
-			//GetScene()->GetMainCharacter()->CALL_USEITEM( m_dwNeedMedicine_HP[m_iNeedToProtect_HP -1] );
-			//if( i_ret == 1 || i_ret == -1) GetGameGuiManager()->AddClientSystemMessage("");
+			if( (pMainCharacter->GetMaxHP() * m_iNeedToProtect_HP / 100) > pMainCharacter->GetHP())
+			{
+				pMainCharacter->OnUseItem_forAutoAttack(m_dwNeedMedicine_HP[m_iComboBox_HP/* -1*/]);
+			}
 		}
 	}
 	if(m_fProtection_MP && (m_iNeedToProtect_MP != 0) )
 	{
-		if( (GetScene()->GetMainCharacter()->GetMaxMP() * m_iNeedToProtect_MP / 100) > GetScene()->GetMainCharacter()->GetMP())
+		if( m_iComboBox_MP >= 0 && m_iComboBox_MP < (int)(sizeof(m_dwNeedMedicine_MP) / sizeof(m_dwNeedMedicine_MP[0])) && m_dwNeedMedicine_MP[m_iComboBox_MP] != 0 )
 		{
-			GetScene()->GetMainCharacter()->OnUseItem_forAutoAttack(m_dwNeedMedicine_MP[m_iComboBox_MP/* -1*/]);	
+			if( (pMainCharacter->GetMaxMP() * m_iNeedToProtect_MP / 100) > pMainCharacter->GetMP())
+			{
+				pMainCharacter->OnUseItem_forAutoAttack(m_dwNeedMedicine_MP[m_iComboBox_MP/* -1*/]);
+			}
 		}
-	
 	}
 }
 
@@ -958,97 +1049,12 @@ bool CGuiAutoAttack::OnSaveButtenCleck()
 		m_iRange_Range = strtoul(m_pEditBox_Range->GetText(),NULL,10);
 	}
 	
-	// 处理物品过滤关键字
-	if(m_fAuto_PicUp) // 如果启用了远程拾取
-	{
-		// 清空原有过滤列表
-		gAutoGameConfig.setCullObject.clear();
-		
-		// 获取MLEditBox(ID 43)中的文本，处理用户自定义的过滤关键词
-		CGuiMLEditBox* pMLEditBox = GetMLEditBox(43);
-		if(pMLEditBox && pMLEditBox->GetText())
-		{
-			const char* pszText = pMLEditBox->GetText();
-			// 如果用户输入不为空
-			if(*pszText)
-			{
-				// 复制用户输入到新字符串
-				char szKeywords[1024] = {0};
-				strcpy(szKeywords, pszText);
-				
-				// 1. 将字符串中的回车符和换行符替换为分号
-				int origLen = strlen(szKeywords);
-				for(int i = 0; i < origLen; i++)
-				{
-					if(szKeywords[i] == '\r' || szKeywords[i] == '\n')
-					{
-						szKeywords[i] = ';';
-					}
-				}
-				
-				// 2. 去除末尾所有空白字符
-				int len = strlen(szKeywords);
-				while(len > 0 && (szKeywords[len-1] == ' ' || szKeywords[len-1] == '\t'))
-				{
-					szKeywords[len-1] = '\0';
-					len--;
-				}
-				
-				// 3. 确保末尾有分号
-				if(len > 0 && szKeywords[len-1] != ';')
-				{
-					szKeywords[len] = ';';
-					szKeywords[len+1] = '\0';
-				}
-				
-				// 4. 分割字符串，并匹配物品
-				char* tempStr = _strdup(szKeywords); // 创建副本用于分割
-				char* token = strtok(tempStr, ";");
-				int keywordCount = 0;
-				int keywordMatchCount = 0;
-				
-				while(token != NULL)
-				{
-					// 跳过空白字符
-					while(*token == ' ' || *token == '\t')
-					{
-						token++;
-					}
-					
-					// 只处理非空关键词
-					if(*token)
-					{
-						keywordCount++;
-						int matchCount = 0;
-						
-						// 遍历物品数据库，查找包含关键词的物品
-						for(size_t i = 0; i < g_tableObjectBase.size(); i++)
-						{
-							if(g_tableObjectBase[i].strName && *g_tableObjectBase[i].strName)
-							{
-								// 检查物品名称中是否包含关键词
-								if(strstr(g_tableObjectBase[i].strName, token))
-								{
-									// 添加到过滤列表
-									gAutoGameConfig.setCullObject.insert(g_tableObjectBase[i].dwID);
-									matchCount++;
-									keywordMatchCount++;
-								}
-							}
-						}
-					}
-					
-					// 获取下一个关键词
-					token = strtok(NULL, ";");
-				}
-				
-				free(tempStr); // 释放临时字符串
-			}
-		}
-	}
+	if(m_fAuto_PicUp)
+		OnAutoPicUp_Setup();
+
 	//by=>friday
 	
-	// 显示保存成功的提示框
+	// 提示保存成功
 	GetGameGuiManager()->AddMessageBox("设置保存成功");
 	//by=>friday
 	
@@ -1162,33 +1168,42 @@ bool CGuiAutoAttack::OnFilterGreenEquip()
 // 添加OnOffAutoAttack函数实现
 void CGuiAutoAttack::OnOffAutoAttack(bool flag, int index)
 {
-	// 处理自动挂机开关
 	if(index == -1)
 	{
-		// 所有功能的开关
 		m_fBegin_State = flag;
 		m_fBegin_Attack = flag;
-		
-		// 更新界面控件状态
-		SendMailDlg_ButtonSetCheck(25, flag);
-		SendMailDlg_ButtonSetCheck(26, flag);
 	}
-	else
+	else if(index == 0)
 	{
-		// 特定功能的开关
-		switch(index)
+		m_fBegin_State = flag;
+	}
+	else if(index == 1)
+	{
+		m_fBegin_Attack = flag;
+	}
+
+	SendMailDlg_ButtonSetCheck(BUTTEN_STATE, m_fBegin_State);
+	SendMailDlg_ButtonSetCheck(BUTTEN_ATTACK, m_fBegin_Attack);
+
+	bool bAutoAttack = (m_fBegin_State && m_fBegin_Attack);
+	if(GetGameApplication())
+		GetGameApplication()->SetClientSet(enumAuto_Kill_Summon, bAutoAttack);
+	g_bAutoFight = bAutoAttack;
+	if(!bAutoAttack)
+	{
+		CGameScene* pScene = GetScene();
+		CMainCharacter* pMainCharacter = pScene ? pScene->GetMainCharacter() : NULL;
+		if( pMainCharacter )
 		{
-		case 0: // 状态
-			m_fBegin_State = flag;
-			SendMailDlg_ButtonSetCheck(25, flag);
-			break;
-		case 1: // 攻击
-			m_fBegin_Attack = flag;
-			SendMailDlg_ButtonSetCheck(26, flag);
-			break;
-		// 可添加其他功能的开关
+			pMainCharacter->ClearPath();
+			pMainCharacter->ClearRunEvent();
+			pMainCharacter->m_AStar.FreePath();
+			pMainCharacter->m_AStarZone.FreePath();
 		}
 	}
+	if(GetGameGuiManager() && GetGameGuiManager()->m_guiSystem)
+		GetGameGuiManager()->m_guiSystem->UpdateAutoPkSwitch();
+
 	//by=>friday
 }
 

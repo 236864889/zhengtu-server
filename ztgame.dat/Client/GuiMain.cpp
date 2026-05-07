@@ -1800,25 +1800,37 @@ inline void OnOffAutoAttack( bool f_Auto, WORD wTxtShow )
 {
 	FUNCTION_BEGIN;
 
-	if( GetScene()->GetMainCharacter()->bIsShopStart() )
+	CGameScene* pScene = GetScene();
+	CMainCharacter* pMain = pScene ? pScene->GetMainCharacter() : NULL;
+	if( !pMain )
+	{
+		return ;
+	}
+
+	if( pMain->bIsShopStart() )
 	{
 		return ;
 	}
 	//bool bAutoPk = GetGameApplication()->bClientSetted(enumAuto_Kill_Summon);
+	CGameAppation* pGameApplication = GetGameApplication();
+
 	if( f_Auto )
 	{
-		GetGameApplication()->SetClientSet(enumAuto_Kill_Summon,true);
+		if( pGameApplication )
+		{
+			pGameApplication->SetClientSet(enumAuto_Kill_Summon,true);
+		}
 		GetGameGuiManager()->AddClientSystemMessage("开启自动打怪");
 		g_bAutoFight = true;
 	}
 	else
 	{
-		GetGameApplication()->SetClientSet(enumAuto_Kill_Summon,false);
-		if ( GetScene()->GetMainCharacter() )
+		if( pGameApplication )
 		{
-			GetScene()->GetMainCharacter()->ClearPath();
-			GetScene()->GetMainCharacter()->ClearRunEvent();
+			pGameApplication->SetClientSet(enumAuto_Kill_Summon,false);
 		}
+		pMain->ClearPath();
+		pMain->ClearRunEvent();
 		if(wTxtShow == 0)
 			GetGameGuiManager()->AddClientSystemMessage("关闭自动打怪");
 		else if(wTxtShow == 1)
@@ -1829,8 +1841,8 @@ inline void OnOffAutoAttack( bool f_Auto, WORD wTxtShow )
 			GetGameGuiManager()->AddClientSystemMessage("关闭打怪");
 
 		g_bAutoFight = false;
-		GetScene()->GetMainCharacter()->m_AStar.FreePath();
-		GetScene()->GetMainCharacter()->m_AStarZone.FreePath();
+		pMain->m_AStar.FreePath();
+		pMain->m_AStarZone.FreePath();
 	}
 	if( GetGameGuiManager()->m_guiSystem )
 	{
