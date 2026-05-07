@@ -57,6 +57,11 @@ private:
 class PrivateStore
 {
 public:
+	enum CurrencyType {
+		CURRENCY_MONEY = 0,
+		CURRENCY_GOLD = 1,
+	};
+
 	enum {
 		WIDTH = 6,
 		HEIGHT = 7,
@@ -71,19 +76,21 @@ public:
 	class SellInfo
 	{
 	public:
-		SellInfo(zObject* ob=NULL, DWORD money=0, BYTE x=0, BYTE y=0) : _ob(ob), _money(money),  _x(x), _y(y)
+		SellInfo(zObject* ob=NULL, DWORD money=0, BYTE x=0, BYTE y=0, BYTE currency=CURRENCY_GOLD) : _ob(ob), _money(money),  _x(x), _y(y), _currency(currency)
 		{ }
 
 		zObject* object() {return _ob;}
 		DWORD money() {return _money;}
 		BYTE x() { return _x;}
 		BYTE y() {return _y;}
+		BYTE currency() {return _currency;}
 
 	private:
 		zObject* _ob;
 		DWORD _money;
 		BYTE _x;
 		BYTE _y;
+		BYTE _currency;
 	};
 		
 	PrivateStore();

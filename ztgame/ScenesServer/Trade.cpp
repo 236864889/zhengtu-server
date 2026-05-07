@@ -50,7 +50,7 @@ void PrivateStore::clear()
 
 void PrivateStore::add(zObject* ob, DWORD money, BYTE x, BYTE y)
 {
-	_items[ob->data.qwThisID] = SellInfo(ob, money, x, y);
+	_items[ob->data.qwThisID] = SellInfo(ob, money, x, y, CURRENCY_GOLD);
 }
 
 void PrivateStore::remove(DWORD id) 
@@ -495,7 +495,8 @@ bool SceneUser::do_trade_rs_cmd(const Cmd::stTradeUserCmd *rev,unsigned int cmdL
 		return Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "°ü¹ü¿Õ¼ä²»×ã");
 	}
 
-	if (packs.checkMoney(sf->money()) && target->packs.removeObject(sf->object(), true, false) ) //notify but not delete) 
+	const bool checkCurrencyOk = (sf->currency() == PrivateStore::CURRENCY_GOLD) ? packs.checkGold(sf->money()) : packs.checkMoney(sf->money());
+	if (checkCurrencyOk && target->packs.removeObject(sf->object(), true, false) ) //notify but not delete) 
 	{
 		packs.addObject(sf->object(), true, AUTO_PACK);
 		//notify client about add
@@ -506,8 +507,16 @@ bool SceneUser::do_trade_rs_cmd(const Cmd::stTradeUserCmd *rev,unsigned int cmdL
 		sendCmdToMe(&ret1, sizeof(ret1));
 
 		//compute money
-		target->packs.addMoney(sf->money(),"°ÚÌ¯");				
-		packs.removeMoney(sf->money(),"°ÚÌ¯");
+			if (sf->currency() == PrivateStore::CURRENCY_GOLD)
+		{
+			target->packs.addGold(sf->money(),"°ÚÌ¯");
+			packs.removeGold(sf->money(),"°ÚÌ¯");
+		}
+		else
+		{
+			target->packs.addMoney(sf->money(),"°ÚÌ¯");
+			packs.removeMoney(sf->money(),"°ÚÌ¯");
+		}
 
 		//clear from list
 		target->privatestore.remove(cmd->object_id);
