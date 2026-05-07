@@ -1813,6 +1813,7 @@ inline void OnOffAutoAttack( bool f_Auto, WORD wTxtShow )
 	}
 	//bool bAutoPk = GetGameApplication()->bClientSetted(enumAuto_Kill_Summon);
 	CGameAppation* pGameApplication = GetGameApplication();
+	CGameGuiManager* pGuiManager = GetGameGuiManager();
 
 	if( f_Auto )
 	{
@@ -1820,7 +1821,8 @@ inline void OnOffAutoAttack( bool f_Auto, WORD wTxtShow )
 		{
 			pGameApplication->SetClientSet(enumAuto_Kill_Summon,true);
 		}
-		GetGameGuiManager()->AddClientSystemMessage("开启自动打怪");
+		if( pGuiManager )
+			pGuiManager->AddClientSystemMessage("开启自动打怪");
 		g_bAutoFight = true;
 	}
 	else
@@ -1831,22 +1833,25 @@ inline void OnOffAutoAttack( bool f_Auto, WORD wTxtShow )
 		}
 		pMain->ClearPath();
 		pMain->ClearRunEvent();
-		if(wTxtShow == 0)
-			GetGameGuiManager()->AddClientSystemMessage("关闭自动打怪");
-		else if(wTxtShow == 1)
-			GetGameGuiManager()->AddClientSystemMessage("开启挂机");
-		else if(wTxtShow == 2)
-			GetGameGuiManager()->AddClientSystemMessage("关闭挂机");
-		else if(wTxtShow == 3)
-			GetGameGuiManager()->AddClientSystemMessage("关闭打怪");
+		if( pGuiManager )
+		{
+			if(wTxtShow == 0)
+				pGuiManager->AddClientSystemMessage("关闭自动打怪");
+			else if(wTxtShow == 1)
+				pGuiManager->AddClientSystemMessage("开启挂机");
+			else if(wTxtShow == 2)
+				pGuiManager->AddClientSystemMessage("关闭挂机");
+			else if(wTxtShow == 3)
+				pGuiManager->AddClientSystemMessage("关闭打怪");
+		}
 
 		g_bAutoFight = false;
 		pMain->m_AStar.FreePath();
 		pMain->m_AStarZone.FreePath();
 	}
-	if( GetGameGuiManager()->m_guiSystem )
+	if( pGuiManager && pGuiManager->m_guiSystem )
 	{
-		GetGameGuiManager()->m_guiSystem->UpdateAutoPkSwitch();
+		pGuiManager->m_guiSystem->UpdateAutoPkSwitch();
 	}
 
 	FUNCTION_END;

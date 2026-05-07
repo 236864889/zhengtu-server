@@ -299,6 +299,7 @@ static int cmpItemByPos(const void *p1, const void *p2)
 // 添加全局变量 
 static DWORD g_lastKillTime = 0;
 static DWORD g_lastPickTime = 0; // 上次拾取物品的时间戳 
+static DWORD g_lastAutoWorkSkillTime = 0; // throttle auto passive skill checks
 static BYTE g_itemColorCache[2048] = {0}; // 缓存物品颜色，减小数组大小节省内存 
 
 // 通知系统怪物已死亡 
@@ -503,16 +504,23 @@ bool CMainCharacter::RunAutoWork()
 bool CMainCharacter::RunAutoWorkSkill()
 {
 	DWORD curTime = xtimeGetTime();
-	for(std::vector<sAutoSkill>::iterator iPter = GetGameGuiManager()->m_guiAutoAttackDlg->m_PassiveSkill.begin(); 
-		iPter != GetGameGuiManager()->m_guiAutoAttackDlg->m_PassiveSkill.end(); ++iPter)
+	if(curTime - g_lastAutoWorkSkillTime < 900)
+		return false;
+	g_lastAutoWorkSkillTime = curTime;
+
+	CGameGuiManager* pGuiManager = GetGameGuiManager();
+	if(pGuiManager == NULL || pGuiManager->m_guiAutoAttackDlg == NULL || pGuiManager->m_guiMain == NULL)
+		return false;
+
+	for(std::vector<sAutoSkill>::iterator iPter = pGuiManager->m_guiAutoAttackDlg->m_PassiveSkill.begin();
+		iPter != pGuiManager->m_guiAutoAttackDlg->m_PassiveSkill.end(); ++iPter)
 	{
 		if( iPter->bUse)
 		{
 			SkillBase_t* pSkill = GetSkillBase(iPter->dID);
 			if(pSkill)
 			{
-				float iii = GetSkillDisableStatus(pSkill);
-				if(!GetGameGuiManager()->m_guiMain->isHasStateSkill(pSkill->dwID) && GetSkillDisableStatus(pSkill) > 0.99f)
+				if(!pGuiManager->m_guiMain->isHasStateSkill(pSkill->dwID) && GetSkillDisableStatus(pSkill) > 0.99f)
 				{
 					if(GetMP() < pSkill->dwMP)
 						return false;
@@ -520,12 +528,11 @@ bool CMainCharacter::RunAutoWorkSkill()
 
 					if( pSkill->dwID == 209 || pSkill->dwID == 212 || pSkill->dwID == 217)
 					{
-						if( GetGameGuiManager()->m_guiPetFloatDlg !=NULL )
+						if( pGuiManager->m_guiPetFloatDlg != NULL && pGuiManager->m_guiPetFloatDlg->GetCurrentPet() != NULL )
 						{
-							const t_PetData *pData = GetGameGuiManager()->m_guiPetFloatDlg->GetCurrentPet()->GetProperty();
-							if(pData != NULL)
-							if( pData->hp >  5 )
-							continue;
+							const t_PetData *pData = pGuiManager->m_guiPetFloatDlg->GetCurrentPet()->GetProperty();
+							if(pData != NULL && pData->hp > 5)
+								continue;
 						}
 					}
 					if(pRoleSkill)
@@ -542,7 +549,7 @@ bool CMainCharacter::RunAutoWorkSkill()
 			}
 		}
 	}
-	return true;
+	return false;
 }
 //////////////////end
 

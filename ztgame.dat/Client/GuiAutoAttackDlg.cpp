@@ -100,6 +100,7 @@ static const int BUTTEN_SAVE        			= 23; // 保存设置
 
 
 static const int TIME_GOAWAY_ATTRAGIN  = 30;
+static const DWORD AUTO_USE_MEDICINE_INTERVAL = 1200;
 ////////////////////star100604
 extern bool g_bSitDownHotKeyActive;
 extern bool g_bAutoFight;
@@ -649,6 +650,7 @@ bool CGuiAutoAttack::OnAutoInTeam()
 {
 	m_fAuto_InTeam = !m_fAuto_InTeam;
 	SendMailDlg_ButtonSetCheck(BUTTEN_AUTOTEAM,m_fAuto_InTeam);	
+	// Keep this stage UI-only; no existing auto-team protocol flow is invoked here.
 
 	return true;
 }
@@ -668,15 +670,15 @@ bool CGuiAutoAttack::OnAutoPicUp_Setup()
 		return true;
 
 	const char* pszText = pMLEditBox->GetText();
-	if( *pszText == '\0' )
+	if( *pszText == 0 )
 		return true;
 
 	char szKeywords[1024] = {0};
 	strncpy(szKeywords, pszText, sizeof(szKeywords) - 1);
 
-	for( int i = 0; szKeywords[i] != '\0'; ++i )
+	for( int i = 0; szKeywords[i] != 0; ++i )
 	{
-		if( szKeywords[i] == '\r' || szKeywords[i] == '\n' )
+		if( szKeywords[i] == 13 || szKeywords[i] == 10 )
 			szKeywords[i] = ';';
 	}
 
@@ -687,17 +689,17 @@ bool CGuiAutoAttack::OnAutoPicUp_Setup()
 	char* token = strtok(tempStr, ";");
 	while( token != NULL )
 	{
-		while( *token == ' ' || *token == '\t' )
+		while( *token == ' ' || *token == 9 )
 			++token;
 
 		char* tokenEnd = token + strlen(token);
-		while( tokenEnd > token && (tokenEnd[-1] == ' ' || tokenEnd[-1] == '\t') )
+		while( tokenEnd > token && (tokenEnd[-1] == ' ' || tokenEnd[-1] == 9) )
 		{
 			--tokenEnd;
-			*tokenEnd = '\0';
+			*tokenEnd = 0;
 		}
 
-		if( *token != '\0' )
+		if( *token != 0 )
 		{
 			for( size_t i = 0; i < g_tableObjectBase.size(); ++i )
 			{
@@ -1002,13 +1004,21 @@ void CGuiAutoAttack::OnProtection_Life()
 	if( pComboBox_MP )
 		m_iComboBox_MP = pComboBox_MP->GetCurItem();
 
+	static DWORD s_dwLastAutoUseHPTime = 0;
+	static DWORD s_dwLastAutoUseMPTime = 0;
+	DWORD dwNow = xtimeGetTime();
+
 	if(m_fProtection_HP && (m_iNeedToProtect_HP != 0) )
 	{
 		if( m_iComboBox_HP >= 0 && m_iComboBox_HP < (int)(sizeof(m_dwNeedMedicine_HP) / sizeof(m_dwNeedMedicine_HP[0])) && m_dwNeedMedicine_HP[m_iComboBox_HP] != 0 )
 		{
 			if( (pMainCharacter->GetMaxHP() * m_iNeedToProtect_HP / 100) > pMainCharacter->GetHP())
 			{
-				pMainCharacter->OnUseItem_forAutoAttack(m_dwNeedMedicine_HP[m_iComboBox_HP/* -1*/]);
+				if( dwNow - s_dwLastAutoUseHPTime >= AUTO_USE_MEDICINE_INTERVAL )
+				{
+					pMainCharacter->OnUseItem_forAutoAttack(m_dwNeedMedicine_HP[m_iComboBox_HP/* -1*/]);
+					s_dwLastAutoUseHPTime = dwNow;
+				}
 			}
 		}
 	}
@@ -1018,7 +1028,11 @@ void CGuiAutoAttack::OnProtection_Life()
 		{
 			if( (pMainCharacter->GetMaxMP() * m_iNeedToProtect_MP / 100) > pMainCharacter->GetMP())
 			{
-				pMainCharacter->OnUseItem_forAutoAttack(m_dwNeedMedicine_MP[m_iComboBox_MP/* -1*/]);
+				if( dwNow - s_dwLastAutoUseMPTime >= AUTO_USE_MEDICINE_INTERVAL )
+				{
+					pMainCharacter->OnUseItem_forAutoAttack(m_dwNeedMedicine_MP[m_iComboBox_MP/* -1*/]);
+					s_dwLastAutoUseMPTime = dwNow;
+				}
 			}
 		}
 	}
@@ -1028,33 +1042,51 @@ bool CGuiAutoAttack::OnSaveButtenCleck()
 {
 	if(m_fProtection_HP)
 	{
-		m_pEditBox_NeedToProtect_HP  = GetEditBox(EDITBO_PUT_HP);
-		m_iNeedToProtect_HP  = strtoul(m_pEditBox_NeedToProtect_HP->GetText(), NULL,10);
-		m_iComboBox_HP = GetComboBox(COMBOBOX_PUT_HP)->GetCurItem();
+		CGuiEditBox* pEditHP = GetEditBox(EDITBO_PUT_HP);
+		CGuiComboBox* pComboHP = GetComboBox(COMBOBOX_PUT_HP);
+		if( pEditHP && pEditHP->GetText() )
+			m_iNeedToProtect_HP  = strtoul(pEditHP->GetText(), NULL,10);
+		if( pComboHP )
+			m_iComboBox_HP = pComboHP->GetCurItem();
 	}
 	if(m_fProtection_MP)
 	{
-		m_pEditBox_NeedToProtect_MP  = GetEditBox(EDITBO_PUT_MP);
-		m_iNeedToProtect_MP  = strtoul(m_pEditBox_NeedToProtect_MP->GetText(), NULL,10);
-		m_iComboBox_MP = GetComboBox(COMBOBOX_PUT_MP)->GetCurItem();
+		CGuiEditBox* pEditMP = GetEditBox(EDITBO_PUT_MP);
+		CGuiComboBox* pComboMP = GetComboBox(COMBOBOX_PUT_MP);
+		if( pEditMP && pEditMP->GetText() )
+			m_iNeedToProtect_MP  = strtoul(pEditMP->GetText(), NULL,10);
+		if( pComboMP )
+			m_iComboBox_MP = pComboMP->GetCurItem();
 	}
 	if(m_fBegin_Range)
 	{
-		m_pEditBox_PutX  = GetEditBox(EDITBO_X);
-		m_pEditBox_PutY  = GetEditBox(EDITBO_Y);
-		m_pEditBox_Range = GetEditBox(EDITBO_RANGE);
-
-		m_iRange_PosX  = strtoul(m_pEditBox_PutX->GetText(), NULL,10);
-		m_iRange_PosY  = strtoul(m_pEditBox_PutY->GetText(), NULL,10);
-		m_iRange_Range = strtoul(m_pEditBox_Range->GetText(),NULL,10);
+		CGuiEditBox* pEditX  = GetEditBox(EDITBO_X);
+		CGuiEditBox* pEditY  = GetEditBox(EDITBO_Y);
+		CGuiEditBox* pEditRange = GetEditBox(EDITBO_RANGE);
+		if( pEditX && pEditX->GetText() )
+			m_iRange_PosX  = strtoul(pEditX->GetText(), NULL,10);
+		if( pEditY && pEditY->GetText() )
+			m_iRange_PosY  = strtoul(pEditY->GetText(), NULL,10);
+		if( pEditRange && pEditRange->GetText() )
+			m_iRange_Range = strtoul(pEditRange->GetText(),NULL,10);
 	}
-	
+
+	if( m_fBegin_DS_Aid || m_fAuto_DS_Resume )
+	{
+		CGuiEditBox* pEditSitX = GetEditBox(EDITBO_X_SIT);
+		CGuiEditBox* pEditSitY = GetEditBox(EDITBO_Y_SIT);
+		if( pEditSitX && pEditSitX->GetText() )
+			m_iSitdown_PosX = strtoul(pEditSitX->GetText(), NULL,10);
+		if( pEditSitY && pEditSitY->GetText() )
+			m_iSitdown_PosY = strtoul(pEditSitY->GetText(), NULL,10);
+	}
+
 	if(m_fAuto_PicUp)
 		OnAutoPicUp_Setup();
 
 	//by=>friday
 	
-	// 提示保存成功
+	// 显示成功提示
 	GetGameGuiManager()->AddMessageBox("设置保存成功");
 	//by=>friday
 	
@@ -1065,12 +1097,18 @@ bool CGuiAutoAttack::OnAuto_Sitdown()
 {
 	if( m_iSitdown_PosX == 0 && m_iSitdown_PosY == 0 )
 		return false;
-	if( !GetScene()->GetMainCharacter()->IsSitDown() )
-	{
-		//GetScene()->GetMainCharacter()->OnSit(true);
-				OnSitDown();
 
-				g_bSitDownHotKeyActive = false;
+	CGameScene* pScene = GetScene();
+	CMainCharacter* pMainCharacter = pScene ? pScene->GetMainCharacter() : NULL;
+	if( pMainCharacter == NULL )
+		return false;
+
+	if( !pMainCharacter->IsSitDown() )
+	{
+		//pMainCharacter->OnSit(true);
+		OnSitDown();
+
+		g_bSitDownHotKeyActive = false;
 
 		return true;
 	}
@@ -1082,15 +1120,20 @@ bool CGuiAutoAttack::OnAuto_GotoSitdown()
 	{
 		if( m_fAuto_DS_Resume )
 		{
+			CGameScene* pScene = GetScene();
+			CMainCharacter* pMainCharacter = pScene ? pScene->GetMainCharacter() : NULL;
+			if( pMainCharacter == NULL )
+				return false;
+
 			int dis = 0;
-			POINT pos = GetScene()->GetMainCharacter()->GetGridPos();
-            POINT posDst;
+			POINT pos = pMainCharacter->GetGridPos();
+			POINT posDst;
 			posDst.x = m_iSitdown_PosX;
 			posDst.y = m_iSitdown_PosY;
 			dis = Scene_GetDis(pos,posDst);
 			if( dis > 2 )
 			{
-				GetScene()->GetMainCharacter()->Goto( posDst );
+				pMainCharacter->Goto( posDst );
 				return false;
 			}
 			else
@@ -1108,7 +1151,12 @@ bool CGuiAutoAttack::OnAuto_SetPosSit()
 	//m_pEditBox_PutX  = GetEditBox(EDITBO_X);
 	//m_pEditBox_PutY  = GetEditBox(EDITBO_Y);
 
-	POINT pos = GetScene()->GetMainCharacter()->GetGridPos();
+	CGameScene* pScene = GetScene();
+	CMainCharacter* pMainCharacter = pScene ? pScene->GetMainCharacter() : NULL;
+	if( pMainCharacter == NULL )
+		return false;
+
+	POINT pos = pMainCharacter->GetGridPos();
 	m_iSitdown_PosX  = pos.x;
 	m_iSitdown_PosY  = pos.y;
 //SetWindowText
@@ -1118,8 +1166,10 @@ bool CGuiAutoAttack::OnAuto_SetPosSit()
 
 	CGuiEditBox* m_pEditBox_Sitdown_PutX  = GetEditBox(EDITBO_X_SIT);	
 	CGuiEditBox* m_pEditBox_Sitdown_PutY  = GetEditBox(EDITBO_Y_SIT);
-	m_pEditBox_Sitdown_PutX->SetText( t1 );
-	m_pEditBox_Sitdown_PutY->SetText( t2 );
+	if( m_pEditBox_Sitdown_PutX )
+		m_pEditBox_Sitdown_PutX->SetText( t1 );
+	if( m_pEditBox_Sitdown_PutY )
+		m_pEditBox_Sitdown_PutY->SetText( t2 );
 	//m_pEditBox_Sitdown_PutX->SetWindowText( t1 );
 	//m_pEditBox_Sitdown_PutY->SetWindowText( t2 );
 
