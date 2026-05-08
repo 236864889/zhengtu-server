@@ -159,6 +159,7 @@ void SessionTimeTick::run()
             //护国榜下发奖励时间
             if (tmValue.tm_hour==0 && tmValue.tm_min==3)
 			{
+				Zebra::logger->debug("[MainRank][Hero] TimeTick 00:03 trigger updateDayHeroList and sendHeroRewards");
 				CHero::getMe().updateDayHeroList(); //更新英雄榜
 				CHero::getMe().sendHeroRewards();				
 			}

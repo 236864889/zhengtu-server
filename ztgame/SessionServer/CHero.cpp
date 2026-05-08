@@ -15,6 +15,7 @@ CHero& CHero::getMe()
 void CHero::addHeroKill(const Cmd::t_NullCmd *ptNullCmd, const unsigned int cmdLen)
 {
     Cmd::Session::t_heorKill_SceneSession * rev = (Cmd::Session::t_heorKill_SceneSession *)ptNullCmd;
+	Zebra::logger->debug("[MainRank][Hero] add kill begin COUNTRYID=%u DATEVALUE=1 CHARID=%u KCHARID=%u name=%s", rev->country, rev->charID, rev->kCharID, rev->name);
 	Zebra::logger->debug("名称:%s,ID:%d,国家:%d,击杀ID:%d",rev->name,rev->charID,rev->country,rev->kCharID);
 	time_t timValue = time(NULL);
 	if(allKillTime.size() > 0)
@@ -98,6 +99,7 @@ void CHero::addHeroKill(const Cmd::t_NullCmd *ptNullCmd, const unsigned int cmdL
 			Record* recnum = recordset->get(0);
 			DWORD num = recnum->get("NUM");
 			rec.put("NUM",num+1);
+			Zebra::logger->debug("[MainRank][Hero] update HEROLIST COUNTRYID=%u DATEVALUE=1 CHARID=%u oldNum=%u newNum=%u", rev->country, rev->charID, num, num+1);
 			
 			if ((connHandleID)-1 != handle)
 			{
@@ -106,6 +108,7 @@ void CHero::addHeroKill(const Cmd::t_NullCmd *ptNullCmd, const unsigned int cmdL
 		}
 		else
 		{
+			Zebra::logger->debug("[MainRank][Hero] insert HEROLIST COUNTRYID=%u DATEVALUE=1 CHARID=%u NUM=1 name=%s", rev->country, rev->charID, rev->name);
 			rec.put("COUNTRYID",rev->country);
 			rec.put("DATEVALUE",1);
 			rec.put("CHARID",rev->charID);
@@ -188,6 +191,7 @@ RecordSet* CHero::queryHeroKill(DWORD countryid,DWORD datevalue)
 		{
 			recordset = SessionService::dbConnPool->exeSelect(handle, fs, NULL, &where, &order, 20);
 		}
+		Zebra::logger->debug("[MainRank][Hero] query HEROLIST COUNTRYID=%u DATEVALUE=%u result=%u", countryid, datevalue, (unsigned int)(recordset ? recordset->size() : 0));
 
 		SessionService::dbConnPool->putHandle(handle);
 		if (recordset)
@@ -200,6 +204,7 @@ RecordSet* CHero::queryHeroKill(DWORD countryid,DWORD datevalue)
 
 void CHero::updateDayHeroList()
 {
+	Zebra::logger->debug("[MainRank][Hero] day switch begin delete DATEVALUE=0 and update DATEVALUE=1 to DATEVALUE=0");
 	Zebra::logger->debug("更新英雄排行榜");
 	FieldSet* fs = SessionService::metaData->getFields("HEROLIST");
 	if (fs)
@@ -218,7 +223,10 @@ void CHero::updateDayHeroList()
 		where.put("DATEVALUE", oss.str());
 
 		if ((connHandleID)-1 != handle)
+		{
+			Zebra::logger->debug("[MainRank][Hero] day switch delete old yesterday DATEVALUE=0");
 			SessionService::dbConnPool->exeDelete(handle, fs, &where);
+		}
 
 		where.clear();
 		oss.str("");
@@ -227,7 +235,10 @@ void CHero::updateDayHeroList()
 
 		rec.put("DATEVALUE",0);
 		if ((connHandleID)-1 != handle)
+		{
+			Zebra::logger->debug("[MainRank][Hero] day switch update today DATEVALUE=1 to yesterday DATEVALUE=0");
 			SessionService::dbConnPool->exeUpdate(handle, fs, &rec, &where);
+		}
 
 		SessionService::dbConnPool->putHandle(handle);
     }
