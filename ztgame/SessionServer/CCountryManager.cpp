@@ -3777,13 +3777,9 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
                 pSend->altarNum = 0;
 				DWORD infoSize = 100; //排行榜读取数据
 				Cmd::SelectUserInfoA info[infoSize];
-				DWORD filteredCharID = 0;
-				DWORD queryRetcode = 0;
 				{
 					DWORD retcode = 0;
 					getZhanliRank(retcode,&info[0],infoSize);
-					queryRetcode = retcode;
-					Zebra::logger->debug("[MainRank][Zhanli] query table=CHARBASE fields=CHARID,NAME,COUNTRY,UNIONID,ZHANLI order=ZHANLI DESC limit=%u retcode=%u", infoSize, retcode);
 					if ((unsigned int)-1 == retcode
 							|| 0 == retcode)
 					{
@@ -3803,12 +3799,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 						{
 							//Zebra::logger->debug("*****-%d-****找到mapName=%d;name=%s;unionid=%u;zhanlilNum=%u;", i,info[i].country,info[i].name,info[i].unionid,info[i].zhanli);
 							//bcopy(info[i].mapName, (pSend->altarList + pSend->altarNum)->counName, MAX_NAMESIZE );
-							if(info[i].CHARID<=100)//GM
-							{
-								filteredCharID ++;
-								Zebra::logger->debug("[MainRank][Zhanli] filtered CHARID<=100 charid=%u name=%s", info[i].CHARID, info[i].name);
-								continue;
-							}
 							if(info[i].CHARID>100)//GM不参与
 							{
 								char  mapName[MAX_NAMESIZE];	/// 角色所在地图名称
@@ -3870,7 +3860,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					
 				}
 				//end
-				Zebra::logger->debug("[MainRank][Zhanli] send retcode=%u altarNum=%u filteredCharID=%u", queryRetcode, pSend->altarNum, filteredCharID);
                 pUser->sendCmdToMe( pSend, sizeof(Cmd::ReplyAltarListZhanLIUserCmd) + pSend->altarNum * sizeof(pSend->altarList[0]) );
             }
             return true;
@@ -3885,13 +3874,9 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
                 pSend->altarNum = 0;
 				DWORD infoSize = 100; //排行榜读取数据
 				Cmd::SelectUserInfoLevel info[infoSize];
-				DWORD filteredCharID = 0;
-				DWORD queryRetcode = 0;
 				{
 					DWORD retcode = 0;
 					getLevelupRank(retcode,&info[0],infoSize);
-					queryRetcode = retcode;
-					Zebra::logger->debug("[MainRank][Levelup] query table=CHARBASE fields=CHARID,NAME,LEVEL,COUNTRY,UNIONID order=LEVEL DESC limit=%u retcode=%u", infoSize, retcode);
 					if ((unsigned int)-1 == retcode
 							|| 0 == retcode)
 					{
@@ -3911,12 +3896,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 						{
 							//Zebra::logger->debug("*****-%d-****找到mapName=%d;name=%s;unionid=%u;leveluplNum=%u;", i,info[i].country,info[i].name,info[i].unionid,info[i].levelup);
 							//bcopy(info[i].mapName, (pSend->altarList + pSend->altarNum)->counName, MAX_NAMESIZE );
-							if(info[i].CHARID<=100)//GM
-							{
-								filteredCharID ++;
-								Zebra::logger->debug("[MainRank][Levelup] filtered CHARID<=100 charid=%u name=%s", info[i].CHARID, info[i].name);
-								continue;
-							}
 							if(info[i].CHARID>100)//GM不参与
 							{
 								char  mapName[MAX_NAMESIZE];	/// 角色所在地图名称
@@ -3978,7 +3957,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					
 				}
 				//end
-				Zebra::logger->debug("[MainRank][Levelup] send retcode=%u altarNum=%u filteredCharID=%u", queryRetcode, pSend->altarNum, filteredCharID);
                 pUser->sendCmdToMe( pSend, sizeof(Cmd::ReplyAltarListLevelupUserCmd) + pSend->altarNum * sizeof(pSend->altarList[0]) );
             }
             return true;
@@ -3993,13 +3971,9 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
                 pSend->altarNum = 0;
 				DWORD infoSize = 100; //排行榜读取数据
 				Cmd::SelectUserInfoTicket info[infoSize];
-				DWORD filteredCharID = 0;
-				DWORD queryRetcode = 0;
 				{
 					DWORD retcode = 0;
 					getTicketupRank(retcode,&info[0],infoSize);
-					queryRetcode = retcode;
-					Zebra::logger->debug("[MainRank][Ticketup] query table=CHARBASE fields=CHARID,NAME,TICKET,COUNTRY,UNIONID order=TICKET DESC limit=%u retcode=%u", infoSize, retcode);
 					if ((unsigned int)-1 == retcode || 0 == retcode)
 					{
 						Zebra::logger->debug("没有找到记录");
@@ -4018,12 +3992,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 						{
 							//Zebra::logger->debug("*****-%d-****找到mapName=%d;name=%s;unionid=%u;ticketuplNum=%u;", i,info[i].country,info[i].name,info[i].unionid,info[i].ticketup);
 							//bcopy(info[i].mapName, (pSend->altarList + pSend->altarNum)->counName, MAX_NAMESIZE );
-							if(info[i].CHARID<=100)//GM
-							{
-								filteredCharID ++;
-								Zebra::logger->debug("[MainRank][Ticketup] filtered CHARID<=100 charid=%u name=%s", info[i].CHARID, info[i].name);
-								continue;
-							}
 							if(info[i].CHARID>100)//GM不参与
 							{
 								char  mapName[MAX_NAMESIZE];	/// 角色所在地图名称
@@ -4084,7 +4052,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					
 				}
 				//end
-				Zebra::logger->debug("[MainRank][Ticketup] send retcode=%u altarNum=%u filteredCharID=%u", queryRetcode, pSend->altarNum, filteredCharID);
                 pUser->sendCmdToMe( pSend, sizeof(Cmd::ReplyAltarListTicketupUserCmd) + pSend->altarNum * sizeof(pSend->altarList[0]) );
             }
             return true;
@@ -4099,13 +4066,9 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
                 pSend->altarNum = 0;
 				DWORD infoSize = 100; //排行榜读取数据
 				Cmd::SelectUserInfoFlower info[infoSize];
-				DWORD filteredCharID = 0;
-				DWORD queryRetcode = 0;
 				{
 					DWORD retcode = 0;
 					getFlowerRank(retcode,&info[0],infoSize);
-					queryRetcode = retcode;
-					Zebra::logger->debug("[MainRank][Flower] query table=CHARBASE fields=CHARID,NAME,TYPE,FOLWERS,COUNTRY,UNIONID where=TYPE=2 order=FOLWERS DESC limit=%u retcode=%u", infoSize, retcode);
 					if ((unsigned int)-1 == retcode || 0 == retcode)
 					{
 						Zebra::logger->debug("没有找到记录");
@@ -4124,12 +4087,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 						{
 							//Zebra::logger->debug("*****-%d-****找到mapName=%d;name=%s;unionid=%u;flowerlNum=%u;", i,info[i].country,info[i].name,info[i].unionid,info[i].flower);
 							//bcopy(info[i].mapName, (pSend->altarList + pSend->altarNum)->counName, MAX_NAMESIZE );
-							if(info[i].CHARID<=100)//GM
-							{
-								filteredCharID ++;
-								Zebra::logger->debug("[MainRank][Flower] filtered CHARID<=100 charid=%u name=%s", info[i].CHARID, info[i].name);
-								continue;
-							}
 							if(info[i].CHARID>100)//GM不参与
 							{
 								char  mapName[MAX_NAMESIZE];	/// 角色所在地图名称
@@ -4191,7 +4148,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					
 				}
 				//end
-				Zebra::logger->debug("[MainRank][Flower] send retcode=%u altarNum=%u filteredCharID=%u", queryRetcode, pSend->altarNum, filteredCharID);
                 pUser->sendCmdToMe( pSend, sizeof(Cmd::ReplyAltarListFlowerUserCmd) + pSend->altarNum * sizeof(pSend->altarList[0]) );
             }
             return true;
@@ -4203,7 +4159,6 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
             if ( pUser && rev )
 			{
 				RecordSet* recordset = NULL;
-				Zebra::logger->debug("[MainRank][Hero] request COUNTRYID=%u DATEVALUE=%u", rev->countryID, rev->datevalue);
 				recordset = CHero::getMe().queryHeroKill(rev->countryID,rev->datevalue);
 				if (recordset)
 				{
