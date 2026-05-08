@@ -9,6 +9,7 @@ enum RANK_TYPE
 	RANKTYPE_T_HERO, //今日英雄排行榜
 	RANKTYPE_Y_HERO, //昨日英雄排行榜
 	RANKTYPE_TICKET, //个人积分排行榜
+	RANKTYPE_FLOWER, //世界鲜花排行榜
 	RANKTYPE_COUNT, //排行类型数量
 };
 

@@ -21,6 +21,7 @@
 #define ID_BUTTON_GJYX    5    // 今日护国排行榜
 #define ID_BUTTON_XHPH    6    // 昨日护国排行榜
 #define ID_BUTTON_GRMC    7    // 个人积分排行榜
+#define ID_BUTTON_FLOWER  8    // flower rank
 
 
 #define ID_BUTTON_CLOSE   1
@@ -54,6 +55,7 @@ void CGuiBoardGameDlg::OnCreate(void)
 	CGuiButton* pBtnToday = GetButton(ID_BUTTON_GJYX);
 	CGuiButton* pBtnYesterday = GetButton(ID_BUTTON_XHPH);
 	CGuiButton* pBtnTicket = GetButton(ID_BUTTON_GRMC);
+	CGuiButton* pBtnFlower = GetButton(ID_BUTTON_FLOWER);
 
 	if(pBtnRank)
 	{
@@ -71,22 +73,15 @@ void CGuiBoardGameDlg::OnCreate(void)
 	{
 		pBtnYesterday->SetText("昨日护国排行榜");
 	}
-	if(!pBtnTicket && pBtnYesterday)
-	{
-		int nSpace = 4;
-		int nX = pBtnYesterday->GetX();
-		int nY = pBtnYesterday->GetY() + pBtnYesterday->GetHeight() + nSpace;
-		int nWidth = pBtnYesterday->GetWidth();
-		int nHeight = pBtnYesterday->GetHeight();
-		AddButton(ID_BUTTON_GRMC, "个人积分排行榜", nX, nY, nWidth, nHeight, 0, false, &pBtnTicket);
-		if(nY + nHeight + nSpace > GetHeight())
-		{
-			SetSize(GetWidth(), nY + nHeight + nSpace);
-		}
-	}
+
 	if(pBtnTicket)
 	{
 		pBtnTicket->SetText("个人积分排行榜");
+	}
+
+	if(pBtnFlower)
+	{
+		pBtnFlower->SetText("\xca\xc0\xbd\xe7\xcf\xca\xbb\xa8\xc5\xc5\xd0\xd0\xb0\xf1");
 	}
 
 	FUNCTION_END;
@@ -132,6 +127,16 @@ bool CGuiBoardGameDlg::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 				GetGameGuiManager()->AddTopDialog();
 				GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(4,true); //积分榜
 
+			}
+			break;
+
+		case ID_BUTTON_FLOWER:
+			{
+				GetGameGuiManager()->AddTopDialog();
+				if (GetGameGuiManager()->m_guiTopDialog && GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList)
+				{
+					GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(5,true);
+				}
 			}
 			break;
 		case ID_BUTTON_CLOSE:

@@ -19,6 +19,8 @@ public:
 
 	void RefreshTicketupList(); //刷新个人积分榜
 
+	void RefreshFlowerList(); // refresh flower rank
+
 	void OnClose(void);
 	void OnResetScreenSize();
 
@@ -39,6 +41,10 @@ public:
 	
 	void ShowTicketupRank(bool bShow);
 
+	void ShowFlowerRank(bool bShow);
+
+	bool IsFlowerRankSelected();
+
 private:
 
 	void Update();
@@ -53,5 +59,7 @@ private:
 	CGuiListBox* m_pListBoxYesterdayHero; //昨日英雄排行榜
 
 	CGuiListBox* m_pListBoxTicketup; //个人积分排行列表
+
+	CGuiListBox* m_pListBoxFlower; // flower rank list
 
 };

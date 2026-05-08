@@ -34,6 +34,8 @@ namespace
 
 	const int TICKETUP_LISTBOX = 61; //积分排行列表
 
+	const int FLOWER_LISTBOX = 71; // flower rank list
+
 	const RANK_TYPE s_RankList[RANKTYPE_COUNT] =
 	{
         RANKTYPE_LEVELUP,  //世界等级排行榜
@@ -41,6 +43,7 @@ namespace
         RANKTYPE_T_HERO,   //今日英雄排行榜
         RANKTYPE_Y_HERO,   //昨日英雄排行榜
         RANKTYPE_TICKET,   //个人积分排行榜
+        RANKTYPE_FLOWER,   // flower rank
 	};
 }
 
@@ -52,6 +55,7 @@ CGuiTopDialog::CGuiTopDialog()
 	m_pListBoxLevelup = NULL;    //世界等级排行列表
 	m_pListBoxZhanLi = NULL;     //战力排行榜列表
 	m_pListBoxTicketup = NULL;   //积分排行榜列表
+	m_pListBoxFlower = NULL;     // flower rank list
 
 	FUNCTION_END;
 }
@@ -587,6 +591,53 @@ void CGuiTopDialog::RefreshTicketupList()
 	}
 }
 
+
+// refresh flower rank
+void CGuiTopDialog::RefreshFlowerList()
+{
+	if (!m_pListBoxFlower)
+	{
+		return;
+	}
+	GetStatic(ID_STATIC_WJMC)->SetVisible(false);
+	m_pListBoxFlower->RemoveAllItems();
+	char szRank[MAX_NAMESIZE] = {0};
+	for (int i = 0; i < GetRanksMgr().GetFlowerNum(); ++i)
+	{
+		FlowerAltarInfo info;
+		if (GetRanksMgr().GetFlowerInfo(i, info))
+		{
+			m_pListBoxFlower->AddItem("", 0);
+			itoa(i + 1, szRank, 10);
+			int nIndex = m_pListBoxFlower->GetItemCount() - 1;
+			m_pListBoxFlower->SetItemText2(nIndex, 0, szRank, 47);
+			m_pListBoxFlower->SetItemColor(nIndex, 0, D3DCOLOR_ARGB(255,255,255,0));
+			m_pListBoxFlower->SetItemText2(nIndex, 1, info.name, 128);
+			m_pListBoxFlower->SetItemText2(nIndex, 2, info.counName, 60);
+			char szFlower[30] = {0};
+			sprintf(szFlower, "%d", info.flowerNum);
+			m_pListBoxFlower->SetItemText2(nIndex, 3, szFlower, 83);
+			if (info.unionid == 0 || info.unionname[0] == '\0')
+			{
+				m_pListBoxFlower->SetItemText2(nIndex, 4, "", 115);
+			}
+			else
+			{
+				m_pListBoxFlower->SetItemText2(nIndex, 4, info.unionname, 115);
+			}
+			for (int nColumn = 1; nColumn <= 4; ++nColumn)
+			{
+				if (i == 0)
+					m_pListBoxFlower->SetItemColor(nIndex, nColumn, D3DCOLOR_ARGB(255,153,50,204));
+				else if (i >= 1 && i <= 2)
+					m_pListBoxFlower->SetItemColor(nIndex, nColumn, D3DCOLOR_ARGB(255,0,255,0));
+				else if (i >= 3 && i <= 9)
+					m_pListBoxFlower->SetItemColor(nIndex, nColumn, D3DCOLOR_ARGB(255,255,215,0));
+			}
+		}
+	}
+}
+
 void CGuiTopDialog::OnClose(void)
 {
 	FUNCTION_BEGIN;
@@ -628,13 +679,15 @@ void CGuiTopDialog::OnCreate()
 		m_pListBoxRankList->AddItem("今日护国排行榜", 0);
 		m_pListBoxRankList->AddItem("昨日护国排行榜", 0);
 		m_pListBoxRankList->AddItem("个人积分排行榜", 0);	
-		m_pListBoxRankList->SetFont(1);
+				m_pListBoxRankList->AddItem("\xca\xc0\xbd\xe7\xcf\xca\xbb\xa8\xc5\xc5\xd0\xd0\xb0\xf1", 0);
+m_pListBoxRankList->SetFont(1);
 		m_pListBoxRankList->SetItemColor(0, 0, D3DCOLOR_ARGB(255,230,230,250));
 		m_pListBoxRankList->SetItemColor(1, 0, D3DCOLOR_ARGB(255,255,240,245));
 		m_pListBoxRankList->SetItemColor(2, 0, D3DCOLOR_ARGB(255,84,255,159));
 		m_pListBoxRankList->SetItemColor(3, 0, D3DCOLOR_ARGB(255,255,255,0));
 		m_pListBoxRankList->SetItemColor(4, 0, D3DCOLOR_ARGB(255,162,192,238));
-		//m_pListBoxRankList->SetItemColor(0, 0, D3DCOLOR_ARGB(255,255,255,0));
+		
+		m_pListBoxRankList->SetItemColor(5, 0, D3DCOLOR_ARGB(255,255,182,193));//m_pListBoxRankList->SetItemColor(0, 0, D3DCOLOR_ARGB(255,255,255,0));
 		//m_pListBoxRankList->SetCurItem(static_cast<int>(GetRanksMgr().GetCurRank()));
 	}
 
@@ -671,6 +724,14 @@ void CGuiTopDialog::OnCreate()
 	if (m_pListBoxTicketup)
 	{
 		m_pListBoxTicketup->RemoveAllItems();
+	}
+
+
+    // flower rank control
+	m_pListBoxFlower = this->GetListBox(FLOWER_LISTBOX);
+	if (m_pListBoxFlower)
+	{
+		m_pListBoxFlower->RemoveAllItems();
 	}
 
 	this->Update();
@@ -797,6 +858,11 @@ void CGuiTopDialog::ShowLevelupRank(bool bShow)
 	GetStatic(53)->SetVisible(false);
 	GetStatic(62)->SetVisible(false);
 	GetStatic(63)->SetVisible(false);
+	if (m_pListBoxFlower)
+		m_pListBoxFlower->SetVisible(false);
+	GetStatic(72)->SetVisible(false);
+	GetStatic(73)->SetVisible(false);
+
 	if (bShow)
 	{
 		ReqAltarListLevelupUserCmd cmd; //请求指令
@@ -828,6 +894,11 @@ void CGuiTopDialog::ShowZhanLiRank(bool bShow)
 	GetStatic(53)->SetVisible(false);
 	GetStatic(62)->SetVisible(false);
 	GetStatic(63)->SetVisible(false);
+	if (m_pListBoxFlower)
+		m_pListBoxFlower->SetVisible(false);
+	GetStatic(72)->SetVisible(false);
+	GetStatic(73)->SetVisible(false);
+
 	if (bShow)
 	{
 		ReqAltarListZhanLIUserCmd cmd; //sky 请求指令
@@ -861,6 +932,11 @@ void CGuiTopDialog::ShowTodayHero(bool bShow)
 	GetStatic(53)->SetVisible(false);
 	GetStatic(62)->SetVisible(false);
 	GetStatic(63)->SetVisible(false);
+	if (m_pListBoxFlower)
+		m_pListBoxFlower->SetVisible(false);
+	GetStatic(72)->SetVisible(false);
+	GetStatic(73)->SetVisible(false);
+
 	if (bShow)
 	{
 		ReqAltarLisHeroUserCmd cmd; //sky 请求指令
@@ -894,6 +970,11 @@ void CGuiTopDialog::ShowYesterdayHero(bool bShow)
 	GetStatic(62)->SetVisible(false);
 	GetStatic(63)->SetVisible(false);
 
+	if (m_pListBoxFlower)
+		m_pListBoxFlower->SetVisible(false);
+	GetStatic(72)->SetVisible(false);
+	GetStatic(73)->SetVisible(false);
+
 	if (bShow)
 	{
 		ReqAltarLisHeroUserCmd cmd; //sky 请求指令
@@ -926,12 +1007,65 @@ void CGuiTopDialog::ShowTicketupRank(bool bShow)
 	GetStatic(53)->SetVisible(false);
 	GetStatic(62)->SetVisible(true);
 	GetStatic(63)->SetVisible(true);
+	if (m_pListBoxFlower)
+		m_pListBoxFlower->SetVisible(false);
+	GetStatic(72)->SetVisible(false);
+	GetStatic(73)->SetVisible(false);
+
 	if (bShow)
 	{
 		ReqAltarListTicketupUserCmd cmd; //请求指令
 		cmd.byParam = REQ_TICKETUP_LIST_PARA;
 		SEND_USER_CMD(cmd);
     }
+}
+
+
+// show world flower rank in GuiTop
+void CGuiTopDialog::ShowFlowerRank(bool bShow)
+{
+	if (!m_pListBoxFlower)
+		return;
+	m_pListBoxFlower->SetVisible(bShow);
+	GetStatic(ID_STATIC_CKZB1)->SetVisible(false);
+	GetStatic(ID_STATIC_CKZB2)->SetVisible(false);
+	GetStatic(ID_STATIC_WJMC)->SetVisible(false);
+	GetButton(ID_BUTTON_LEVELUP_CKZB)->SetVisible(false);
+	GetButton(ID_BUTTON_ZHANLI_CKZB)->SetVisible(false);
+	GetButton(ID_BUTTON_TICKET_CKZB)->SetVisible(false);
+	GetStatic(12)->SetVisible(false);
+	GetStatic(13)->SetVisible(false);
+	GetStatic(32)->SetVisible(false);
+	GetStatic(33)->SetVisible(false);
+	GetStatic(42)->SetVisible(false);
+	GetStatic(43)->SetVisible(false);
+	GetStatic(52)->SetVisible(false);
+	GetStatic(53)->SetVisible(false);
+	GetStatic(62)->SetVisible(false);
+	GetStatic(63)->SetVisible(false);
+	GetStatic(72)->SetVisible(bShow);
+	GetStatic(73)->SetVisible(bShow);
+	if (m_pListBoxLevelup) m_pListBoxLevelup->SetVisible(false);
+	if (m_pListBoxZhanLi) m_pListBoxZhanLi->SetVisible(false);
+	if (m_pListBoxTodayHero) m_pListBoxTodayHero->SetVisible(false);
+	if (m_pListBoxYesterdayHero) m_pListBoxYesterdayHero->SetVisible(false);
+	if (m_pListBoxTicketup) m_pListBoxTicketup->SetVisible(false);
+	if (bShow)
+	{
+		ReqAltarListFlowerUserCmd cmd;
+		cmd.byParam = REQ_FLOWER_LIST_PARA;
+		SEND_USER_CMD(cmd);
+	}
+}
+
+bool CGuiTopDialog::IsFlowerRankSelected()
+{
+	if (!m_pListBoxRankList)
+		return false;
+	int nIndex = m_pListBoxRankList->GetCurItem();
+	if (nIndex < 0 || nIndex >= RANKTYPE_COUNT)
+		return false;
+	return s_RankList[nIndex] == RANKTYPE_FLOWER;
 }
 
 void CGuiTopDialog::Update()
@@ -990,6 +1124,17 @@ void CGuiTopDialog::Update()
 				this->ShowTodayHero(false);
 				this->ShowYesterdayHero(false);
 				this->ShowTicketupRank(true);
+			}
+			break;
+
+		case RANKTYPE_FLOWER:
+			{
+				this->ShowLevelupRank(false);
+				this->ShowZhanLiRank(false);
+				this->ShowTodayHero(false);
+				this->ShowYesterdayHero(false);
+				this->ShowTicketupRank(false);
+				this->ShowFlowerRank(true);
 			}
 			break;
 		default:
