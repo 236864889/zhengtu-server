@@ -5468,8 +5468,7 @@ bool ParseLoongMessage(stNullUserCmd* pCmd,size_t size)
 					GetRanksMgr().AddFlowerInfo(info);
 				}
 
-				if (GetGameGuiManager()->m_guiHalofFameTopDialog)
-					GetGameGuiManager()->m_guiHalofFameTopDialog->RefreshFlowerList();
+				GetGameGuiManager()->m_guiHalofFameTopDialog->RefreshFlowerList();
 			}
 		}
 		break;				
