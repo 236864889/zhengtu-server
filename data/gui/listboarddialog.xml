@@ -11,8 +11,8 @@
            <item id="4" type="Button" style="0" rect="29,54,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">个人战力排行榜</item>
            <item id="5" type="Button" style="0" rect="29,86,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">今日英雄排行榜</item>
            <item id="6" type="Button" style="0" rect="29,118,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">昨日英雄排行榜</item>
-           <item id="7" type="Button" style="0" rect="29,9999,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">个人积分排行榜</item>
-           <item id="71" type="Image" style="2" rect="29,150,216,39" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="173" frame="1" backgroud="0" />
+           <item id="7" type="Button" style="0" rect="29,150,88,29" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,0" pack="data\interfaces.pak" group="174" frame="2" framenum="3" bitmapbutton="1">个人积分排行榜</item>
+           <item id="71" type="Image" style="2" rect="29,182,216,39" hotkey="" isdefault="0" font="1" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces.pak" group="173" frame="1" backgroud="0" />
     
         </controls>
         <script>function OnGuiEvent(nEvent,nID,pControl) 
