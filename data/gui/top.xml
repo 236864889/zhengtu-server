@@ -4,7 +4,7 @@
         <controls>
 			<item id="0" type="Image" style="2" rect="0,0,0,0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" pack="data\interfaces5.gl" group="1" frame="0" backgroud="1" />
 			<item id="999" type="Image" style="2" rect="203,83,0,0" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" backgroud="0" pack="data\interfaces5.gl" group="1" frame="-1"/>
-			<item id="2" type="ListBox" style="8" rect="25,86,176,130" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="2" type="ListBox" style="8" rect="25,86,176,156" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
 			<item id="11" type="ListBox" style="8" rect="220,139,548,413" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
 			<item id="12" type="Static" style="0" rect="405,80,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">个人等级排行榜 </item>
 			<item id="13" type="Static" style="0" rect="211,115,550,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">名次  玩家名字         国家  等级       所属帮会         奖励</item>
@@ -25,6 +25,10 @@
 			<item id="62" type="Static" style="0" rect="405,80,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">个人积分排行榜 </item>
 			<item id="63" type="Static" style="0" rect="211,115,550,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">名次  玩家名字        国家   当前持有积分点数</item>
 			
+			<item id="71" type="ListBox" style="8" rect="220,139,548,413" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" />
+			<item id="72" type="Static" style="0" rect="405,80,250,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="2">世界鲜花排行榜 </item>
+			<item id="73" type="Static" style="0" rect="211,115,550,30" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,0" font="1">名次  玩家名字         国家   鲜花数      所属帮会</item>
+
 			<item id="1121" type="Button" style="0" rect="637,556,0,0" isdefault="0" pack="data\interfaces5.gl" group="1" frame="49" bitmapbutton="1" framenum="3" hotkey="">查看装备</item>
 			<item id="1122" type="Button" style="0" rect="637,556,0,0" isdefault="0" pack="data\interfaces5.gl" group="1" frame="49" bitmapbutton="1" framenum="3" hotkey="">查看装备</item>
 			<item id="1123" type="Button" style="0" rect="637,556,0,0" isdefault="0" pack="data\interfaces5.gl" group="1" frame="49" bitmapbutton="1" framenum="3" hotkey="">查看装备</item>
