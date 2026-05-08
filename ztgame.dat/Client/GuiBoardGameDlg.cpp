@@ -1,9 +1,9 @@
-
 #include "public.h"
 #include "miniusercommand.h"
 #include "./GameGuiManager.h"
 #include "./GuiBoardGameDlg.h"
 #include "../gui/include/GuiManager.h"
+#include "../gui/include/GuiButton.h"
 #include "./Game.h"
 #include "LordStrikeManager.h"
 #include "LordStrikeLobby.h"
@@ -16,13 +16,13 @@
 #include "./GuiTaiMiaoTop.h"
 #include "./GuiHalofFameTop.h"
 ///////////////////////////////////////////////////////////////////////////////
-#define ID_BUTTON_GJZHSJ  3    // 国家综合实力榜
-#define ID_BUTTON_JZBH    4    // 家族帮会排行榜
-#define ID_BUTTON_GJYX    5    // 国家英雄排行榜
-#define ID_BUTTON_XHPH    6    // 鲜花排行榜
-#define ID_BUTTON_GRMC    7    // 个人名次排行榜
- 
- 
+#define ID_BUTTON_GJZHSJ  3    // 个人名次排行榜
+#define ID_BUTTON_JZBH    4    // 个人战力排行榜
+#define ID_BUTTON_GJYX    5    // 今日护国排行榜
+#define ID_BUTTON_XHPH    6    // 昨日护国排行榜
+#define ID_BUTTON_GRMC    7    // 个人积分排行榜
+
+
 #define ID_BUTTON_CLOSE   1
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -34,7 +34,7 @@ CGuiBoardGameDlg::CGuiBoardGameDlg()
 
 	FUNCTION_END;
 }
- 
+
 CGuiBoardGameDlg::~CGuiBoardGameDlg()
 {
 	FUNCTION_BEGIN;
@@ -48,7 +48,47 @@ void CGuiBoardGameDlg::OnCreate(void)
 	FUNCTION_BEGIN;
 
 	CGuiDialog::OnCreate();
- 
+
+	CGuiButton* pBtnRank = GetButton(ID_BUTTON_GJZHSJ);
+	CGuiButton* pBtnZhanLi = GetButton(ID_BUTTON_JZBH);
+	CGuiButton* pBtnToday = GetButton(ID_BUTTON_GJYX);
+	CGuiButton* pBtnYesterday = GetButton(ID_BUTTON_XHPH);
+	CGuiButton* pBtnTicket = GetButton(ID_BUTTON_GRMC);
+
+	if(pBtnRank)
+	{
+		pBtnRank->SetText("个人名次排行榜");
+	}
+	if(pBtnZhanLi)
+	{
+		pBtnZhanLi->SetText("个人战力排行榜");
+	}
+	if(pBtnToday)
+	{
+		pBtnToday->SetText("今日护国排行榜");
+	}
+	if(pBtnYesterday)
+	{
+		pBtnYesterday->SetText("昨日护国排行榜");
+	}
+	if(!pBtnTicket && pBtnYesterday)
+	{
+		int nSpace = 4;
+		int nX = pBtnYesterday->GetX();
+		int nY = pBtnYesterday->GetY() + pBtnYesterday->GetHeight() + nSpace;
+		int nWidth = pBtnYesterday->GetWidth();
+		int nHeight = pBtnYesterday->GetHeight();
+		AddButton(ID_BUTTON_GRMC, "个人积分排行榜", nX, nY, nWidth, nHeight, 0, false, &pBtnTicket);
+		if(nY + nHeight + nSpace > GetHeight())
+		{
+			SetSize(GetWidth(), nY + nHeight + nSpace);
+		}
+	}
+	if(pBtnTicket)
+	{
+		pBtnTicket->SetText("个人积分排行榜");
+	}
+
 	FUNCTION_END;
 }
 
@@ -60,64 +100,37 @@ bool CGuiBoardGameDlg::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 	{
 		switch(nID)
 		{
-		case ID_BUTTON_GJZHSJ:  // 国家综合实力榜
+		case ID_BUTTON_GJZHSJ:  // 个人名次排行榜
 			{
 				   //soke 排行榜
-					//if( GetGameGuiManager()->m_guiTopDialog && GetGameGuiManager()->m_guiTopDialog->IsVisible() )
-					//{
-					//	GetGameGuiManager()->m_guiTopDialog->Close();
-					//}
-					//else
-				//	{
-					//	GetGameGuiManager()->AddTopDialog();
-					//	GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(1,true);
-					//}
-			//	GetGameGuiManager()->AddMessageBox("暂未开放国家综合实力榜");
 				GetGameGuiManager()->AddTopDialog();
 				GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(0,true); //等级排行榜
 			}
 			break;
-		case ID_BUTTON_JZBH:  //家族帮会排行榜
+		case ID_BUTTON_JZBH:  // 个人战力排行榜
 			{
-			//	GetGameGuiManager()->AddMessageBox("暂未开放家族帮会排行榜");
 				GetGameGuiManager()->AddTopDialog();
 				GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(1,true); //战力排行榜				
 			
 			}
 			break;
-		case ID_BUTTON_GJYX: // 国家英雄排行榜
+		case ID_BUTTON_GJYX: // 今日护国排行榜
 			{                                   
-				
-				//GetGameGuiManager()->AddMessageBox("暂未开放国家英雄排行榜");
 				GetGameGuiManager()->AddTopDialog();
 				GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(2,true); //今日护国榜
 
 			}			
 			break;
-		case ID_BUTTON_XHPH: // 鲜花排行榜
+		case ID_BUTTON_XHPH: // 昨日护国排行榜
 			{
-			  //GetGameGuiManager()->AddMessageBox("暂未开放鲜花排行榜");
 				GetGameGuiManager()->AddTopDialog();
 				GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(3,true); //昨日护国榜
 			}
 			break;
-		case ID_BUTTON_GRMC: // 个人名次排行榜
+		case ID_BUTTON_GRMC: // 个人积分排行榜
 			{
-			//add 2023-04-07
-			
-			//GetGameGuiManager()->AddMessageBox("暂未开放个人名次排行榜");
-				if( GetGameGuiManager()->m_guiTopDialog && GetGameGuiManager()->m_guiTopDialog->IsVisible() )
-				{
-					GetGameGuiManager()->m_guiTopDialog->Close();
-				}
-				else
-				{
-					GetGameGuiManager()->AddTopDialog();
-					GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(4,true); //积分榜
-					/* GetGameGuiManager()->m_guiTopDialog->ShowWorldLevelRank(false);
-					GetGameGuiManager()->m_guiTopDialog->ShowLoongPearlRank(false);
-					GetGameGuiManager()->m_guiTopDialog->ShowZhanLiRank(true); */
-				}
+				GetGameGuiManager()->AddTopDialog();
+				GetGameGuiManager()->m_guiTopDialog->m_pListBoxRankList->SelectItem(4,true); //积分榜
 
 			}
 			break;
