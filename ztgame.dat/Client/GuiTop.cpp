@@ -627,7 +627,7 @@ void CGuiTopDialog::OnCreate()
 		m_pListBoxRankList->AddItem("个人战力排行榜", 0);
 		m_pListBoxRankList->AddItem("今日护国排行榜", 0);
 		m_pListBoxRankList->AddItem("昨日护国排行榜", 0);
-		// m_pListBoxRankList->AddItem("个人积分排行榜", 0);	
+		m_pListBoxRankList->AddItem("个人积分排行榜", 0);	
 		m_pListBoxRankList->SetFont(1);
 		m_pListBoxRankList->SetItemColor(0, 0, D3DCOLOR_ARGB(255,230,230,250));
 		m_pListBoxRankList->SetItemColor(1, 0, D3DCOLOR_ARGB(255,255,240,245));
