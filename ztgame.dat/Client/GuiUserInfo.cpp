@@ -2663,17 +2663,14 @@ void CGuiUserInfo::ShowEquipByName()
 								Tips_AddNum1( " 生命值 +%u% ", value[m2_equipByMakerType][2] );
 								
                              // 星套压制系统
-                             static const char* jianshang[] = { "受到来自3星套以下的伤害减伤2%", "受到来自5星套以下的伤害减伤4%", "受到来自8星套以下的伤害减伤6%", "受到来自10星套以下的伤害减伤8%", "受到来自12星套以下的伤害减伤10%", "受到来自13星套以下的伤害减伤12%", "受到来自14星套以下的伤害减伤15%", "受到来自15星套以下的伤害减伤20%" };
-                             static const char* zengshang[] = { "攻击3星套以下的玩家伤害增伤2%", "攻击5星套以下的玩家伤害增伤4%", "攻击8星套以下的玩家伤害增伤6%", "攻击10星套以下的玩家伤害增伤8%", "攻击12星套以下的玩家伤害增伤10%", "攻击13星套以下的玩家伤害增伤12%", "攻击14星套以下的玩家伤害增伤15%", "攻击15星套以下的玩家伤害增伤20%" };
-
                              // 添加星套压制内容
                              m_ToolTips.AddText( "\n\n" );
                              m_ToolTips.SetCurColor(COLOR_ARGB(255,255,0,0)); // 设置不同颜色突出显示
-                             m_ToolTips.AddText( jianshang[m2_equipByMakerType] );
-                             m_ToolTips.AddText( "\n" );
-                             m_ToolTips.AddText( zengshang[m2_equipByMakerType] );	
-							 					
-								m_ToolTips.AddText( "\n\n" );
+                             m_ToolTips.AddText( "星套压制" );
+                             m_ToolTips.AddText( "\n双方星套等级压制" );
+                             m_ToolTips.AddText( "\n每高对方1星，伤害提高1%" );
+                             m_ToolTips.AddText( "\n每低对方1星，伤害降低1%" );
+                             m_ToolTips.AddText( "\n星套最高20%" );	m_ToolTips.AddText( "\n\n" );
 								stResourceLocation imguserinfo1;
 			                    imguserinfo1.SetFileName( "data\\interfaces2.gl");
 			                    imguserinfo1.group = 400;

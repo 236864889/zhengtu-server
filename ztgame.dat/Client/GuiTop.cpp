@@ -636,6 +636,16 @@ void CGuiTopDialog::RefreshFlowerList()
 			}
 		}
 	}
+	m_pListBoxFlower->AddItem("", 0);
+	int nIndex = m_pListBoxFlower->GetItemCount() - 1;
+	m_pListBoxFlower->SetItemText2(nIndex, 1, "鲜花压制：鲜花差1000/5000/10000/50000", 500);
+	m_pListBoxFlower->SetItemColor(nIndex, 1, D3DCOLOR_ARGB(255,255,215,0));
+
+	m_pListBoxFlower->AddItem("", 0);
+	nIndex = m_pListBoxFlower->GetItemCount() - 1;
+	m_pListBoxFlower->SetItemText2(nIndex, 1, "高方获1%/3%/5%/10%压制，鲜花最高10%", 500);
+	m_pListBoxFlower->SetItemColor(nIndex, 1, D3DCOLOR_ARGB(255,255,215,0));
+
 }
 
 void CGuiTopDialog::OnClose(void)
