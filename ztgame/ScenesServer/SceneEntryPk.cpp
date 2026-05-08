@@ -8,6 +8,7 @@
 
 #include "zSceneEntry.h"
 #include "SceneNpc.h"
+#include "SceneUser.h"
 #include "Zebra.h"
 #include "Scene.h"
 #include "SceneManager.h"
@@ -19,6 +20,67 @@
 #ifdef _DEBUGLOG
 #include "Chat.h"
 #endif
+
+namespace
+{
+	int clampSuppressRate(int value, int minRate, int maxRate)
+	{
+		if (value < minRate) return minRate;
+		if (value > maxRate) return maxRate;
+		return value;
+	}
+
+	int getStarSuppressValue(SceneUser *user)
+	{
+		if (NULL == user) return 0;
+
+		if (user->issetUState(Cmd::USTATE_ULTRA_FIF_XING)) return 15;
+		if (user->issetUState(Cmd::USTATE_ULTRA_FOU_XING)) return 14;
+		if (user->issetUState(Cmd::USTATE_ULTRA_THI_XING)) return 13;
+		if (user->issetUState(Cmd::USTATE_ULTRA_TWE_XING)) return 12;
+		if (user->issetUState(Cmd::USTATE_ULTRA_TEN_XING)) return 10;
+		if (user->issetUState(Cmd::USTATE_ULTRA_EIG_XING)) return 8;
+		if (user->issetUState(Cmd::USTATE_ULTRA_FIV_XING)) return 5;
+		if (user->issetUState(Cmd::USTATE_ULTRA_THR_XING)) return 3;
+
+		return 0;
+	}
+
+	int getFlowerSuppressRate(DWORD attackerFlowers, DWORD defenderFlowers)
+	{
+		const long long diff = (long long)attackerFlowers - (long long)defenderFlowers;
+		const long long absDiff = diff >= 0 ? diff : -diff;
+		int rate = 0;
+
+		if (absDiff >= 50000)
+		{
+			rate = 10;
+		}
+		else if (absDiff >= 10000)
+		{
+			rate = 5;
+		}
+		else if (absDiff >= 5000)
+		{
+			rate = 3;
+		}
+		else if (absDiff >= 1000)
+		{
+			rate = 1;
+		}
+
+		return diff >= 0 ? rate : -rate;
+	}
+
+	uint64_t applySuppressRate(uint64_t damage, int suppressRate)
+	{
+		const int rateBase = 100 + suppressRate;
+		if (rateBase <= 0) return 0;
+
+		const long double adjustedValue = (long double)damage * (long double)rateBase / 100.0L;
+		return adjustedValue > 0.0L ? (uint64_t)adjustedValue : 0;
+	}
+}
 
 
 /**
@@ -421,175 +483,29 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 
 
 	
-	// //ºäÌìÐ§¹û  ÐÇÌ×Ñ¹ÖÆÏµÍ³
-	SceneUser *ta = (SceneUser *)pAtt;
-	SceneUser *me = (SceneUser *)this;
-
-
-	if(zSceneEntry::SceneEntry_Player==getType() && zSceneEntry::SceneEntry_Player==pAtt->getType())
+	// PVP suppress: star suit difference + flower(charm) tier difference.
+	// Keep ta/me in the outer AttackMe scope because later NPC/country-cart logic also uses ta.
+	SceneUser *ta = (pAtt->getType() == zSceneEntry::SceneEntry_Player) ? (SceneUser *)pAtt : NULL;
+	SceneUser *me = (getType() == zSceneEntry::SceneEntry_Player) ? (SceneUser *)this : NULL;
+	if (ta && me)
 	{
-		int xingtao_me = 0;
-		int xingtao_ta = 0;
-		if(me->issetUState(Cmd::USTATE_ULTRA_FIF_XING  ))
-		{
-			xingtao_me = 15;
-		}
-		else if(me->issetUState(Cmd::USTATE_ULTRA_FOU_XING  ))
-		{
-			xingtao_me = 14;
-		}
-		else if(me->issetUState(Cmd::USTATE_ULTRA_THI_XING  ))
-		{
-			xingtao_me = 13;
-		}
-		else if(me->issetUState(Cmd::USTATE_ULTRA_TWE_XING  ))
-		{
-			xingtao_me = 12;
-		}
-		else if(me->issetUState(Cmd::USTATE_ULTRA_TEN_XING  ))
-		{
-			xingtao_me = 10;
-		}
-		else if(me->issetUState(Cmd::USTATE_ULTRA_EIG_XING  ))
-		{
-			xingtao_me = 8;
-		}
-		else if(me->issetUState(Cmd::USTATE_ULTRA_FIV_XING  ))
-		{
-			xingtao_me = 5;
-		}
-		else if(me->issetUState(Cmd::USTATE_ULTRA_THR_XING  ))
-		{
-			xingtao_me = 3;
-		}
+		const int defenderStar = getStarSuppressValue(me);
+		const int attackerStar = getStarSuppressValue(ta);
+		const int starSuppressRate = clampSuppressRate(attackerStar - defenderStar, -20, 20);
+		const int flowerSuppressRate = getFlowerSuppressRate(ta->charbase.folwers, me->charbase.folwers);
+		const int totalSuppressRate = clampSuppressRate(starSuppressRate + flowerSuppressRate, -30, 30);
 
-		if(ta->issetUState(Cmd::USTATE_ULTRA_FIF_XING  ))
+		if (totalSuppressRate != 0)
 		{
-			xingtao_ta = 15;
-		}
-		else if(ta->issetUState(Cmd::USTATE_ULTRA_FOU_XING  ))
-		{
-			xingtao_ta = 14;
-		}
-		else if(ta->issetUState(Cmd::USTATE_ULTRA_THI_XING  ))
-		{
-			xingtao_ta = 13;
-		}
-		else if(ta->issetUState(Cmd::USTATE_ULTRA_TWE_XING  ))
-		{
-			xingtao_ta = 12;
-		}
-		else if(ta->issetUState(Cmd::USTATE_ULTRA_TEN_XING  ))
-		{
-			xingtao_ta = 10;
-		}
-		else if(ta->issetUState(Cmd::USTATE_ULTRA_EIG_XING  ))
-		{
-			xingtao_ta = 8;
-		}
-		else if(ta->issetUState(Cmd::USTATE_ULTRA_FIV_XING  ))
-		{
-			xingtao_ta = 5;
-		}
-		else if(ta->issetUState(Cmd::USTATE_ULTRA_THR_XING  ))
-		{
-			xingtao_ta = 3;
-		}
-
-		if(xingtao_me>xingtao_ta)
-		{
-			//¼õÉÙÉËº¦
-			switch (xingtao_me)
-			{
-			case 15:
-				{
-					dwDamDef = dwDamDef*0.80; //¼õÉË20%
-				}
-				break;
-			case 14:
-				{
-					dwDamDef = dwDamDef*0.85; //¼õÉË15%
-				}
-				break;
-			case 13:
-				{
-					dwDamDef = dwDamDef*0.88; //¼õÉË12%
-				}
-				break;
-			case 12:
-				{
-					dwDamDef = dwDamDef*0.90; //¼õÉË10%
-				}
-				break;
-			case 10:
-				{
-					dwDamDef = dwDamDef*0.92; //¼õÉË8%
-				}
-				break;
-			case 8:
-				{
-					dwDamDef = dwDamDef*0.94; //¼õÉË6%
-				}
-				break;
-			case 5:
-				{
-					dwDamDef = dwDamDef*0.96; //¼õÉË4%
-				}
-				break;
-			case 3:
-				{
-					dwDamDef = dwDamDef*0.98; //¼õÉË2%
-				}
-				break;	
-			}
-
-		}
-		else if(xingtao_ta>xingtao_me) 
-		{
-			//Ôö¼ÓÉËº¦
-			switch (xingtao_ta)
-			{
-			case 15:
-				{
-					dwDamDef = dwDamDef*1.20; //ÔöÉË20%
-				}
-				break;
-			case 14:
-				{
-					dwDamDef = dwDamDef*1.15; //ÔöÉË15%
-				}
-				break;
-			case 13:
-				{
-					dwDamDef = dwDamDef*1.12; //ÔöÉË12%
-				}
-				break;
-			case 12:
-				{
-					dwDamDef = dwDamDef*1.10; //ÔöÉË10%
-				}
-				break;
-			case 10:
-				{
-					dwDamDef = dwDamDef*1.08; //ÔöÉË8%
-				}
-				break;
-			case 8:
-				{
-					dwDamDef = dwDamDef*1.06; //ÔöÉË6%
-				}
-				break;
-			case 5:
-				{
-					dwDamDef = dwDamDef*1.04; //ÔöÉË4%
-				}
-				break;
-			case 3:
-				{
-					dwDamDef = dwDamDef*1.02; //ÔöÉË2%
-				}
-				break;	
-			}
+#ifdef _DEBUGLOG
+			const uint64_t beforeSuppress = dwDamDef;
+#endif
+			dwDamDef = applySuppressRate(dwDamDef, totalSuppressRate);
+#ifdef _DEBUGLOG
+			Zebra::logger->debug("PVP_SUPPRESS attacker=%s defender=%s attackerStar=%d defenderStar=%d starRate=%d attackerFlowers=%u defenderFlowers=%u flowerRate=%d totalRate=%d before=%llu after=%llu",
+				ta->name, me->name, attackerStar, defenderStar, starSuppressRate, ta->charbase.folwers, me->charbase.folwers, flowerSuppressRate, totalSuppressRate,
+				static_cast<unsigned long long>(beforeSuppress), static_cast<unsigned long long>(dwDamDef));
+#endif
 		}
 	}
 
@@ -597,9 +513,10 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 
 
 
+
 	
 
-	if(zSceneEntry::SceneEntry_Player==getType() && zSceneEntry::SceneEntry_Player==pAtt->getType())
+	if (ta && me)
 	{
 		if(ta->packs.equip.getEquips().get_hongtiannum1()>0)
 		{
