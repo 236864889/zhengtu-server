@@ -3748,7 +3748,8 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
     {
     case Cmd::REQ_LOONGALTAR_LIST_PARA:
         {
-            Cmd::ReqAltarListLoongUserCmd* rev = (Cmd::ReqAltarListLoongUserCmd *)ptNullCmd;
+            Cmd::ReqAltarListFlowerUserCmd* rev = (Cmd::ReqAltarListFlowerUserCmd *)ptNullCmd;
+            Zebra::logger->debug("[MainRank][Flower] recv REQ_FLOWER_LIST_PARA");
             if ( pUser && rev )
             {
                 BUFFER_CMD(Cmd::ReplyAltarListLoongUserCmd ,pSend , zSocket::MAX_USERDATASIZE);
@@ -3770,7 +3771,8 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
         break;
 	case Cmd::REQ_ZHANLI_LIST_PARA://2023-05-10 add by zhanli 排行榜读取1000名
         {
-            Cmd::ReqAltarListLoongUserCmd* rev = (Cmd::ReqAltarListLoongUserCmd *)ptNullCmd;
+            Cmd::ReqAltarListFlowerUserCmd* rev = (Cmd::ReqAltarListFlowerUserCmd *)ptNullCmd;
+            Zebra::logger->debug("[MainRank][Flower] recv REQ_FLOWER_LIST_PARA");
             if ( pUser && rev )
             {
                 BUFFER_CMD(Cmd::ReplyAltarListZhanLIUserCmd ,pSend , zSocket::MAX_USERDATASIZE);
@@ -3783,7 +3785,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					if ((unsigned int)-1 == retcode
 							|| 0 == retcode)
 					{
-						Zebra::logger->debug("没有找到记录");
+						Zebra::logger->debug("[MainRank][Flower] no CHARBASE records found");
 
 						//ret10->num = 0;
 						bzero(info, sizeof(Cmd::SelectUserInfoA)*100); //排行榜读取数据
@@ -3791,7 +3793,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					}
 					else
 					{
-						Zebra::logger->debug("找到 %u 条合格的角色记录", retcode);
+						Zebra::logger->debug("[MainRank][Flower] found %u CHARBASE records", retcode);
 						
 						//ret10->num = retcode;
 						//add 2023-05-12 zhanli
@@ -3802,6 +3804,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 							if(info[i].CHARID>100)//GM不参与
 							{
 								char  mapName[MAX_NAMESIZE];	/// 角色所在地图名称
+								bzero(mapName, sizeof(mapName));
 								if(info[i].country == 8)
 								{
 									bcopy("汉国", mapName, MAX_NAMESIZE );
@@ -3867,7 +3870,8 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
         break;
     case Cmd::REQ_LEVELUP_LIST_PARA: 
         {
-            Cmd::ReqAltarListLoongUserCmd* rev = (Cmd::ReqAltarListLoongUserCmd *)ptNullCmd;
+            Cmd::ReqAltarListFlowerUserCmd* rev = (Cmd::ReqAltarListFlowerUserCmd *)ptNullCmd;
+            Zebra::logger->debug("[MainRank][Flower] recv REQ_FLOWER_LIST_PARA");
             if ( pUser && rev )
             {
                 BUFFER_CMD(Cmd::ReplyAltarListLevelupUserCmd ,pSend , zSocket::MAX_USERDATASIZE);
@@ -3880,7 +3884,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					if ((unsigned int)-1 == retcode
 							|| 0 == retcode)
 					{
-						Zebra::logger->debug("没有找到记录");
+						Zebra::logger->debug("[MainRank][Flower] no CHARBASE records found");
 
 						//ret10->num = 0;
 						bzero(info, sizeof(Cmd::SelectUserInfoLevel)*100); //排行榜读取数据
@@ -3888,7 +3892,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					}
 					else
 					{
-						Zebra::logger->debug("找到 %u 条合格的角色记录", retcode);
+						Zebra::logger->debug("[MainRank][Flower] found %u CHARBASE records", retcode);
 						
 						//ret10->num = retcode;
 						//add 2023-05-12 levelup
@@ -3899,6 +3903,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 							if(info[i].CHARID>100)//GM不参与
 							{
 								char  mapName[MAX_NAMESIZE];	/// 角色所在地图名称
+								bzero(mapName, sizeof(mapName));
 								if(info[i].country == 8)
 								{
 									bcopy("汉国", mapName, MAX_NAMESIZE );
@@ -3964,7 +3969,8 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
         break;	
 	case Cmd::REQ_TICKETUP_LIST_PARA: 
         {
-            Cmd::ReqAltarListLoongUserCmd* rev = (Cmd::ReqAltarListLoongUserCmd *)ptNullCmd;
+            Cmd::ReqAltarListFlowerUserCmd* rev = (Cmd::ReqAltarListFlowerUserCmd *)ptNullCmd;
+            Zebra::logger->debug("[MainRank][Flower] recv REQ_FLOWER_LIST_PARA");
             if ( pUser && rev )
             {
                 BUFFER_CMD(Cmd::ReplyAltarListTicketupUserCmd ,pSend , zSocket::MAX_USERDATASIZE);
@@ -3976,7 +3982,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					getTicketupRank(retcode,&info[0],infoSize);
 					if ((unsigned int)-1 == retcode || 0 == retcode)
 					{
-						Zebra::logger->debug("没有找到记录");
+						Zebra::logger->debug("[MainRank][Flower] no CHARBASE records found");
 
 						//ret10->num = 0;
 						bzero(info, sizeof(Cmd::SelectUserInfoTicket)*100); //排行榜读取数据
@@ -3984,7 +3990,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					}
 					else
 					{
-						Zebra::logger->debug("找到 %u 条合格的角色记录", retcode);
+						Zebra::logger->debug("[MainRank][Flower] found %u CHARBASE records", retcode);
 
 						//ret10->num = retcode;
 						//add 2023-05-12 ticketup
@@ -3995,6 +4001,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 							if(info[i].CHARID>100)//GM不参与
 							{
 								char  mapName[MAX_NAMESIZE];	/// 角色所在地图名称
+								bzero(mapName, sizeof(mapName));
 								if(info[i].country == 8)
 								{
 									bcopy("汉国", mapName, MAX_NAMESIZE );
@@ -4059,7 +4066,8 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
         break;
 	case Cmd::REQ_FLOWER_LIST_PARA:
         {
-            Cmd::ReqAltarListLoongUserCmd* rev = (Cmd::ReqAltarListLoongUserCmd *)ptNullCmd;
+            Cmd::ReqAltarListFlowerUserCmd* rev = (Cmd::ReqAltarListFlowerUserCmd *)ptNullCmd;
+            Zebra::logger->debug("[MainRank][Flower] recv REQ_FLOWER_LIST_PARA");
             if ( pUser && rev )
             {
                 BUFFER_CMD(Cmd::ReplyAltarListFlowerUserCmd ,pSend , zSocket::MAX_USERDATASIZE);
@@ -4071,7 +4079,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					getFlowerRank(retcode,&info[0],infoSize);
 					if ((unsigned int)-1 == retcode || 0 == retcode)
 					{
-						Zebra::logger->debug("没有找到记录");
+						Zebra::logger->debug("[MainRank][Flower] no CHARBASE records found");
 
 						//ret10->num = 0;
 						bzero(info, sizeof(Cmd::SelectUserInfoFlower)*100); //排行榜读取数据
@@ -4079,7 +4087,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					}
 					else
 					{
-						Zebra::logger->debug("找到 %u 条合格的角色记录", retcode);
+						Zebra::logger->debug("[MainRank][Flower] found %u CHARBASE records", retcode);
 
 						//ret10->num = retcode;
 						//add 2023-05-12 flower
@@ -4090,6 +4098,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 							if(info[i].CHARID>100)//GM不参与
 							{
 								char  mapName[MAX_NAMESIZE];	/// 角色所在地图名称
+								bzero(mapName, sizeof(mapName));
 								if(info[i].country == 8)
 								{
 									bcopy("汉国", mapName, MAX_NAMESIZE );
@@ -4148,6 +4157,7 @@ bool CCountryM::processLoong( UserSession *pUser,const Cmd::stNullUserCmd *ptNul
 					
 				}
 				//end
+                Zebra::logger->debug("[MainRank][Flower] send REPLY_FLOWER_LIST_PARA altarNum=%u", pSend->altarNum);
                 pUser->sendCmdToMe( pSend, sizeof(Cmd::ReplyAltarListFlowerUserCmd) + pSend->altarNum * sizeof(pSend->altarList[0]) );
             }
             return true;
@@ -4397,11 +4407,13 @@ bool CCountryM::getFlowerRank(DWORD &retcode,Cmd::SelectUserInfoFlower *info,DWO
 	connHandleID handle = SessionService::dbConnPool->getHandle();
 	if ((connHandleID)-1 == handle)
 	{
-		Zebra::logger->error("不能获取数据库句柄");
+		Zebra::logger->error("[MainRank][Flower] cannot get database handle");
+		retcode = 0;
 		return false;
 	}
 	bzero(where, sizeof(where));
-	retcode = SessionService::dbConnPool->exeSelectLimit(handle, "`CHARBASE`", charinfo_define, "TYPE = 2", "FOLWERS DESC", infoSize, (BYTE *)info);
+	snprintf(where, sizeof(where), "TYPE = 2 AND CHARID > 100 AND FOLWERS > 0");
+	retcode = SessionService::dbConnPool->exeSelectLimit(handle, "`CHARBASE`", charinfo_define, where, "FOLWERS DESC", infoSize, (BYTE *)info);
 	SessionService::dbConnPool->putHandle(handle);
 	return true;
 }
