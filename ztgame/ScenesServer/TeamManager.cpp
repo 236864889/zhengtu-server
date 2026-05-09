@@ -1636,6 +1636,48 @@ DWORD TeamManager::getFiveElementPlus()
 	return exec.count > 5 ? 5 : exec.count;
 }
 
+/**
+ * \brief Calculate nearby active team five-element mask for client display.
+ */
+DWORD TeamManager::getActiveTeamFiveMask()
+{
+	if (NULL == me || 0 == team.leader || NULL == me->scene) return 0;
+
+	SceneUser *leader = me;
+	if (me->team.getLeader() != me->tempid)
+	{
+		leader = SceneUserManager::getMe().getUserByTempID(me->team.getLeader());
+		if (NULL == leader) return 0;
+	}
+
+	struct FiveMaskExec : public TeamMemExec
+	{
+		SceneUser *me;
+		DWORD mask;
+
+		FiveMaskExec(SceneUser *user):me(user),mask(0) {}
+
+		bool exec(TeamMember &member)
+		{
+			if (NULL == me || member.tempid == me->tempid) return true;
+
+			SceneUser *otherUser = SceneUserManager::getMe().getUserByTempID(member.tempid);
+			if (otherUser && otherUser->scene && otherUser->scene == me->scene &&
+				me->scene->zPosShortRange(me->getPos(), otherUser->getPos(), 11, 11) &&
+				me->IsJoin(otherUser->getFiveType()))
+			{
+				DWORD five = otherUser->getFiveType();
+				if (five < FIVE_NONE) mask |= (1 << five);
+			}
+			return true;
+		}
+	};
+
+	FiveMaskExec exec(me);
+	leader->team.execEveryOne(exec);
+	return exec.mask;
+}
+
 void TeamManager::countFriendDegree()
 {
 	if (0 == team.leader) return;

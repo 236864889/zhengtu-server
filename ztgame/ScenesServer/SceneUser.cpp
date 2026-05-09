@@ -3722,6 +3722,7 @@ void SceneUser::setupCharBase(bool lock)
 	//装备改变攻击力预处理
 
 	calPreValue();
+	sendSelfFiveElementSync();
 }
 
 /**
@@ -3890,6 +3891,15 @@ bool SceneUser::IsJoin(DWORD five)
  * \brief 发送玩家的所有技能给玩家自己
  *
  */
+void SceneUser::sendSelfFiveElementSync()
+{
+	Cmd::stSyncSelfFiveElementPropertyUserCmd ret;
+	ret.selfFiveType = (BYTE)charbase.fivetype;
+	ret.selfFiveLevel = (BYTE)(charbase.fivelevel > 255 ? 255 : charbase.fivelevel);
+	ret.activeTeamFiveMask = (BYTE)this->team.getActiveTeamFiveMask();
+	sendCmdToMe(&ret, sizeof(ret));
+}
+
 class sendAllSkillToUser :public UserSkillExec
 {
 	public:

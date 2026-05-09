@@ -311,6 +311,7 @@ class TeamManager
 		DWORD getAttPlus();
 		DWORD getDefPlus();
 		DWORD getFiveElementPlus();
+		DWORD getActiveTeamFiveMask();
 		void putMoneyPlus(WORD wdMoney);
 		void countFriendDegree();
 		void requestFriendDegree();
