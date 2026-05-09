@@ -4201,6 +4201,22 @@ struct stScroll2MapPropertyUserCmd : public stPropertyUserCmd
 	mapname[0];
 };
 
+#define SYNC_SELF_FIVE_ELEMENT_PROPERTY_USERCMD_PARA 79
+struct stSyncSelfFiveElementPropertyUserCmd : public stPropertyUserCmd
+{
+	stSyncSelfFiveElementPropertyUserCmd()
+	{
+		byParam = SYNC_SELF_FIVE_ELEMENT_PROPERTY_USERCMD_PARA;
+		selfFiveType = FIVE_NONE;
+		selfFiveLevel = 0;
+		activeTeamFiveMask = 0;
+	}
+	BYTE selfFiveType;
+	BYTE selfFiveLevel;
+	BYTE activeTeamFiveMask;
+};
+
+
 struct One_Key_Equip
 {
 	int index;
