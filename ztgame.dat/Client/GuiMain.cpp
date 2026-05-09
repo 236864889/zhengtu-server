@@ -271,7 +271,7 @@ CGuiMain::CGuiMain(void)
 	g_ptObjAssgin.x = 0 ;
 	g_ptObjAssgin.y = 60;
 	m_bShowFiveElementToolTip = false;
-	m_rcFiveElementBadge.SetRect(52, 88, 100, 136);
+	m_rcFiveElementBadge.SetRect(52, 88, 80, 116);
 	//----------------------------------------------------------
 
 	m_pbangsBtn = NULL; //sky 好帮手
@@ -4637,23 +4637,26 @@ void CGuiMain::RenderFiveElementBadge()
 	BYTE activeMask = pMainChar->GetActiveTeamFiveMask();
 	stRectI rc = m_rcFiveElementBadge;
 
-	static const int s_ringOffset[5][2] =
+	// 一个小徽章内完成显示：
+	// 中心字 = 自身五行；
+	// 外圈五个小圆点 = 金、木、水、火、土互补激活状态。
+	static const int s_ringDotOffset[5][2] =
 	{
-		{18,  0},
-		{ 4, 12},
-		{32, 12},
-		{ 7, 31},
-		{29, 31}
+		{12,  0},  // 金：上
+		{ 1,  8},  // 木：左上
+		{23,  8},  // 水：右上
+		{ 4, 21},  // 火：左下
+		{20, 21}   // 土：右下
 	};
 
 	for (int i = 0; i < 5; ++i)
 	{
 		BYTE five = s_fiveBadgeRingOrder[i];
-		DWORD color = (activeMask & (1 << five)) ? s_fiveBadgeColor[five] : D3DCOLOR_ARGB(255,90,90,90);
-		GetDevice()->DrawString(GetFiveBadgeName(five), stPointI(rc.left + s_ringOffset[i][0], rc.top + s_ringOffset[i][1]), color, FontEffect_Border);
+		DWORD color = (activeMask & (1 << five)) ? s_fiveBadgeColor[five] : D3DCOLOR_ARGB(255,95,95,95);
+		GetDevice()->DrawString("●", stPointI(rc.left + s_ringDotOffset[i][0], rc.top + s_ringDotOffset[i][1]), color, FontEffect_Border);
 	}
 
-	GetDevice()->DrawString(GetFiveBadgeName(selfFive), stPointI(rc.left + 18, rc.top + 17), s_fiveBadgeColor[selfFive], FontEffect_Border);
+	GetDevice()->DrawString(GetFiveBadgeName(selfFive), stPointI(rc.left + 9, rc.top + 8), s_fiveBadgeColor[selfFive], FontEffect_Border);
 
 	FUNCTION_END;
 }
