@@ -31,6 +31,38 @@
 #include <stddef.h> //by=>friday 为了使用offsetof宏
 
 
+namespace
+{
+	DWORD getFiveCombatBonusRate(SceneUser *user)
+	{
+		if (!user) return 0;
+
+		const DWORD level = user->getFiveLevel();
+		return level > 20 ? 20 : level;
+	}
+
+	WORD addPercentPoint(WORD base, DWORD point)
+	{
+		const DWORD result = (DWORD)base + point;
+		return result > 65535 ? 65535 : (WORD)result;
+	}
+
+	void applyFireBowPhysicalDamageBonus(const Cmd::stAttackMagicUserCmd *rev, SceneUser *pAtt)
+	{
+		if (!rev || !pAtt) return;
+		if (rev->wdMagicType != NORMALBOW) return;
+		if (pAtt->getFiveType() != FIVE_FIRE) return;
+
+		const DWORD rate = getFiveCombatBonusRate(pAtt);
+		if (rate == 0) return;
+
+		pAtt->pkValue.pdamage += static_cast<uint64_t>(
+			(long double)pAtt->pkValue.pdamage * (long double)rate / 100.0L);
+	}
+}
+
+
+
 #define NOTE
 
 /**
@@ -3696,10 +3728,20 @@ if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))\
 #define checkholym(percent)\
 pAtt->isMagicBang = false;\
 pAtt->isHMagicBang = false;\
-if(zMisc::selectByPercent(pAtt->charstate.bang))\
+WORD fiveMagicBangRate = pAtt->charstate.bang;\
+if(pAtt->getFiveType() == FIVE_WATER)\
+{\
+	fiveMagicBangRate = addPercentPoint(fiveMagicBangRate, getFiveCombatBonusRate(pAtt));\
+}\
+if(zMisc::selectByPercent(fiveMagicBangRate))\
 {\
 	pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);\
 	pAtt->isMagicBang = true;\
+}\
+if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))\
+{\
+	pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);\
+	pAtt->isHMagicBang = true;\
 }\
 if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))\
 {\
@@ -3738,6 +3780,7 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				Zebra::logger->info("[物理攻击计算] %s 五行相克1 最小物攻:%llu 最大物攻:%llu 随机系数:%.2f 计算攻击力:%llu", 
 					pAtt->name, pAtt->pkpreValue.fivedam, pAtt->pkpreValue.fivemaxdam, percent, pAtt->pkValue.pdamage);
 				checkholyp(percent);
+				applyFireBowPhysicalDamageBonus(rev, pAtt);
 				//by=>friday 添加爆击后日志
 				Zebra::logger->info("[物理攻击计算] %s 爆击处理后攻击力:%llu 物理爆击:%s", 
 					pAtt->name, pAtt->pkValue.pdamage, pAtt->isPhysicBang ? "是" : "否");
@@ -3758,6 +3801,7 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
 
 				checkholyp(percent);
+				applyFireBowPhysicalDamageBonus(rev, pAtt);
 
 				/// 计算防御者的物理防御力受五行点数的影响
 				pDef->pkValue.pdefence = pDef->pkpreValue.fivedef;
@@ -3774,6 +3818,7 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
 
 				checkholyp(percent);
+				applyFireBowPhysicalDamageBonus(rev, pAtt);
 
 				/// 计算防御者的物理防御力受五行点数的影响
 				pDef->pkValue.pdefence = pDef->pkpreValue.nofivedef;
@@ -3896,6 +3941,7 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 			        Zebra::logger->info("预处理pkValue.pdamage=[%u] percent=[%f]" , pAtt->pkValue.pdamage,percent);
 #endif
 				checkholyp(percent);
+				applyFireBowPhysicalDamageBonus(rev, pAtt);
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("爆击处理预处理pkValue.pdamage=[%u] 物理爆[%s] 魔法爆[%s]" , pAtt->pkValue.pdamage, pAtt->isPhysicBang?"爆":"否", pAtt->isMagicBang?"爆":"否");
 #endif
@@ -3924,6 +3970,7 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 			        Zebra::logger->info("预处理pkValue.pdamage=[%u] percent=[%f]" , pAtt->pkValue.pdamage,percent);
 #endif
 				checkholyp(percent);
+				applyFireBowPhysicalDamageBonus(rev, pAtt);
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("爆击处理预处理pkValue.pdamage=[%u] 物理爆[%s] 魔法爆[%s]" , pAtt->pkValue.pdamage, pAtt->isPhysicBang?"爆":"否", pAtt->isMagicBang?"爆":"否");
 #endif
@@ -3956,6 +4003,7 @@ void ScenePk::calpdamU2N(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 #endif
 
 				checkholyp(percent);
+				applyFireBowPhysicalDamageBonus(rev, pAtt);
 #ifdef _DEBUGLOG
 			        Zebra::logger->info("爆击处理预处理pkValue.pdamage=[%u] 物理爆[%s] 魔法爆[%s]" , pAtt->pkValue.pdamage, pAtt->isPhysicBang?"爆":"否", pAtt->isMagicBang?"爆":"否");
 #endif
