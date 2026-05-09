@@ -271,7 +271,12 @@ CGuiMain::CGuiMain(void)
 	g_ptObjAssgin.x = 0 ;
 	g_ptObjAssgin.y = 60;
 	m_bShowFiveElementToolTip = false;
-	m_rcFiveElementBadge.SetRect(52, 88, 80, 116);
+	m_rcFiveElementBadge.SetRect(3, 76, 31, 104);
+	m_pFiveElementBadge = NULL;
+	for (int iFiveBadge = 0; iFiveBadge < 5; ++iFiveBadge)
+	{
+		m_pFiveElementCenter[iFiveBadge] = NULL;
+	}
 	//----------------------------------------------------------
 
 	m_pbangsBtn = NULL; //sky 好帮手
@@ -293,6 +298,12 @@ CGuiMain::CGuiMain(void)
 
 CGuiMain::~CGuiMain()
 {
+	m_pFiveElementBadge = NULL;
+	for (int iFiveBadge = 0; iFiveBadge < 5; ++iFiveBadge)
+	{
+		m_pFiveElementCenter[iFiveBadge] = NULL;
+	}
+
 	//原来根本就没有调用OnClose函数,难怪内存泄露
 	FreePointerList<stHelpButtons>(m_helpBtns);
 	//
@@ -529,6 +540,30 @@ void CGuiMain::OnCreate()
 		if( pTempBitmap)
 			m_rcClipTeamItemAssignByPoll = pTempBitmap->GetClipRect();
 	}
+
+	// 五行徽章资源：interfaces.pak / 0013
+	// 0007=底圈；0010=金；0013=水；0014=木；0015=火；0019=土。
+	stResourceLocation rlFiveBadge;
+	rlFiveBadge.SetFileName(GetGuiGraphicPackName());
+	rlFiveBadge.group = 13;
+	rlFiveBadge.frame = 7;
+	m_pFiveElementBadge = GetDevice()->FindBitmaps(&rlFiveBadge);
+
+	static const int s_fiveCenterFrame[5] =
+	{
+		10, // FIVE_METAL 金
+		14, // FIVE_WOOD  木
+		19, // FIVE_SOIL  土
+		13, // FIVE_WATER 水
+		15  // FIVE_FIRE  火
+	};
+
+	for (int iFiveBadge = 0; iFiveBadge < 5; ++iFiveBadge)
+	{
+		rlFiveBadge.frame = s_fiveCenterFrame[iFiveBadge];
+		m_pFiveElementCenter[iFiveBadge] = GetDevice()->FindBitmaps(&rlFiveBadge);
+	}
+
 	//----------------------------------------------------------------------
 
 	OnResetScreenSize();
@@ -4603,6 +4638,38 @@ namespace
 		}
 	}
 
+	void GetFiveBadgeComplementHalves(BYTE selfFive, BYTE &upperFive, BYTE &lowerFive)
+	{
+		upperFive = FIVE_NONE;
+		lowerFive = FIVE_NONE;
+
+		switch (selfFive)
+		{
+		case FIVE_METAL:
+			upperFive = FIVE_WATER;
+			lowerFive = FIVE_SOIL;
+			break;
+		case FIVE_WOOD:
+			upperFive = FIVE_WATER;
+			lowerFive = FIVE_FIRE;
+			break;
+		case FIVE_SOIL:
+			upperFive = FIVE_METAL;
+			lowerFive = FIVE_FIRE;
+			break;
+		case FIVE_WATER:
+			upperFive = FIVE_METAL;
+			lowerFive = FIVE_WOOD;
+			break;
+		case FIVE_FIRE:
+			upperFive = FIVE_WOOD;
+			lowerFive = FIVE_SOIL;
+			break;
+		default:
+			break;
+		}
+	}
+
 	void BuildActiveFiveText(BYTE activeMask, char* buf, size_t size)
 	{
 		if (NULL == buf || 0 == size) return;
@@ -4634,29 +4701,70 @@ void CGuiMain::RenderFiveElementBadge()
 	BYTE selfFive = pMainChar->GetSelfFiveType();
 	if (selfFive >= FIVE_NONE) return;
 
+	// 左上头像下沿 / SV 附近。
+	const int badgeX = 3;
+	const int badgeY = 76;
+
+	IBitmap *pBase = NULL;
+	if (m_pFiveElementBadge)
+	{
+		pBase = m_pFiveElementBadge->GetBitmap(0);
+	}
+	if (NULL == pBase) return;
+
+	stRectI rcBase = pBase->GetClipRect();
+	int badgeW = rcBase.Width();
+	int badgeH = rcBase.Height();
+	if (badgeW <= 0) badgeW = 28;
+	if (badgeH <= 0) badgeH = 28;
+	m_rcFiveElementBadge.SetRect(badgeX, badgeY, badgeX + badgeW, badgeY + badgeH);
+
 	BYTE activeMask = pMainChar->GetActiveTeamFiveMask();
-	stRectI rc = m_rcFiveElementBadge;
 
-	// 一个小徽章内完成显示：
-	// 中心字 = 自身五行；
-	// 外圈五个小圆点 = 金、木、水、火、土互补激活状态。
-	static const int s_ringDotOffset[5][2] =
-	{
-		{12,  0},  // 金：上
-		{ 1,  8},  // 木：左上
-		{23,  8},  // 水：右上
-		{ 4, 21},  // 火：左下
-		{20, 21}   // 土：右下
-	};
+	BYTE upperFive = FIVE_NONE;
+	BYTE lowerFive = FIVE_NONE;
+	GetFiveBadgeComplementHalves(selfFive, upperFive, lowerFive);
 
-	for (int i = 0; i < 5; ++i)
+	// 先画 0013/0007 原始底圈。
+	pBase->Render(badgeX, badgeY, &rcBase, NULL, COLOR_ARGB(255,255,255,255), Blend_Null);
+
+	// 用同一底圈资源做颜色叠加：上半/下半只裁剪半张图，并做颜色调制。
+	// 这样不需要新增绿色/黄色半圆资源。
+	const int halfH = badgeH / 2;
+	stRectI rcUpper = rcBase;
+	rcUpper.bottom = rcUpper.top + halfH;
+
+	stRectI rcLower = rcBase;
+	rcLower.top = rcLower.top + halfH;
+
+	if (upperFive < FIVE_NONE && (activeMask & (1 << upperFive)))
 	{
-		BYTE five = s_fiveBadgeRingOrder[i];
-		DWORD color = (activeMask & (1 << five)) ? s_fiveBadgeColor[five] : D3DCOLOR_ARGB(255,95,95,95);
-		GetDevice()->DrawString("●", stPointI(rc.left + s_ringDotOffset[i][0], rc.top + s_ringDotOffset[i][1]), color, FontEffect_Border);
+		pBase->Render(badgeX, badgeY, &rcUpper, NULL, s_fiveBadgeColor[upperFive], Blend_Null);
+	}
+	if (lowerFive < FIVE_NONE && (activeMask & (1 << lowerFive)))
+	{
+		pBase->Render(badgeX, badgeY + halfH, &rcLower, NULL, s_fiveBadgeColor[lowerFive], Blend_Null);
 	}
 
-	GetDevice()->DrawString(GetFiveBadgeName(selfFive), stPointI(rc.left + 9, rc.top + 8), s_fiveBadgeColor[selfFive], FontEffect_Border);
+	// 中心图标使用已有资源：
+	// 金=0010，水=0013，木=0014，火=0015，土=0019。
+	IBitmap *pCenter = NULL;
+	if (m_pFiveElementCenter[selfFive])
+	{
+		pCenter = m_pFiveElementCenter[selfFive]->GetBitmap(0);
+	}
+	if (pCenter)
+	{
+		stRectI rcCenter = pCenter->GetClipRect();
+		int centerX = badgeX + (badgeW - rcCenter.Width()) / 2;
+		int centerY = badgeY + (badgeH - rcCenter.Height()) / 2;
+		pCenter->Render(centerX, centerY, &rcCenter, NULL, COLOR_ARGB(255,255,255,255), Blend_Null);
+	}
+	else
+	{
+		// 资源缺失时才退回文字显示。
+		GetDevice()->DrawString(GetFiveBadgeName(selfFive), stPointI(badgeX + 8, badgeY + 6), s_fiveBadgeColor[selfFive], FontEffect_Border);
+	}
 
 	FUNCTION_END;
 }
@@ -4667,6 +4775,7 @@ void CGuiMain::RenderFiveElementBadgeTip()
 
 	CMainCharacter *pMainChar = GetScene()->GetMainCharacter();
 	if (NULL == pMainChar) return;
+	m_rcFiveElementBadge.SetRect(3, 76, 31, 104);
 	if (!m_rcFiveElementBadge.PtInRect(Engine_GetCursor()->GetPosition())) return;
 
 	BYTE selfFive = pMainChar->GetSelfFiveType();
@@ -4689,7 +4798,6 @@ void CGuiMain::RenderFiveElementBadgeTip()
 		"当前等级：%u\n"
 		"当前加成：%u%%，最高20%%\n\n"
 		"队伍互补：\n"
-		"外圈彩色表示附近互补队友已激活。\n"
 		"条件：同队伍、同地图、附近11x11、不同五行且互不相克。\n"
 		"当前激活：%s",
 		GetFiveBadgeName(selfFive),

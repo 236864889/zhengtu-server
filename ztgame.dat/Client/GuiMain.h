@@ -513,6 +513,8 @@ private:
 	IBitmaps * m_pTeamExpAssignBySpecial;
 	IBitmaps * m_pTeamItemAssignByFreedom;
 	IBitmaps * m_pTeamItemAssignByPoll;
+	IBitmaps * m_pFiveElementBadge;
+	IBitmaps * m_pFiveElementCenter[5];
 	stRectI    m_rcClipTeamExpAssignByLevel;
 	stRectI    m_rcClipTeamExpAssignBySpecial;
 	stRectI    m_rcClipTeamItemAssignByFreedom;
