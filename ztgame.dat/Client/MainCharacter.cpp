@@ -213,6 +213,9 @@ CMainCharacter::CMainCharacter(void)
 {
 	FUNCTION_BEGIN;
 
+	m_bySelfFiveType = FIVE_NONE;
+	m_bySelfFiveLevel = 0;
+	m_byActiveTeamFiveMask = 0;
 	m_dwSceneObjectType |= OBJECT_MAINCHARACTER;
 	m_RunEvent.target = eTargetType_None;
 	m_RunEvent.event = eEventType_None;
@@ -3477,6 +3480,13 @@ _ret:
  * \param pCmd : √Ë ˆ
  * \return ∑µªÿ÷µµƒ√Ë ˆ
  */
+void CMainCharacter::SetSelfFiveElement(BYTE type, BYTE level, BYTE activeMask)
+{
+	m_bySelfFiveType = type;
+	m_bySelfFiveLevel = level;
+	m_byActiveTeamFiveMask = activeMask;
+}
+
 bool CMainCharacter::HandleCommand(stNullUserCmd* pCmd)
 {
 	FUNCTION_BEGIN;

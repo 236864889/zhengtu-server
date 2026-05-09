@@ -522,7 +522,11 @@ private:
 	// tooltips
 	void     RenderTeamFlag();
 	void     RenderTeamTip();
+	void     RenderFiveElementBadge();
+	void     RenderFiveElementBadgeTip();
 	bool     m_bShowTeamToolTip;
+	bool     m_bShowFiveElementToolTip;
+	stRectI  m_rcFiveElementBadge;
 	//////////////////////////////////////////////
 public:
 	bool isHasStateSkill(DWORD dwID);

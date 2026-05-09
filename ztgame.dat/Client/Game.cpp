@@ -1772,6 +1772,12 @@ bool ParsePropertyMessage(stNullUserCmd* pCmd,size_t size)
 	case ADDUSERSKILL_PROPERTY_USERCMD_PARA:
 		GetScene()->GetMainCharacter()->AddSkill((stAddUserSkillPropertyUserCmd*)pCmd);
 		return true;
+	case SYNC_SELF_FIVE_ELEMENT_PROPERTY_USERCMD_PARA:
+		{
+			stSyncSelfFiveElementPropertyUserCmd* pFive = (stSyncSelfFiveElementPropertyUserCmd*)pCmd;
+			GetScene()->GetMainCharacter()->SetSelfFiveElement(pFive->selfFiveType, pFive->selfFiveLevel, pFive->activeTeamFiveMask);
+		}
+		return true;
 	case REMOVEUSERSKILL_PROPERTY_USERCMD_PARAMETER:
 		GetScene()->GetMainCharacter()->RemoveSkill((stRemoveUserSkillPropertyUserCmd*)pCmd);
 		return true;

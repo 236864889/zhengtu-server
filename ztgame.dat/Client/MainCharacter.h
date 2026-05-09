@@ -150,6 +150,9 @@ public:
 	//DWORD		m_dwUseSkillInterval;
 
 	std::string		m_strMainRoleShopAdv;
+	BYTE		m_bySelfFiveType;
+	BYTE		m_bySelfFiveLevel;
+	BYTE		m_byActiveTeamFiveMask;
 
 	bool HandleCommand(stNullUserCmd* pCmd);
 public:	
@@ -521,6 +524,10 @@ public:
 
 	bool IsRightSkill(SkillBase_t* pSkill);
 	int GetFivePoint(enumFiveType five);
+	void SetSelfFiveElement(BYTE type, BYTE level, BYTE activeMask);
+	BYTE GetSelfFiveType() const { return m_bySelfFiveType; }
+	BYTE GetSelfFiveLevel() const { return m_bySelfFiveLevel; }
+	BYTE GetActiveTeamFiveMask() const { return m_byActiveTeamFiveMask; }
 
 	// 获得界面显示的命中值
 	int GetShowHitValue();

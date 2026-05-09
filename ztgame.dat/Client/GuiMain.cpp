@@ -270,6 +270,8 @@ CGuiMain::CGuiMain(void)
 	g_ptExpAssgin.y = 40;
 	g_ptObjAssgin.x = 0 ;
 	g_ptObjAssgin.y = 60;
+	m_bShowFiveElementToolTip = false;
+	m_rcFiveElementBadge.SetRect(52, 88, 100, 136);
 	//----------------------------------------------------------
 
 	m_pbangsBtn = NULL; //sky 好帮手
@@ -4082,10 +4084,13 @@ HRESULT CGuiMain::OnRender( float fElapsedTime )
 
 	m_bShowTeamToolTip = false;
 	RenderTeamTip();
+	RenderFiveElementBadge();
+	m_bShowFiveElementToolTip = false;
+	RenderFiveElementBadgeTip();
 
 	if(this ==  GetGuiManager()->GetMouseOverDlg())
 	{
-		if( !m_bShowTeamToolTip) 
+		if( !m_bShowTeamToolTip && !m_bShowFiveElementToolTip) 
 		{
 			if ( rcLevel.PtInRect( Engine_GetCursor()->GetPosition() ) )		//Render tips
 			{
@@ -4562,6 +4567,136 @@ void CGuiMain::InitCustomElements()
 	SetCustomElement( GUI_CONTROL_SCROLLBAR, 4, &Element );
 
 
+
+	FUNCTION_END;
+}
+
+
+namespace
+{
+	static const BYTE s_fiveBadgeRingOrder[5] = { FIVE_METAL, FIVE_WOOD, FIVE_WATER, FIVE_FIRE, FIVE_SOIL };
+	static const char* s_fiveBadgeName[5] = { "金", "木", "土", "水", "火" };
+	static const DWORD s_fiveBadgeColor[5] =
+	{
+		D3DCOLOR_ARGB(255,255,220,40),
+		D3DCOLOR_ARGB(255,80,210,80),
+		D3DCOLOR_ARGB(255,190,150,70),
+		D3DCOLOR_ARGB(255,80,160,255),
+		D3DCOLOR_ARGB(255,235,70,55)
+	};
+
+	const char* GetFiveBadgeName(BYTE five)
+	{
+		return five < FIVE_NONE ? s_fiveBadgeName[five] : "无";
+	}
+
+	const char* GetFiveBadgeEffect(BYTE five)
+	{
+		switch (five)
+		{
+		case FIVE_METAL: return "物攻、物暴";
+		case FIVE_WOOD: return "辅助效果";
+		case FIVE_SOIL: return "防御、回血";
+		case FIVE_WATER: return "魔攻、魔暴";
+		case FIVE_FIRE: return "闪避、远程物伤";
+		default: return "无";
+		}
+	}
+
+	void BuildActiveFiveText(BYTE activeMask, char* buf, size_t size)
+	{
+		if (NULL == buf || 0 == size) return;
+		buf[0] = 0;
+		for (int i = 0; i < 5; ++i)
+		{
+			BYTE five = s_fiveBadgeRingOrder[i];
+			if (activeMask & (1 << five))
+			{
+				if (buf[0]) strncat(buf, " ", size - strlen(buf) - 1);
+				strncat(buf, GetFiveBadgeName(five), size - strlen(buf) - 1);
+			}
+		}
+		if (!buf[0])
+		{
+			strncpy(buf, "无", size);
+			buf[size - 1] = 0;
+		}
+	}
+}
+
+void CGuiMain::RenderFiveElementBadge()
+{
+	FUNCTION_BEGIN;
+
+	CMainCharacter *pMainChar = GetScene()->GetMainCharacter();
+	if (NULL == pMainChar) return;
+
+	BYTE selfFive = pMainChar->GetSelfFiveType();
+	if (selfFive >= FIVE_NONE) return;
+
+	BYTE activeMask = pMainChar->GetActiveTeamFiveMask();
+	stRectI rc = m_rcFiveElementBadge;
+
+	static const int s_ringOffset[5][2] =
+	{
+		{18,  0},
+		{ 4, 12},
+		{32, 12},
+		{ 7, 31},
+		{29, 31}
+	};
+
+	for (int i = 0; i < 5; ++i)
+	{
+		BYTE five = s_fiveBadgeRingOrder[i];
+		DWORD color = (activeMask & (1 << five)) ? s_fiveBadgeColor[five] : D3DCOLOR_ARGB(255,90,90,90);
+		GetDevice()->DrawString(GetFiveBadgeName(five), stPointI(rc.left + s_ringOffset[i][0], rc.top + s_ringOffset[i][1]), color, FontEffect_Border);
+	}
+
+	GetDevice()->DrawString(GetFiveBadgeName(selfFive), stPointI(rc.left + 18, rc.top + 17), s_fiveBadgeColor[selfFive], FontEffect_Border);
+
+	FUNCTION_END;
+}
+
+void CGuiMain::RenderFiveElementBadgeTip()
+{
+	FUNCTION_BEGIN;
+
+	CMainCharacter *pMainChar = GetScene()->GetMainCharacter();
+	if (NULL == pMainChar) return;
+	if (!m_rcFiveElementBadge.PtInRect(Engine_GetCursor()->GetPosition())) return;
+
+	BYTE selfFive = pMainChar->GetSelfFiveType();
+	if (selfFive >= FIVE_NONE) return;
+
+	char activeText[64];
+	BuildActiveFiveText(pMainChar->GetActiveTeamFiveMask(), activeText, sizeof(activeText));
+	unsigned int level = pMainChar->GetSelfFiveLevel();
+	unsigned int bonus = level > 20 ? 20 : level;
+
+	CToolTips tips;
+	tips.SetBkColor( D3DCOLOR_ARGB(128,0,0,0) );
+	tips.SetBorderColor( 0 );
+	tips.SetAlignType( GUI_ALIGN_LEFT );
+	tips.SetLineGaps( 3 );
+	tips.SetCurColor( D3DCOLOR_ARGB(255,255,255,255) );
+	tips.AddText(avar(
+		"自身五行：%s\n"
+		"自身效果：%s\n"
+		"当前等级：%u\n"
+		"当前加成：%u%%，最高20%%\n\n"
+		"队伍互补：\n"
+		"外圈彩色表示附近互补队友已激活。\n"
+		"条件：同队伍、同地图、附近11x11、不同五行且互不相克。\n"
+		"当前激活：%s",
+		GetFiveBadgeName(selfFive),
+		GetFiveBadgeEffect(selfFive),
+		level,
+		bonus,
+		activeText));
+	tips.Resize();
+	tips.Render(m_rcFiveElementBadge.right, m_rcFiveElementBadge.bottom);
+	m_bShowFiveElementToolTip = true;
 
 	FUNCTION_END;
 }
