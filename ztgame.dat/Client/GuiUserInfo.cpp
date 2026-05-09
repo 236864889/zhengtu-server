@@ -1247,7 +1247,17 @@ void CGuiUserInfo::TipsRender()
 					break;
 				case 118:
 				case 218:
-					m_ToolTips.AddText("对无属性或相克属性的角色和怪物有攻击加成");
+
+					m_ToolTips.AddText(
+						"五行:金物攻物暴,水魔攻魔暴,土防御回血
+"
+						"火闪避远攻,木辅助
+"
+						"相克:水克火,火克金,金克木,木克土,土克水
+"
+						"克制目标有额外伤害,无五行不参与克制
+"
+						"组队五行互补可获得额外属性加成");
 					break;
 				case 119:
 				case 219:
