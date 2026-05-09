@@ -5,6 +5,38 @@
 #include "Chat.h"
 #include "SessionClient.h"
 
+
+
+namespace
+{
+	void refreshTeamFiveElementBonus(SceneUser *leader)
+	{
+		if (NULL == leader || !leader->team.IsTeamed()) return;
+
+		struct RefreshExec : public TeamMemExec
+		{
+			bool exec(TeamMember &member)
+			{
+				SceneUser *user = SceneUserManager::getMe().getUserByTempID(member.tempid);
+				if (user)
+				{
+					user->setupCharBase();
+				}
+				return true;
+			}
+		};
+
+		RefreshExec exec;
+		SceneUser *teamLeader = leader;
+		if (leader->team.getLeader() != leader->tempid)
+		{
+			SceneUser *realLeader = SceneUserManager::getMe().getUserByTempID(leader->team.getLeader());
+			if (realLeader) teamLeader = realLeader;
+		}
+		teamLeader->team.execEveryOne(exec);
+	}
+}
+
 /**
  * \brief  遍历组队将指定新增队员user的数据发送给队伍所有成员的客户端
  */
@@ -377,6 +409,7 @@ bool TeamManager::addNewLeader(SceneUser *pUser)
 			pUser->reSendMyMapData();
 			//session队伍
 			addMemberToSession(pUser->id , pUser->id);
+			refreshTeamFiveElementBonus(pUser);
 			return true;
 		}
 	}
@@ -420,6 +453,7 @@ bool TeamManager::addNewMember(SceneUser *pUser , Cmd::stAnswerTeamUserCmd *rev)
 			pUser->reSendMyMapData();
 
 			addMemberToSession(pUser->id , nm->id);
+			refreshTeamFiveElementBonus(pUser);
 			return true;
 
 		}
@@ -462,6 +496,7 @@ bool TeamManager::addNewMember(SceneUser *leader , SceneUser *pUser)
 		pUser->reSendMyMapData();
 
 		addMemberToSession(leader->id , pUser->id);
+		refreshTeamFiveElementBonus(leader);
 		return true;
 
 	}
@@ -502,8 +537,10 @@ void TeamManager::removeTeam(SceneUser *pUser , DWORD tempid)
 	if(pUser->team.getLeader() == tempid)
 	{
 		//changeLeader();
-		pUser->team.setLeader(0);
 		removeMemberByTempID(tempid);
+		refreshTeamFiveElementBonus(pUser);
+		pUser->team.setLeader(0);
+		pUser->setupCharBase();
 	}
 }
 
@@ -543,6 +580,7 @@ struct DeleteTeamExec : public TeamMemExec
 			pUser->sendCmdToMe(&ret , sizeof(ret));
 			pUser->reSendMyMapData();
 			Channel::sendSys(pUser , Cmd::INFO_TYPE_GAME, "队伍解散");
+			pUser->setupCharBase();
 		}
 		return true;
 	}
@@ -629,8 +667,10 @@ void TeamManager::kickoutMember(SceneUser *pUser , Cmd::stRemoveTeamMemberUserCm
 			u->reSendMyMapData();
 			// Session队伍
 			delMemberToSession(pUser->id ,u->id);
+			u->setupCharBase();
 		}
 	}
+	refreshTeamFiveElementBonus(pUser);
 }
 
 /**
@@ -655,8 +695,10 @@ void TeamManager::removeMember(SceneUser *pUser , Cmd::stRemoveTeamMemberUserCmd
 			u->reSendMyMapData();
 			// Session队伍
 			delMemberToSession(pUser->id ,u->id);
+			u->setupCharBase();
 		}
 	}
+	refreshTeamFiveElementBonus(pUser);
 }
 
 /**
@@ -1551,6 +1593,49 @@ DWORD TeamManager::getDefPlus()
 /**
  * \brief  实时累加计算所有关系的友好度关系
  */
+
+/**
+ * \brief  Calculate nearby team five-element complement bonus.
+ */
+DWORD TeamManager::getFiveElementPlus()
+{
+	if (NULL == me || 0 == team.leader || NULL == me->scene) return 0;
+
+	SceneUser *leader = me;
+	if (me->team.getLeader() != me->tempid)
+	{
+		leader = SceneUserManager::getMe().getUserByTempID(me->team.getLeader());
+		if (NULL == leader) return 0;
+	}
+
+	struct FiveJoinExec : public TeamMemExec
+	{
+		SceneUser *me;
+		DWORD count;
+
+		FiveJoinExec(SceneUser *user):me(user),count(0) {}
+
+		bool exec(TeamMember &member)
+		{
+			if (NULL == me || member.tempid == me->tempid) return true;
+
+			SceneUser *otherUser = SceneUserManager::getMe().getUserByTempID(member.tempid);
+			if (otherUser && otherUser->scene && otherUser->scene == me->scene &&
+				me->scene->zPosShortRange(me->getPos(), otherUser->getPos(), 11, 11) &&
+				me->IsJoin(otherUser->getFiveType()))
+			{
+				count++;
+			}
+			return true;
+		}
+	};
+
+	FiveJoinExec exec(me);
+	leader->team.execEveryOne(exec);
+
+	return exec.count > 5 ? 5 : exec.count;
+}
+
 void TeamManager::countFriendDegree()
 {
 	if (0 == team.leader) return;

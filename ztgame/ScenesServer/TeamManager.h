@@ -310,6 +310,7 @@ class TeamManager
 		DWORD getExpPlus(WORD wdExp);
 		DWORD getAttPlus();
 		DWORD getDefPlus();
+		DWORD getFiveElementPlus();
 		void putMoneyPlus(WORD wdMoney);
 		void countFriendDegree();
 		void requestFriendDegree();

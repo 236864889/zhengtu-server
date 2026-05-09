@@ -3723,7 +3723,7 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 {
 	float percent=0.0f;
 	//五行处理
-	switch(pAtt->IsOppose(pDef->charstate.defencefive))
+	switch(pAtt->IsOppose(pDef->getFiveType()))
 	{
 		//甲克已
 		case  1:
@@ -3801,7 +3801,7 @@ void ScenePk::calmdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 {
 	float percent=0.0f;
 	//五行处理
-	switch(pAtt->IsOppose(pDef->charstate.defencefive))
+	switch(pAtt->IsOppose(pDef->getFiveType()))
 	{
 		//甲克已
 		case  1: // pAtt克对方
@@ -4085,7 +4085,7 @@ void ScenePk::calpdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 {
 	float percent=0.0f;
 	//五行处理 ,与人与人的处理相反
-	switch(pAtt->IsOppose(pDef->charstate.defencefive))
+	switch(pAtt->IsOppose(pDef->getFiveType()))
 	{
 		//NPC克人
 		case  2:
@@ -4154,7 +4154,7 @@ void ScenePk::calmdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 {
 	float percent=0.0f;
 	//五行处理 ,与人与人的处理相反
-	switch(pAtt->IsOppose(pDef->charstate.defencefive))
+	switch(pAtt->IsOppose(pDef->getFiveType()))
 	{
 		//NPC克人
 		case  2:

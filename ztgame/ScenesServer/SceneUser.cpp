@@ -48,6 +48,103 @@ DWORD SceneUser::Five_Relation[]=
 	FIVE_NONE			/// 无
 };
 
+
+
+namespace
+{
+	bool isValidFiveElement(DWORD five)
+	{
+		return five == FIVE_METAL || five == FIVE_WOOD || five == FIVE_SOIL || five == FIVE_WATER || five == FIVE_FIRE;
+	}
+
+	bool isFiveRestrict(DWORD attackerFive, DWORD defenderFive)
+	{
+		return
+			(attackerFive == FIVE_WATER && defenderFive == FIVE_FIRE) ||
+			(attackerFive == FIVE_FIRE  && defenderFive == FIVE_METAL) ||
+			(attackerFive == FIVE_METAL && defenderFive == FIVE_WOOD) ||
+			(attackerFive == FIVE_WOOD  && defenderFive == FIVE_SOIL) ||
+			(attackerFive == FIVE_SOIL  && defenderFive == FIVE_WATER);
+	}
+
+	DWORD getFiveElementBonusRate(DWORD fiveLevel)
+	{
+		return fiveLevel > 20 ? 20 : fiveLevel;
+	}
+
+	uint64_t addRate64(uint64_t value, DWORD rate)
+	{
+		return value + static_cast<uint64_t>((long double)value * (long double)rate / 100.0L);
+	}
+
+	DWORD addRate32(DWORD value, DWORD rate)
+	{
+		return value + static_cast<DWORD>((long double)value * (long double)rate / 100.0L);
+	}
+
+	WORD addWordPoint(WORD value, DWORD point)
+	{
+		DWORD result = (DWORD)value + point;
+		return result > 65535 ? 65535 : (WORD)result;
+	}
+
+	SWORD addSWordRate(SWORD value, DWORD rate)
+	{
+		int add = (int)((long double)value * (long double)rate / 100.0L);
+		if (add == 0 && rate > 0) add = 1;
+		int result = (int)value + add;
+		return result > 32767 ? 32767 : (SWORD)result;
+	}
+
+	void applyFiveElementCharBonus(CharState &state, DWORD fiveType, DWORD fiveLevel)
+	{
+		if (!isValidFiveElement(fiveType)) return;
+
+		const DWORD rate = getFiveElementBonusRate(fiveLevel);
+		if (0 == rate) return;
+
+		switch (fiveType)
+		{
+			case FIVE_METAL:
+				state.pdamage = addRate64(state.pdamage, rate);
+				state.maxpdamage = addRate64(state.maxpdamage, rate);
+				state.bang = addWordPoint(state.bang, rate);
+				break;
+			case FIVE_WATER:
+				state.mdamage = addRate64(state.mdamage, rate);
+				state.maxmdamage = addRate64(state.maxmdamage, rate);
+				break;
+			case FIVE_SOIL:
+				state.pdefence = addRate64(state.pdefence, rate);
+				state.mdefence = addRate64(state.mdefence, rate);
+				state.resumehp = addRate32(state.resumehp, rate);
+				break;
+			case FIVE_FIRE:
+				state.attackdodge = addSWordRate(state.attackdodge, rate);
+				break;
+			case FIVE_WOOD:
+				// Wood is reserved for support-skill effect scaling; support skill formulas
+				// are not centralized in CharState, so do not change unrelated skills here.
+				break;
+			default:
+				break;
+		}
+	}
+
+	void applyTeamFiveElementBonus(CharState &state, DWORD rate)
+	{
+		if (0 == rate) return;
+
+		state.pdamage = addRate64(state.pdamage, rate);
+		state.maxpdamage = addRate64(state.maxpdamage, rate);
+		state.mdamage = addRate64(state.mdamage, rate);
+		state.maxmdamage = addRate64(state.maxmdamage, rate);
+		state.pdefence = addRate64(state.pdefence, rate);
+		state.mdefence = addRate64(state.mdefence, rate);
+		state.maxhp = addRate64(state.maxhp, rate);
+	}
+}
+
 class ObjectCompare:public UserObjectCompare 
 {
 	public:
@@ -3557,6 +3654,10 @@ void SceneUser::setupCharBase(bool lock)
 		charstate.bang = charstate.bang + charstate.bang;
 	}
 
+	applyFiveElementCharBonus(charstate, charbase.fivetype, charbase.fivelevel);
+	applyTeamFiveElementBonus(charstate, this->team.getFiveElementPlus());
+
+
 	
 
 	//soke 转生经验读取
@@ -3749,22 +3850,21 @@ class sendAllObjectToUser:public UserObjectExec
  */
 int SceneUser::IsOppose(DWORD five)
 {
-	if(this->getFiveType() == SceneUser::Five_Relation[(five + 4)%5])
+	const DWORD myFive = this->getFiveType();
+	if (!isValidFiveElement(myFive) || !isValidFiveElement(five))
 	{
-		return 1;
-	}
-	else
-	{
-		if(this->getFiveType() == SceneUser::Five_Relation[(five + 1)%5])
-		{
-			return 2;
-		}
+		return 0;
 	}
 
-	if ((this->getFiveType() != 5) &&(five == 5))
+	if (isFiveRestrict(myFive, five))
+	{
 		return 1;
-	if ((this->getFiveType() == 5) &&(five != 5))
+	}
+
+	if (isFiveRestrict(five, myFive))
+	{
 		return 2;
+	}
 
 	return 0;
 }
@@ -3777,7 +3877,13 @@ int SceneUser::IsOppose(DWORD five)
  */
 bool SceneUser::IsJoin(DWORD five)
 {
-	return five == SceneUser::Five_Relation[(this->getFiveType() + 2)%5] || five == SceneUser::Five_Relation[(this->getFiveType() + 3)%5];
+	const DWORD myFive = this->getFiveType();
+	if (!isValidFiveElement(myFive) || !isValidFiveElement(five) || myFive == five)
+	{
+		return false;
+	}
+
+	return 0 == this->IsOppose(five);
 }
 
 /**
