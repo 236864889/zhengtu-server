@@ -638,6 +638,9 @@ void SceneUserManager::countryTrans(DWORD dwCountryID, DWORD dwLevel)
 				Cmd::stAnswerCountryDareUserCmd send;
 				pUser->sendCmdToMe(&send, sizeof(send));
 
+				DWORD oldCivilSeal = pUser->getCivilSealLevel();
+				DWORD oldMilitarySeal = pUser->getMilitarySealLevel();
+
 				if (pUser->charbase.exploit > (1*exploit_arg) )
 				{
 					pUser->charbase.exploit = pUser->charbase.exploit - (1*exploit_arg);
@@ -646,7 +649,7 @@ void SceneUserManager::countryTrans(DWORD dwCountryID, DWORD dwLevel)
 				{
 					pUser->charbase.exploit = 0;
 				}
-				pUser->refreshGraceExploitDisplay();
+				pUser->onOfficialValueChanged(oldCivilSeal, oldMilitarySeal);
 
 				Channel::sendSys(pUser, Cmd::INFO_TYPE_EXP, "ȼ˷̨Ӣµ㱻ѡս");
 			}
@@ -665,8 +668,11 @@ void SceneUserManager::countryTrans(DWORD dwCountryID, DWORD dwLevel)
 				}
 				else
 				{
+					DWORD oldCivilSeal = su->getCivilSealLevel();
+					DWORD oldMilitarySeal = su->getMilitarySealLevel();
+
 					su->charbase.exploit += (1*exploit_arg);
-					su->refreshGraceExploitDisplay();
+					su->onOfficialValueChanged(oldCivilSeal, oldMilitarySeal);
 				}
 			}
 			return true;

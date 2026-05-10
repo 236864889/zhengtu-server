@@ -12280,6 +12280,10 @@ void SceneUser::refreshGraceExploitDisplay()
 	Cmd::stMainUserDataUserCmd userinfo;
 	full_t_MainUserData(userinfo.data);
 	sendCmdToMe(&userinfo, sizeof(userinfo));
+
+	Cmd::stAddUserMapScreenUserCmd update;
+	full_t_MapUserData(update.data);
+	sendCmdToMe(&update, sizeof(update));
 }
 /**
  * \brief ÃÓ≥‰t_MapUserDataPos√¸¡Ó

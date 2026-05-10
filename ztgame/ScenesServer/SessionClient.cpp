@@ -2198,8 +2198,11 @@ bool SessionClient::cmdMsgParse_Other(const Cmd::t_NullCmd *ptNullCmd, const uns
 
 					if (pUser->charbase.country != PUBLIC_COUNTRY)
 					{
+						DWORD oldCivilSeal = pUser->getCivilSealLevel();
+						DWORD oldMilitarySeal = pUser->getMilitarySealLevel();
+
 						pUser->charbase.grace += rev->dwGrace;
-						pUser->refreshGraceExploitDisplay();
+						pUser->onOfficialValueChanged(oldCivilSeal, oldMilitarySeal);
 					}
 
 					// »Ö¸´¿É¼û

@@ -48,9 +48,11 @@ bool SceneUser::doTurnCmd(const Cmd::stTurnUserCmd *ptCmd,unsigned int cmdLen)
 			//让用户下马
 			horse.mount(false);
 			// 清除功勋和文采值
+			DWORD oldCivilSeal = getCivilSealLevel();
+			DWORD oldMilitarySeal = getMilitarySealLevel();
 			this->charbase.grace = 0;
 			this->charbase.exploit = 0;
-			refreshGraceExploitDisplay();
+			onOfficialValueChanged(oldCivilSeal, oldMilitarySeal);
 					
 			//回到清源村 
 			//Gm::gomap_Gm(this,"name=新手村 ");

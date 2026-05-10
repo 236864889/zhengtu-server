@@ -1615,6 +1615,13 @@ bool ScenePk::attackDeathUser(SceneUser *pAtt , SceneUser *pDef)
 		//进行国家功勋值的计算
 		if (pAtt->charbase.country!=pDef->charbase.country && pAtt->charbase.country!=PUBLIC_COUNTRY && pAtt->scene->getRealMapID()!=1111)
 		{	
+			DWORD oldAttCivilSeal = pAtt->getCivilSealLevel();
+			DWORD oldAttMilitarySeal = pAtt->getMilitarySealLevel();
+			DWORD oldDefCivilSeal = pDef->getCivilSealLevel();
+			DWORD oldDefMilitarySeal = pDef->getMilitarySealLevel();
+			DWORD oldAttExploit = pAtt->charbase.exploit;
+			DWORD oldDefExploit = pDef->charbase.exploit;
+
 			int level_diff = (int)pAtt->charbase.level - (int)pDef->charbase.level;
 			if(level_diff <= 0)
 			{
@@ -1710,8 +1717,23 @@ bool ScenePk::attackDeathUser(SceneUser *pAtt , SceneUser *pDef)
 			} 
 			
 			// 回写档案
-			pAtt->refreshGraceExploitDisplay();
-			pDef->refreshGraceExploitDisplay();
+			if (oldAttExploit != pAtt->charbase.exploit)
+			{
+				pAtt->onOfficialValueChanged(oldAttCivilSeal, oldAttMilitarySeal);
+			}
+			else
+			{
+				pAtt->refreshGraceExploitDisplay();
+			}
+
+			if (oldDefExploit != pDef->charbase.exploit)
+			{
+				pDef->onOfficialValueChanged(oldDefCivilSeal, oldDefMilitarySeal);
+			}
+			else
+			{
+				pDef->refreshGraceExploitDisplay();
+			}
 			//pAtt->save(Cmd::Record::OPERATION_WRITEBACK);
 			//pDef->save(Cmd::Record::OPERATION_WRITEBACK);
 		}

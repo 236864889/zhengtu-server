@@ -68,8 +68,11 @@ bool SceneUser::doUnionCmd(const Cmd::stUnionUserCmd *rev,unsigned int cmdLen)
 						send.dwMoney = ptCmd->dwMoney;
 						sessionClient->sendCmd(&send, sizeof(send));
 
+						DWORD oldCivilSeal = getCivilSealLevel();
+						DWORD oldMilitarySeal = getMilitarySealLevel();
+
 						this->charbase.exploit += (ptCmd->dwMoney/2000 * exploit_arg);
-						refreshGraceExploitDisplay();
+						onOfficialValueChanged(oldCivilSeal, oldMilitarySeal);
 					}
 					else
 					{
