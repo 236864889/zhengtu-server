@@ -3363,6 +3363,7 @@ bool Gm::value(SceneUser* pUser, const char* para)
 	DWORD mp=atoi(prop["mp"].c_str());
 	DWORD sp=atoi(prop["sp"].c_str());
 	DWORD ep=atoi(prop["ep"].c_str());
+	DWORD grace=atoi(prop["grace"].c_str());
 	DWORD honor=atoi(prop["honor"].c_str());
 	DWORD gold=atoi(prop["gold"].c_str());
 	DWORD ticket=atoi(prop["ticket"].c_str());
@@ -3412,7 +3413,13 @@ bool Gm::value(SceneUser* pUser, const char* para)
 	{
 		pUser->charbase.exploit = ep;
 		pUser->refreshGraceExploitDisplay();
-		ScenesService::gm_logger->trace("GM:%s 设置自己的功勋值 %d", pUser->name, ep);
+		ScenesService::gm_logger->trace("GM:%s set exploit %d", pUser->name, ep);
+	}
+	if (grace)
+	{
+		pUser->charbase.grace = grace;
+		pUser->refreshGraceExploitDisplay();
+		ScenesService::gm_logger->trace("GM:%s set grace %d", pUser->name, grace);
 	}
 	if (honor)
 	{
