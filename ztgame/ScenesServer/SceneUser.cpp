@@ -12163,6 +12163,13 @@ void SceneUser::full_t_MapUserData(Cmd::t_MapUserData &data)
 	full_t_UserData(*((Cmd::t_UserData *)&data));
 	full_all_UState(data.state);
 }
+
+void SceneUser::refreshGraceExploitDisplay()
+{
+	Cmd::stMainUserDataUserCmd userinfo;
+	full_t_MainUserData(userinfo.data);
+	sendCmdToMe(&userinfo, sizeof(userinfo));
+}
 /**
  * \brief ÃÓ≥‰t_MapUserDataPos√¸¡Ó
  *

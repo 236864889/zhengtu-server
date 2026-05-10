@@ -50,6 +50,7 @@ bool SceneUser::doTurnCmd(const Cmd::stTurnUserCmd *ptCmd,unsigned int cmdLen)
 			// 清除功勋和文采值
 			this->charbase.grace = 0;
 			this->charbase.exploit = 0;
+			refreshGraceExploitDisplay();
 					
 			//回到清源村 
 			//Gm::gomap_Gm(this,"name=新手村 ");

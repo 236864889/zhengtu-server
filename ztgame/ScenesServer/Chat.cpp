@@ -3411,7 +3411,7 @@ bool Gm::value(SceneUser* pUser, const char* para)
 	if (ep)
 	{
 		pUser->charbase.exploit = ep;
-		pUser->reSendMyMapData();
+		pUser->refreshGraceExploitDisplay();
 		ScenesService::gm_logger->trace("GM:%s 设置自己的功勋值 %d", pUser->name, ep);
 	}
 	if (honor)

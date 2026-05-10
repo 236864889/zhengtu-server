@@ -680,6 +680,7 @@ struct SceneUser:public SceneEntryPk
 		void full_t_MapUserDataState(Cmd::t_MapUserDataState &data);
 		void full_t_MapUserDataPosState(Cmd::t_MapUserDataPosState &data);
 		void full_t_MainUserData(Cmd::t_MainUserData &data) const;
+		void refreshGraceExploitDisplay();
 		void sendInitHPAndMp();
 		bool addSkillData(const Cmd::stAddUserSkillPropertyUserCmd *rev);
 		bool removeSkill(const Cmd::stRemoveUserSkillPropertyUserCmd *rev);

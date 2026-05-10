@@ -69,10 +69,7 @@ bool SceneUser::doUnionCmd(const Cmd::stUnionUserCmd *rev,unsigned int cmdLen)
 						sessionClient->sendCmd(&send, sizeof(send));
 
 						this->charbase.exploit += (ptCmd->dwMoney/2000 * exploit_arg);
-						
-						Cmd::stAddUserMapScreenUserCmd update;
-						full_t_MapUserData(update.data);
-						sendCmdToMe(&update, sizeof(update));
+						refreshGraceExploitDisplay();
 					}
 					else
 					{

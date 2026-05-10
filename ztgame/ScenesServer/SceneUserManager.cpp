@@ -646,6 +646,7 @@ void SceneUserManager::countryTrans(DWORD dwCountryID, DWORD dwLevel)
 				{
 					pUser->charbase.exploit = 0;
 				}
+				pUser->refreshGraceExploitDisplay();
 
 				Channel::sendSys(pUser, Cmd::INFO_TYPE_EXP, "ȼ˷̨Ӣµ㱻ѡս");
 			}
@@ -665,6 +666,7 @@ void SceneUserManager::countryTrans(DWORD dwCountryID, DWORD dwLevel)
 				else
 				{
 					su->charbase.exploit += (1*exploit_arg);
+					su->refreshGraceExploitDisplay();
 				}
 			}
 			return true;

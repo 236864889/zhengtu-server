@@ -84,6 +84,7 @@ bool SceneUser::doCountryCmd(const Cmd::stCountryUserCmd *rev,unsigned int cmdLe
 					}
 
 					this->charbase.exploit = this->charbase.exploit+(2*exploit_arg);
+					refreshGraceExploitDisplay();
 					this->charbase.gomaptype = ZoneTypeDef::ZONE_COUNTRY_WAR;
 
 					if (pScene)            
@@ -172,10 +173,7 @@ bool SceneUser::doCountryCmd(const Cmd::stCountryUserCmd *rev,unsigned int cmdLe
 								this->charbase.honor, (send.dwValue/5));
 
 						this->charbase.exploit = this->charbase.exploit + add_exploit;
-						
-						BUFFER_CMD(Cmd::stAddUserAndPosMapScreenStateUserCmd ,send2 , zSocket::MAX_USERDATASIZE);
-						this->full_t_MapUserDataPosState(send2->data);
-						sendCmdToMe(send2,send2->size());
+						refreshGraceExploitDisplay();
 						//又不要加荣誉值了,nb策划
 						//this->charbase.honor += send.dwValue/5;
 						//this->charbase.maxhonor += send.dwValue/5;
@@ -187,13 +185,7 @@ bool SceneUser::doCountryCmd(const Cmd::stCountryUserCmd *rev,unsigned int cmdLe
 						{
 							this->charbase.exploit = this->charbase.exploit + 
 								((send.dwValue*2) * exploit_arg);
-							/*Cmd::stMainUserDataUserCmd send1;
-							  this->full_t_MainUserData(send1.data);
-							  this->sendCmdToMe(&send1, sizeof(send1));*/
-
-							BUFFER_CMD(Cmd::stAddUserAndPosMapScreenStateUserCmd ,send2 , zSocket::MAX_USERDATASIZE);
-							this->full_t_MapUserDataPosState(send2->data);
-							sendCmdToMe(send2,send2->size());
+							refreshGraceExploitDisplay();
 						}
 
 						send.dwCountry = this->charbase.country;
@@ -256,6 +248,7 @@ bool SceneUser::doCountryCmd(const Cmd::stCountryUserCmd *rev,unsigned int cmdLe
 				// 清除功勋和文采值
 				this->charbase.grace = 0;
 				this->charbase.exploit = 0;
+				refreshGraceExploitDisplay();
 				this->save(Cmd::Record::OPERATION_WRITEBACK);
 				Cmd::Session::t_changeCountry_SceneSession send;
 
@@ -390,6 +383,7 @@ bool SceneUser::doCountryCmd(const Cmd::stCountryUserCmd *rev,unsigned int cmdLe
 					// 清除功勋和文采值
 					this->charbase.grace = 0;
 					this->charbase.exploit = 0;
+					refreshGraceExploitDisplay();
 					this->save(Cmd::Record::OPERATION_WRITEBACK);
 					Cmd::Session::t_changeCountry_SceneSession send;
 
@@ -480,6 +474,7 @@ bool SceneUser::doCountryCmd(const Cmd::stCountryUserCmd *rev,unsigned int cmdLe
 					// 清除功勋和文采值
 					this->charbase.grace = 0;
 					this->charbase.exploit = 0;
+					refreshGraceExploitDisplay();
 					this->save(Cmd::Record::OPERATION_WRITEBACK);
 					Cmd::Session::t_changeCountry_SceneSession send;
 

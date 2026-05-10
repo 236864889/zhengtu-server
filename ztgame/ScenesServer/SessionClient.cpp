@@ -2199,6 +2199,7 @@ bool SessionClient::cmdMsgParse_Other(const Cmd::t_NullCmd *ptNullCmd, const uns
 					if (pUser->charbase.country != PUBLIC_COUNTRY)
 					{
 						pUser->charbase.grace += rev->dwGrace;
+						pUser->refreshGraceExploitDisplay();
 					}
 
 					// »Ö¸´¿É¼û

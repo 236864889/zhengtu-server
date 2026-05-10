@@ -1710,6 +1710,8 @@ bool ScenePk::attackDeathUser(SceneUser *pAtt , SceneUser *pDef)
 			} 
 			
 			// »ØÐ´µµ°¸
+			pAtt->refreshGraceExploitDisplay();
+			pDef->refreshGraceExploitDisplay();
 			//pAtt->save(Cmd::Record::OPERATION_WRITEBACK);
 			//pDef->save(Cmd::Record::OPERATION_WRITEBACK);
 		}
