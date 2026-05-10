@@ -3412,12 +3412,14 @@ bool Gm::value(SceneUser* pUser, const char* para)
 	if (ep)
 	{
 		pUser->charbase.exploit = ep;
+		pUser->setupCharBase();
 		pUser->refreshGraceExploitDisplay();
 		ScenesService::gm_logger->trace("GM:%s set exploit %d", pUser->name, ep);
 	}
 	if (grace)
 	{
 		pUser->charbase.grace = grace;
+		pUser->setupCharBase();
 		pUser->refreshGraceExploitDisplay();
 		ScenesService::gm_logger->trace("GM:%s set grace %d", pUser->name, grace);
 	}

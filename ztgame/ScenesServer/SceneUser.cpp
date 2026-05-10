@@ -596,6 +596,103 @@ first = true;
 }
 }*/
 
+
+
+namespace
+{
+	// TEST ONLY: ztgame/ScenesServer has no Civilian.tbl manager found yet.
+	// TODO: replace this fallback with the old Civilian.tbl table manager when it is located or ported.
+	const DWORD CIVILIAN_OFFICIAL_VALUES[] =
+	{
+		500, 1000, 2000, 4000, 6000, 8000, 10000, 20000, 30000, 40000,
+		50000, 60000, 70000, 80000, 90000, 100000, 110000, 120000,
+		130000, 150000
+	};
+
+	// TEST ONLY: ztgame/ScenesServer has no Knight.tbl manager found yet.
+	// TODO: replace this fallback with the old Knight.tbl table manager when it is located or ported.
+	// Client display code divides exploit by exploit_arg before matching Knight.tbl values.
+	const DWORD KNIGHT_OFFICIAL_VALUES[] =
+	{
+		1000, 3000, 7000, 14000, 25000, 40000, 62000, 90000, 125000,
+		165000, 215000, 275000, 345000, 425000, 515000, 615000, 730000,
+		855000, 1000000
+	};
+
+	DWORD getOfficialRankByValue(DWORD value, const DWORD *values, DWORD count)
+	{
+		DWORD rank = 0;
+		for (DWORD i = 0; i < count; ++i)
+		{
+			if (value < values[i])
+			{
+				return rank;
+			}
+			rank = i + 1;
+		}
+		return rank;
+	}
+
+	uint64_t addBasisPointBonus(uint64_t value, DWORD basisPoint)
+	{
+		return value + value * basisPoint / 10000;
+	}
+
+	DWORD addBasisPointBonus(DWORD value, DWORD basisPoint)
+	{
+		uint64_t result = static_cast<uint64_t>(value) + static_cast<uint64_t>(value) * basisPoint / 10000;
+		return result > 0xFFFFFFFFULL ? 0xFFFFFFFF : static_cast<DWORD>(result);
+	}
+
+	WORD addBasisPointBonus(WORD value, DWORD basisPoint)
+	{
+		DWORD result = static_cast<DWORD>(value) + static_cast<DWORD>(value) * basisPoint / 10000;
+		return result > 0xFFFF ? 0xFFFF : static_cast<WORD>(result);
+	}
+}
+
+DWORD SceneUser::getCivilOfficialRank() const
+{
+	return getOfficialRankByValue(charbase.grace, CIVILIAN_OFFICIAL_VALUES, sizeof(CIVILIAN_OFFICIAL_VALUES) / sizeof(CIVILIAN_OFFICIAL_VALUES[0]));
+}
+
+DWORD SceneUser::getMilitaryOfficialRank() const
+{
+	return getOfficialRankByValue(charbase.exploit / exploit_arg, KNIGHT_OFFICIAL_VALUES, sizeof(KNIGHT_OFFICIAL_VALUES) / sizeof(KNIGHT_OFFICIAL_VALUES[0]));
+}
+
+DWORD SceneUser::getCivilSealLevel() const
+{
+	return (getCivilOfficialRank() + 1) / 2;
+}
+
+DWORD SceneUser::getMilitarySealLevel() const
+{
+	return (getMilitaryOfficialRank() + 1) / 2;
+}
+
+void SceneUser::applyOfficialSealBaseBonus()
+{
+	const DWORD civilSealLevel = getCivilSealLevel();
+	if (civilSealLevel)
+	{
+		charstate.maxhp = addBasisPointBonus(charstate.maxhp, civilSealLevel * 100);
+		charstate.pdefence = addBasisPointBonus(charstate.pdefence, civilSealLevel * 50);
+		charstate.mdefence = addBasisPointBonus(charstate.mdefence, civilSealLevel * 50);
+		charstate.resumehp = addBasisPointBonus(charstate.resumehp, civilSealLevel * 50);
+	}
+
+	const DWORD militarySealLevel = getMilitarySealLevel();
+	if (militarySealLevel)
+	{
+		charstate.pdamage = addBasisPointBonus(charstate.pdamage, militarySealLevel * 50);
+		charstate.maxpdamage = addBasisPointBonus(charstate.maxpdamage, militarySealLevel * 50);
+		charstate.mdamage = addBasisPointBonus(charstate.mdamage, militarySealLevel * 50);
+		charstate.maxmdamage = addBasisPointBonus(charstate.maxmdamage, militarySealLevel * 50);
+		charstate.bang = addBasisPointBonus(charstate.bang, militarySealLevel * 30);
+	}
+}
+
 void SceneUser::calReliveWeaknessProperty(bool enter)
 {
 #ifdef _ZJW_DEBUG
@@ -3656,6 +3753,7 @@ void SceneUser::setupCharBase(bool lock)
 
 	applyFiveElementCharBonus(charstate, charbase.fivetype, charbase.fivelevel);
 	applyTeamFiveElementBonus(charstate, this->team.getFiveElementPlus());
+	applyOfficialSealBaseBonus();
 
 
 	

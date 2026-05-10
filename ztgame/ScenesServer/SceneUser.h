@@ -586,6 +586,11 @@ struct SceneUser:public SceneEntryPk
 		void finishSeptGuard();
 
 		void setupCharBase(bool lock=true);
+		DWORD getCivilOfficialRank() const;
+		DWORD getMilitaryOfficialRank() const;
+		DWORD getCivilSealLevel() const;
+		DWORD getMilitarySealLevel() const;
+		void applyOfficialSealBaseBonus();
 		bool upgrade(QWORD num = 0);
 		void setStateToNine(WORD state);
 		void clearStateToNine(WORD state);
