@@ -3411,16 +3411,22 @@ bool Gm::value(SceneUser* pUser, const char* para)
 
 	if (ep)
 	{
+		DWORD oldCivilSeal = pUser->getCivilSealLevel();
+		DWORD oldMilitarySeal = pUser->getMilitarySealLevel();
+
 		pUser->charbase.exploit = ep;
-		pUser->setupCharBase();
-		pUser->refreshGraceExploitDisplay();
+
+		pUser->onOfficialValueChanged(oldCivilSeal, oldMilitarySeal);
 		ScenesService::gm_logger->trace("GM:%s set exploit %d", pUser->name, ep);
 	}
 	if (grace)
 	{
+		DWORD oldCivilSeal = pUser->getCivilSealLevel();
+		DWORD oldMilitarySeal = pUser->getMilitarySealLevel();
+
 		pUser->charbase.grace = grace;
-		pUser->setupCharBase();
-		pUser->refreshGraceExploitDisplay();
+
+		pUser->onOfficialValueChanged(oldCivilSeal, oldMilitarySeal);
 		ScenesService::gm_logger->trace("GM:%s set grace %d", pUser->name, grace);
 	}
 	if (honor)

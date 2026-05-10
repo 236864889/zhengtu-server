@@ -671,6 +671,19 @@ DWORD SceneUser::getMilitarySealLevel() const
 	return (getMilitaryOfficialRank() + 1) / 2;
 }
 
+void SceneUser::onOfficialValueChanged(DWORD oldCivilSeal, DWORD oldMilitarySeal)
+{
+	DWORD newCivilSeal = getCivilSealLevel();
+	DWORD newMilitarySeal = getMilitarySealLevel();
+
+	if (oldCivilSeal != newCivilSeal || oldMilitarySeal != newMilitarySeal)
+	{
+		setupCharBase();
+	}
+
+	refreshGraceExploitDisplay();
+}
+
 void SceneUser::applyOfficialSealBaseBonus()
 {
 	const DWORD civilSealLevel = getCivilSealLevel();
@@ -12264,13 +12277,9 @@ void SceneUser::full_t_MapUserData(Cmd::t_MapUserData &data)
 
 void SceneUser::refreshGraceExploitDisplay()
 {
-    Cmd::stMainUserDataUserCmd userinfo;
-    full_t_MainUserData(userinfo.data);
-    sendCmdToMe(&userinfo, sizeof(userinfo));
-
-    Cmd::stAddUserMapScreenUserCmd update;
-    full_t_MapUserData(update.data);
-    sendCmdToMe(&update, sizeof(update));
+	Cmd::stMainUserDataUserCmd userinfo;
+	full_t_MainUserData(userinfo.data);
+	sendCmdToMe(&userinfo, sizeof(userinfo));
 }
 /**
  * \brief ÃÓ≥‰t_MapUserDataPos√¸¡Ó

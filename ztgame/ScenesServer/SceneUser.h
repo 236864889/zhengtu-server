@@ -590,6 +590,7 @@ struct SceneUser:public SceneEntryPk
 		DWORD getMilitaryOfficialRank() const;
 		DWORD getCivilSealLevel() const;
 		DWORD getMilitarySealLevel() const;
+		void onOfficialValueChanged(DWORD oldCivilSeal, DWORD oldMilitarySeal);
 		void applyOfficialSealBaseBonus();
 		bool upgrade(QWORD num = 0);
 		void setStateToNine(WORD state);
