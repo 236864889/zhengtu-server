@@ -98,6 +98,131 @@ const char* GetPropTxt(byte nButtonId)
 
 
 
+
+namespace
+{
+	const DWORD OFFICIAL_CIVILIAN_VALUES[] =
+	{
+		500, 1000, 2000, 4000, 6000, 8000, 10000, 20000, 30000, 40000,
+		50000, 60000, 70000, 80000, 90000, 100000, 110000, 120000,
+		130000, 150000
+	};
+
+	const DWORD OFFICIAL_KNIGHT_VALUES[] =
+	{
+		1000, 3000, 7000, 14000, 25000, 40000, 62000, 90000, 125000,
+		165000, 215000, 275000, 345000, 425000, 515000, 615000, 730000,
+		855000, 1000000
+	};
+
+	DWORD GetOfficialRankByValue(DWORD value, const DWORD *values, DWORD count)
+	{
+		DWORD rank = 0;
+		for (DWORD i = 0; i < count; ++i)
+		{
+			if (value < values[i])
+			{
+				return rank;
+			}
+			rank = i + 1;
+		}
+		return rank;
+	}
+
+	DWORD GetOfficialSealEffectRateBP(int diff, bool civil)
+	{
+		int gap = diff >= 0 ? diff : -diff;
+		if (gap <= 2) return 10000;
+
+		if (civil)
+		{
+			if (diff <= -10) return 11500;
+			if (diff <= -6) return 11000;
+			if (diff <= -3) return 10500;
+
+			if (diff >= 10) return 7000;
+			if (diff >= 6) return 8000;
+			if (diff >= 3) return 9000;
+		}
+		else
+		{
+			if (diff >= 10) return 11500;
+			if (diff >= 6) return 11000;
+			if (diff >= 3) return 10500;
+
+			if (diff <= -10) return 7000;
+			if (diff <= -6) return 8000;
+			if (diff <= -3) return 9000;
+		}
+
+		return 10000;
+	}
+
+	const char *GetOfficialSealStatusName(int diff)
+	{
+		if (diff <= -3) return "\306\253\316\304";
+		if (diff >= 3) return "\306\253\316\344";
+		return "\276\371\272\342";
+	}
+
+	void FormatOfficialSealPercent(char *buffer, DWORD basisPoint)
+	{
+		DWORD tenths = (basisPoint + 5) / 10;
+		sprintf(buffer, "%u.%u", tenths / 10, tenths % 10);
+	}
+
+	void AddOfficialSealToolTip(CToolTips &toolTips, DWORD grace, DWORD exploit)
+	{
+		DWORD civilRank = GetOfficialRankByValue(grace, OFFICIAL_CIVILIAN_VALUES,
+			sizeof(OFFICIAL_CIVILIAN_VALUES) / sizeof(OFFICIAL_CIVILIAN_VALUES[0]));
+		DWORD militaryRank = GetOfficialRankByValue(exploit, OFFICIAL_KNIGHT_VALUES,
+			sizeof(OFFICIAL_KNIGHT_VALUES) / sizeof(OFFICIAL_KNIGHT_VALUES[0]));
+		DWORD civilSeal = (civilRank + 1) / 2;
+		DWORD militarySeal = (militaryRank + 1) / 2;
+		int diff = (int)militarySeal - (int)civilSeal;
+		DWORD civilRate = GetOfficialSealEffectRateBP(diff, true);
+		DWORD militaryRate = GetOfficialSealEffectRateBP(diff, false);
+
+		DWORD hpBP = civilSeal * 100 * civilRate / 10000;
+		DWORD defBP = civilSeal * 50 * civilRate / 10000;
+		DWORD resumeBP = civilSeal * 50 * civilRate / 10000;
+		DWORD expBP = civilSeal * 50 * civilRate / 10000;
+		if (expBP > 1000) expBP = 1000;
+
+		DWORD attackBP = militarySeal * 50 * militaryRate / 10000;
+		DWORD bangPoint = militarySeal * militaryRate / 10000;
+		if (militarySeal > 0 && bangPoint == 0) bangPoint = 1;
+		DWORD dropBP = militarySeal * 30 * militaryRate / 10000;
+		if (dropBP > 600) dropBP = 600;
+		DWORD pveReduceBP = militarySeal * 20 * militaryRate / 10000;
+		if (pveReduceBP > 400) pveReduceBP = 400;
+
+		char hp[16], def[16], resume[16], exp[16];
+		char attack[16], drop[16], pveReduce[16];
+		FormatOfficialSealPercent(hp, hpBP);
+		FormatOfficialSealPercent(def, defBP);
+		FormatOfficialSealPercent(resume, resumeBP);
+		FormatOfficialSealPercent(exp, expBP);
+		FormatOfficialSealPercent(attack, attackBP);
+		FormatOfficialSealPercent(drop, dropBP);
+		FormatOfficialSealPercent(pveReduce, pveReduceBP);
+
+		toolTips.AddText(avar("\241\276\316\304\271\331\241\277%u\275\327\n", civilSeal));
+		toolTips.AddText(avar("\311\372\303\374+%s%% \267\300\323\371+%s%% \273\330\270\264+%s%% \276\255\321\351+%s%%\n\n", hp, def, resume, exp));
+		toolTips.AddText(avar("\241\276\316\344\271\331\241\277%u\275\327\n", militarySeal));
+		toolTips.AddText(avar("\271\245\273\367+%s%% \326\330\273\367+%u \271\326\316\357\261\254\302\312+%s%% PVE\274\365\311\313+%s%%\n\n", attack, bangPoint, drop, pveReduce));
+		toolTips.AddText(avar("\241\276\316\304\316\344\327\264\314\254\241\277%s\n", GetOfficialSealStatusName(diff)));
+		if (diff <= -3)
+			toolTips.AddText("\306\253\316\304\243\272\316\304\271\331\312\325\322\346\314\341\270\337\243\254\316\344\271\331\312\325\322\346\275\265\265\315\n");
+		else if (diff >= 3)
+			toolTips.AddText("\306\253\316\344\243\272\316\344\271\331\312\325\322\346\314\341\270\337\243\254\316\304\271\331\312\325\322\346\275\265\265\315\n");
+		else
+			toolTips.AddText("\276\371\272\342\243\272\316\304\271\331\241\242\316\344\271\331\312\325\322\346\276\371\316\252100%\n\n");
+		toolTips.AddText("\241\276PVP\241\277\316\304\277\313\316\344\261\254\267\242\243\254\316\344\277\313\316\304\267\300\323\371");
+	}
+}
+
+
 /**
  * \brief 简短描述
  * 
@@ -1176,6 +1301,41 @@ void CGuiUserInfo::TipsRender()
 	stPointI pt(Engine_GetCursor()->GetPosition());
 	pt -= GetLocation();
 
+	bool bHasOfficialInfoTip = false;
+	for (int n=0;n<m_titleList.size();n++)
+	{
+		if (m_titleList[n].index!=m_pTab->GetCurItem())
+			continue;
+
+		switch(m_titleList[n].key)
+		{
+		case 120:
+		case 220:
+		case 121:
+		case 221:
+			bHasOfficialInfoTip = true;
+			break;
+		}
+	}
+
+	if (bHasOfficialInfoTip)
+	{
+		stRectI officialNameRect(118,235,248,277);
+		if (officialNameRect.PtInRect(pt))
+		{
+			m_ToolTips.Clear();
+			m_ToolTips.SetBorderColor(0);
+			m_ToolTips.SetBkColor(COLOR_ARGB(128,0,0,0));
+			m_ToolTips.SetCurColor(COLOR_ARGB(255,255,255,255));
+			AddOfficialSealToolTip(m_ToolTips, m_UserData.pMapUserData->grace,
+				m_UserData.pMapUserData->exploit);
+			m_ToolTips.Resize();
+			officialNameRect.OffsetRect(GetX(),GetY());
+			m_ToolTips.RenderTopLeftPrefer(officialNameRect,GetDevice()->GetWidth(),GetDevice()->GetHeight());
+			return;
+		}
+	}
+
 	for (int i=0;i<m_titleList.size();i++)
 	{
 		if (m_titleList[i].index!=m_pTab->GetCurItem())
@@ -1261,11 +1421,11 @@ void CGuiUserInfo::TipsRender()
 					break;
 				case 120:
 				case 220:
-					m_ToolTips.AddText("国家评定人物官位的标准值");
+					m_ToolTips.AddText("\271\372\274\322\306\300\266\250\310\313\316\357\271\331\316\273\265\304\261\352\327\274\326\265");
 					break;
 				case 121:
 				case 221:
-					m_ToolTips.AddText("可影响人物称号的值");
+					m_ToolTips.AddText("\277\311\323\260\317\354\310\313\316\357\263\306\272\305\265\304\326\265");
 					break;
 				case 122:
 				case 222:
