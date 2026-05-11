@@ -20,6 +20,8 @@ class fjconfig
 		DWORD	pDef;		// 物品类别
 		DWORD	mDef;		// 物品类别
 		DWORD	hp;		// 物品类别
+			DWORD	qiegeattack;		// PVE qiege attack
+			DWORD	qiegedefence;		// PVE qiege defence
 		};
 		struct	ZTZ
 		{
@@ -33,6 +35,8 @@ class fjconfig
 		DWORD	pDef;		// 物品类别
 		DWORD	mDef;		// 物品类别
 		DWORD	hp;		// 物品类别
+			DWORD	qiegeattack;		// PVE qiege attack
+			DWORD	qiegedefence;		// PVE qiege defence
 		};
 		struct	SHENGXIAO
 		{
@@ -46,6 +50,8 @@ class fjconfig
 		DWORD	pDef;		// 物品类别
 		DWORD	mDef;		// 物品类别
 		DWORD	hp;		// 物品类别
+			DWORD	qiegeattack;		// PVE qiege attack
+			DWORD	qiegedefence;		// PVE qiege defence
 		};
 		struct	SHENGQI
 		{
@@ -59,6 +65,8 @@ class fjconfig
 		DWORD	pDef;		// 物品类别
 		DWORD	mDef;		// 物品类别
 		DWORD	hp;		// 物品类别
+			DWORD	qiegeattack;		// PVE qiege attack
+			DWORD	qiegedefence;		// PVE qiege defence
 		};
 		struct	JINGMAI
 		{
@@ -72,6 +80,8 @@ class fjconfig
 		DWORD	pDef;		// 物品类别
 		DWORD	mDef;		// 物品类别
 		DWORD	hp;		// 物品类别
+			DWORD	qiegeattack;		// PVE qiege attack
+			DWORD	qiegedefence;		// PVE qiege defence
 		};
 		struct	TOUXIAN //头衔
 		{

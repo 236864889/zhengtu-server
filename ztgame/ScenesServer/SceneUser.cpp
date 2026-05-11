@@ -2682,6 +2682,8 @@ void SceneUser::setupCharBase(bool lock)
 				uint64_t pDef=0;
 				uint64_t mDef=0;
 				uint64_t hp=0;
+				uint64_t qiegeattack=0;
+				uint64_t qiegedefence=0;
 				if(charbase.jian1>0)
 				{
 					for(DWORD i=0;i<charbase.jian1;i++)
@@ -2691,6 +2693,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().fjlist[i].pDef;
 						mDef += fjconfig::getInstance().fjlist[i].mDef;
 						hp += fjconfig::getInstance().fjlist[i].hp;
+						qiegeattack += fjconfig::getInstance().fjlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().fjlist[i].qiegedefence;
 					}
 					
 				}
@@ -2703,6 +2707,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().fjlist[i].pDef;
 						mDef += fjconfig::getInstance().fjlist[i].mDef;
 						hp += fjconfig::getInstance().fjlist[i].hp;
+						qiegeattack += fjconfig::getInstance().fjlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().fjlist[i].qiegedefence;
 					}
 					
 				}
@@ -2715,6 +2721,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().fjlist[i].pDef;
 						mDef += fjconfig::getInstance().fjlist[i].mDef;
 						hp += fjconfig::getInstance().fjlist[i].hp;
+						qiegeattack += fjconfig::getInstance().fjlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().fjlist[i].qiegedefence;
 					}
 					
 				}
@@ -2727,6 +2735,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().fjlist[i].pDef;
 						mDef += fjconfig::getInstance().fjlist[i].mDef;
 						hp += fjconfig::getInstance().fjlist[i].hp;
+						qiegeattack += fjconfig::getInstance().fjlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().fjlist[i].qiegedefence;
 					}
 					
 				}
@@ -2739,6 +2749,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().fjlist[i].pDef;
 						mDef += fjconfig::getInstance().fjlist[i].mDef;
 						hp += fjconfig::getInstance().fjlist[i].hp;
+						qiegeattack += fjconfig::getInstance().fjlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().fjlist[i].qiegedefence;
 					}
 					
 				}
@@ -2751,6 +2763,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().fjlist[i].pDef;
 						mDef += fjconfig::getInstance().fjlist[i].mDef;
 						hp += fjconfig::getInstance().fjlist[i].hp;
+						qiegeattack += fjconfig::getInstance().fjlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().fjlist[i].qiegedefence;
 					}
 					
 				}
@@ -2766,6 +2780,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2778,6 +2794,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2790,6 +2808,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2802,6 +2822,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2814,6 +2836,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2826,6 +2850,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2838,6 +2864,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2850,6 +2878,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2862,6 +2892,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2874,6 +2906,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().ztzlist[i].pDef;
 						mDef += fjconfig::getInstance().ztzlist[i].mDef;
 						hp += fjconfig::getInstance().ztzlist[i].hp;
+						qiegeattack += fjconfig::getInstance().ztzlist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().ztzlist[i].qiegedefence;
 					}
 					
 				}
@@ -2888,6 +2922,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx2>0)
@@ -2899,6 +2935,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx3>0)
@@ -2910,6 +2948,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx4>0)
@@ -2921,6 +2961,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx5>0)
@@ -2932,6 +2974,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx6>0)
@@ -2943,6 +2987,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx7>0)
@@ -2954,6 +3000,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx8>0)
@@ -2965,6 +3013,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx9>0)
@@ -2976,6 +3026,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 				if(charbase.shengx10>0)
@@ -2987,6 +3039,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}if(charbase.shengx11>0)
 				{
@@ -2997,6 +3051,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}if(charbase.shengx12>0)
 				{
@@ -3007,6 +3063,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengxiaolist[i].pDef;
 						mDef += fjconfig::getInstance().shengxiaolist[i].mDef;
 						hp += fjconfig::getInstance().shengxiaolist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengxiaolist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengxiaolist[i].qiegedefence;
 					}			
 				}
 
@@ -3020,6 +3078,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().shengqilist[i].pDef;
 						mDef += fjconfig::getInstance().shengqilist[i].mDef;
 						hp += fjconfig::getInstance().shengqilist[i].hp;
+						qiegeattack += fjconfig::getInstance().shengqilist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().shengqilist[i].qiegedefence;
 					}			
 				}
 
@@ -3033,6 +3093,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().jingmailist[i].pDef;
 						mDef += fjconfig::getInstance().jingmailist[i].mDef;
 						hp += fjconfig::getInstance().jingmailist[i].hp;
+						qiegeattack += fjconfig::getInstance().jingmailist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().jingmailist[i].qiegedefence;
 					}			
 				}
 				if(charbase.jingm2>0)
@@ -3044,6 +3106,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().jingmailist[i].pDef;
 						mDef += fjconfig::getInstance().jingmailist[i].mDef;
 						hp += fjconfig::getInstance().jingmailist[i].hp;
+						qiegeattack += fjconfig::getInstance().jingmailist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().jingmailist[i].qiegedefence;
 					}			
 				}
 				if(charbase.jingm3>0)
@@ -3055,6 +3119,8 @@ void SceneUser::setupCharBase(bool lock)
 						pDef += fjconfig::getInstance().jingmailist[i].pDef;
 						mDef += fjconfig::getInstance().jingmailist[i].mDef;
 						hp += fjconfig::getInstance().jingmailist[i].hp;
+						qiegeattack += fjconfig::getInstance().jingmailist[i].qiegeattack;
+						qiegedefence += fjconfig::getInstance().jingmailist[i].qiegedefence;
 					}			
 				}
 
@@ -3161,6 +3227,8 @@ void SceneUser::setupCharBase(bool lock)
 				charstate.pdefence += pDef;          //Îï·À
 				charstate.mdefence += mDef;          //Ä§·À
 				charstate.maxhp += hp;
+				charstate.qiegeattack += qiegeattack;
+				charstate.qiegedefence += qiegedefence;
 
 
 

@@ -80,6 +80,42 @@ namespace
 		const long double adjustedValue = (long double)damage * (long double)rateBase / 100.0L;
 		return adjustedValue > 0.0L ? (uint64_t)adjustedValue : 0;
 	}
+
+	static DWORD getNpcSlashDamageRate(SceneNpc *npc)
+	{
+		if (NULL == npc || NULL == npc->npc)
+			return 0;
+
+		if (npc->getPetType() != Cmd::PET_TYPE_NOTPET)
+			return 0;
+
+		switch (npc->npc->kind)
+		{
+			case NPC_TYPE_HUMAN:
+			case NPC_TYPE_NORMAL:
+			case NPC_TYPE_BACKBONEBUG:
+			case NPC_TYPE_AGGRANDIZEMENT:
+			case NPC_TYPE_ABERRANCE:
+				return 100;
+
+			case NPC_TYPE_BACKBONE:
+			case NPC_TYPE_GOLD:
+			case NPC_TYPE_DUCKHIT:
+			case NPC_TYPE_RESOURCE:
+				return 50;
+
+			case NPC_TYPE_BBOSS:
+			case NPC_TYPE_LBOSS:
+			case NPC_TYPE_PBOSS:
+			case NPC_TYPE_REDBOSS:
+				return 30;
+
+			default:
+				break;
+		}
+
+		return 0;
+	}
 }
 
 
@@ -1010,7 +1046,7 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 				this->attackRTHpAndMp();
 				
 				//by=>friday ¾ø¼¼ÉËº¦¼ÆËãºÍ´¦Àí (PVP)
-				if (this->getType() == zSceneEntry::SceneEntry_Player && pAtt->getType() == zSceneEntry::SceneEntry_Player)
+				if (hpAfter > 0 && this->getType() == zSceneEntry::SceneEntry_Player && pAtt->getType() == zSceneEntry::SceneEntry_Player)
 				{
 					SceneUser* attacker = (SceneUser*)pAtt;
 					SceneUser* defender = (SceneUser*)this;
@@ -1036,40 +1072,54 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 						// 	attacker->name, defender->name, ultimateDamage, juejiattack, juejidefence, hpBeforeUltimate, hpAfterUltimate);
 						
 								//by=>friday ·¢ËÍ¾ø¼¼ÉËº¦Êý¾Ýµ½¿Í»§¶Ë£¬Ê¹ÓÃDAMAGE_TYPE_ULTIMATE±êÊ¶¾ø¼¼ÉËº¦
-						ScenePk::attackRTCmdToNine(rev, pAtt, this, ultimateHP, Cmd::DAMAGE_TYPE_ULTIMATE);
-						defender->attackRTHpAndMp();
+						if (ultimateHP > 0)
+						{
+							ScenePk::attackRTCmdToNine(rev, pAtt, this, ultimateHP, Cmd::DAMAGE_TYPE_ULTIMATE);
+							defender->attackRTHpAndMp();
+						}
 					}
 				}
 				
 				//by=>friday ÇÐ¸îÉËº¦¼ÆËãºÍ´¦Àí (PVE)
-				if (this->getType() == zSceneEntry::SceneEntry_NPC && pAtt->getType() == zSceneEntry::SceneEntry_Player)
+				if (hpAfter > 0 && this->getType() == zSceneEntry::SceneEntry_NPC && pAtt->getType() == zSceneEntry::SceneEntry_Player)
 				{
 					SceneUser* attacker = (SceneUser*)pAtt;
 					SceneNpc* defender = (SceneNpc*)this;
+					DWORD slashRate = getNpcSlashDamageRate(defender);
 					
-					//by=>friday ¼ÆËãÇÐ¸îÉËº¦£º¹¥»÷ÕßµÄÇÐ¸î¹¥»÷ - ·ÀÓùÕßµÄÇÐ¸î·ÀÓù(NPCÔÝÊ±Ã»ÓÐÇÐ¸î·ÀÓù£¬ÉèÎª0)
-					uint64_t qiegeattack = attacker->charstate.qiegeattack;
-					uint64_t qiegedefence = 0; //by=>friday NPCÔÝÊ±Ã»ÓÐÇÐ¸î·ÀÓùÊôÐÔ
-					
-					if (qiegeattack > qiegedefence)
+					if (slashRate > 0)
 					{
-						uint64_t slashDamage = qiegeattack - qiegedefence;
+						//by=>friday ¼ÆËãÇÐ¸îÉËº¦£º¹¥»÷ÕßµÄÇÐ¸î¹¥»÷ - ·ÀÓùÕßµÄÇÐ¸î·ÀÓù(NPCÔÝÊ±Ã»ÓÐÇÐ¸î·ÀÓù£¬ÉèÎª0)
+						uint64_t qiegeattack = attacker->charstate.qiegeattack;
+						uint64_t qiegedefence = 0; //by=>friday NPCÔÝÊ±Ã»ÓÐÇÐ¸î·ÀÓùÊôÐÔ
 						
-						//by=>friday ¼ÇÂ¼ÇÐ¸îÉËº¦Ç°µÄÑªÁ¿
-						uint64_t hpBeforeSlash = defender->hp;
-						
-						//by=>friday Ôì³ÉÇÐ¸îÉËº¦
-						uint64_t slashHP = defender->directDamage(pAtt, slashDamage);
-						
-						//by=>friday ¼ÇÂ¼ÇÐ¸îÉËº¦ºóµÄÑªÁ¿
-						uint64_t hpAfterSlash = defender->hp;
-						
-						Zebra::logger->info("[ÇÐ¸îÉËº¦] %s ¶Ô %s Ôì³ÉÇÐ¸îÉËº¦:%llu (ÇÐ¸î¹¥»÷:%llu - ÇÐ¸î·ÀÓù:%llu), HP±ä»¯:%llu -> %llu", 
-							attacker->name, defender->name, slashDamage, qiegeattack, qiegedefence, hpBeforeSlash, hpAfterSlash);
-						
-						//by=>friday ·¢ËÍÇÐ¸îÉËº¦Êý¾Ýµ½¿Í»§¶Ë£¬Ê¹ÓÃDAMAGE_TYPE_SLASH±êÊ¶ÇÐ¸îÉËº¦
-						ScenePk::attackRTCmdToNine(rev, pAtt, this, slashHP, Cmd::DAMAGE_TYPE_SLASH);
-						defender->attackRTHpAndMp();
+						if (qiegeattack > qiegedefence)
+						{
+							uint64_t slashDamage = qiegeattack - qiegedefence;
+							slashDamage = slashDamage * slashRate / 100;
+							
+							if (slashDamage > 0)
+							{
+								//by=>friday ¼ÇÂ¼ÇÐ¸îÉËº¦Ç°µÄÑªÁ¿
+								uint64_t hpBeforeSlash = defender->hp;
+								
+								//by=>friday Ôì³ÉÇÐ¸îÉËº¦
+								uint64_t slashHP = defender->directDamage(pAtt, slashDamage);
+								
+								//by=>friday ¼ÇÂ¼ÇÐ¸îÉËº¦ºóµÄÑªÁ¿
+								uint64_t hpAfterSlash = defender->hp;
+								
+								Zebra::logger->info("[ÇÐ¸îÉËº¦] %s ¶Ô %s Ôì³ÉÇÐ¸îÉËº¦:%llu (ÇÐ¸î¹¥»÷:%llu - ÇÐ¸î·ÀÓù:%llu, ÉúÐ§ÂÊ:%u), HP±ä»¯:%llu -> %llu", 
+									attacker->name, defender->name, slashDamage, qiegeattack, qiegedefence, slashRate, hpBeforeSlash, hpAfterSlash);
+								
+								//by=>friday ·¢ËÍÇÐ¸îÉËº¦Êý¾Ýµ½¿Í»§¶Ë£¬Ê¹ÓÃDAMAGE_TYPE_SLASH±êÊ¶ÇÐ¸îÉËº¦
+								if (slashHP > 0)
+								{
+									ScenePk::attackRTCmdToNine(rev, pAtt, this, slashHP, Cmd::DAMAGE_TYPE_SLASH);
+									defender->attackRTHpAndMp();
+								}
+							}
+						}
 					}
 				}
 			}

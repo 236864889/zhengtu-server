@@ -55,6 +55,8 @@ bool fjconfig::init()
 						xml.getNodePropNum(point, "pDef", &sj.pDef, sizeof(sj.pDef));
 						xml.getNodePropNum(point, "mDef", &sj.mDef, sizeof(sj.mDef));
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
+						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
+						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
 						fjlist.push_back(sj);
 						point = xml.getNextNode(point,NULL);
 
@@ -112,6 +114,8 @@ bool fjconfig::initztz() //你打眼一瞅 这个方法能看明白在干嘛吗  这是服务端读取xm
 						xml.getNodePropNum(point, "pDef", &sj.pDef, sizeof(sj.pDef));
 						xml.getNodePropNum(point, "mDef", &sj.mDef, sizeof(sj.mDef));
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
+						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
+						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
 						ztzlist.push_back(sj);
 						point = xml.getNextNode(point,NULL);
 
@@ -162,6 +166,8 @@ bool fjconfig::initshengxiao()
 						xml.getNodePropNum(point, "pDef", &sj.pDef, sizeof(sj.pDef));
 						xml.getNodePropNum(point, "mDef", &sj.mDef, sizeof(sj.mDef));
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
+						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
+						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
 						shengxiaolist.push_back(sj);
 						point = xml.getNextNode(point,NULL);
 					}				
@@ -208,6 +214,8 @@ bool fjconfig::initshengqi()
 						xml.getNodePropNum(point, "pDef", &sj.pDef, sizeof(sj.pDef));
 						xml.getNodePropNum(point, "mDef", &sj.mDef, sizeof(sj.mDef));
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
+						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
+						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
 						shengqilist.push_back(sj);
 						point = xml.getNextNode(point,NULL);
 					}				
@@ -254,6 +262,8 @@ bool fjconfig::initjingmai()
 						xml.getNodePropNum(point, "pDef", &sj.pDef, sizeof(sj.pDef));
 						xml.getNodePropNum(point, "mDef", &sj.mDef, sizeof(sj.mDef));
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
+						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
+						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
 						jingmailist.push_back(sj);
 						point = xml.getNextNode(point,NULL);
 					}				

@@ -33392,12 +33392,12 @@ bool RebuildObject::equipCompose33( SceneUser &user,zObjectB *base, const Cmd::I
 	 }
 	 if (upgradeInfo->juejiattack > 0)
 	 {
-		 getter.babyEquip->data.qiegeattack += upgradeInfo->juejiattack;
+		 getter.babyEquip->data.juejiattack += upgradeInfo->juejiattack;
 	 }
-	 // if (upgradeInfo->juejidefence > 0)
-	 // {
-	 //     getter.babyEquip->data.qiegedefence += upgradeInfo->juejidefence;
-	 // }
+	 if (upgradeInfo->juejidefence > 0)
+	 {
+		 getter.babyEquip->data.juejidefence += upgradeInfo->juejidefence;
+	 }
 	 //////////////////////////////////////////////////////////////////////
 	 // 更新装备等级 //by=>friday
 	 getter.babyEquip->data.retain35 = nextLevel;
