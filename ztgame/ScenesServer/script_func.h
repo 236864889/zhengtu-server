@@ -86,7 +86,7 @@ int get_time();
 double diff_time(int, int);
 
 //掉落物品
-void drop_object(SceneNpc* npc, int id,DWORD num=1,int kind=0,int upgrade=0);
+bool drop_object(SceneNpc* npc, int id,DWORD num=1,int kind=0,int upgrade=0);
 //召唤怪物
 void summon_npc(SceneNpc* npc,int npcid);
 //获取身上的装备

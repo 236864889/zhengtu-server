@@ -494,6 +494,7 @@ module (_MODULE)
 		//.def_readwrite("全局变量", &GlobalVars::add_g)
 		.def_readonly("地图", (Scene*SceneUser::*)&SceneUser::scene)
 		//.def("爆物", &drop_object)
+		.def("drop_object", &drop_object)
 		//-----------------------------------------------
 		.def("取家族变量", &get_familyvar)
 		.def("取帮会变量", &get_tongvar)

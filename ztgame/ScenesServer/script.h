@@ -255,7 +255,6 @@ int execute_script_event(SceneUser * user,const char* func, P1& p1, P2& p2, P3& 
 	}
 	else
 		current_user=user;
-	Zebra::logger->debug("%s:%s, %s, %u, %u", __PRETTY_FUNCTION__, func, p1->name, p2, p3);
 	try {
 		LuaVM* vm = ScriptingSystemLua::instance().getVM(0);
 		int ret = luabind::call_function<int>(vm->getLuaState(), func, p1, p2, p3);
@@ -273,6 +272,36 @@ int execute_script_event(SceneUser * user,const char* func, P1& p1, P2& p2, P3& 
 	}
 	
 	return 0;	
+}
+
+
+template<typename P1, typename P2, typename P3, typename P4, typename P5, typename P6>
+int execute_script_event(SceneUser * user,const char* func, P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6)
+{
+	if(user == NULL )
+	{
+		Zebra::logger->error("script current user is null");
+		return 0;
+	}
+	else
+		current_user=user;
+	try {
+		LuaVM* vm = ScriptingSystemLua::instance().getVM(0);
+		if (!vm || !vm->getLuaState()) return 0;
+		int ret = luabind::call_function<int>(vm->getLuaState(), func, p1, p2, p3, p4, p5, p6);
+		return ret;
+	}
+	catch (luabind::error& e)
+	{
+		Zebra::logger->debug("CATCHED Luabind EXCEPTION:%s\n%s", func, e.what());
+		return 0;
+	}
+	catch (const char* msg)
+	{
+		Zebra::logger->debug("CATCHED (...) EXCEPTION:%s\n%s", func, msg);
+		return 0;
+	}
+	return 0;
 }
 
 #endif

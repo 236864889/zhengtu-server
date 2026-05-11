@@ -590,6 +590,17 @@ struct SceneUser:public SceneEntryPk
 		DWORD getMilitaryOfficialRank() const;
 		DWORD getCivilSealLevel() const;
 		DWORD getMilitarySealLevel() const;
+		DWORD getCivilSealEffectRateBP() const;
+		DWORD getMilitarySealEffectRateBP() const;
+		DWORD getOfficialSealExpBonusBP() const;
+		DWORD getOfficialSealDropBonusBP() const;
+		DWORD getOfficialSealPveReduceDamageBP() const;
+		bool isOfficialSealBalanced() const;
+		DWORD getOfficialSealCounterResistBP() const;
+		DWORD getCivilSealPvpDefContributionBP() const;
+		DWORD getMilitarySealPvpAtkContributionBP() const;
+		DWORD calcCivilCounterMilitaryBP(const SceneUser *attacker) const;
+		DWORD calcMilitaryCounterCivilBP(const SceneUser *defender) const;
 		void onOfficialValueChanged(DWORD oldCivilSeal, DWORD oldMilitarySeal);
 		void applyOfficialSealBaseBonus();
 		bool upgrade(QWORD num = 0);

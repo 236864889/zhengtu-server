@@ -59,6 +59,91 @@ namespace
 		pAtt->pkValue.pdamage += static_cast<uint64_t>(
 			(long double)pAtt->pkValue.pdamage * (long double)rate / 100.0L);
 	}
+
+	uint64_t applyOfficialSealPvpAttackCounter(uint64_t damage, SceneUser *pAtt, SceneUser *pDef)
+	{
+		if (damage == 0) return 0;
+		if (!pAtt || !pDef) return damage;
+
+		DWORD civilCounterBP = pDef->calcCivilCounterMilitaryBP(pAtt);
+		if (civilCounterBP == 0) return damage;
+
+		DWORD atkContributionBP = pAtt->getMilitarySealPvpAtkContributionBP();
+		DWORD reduceBP = atkContributionBP * civilCounterBP / 10000;
+		if (reduceBP > 10000) reduceBP = 10000;
+
+		return damage * (10000 - reduceBP) / 10000;
+	}
+
+	uint64_t applyOfficialSealPvpDefenceCounter(uint64_t defence, SceneUser *pAtt, SceneUser *pDef)
+	{
+		if (defence == 0) return 0;
+		if (!pAtt || !pDef) return defence;
+
+		DWORD militaryCounterBP = pAtt->calcMilitaryCounterCivilBP(pDef);
+		if (militaryCounterBP == 0) return defence;
+
+		DWORD defContributionBP = pDef->getCivilSealPvpDefContributionBP();
+		DWORD reduceBP = defContributionBP * militaryCounterBP / 10000;
+		if (reduceBP > 10000) reduceBP = 10000;
+
+		return defence * (10000 - reduceBP) / 10000;
+	}
+
+	DWORD getOfficialSealPvpAdjustedBang(SceneUser *pAtt, SceneUser *pDef)
+	{
+		if (!pAtt) return 0;
+
+		DWORD bang = pAtt->charstate.bang;
+		if (!pDef || bang == 0) return bang;
+
+		DWORD counterBP = pDef->calcCivilCounterMilitaryBP(pAtt);
+		if (counterBP == 0) return bang;
+
+		DWORD militarySealLevel = pAtt->getMilitarySealLevel();
+		DWORD officialBang = militarySealLevel * pAtt->getMilitarySealEffectRateBP() / 10000;
+		if (officialBang == 0) return bang;
+
+		DWORD reduceBang = officialBang * counterBP / 10000;
+		if (reduceBang >= bang) return 0;
+
+		return bang - reduceBang;
+	}
+
+	bool checkOfficialSealPvpHolyP(SceneUser *pAtt, SceneUser *pDef, uint64_t &pdamage)
+	{
+		if (!pAtt) return false;
+
+		DWORD bang = getOfficialSealPvpAdjustedBang(pAtt, pDef);
+		if (zMisc::selectByPercent(bang))
+		{
+			pdamage = (uint64_t)(pdamage * 1.5f);
+			pAtt->isPhysicBang = true;
+			return true;
+		}
+
+		return false;
+	}
+
+	bool checkOfficialSealPvpHolyM(SceneUser *pAtt, SceneUser *pDef, uint64_t &mdamage)
+	{
+		if (!pAtt) return false;
+
+		DWORD bang = getOfficialSealPvpAdjustedBang(pAtt, pDef);
+		if (pAtt->getFiveType() == FIVE_WATER)
+		{
+			bang = addPercentPoint((WORD)bang, getFiveCombatBonusRate(pAtt));
+		}
+
+		if (zMisc::selectByPercent(bang))
+		{
+			mdamage = (uint64_t)(mdamage * 1.5f);
+			pAtt->isMagicBang = true;
+			return true;
+		}
+
+		return false;
+	}
 }
 
 
@@ -3803,7 +3888,14 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				//by=>friday 添加物理攻击计算日志
 				Zebra::logger->info("[物理攻击计算] %s 五行相克1 最小物攻:%llu 最大物攻:%llu 随机系数:%.2f 计算攻击力:%llu", 
 					pAtt->name, pAtt->pkpreValue.fivedam, pAtt->pkpreValue.fivemaxdam, percent, pAtt->pkValue.pdamage);
-				checkholyp(percent);
+				pAtt->isPhysicBang = false;
+				pAtt->isHPhysicBang = false;
+				checkOfficialSealPvpHolyP(pAtt, pDef, pAtt->pkValue.pdamage);
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.pdamage = (uint64_t)(pAtt->pkValue.pdamage * 1.5f);
+					pAtt->isHPhysicBang = true;
+				}
 				applyFireBowPhysicalDamageBonus(rev, pAtt);
 				//by=>friday 添加爆击后日志
 				Zebra::logger->info("[物理攻击计算] %s 爆击处理后攻击力:%llu 物理爆击:%s", 
@@ -3824,7 +3916,14 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				/// 计算攻击者的物理攻击力
 				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
 
-				checkholyp(percent);
+				pAtt->isPhysicBang = false;
+				pAtt->isHPhysicBang = false;
+				checkOfficialSealPvpHolyP(pAtt, pDef, pAtt->pkValue.pdamage);
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.pdamage = (uint64_t)(pAtt->pkValue.pdamage * 1.5f);
+					pAtt->isHPhysicBang = true;
+				}
 				applyFireBowPhysicalDamageBonus(rev, pAtt);
 
 				/// 计算防御者的物理防御力受五行点数的影响
@@ -3841,7 +3940,14 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				/// 计算攻击者的物理攻击力
 				pAtt->pkValue.pdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivedam+(pAtt->pkpreValue.nofivemaxdam-pAtt->pkpreValue.nofivedam)*percent);
 
-				checkholyp(percent);
+				pAtt->isPhysicBang = false;
+				pAtt->isHPhysicBang = false;
+				checkOfficialSealPvpHolyP(pAtt, pDef, pAtt->pkValue.pdamage);
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.pdamage = (uint64_t)(pAtt->pkValue.pdamage * 1.5f);
+					pAtt->isHPhysicBang = true;
+				}
 				applyFireBowPhysicalDamageBonus(rev, pAtt);
 
 				/// 计算防御者的物理防御力受五行点数的影响
@@ -3854,6 +3960,9 @@ void ScenePk::calpdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 	}
 
 	if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_ignoredef())) pDef->pkValue.pdefence = 0;
+
+	pAtt->pkValue.pdamage = applyOfficialSealPvpAttackCounter(pAtt->pkValue.pdamage, pAtt, pDef);
+	pDef->pkValue.pdefence = applyOfficialSealPvpDefenceCounter(pDef->pkValue.pdefence, pAtt, pDef);
 }
 
 /**
@@ -3884,7 +3993,19 @@ void ScenePk::calmdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				//by=>friday 添加法术攻击计算日志
 				Zebra::logger->info("[法术攻击计算] %s 五行相克1 最小法攻:%llu 最大法攻:%llu 随机系数:%.2f 计算攻击力:%llu", 
 					pAtt->name, pAtt->pkpreValue.fivemdam, pAtt->pkpreValue.fivemaxmdam, percent, pAtt->pkValue.mdamage);
-				checkholym(percent);
+				pAtt->isMagicBang = false;
+				pAtt->isHMagicBang = false;
+				checkOfficialSealPvpHolyM(pAtt, pDef, pAtt->pkValue.mdamage);
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);
+					pAtt->isHMagicBang = true;
+				}
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);
+					pAtt->isHMagicBang = true;
+				}
 				//by=>friday 添加爆击后日志
 				Zebra::logger->info("[法术攻击计算] %s 爆击处理后攻击力:%llu 法术爆击:%s", 
 					pAtt->name, pAtt->pkValue.mdamage, pAtt->isMagicBang ? "是" : "否");
@@ -3905,7 +4026,19 @@ void ScenePk::calmdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				/// 计算攻击者的魔法攻击力
 				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
 
-				checkholym(percent);
+				pAtt->isMagicBang = false;
+				pAtt->isHMagicBang = false;
+				checkOfficialSealPvpHolyM(pAtt, pDef, pAtt->pkValue.mdamage);
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);
+					pAtt->isHMagicBang = true;
+				}
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);
+					pAtt->isHMagicBang = true;
+				}
 
 				/// 计算防御者的魔法防御力受五行点数的影响
 				pDef->pkValue.mdefence = pDef->pkpreValue.fivemdef;
@@ -3921,7 +4054,19 @@ void ScenePk::calmdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 				/// 计算攻击者的魔法攻击力
 				pAtt->pkValue.mdamage = static_cast<uint64_t>(pAtt->pkpreValue.nofivemdam+(pAtt->pkpreValue.nofivemaxmdam-pAtt->pkpreValue.nofivemdam)*percent);
 
-				checkholym(percent);
+				pAtt->isMagicBang = false;
+				pAtt->isHMagicBang = false;
+				checkOfficialSealPvpHolyM(pAtt, pDef, pAtt->pkValue.mdamage);
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);
+					pAtt->isHMagicBang = true;
+				}
+				if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_holy()))
+				{
+					pAtt->pkValue.mdamage = (uint64_t)(pAtt->pkValue.mdamage * 1.5f);
+					pAtt->isHMagicBang = true;
+				}
 
 				/// 计算防御者的魔法防御力受五行点数的影响
 				pDef->pkValue.mdefence = pDef->pkpreValue.nofivemdef;
@@ -3932,6 +4077,9 @@ void ScenePk::calmdamU2U(const Cmd::stAttackMagicUserCmd *rev , SceneUser *pAtt 
 
 	}
 	if(zMisc::selectByPercent(pAtt->packs.equip.getEquips().get_ignoredef())) pDef->pkValue.mdefence = 0;
+
+	pAtt->pkValue.mdamage = applyOfficialSealPvpAttackCounter(pAtt->pkValue.mdamage, pAtt, pDef);
+	pDef->pkValue.mdefence = applyOfficialSealPvpDefenceCounter(pDef->pkValue.mdefence, pAtt, pDef);
 }
 
 /**
@@ -4209,6 +4357,17 @@ void ScenePk::calpdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 			break;
 
 	}
+
+	DWORD officialPveReduceBP = pDef->getOfficialSealPveReduceDamageBP();
+	if (officialPveReduceBP > 0 && pAtt->pkValue.pdamage > 0)
+	{
+		pAtt->pkValue.pdamage = pAtt->pkValue.pdamage * (10000 - officialPveReduceBP) / 10000;
+		if (pAtt->pkValue.pdamage == 0)
+		{
+			pAtt->pkValue.pdamage = 1;
+		}
+	}
+
 }
 
 
@@ -4277,6 +4436,17 @@ void ScenePk::calmdamN2U(const Cmd::stAttackMagicUserCmd *rev , SceneNpc *pAtt ,
 			break;
 
 	}
+
+	DWORD officialPveReduceBP = pDef->getOfficialSealPveReduceDamageBP();
+	if (officialPveReduceBP > 0 && pAtt->pkValue.mdamage > 0)
+	{
+		pAtt->pkValue.mdamage = pAtt->pkValue.mdamage * (10000 - officialPveReduceBP) / 10000;
+		if (pAtt->pkValue.mdamage == 0)
+		{
+			pAtt->pkValue.mdamage = 1;
+		}
+	}
+
 }
 
 

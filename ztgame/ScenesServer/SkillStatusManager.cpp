@@ -15,6 +15,42 @@
 #include "Scene.h"
 #include "Chat.h"
 
+namespace
+{
+	DWORD getWoodAssistBonusRate(const SkillStatusElement &sse)
+	{
+		if (sse.attacktype != zSceneEntry::SceneEntry_Player) return 0;
+
+		SceneUser *attacker = SceneUserManager::getMe().getUserByTempID(sse.dwTempID);
+		if (!attacker) return 0;
+		if (attacker->getFiveType() != FIVE_WOOD) return 0;
+
+		DWORD level = attacker->getFiveLevel();
+		return level > 20 ? 20 : level;
+	}
+
+	SDWORD applyWoodAssistValue(const SkillStatusElement &sse, SDWORD value)
+	{
+		if (value <= 0) return value;
+
+		DWORD rate = getWoodAssistBonusRate(sse);
+		if (rate == 0) return value;
+
+		return value + (SDWORD)((long double)value * (long double)rate / 100.0L);
+	}
+
+	DWORD applyWoodAssistValueDword(const SkillStatusElement &sse, DWORD value)
+	{
+		if (value == 0) return value;
+
+		DWORD rate = getWoodAssistBonusRate(sse);
+		if (rate == 0) return value;
+
+		return value + (DWORD)((long double)value * (long double)rate / 100.0L);
+	}
+}
+
+
 /**
  * \brief	状态0 空状态，不做任何操作
  * \param pEntry 状态所有者
@@ -141,7 +177,7 @@ BYTE SkillStatus_3(SceneEntryPk *pEntry, SkillStatusElement &sse)
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
 //					pEntry->skillValue.pdam = sse.value;
-					pEntry->pkValue.pdamage = sse.value;
+					pEntry->pkValue.pdamage = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -151,7 +187,7 @@ BYTE SkillStatus_3(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_TIMER:
 			{
 //				pEntry->skillValue.pdam += sse.value;
-				pEntry->pkValue.pdamage = sse.value;
+				pEntry->pkValue.pdamage = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -188,7 +224,7 @@ BYTE SkillStatus_4(SceneEntryPk *pEntry, SkillStatusElement &sse)
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
 //					pEntry->skillValue.pdef = sse.value;
-					pEntry->pkValue.pdefence = sse.value;
+					pEntry->pkValue.pdefence = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -197,7 +233,7 @@ BYTE SkillStatus_4(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->pkValue.pdefence = sse.value;
+				pEntry->pkValue.pdefence = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -234,7 +270,7 @@ BYTE SkillStatus_5(SceneEntryPk *pEntry, SkillStatusElement &sse)
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
 //					pEntry->skillValue.mdam = sse.value;
-					pEntry->pkValue.mdamage = sse.value;
+					pEntry->pkValue.mdamage = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -243,7 +279,7 @@ BYTE SkillStatus_5(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->pkValue.mdamage = sse.value;
+				pEntry->pkValue.mdamage = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -280,7 +316,7 @@ BYTE SkillStatus_6(SceneEntryPk *pEntry, SkillStatusElement &sse)
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
 					//pEntry->skillValue.mdef = sse.value;
-					pEntry->pkValue.mdefence = sse.value;
+					pEntry->pkValue.mdefence = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -289,7 +325,7 @@ BYTE SkillStatus_6(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->pkValue.mdefence = sse.value;
+				pEntry->pkValue.mdefence = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -659,7 +695,7 @@ BYTE SkillStatus_13(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.umdef = sse.value;
+					pEntry->skillValue.umdef = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -668,7 +704,7 @@ BYTE SkillStatus_13(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.umdef = sse.value;
+				pEntry->skillValue.umdef = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -705,7 +741,7 @@ BYTE SkillStatus_14(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.ice_umdefp = sse.value;
+					pEntry->skillValue.ice_umdefp = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -714,7 +750,7 @@ BYTE SkillStatus_14(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.ice_umdefp = sse.value;
+				pEntry->skillValue.ice_umdefp = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -809,7 +845,7 @@ BYTE SkillStatus_16(SceneEntryPk *pEntry, SkillStatusElement &sse)
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
 					pEntry->reSendOther = true;
-					pEntry->skillValue.movespeed = sse.value+value;
+					pEntry->skillValue.movespeed = applyWoodAssistValue(sse, sse.value)+value;
 
 					//xwl add
 					if (pEntry->getType()==zSceneEntry::SceneEntry_NPC)
@@ -1136,7 +1172,7 @@ BYTE SkillStatus_23(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.updam = sse.value;
+					pEntry->skillValue.updam = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -1145,7 +1181,7 @@ BYTE SkillStatus_23(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.updam = sse.value;
+				pEntry->skillValue.updam = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -1182,7 +1218,7 @@ BYTE SkillStatus_24(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.updamp = sse.value;
+					pEntry->skillValue.updamp = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -1191,7 +1227,7 @@ BYTE SkillStatus_24(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.updamp = sse.value;
+				pEntry->skillValue.updamp = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;	
 			}
 			break;
@@ -1228,7 +1264,7 @@ BYTE SkillStatus_25(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.umdam = sse.value;
+					pEntry->skillValue.umdam = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -1237,7 +1273,7 @@ BYTE SkillStatus_25(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.umdam = sse.value;
+				pEntry->skillValue.umdam = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -1274,7 +1310,7 @@ BYTE SkillStatus_26(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.umdamp = sse.value;
+					pEntry->skillValue.umdamp = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -1283,7 +1319,7 @@ BYTE SkillStatus_26(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.umdamp = sse.value;
+				pEntry->skillValue.umdamp = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -1319,7 +1355,7 @@ BYTE SkillStatus_27(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxhp = (SWORD)(sse.value);
+				pEntry->skillValue.maxhp = (SWORD)(applyWoodAssistValue(sse, sse.value));
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1355,7 +1391,7 @@ BYTE SkillStatus_28(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxhp = (uint64_t)(pEntry->getBaseMaxHP()*(sse.value/100.0f)); //by=>friday 修复技能HP计算，使用64位无符号类型防止溢出
+				pEntry->skillValue.maxhp = (uint64_t)(pEntry->getBaseMaxHP()*(applyWoodAssistValue(sse, sse.value)/100.0f)); //by=>friday 修复技能HP计算，使用64位无符号类型防止溢出
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1392,7 +1428,7 @@ BYTE SkillStatus_29(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxmp = (uint64_t)(pEntry->getBaseMaxMP()+sse.value); //by=>friday 修复技能MP计算，使用64位无符号类型防止溢出
+				pEntry->skillValue.maxmp = (uint64_t)(pEntry->getBaseMaxMP()+applyWoodAssistValue(sse, sse.value)); //by=>friday 修复技能MP计算，使用64位无符号类型防止溢出
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1428,7 +1464,7 @@ BYTE SkillStatus_30(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxmp = (uint64_t)(pEntry->getBaseMaxMP()*(sse.value/100.0f)); //by=>friday 修复技能MP计算，使用64位无符号类型防止溢出
+				pEntry->skillValue.maxmp = (uint64_t)(pEntry->getBaseMaxMP()*(applyWoodAssistValue(sse, sse.value)/100.0f)); //by=>friday 修复技能MP计算，使用64位无符号类型防止溢出
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1464,7 +1500,7 @@ BYTE SkillStatus_31(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxsp = (SWORD)(pEntry->getMaxSP()+sse.value);
+				pEntry->skillValue.maxsp = (SWORD)(pEntry->getMaxSP()+applyWoodAssistValue(sse, sse.value));
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1501,7 +1537,7 @@ BYTE SkillStatus_32(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_START:
 		case ACTION_STEP_RELOAD:
 			{
-				pEntry->skillValue.maxsp = (SWORD)(pEntry->getMaxSP()*(sse.value/100.0f));
+				pEntry->skillValue.maxsp = (SWORD)(pEntry->getMaxSP()*(applyWoodAssistValue(sse, sse.value)/100.0f));
 				return SKILL_RECOVERY;
 			}
 			break;
@@ -1585,7 +1621,7 @@ BYTE SkillStatus_34(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.hpspeedup = sse.value;
+					pEntry->skillValue.hpspeedup = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -1594,7 +1630,7 @@ BYTE SkillStatus_34(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.hpspeedup = sse.value;
+				pEntry->skillValue.hpspeedup = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -1631,7 +1667,7 @@ BYTE SkillStatus_35(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.mpspeedup = sse.value;
+					pEntry->skillValue.mpspeedup = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -1640,7 +1676,7 @@ BYTE SkillStatus_35(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.mpspeedup = sse.value;
+				pEntry->skillValue.mpspeedup = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -1677,7 +1713,7 @@ BYTE SkillStatus_36(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.spspeedup = sse.value;
+					pEntry->skillValue.spspeedup = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -1686,7 +1722,7 @@ BYTE SkillStatus_36(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.spspeedup = sse.value;
+				pEntry->skillValue.spspeedup = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -1768,7 +1804,7 @@ BYTE SkillStatus_38(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->changeHP(sse.value);
+					pEntry->changeHP(applyWoodAssistValue(sse, sse.value));
 					return SKILL_ACTIVE;
 				}
 				else
@@ -1777,7 +1813,7 @@ BYTE SkillStatus_38(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->changeHP(sse.value);
+				pEntry->changeHP(applyWoodAssistValue(sse, sse.value));
 				return SKILL_RETURN;
 			}
 			break;
@@ -1814,7 +1850,7 @@ BYTE SkillStatus_39(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			value= (DWORD)(0.000001f*pUser->charstate.wdMen);
 		}
 	}
-	value +=sse.value;
+	value += applyWoodAssistValueDword(sse, sse.value);
 	if (value>100) value =100;
 
 	switch(sse.byStep)
@@ -1869,7 +1905,7 @@ BYTE SkillStatus_40(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->changeMP(sse.value);
+					pEntry->changeMP(applyWoodAssistValue(sse, sse.value));
 					return SKILL_ACTIVE;
 				}
 				else
@@ -1878,7 +1914,7 @@ BYTE SkillStatus_40(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->changeMP(sse.value);
+				pEntry->changeMP(applyWoodAssistValue(sse, sse.value));
 				return SKILL_RETURN;
 			}
 			break;
@@ -1913,7 +1949,7 @@ BYTE SkillStatus_41(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->changeMP((uint64_t)(pEntry->getMaxMP()*(sse.value/100.0f))); //by=>friday 修复MP计算，使用64位无符号类型防止溢出
+					pEntry->changeMP((uint64_t)(pEntry->getMaxMP()*(applyWoodAssistValue(sse, sse.value)/100.0f))); //by=>friday 修复MP计算，使用64位无符号类型防止溢出
 					return SKILL_ACTIVE;
 				}
 				else
@@ -1922,7 +1958,7 @@ BYTE SkillStatus_41(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->changeMP((uint64_t)(pEntry->getMaxMP()*(sse.value/100.0f))); //by=>friday 修复MP计算，使用64位无符号类型防止溢出
+				pEntry->changeMP((uint64_t)(pEntry->getMaxMP()*(applyWoodAssistValue(sse, sse.value)/100.0f))); //by=>friday 修复MP计算，使用64位无符号类型防止溢出
 				return SKILL_RETURN;
 			}
 			break;
@@ -1957,7 +1993,7 @@ BYTE SkillStatus_42(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->changeSP(sse.value);
+					pEntry->changeSP(applyWoodAssistValue(sse, sse.value));
 					return SKILL_ACTIVE;
 				}
 				else
@@ -1966,7 +2002,7 @@ BYTE SkillStatus_42(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->changeSP(sse.value);
+				pEntry->changeSP(applyWoodAssistValue(sse, sse.value));
 				return SKILL_RETURN;
 			}
 			break;
@@ -2001,7 +2037,7 @@ BYTE SkillStatus_43(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->changeSP((SDWORD)(pEntry->getMaxSP()*(sse.value/100.0f)));
+					pEntry->changeSP((SDWORD)(pEntry->getMaxSP()*(applyWoodAssistValue(sse, sse.value)/100.0f)));
 					return SKILL_ACTIVE;
 				}
 				else
@@ -2010,7 +2046,7 @@ BYTE SkillStatus_43(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->changeSP((SDWORD)(pEntry->getMaxSP()*(sse.value/100.0f)));
+				pEntry->changeSP((SDWORD)(pEntry->getMaxSP()*(applyWoodAssistValue(sse, sse.value)/100.0f)));
 				return SKILL_RETURN;
 			}
 			break;
@@ -4006,7 +4042,7 @@ BYTE SkillStatus_86(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.updef = sse.value;
+					pEntry->skillValue.updef = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -4015,7 +4051,7 @@ BYTE SkillStatus_86(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.updef = sse.value;
+				pEntry->skillValue.updef = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -4053,7 +4089,7 @@ BYTE SkillStatus_87(SceneEntryPk *pEntry, SkillStatusElement &sse)
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
 
-					pEntry->skillValue.updefp = sse.value;
+					pEntry->skillValue.updefp = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -4062,7 +4098,7 @@ BYTE SkillStatus_87(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.updefp = sse.value;
+				pEntry->skillValue.updefp = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -4465,7 +4501,7 @@ BYTE SkillStatus_95(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.umdef = sse.value;
+					pEntry->skillValue.umdef = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -4474,7 +4510,7 @@ BYTE SkillStatus_95(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.umdef = sse.value;
+				pEntry->skillValue.umdef = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -4511,7 +4547,7 @@ BYTE SkillStatus_96(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.umdefp = sse.value;
+					pEntry->skillValue.umdefp = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -4520,7 +4556,7 @@ BYTE SkillStatus_96(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.umdefp = sse.value;
+				pEntry->skillValue.umdefp = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -5389,7 +5425,7 @@ BYTE SkillStatus_124(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.pupdam = sse.value;
+					pEntry->skillValue.pupdam = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -5398,7 +5434,7 @@ BYTE SkillStatus_124(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.pupdam = sse.value;
+				pEntry->skillValue.pupdam = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -5435,7 +5471,7 @@ BYTE SkillStatus_125(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.pumdam = sse.value;
+					pEntry->skillValue.pumdam = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -5444,7 +5480,7 @@ BYTE SkillStatus_125(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.pumdam = sse.value;
+				pEntry->skillValue.pumdam = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -5481,7 +5517,7 @@ BYTE SkillStatus_126(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.pupdef = sse.value;
+					pEntry->skillValue.pupdef = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -5490,7 +5526,7 @@ BYTE SkillStatus_126(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.pupdef = sse.value;
+				pEntry->skillValue.pupdef = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -5528,7 +5564,7 @@ BYTE SkillStatus_127(SceneEntryPk *pEntry, SkillStatusElement &sse)
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
 					if (pEntry->checkWeapon(108))
-						pEntry->skillValue.pumdef = sse.value;
+						pEntry->skillValue.pumdef = applyWoodAssistValue(sse, sse.value);
 					else
 						pEntry->skillValue.pumdef = 0;
 					return SKILL_RECOVERY;
@@ -5540,7 +5576,7 @@ BYTE SkillStatus_127(SceneEntryPk *pEntry, SkillStatusElement &sse)
 		case ACTION_STEP_TIMER:
 			{
 				if (pEntry->checkWeapon(108))
-					pEntry->skillValue.pumdef = sse.value;
+					pEntry->skillValue.pumdef = applyWoodAssistValue(sse, sse.value);
 				else
 					pEntry->skillValue.pumdef = 0;
 				return SKILL_RETURN;
@@ -5578,7 +5614,7 @@ BYTE SkillStatus_128(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if (pEntry->summon&& ((pEntry->summon->id >= (DWORD)sse.percent)&&(pEntry->summon->id < (DWORD)sse.percent+10))) 
 				{
-					pEntry->summon->boostupSummon = (int)sse.value;
+					pEntry->summon->boostupSummon = (int)applyWoodAssistValue(sse, sse.value);
 					pEntry->summon->sendData();
 				}
 				return SKILL_RETURN;
@@ -5586,7 +5622,7 @@ BYTE SkillStatus_128(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				if (pEntry->summon&& ((pEntry->summon->id >= (DWORD)sse.percent)&&(pEntry->summon->id < (DWORD)sse.percent+10))) pEntry->summon->boostupSummon = (int)sse.value;
+				if (pEntry->summon&& ((pEntry->summon->id >= (DWORD)sse.percent)&&(pEntry->summon->id < (DWORD)sse.percent+10))) pEntry->summon->boostupSummon = (int)applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;
@@ -5627,7 +5663,7 @@ BYTE SkillStatus_129(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			{
 				if(zMisc::selectByPercent((int)(sse.percent)))
 				{
-					pEntry->skillValue.upattribute = sse.value;
+					pEntry->skillValue.upattribute = applyWoodAssistValue(sse, sse.value);
 					return SKILL_RECOVERY;
 				}
 				else
@@ -5636,7 +5672,7 @@ BYTE SkillStatus_129(SceneEntryPk *pEntry, SkillStatusElement &sse)
 			break;
 		case ACTION_STEP_TIMER:
 			{
-				pEntry->skillValue.upattribute = sse.value;
+				pEntry->skillValue.upattribute = applyWoodAssistValue(sse, sse.value);
 				return SKILL_RETURN;
 			}
 			break;

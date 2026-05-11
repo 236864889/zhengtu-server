@@ -649,6 +649,35 @@ namespace
 		DWORD result = static_cast<DWORD>(value) + static_cast<DWORD>(value) * basisPoint / 10000;
 		return result > 0xFFFF ? 0xFFFF : static_cast<WORD>(result);
 	}
+
+	DWORD getOfficialSealEffectRateBP(int diff, bool civil)
+	{
+		int gap = diff >= 0 ? diff : -diff;
+		if (gap <= 2) return 10000;
+
+		if (civil)
+		{
+			if (diff <= -10) return 11500;
+			if (diff <= -6) return 11000;
+			if (diff <= -3) return 10500;
+
+			if (diff >= 10) return 7000;
+			if (diff >= 6) return 8000;
+			if (diff >= 3) return 9000;
+		}
+		else
+		{
+			if (diff >= 10) return 11500;
+			if (diff >= 6) return 11000;
+			if (diff >= 3) return 10500;
+
+			if (diff <= -10) return 7000;
+			if (diff <= -6) return 8000;
+			if (diff <= -3) return 9000;
+		}
+
+		return 10000;
+	}
 }
 
 DWORD SceneUser::getCivilOfficialRank() const
@@ -671,6 +700,105 @@ DWORD SceneUser::getMilitarySealLevel() const
 	return (getMilitaryOfficialRank() + 1) / 2;
 }
 
+DWORD SceneUser::getCivilSealEffectRateBP() const
+{
+	int diff = (int)getMilitarySealLevel() - (int)getCivilSealLevel();
+	return getOfficialSealEffectRateBP(diff, true);
+}
+
+DWORD SceneUser::getMilitarySealEffectRateBP() const
+{
+	int diff = (int)getMilitarySealLevel() - (int)getCivilSealLevel();
+	return getOfficialSealEffectRateBP(diff, false);
+}
+
+DWORD SceneUser::getOfficialSealExpBonusBP() const
+{
+	DWORD civilSealLevel = getCivilSealLevel();
+	DWORD bonus = civilSealLevel * 50 * getCivilSealEffectRateBP() / 10000;
+	return bonus > 1000 ? 1000 : bonus;
+}
+
+DWORD SceneUser::getOfficialSealDropBonusBP() const
+{
+	DWORD militarySealLevel = getMilitarySealLevel();
+	DWORD bonus = militarySealLevel * 30 * getMilitarySealEffectRateBP() / 10000;
+	return bonus > 600 ? 600 : bonus;
+}
+
+DWORD SceneUser::getOfficialSealPveReduceDamageBP() const
+{
+	DWORD militarySealLevel = getMilitarySealLevel();
+	DWORD bonus = militarySealLevel * 20 * getMilitarySealEffectRateBP() / 10000;
+	return bonus > 400 ? 400 : bonus;
+}
+
+bool SceneUser::isOfficialSealBalanced() const
+{
+	int diff = (int)getMilitarySealLevel() - (int)getCivilSealLevel();
+	if (diff < 0) diff = -diff;
+	return diff <= 2;
+}
+
+DWORD SceneUser::getOfficialSealCounterResistBP() const
+{
+	return isOfficialSealBalanced() ? 3000 : 0;
+}
+
+DWORD SceneUser::getCivilSealPvpDefContributionBP() const
+{
+	DWORD civilSealLevel = getCivilSealLevel();
+	return civilSealLevel * 50 * getCivilSealEffectRateBP() / 10000;
+}
+
+DWORD SceneUser::getMilitarySealPvpAtkContributionBP() const
+{
+	DWORD militarySealLevel = getMilitarySealLevel();
+	return militarySealLevel * 50 * getMilitarySealEffectRateBP() / 10000;
+}
+
+DWORD SceneUser::calcCivilCounterMilitaryBP(const SceneUser *attacker) const
+{
+	if (!attacker) return 0;
+
+	DWORD defenderCivilSeal = getCivilSealLevel();
+	DWORD attackerCivilSeal = attacker->getCivilSealLevel();
+	if (defenderCivilSeal <= attackerCivilSeal) return 0;
+
+	DWORD gap = defenderCivilSeal - attackerCivilSeal;
+	DWORD counterBP = gap * 300;
+	if (counterBP > 3000) counterBP = 3000;
+
+	DWORD resistBP = attacker->getOfficialSealCounterResistBP();
+	if (resistBP > 0)
+	{
+		counterBP = counterBP * (10000 - resistBP) / 10000;
+	}
+
+	return counterBP;
+}
+
+DWORD SceneUser::calcMilitaryCounterCivilBP(const SceneUser *defender) const
+{
+	if (!defender) return 0;
+
+	DWORD attackerMilitarySeal = getMilitarySealLevel();
+	DWORD defenderMilitarySeal = defender->getMilitarySealLevel();
+	if (attackerMilitarySeal <= defenderMilitarySeal) return 0;
+
+	DWORD gap = attackerMilitarySeal - defenderMilitarySeal;
+	DWORD counterBP = gap * 300;
+	if (counterBP > 3000) counterBP = 3000;
+
+	DWORD resistBP = defender->getOfficialSealCounterResistBP();
+	if (resistBP > 0)
+	{
+		counterBP = counterBP * (10000 - resistBP) / 10000;
+	}
+
+	return counterBP;
+}
+
 void SceneUser::onOfficialValueChanged(DWORD oldCivilSeal, DWORD oldMilitarySeal)
 {
 	DWORD newCivilSeal = getCivilSealLevel();
@@ -689,20 +817,27 @@ void SceneUser::applyOfficialSealBaseBonus()
 	const DWORD civilSealLevel = getCivilSealLevel();
 	if (civilSealLevel)
 	{
-		charstate.maxhp = addBasisPointBonus(charstate.maxhp, civilSealLevel * 100);
-		charstate.pdefence = addBasisPointBonus(charstate.pdefence, civilSealLevel * 50);
-		charstate.mdefence = addBasisPointBonus(charstate.mdefence, civilSealLevel * 50);
-		charstate.resumehp = addBasisPointBonus(charstate.resumehp, civilSealLevel * 50);
+		const DWORD civilRate = getCivilSealEffectRateBP();
+		DWORD civilHpBP = civilSealLevel * 100 * civilRate / 10000;
+		DWORD civilDefBP = civilSealLevel * 50 * civilRate / 10000;
+		charstate.maxhp = addBasisPointBonus(charstate.maxhp, civilHpBP);
+		charstate.pdefence = addBasisPointBonus(charstate.pdefence, civilDefBP);
+		charstate.mdefence = addBasisPointBonus(charstate.mdefence, civilDefBP);
+		charstate.resumehp = addBasisPointBonus(charstate.resumehp, civilDefBP);
 	}
 
 	const DWORD militarySealLevel = getMilitarySealLevel();
 	if (militarySealLevel)
 	{
-		charstate.pdamage = addBasisPointBonus(charstate.pdamage, militarySealLevel * 50);
-		charstate.maxpdamage = addBasisPointBonus(charstate.maxpdamage, militarySealLevel * 50);
-		charstate.mdamage = addBasisPointBonus(charstate.mdamage, militarySealLevel * 50);
-		charstate.maxmdamage = addBasisPointBonus(charstate.maxmdamage, militarySealLevel * 50);
-		charstate.bang = addBasisPointBonus(charstate.bang, militarySealLevel * 30);
+		const DWORD militaryRate = getMilitarySealEffectRateBP();
+		DWORD militaryAttackBP = militarySealLevel * 50 * militaryRate / 10000;
+		DWORD militaryBangPoint = militarySealLevel * militaryRate / 10000;
+		if (militarySealLevel > 0 && militaryBangPoint == 0) militaryBangPoint = 1;
+		charstate.pdamage = addBasisPointBonus(charstate.pdamage, militaryAttackBP);
+		charstate.maxpdamage = addBasisPointBonus(charstate.maxpdamage, militaryAttackBP);
+		charstate.mdamage = addBasisPointBonus(charstate.mdamage, militaryAttackBP);
+		charstate.maxmdamage = addBasisPointBonus(charstate.maxmdamage, militaryAttackBP);
+		charstate.bang = addWordPoint(charstate.bang, militaryBangPoint);
 	}
 }
 
@@ -3758,6 +3893,11 @@ void SceneUser::setupCharBase(bool lock)
 	charstate.attackdodge=10+packs.equip.getEquips().get_akdodge()+skillValue.akdodge - skillValue.reduce_akdodge;
 	if (charstate.attackdodge >25) charstate.attackdodge = 25;
 	charstate.bang = charstate.bang + packs.equip.getEquips().get_bang() + skillValue.bang;
+	DWORD duanweiLevel = charbase.duanweiexp / 1000;
+	if (duanweiLevel)
+	{
+		charstate.bang = addWordPoint(charstate.bang, duanweiLevel);
+	}
 
 	if (this->issetUState(Cmd::USTATE_TOGETHER_WITH_DRAGON))
 	{//龙精附体，暴击提高100%
@@ -20282,6 +20422,12 @@ void SceneUser::getSummonAppendDamage(DWORD &minDamage, DWORD &maxDamage)
  */
 void SceneUser::addExp(QWORD num, bool addPet, DWORD dwTempID, BYTE byType, bool addCartoon)
 {
+	QWORD petExpBase = num;
+	DWORD expBonusBP = getOfficialSealExpBonusBP();
+	if (expBonusBP > 0)
+	{
+		num = num + num * expBonusBP / 10000;
+	}
 	// 转生经验设置参数
 	if (this->charbase.round > 0)
 	{
@@ -20325,7 +20471,7 @@ void SceneUser::addExp(QWORD num, bool addPet, DWORD dwTempID, BYTE byType, bool
 			Channel::sendSys(this,Cmd::INFO_TYPE_SYS,"当前服务器转生最大等级：%d级，增加经验失败",level13);
 			charbase.exp += 0;
 		}
-	  		addPetExp(num, addPet, addCartoon);
+	  		addPetExp(petExpBase, addPet, addCartoon);
 	}
 	else
 	{
@@ -20369,7 +20515,7 @@ void SceneUser::addExp(QWORD num, bool addPet, DWORD dwTempID, BYTE byType, bool
 			Channel::sendSys(this,Cmd::INFO_TYPE_SYS,"当前服务器最大等级：%d级，增加经验失败",level3);
 			charbase.exp += 0;
 		}
-	  		addPetExp(num, addPet, addCartoon);
+	  		addPetExp(petExpBase, addPet, addCartoon);
 	}
 }
 

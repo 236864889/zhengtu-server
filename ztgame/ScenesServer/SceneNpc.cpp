@@ -2792,6 +2792,15 @@ bool SceneNpc::deathAction()
 			}
 
 			value1=pUser->packs.equip.getEquips().get_mf();
+			DWORD officialDropBonusBP = pUser->getOfficialSealDropBonusBP();
+			if (officialDropBonusBP > 0)
+			{
+				value1 += officialDropBonusBP / 100;
+				if (zMisc::selectByPercent(officialDropBonusBP % 100))
+				{
+					value1 += 1;
+				}
+			}
 			value2=pUser->packs.equip.getEquips().get_incgold();
 			vcharm = pUser->charstate.charm;
 			vlucky = pUser->charstate.lucky;

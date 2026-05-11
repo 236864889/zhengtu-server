@@ -420,30 +420,61 @@ void show_obj_dialog(const char* menu)
  * @param 物品等级 {int} xingxing
  * @return {*}
  */
-void drop_object(SceneNpc* npc, int id,DWORD num,int kind,int upgrade)
+bool drop_object(SceneNpc* npc, int id, DWORD num, int kind, int upgrade)
 {	
-		SceneUser* user = me();
-		zObjectB *base = objectbm.get(id);
-		if (base)
-		{
-			if (num>(DWORD)base->maxnum) num = base->maxnum;
-			zObject *o = zObject::create(base,num);
-			if (o)
-			{	o->data.upgrade = upgrade;
-				if(o->base->make == 1)
-				{
-					base->goldrating = 10000;
-					base->holyrating = 100000;
-					o->data.kind = kind; //设置品质4绿装
-					EquipMaker maker(NULL);
-					maker.modify_attri(o,base);
-					maker.re_upgrade(o);
-				}
-				user->scene->addObject(o, npc->getPos(), 0, user->id, 30);
-			}
-		}
-		//Zebra::logger->debug("当前场景:%s", user->scene->getFileName());		
+	if (!npc)
+	{
+		Zebra::logger->debug("[LUA_DROP_SKIP] no_npc item=%d num=%u", id, num);
+		return false;
+	}
+	SceneUser* user = me();
+	if (!user)
+	{
+		Zebra::logger->debug("[LUA_DROP_SKIP] no_user npc=%u item=%d num=%u", npc->id, id, num);
+		return false;
+	}
+	if (!user->scene)
+	{
+		Zebra::logger->debug("[LUA_DROP_SKIP] no_scene user=%u npc=%u item=%d num=%u", user->id, npc->id, id, num);
+		return false;
+	}
+	if (num == 0)
+	{
+		Zebra::logger->debug("[LUA_DROP_SKIP] bad_num user=%u npc=%u item=%d num=%u", user->id, npc->id, id, num);
+		return false;
+	}
+	zObjectB *base = objectbm.get(id);
+	if (!base)
+	{
+		Zebra::logger->debug("[LUA_DROP_SKIP] bad_item user=%u npc=%u item=%d num=%u", user->id, npc->id, id, num);
+		return false;
+	}
+	if (num > (DWORD)base->maxnum) num = base->maxnum;
+	if (num == 0)
+	{
+		Zebra::logger->debug("[LUA_DROP_SKIP] bad_num user=%u npc=%u item=%d num=%u", user->id, npc->id, id, num);
+		return false;
+	}
+	zObject *o = zObject::create(base, num);
+	if (!o)
+	{
+		Zebra::logger->debug("[LUA_DROP_SKIP] create_failed user=%u npc=%u item=%d num=%u", user->id, npc->id, id, num);
+		return false;
+	}
+	o->data.upgrade = upgrade;
+	if(o->base->make == 1)
+	{
+		base->goldrating = 10000;
+		base->holyrating = 100000;
+		o->data.kind = kind;
+		EquipMaker maker(NULL);
+		maker.modify_attri(o, base);
+		maker.re_upgrade(o);
+	}
+	user->scene->addObject(o, npc->getPos(), 0, user->id, 30);
+	return true;
 }
+
 
 /**
  * @brief 脚本接口，击杀怪物后召唤怪物
