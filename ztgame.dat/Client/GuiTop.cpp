@@ -637,6 +637,14 @@ void CGuiTopDialog::RefreshFlowerList()
 		}
 	}
 	m_pListBoxFlower->AddItem("", 0);
+	int curCount = m_pListBoxFlower->GetItemCount();
+	const int targetLine = 12;
+	while (curCount < targetLine)
+	{
+		m_pListBoxFlower->AddItem("", 0);
+		++curCount;
+	}
+
 	int nIndex = m_pListBoxFlower->GetItemCount() - 1;
 	m_pListBoxFlower->SetItemText2(nIndex, 1, "ÏÊ»¨Ñ¹ÖÆ£ºÏÊ»¨²î1000/5000/10000/50000", 500);
 	m_pListBoxFlower->SetItemColor(nIndex, 1, D3DCOLOR_ARGB(255,255,215,0));
