@@ -9,11 +9,36 @@
  *         */
 //yikey
 #include <vector>
+#include <stdio.h>
+#include <string.h>
 #include "zType.h"
 #include "zXMLParser.h"
 #include "fjconfig.h"
 #include "Zebra.h"
 fjconfig *fjconfig::instance = NULL;
+static void getPointLevelRange(zXMLParser &xml, xmlNodePtr point, DWORD &beginLevel, DWORD &endLevel)
+{
+	char levelStr[64];
+	DWORD level = 0;
+	beginLevel = 0;
+	endLevel = 0;
+	memset(levelStr, 0, sizeof(levelStr));
+	if (xml.getNodePropStr(point, "level", levelStr, sizeof(levelStr)) && strchr(levelStr, '-'))
+	{
+		unsigned int beginTmp = 0;
+		unsigned int endTmp = 0;
+		if (sscanf(levelStr, "%u-%u", &beginTmp, &endTmp) == 2 && beginTmp > 0)
+		{
+			if (endTmp < beginTmp) endTmp = beginTmp;
+			beginLevel = beginTmp;
+			endLevel = endTmp;
+			return;
+		}
+	}
+	xml.getNodePropNum(point, "level", &level, sizeof(level));
+	beginLevel = level;
+	endLevel = level;
+}
 
 bool fjconfig::init()
 {
@@ -45,7 +70,10 @@ bool fjconfig::init()
 					{
 						
 						SJ sj;
-						xml.getNodePropNum(point, "level", &sj.level, sizeof(sj.level));
+						DWORD beginLevel = 0;
+							DWORD endLevel = 0;
+							getPointLevelRange(xml, point, beginLevel, endLevel);
+							sj.level = beginLevel;
 						xml.getNodePropNum(point, "value", &sj.value, sizeof(sj.value));
 						xml.getNodePropNum(point, "costID", &sj.costID, sizeof(sj.costID));
 						xml.getNodePropNum(point, "costNum", &sj.costNum, sizeof(sj.costNum));
@@ -57,7 +85,12 @@ bool fjconfig::init()
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
 						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
 						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
-						fjlist.push_back(sj);
+						for (DWORD level = beginLevel; level <= endLevel; level++)
+							{
+								sj.level = level;
+								fjlist.push_back(sj);
+								if (level == 0xFFFFFFFF) break;
+							}
 						point = xml.getNextNode(point,NULL);
 
 					}
@@ -104,7 +137,10 @@ bool fjconfig::initztz() //你打眼一瞅 这个方法能看明白在干嘛吗  这是服务端读取xm
 					{
 						
 						ZTZ sj;
-						xml.getNodePropNum(point, "level", &sj.level, sizeof(sj.level));
+						DWORD beginLevel = 0;
+							DWORD endLevel = 0;
+							getPointLevelRange(xml, point, beginLevel, endLevel);
+							sj.level = beginLevel;
 						xml.getNodePropNum(point, "value", &sj.value, sizeof(sj.value));
 						xml.getNodePropNum(point, "costID", &sj.costID, sizeof(sj.costID));
 						xml.getNodePropNum(point, "costNum", &sj.costNum, sizeof(sj.costNum));
@@ -116,7 +152,12 @@ bool fjconfig::initztz() //你打眼一瞅 这个方法能看明白在干嘛吗  这是服务端读取xm
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
 						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
 						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
-						ztzlist.push_back(sj);
+						for (DWORD level = beginLevel; level <= endLevel; level++)
+							{
+								sj.level = level;
+								ztzlist.push_back(sj);
+								if (level == 0xFFFFFFFF) break;
+							}
 						point = xml.getNextNode(point,NULL);
 
 					}
@@ -156,7 +197,10 @@ bool fjconfig::initshengxiao()
 					while (point)
 					{						
 						SHENGXIAO sj;
-						xml.getNodePropNum(point, "level", &sj.level, sizeof(sj.level));
+						DWORD beginLevel = 0;
+							DWORD endLevel = 0;
+							getPointLevelRange(xml, point, beginLevel, endLevel);
+							sj.level = beginLevel;
 						xml.getNodePropNum(point, "value", &sj.value, sizeof(sj.value));
 						xml.getNodePropNum(point, "costID", &sj.costID, sizeof(sj.costID));
 						xml.getNodePropNum(point, "costNum", &sj.costNum, sizeof(sj.costNum));
@@ -168,7 +212,12 @@ bool fjconfig::initshengxiao()
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
 						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
 						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
-						shengxiaolist.push_back(sj);
+						for (DWORD level = beginLevel; level <= endLevel; level++)
+							{
+								sj.level = level;
+								shengxiaolist.push_back(sj);
+								if (level == 0xFFFFFFFF) break;
+							}
 						point = xml.getNextNode(point,NULL);
 					}				
 				}
@@ -204,7 +253,10 @@ bool fjconfig::initshengqi()
 					while (point)
 					{						
 						SHENGQI sj;
-						xml.getNodePropNum(point, "level", &sj.level, sizeof(sj.level));
+						DWORD beginLevel = 0;
+							DWORD endLevel = 0;
+							getPointLevelRange(xml, point, beginLevel, endLevel);
+							sj.level = beginLevel;
 						xml.getNodePropNum(point, "value", &sj.value, sizeof(sj.value));
 						xml.getNodePropNum(point, "costID", &sj.costID, sizeof(sj.costID));
 						xml.getNodePropNum(point, "costNum", &sj.costNum, sizeof(sj.costNum));
@@ -216,7 +268,12 @@ bool fjconfig::initshengqi()
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
 						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
 						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
-						shengqilist.push_back(sj);
+						for (DWORD level = beginLevel; level <= endLevel; level++)
+							{
+								sj.level = level;
+								shengqilist.push_back(sj);
+								if (level == 0xFFFFFFFF) break;
+							}
 						point = xml.getNextNode(point,NULL);
 					}				
 				}
@@ -252,7 +309,10 @@ bool fjconfig::initjingmai()
 					while (point)
 					{						
 						JINGMAI sj;
-						xml.getNodePropNum(point, "level", &sj.level, sizeof(sj.level));
+						DWORD beginLevel = 0;
+							DWORD endLevel = 0;
+							getPointLevelRange(xml, point, beginLevel, endLevel);
+							sj.level = beginLevel;
 						xml.getNodePropNum(point, "value", &sj.value, sizeof(sj.value));
 						xml.getNodePropNum(point, "costID", &sj.costID, sizeof(sj.costID));
 						xml.getNodePropNum(point, "costNum", &sj.costNum, sizeof(sj.costNum));
@@ -264,7 +324,12 @@ bool fjconfig::initjingmai()
 						xml.getNodePropNum(point, "hp", &sj.hp, sizeof(sj.hp));
 						xml.getNodePropNum(point, "qiegeattack", &sj.qiegeattack, sizeof(sj.qiegeattack));
 						xml.getNodePropNum(point, "qiegedefence", &sj.qiegedefence, sizeof(sj.qiegedefence));
-						jingmailist.push_back(sj);
+						for (DWORD level = beginLevel; level <= endLevel; level++)
+							{
+								sj.level = level;
+								jingmailist.push_back(sj);
+								if (level == 0xFFFFFFFF) break;
+							}
 						point = xml.getNextNode(point,NULL);
 					}				
 				}
