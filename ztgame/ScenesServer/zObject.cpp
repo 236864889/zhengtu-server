@@ -9806,6 +9806,7 @@ bool Packages::removeCharvip(DWORD num ,const char *disc)
 		return false;
 	}
 	owner->charbase.charvip-=num;
+	owner->syncFiveLevelWithVip();
 	zObject::logger(0,0,"VIP点数",owner->charbase.charvip,num,0,owner->id,owner->name,0,NULL,disc,NULL,0,0);
 	Cmd::stMainUserDataUserCmd send;
 	owner->full_t_MainUserData(send.data);
@@ -9923,6 +9924,7 @@ void Packages::addCharvip(DWORD num, const char *disc ,  const char *note, bool 
 {       
 	using namespace Cmd;
 	owner->charbase.charvip+=num;
+	owner->syncFiveLevelWithVip();
 	zObject::logger(0,0,"VIP点数",owner->charbase.charvip,num,1,0,NULL,owner->id,owner->name,disc,NULL,0,0);
 	Cmd::stMainUserDataUserCmd send;
 	owner->full_t_MainUserData(send.data);

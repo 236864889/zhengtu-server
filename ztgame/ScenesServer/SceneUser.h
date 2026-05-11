@@ -570,6 +570,8 @@ struct SceneUser:public SceneEntryPk
 		bool getMagicType();
 		int IsOppose(DWORD five);
 		bool IsJoin(DWORD five);
+		DWORD getVipLevelByCharvip() const;
+		void syncFiveLevelWithVip();
 		void sendSelfFiveElementSync();
 		/*
 		   bool tenSecondTimer(const zRTime &ct);

@@ -808,6 +808,7 @@ bool SceneTask::usermsgParse(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCmd, c
 									if((int)temp2>0)
 								    {
 									    pUser->charbase.charvip +=temp2;
+									    pUser->syncFiveLevelWithVip();
 									    Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME, "你当前的VIP点数： %d点",pUser->charbase.charvip);
 								    }
 
@@ -834,6 +835,7 @@ bool SceneTask::usermsgParse(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCmd, c
 									if((int)temp2>0)
 								    {
 									    pUser->charbase.charvip +=temp2;
+									    pUser->syncFiveLevelWithVip();
 									    Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME, "你当前的VIP点数： %d点",pUser->charbase.charvip);
 								    }
 									
@@ -889,6 +891,7 @@ bool SceneTask::usermsgParse(SceneUser *pUser,const Cmd::t_NullCmd *ptNullCmd, c
 								if((int)temp2>0)
 								{
 									pUser->charbase.charvip +=temp2;
+									pUser->syncFiveLevelWithVip();
 									Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME, "你当前的VIP点数： %d点",pUser->charbase.charvip);
 								}
 								//soke 修改增加充值控制

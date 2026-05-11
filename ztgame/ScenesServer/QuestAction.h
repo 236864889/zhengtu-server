@@ -3255,6 +3255,7 @@ public:
 	{
 		Operation op;
 		op((int &)user->charbase.fivelevel, _level, user);
+		user->syncFiveLevelWithVip();
 
 		Cmd::stMainUserDataUserCmd  userinfo;
 		user->full_t_MainUserData(userinfo.data);

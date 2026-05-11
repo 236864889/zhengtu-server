@@ -363,7 +363,8 @@ void SceneUser::initCharBase(Scene *intoscene)
 		charbase.face = charbase.type;
 		charbase.type =  getCharTypeByFace(charbase.face);
 		charbase.fivetype = 5; //默认五行类型为无五行
-		charbase.fivelevel = 1;//
+		charbase.fivelevel = 0;//
+		syncFiveLevelWithVip();
 		//设置性别
 		/*
 		   switch(charbase.type)
@@ -870,6 +871,7 @@ void SceneUser::calReliveWeaknessProperty(bool enter)
  */
 void SceneUser::setupCharBase(bool lock)
 {
+	syncFiveLevelWithVip();
 	if((charbase.goodness & 0XFF000000) == 0XFF000000)
 	{
 		DWORD temp=this->charbase.goodness & 0X00FF0000;
@@ -4144,6 +4146,7 @@ bool SceneUser::IsJoin(DWORD five)
  */
 void SceneUser::sendSelfFiveElementSync()
 {
+	syncFiveLevelWithVip();
 	Cmd::stSyncSelfFiveElementPropertyUserCmd ret;
 	ret.selfFiveType = (BYTE)charbase.fivetype;
 	ret.selfFiveLevel = (BYTE)(charbase.fivelevel > 255 ? 255 : charbase.fivelevel);
@@ -20614,14 +20617,49 @@ DWORD SceneUser::getFiveType() const
 	return charbase.fivetype;
 }
 
+DWORD SceneUser::getVipLevelByCharvip() const
+{
+	if (charbase.charvip > 2690) return 20;
+	if (charbase.charvip > 2190) return 19;
+	if (charbase.charvip > 1690) return 18;
+	if (charbase.charvip > 1190) return 17;
+	if (charbase.charvip > 690) return 16;
+	if (charbase.charvip > 190) return 15;
+	if (charbase.charvip > 170) return 14;
+	if (charbase.charvip > 150) return 13;
+	if (charbase.charvip > 130) return 12;
+	if (charbase.charvip > 110) return 11;
+	if (charbase.charvip > 90) return 10;
+	if (charbase.charvip > 80) return 9;
+	if (charbase.charvip > 70) return 8;
+	if (charbase.charvip > 60) return 7;
+	if (charbase.charvip > 50) return 6;
+	if (charbase.charvip > 40) return 5;
+	if (charbase.charvip > 30) return 4;
+	if (charbase.charvip > 20) return 3;
+	if (charbase.charvip > 10) return 2;
+	if (charbase.charvip > 0) return 1;
+	return 0;
+}
+
+void SceneUser::syncFiveLevelWithVip()
+{
+	DWORD vipLevel = getVipLevelByCharvip();
+	if (vipLevel > 20) vipLevel = 20;
+	charbase.fivelevel = vipLevel;
+}
+
 DWORD SceneUser::getFivePoint() const
 {
-	return charbase.fivelevel*5+5;
+	const DWORD fiveLevel = getFiveLevel();
+	if (0 == fiveLevel) return 0;
+	return fiveLevel*5+5;
 }
 
 DWORD SceneUser::getFiveLevel() const
 {
-	return charbase.fivelevel;
+	DWORD vipLevel = getVipLevelByCharvip();
+	return vipLevel > 20 ? 20 : vipLevel;
 }
 
 /*

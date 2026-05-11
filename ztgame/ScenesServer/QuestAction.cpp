@@ -1577,6 +1577,7 @@ int ChangeGuardAction::done(SceneUser* user, Vars* vars)
 int FiveTypeAction::done (SceneUser* user, Vars* vars)
 {
 	user->charbase.fivetype = _type;
+	user->syncFiveLevelWithVip();
 	Cmd::stMainUserDataUserCmd  userinfo;
 	user->full_t_MainUserData(userinfo.data);
 	user->sendCmdToMe(&userinfo,sizeof(userinfo));
