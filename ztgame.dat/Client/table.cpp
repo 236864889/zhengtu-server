@@ -3,10 +3,33 @@
 #include <algorithm>
 #include "command.h"
 #include "../xml_parse/XmlParseEx.h"
+#include <stdio.h>
+#include <string.h>
 
 #ifdef _AUTOPLAY
 #include "./AutoGame.h"
 #endif
+
+static void GetFujianLevelRange(TiXmlElement* point, int* beginLevel, int* endLevel)
+{
+	const char* levelText = point ? point->Attribute("level") : NULL;
+	int beginTmp = 0;
+	int endTmp = 0;
+	*beginLevel = 0;
+	*endLevel = 0;
+	if(levelText && strchr(levelText, '-'))
+	{
+		if(sscanf(levelText, "%d-%d", &beginTmp, &endTmp) == 2 && beginTmp > 0)
+		{
+			if(endTmp < beginTmp) endTmp = beginTmp;
+			*beginLevel = beginTmp;
+			*endLevel = endTmp;
+			return;
+		}
+	}
+	point->QueryIntAttribute("level", beginLevel);
+	*endLevel = *beginLevel;
+}
 
 const int c_nGAME_VERSION = 20151025;// 这个参数作废，新参数定义在Game.cpp中
 // ===============================================================================
@@ -291,8 +314,9 @@ bool LoadShenjianConfig() //加载剑冢配置 by醉梦
 							TiXmlElement* point = pointMap->FirstChildElement("point");
 							while( point )
 							{
-								int level = 0;
-								point->QueryIntAttribute("level",&level);	
+								int beginLevel = 0;
+								int endLevel = 0;
+								GetFujianLevelRange(point, &beginLevel, &endLevel);
 								int value = 0;
 								point->QueryIntAttribute("value",&value);	
 								int costID = 0;
@@ -311,8 +335,12 @@ bool LoadShenjianConfig() //加载剑冢配置 by醉梦
 								point->QueryIntAttribute("mDef",&mDef);	
 								int hp = 0;
 								point->QueryIntAttribute("hp",&hp);	
+								int qiegeattack = 0;
+								point->QueryIntAttribute("qiegeattack",&qiegeattack);
+								int qiegedefence = 0;
+								point->QueryIntAttribute("qiegedefence",&qiegedefence);
 								shenjianpeizhi sjpz;
-								sjpz.level = level;
+								sjpz.level = beginLevel;
 								sjpz.value = value;
 								sjpz.costID = costID;
 								sjpz.costNum = costNum;
@@ -322,7 +350,13 @@ bool LoadShenjianConfig() //加载剑冢配置 by醉梦
 								sjpz.pDef = pDef;
 								sjpz.mDef = mDef;
 								sjpz.hp = hp;
-								g_jianzhong.push_back(sjpz);
+								sjpz.qiegeattack = qiegeattack;
+								sjpz.qiegedefence = qiegedefence;
+								for(int curLevel = beginLevel; curLevel <= endLevel; ++curLevel)
+									{
+										sjpz.level = curLevel;
+										g_jianzhong.push_back(sjpz);
+									}
 								point = point->NextSiblingElement("point");
 							}
 						}
@@ -398,11 +432,9 @@ bool LoadZtzConfig() //加载征途转配置 by醉梦 这里我写好了 我给你解释代码
 							//又回到了这里 继续判断 point还存不存在？ 第二次 肯定存在对吧 然后 继续 一直循环到 下一个point 不存在之后 跳出循环
 							while( point ) //好 接下来 条件是什么 条件是 point 不是空的时候 就会一直去执行 对吧
 							{
-								int level = 0;
-								//取值
-								//这个地方 新建一个 变量 叫levelQueryIntAttribute 方法后面有两个参数 第一个参数代表 要取xml里的那一个字段 第二个参数代表 取出来存到那里 懂了吗
-								//后面我就不多说了 复制粘贴
-								point->QueryIntAttribute("level",&level);	
+								int beginLevel = 0;
+								int endLevel = 0;
+								GetFujianLevelRange(point, &beginLevel, &endLevel);
 								int value = 0;
 								point->QueryIntAttribute("value",&value);	
 								int costID = 0;
@@ -421,8 +453,12 @@ bool LoadZtzConfig() //加载征途转配置 by醉梦 这里我写好了 我给你解释代码
 								point->QueryIntAttribute("mDef",&mDef);	
 								int hp = 0;
 								point->QueryIntAttribute("hp",&hp);	
+								int qiegeattack = 0;
+								point->QueryIntAttribute("qiegeattack",&qiegeattack);
+								int qiegedefence = 0;
+								point->QueryIntAttribute("qiegedefence",&qiegedefence);
 								ztzpeizhi pz; //好 这里 最重要的 我们创建一个 类型 就是我们刚刚定义的那个取名为 pz 
-								pz.level = level;
+								pz.level = beginLevel;
 								pz.value = value;
 								pz.costID = costID;
 								pz.costNum = costNum;
@@ -432,9 +468,15 @@ bool LoadZtzConfig() //加载征途转配置 by醉梦 这里我写好了 我给你解释代码
 								pz.pDef = pDef;
 								pz.mDef = mDef;
 								pz.hp = hp;
+								pz.qiegeattack = qiegeattack;
+								pz.qiegedefence = qiegedefence;
 								//一直到这里 都是在给pz这个类型里面的值赋值 这里您看明白了吧
 								//好 当我们定义好了一个 ztzpeizhi后 我们直接给他插入到刚刚我说的那个专门存放ztzpeizhi类型的集合里面 用push_back方法 他会 自动按顺序插进去 懂了吗
-								g_ztz.push_back(pz);
+								for(int curLevel = beginLevel; curLevel <= endLevel; ++curLevel)
+									{
+										pz.level = curLevel;
+										g_ztz.push_back(pz);
+									}
 								//好 这是第一次循环  我们push——back后g_ztz这个集合 里面的第【0】个 就有内容了 就是这个pz 接下来
 								//我们给point 读取NextSiblingElement("point"); 也就是读取下一行 懂了吧 这个很好理解
 								point = point->NextSiblingElement("point");
@@ -491,8 +533,9 @@ bool LoadShengxiaoConfig() //加载十二生肖配置 by醉梦
 							TiXmlElement* point = pointMap->FirstChildElement("point");
 							while( point )
 							{
-								int level = 0;
-								point->QueryIntAttribute("level",&level);	
+								int beginLevel = 0;
+								int endLevel = 0;
+								GetFujianLevelRange(point, &beginLevel, &endLevel);
 								int value = 0;
 								point->QueryIntAttribute("value",&value);	
 								int costID = 0;
@@ -511,8 +554,12 @@ bool LoadShengxiaoConfig() //加载十二生肖配置 by醉梦
 								point->QueryIntAttribute("mDef",&mDef);	
 								int hp = 0;
 								point->QueryIntAttribute("hp",&hp);	
+								int qiegeattack = 0;
+								point->QueryIntAttribute("qiegeattack",&qiegeattack);
+								int qiegedefence = 0;
+								point->QueryIntAttribute("qiegedefence",&qiegedefence);
 								shengxiaopeizhi sxpz;
-								sxpz.level = level;
+								sxpz.level = beginLevel;
 								sxpz.value = value;
 								sxpz.costID = costID;
 								sxpz.costNum = costNum;
@@ -522,7 +569,13 @@ bool LoadShengxiaoConfig() //加载十二生肖配置 by醉梦
 								sxpz.pDef = pDef;
 								sxpz.mDef = mDef;
 								sxpz.hp = hp;
-								g_shengxiao.push_back(sxpz);
+								sxpz.qiegeattack = qiegeattack;
+								sxpz.qiegedefence = qiegedefence;
+								for(int curLevel = beginLevel; curLevel <= endLevel; ++curLevel)
+									{
+										sxpz.level = curLevel;
+										g_shengxiao.push_back(sxpz);
+									}
 								point = point->NextSiblingElement("point");
 							}
 						}
@@ -568,8 +621,9 @@ bool LoadShengqiConfig() //加载圣器配置 by醉梦
 							TiXmlElement* point = pointMap->FirstChildElement("point");
 							while( point )
 							{
-								int level = 0;
-								point->QueryIntAttribute("level",&level);	
+								int beginLevel = 0;
+								int endLevel = 0;
+								GetFujianLevelRange(point, &beginLevel, &endLevel);
 								int value = 0;
 								point->QueryIntAttribute("value",&value);	
 								int costID = 0;
@@ -588,8 +642,12 @@ bool LoadShengqiConfig() //加载圣器配置 by醉梦
 								point->QueryIntAttribute("mDef",&mDef);	
 								int hp = 0;
 								point->QueryIntAttribute("hp",&hp);	
+								int qiegeattack = 0;
+								point->QueryIntAttribute("qiegeattack",&qiegeattack);
+								int qiegedefence = 0;
+								point->QueryIntAttribute("qiegedefence",&qiegedefence);
 								shengqipeizhi sqpz;
-								sqpz.level = level;
+								sqpz.level = beginLevel;
 								sqpz.value = value;
 								sqpz.costID = costID;
 								sqpz.costNum = costNum;
@@ -599,7 +657,13 @@ bool LoadShengqiConfig() //加载圣器配置 by醉梦
 								sqpz.pDef = pDef;
 								sqpz.mDef = mDef;
 								sqpz.hp = hp;
-								g_shengqi.push_back(sqpz);
+								sqpz.qiegeattack = qiegeattack;
+								sqpz.qiegedefence = qiegedefence;
+								for(int curLevel = beginLevel; curLevel <= endLevel; ++curLevel)
+									{
+										sqpz.level = curLevel;
+										g_shengqi.push_back(sqpz);
+									}
 								point = point->NextSiblingElement("point");
 							}
 						}
@@ -645,8 +709,9 @@ bool LoadJingmaiConfig() //加载经脉配置 by醉梦
 							TiXmlElement* point = pointMap->FirstChildElement("point");
 							while( point )
 							{
-								int level = 0;
-								point->QueryIntAttribute("level",&level);	
+								int beginLevel = 0;
+								int endLevel = 0;
+								GetFujianLevelRange(point, &beginLevel, &endLevel);
 								int value = 0;
 								point->QueryIntAttribute("value",&value);	
 								int costID = 0;
@@ -665,8 +730,12 @@ bool LoadJingmaiConfig() //加载经脉配置 by醉梦
 								point->QueryIntAttribute("mDef",&mDef);	
 								int hp = 0;
 								point->QueryIntAttribute("hp",&hp);	
+								int qiegeattack = 0;
+								point->QueryIntAttribute("qiegeattack",&qiegeattack);
+								int qiegedefence = 0;
+								point->QueryIntAttribute("qiegedefence",&qiegedefence);
 								jingmaipeizhi jmpz;
-								jmpz.level = level;
+								jmpz.level = beginLevel;
 								jmpz.value = value;
 								jmpz.costID = costID;
 								jmpz.costNum = costNum;
@@ -676,7 +745,13 @@ bool LoadJingmaiConfig() //加载经脉配置 by醉梦
 								jmpz.pDef = pDef;
 								jmpz.mDef = mDef;
 								jmpz.hp = hp;
-								g_jingmai.push_back(jmpz);
+								jmpz.qiegeattack = qiegeattack;
+								jmpz.qiegedefence = qiegedefence;
+								for(int curLevel = beginLevel; curLevel <= endLevel; ++curLevel)
+									{
+										jmpz.level = curLevel;
+										g_jingmai.push_back(jmpz);
+									}
 								point = point->NextSiblingElement("point");
 							}
 						}

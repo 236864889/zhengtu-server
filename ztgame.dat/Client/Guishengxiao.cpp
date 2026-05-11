@@ -385,6 +385,8 @@ void CGuishengxiaoDlg::update(int num)
 	int pDef=0;
 	int mDef=0;
 	int hp=0;
+	int qiegeattack=0;
+	int qiegedefence=0;
 
 	shengxiaopeizhi sjs;
 	for(int i=0;i<num;i++)
@@ -395,31 +397,33 @@ void CGuishengxiaoDlg::update(int num)
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 
 	char nums[256];
-	sprintf(nums,"+%d",pDam);
+	sprintf(nums,"³£¹æÊôÐÔ");
 	GetStatic(311)->SetText(nums);
-	sprintf(nums,"+%d",mDam);
+	sprintf(nums,"Îï¹¥ +%d Ä§¹¥ +%d",pDam,mDam);
 	GetStatic(312)->SetText(nums);
-	sprintf(nums,"+%d",pDef);
+	sprintf(nums,"Îï·À +%d Ä§·À +%d",pDef,mDef);
 	GetStatic(313)->SetText(nums);
-	sprintf(nums,"+%d",mDef);
+	sprintf(nums,"ÉúÃüÖµ +%d",hp);
 	GetStatic(314)->SetText(nums);
-	sprintf(nums,"+%d",hp);
+	sprintf(nums,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",qiegeattack,qiegedefence);
 	GetStatic(315)->SetText(nums);
 
 	//ÏÂÒ»¼¶
 	shengxiaopeizhi zt = g_shengxiao[num];
-	sprintf(nums,"+%d",zt.pDam);
+	sprintf(nums,"³£¹æÊôÐÔ");
 	GetStatic(321)->SetText(nums);
-	sprintf(nums,"+%d",zt.mDam);
+	sprintf(nums,"?? +%d ?? +%d",zt.pDam,zt.mDam);
 	GetStatic(322)->SetText(nums);
-	sprintf(nums,"+%d",zt.pDef);
+	sprintf(nums,"?? +%d ?? +%d",zt.pDef,zt.mDef);
 	GetStatic(323)->SetText(nums);
-	sprintf(nums,"+%d",zt.mDef);
+	sprintf(nums,"??? +%d",zt.hp);
 	GetStatic(324)->SetText(nums);
-	sprintf(nums,"+%d",zt.hp);
+	sprintf(nums,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",zt.qiegeattack,zt.qiegedefence);
 	GetStatic(325)->SetText(nums);
 
 	int money=zt.salary;
@@ -815,6 +819,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 	int pDef=0;
 	int mDef=0;
 	int hp=0;
+	int qiegeattack=0;
+	int qiegedefence=0;
 
 	shengxiaopeizhi sjs;
 
@@ -826,6 +832,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx2;i++)
 	{
@@ -835,6 +843,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx3;i++)
 	{
@@ -844,6 +854,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx4;i++)
 	{
@@ -853,6 +865,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx5;i++)
 	{
@@ -862,6 +876,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx6;i++)
 	{
@@ -871,6 +887,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx7;i++)
 	{
@@ -880,6 +898,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx8;i++)
 	{
@@ -889,6 +909,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx9;i++)
 	{
@@ -898,6 +920,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx10;i++)
 	{
@@ -907,6 +931,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx11;i++)
 	{
@@ -916,6 +942,8 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<sx12;i++)
 	{
@@ -925,19 +953,21 @@ void CGuishengxiaoDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 
 	char num[256];
 	
-	sprintf(num,"+%d",pDam);
+	sprintf(num,"³£¹æÊôÐÔ");
 	GetStatic(331)->SetText(num);
-	sprintf(num,"+%d",mDam);
+	sprintf(num,"Îï¹¥ +%d Ä§¹¥ +%d",pDam,mDam);
 	GetStatic(332)->SetText(num);
-	sprintf(num,"+%d",pDef);
+	sprintf(num,"Îï·À +%d Ä§·À +%d",pDef,mDef);
 	GetStatic(333)->SetText(num);
-	sprintf(num,"+%d",mDef);
+	sprintf(num,"ÉúÃüÖµ +%d",hp);
 	GetStatic(334)->SetText(num);
-	sprintf(num,"+%d",hp);
+	sprintf(num,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",qiegeattack,qiegedefence);
 	GetStatic(335)->SetText(num);
 
 	char a[32];

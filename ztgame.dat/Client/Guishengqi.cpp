@@ -182,6 +182,8 @@ void CGuishengqiDlg::update(int num)
 	int pDef=0;
 	int mDef=0;
 	int hp=0;
+	int qiegeattack=0;
+	int qiegedefence=0;
 
 	shengqipeizhi sjs;
 	for(int i=0;i<num;i++)
@@ -192,31 +194,25 @@ void CGuishengqiDlg::update(int num)
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 
 	char nums[256];
-	sprintf(nums,"+%d",pDam+mDam);//¿´Ã÷°×Ã»
+	sprintf(nums,"³£¹æÊôÐÔ ¹¥»÷ +%d ·ÀÓù +%d",pDam+mDam,pDef+mDef);
 	GetStatic(110)->SetText(nums);
-	//sprintf(nums,"+%d",mDam);
-	//GetStatic(112)->SetText(nums);
-	sprintf(nums,"+%d",pDef+mDef);
+	sprintf(nums,"ÉúÃüÖµ +%d",hp);
 	GetStatic(111)->SetText(nums);
-	//sprintf(nums,"+%d",mDef);
-	//GetStatic(114)->SetText(nums);
-	sprintf(nums,"+%d",hp);
+	sprintf(nums,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",qiegeattack,qiegedefence);
 	GetStatic(112)->SetText(nums);
 
 	//ÏÂÒ»¼¶
 	shengqipeizhi zt = g_shengqi[num];
-	sprintf(nums,"+%d",zt.pDam+zt.mDam);
+	sprintf(nums,"³£¹æÊôÐÔ ¹¥»÷ +%d ·ÀÓù +%d",zt.pDam+zt.mDam,zt.pDef+zt.mDef);
 	GetStatic(117)->SetText(nums);
-	//sprintf(nums,"+%d",zt.mDam);
-	//GetStatic(122)->SetText(nums);
-	sprintf(nums,"+%d",zt.pDef+zt.mDef);
+	sprintf(nums,"??? +%d",zt.hp);
 	GetStatic(118)->SetText(nums);
-	//sprintf(nums,"+%d",zt.mDef);
-	//GetStatic(124)->SetText(nums);
-	sprintf(nums,"+%d",zt.hp);
+	sprintf(nums,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",zt.qiegeattack,zt.qiegedefence);
 	GetStatic(119)->SetText(nums);
 
 
@@ -260,6 +256,8 @@ void CGuishengqiDlg::SHUAXIN()
 	int pDef=0;
 	int mDef=0;
 	int hp=0;
+	int qiegeattack=0;
+	int qiegedefence=0;
 
 	shengqipeizhi sjs;
 
@@ -271,18 +269,20 @@ void CGuishengqiDlg::SHUAXIN()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	
 	char num[256];
-	sprintf(num,"+%d",pDam);
+	sprintf(num,"³£¹æÊôÐÔ");
 	GetStatic(125)->SetText(num);
-	sprintf(num,"+%d",mDam);
+	sprintf(num,"Îï¹¥ +%d Ä§¹¥ +%d",pDam,mDam);
 	GetStatic(126)->SetText(num);
-	sprintf(num,"+%d",pDef);
+	sprintf(num,"Îï·À +%d Ä§·À +%d",pDef,mDef);
 	GetStatic(127)->SetText(num);
-	sprintf(num,"+%d",mDef);
+	sprintf(num,"ÉúÃüÖµ +%d",hp);
 	GetStatic(128)->SetText(num);
-	sprintf(num,"+%d",hp);
+	sprintf(num,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",qiegeattack,qiegedefence);
 	GetStatic(129)->SetText(num);
 
 	char a[32]; 

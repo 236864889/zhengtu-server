@@ -300,6 +300,8 @@ void CGuijianzhongDlg::UPDATE()
 	int pDef=0;
 	int mDef=0;
 	int hp=0;
+	int qiegeattack=0;
+	int qiegedefence=0;
 	shenjianpeizhi sjs;
 	for(int i=0;i<j1;i++)
 	{
@@ -309,6 +311,8 @@ void CGuijianzhongDlg::UPDATE()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<j2;i++)
 	{
@@ -318,6 +322,8 @@ void CGuijianzhongDlg::UPDATE()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<j3;i++)
 	{
@@ -327,6 +333,8 @@ void CGuijianzhongDlg::UPDATE()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<j4;i++)
 	{
@@ -336,6 +344,8 @@ void CGuijianzhongDlg::UPDATE()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<j5;i++)
 	{
@@ -345,6 +355,8 @@ void CGuijianzhongDlg::UPDATE()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<j6;i++)
 	{
@@ -354,18 +366,20 @@ void CGuijianzhongDlg::UPDATE()
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	char num[256];
 	
-	sprintf(num,"+%d",pDam);
+	sprintf(num,"常规属性");
 	GetStatic(123)->SetText(num);
-	sprintf(num,"+%d",mDam);
+	sprintf(num,"物攻 +%d 魔攻 +%d",pDam,mDam);
 	GetStatic(124)->SetText(num);
-	sprintf(num,"+%d",pDef);
+	sprintf(num,"物防 +%d 魔防 +%d",pDef,mDef);
 	GetStatic(125)->SetText(num);
-	sprintf(num,"+%d",mDef);
+	sprintf(num,"生命值 +%d",hp);
 	GetStatic(126)->SetText(num);
-	sprintf(num,"+%d",hp);
+	sprintf(num,"PVE属性 切割攻击 +%d 切割防御 +%d",qiegeattack,qiegedefence);
 	GetStatic(127)->SetText(num);			
 		
 }
@@ -377,6 +391,8 @@ void CGuijianzhongDlg::UPDATEJZSX(DWORD j1){
 	int pDef=0;
 	int mDef=0;
 	int hp=0;
+	int qiegeattack=0;
+	int qiegedefence=0;
 	for(int i=0;i<j1;i++)
 	{
 		shenjianpeizhi sjs = g_jianzhong[i];
@@ -385,29 +401,31 @@ void CGuijianzhongDlg::UPDATEJZSX(DWORD j1){
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	char num[256];
-	sprintf(num,"增加物攻:%d",pDam);
+	sprintf(num,"常规属性");
 	GetStatic(107)->SetText(num);
-	sprintf(num,"增加魔攻:%d",mDam);
+	sprintf(num,"增加物攻:%d 增加魔攻:%d",pDam,mDam);
 	GetStatic(108)->SetText(num);
-	sprintf(num,"增加物防:%d",pDef);
+	sprintf(num,"增加物防:%d 增加魔防:%d",pDef,mDef);
 	GetStatic(109)->SetText(num);
-	sprintf(num,"增加魔防:%d",mDef);
-	GetStatic(110)->SetText(num);
 	sprintf(num,"增加生命:%d",hp);
+	GetStatic(110)->SetText(num);
+	sprintf(num,"PVE属性 增加切割攻击:%d 增加切割防御:%d",qiegeattack,qiegedefence);
 	GetStatic(111)->SetText(num);
 
 	shenjianpeizhi sj = g_jianzhong[j1];
-	sprintf(num,"增加物攻:%d",sj.pDam);
+	sprintf(num,"常规属性");
 	GetStatic(113)->SetText(num);
-	sprintf(num,"增加魔攻:%d",sj.mDam);
+	sprintf(num,"增加物攻:%d 增加魔攻:%d",sj.pDam,sj.mDam);
 	GetStatic(114)->SetText(num);
-	sprintf(num,"增加物防:%d",sj.pDef);
+	sprintf(num,"增加物防:%d 增加魔防:%d",sj.pDef,sj.mDef);
 	GetStatic(115)->SetText(num);
-	sprintf(num,"增加魔防:%d",sj.mDef);
-	GetStatic(116)->SetText(num);
 	sprintf(num,"增加生命:%d",sj.hp);
+	GetStatic(116)->SetText(num);
+	sprintf(num,"PVE属性 增加切割攻击:%d 增加切割防御:%d",sj.qiegeattack,sj.qiegedefence);
 	GetStatic(117)->SetText(num);
 
 	int money=sj.salary;

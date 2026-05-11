@@ -516,6 +516,8 @@ void CGuizhengtuzhuanDlg::update(int num) // 这里 我们定义了一个方法 叫update 后
 	int pDef=0;
 	int mDef=0;
 	int hp=0;
+	int qiegeattack=0;
+	int qiegedefence=0;
 
 	//上面新建了5个变量 用来存 我们五个属性
 
@@ -530,31 +532,33 @@ void CGuizhengtuzhuanDlg::update(int num) // 这里 我们定义了一个方法 叫update 后
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 
 	char nums[256];
-	sprintf(nums,"+%d",pDam);
+	sprintf(nums,"常规属性");
 	GetStatic(111)->SetText(nums);
-	sprintf(nums,"+%d",mDam);
+	sprintf(nums,"物攻 +%d 魔攻 +%d",pDam,mDam);
 	GetStatic(112)->SetText(nums);
-	sprintf(nums,"+%d",pDef);
+	sprintf(nums,"物防 +%d 魔防 +%d",pDef,mDef);
 	GetStatic(113)->SetText(nums);
-	sprintf(nums,"+%d",mDef);
+	sprintf(nums,"生命值 +%d",hp);
 	GetStatic(114)->SetText(nums);
-	sprintf(nums,"+%d",hp);
+	sprintf(nums,"PVE属性 切割攻击 +%d 切割防御 +%d",qiegeattack,qiegedefence);
 	GetStatic(115)->SetText(nums);
 
 	//下一级
 	ztzpeizhi zt = g_ztz[num];
-	sprintf(nums,"+%d",zt.pDam);
+	sprintf(nums,"常规属性");
 	GetStatic(121)->SetText(nums);
-	sprintf(nums,"+%d",zt.mDam);
+	sprintf(nums,"?? +%d ?? +%d",zt.pDam,zt.mDam);
 	GetStatic(122)->SetText(nums);
-	sprintf(nums,"+%d",zt.pDef);
+	sprintf(nums,"?? +%d ?? +%d",zt.pDef,zt.mDef);
 	GetStatic(123)->SetText(nums);
-	sprintf(nums,"+%d",zt.mDef);
+	sprintf(nums,"??? +%d",zt.hp);
 	GetStatic(124)->SetText(nums);
-	sprintf(nums,"+%d",zt.hp);
+	sprintf(nums,"PVE属性 切割攻击 +%d 切割防御 +%d",zt.qiegeattack,zt.qiegedefence);
 	GetStatic(125)->SetText(nums);
 
 	//懂了吗
@@ -886,6 +890,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 	int pDef=0;
 	int mDef=0;
 	int hp=0;
+	int qiegeattack=0;
+	int qiegedefence=0;
 
 	//上面新建了5个变量 用来存 我们五个属性
 
@@ -939,6 +945,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 
 
@@ -952,6 +960,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<z3;i++)
 	{
@@ -961,6 +971,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<z4;i++)
 	{
@@ -970,6 +982,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<z5;i++)
 	{
@@ -979,6 +993,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<z6;i++)
 	{
@@ -988,6 +1004,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<z7;i++)
 	{
@@ -997,6 +1015,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<z8;i++)
 	{
@@ -1006,6 +1026,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<z9;i++)
 	{
@@ -1015,6 +1037,8 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	for(int i=0;i<z10;i++)
 	{
@@ -1024,18 +1048,20 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //创建一个方法叫 刷新
 		pDef+=sjs.pDef;
 		mDef+=sjs.mDef;
 		hp+=sjs.hp;
+		qiegeattack+=sjs.qiegeattack;
+		qiegedefence+=sjs.qiegedefence;
 	}
 	char num[256];
 	
-	sprintf(num,"+%d",pDam);
+	sprintf(num,"常规属性");
 	GetStatic(131)->SetText(num);
-	sprintf(num,"+%d",mDam);
+	sprintf(num,"物攻 +%d 魔攻 +%d",pDam,mDam);
 	GetStatic(132)->SetText(num);
-	sprintf(num,"+%d",pDef);
+	sprintf(num,"物防 +%d 魔防 +%d",pDef,mDef);
 	GetStatic(133)->SetText(num);
-	sprintf(num,"+%d",mDef);
+	sprintf(num,"生命值 +%d",hp);
 	GetStatic(134)->SetText(num);
-	sprintf(num,"+%d",hp);
+	sprintf(num,"PVE属性 切割攻击 +%d 切割防御 +%d",qiegeattack,qiegedefence);
 	GetStatic(135)->SetText(num);	
 
 

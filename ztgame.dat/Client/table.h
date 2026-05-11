@@ -448,6 +448,8 @@ typedef struct shenjianpeizhi  //征途原版
 	DWORD	pDef;		// 物品类别
 	DWORD	mDef;		// 物品类别
 	DWORD	hp;		// 物品类别
+	DWORD	qiegeattack;		// qiege attack
+	DWORD	qiegedefence;		// qiege defence
 }shenjianpeizhi_t;//导出 CountryMaterial 成功，共 1066 条记录
 
 
@@ -469,6 +471,8 @@ typedef struct ztzpeizhi  //征途原版
 	DWORD	pDef;		// 物品类别
 	DWORD	mDef;		// 物品类别
 	DWORD	hp;		// 物品类别
+	DWORD	qiegeattack;		// qiege attack
+	DWORD	qiegedefence;		// qiege defence
 }ztzpeizhi_t;//导出 CountryMaterial 成功，共 1066 条记录
 
 // ===============================================================================
@@ -487,6 +491,8 @@ typedef struct shengxiaopeizhi  //征途原版
 	DWORD	pDef;		// 物品类别
 	DWORD	mDef;		// 物品类别
 	DWORD	hp;		// 物品类别
+	DWORD	qiegeattack;		// qiege attack
+	DWORD	qiegedefence;		// qiege defence
 }shengxiaopeizhi_t;//导出 CountryMaterial 成功，共 1066 条记录
 
 // ===============================================================================
@@ -505,6 +511,8 @@ typedef struct shengqipeizhi  //征途原版
 	DWORD	pDef;		// 物品类别
 	DWORD	mDef;		// 物品类别
 	DWORD	hp;		// 物品类别
+	DWORD	qiegeattack;		// qiege attack
+	DWORD	qiegedefence;		// qiege defence
 }shengqipeizhi_t;
 
 // ===============================================================================
@@ -523,6 +531,8 @@ typedef struct jingmaipeizhi  //征途原版
 	DWORD	pDef;		// 物品类别
 	DWORD	mDef;		// 物品类别
 	DWORD	hp;		// 物品类别
+	DWORD	qiegeattack;		// qiege attack
+	DWORD	qiegedefence;		// qiege defence
 }jingmaipeizhi_t;
 
 /**
