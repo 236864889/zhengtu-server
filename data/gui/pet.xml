@@ -9,6 +9,7 @@
                     <item>宠物</item>
                     <item>保镖</item>
                     <item>替身</item>
+                    <item>装备</item>
                 </datas>
             </item>
             <item id="2" type="Button" style="0" rect="0,0,0,0" isdefault="0" pack="data\interfaces.gl" group="25" frame="1" bitmapbutton="1" framenum="3" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"></item>
@@ -95,6 +96,25 @@
 	        <item id="218" type="Table" rect="209,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="209,348,33,33">护马铠</item>
 	        <item id="219" type="Table" rect="170,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="170,348,33,33">马镫</item>
  	        <item id="220" type="Table" rect="326,311,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="326,311,33,33">马牌</item>
+	            <!--701-716宠物装备格-->
+		        <item id="701" type="Table" rect="48,202,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,202,33,33">宠物武器</item>
+		        <item id="702" type="Table" rect="345,158,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,158,33,33">宠物头盔</item>
+		        <item id="703" type="Table" rect="345,246,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,246,33,33">宠物衣服</item>
+		        <item id="704" type="Table" rect="345,202,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,202,33,33">宠物项链</item>
+		        <item id="705" type="Table" rect="48,290,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,290,33,33">宠物护腕右</item>
+		        <item id="706" type="Table" rect="48,335,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,335,33,33">宠物护腕左</item>
+		        <item id="707" type="Table" rect="345,335,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,335,33,33">宠物戒指右</item>
+		        <item id="708" type="Table" rect="345,379,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,379,33,33">宠物戒指左</item>
+		        <item id="709" type="Table" rect="345,290,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="345,290,33,33">宠物腰带</item>
+		        <item id="710" type="Table" rect="48,379,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="48,379,33,33">宠物鞋子</item>
+		        <item id="711" type="Table" rect="326,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="326,348,33,33">宠物马脚</item>
+		        <item id="712" type="Table" rect="287,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="287,348,33,33">宠物马绳</item>
+		        <item id="713" type="Table" rect="248,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="248,348,33,33">宠物马鞍</item>
+		        <item id="714" type="Table" rect="209,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="209,348,33,33">宠物马甲</item>
+		        <item id="715" type="Table" rect="170,348,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="170,348,33,33">宠物马镫</item>
+		        <item id="716" type="Table" rect="326,309,33,33" virtual="1" style="0" hotkey="" isdefault="0" color="255,255,255,255" textcolor="255,255,255,255" cellWidth="0" cellHeight="0" rowCount="0" showRowCount="0" colCount="0" itemrect="326,309,33,33">宠物马牌</item>
+                <item id="6" type="Button" style="0" rect="288,326,58,24" isdefault="0" pack="data\interfaces.gl" group="25" frame="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>装备</Tip></item>
+                <item id="717" type="Button" style="0" rect="358,95,21,21" isdefault="0" pack="data\interfaces.gl" group="3" frame="6" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>关闭</Tip></item>
 			
 			<item id="601" type="Button" style="0" rect="323000,183000,48,48" isdefault="0" pack="data\interfaces2.gl" group="135" frame="200" bitmapbutton="1" framenum="1" hotkey="" color="255,255,255,255" textcolor="255,255,255,255"><Tip>坐骑图鉴,激活升级后可领取马铠</Tip></item>
         

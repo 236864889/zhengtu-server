@@ -6,7 +6,7 @@
 #define GUI_WS_NOMOVE		0x4
 #define GUI_WS_RESIZEING	0x8-->
 <gui>
-    <dialog id="51" name="ShopDialog" style="10" caption="°ÚÌ¯" rect="498,84,342,525" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
+    <dialog id="51" name="ShopDialog" style="10" caption="½ð×ÓÌ¯Î»" rect="498,84,342,525" colortopleft="255,98,138,206" colortopright="255,54,105,192" colorbottomleft="255,54,105,192" colorbottomright="255,10,73,179" align="0">
         <script>function OnGuiEvent(nEvent,nID,pControl) 
 			return false
 			end
