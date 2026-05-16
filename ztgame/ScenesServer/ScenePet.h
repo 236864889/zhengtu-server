@@ -45,6 +45,91 @@ struct petBonus
 	*/
 };
 
+struct PetEquipAttr
+{
+	uint64_t minPDamage;
+	uint64_t maxPDamage;
+	uint64_t minMDamage;
+	uint64_t maxMDamage;
+	uint64_t pDefence;
+	uint64_t mDefence;
+	uint64_t maxHP;
+	DWORD pDamageRate;
+	DWORD mDamageRate;
+	DWORD pDefenceRate;
+	DWORD mDefenceRate;
+	DWORD maxHPRate;
+	WORD damageBonus;
+	uint64_t juejiAttack;
+	uint64_t qiegeAttack;
+
+	PetEquipAttr()
+	{
+		clear();
+	}
+
+	void clear()
+	{
+		minPDamage = 0;
+		maxPDamage = 0;
+		minMDamage = 0;
+		maxMDamage = 0;
+		pDefence = 0;
+		mDefence = 0;
+		maxHP = 0;
+		pDamageRate = 0;
+		mDamageRate = 0;
+		pDefenceRate = 0;
+		mDefenceRate = 0;
+		maxHPRate = 0;
+		damageBonus = 0;
+		juejiAttack = 0;
+		qiegeAttack = 0;
+	}
+};
+
+struct PetEquipState
+{
+	bool active;              // normal pet double-crossbow pet-equip state
+	PetEquipAttr equipAttr;   // pet equipment only
+	PetEquipAttr suitAttr;    // pet equipment suit bonus only
+	PetEquipAttr ownerAttr;   // owner 30% bonus while active
+	PetEquipAttr finalAttr;   // equipAttr + suitAttr + ownerAttr + pet-only specials
+	DWORD suitId;
+	DWORD suitLevel;
+	DWORD suitPieceCount;
+	DWORD suitActiveMask;
+	WORD ignoreDef;
+	WORD reel;
+	WORD vipSuppress;
+	WORD charmSuppress;
+	WORD magicBoxSuppress;
+	WORD restrainSuppress;
+
+	PetEquipState()
+	{
+		clear();
+	}
+
+	void clear()
+	{
+		active = false;
+		equipAttr.clear();
+		suitAttr.clear();
+		ownerAttr.clear();
+		finalAttr.clear();
+		suitId = 0;
+		suitLevel = 0;
+		suitPieceCount = 0;
+		suitActiveMask = 0;
+		ignoreDef = 0;
+		reel = 0;
+		vipSuppress = 0;
+		charmSuppress = 0;
+		magicBoxSuppress = 0;
+		restrainSuppress = 0;
+	}
+};
 class ScenePet : public SceneNpc
 {
 	private:
@@ -61,6 +146,7 @@ class ScenePet : public SceneNpc
 
 	///宠物类型
 	Cmd::petType type;
+	PetEquipState petEquipState;
 	///宠物的行动模式
 	//WORD petAI;
 
@@ -85,6 +171,9 @@ public:
 	uint64_t masterPDefence;      // 继承主人物理防御
 	uint64_t masterMDefence;      // 继承主人魔法防御
 	uint64_t masterMaxHP;         // 继承主人最大生命值
+	WORD masterDamageBonus;       // inherit master damage bonus
+	uint64_t masterJuejiAttack;   // inherit master jueji attack
+	uint64_t masterQiegeAttack;   // inherit master qiege attack
 	//by=>friday 重写防御力函数声明
 
 
@@ -106,6 +195,7 @@ public:
 	bool checkMasterTarget(SceneEntryPk *&entry);
 	void setMaster(SceneEntryPk *);
 	void setMaster(DWORD, DWORD);
+	void refreshMasterInheritedAttr();
 	SceneEntryPk * getMaster();
 	DWORD getMasterID() const{return masterID;}
 	SceneEntryPk * getTopMaster();
@@ -113,6 +203,12 @@ public:
 
 	Cmd::petType getPetType();
 	void setPetType(Cmd::petType);
+	void clearPetEquipState();
+	void setPetEquipActive(bool active);
+	void setPetEquipState(const PetEquipState &state);
+	bool isPetEquipActive() const;
+	WORD getPetEquipIgnoreDef() const;
+	WORD getPetEquipReel() const;
 	void petDeath();
 	virtual void sendData();
 	virtual void sendHpExp();
@@ -145,6 +241,9 @@ public:
 	virtual uint64_t getMaxMDefence();
 	virtual uint64_t getMinPDefence();
 	virtual uint64_t getMaxPDefence();
+	virtual WORD getDamageBonus();
+	uint64_t getMasterJuejiAttack();
+	uint64_t getMasterQiegeAttack();
 
 	virtual void levelUp();
 	void getAbilityByLevel(DWORD);

@@ -59,7 +59,7 @@ struct SendTeamDataExec : public TeamMemExec
 	{
 		leader = l; 
 		ret.dwTempID = user->tempid;
-		ret.dwMaxHealth = user->charstate.maxhp;
+		ret.dwMaxHealth = user->getMaxHP();
 		ret.dwHealth = user->charbase.hp;
 		ret.dwMaxMp = user->charstate.maxmp;
 		ret.dwMp = user->charbase.mp;
@@ -286,7 +286,7 @@ struct AddNewMemberExec : public TeamMemExec
 		ret_1.dwTeamID = u->team.getLeader();
 		ret_2.dwTeamID = u->team.getLeader();
 		ret_2.data.dwTempID = nm->tempid;
-		ret_2.data.dwMaxHealth = nm->charstate.maxhp;
+		ret_2.data.dwMaxHealth = nm->getMaxHP();
 		ret_2.data.dwHealth = nm->charbase.hp;
 		ret_2.data.dwMaxMp = nm->charstate.maxmp;
 		ret_2.data.dwMp = nm->charbase.mp;
@@ -317,7 +317,7 @@ struct AddNewMemberExec : public TeamMemExec
 				ret_1.data.byHead = false;
 			}
 			ret_1.data.dwTempID = pUser->tempid;
-			ret_1.data.dwMaxHealth = pUser->charstate.maxhp;
+			ret_1.data.dwMaxHealth = pUser->getMaxHP();
 			ret_1.data.dwHealth = pUser->charbase.hp;
 			ret_1.data.dwMaxMp = pUser->charstate.maxmp;
 			ret_1.data.dwMp = pUser->charbase.mp;
@@ -387,7 +387,7 @@ bool TeamManager::addNewLeader(SceneUser *pUser)
 			pUser->team.setLeader(pUser->tempid);
 			Cmd::stAddTeamMemberUserCmd ret;
 			ret.data.dwTempID = pUser->tempid;
-			ret.data.dwMaxHealth = pUser->charstate.maxhp;
+			ret.data.dwMaxHealth = pUser->getMaxHP();
 			ret.data.dwHealth = pUser->charbase.hp;
 			ret.data.dwMaxMp = pUser->charstate.maxmp;
 			ret.data.dwMp = pUser->charbase.mp;
@@ -1594,6 +1594,47 @@ DWORD TeamManager::getDefPlus()
  * \brief  实时累加计算所有关系的友好度关系
  */
 
+/**
+ * \brief Calculate active ordinary-pet bow aura for this team member.
+ */
+DWORD TeamManager::getPetBowAuraRate()
+{
+	if (NULL == me || 0 == team.leader || NULL == me->scene) return 0;
+
+	SceneUser *leader = me;
+	if (me->team.getLeader() != me->tempid)
+	{
+		leader = SceneUserManager::getMe().getUserByTempID(me->team.getLeader());
+		if (NULL == leader) return 0;
+	}
+
+	struct PetBowAuraExec : public TeamMemExec
+	{
+		SceneUser *me;
+		bool active;
+
+		PetBowAuraExec(SceneUser *user):me(user),active(false) {}
+
+		bool exec(TeamMember &member)
+		{
+			if (active || NULL == me) return true;
+
+			SceneUser *owner = SceneUserManager::getMe().getUserByTempID(member.tempid);
+			if (NULL == owner || NULL == owner->scene || owner->scene != me->scene) return true;
+			if (NULL == owner->pet || owner->pet->getPetType()!=Cmd::PET_TYPE_PET) return true;
+			if (!owner->isPetEquipDoubleCrossbowActive()) return true;
+			if (NULL == owner->pet->scene || owner->pet->scene != me->scene) return true;
+
+			if (me->scene->zPosShortRange(owner->pet->getPos(), me->getPos(), 5, 5))
+				active = true;
+			return true;
+		}
+	};
+
+	PetBowAuraExec exec(me);
+	leader->team.execEveryOne(exec);
+	return exec.active ? 8 : 0;
+}
 /**
  * \brief  Calculate nearby team five-element complement bonus.
  */

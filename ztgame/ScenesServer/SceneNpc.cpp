@@ -13,6 +13,7 @@
 
 #include "zSceneEntry.h"
 #include "SceneNpc.h"
+#include "ScenePet.h"
 #include "Zebra.h"
 #include "Chat.h"
 #include "Scene.h"
@@ -951,7 +952,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 
 			{
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "Ú¶Õ½Ç¹,Ü¹58101");
+				Channel::sendNine(this, "²»ÔÚ³ÇÕ½ÆÚ¼ä£¬²»ÄÜ¹¥»÷58101");
 #endif			
 
 				if (rev)
@@ -964,7 +965,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 		//soke Ç¿Ê±ä²»Ü¹NPC
 		if (this->id > 0 && (atoi(Zebra::global["service_flag"].c_str())==9))
 		{
-            Channel::sendNine(this, "Ã»Ê±Ø£Û¸Ë¼");
+            Channel::sendNine(this, "µ±Ç°Ê±¼ä²»ÄÜ¹¥»÷¸ÃNPC");
 			return false;
 		}
 		
@@ -997,7 +998,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			{
 				if(atoi(Zebra::global["BOSS_CHU"].c_str())==0)
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "BOSSÎ´É±Ü½Õ¼BOSS"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "BOSSÎ´¿ªÆô£¬²»ÄÜÕ¼ÁìBOSS"); 
 					return false;	
 				}
 			}
@@ -1006,7 +1007,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			{
 				if(atoi(Zebra::global["BOSS_HAN"].c_str())==0)
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "BOSSÎ´É±Ü½Õ¼BOSS"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "BOSSÎ´¿ªÆô£¬²»ÄÜÕ¼ÁìBOSS"); 
 					return false;	
 				}
 				
@@ -1022,10 +1023,10 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			{
 				if(master)  
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú¸ì£¬Ü¹"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "ÇëÏÈ¹¥»÷¸±Æì"); 
 				}
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "Ê§Ü£Ú¸");
+				Channel::sendNine(this, "Ê§°Ü£¬ÇëÏÈ¹¥»÷¸±Æì");
 #endif			
 
 				if (rev)
@@ -1041,7 +1042,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			if (this->scene->getCountryID() ==attCountryID)
 			{
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "Ë²");
+				Channel::sendNine(this, "±¾¹úÄ¿±ê²»ÄÜ¹¥»÷");
 #endif			
 				if (rev)
 					ScenePk::attackFailToMe(rev, (SceneUser*)pEntry, true);
@@ -1051,7 +1052,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			if (attLevel>50)
 			{
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "50Ë³ÚµÄ¹");
+				Channel::sendNine(this, "50¼¶ÒÔÉÏ²»ÄÜ¹¥»÷");
 #endif			
 
 				if (rev)
@@ -1066,7 +1067,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			if (this->scene->getCountryID() ==attCountryID)
 			{
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "Ë²");
+				Channel::sendNine(this, "±¾¹úÄ¿±ê²»ÄÜ¹¥»÷");
 #endif			
 				if (rev)
 					ScenePk::attackFailToMe(rev, (SceneUser*)pEntry, true);
@@ -1090,10 +1091,10 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			{
 				if(master)  
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú¸ì£¬Ü¹"); 
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "ÇëÏÈ¹¥»÷¸±Æì"); 
 				}
 #ifdef _ZJW_DEBUG
-				Channel::sendNine(this, "Ê§Ü£Ú¸");
+				Channel::sendNine(this, "Ê§°Ü£¬ÇëÏÈ¹¥»÷¸±Æì");
 #endif			
 				if (rev)
 					ScenePk::attackFailToMe(rev, (SceneUser*)pEntry, true);
@@ -1118,7 +1119,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 			{
 				if (master)
 				{
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú¹Õ½Ú¼Ç½Ü¹ó½«¾");
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "¹úÕ½ÆÚ¼ä²Å¿É¹¥»÷´ó½«¾ü");
 				}
 
 				if (rev)
@@ -1155,7 +1156,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 				if (master) 
 				{
 					//Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú½Ó³Ç²Õ½Ü¹ó½«¾"); 
-					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú»Ê³Õ½Ú¼Ð½Ó³Ü¹ó½«¾");
+					Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "»Ê³ÇÕ½ÆÚ¼ä²ÅÄÜ¹¥»÷´ó½«¾ü");
 				}
 
 				if (rev)
@@ -1169,7 +1170,7 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 		{//Ð¶Ç·é½«
 			if (master) 
 			{
-				Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "Ú¹Õ½Ú¼ä£¬Ü¹Ó³"); 
+				Channel::sendSys(master, Cmd::INFO_TYPE_FAIL, "¹úÕ½ÆÚ¼ä£¬²ÅÄÜ¹¥»÷¸±½«"); 
 			}
 
 			if (rev)
@@ -1184,6 +1185,11 @@ bool SceneNpc::preAttackMe(SceneEntryPk *pEntry, const Cmd::stAttackMagicUserCmd
 	this->skillValue.init();
 
 	this->skillStatusM.processPassiveness();	// ÒµÄ±×´Ì¬Ó°
+
+	if (pEntry->getType() == SceneEntry_Player)
+	{
+		((SceneUser *)pEntry)->refreshPkPreValue();
+	}
 
 	if (pEntry->getType() == SceneEntry_Player)
 	{
@@ -1225,7 +1231,7 @@ bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev
 		if (am->getType()==zSceneEntry::SceneEntry_Player)
 		{
 			SceneUser * attacker = (SceneUser *)am;
-			Channel::sendSys(attacker, Cmd::INFO_TYPE_FAIL, "Ë¹Ú³Ñ±Ó£Þ·");
+			Channel::sendSys(attacker, Cmd::INFO_TYPE_FAIL, "¸ÃNPCÊÜ±£»¤£¬ÎÞ·¨¹¥»÷");
 		}
 		return false;
 	}
@@ -1265,7 +1271,7 @@ bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev
 			//NPCó³¼£È«Í¨Öª
 			if (npc->id==227)
 			{
-				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME1,"%s%sÚ¹ó³¼£Ê¿Ù»!Ï½É¨!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
+				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME1,"%s%sÕýÔÚ¹¥»÷´ó³¼£¬ÓÂÊ¿ÃÇÇë»ðËÙÖ§Ô®!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
 			}
 		}
 		else if (hp<=getMaxHp()*0.4 && scene->getCountryID()!=a->charbase.country)
@@ -1273,7 +1279,7 @@ bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev
 			//NPCó³¼£È«Í¨Öª
 			if (npc->id==227)
 			{
-				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME4,"%s%sÚ¹ó³¼£ÑªÎª30%Ê¿Ù»!Ï½É¨!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
+				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME4,"%s%sÕýÔÚ¹¥»÷´ó³¼£¬´ó³¼ÑªÁ¿µÍÓÚ30%£¬Çë»ðËÙÖ§Ô®!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
 			}
 		}
 		else if (hp<=getMaxHp()*0.7 && scene->getCountryID()!=a->charbase.country)
@@ -1281,7 +1287,7 @@ bool SceneNpc::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd *rev
 			//NPCó³¼£È«Í¨Öª
 			if (npc->id==227)
 			{
-				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME2,"%s%sÚ¹ó³¼£ÑªÎª60%Ê¿Ù»!Ï½É¨!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
+				Channel::sendCountryInfo(scene->getCountryID(), Cmd::INFO_TYPE_GAME2,"%s%sÕýÔÚ¹¥»÷´ó³¼£¬´ó³¼ÑªÁ¿µÍÓÚ60%£¬Çë»ðËÙÖ§Ô®!", SceneManager::getInstance().getCountryNameByCountryID(a->charbase.country), a->name);
 			}
 		}
 	}
@@ -1830,8 +1836,8 @@ bool SceneNpc::canLostObject(const zRTime &ct)
 		{
 			Zebra::logger->debug("[BOSS]%s(%u) ", name, tempid);
 		//soke BOSSÂ´Î¸Ê¾	
-		Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "Â¹Ä»Å»Å£Ê¿Ä¥Å£%d %s  %s Ø·Ë½ç£¬Ù¶", define->interval /60,name, scene->getRealName());
-		Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "Â¹Ä»Å»Å£Ê¿Ä¥Å£%d %s  %s Ø·Ë½ç£¬Ù¶", define->interval /60,name, scene->getRealName());
+		Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%d·ÖÖÓºó%s½«ÔÚ%sË¢ÐÂ£¬Çë×¢Òâ", define->interval /60,name, scene->getRealName());
+		Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%d·ÖÖÓºó%s½«ÔÚ%sË¢ÐÂ£¬Çë×¢Òâ", define->interval /60,name, scene->getRealName());
 		}
 		//setMoveTime(ct, define->interval * 1000);//Ê±
 		//setAttackTime(ct, define->interval * 1000);
@@ -1893,8 +1899,8 @@ bool SceneNpc::canRelive(const zRTime &ct)
 			if ((int)((reliveTime.sec()-ct.sec())/60) == timegap)
 			{
 				Cmd::stRefreshBossUserCmd send;
-		        Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "Â¹Ä»Å»Å£Ê¿Ä¥Å£%d %s  %s Ø·Ë½ç£¬Ù¶", ((reliveTime.sec()-ct.sec())/60),name, scene->getRealName());
-		        Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "Â¹Ä»Å»Å£Ê¿Ä¥Å£%d %s  %s Ø·Ë½ç£¬Ù¶", ((reliveTime.sec()-ct.sec())/60),name, scene->getRealName());				
+		        Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%d·ÖÖÓºó%s½«ÔÚ%sË¢ÐÂ£¬Çë×¢Òâ", ((reliveTime.sec()-ct.sec())/60),name, scene->getRealName());
+		        Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%d·ÖÖÓºó%s½«ÔÚ%sË¢ÐÂ£¬Çë×¢Òâ", ((reliveTime.sec()-ct.sec())/60),name, scene->getRealName());				
 				strncpy(send.mapName,this->scene->getName(),sizeof(send.mapName));
 				//send.x = this->getPos().x;
 				//send.y = this->getPos().y;
@@ -2561,40 +2567,45 @@ bool SceneNpc::attackTarget(SceneEntryPk *entry)
 
 		if (entry)
 		{
-			if (this->giddy>0) //Å­Ñµ
+			bool castReel = false;
+			if (this->giddy>0)
+				castReel = zMisc::selectByPercent(giddy);
+			if (!castReel && getPetType()==Cmd::PET_TYPE_PET)
 			{
-				if (zMisc::selectByPercent(giddy))
+				WORD petEquipReel = ((ScenePet *)this)->getPetEquipReel();
+				if (petEquipReel>0)
+					castReel = zMisc::selectByPercent(petEquipReel);
+			}
+			if (castReel)
+			{
+				Cmd::stAttackMagicUserCmd cmd;
+
+				if (entry->getType() == zSceneEntry::SceneEntry_Player)
 				{
-					Cmd::stAttackMagicUserCmd cmd;
+					cmd.dwDefenceTempID = entry->tempid;
+					cmd.byAttackType = Cmd::ATTACKTYPE_N2U;
+					cmd.byAction = Cmd::Ani_Null;
+				}
+				else
+				{
+					cmd.dwDefenceTempID = entry->tempid;
+					cmd.byAttackType = Cmd::ATTACKTYPE_N2N;
+					cmd.byAction = Cmd::Ani_Null;
+				}
 
-					if (entry->getType() == zSceneEntry::SceneEntry_Player)
-					{
-						cmd.dwDefenceTempID = entry->tempid;
-						cmd.byAttackType = Cmd::ATTACKTYPE_N2U;
-						cmd.byAction = Cmd::Ani_Null;
-					}
-					else
-					{
-						cmd.dwDefenceTempID = entry->tempid;
-						cmd.byAttackType = Cmd::ATTACKTYPE_N2N;
-						cmd.byAction = Cmd::Ani_Null;
-					}
+				cmd.dwUserTempID = this->tempid;
+				cmd.wdMagicType = 386;
+				cmd.byDirect = this->getDir();
 
-					cmd.dwUserTempID = this->tempid;
-					cmd.wdMagicType = 386;
-					cmd.byDirect = this->getDir();
+				zSkill *s = NULL;
 
-					zSkill *s = NULL;
-
-					s = zSkill::createTempSkill(this , 386 , 1);
-					if(s)
-					{
-						s->action(&cmd, sizeof(cmd));
-						SAFE_DELETE(s);
-					}
+				s = zSkill::createTempSkill(this , 386 , 1);
+				if(s)
+				{
+					s->action(&cmd, sizeof(cmd));
+					SAFE_DELETE(s);
 				}
 			}
-
 
 
 			if (entry->getType() == zSceneEntry::SceneEntry_Player) ((SceneUser *)entry)->mask.on_defence();
@@ -2920,7 +2931,7 @@ bool SceneNpc::deathAction()
 										else
 										{
 											addnum -= o->data.dwNum;
-											Channel::sendSys(pUser , Cmd::INFO_TYPE_FAIL, "Ä°");
+											Channel::sendSys(pUser , Cmd::INFO_TYPE_FAIL, "±³°ü¿Õ¼ä²»×ã");
 											scene->addObject(ob, o->data.dwNum, getPos(), dwNpcLockedUser, id);
 
 
@@ -3070,8 +3081,8 @@ bool SceneNpc::deathAction()
 					Zebra::logger->debug("[BOSS]%s(%u)  pos=(%u,%u)", name, tempid, pos.x, pos.y);
 				  //soke BOSSî¹«  2 3 31
 		//		   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s Ñ¾ %s ", name, scene->getRealName());
-				   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s Ñ¾ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
-				   Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%s Ñ¾ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);	
+				   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%sÒÑ¾­ÔÚ%s(%u,%u)Ë¢ÐÂ", name, scene->getRealName(), pos.x, pos.y);
+				   Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%sÒÑ¾­ÔÚ%s(%u,%u)Ë¢ÐÂ", name, scene->getRealName(), pos.x, pos.y);	
 				   //Í¨ÖªSession Ä±BOSSÄ¸
 					Cmd::Session::t_BossDieInfo_SceneSession BossSend;
 					BossSend.NpcID = npc->id;
@@ -3089,8 +3100,8 @@ bool SceneNpc::deathAction()
 
 					Zebra::logger->debug("[BOSS]%s(%u)  pos=(%u,%u)", name, tempid, pos.x, pos.y);
 				   //soke BOSSî¹«  2 3 31 33 34 35
-				   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%s Ñ¾ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
-				   Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%s Ñ¾ %s (%u,%u) ", name, scene->getRealName(), pos.x, pos.y);
+				   Channel::sendAllInfo(Cmd::INFO_TYPE_XTYSCROLL, "%sÒÑ¾­ÔÚ%s(%u,%u)Ë¢ÐÂ", name, scene->getRealName(), pos.x, pos.y);
+				   Channel::sendAllInfo(Cmd::INFO_TYPE_XG2, "%sÒÑ¾­ÔÚ%s(%u,%u)Ë¢ÐÂ", name, scene->getRealName(), pos.x, pos.y);
 
 				  	//Í¨ÖªSession Ä±BOSSÄ¸
 					Cmd::Session::t_BossDieInfo_SceneSession BossSend;
@@ -3715,7 +3726,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "%sNPC %s(%u,%u)  %s(%s) É±", scene->getRealName(), name, pos.x, pos.y, temp->name, SceneManager::getInstance().getCountryNameByCountryID(attCountryID));
+								snprintf(send.info, MAX_CHATINFO, "%sNPC %s(%u,%u) ±» %s(%s) »÷É±", scene->getRealName(), name, pos.x, pos.y, temp->name, SceneManager::getInstance().getCountryNameByCountryID(attCountryID));
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3748,7 +3759,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s %s(%u,%u)Ê±%s%sÉ±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹BOSS %s ÔÚ%s(%u,%u)±»%s%s»÷É±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3763,31 +3774,31 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						if (attCountryID!=scene->getCountryID())
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Å£%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"¹§Ï²%s%sÔÚ%s(%u,%u)»÷É±BOSS %s", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;
 					case NPC_TYPE_PBOSS: //
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP3,"%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP3,"%s%sÔÚ%s(%u,%u)»÷É±BOSS %s", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;
 					case NPC_TYPE_BACKBONE: //
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP4,"%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP4,"%s%sÔÚ%s(%u,%u)»÷É±BOSS %s", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;
 					case NPC_TYPE_GOLD: //
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%s%sÔÚ%s(%u,%u)»÷É±BOSS %s", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;			
 					case NPC_TYPE_REDBOSS: //
 						{
 							if (scene->getCountryID() == 6)
-								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%s%s%s(%u,%u)É±BOSS %s()", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
+								Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"%s%sÔÚ%s(%u,%u)»÷É±BOSS %s", SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name,scene->getRealName(), pos.x, pos.y, name);	
 						}
 						break;						
 					default:
@@ -3803,7 +3814,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Åº Ò¹%s %s(%u,%u)%s%sÑ¹Ò»Ë£",  scene->getRealName(), name, pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "µÐ¹ú%s %s(%u,%u)±»%s%s»÷°Ü",  scene->getRealName(), name, pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3820,7 +3831,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÑ£", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹BOSS %sÔÚ%s(%u,%u)±»%s%s»÷°Ü", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3831,7 +3842,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÉ±Ë£", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹BOSS %sÔÚ%s(%u,%u)±»%s%s»÷É±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3842,7 +3853,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÌµÉ±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹BOSS %sÔÚ%s(%u,%u)±»%s%s»÷É±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3853,7 +3864,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÌµÉ±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹BOSS %sÔÚ%s(%u,%u)±»%s%s»÷É±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3864,7 +3875,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "æ²»Ò£ Ò¹BOSS %s()%s(%u,%u)%s%sÉ±Ë£", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹BOSS %sÔÚ%s(%u,%u)±»%s%s»÷É±", name , scene->getRealName(), pos.x, pos.y, SceneManager::getInstance().getCountryNameByCountryID(attCountryID), temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3882,7 +3893,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Åº %s%s(%u,%u)%sÑ¹Ò»Ë£",  scene->getRealName(), name, pos.x, pos.y,/* SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name);
+								snprintf(send.info, MAX_CHATINFO, "%s%s(%u,%u)±»%s»÷°Ü",  scene->getRealName(), name, pos.x, pos.y,/* SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3899,7 +3910,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3910,7 +3921,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3921,7 +3932,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3932,7 +3943,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "ì°¡ Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3943,7 +3954,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 								Cmd::Session::t_countryNotify_SceneSession send;
 								send.infoType = Cmd::INFO_TYPE_EXP;
 								send.dwCountryID = scene->getCountryID();
-								snprintf(send.info, MAX_CHATINFO, "Ò¹%s%s(%u,%u)É¹É±BOSS %s()",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
+								snprintf(send.info, MAX_CHATINFO, "Ò¹%sÔÚ%s(%u,%u)³É¹¦»÷É±BOSS %s",/*SceneManager::getInstance().getCountryNameByCountryID(attCountryID),*/ temp->name ,scene->getRealName(), pos.x, pos.y, name);
 								sessionClient->sendCmd(&send, sizeof(send));
 							}
 							break;
@@ -3960,7 +3971,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							u->charbase.goodness = (DWORD)Cmd::GOODNESS_2_1;
 							while (!u->pkState.cancelProtect(u));
 
-							Channel::sendSys(u, Cmd::INFO_TYPE_EXP, "É±Ù£Ô¼ÐµÄ·Â¼");
+							Channel::sendSys(u, Cmd::INFO_TYPE_EXP, "»÷É±Ä¿±ê£¬ÒÑÇå³ý×ÔÉíPK±£»¤");
 							Zebra::logger->debug("[]%s É±", u->name);
 						}
 					}
@@ -3981,8 +3992,8 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						
 						// 	}
 						// }
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"BOSSÑ±É±" );	
-						Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL,"BOSSÑ±É±");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP5,"BOSSÒÑ±»»÷É±" );	
+						Channel::sendAllInfo(Cmd::INFO_TYPE_ZISEYROLL,"BOSSÒÑ±»»÷É±");
 						
 					}
 
@@ -4011,7 +4022,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						else{
 							kaijiang = time2%10;
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP,"Ö¾Â½Ç£%d", kaijiang);	
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP,"¿ª½±ºÅÂë£º%d", kaijiang);	
 						Cmd::Session::t_Gxjckj_SceneSession send;
 						send.index = kaijiang;
 						sessionClient->sendCmd(&send, sizeof(send));
@@ -4057,7 +4068,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						 iter++)
 						{
 							char a[MAX_NAMESIZE];
-							sprintf(a, "%s É±Ú³", u->name);
+							sprintf(a, "%s »÷É±ïÚ³µ", u->name);
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
 							sprintf(send.info, a);
@@ -4066,11 +4077,11 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 
 							// Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
+							sprintf(send.info, "ïÚ³µÒÑ±»»÷»Ù£¬Çë×¢ÒâÊ£ÓàÄ¿±ê");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ïÚ³µÒÑ±»»÷»Ù£¬Çë×¢ÒâÊ£ÓàÄ¿±ê");
 						ScenesService::getInstance().han_biaoche->setClearState();
 						ScenesService::getInstance().han_biaoche = NULL;
 					}
@@ -4112,7 +4123,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						 iter++)
 						{
 							char a[MAX_NAMESIZE];
-							sprintf(a, "%s É±Ú³", u->name);
+							sprintf(a, "%s »÷É±ïÚ³µ", u->name);
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
 							sprintf(send.info, a);
@@ -4121,11 +4132,11 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							
 							// Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
+							sprintf(send.info, "ïÚ³µÒÑ±»»÷»Ù£¬Çë×¢ÒâÊ£ÓàÄ¿±ê");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ïÚ³µÒÑ±»»÷»Ù£¬Çë×¢ÒâÊ£ÓàÄ¿±ê");
 						ScenesService::getInstance().chu_biaoche->setClearState();
 						ScenesService::getInstance().chu_biaoche = NULL;
 					}
@@ -4168,7 +4179,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 						 iter++)
 						{
 							char a[MAX_NAMESIZE];
-							sprintf(a, "%s É±Ú³", u->name);
+							sprintf(a, "%s »÷É±ïÚ³µ", u->name);
 							Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
 							sprintf(send.info, a);
@@ -4177,11 +4188,11 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 							
 							// Cmd::Session::t_countryNotify_SceneSession send;
 							bzero(send.info, sizeof(send.info));
-							sprintf(send.info, "Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
+							sprintf(send.info, "ïÚ³µÒÑ±»»÷»Ù£¬Çë×¢ÒâÊ£ÓàÄ¿±ê");
 							send.dwCountryID = iter->second.id;
 							sessionClient->sendCmd(&send, sizeof(send));
 						}
-						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"Ä¹Ú³Ñ±Ó£Ö»Ê£Â¹ÍºÍºÆ³Ë£Ì«Ë£");
+						Channel::sendAllInfo(Cmd::INFO_TYPE_EXP2,"ïÚ³µÒÑ±»»÷»Ù£¬Çë×¢ÒâÊ£ÓàÄ¿±ê");
 						ScenesService::getInstance().wei_biaoche->setClearState();
 						ScenesService::getInstance().wei_biaoche = NULL;
 					}
@@ -4337,7 +4348,7 @@ bool SceneNpc::processDeath(SceneEntryPk *pAtt)
 		{// Í¨ÖªØ·ó½«¾Üµ
 			Cmd::Session::t_countryNotify_SceneSession send;
 			bzero(send.info, sizeof(send.info));
-			sprintf(send.info, "%s", "Ó³ó½«¾Üµ!");
+			sprintf(send.info, "%s", "¸±½«ÊÜµ½¹¥»÷!");
 			send.dwCountryID = this->scene->getCountryID();
 			sessionClient->sendCmd(&send, sizeof(send));
 		}

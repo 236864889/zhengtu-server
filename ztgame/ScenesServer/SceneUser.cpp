@@ -36,6 +36,7 @@
 #include "fjconfig.h"
 #include <math.h>
 #include <string>
+#include <map>
 
 #define MAX_UZLIB_CHAR	(800 * 2048) //桃子修改压缩大小
 DWORD SceneUser::Five_Relation[]= 
@@ -75,6 +76,27 @@ namespace
 	uint64_t addRate64(uint64_t value, DWORD rate)
 	{
 		return value + static_cast<uint64_t>((long double)value * (long double)rate / 100.0L);
+	}
+
+	uint64_t petBowMax64()
+	{
+		return ~(uint64_t)0;
+	}
+
+	uint64_t petBowAdd64(uint64_t left, uint64_t right)
+	{
+		uint64_t maxValue = petBowMax64();
+		if (maxValue - left < right) return maxValue;
+		return left + right;
+	}
+
+	uint64_t petBowPercent64(uint64_t value, DWORD percent)
+	{
+		uint64_t div = value / 100;
+		uint64_t rem = value % 100;
+		uint64_t maxValue = petBowMax64();
+		if (percent != 0 && div > maxValue / percent) return maxValue;
+		return div * percent + rem * percent / 100;
 	}
 
 	DWORD addRate32(DWORD value, DWORD rate)
@@ -871,6 +893,7 @@ void SceneUser::calReliveWeaknessProperty(bool enter)
  */
 void SceneUser::setupCharBase(bool lock)
 {
+	refreshMagicBoxLevel();
 	syncFiveLevelWithVip();
 	if((charbase.goodness & 0XFF000000) == 0XFF000000)
 	{
@@ -3211,14 +3234,20 @@ void SceneUser::setupCharBase(bool lock)
 
 				//时装魔盒加成
 
-				for(DWORD i=0;i<=charbase.mohelevel;i++)
-				{
-					pDam += fjconfig::getInstance().mohelist[i].pDam;
-					mDam += fjconfig::getInstance().mohelist[i].mDam;
-					pDef += fjconfig::getInstance().mohelist[i].pDef;
-					mDef += fjconfig::getInstance().mohelist[i].mDef;
-					hp += fjconfig::getInstance().mohelist[i].hp;
-				}	
+				unsigned int moheSize = fjconfig::getInstance().mohelist.size();
+					for(DWORD i=0;i<moheSize;i++)
+					{
+						if (fjconfig::getInstance().mohelist[i].level >= 1 && fjconfig::getInstance().mohelist[i].level <= charbase.mohelevel)
+						{
+							pDam += fjconfig::getInstance().mohelist[i].pDam;
+							mDam += fjconfig::getInstance().mohelist[i].mDam;
+							pDef += fjconfig::getInstance().mohelist[i].pDef;
+							mDef += fjconfig::getInstance().mohelist[i].mDef;
+							hp += fjconfig::getInstance().mohelist[i].hp;
+							charstate.juejiattack += fjconfig::getInstance().mohelist[i].juejiattack;
+							qiegeattack += fjconfig::getInstance().mohelist[i].qiegeattack;
+						}
+					}	
 				//by=>friday
 				charstate.pdamage += pDam;           //最小物理攻击力
 				charstate.maxpdamage += pDam;   //最大物理攻击力
@@ -3827,7 +3856,7 @@ void SceneUser::setupCharBase(bool lock)
 	charstate.maxhp= charstate.maxhp+packs.equip.getEquips().get_maxhp()+skillValue.maxhp+skillValue.sept_maxhp+skillValue.pmaxhp+skillValue.x1_pmaxhp+skillValue.x2_pmaxhp+skillValue.x3_pmaxhp+skillValue.x4_pmaxhp+skillValue.x5_pmaxhp+skillValue.hpupbylevel*charbase.level+skillValue.introject_maxhp;
 	charstate.maxhp += static_cast<uint64_t>(charstate.maxhp * ((packs.equip.getEquips().get_maxhprate())/100.0f)); //血量百分比 
 	if (horse.pkData.maxhp) charstate.maxhp += horse.pkData.maxhp;//高级战马
-	if(charbase.hp > charstate.maxhp) charbase.hp = charstate.maxhp;//by=>friday 取消这个判断，
+	if(charbase.hp > getMaxHP()) charbase.hp = getMaxHP();//by=>friday 取消这个判断，
 	charstate.maxmp=charstate.maxmp+packs.equip.getEquips().get_maxmp()+skillValue.maxmp+skillValue.sept_maxmp;
 	charstate.maxmp += static_cast<uint64_t>(charstate.maxmp * packs.equip.getEquips().get_maxmprate()/100.0f);
 	if (horse.pkData.maxmp)	charstate.maxmp += horse.pkData.maxmp;//高级战马
@@ -4004,7 +4033,7 @@ void SceneUser::setupCharBase(bool lock)
 	charstate.attackfive = (BYTE)this->getFivePoint();//packs.equip.getEquips().getAttFive();
 	charstate.defencefive = (BYTE)this->getFivePoint();//packs.equip.getEquips().getDefFive();
 	using namespace Cmd;
-	if (charbase.hp>charstate.maxhp) charbase.hp = charstate.maxhp;
+	if (charbase.hp>getMaxHP()) charbase.hp = getMaxHP();
 	if (charbase.mp>charstate.maxmp) charbase.mp = charstate.maxmp;
 	packs.equip.needRecalc=false;
 
@@ -4022,20 +4051,6 @@ void SceneUser::setupCharBase(bool lock)
 	charbase.m13defence = packs.equip.getEquips().get_m13defence();// 百兽图鉴 魔防
 	
 	//by=>friday 增加召唤兽继承人物属性的80%
-	//by=>friday 计算完人物属性后，按照80%分别加成到召唤兽身上
-	if (summon && summon->getPetType() == Cmd::PET_TYPE_SUMMON)
-	{
-		// 设置召唤兽各项属性加成（人物属性的80%）
-		summon->masterMinPDamage = static_cast<uint64_t>(charstate.pdamage * 0.8f);      // 最小物理攻击
-		summon->masterMaxPDamage = static_cast<uint64_t>(charstate.maxpdamage * 0.8f);   // 最大物理攻击
-		summon->masterMinMDamage = static_cast<uint64_t>(charstate.mdamage * 0.8f);      // 最小魔法攻击
-		summon->masterMaxMDamage = static_cast<uint64_t>(charstate.maxmdamage * 0.8f);   // 最大魔法攻击
-		summon->masterPDefence = static_cast<uint64_t>(charstate.pdefence * 0.8f);       // 物理防御
-		summon->masterMDefence = static_cast<uint64_t>(charstate.mdefence * 0.8f);       // 魔法防御
-		summon->masterMaxHP = static_cast<uint64_t>(charstate.maxhp * 0.8f);             // 最大生命值
-		// 刷新召唤兽数据
-		summon->sendData();
-	}
 	//by=>friday 属性调试日志
 	// Zebra::logger->info("[属性调试] 角色ID=%u 名字=%s pdamage=%llu mdamage=%llu pdefence=%llu mdefence=%llu maxhp=%llu maxmp=%llu", 
 	// 	charbase.id, charbase.name, charstate.pdamage, charstate.mdamage, charstate.pdefence, charstate.mdefence, charstate.maxhp, charstate.maxmp); //by=>friday
@@ -4043,6 +4058,11 @@ void SceneUser::setupCharBase(bool lock)
 	//装备改变攻击力预处理
 
 	calPreValue();
+	if (summon)
+	{
+		summon->refreshMasterInheritedAttr();
+		summon->sendData();
+	}
 	sendSelfFiveElementSync();
 }
 
@@ -4062,30 +4082,42 @@ void SceneUser::setupCharm()
  *
  */
 //soke 突破属性  攻击的时候计算的不对。。。。
+void SceneUser::refreshPkPreValue()
+{
+	calPreValue();
+}
+
 void SceneUser::calPreValue()
 {
 	   //装备改变攻击力预处理
 	    pkpreValue.fiveexpress = 1 + (float)(charstate.attackfive/100.0f);
 	    float five_def_express = 1 + (float)(charstate.defencefive/100.0f);
+	    DWORD petBowAuraRate = team.getPetBowAuraRate();
+	    uint64_t auraPDamage = petBowAdd64(charstate.pdamage, petBowPercent64(charstate.pdamage, petBowAuraRate));
+	    uint64_t auraMaxPDamage = petBowAdd64(charstate.maxpdamage, petBowPercent64(charstate.maxpdamage, petBowAuraRate));
+	    uint64_t auraMDamage = petBowAdd64(charstate.mdamage, petBowPercent64(charstate.mdamage, petBowAuraRate));
+	    uint64_t auraMaxMDamage = petBowAdd64(charstate.maxmdamage, petBowPercent64(charstate.maxmdamage, petBowAuraRate));
+	    uint64_t auraPDefence = petBowAdd64(charstate.pdefence, petBowPercent64(charstate.pdefence, petBowAuraRate));
+	    uint64_t auraMDefence = petBowAdd64(charstate.mdefence, petBowPercent64(charstate.mdefence, petBowAuraRate));
 
 	    //soke 突破防御65535限制
-	    pkpreValue.fivedam = static_cast<uint64_t>(charstate.pdamage * pkpreValue.fiveexpress); 
-	    pkpreValue.fivemaxdam = static_cast<uint64_t>(charstate.maxpdamage  * pkpreValue.fiveexpress);
+	    pkpreValue.fivedam = static_cast<uint64_t>(auraPDamage * pkpreValue.fiveexpress); 
+	    pkpreValue.fivemaxdam = static_cast<uint64_t>(auraMaxPDamage  * pkpreValue.fiveexpress);
 
-	    pkpreValue.nofivedam = charstate.pdamage;
-	    pkpreValue.nofivemaxdam = charstate.maxpdamage;
+	    pkpreValue.nofivedam = auraPDamage;
+	    pkpreValue.nofivemaxdam = auraMaxPDamage;
 
-	    pkpreValue.fivedef	= static_cast<uint64_t>(charstate.pdefence * five_def_express);
-	    pkpreValue.nofivedef = charstate.pdefence;
+	    pkpreValue.fivedef	= static_cast<uint64_t>(auraPDefence * five_def_express);
+	    pkpreValue.nofivedef = auraPDefence;
 
-	    pkpreValue.fivemdam = static_cast<uint64_t>(charstate.mdamage * pkpreValue.fiveexpress); 
-	    pkpreValue.fivemaxmdam = static_cast<uint64_t>(charstate.maxmdamage  * pkpreValue.fiveexpress);
+	    pkpreValue.fivemdam = static_cast<uint64_t>(auraMDamage * pkpreValue.fiveexpress); 
+	    pkpreValue.fivemaxmdam = static_cast<uint64_t>(auraMaxMDamage  * pkpreValue.fiveexpress);
 
-	    pkpreValue.nofivemdam = charstate.mdamage;
-	    pkpreValue.nofivemaxmdam = charstate.maxmdamage;
+	    pkpreValue.nofivemdam = auraMDamage;
+	    pkpreValue.nofivemaxmdam = auraMaxMDamage;
 
-	    pkpreValue.fivemdef	= static_cast<uint64_t>(charstate.mdefence * five_def_express);
-	    pkpreValue.nofivemdef = charstate.mdefence;
+	    pkpreValue.fivemdef	= static_cast<uint64_t>(auraMDefence * five_def_express);
+	    pkpreValue.nofivemdef = auraMDefence;
         //修复精神技能问题
         pkpreValue.nofivewdstr = charstate.wdStr;
 		pkpreValue.nofivewddex = charstate.wdDex;
@@ -11788,7 +11820,7 @@ ScenePet * SceneUser::summonPet(DWORD id, Cmd::petType type, DWORD standTime, DW
 				{
 					if (pet)
 					{
-						pet->toDie(tempid);
+						pet->setClearState();
 						killOnePet(pet);
 					}
 					if (summon)
@@ -11798,6 +11830,12 @@ ScenePet * SceneUser::summonPet(DWORD id, Cmd::petType type, DWORD standTime, DW
 					}
 					pet = newPet;
 					pet->petData.state = Cmd::PET_STATE_NORMAL;
+					refreshPetEquipState(false);
+					if (pet == newPet)
+					{
+						newPet->hp = newPet->getMaxHP();
+						newPet->petData.hp = newPet->hp;
+					}
 				}
 				break;
 			case PET_TYPE_SUMMON:
@@ -11813,6 +11851,7 @@ ScenePet * SceneUser::summonPet(DWORD id, Cmd::petType type, DWORD standTime, DW
 						killOnePet(summon);
 					}
 					summon = newPet;
+					newPet->hp = newPet->getMaxHP();
 				}
 				break;
 			case PET_TYPE_GUARDNPC:
@@ -12095,7 +12134,7 @@ void SceneUser::full_t_MainUserData(Cmd::t_MainUserData &data) const
 	data.userid=charbase.id;
 	data.level=charbase.level;
 	data.hp=charbase.hp;
-	data.maxhp=charstate.maxhp;
+	data.maxhp=const_cast<SceneUser *>(this)->getMaxHP();
 	data.resumehp=charstate.resumehp;
 	data.mp=charbase.mp;
 	data.maxmp=charstate.maxmp;
@@ -13790,7 +13829,7 @@ void SceneUser::changeHP(const SDWORD &hp)
 	{
 		changeValue = charbase.hp;
 		charbase.hp += hp;
-		if (charbase.hp > charstate.maxhp) charbase.hp = charstate.maxhp;
+		if (charbase.hp > getMaxHP()) charbase.hp = getMaxHP();
 		changeValue = (int)charbase.hp-changeValue;
 	}
 	else
@@ -13909,6 +13948,9 @@ void SceneUser::changeSP(const SDWORD &sp)
  */
 uint64_t SceneUser::getMaxHP()
 {
+	DWORD petBowAuraRate = team.getPetBowAuraRate();
+	if (petBowAuraRate > 0)
+		return petBowAdd64(charstate.maxhp, petBowPercent64(charstate.maxhp, petBowAuraRate));
 	return charstate.maxhp;
 }
 
@@ -13919,7 +13961,7 @@ uint64_t SceneUser::getMaxHP()
  */
 uint64_t SceneUser::getBaseMaxHP()
 {
-	return charstate.maxhp;
+	return getMaxHP();
 }
 
 /**
@@ -14019,6 +14061,11 @@ this->skillValue.init();
 
 this->skillStatusM.processPassiveness();	// 处理我的被动状态影响
 
+this->calPreValue();
+if (pUser->getType() == zSceneEntry::SceneEntry_Player)
+{
+	((SceneUser *)pUser)->calPreValue();
+}
 
 if (pUser->getType() == zSceneEntry::SceneEntry_Player)
 {
@@ -14460,8 +14507,12 @@ DWORD SceneUser::loadPetState(unsigned char * data, int size)
 				bcopy(p, &newPet->petData, sizeof(Cmd::t_PetData));
 				newPet->getAbilityByLevel(newPet->petData.lv);
 				newPet->hp = p->hp;
-				if (newPet->hp>newPet->petData.maxhp)
-					newPet->hp = newPet->petData.maxhp;
+				{
+					uint64_t maxHP = newPet->getMaxHP();
+					if (newPet->hp>maxHP)
+						newPet->hp = maxHP;
+				}
+				newPet->petData.hp = newPet->hp;
 				newPet->setPetAI((Cmd::petAIMode)p->ai);
 				newPet->sendData();
 			}
@@ -15967,11 +16018,11 @@ DWORD SceneUser::autoRestitute(DWORD &updated)
 			if (sitdownRestitute)
 			{
 				uint64_t tmp = charbase.hp;
-				uint64_t value = (uint64_t)(((float)charstate.maxhp)*0.02f)+charstate.resumehp*2;
+				uint64_t value = (uint64_t)(((float)getMaxHP())*0.02f)+charstate.resumehp*2;
 				if (value<4) value = 4;
 				charbase.hp += value;
 
-				if (charbase.hp>charstate.maxhp) charbase.hp = charstate.maxhp;
+				if (charbase.hp>getMaxHP()) charbase.hp = getMaxHP();
 				if (tmp != charbase.hp) updated |= 0x1;
 
 				tmp = charbase.mp;
@@ -16002,7 +16053,7 @@ DWORD SceneUser::autoRestitute(DWORD &updated)
 				charbase.hp += charstate.resumehp;
 			}
 
-			if (charbase.hp>charstate.maxhp) charbase.hp = charstate.maxhp;
+			if (charbase.hp>getMaxHP()) charbase.hp = getMaxHP();
 			if (tmp != charbase.hp) updated |= 0x1;
 
 			tmp = charbase.mp;
@@ -16082,6 +16133,84 @@ bool SceneUser::isDie()
 DWORD SceneUser::getLevel() const
 {
 	return charbase.level;
+}
+
+void SceneUser::calcMagicBoxExpAndLevel(DWORD &exp, DWORD &level) const
+{
+	exp = 0;
+	level = 0;
+	unsigned int shizhuangSize = (1 == charbase.type) ? fjconfig::getInstance().shizhuangnanlist.size() : fjconfig::getInstance().shizhuangnvlist.size();
+	unsigned int shizhuangLevelSize = fjconfig::getInstance().shizhuanglevellist.size();
+	unsigned int pifengSize = fjconfig::getInstance().pifenglist.size();
+	unsigned int pifengLevelSize = fjconfig::getInstance().pifenglevellist.size();
+	unsigned int chibangSize = fjconfig::getInstance().chibanglist.size();
+	unsigned int chibangLevelSize = fjconfig::getInstance().chibanglevellist.size();
+	unsigned int zuoqiSize = fjconfig::getInstance().zuoqi2list.size();
+	unsigned int jiemianSize = fjconfig::getInstance().jiemianlist.size();
+
+	for (int i = 0; i < 400; i++)
+	{
+		if ((unsigned int)i < shizhuangSize && packs.m_Shizhuang[i].state == 1)
+		{
+			if (1 == charbase.type)
+				exp += fjconfig::getInstance().shizhuangnanlist[i].exp;
+			else
+				exp += fjconfig::getInstance().shizhuangnvlist[i].exp;
+			for (DWORD j = 1; j <= packs.m_Shizhuang[i].level && j < shizhuangLevelSize; j++)
+				exp += fjconfig::getInstance().shizhuanglevellist[j].exp;
+		}
+	}
+
+	for (int i = 0; i < 100; i++)
+	{
+		if ((unsigned int)i < pifengSize && packs.m_Pifeng[i].state == 1)
+		{
+			exp += fjconfig::getInstance().pifenglist[i].exp;
+			for (DWORD j = 1; j <= packs.m_Pifeng[i].level && j < pifengLevelSize; j++)
+				exp += fjconfig::getInstance().pifenglevellist[j].exp;
+		}
+	}
+
+	for (int i = 0; i < 100; i++)
+	{
+		if ((unsigned int)i < chibangSize && packs.m_Chibang[i].state == 1)
+		{
+			exp += fjconfig::getInstance().chibanglist[i].exp;
+			for (DWORD j = 1; j <= packs.m_Chibang[i].level && j < chibangLevelSize; j++)
+				exp += fjconfig::getInstance().chibanglevellist[j].exp;
+		}
+	}
+
+	for (int i = 0; i < 100; i++)
+	{
+		if ((unsigned int)i < zuoqiSize && packs.m_Zuoqi[i].state == 1)
+			exp += fjconfig::getInstance().zuoqi2list[i].exp;
+	}
+
+	for (int i = 0; i < 100; i++)
+	{
+		if ((unsigned int)i < jiemianSize && packs.m_Jiemian[i].state == 1)
+			exp += fjconfig::getInstance().jiemianlist[i].exp;
+	}
+
+	level = exp / 5000;
+	if (level > 20)
+		level = 20;
+}
+
+DWORD SceneUser::refreshMagicBoxLevel()
+{
+	DWORD exp = 0;
+	DWORD level = 0;
+	calcMagicBoxExpAndLevel(exp, level);
+	charbase.moheexp = exp;
+	charbase.mohelevel = level;
+	return level;
+}
+
+DWORD SceneUser::getMagicBoxLevel() const
+{
+	return charbase.mohelevel > 20 ? 20 : charbase.mohelevel;
 }
 
 /**
@@ -16385,7 +16514,7 @@ void SceneUser::checkAutoMP()
 //soke 自动补血 类型 72
 void SceneUser::checkAutoHP()
 {
-	if(charbase.hp <= charstate.maxhp*0.3)
+	if(charbase.hp <= getMaxHP()*0.3)
 	{
 		DWORD temp=charstate.maxhp-charbase.mp + 49;
 		DWORD dur=temp/50;
@@ -16397,9 +16526,9 @@ void SceneUser::checkAutoHP()
 		if(reduce)
 		{
 			charbase.hp += (reduce*50);
-			if(charbase.hp > charstate.maxhp)
+			if(charbase.hp > getMaxHP())
 			{
-				charbase.hp=charstate.maxhp;
+				charbase.hp=getMaxHP();
 			}
 		}
 	}
@@ -18036,7 +18165,7 @@ void SceneUser::sendtoSelectedHpAndMp()
 	ret.byType = Cmd::MAPDATATYPE_USER;
 	ret.dwTempID = this->tempid;//临时编号
 	ret.dwHP = this->charbase.hp;//当前血
-	ret.dwMaxHp = this->charstate.maxhp;//最大hp
+	ret.dwMaxHp = this->getMaxHP();//最大hp
 	ret.dwMP = this->charbase.mp;//当前mp
 	ret.dwMaxMp = this->charstate.maxmp;//最大mp
 	//selected_lock.lock();
@@ -20389,34 +20518,313 @@ bool SceneUser::isDance() const
 	return this->issetUState(Cmd::USTATE_USER_DANCE);
 }
 
+bool SceneUser::isRightHandStick()
+{
+	zObject *temp=NULL;
+	if(packs.equip.getObjectByZone(&temp , 0 , Cmd::EQUIPCELLTYPE_HANDR))
+	{
+		if(temp && 0 != temp->data.dur && temp->base->kind == ItemType_Stick)
+			return true;
+	}
+	return false;
+}
+
+bool SceneUser::isRightHandCrossbow()
+{
+	zObject *temp=NULL;
+	if(packs.equip.getObjectByZone(&temp , 0 , Cmd::EQUIPCELLTYPE_HANDR))
+	{
+		if(temp && temp->base && 0 != temp->data.dur && temp->base->kind == ItemType_Crossbow)
+			return true;
+	}
+	return false;
+}
+
+static WORD addPetEquipWord(WORD left, WORD right)
+{
+	DWORD value = (DWORD)left + (DWORD)right;
+	return value > 65535 ? 65535 : (WORD)value;
+}
+
+static void addPetEquipObjectState(PetEquipAttr &attr, zObject *object)
+{
+	if(!object || !object->base || object->data.dur == 0)
+		return;
+
+	attr.damageBonus = addPetEquipWord(attr.damageBonus, object->data.damagebonus);
+	attr.juejiAttack = petBowAdd64(attr.juejiAttack, object->data.juejiattack);
+	attr.qiegeAttack = petBowAdd64(attr.qiegeAttack, object->data.qiegeattack);
+
+	if(object->base->kind == ItemType_HorseFashion)
+	{
+		attr.maxHPRate += object->data.maxhp;
+		attr.pDamageRate += object->data.maxpdamage;
+		attr.mDamageRate += object->data.maxmdamage;
+		attr.pDefenceRate += object->data.pdefence;
+		attr.mDefenceRate += object->data.mdefence;
+	}
+	else
+	{
+		attr.maxHP = petBowAdd64(attr.maxHP, object->data.maxhp);
+		attr.minPDamage = petBowAdd64(attr.minPDamage, object->data.pdamage);
+		attr.maxPDamage = petBowAdd64(attr.maxPDamage, object->data.maxpdamage);
+		attr.minMDamage = petBowAdd64(attr.minMDamage, object->data.mdamage);
+		attr.maxMDamage = petBowAdd64(attr.maxMDamage, object->data.maxmdamage);
+		attr.pDefence = petBowAdd64(attr.pDefence, object->data.pdefence);
+		attr.mDefence = petBowAdd64(attr.mDefence, object->data.mdefence);
+	}
+
+	attr.pDamageRate += object->data.pdam;
+	attr.mDamageRate += object->data.mdam;
+	attr.pDefenceRate += object->data.pdef;
+	attr.mDefenceRate += object->data.mdef;
+}
+
+static void addPetEquipAttrTo(PetEquipAttr &to, const PetEquipAttr &from)
+{
+	to.minPDamage = petBowAdd64(to.minPDamage, from.minPDamage);
+	to.maxPDamage = petBowAdd64(to.maxPDamage, from.maxPDamage);
+	to.minMDamage = petBowAdd64(to.minMDamage, from.minMDamage);
+	to.maxMDamage = petBowAdd64(to.maxMDamage, from.maxMDamage);
+	to.pDefence = petBowAdd64(to.pDefence, from.pDefence);
+	to.mDefence = petBowAdd64(to.mDefence, from.mDefence);
+	to.maxHP = petBowAdd64(to.maxHP, from.maxHP);
+	to.pDamageRate += from.pDamageRate;
+	to.mDamageRate += from.mDamageRate;
+	to.pDefenceRate += from.pDefenceRate;
+	to.mDefenceRate += from.mDefenceRate;
+	to.maxHPRate += from.maxHPRate;
+	to.damageBonus = addPetEquipWord(to.damageBonus, from.damageBonus);
+	to.juejiAttack = petBowAdd64(to.juejiAttack, from.juejiAttack);
+	to.qiegeAttack = petBowAdd64(to.qiegeAttack, from.qiegeAttack);
+}
+
+static WORD petEquipClampWord(DWORD value)
+{
+	return value > 65535 ? 65535 : (WORD)value;
+}
+
+static DWORD petEquipCharmTier(DWORD flowers)
+{
+	if(flowers >= 50000) return 10;
+	if(flowers >= 10000) return 5;
+	if(flowers >= 5000) return 3;
+	if(flowers >= 1000) return 1;
+	return 0;
+}
+
+bool SceneUser::isPetEquipDoubleCrossbowActive()
+{
+	zObject *temp=NULL;
+	if(!pet || pet->getPetType()!=Cmd::PET_TYPE_PET)
+		return false;
+	if(!isRightHandCrossbow())
+		return false;
+	if(packs.petEquipPack.getObjectByZone(&temp , 0 , Cmd::PETEQUIP_HANDR))
+	{
+		if(temp && temp->base && 0 != temp->data.dur && temp->base->kind == ItemType_Crossbow)
+			return true;
+	}
+	return false;
+}
+
+bool SceneUser::clearNormalPetWithoutCrossbow()
+{
+	if(!pet || pet->getPetType()!=Cmd::PET_TYPE_PET)
+		return false;
+	if(isPetEquipDoubleCrossbowActive())
+		return false;
+	bool oldActive = pet->isPetEquipActive();
+	pet->clearPetEquipState();
+	if(oldActive)
+		pet->sendData();
+	return false;
+}
+
+void SceneUser::calcPetEquipBaseAttr(PetEquipAttr &attr)
+{
+	attr.clear();
+	for(int i=0; i<Cmd::PETEQUIP_MAX; ++i)
+	{
+		zObject *temp=NULL;
+		if(!packs.petEquipPack.getObjectByZone(&temp, 0, i))
+			continue;
+		addPetEquipObjectState(attr, temp);
+	}
+}
+
+void SceneUser::calcPetEquipSuitAttr(PetEquipState &state)
+{
+	typedef std::map<std::string,int> PetEquipSuitMap;
+	PetEquipSuitMap suitmap[3];
+	std::pair<int,int> suitnum;
+	suitnum.first = -1;
+	suitnum.second = 0;
+
+	for(int i=0; i<Cmd::PETEQUIP_MAX; ++i)
+	{
+		zObject *temp=NULL;
+		if(!packs.petEquipPack.getObjectByZone(&temp, 0, i))
+			continue;
+		if(!temp || !temp->base || temp->data.dur == 0)
+			continue;
+		if(temp->data.bind && temp->data.maker[0] && temp->base->kind != ItemType_Shield)
+		{
+			int color = -1;
+			if(temp->data.kind & 1) color = 0;
+			if(temp->data.kind & 2) color = 1;
+			if(temp->data.kind & 4) color = 2;
+			if(color != -1)
+			{
+				PetEquipSuitMap::iterator iter = suitmap[color].find(temp->data.maker);
+				if(iter != suitmap[color].end())
+				{
+					iter->second++;
+					if(iter->second >= 6 && iter->second > suitnum.second)
+					{
+						suitnum.first = color;
+						suitnum.second = iter->second;
+					}
+				}
+				else
+				{
+					suitmap[color].insert(std::make_pair(std::string(temp->data.maker),1));
+				}
+			}
+		}
+	}
+
+	if(suitnum.first != -1)
+	{
+		state.suitId = (DWORD)(suitnum.first + 1);
+		state.suitPieceCount = (DWORD)suitnum.second;
+		if(suitnum.second >= 10)
+		{
+			state.suitLevel = 10;
+			state.suitActiveMask = 0x03;
+			state.suitAttr.pDamageRate += 5;
+			state.suitAttr.pDefenceRate += 5;
+			state.suitAttr.mDamageRate += 5;
+			state.suitAttr.mDefenceRate += 5;
+			state.suitAttr.maxHPRate += 8;
+		}
+		else
+		{
+			state.suitLevel = 6;
+			state.suitActiveMask = 0x01;
+			state.suitAttr.pDamageRate += 2;
+			state.suitAttr.pDefenceRate += 2;
+			state.suitAttr.mDamageRate += 2;
+			state.suitAttr.mDefenceRate += 2;
+			state.suitAttr.maxHPRate += 4;
+		}
+	}
+}
+
+void SceneUser::fillPetEquipDisplayState(PetEquipState &state)
+{
+	if(!pet || pet->getPetType()!=Cmd::PET_TYPE_PET)
+		return;
+
+	if(state.active)
+	{
+		state.ownerAttr.minPDamage = petBowPercent64(charstate.pdamage, 30);
+		state.ownerAttr.maxPDamage = petBowPercent64(charstate.maxpdamage, 30);
+		state.ownerAttr.minMDamage = petBowPercent64(charstate.mdamage, 30);
+		state.ownerAttr.maxMDamage = petBowPercent64(charstate.maxmdamage, 30);
+		state.ownerAttr.pDefence = petBowPercent64(charstate.pdefence, 30);
+		state.ownerAttr.mDefence = petBowPercent64(charstate.mdefence, 30);
+		state.ownerAttr.maxHP = petBowPercent64(charstate.maxhp, 30);
+		state.ignoreDef = 15;
+		state.reel = 5;
+	}
+
+	uint64_t pAtkBase = petBowAdd64(pet->petData.atk, petBowAdd64(state.equipAttr.minPDamage, state.ownerAttr.minPDamage));
+	uint64_t pMaxAtkBase = petBowAdd64(pet->petData.maxatk, petBowAdd64(state.equipAttr.maxPDamage, state.ownerAttr.maxPDamage));
+	uint64_t mAtkBase = petBowAdd64(pet->petData.matk, petBowAdd64(state.equipAttr.minMDamage, state.ownerAttr.minMDamage));
+	uint64_t mMaxAtkBase = petBowAdd64(pet->petData.maxmatk, petBowAdd64(state.equipAttr.maxMDamage, state.ownerAttr.maxMDamage));
+	uint64_t pDefBase = petBowAdd64(pet->petData.def, petBowAdd64(state.equipAttr.pDefence, state.ownerAttr.pDefence));
+	uint64_t mDefBase = petBowAdd64(pet->petData.mdef, petBowAdd64(state.equipAttr.mDefence, state.ownerAttr.mDefence));
+	uint64_t hpBase = petBowAdd64(pet->petData.maxhp, petBowAdd64(state.equipAttr.maxHP, state.ownerAttr.maxHP));
+	state.suitAttr.minPDamage = petBowPercent64(pAtkBase, state.suitAttr.pDamageRate);
+	state.suitAttr.maxPDamage = petBowPercent64(pMaxAtkBase, state.suitAttr.pDamageRate);
+	state.suitAttr.minMDamage = petBowPercent64(mAtkBase, state.suitAttr.mDamageRate);
+	state.suitAttr.maxMDamage = petBowPercent64(mMaxAtkBase, state.suitAttr.mDamageRate);
+	state.suitAttr.pDefence = petBowPercent64(pDefBase, state.suitAttr.pDefenceRate);
+	state.suitAttr.mDefence = petBowPercent64(mDefBase, state.suitAttr.mDefenceRate);
+	state.suitAttr.maxHP = petBowPercent64(hpBase, state.suitAttr.maxHPRate);
+
+	if(state.active)
+	{
+		addPetEquipAttrTo(state.finalAttr, state.equipAttr);
+		addPetEquipAttrTo(state.finalAttr, state.ownerAttr);
+		state.finalAttr.minPDamage = petBowAdd64(state.finalAttr.minPDamage, state.suitAttr.minPDamage);
+		state.finalAttr.maxPDamage = petBowAdd64(state.finalAttr.maxPDamage, state.suitAttr.maxPDamage);
+		state.finalAttr.minMDamage = petBowAdd64(state.finalAttr.minMDamage, state.suitAttr.minMDamage);
+		state.finalAttr.maxMDamage = petBowAdd64(state.finalAttr.maxMDamage, state.suitAttr.maxMDamage);
+		state.finalAttr.pDefence = petBowAdd64(state.finalAttr.pDefence, state.suitAttr.pDefence);
+		state.finalAttr.mDefence = petBowAdd64(state.finalAttr.mDefence, state.suitAttr.mDefence);
+		state.finalAttr.maxHP = petBowAdd64(state.finalAttr.maxHP, state.suitAttr.maxHP);
+		state.vipSuppress = petEquipClampWord(getVipLevelByCharvip());
+		state.charmSuppress = petEquipClampWord(petEquipCharmTier(charbase.folwers));
+		state.magicBoxSuppress = petEquipClampWord(getMagicBoxLevel());
+		state.restrainSuppress = petEquipClampWord(getFivePoint() > 20 ? 20 : getFivePoint());
+	}
+}
+
+void SceneUser::refreshPetEquipState(bool notify)
+{
+	if(!pet)
+		return;
+	if(pet->getPetType()!=Cmd::PET_TYPE_PET)
+	{
+		pet->clearPetEquipState();
+		return;
+	}
+
+	bool oldActive = pet->isPetEquipActive();
+	bool active = isPetEquipDoubleCrossbowActive();
+	if(!active)
+	{
+		pet->clearPetEquipState();
+		if(notify && oldActive)
+			pet->sendData();
+		return;
+	}
+
+	PetEquipState state;
+	calcPetEquipBaseAttr(state.equipAttr);
+	calcPetEquipSuitAttr(state);
+	state.active = active;
+	fillPetEquipDisplayState(state);
+	pet->setPetEquipState(state);
+	if(notify && oldActive != pet->isPetEquipActive())
+		pet->sendData();
+	else if(notify && pet->isPetEquipActive())
+		pet->sendData();
+}
 /**
  * \brief 通知装备改变
  */
 void SceneUser::notifyEquipChange()
 {
+	refreshPetEquipState(true);
 	if (summon)
 	{
-		zObject *temp=NULL;
-		if(packs.equip.getObjectByZone(&temp , 0 , Cmd::EQUIPCELLTYPE_HANDR))
+		if (isRightHandStick())
 		{
-			if(temp)
-			{
-				if (0 != temp->data.dur)
-				{
-					if (temp->base->kind == ItemType_Stick)
-					{
 #ifdef _DEBUGLOG
-						Zebra::logger->debug("棍子增强召唤兽攻击力 （%u-%u)", packs.equip.getEquips().get_appendminpet(), packs.equip.getEquips().get_appendmaxpet());
+			Zebra::logger->debug("stick append summon damage (%u-%u)", packs.equip.getEquips().get_appendminpet(), packs.equip.getEquips().get_appendmaxpet());
 #endif
-						summon->setAppendDamage((DWORD)(packs.equip.getEquips().get_appendminpet()*(1+packs.equip.getEquips().get_mdam()/100.0f)), 
-							(DWORD)(packs.equip.getEquips().get_appendmaxpet()*(1+packs.equip.getEquips().get_mdam()/100.0f)));
-						this->usm.refresh(); // 装备改变可能会影响技能等级
-						return;
-					}
-				}
-			}
+			summon->setAppendDamage((DWORD)(packs.equip.getEquips().get_appendminpet()*(1+packs.equip.getEquips().get_mdam()/100.0f)), 
+				(DWORD)(packs.equip.getEquips().get_appendmaxpet()*(1+packs.equip.getEquips().get_mdam()/100.0f)));
 		}
-		summon->setAppendDamage(0, 0);
+		else
+		{
+			summon->setAppendDamage(0, 0);
+		}
+		summon->refreshMasterInheritedAttr();
+		summon->sendData();
 	}
 	else
 	{
@@ -20427,7 +20835,7 @@ void SceneUser::notifyEquipChange()
 		}
 	}
 
-	this->usm.refresh(); // 装备改变可能会影响技能等级
+	this->usm.refresh(); // equipment change may affect skill level
 }
 
 //soke 增加保存温泉时间
@@ -20457,29 +20865,20 @@ void SceneUser::logout()
  */
 void SceneUser::getSummonAppendDamage(DWORD &minDamage, DWORD &maxDamage)
 {
-	zObject *temp;
-	if(packs.equip.getObjectByZone(&temp , 0 , Cmd::EQUIPCELLTYPE_HANDR))
+	if(isRightHandStick())
 	{
-		if(temp)
-		{
-			if (0 != temp->data.dur)
-			{
-				if (temp->base->kind == ItemType_Stick)
-				{
 #ifdef _DEBUGLOG
-					Zebra::logger->debug("棍子增强召唤兽攻击力 （%u-%u)", packs.equip.getEquips().get_appendminpet(), packs.equip.getEquips().get_appendmaxpet());
+		Zebra::logger->debug("stick append summon damage (%u-%u)", packs.equip.getEquips().get_appendminpet(), packs.equip.getEquips().get_appendmaxpet());
 #endif
-					minDamage = (DWORD)(packs.equip.getEquips().get_appendminpet()*(1+packs.equip.getEquips().get_mdam()/100.0f));
-					maxDamage = (DWORD)(packs.equip.getEquips().get_appendmaxpet()*(1+packs.equip.getEquips().get_mdam()/100.0f));
-					return;
-				}
-			}
-		}
+		minDamage = (DWORD)(packs.equip.getEquips().get_appendminpet()*(1+packs.equip.getEquips().get_mdam()/100.0f));
+		maxDamage = (DWORD)(packs.equip.getEquips().get_appendmaxpet()*(1+packs.equip.getEquips().get_mdam()/100.0f));
+		return;
 	}
 
 	minDamage = 0;
 	maxDamage = 0;
 }
+
 
 /**
  * \brief 增加经验值
@@ -20741,11 +21140,28 @@ DWORD SceneUser::getFiveLevel() const
  */
 bool SceneUser::captureIt(SceneNpc *npc, BYTE type)
 {
-	if (!npc) return false;
-	if (type!=npc->npc->bear_type) return false;
-	if (npc->npc->level>charbase.level) return false;
-	if (npc->getPetType()!=Cmd::PET_TYPE_NOTPET) return false;
+	if (!npc)
+	{
+		Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "\xb2\xb6\xbb\xf1\xb3\xe8\xce\xef\xca\xa7\xb0\xdc");
+		return false;
+	}
+	if (type!=npc->npc->bear_type)
+	{
+		Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "\xb2\xb6\xbb\xf1\xb3\xe8\xce\xef\xca\xa7\xb0\xdc");
+		return false;
+	}
+	if (npc->npc->level>charbase.level)
+	{
+		Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "\xb2\xb6\xbb\xf1\xb3\xe8\xce\xef\xca\xa7\xb0\xdc");
+		return false;
+	}
+	if (npc->getPetType()!=Cmd::PET_TYPE_NOTPET)
+	{
+		Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "\xb2\xb6\xbb\xf1\xb3\xe8\xce\xef\xca\xa7\xb0\xdc");
+		return false;
+	}
 
+	bool hadPet = (pet || petData.id!=0);
 	ScenePet * newPet = summonPet(npc->npc->id, Cmd::PET_TYPE_PET, 0, 0, 0, 0, npc->getPos());
 	if (newPet)
 	{
@@ -20754,10 +21170,21 @@ bool SceneUser::captureIt(SceneNpc *npc, BYTE type)
 
 		newPet->petData.state = Cmd::PET_STATE_NORMAL;
 		newPet->getAbilityByLevel(newPet->npc->level);
+		if (pet == newPet)
+		{
+			refreshPetEquipState(false);
+			newPet->hp = newPet->getMaxHP();
+			newPet->petData.hp = newPet->hp;
+		}
 		bcopy(&newPet->petData, &petData, sizeof(petData));
 		newPet->sendData();
+		if (hadPet)
+			Channel::sendSys(this, Cmd::INFO_TYPE_GAME, "\xb2\xb6\xbb\xf1\xb3\xe8\xce\xef\xb3\xc9\xb9\xa6\xa3\xac\xd2\xd1\xcc\xe6\xbb\xbb\xd4\xad\xd3\xd0\xb3\xe8\xce\xef");
+		else
+			Channel::sendSys(this, Cmd::INFO_TYPE_GAME, "\xb2\xb6\xbb\xf1\xb3\xe8\xce\xef\xb3\xc9\xb9\xa6");
 		return true;
 	}
+	Channel::sendSys(this, Cmd::INFO_TYPE_FAIL, "\xb2\xb6\xbb\xf1\xb3\xe8\xce\xef\xca\xa7\xb0\xdc");
 	return false;
 }
 
@@ -20963,7 +21390,13 @@ void SceneUser::relivePet()
 		{
 			bcopy(&petData, &newPet->petData, sizeof(Cmd::t_PetData));
 			newPet->getAbilityByLevel(petData.lv);
-			newPet->hp = petData.maxhp;
+			if (pet == newPet)
+			{
+				refreshPetEquipState(false);
+			}
+			newPet->hp = newPet->getMaxHP();
+			newPet->petData.hp = newPet->hp;
+			petData.hp = newPet->hp;
 			newPet->setPetAI((Cmd::petAIMode)petData.ai);
 			newPet->sendData();
 			newPet->sendMeToNine();

@@ -185,10 +185,14 @@ class fjconfig
 		DWORD	pDef;		// 物品类别
 		DWORD	mDef;		// 物品类别
 		DWORD	hp;		// 物品类别
+		DWORD	juejiattack;		// magicbox jueji attack
+		DWORD	qiegeattack;		// magicbox qiege attack
 		};
 		struct	SHIZHUANG //时装
 		{
 		char	name[MAX_NAMESIZE];		// 物品名称
+			char	strDesc[MAX_NAMESIZE];		// 来源描述
+		char	pic[MAX_NAMESIZE];		// 完整资源路径
 		DWORD	exp;		// 经验
 		DWORD	costID;		// 物品类别
 		DWORD	jihuoID;		// 物品类别
@@ -212,6 +216,7 @@ class fjconfig
 		struct	PIFENG //披风
 		{
 		char	name[MAX_NAMESIZE];		// 物品名称
+			char	strDesc[MAX_NAMESIZE];		// 来源描述
 		DWORD	exp;		// 经验
 		DWORD	costID;		// 物品类别
 		DWORD	jihuoID;		// 物品类别
@@ -235,6 +240,7 @@ class fjconfig
 		struct	CHIBANG //翅膀
 		{
 		char	name[MAX_NAMESIZE];		// 物品名称
+			char	strDesc[MAX_NAMESIZE];		// 来源描述
 		DWORD	exp;		// 经验
 		DWORD	costID;		// 物品类别
 		DWORD	jihuoID;		// 物品类别
@@ -258,6 +264,7 @@ class fjconfig
 		struct	ZUOQI2 //坐骑
 		{
 		char	name[MAX_NAMESIZE];		// 物品名称
+			char	strDesc[MAX_NAMESIZE];		// 来源描述
 		DWORD	exp;		// 经验
 		DWORD	npcID;		// 物品类别
 		DWORD	jihuoID;		// 物品类别
@@ -267,6 +274,7 @@ class fjconfig
 		struct	JIEMIAN //魔盒界面
 		{
 		char	name[MAX_NAMESIZE];		// 物品名称
+			char	strDesc[MAX_NAMESIZE];		// 来源描述
 		DWORD	exp;		// 经验
 		DWORD	jihuoID;		// 物品类别
 		DWORD	jihuoNum;		// 物品类别

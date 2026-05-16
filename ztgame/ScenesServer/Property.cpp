@@ -1614,214 +1614,187 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				}
 			}
 			break;
-		case GET_SHIZHUANG_PROPERTY_USERCMD_PARA: //sky 请求时装魔盒信息
-			{
-				using namespace Cmd;
-				stGetShizhuangPropertyUserCmd *equip = (stGetShizhuangPropertyUserCmd *)(rev);
-				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
-				if(pUser)
+			case GET_SHIZHUANG_PROPERTY_USERCMD_PARA: //sky ????????
 				{
-					stResponsePropertyUserCmdShizhuang Send; 
-					DWORD exp =0 ;
-					DWORD level = 0;
-					if ( 1 == pUser->charbase.type ) //性别判断
-                    {
-						for(int i=0;i<300;i++)
+					using namespace Cmd;
+					stGetShizhuangPropertyUserCmd *equip = (stGetShizhuangPropertyUserCmd *)(rev);
+					SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
+					if(pUser)
+					{
+						stResponsePropertyUserCmdShizhuang Send;
+						memset(&Send, 0, sizeof(Send));
+						DWORD exp = 0;
+						DWORD level = 0;
+						unsigned int shizhuangSize = (1 == pUser->charbase.type) ? fjconfig::getInstance().shizhuangnanlist.size() : fjconfig::getInstance().shizhuangnvlist.size();
+						unsigned int shizhuangLevelSize = fjconfig::getInstance().shizhuanglevellist.size();
+						unsigned int pifengSize = fjconfig::getInstance().pifenglist.size();
+						unsigned int pifengLevelSize = fjconfig::getInstance().pifenglevellist.size();
+						unsigned int chibangSize = fjconfig::getInstance().chibanglist.size();
+						unsigned int chibangLevelSize = fjconfig::getInstance().chibanglevellist.size();
+						unsigned int zuoqiSize = fjconfig::getInstance().zuoqi2list.size();
+						unsigned int jiemianSize = fjconfig::getInstance().jiemianlist.size();
+
+						for(int i=0;i<400;i++)
 						{
-							if(pUser->packs.m_Shizhuang[i].state==1)
+							if((unsigned int)i < shizhuangSize)
 							{
-								exp+=fjconfig::getInstance().shizhuangnanlist[i].exp;
-								for(int j=0;j<=packs.m_Shizhuang[i].level;j++)
+								if(pUser->packs.m_Shizhuang[i].state==1)
 								{
-									exp += fjconfig::getInstance().shizhuanglevellist[j].exp;
+									if (1 == pUser->charbase.type)
+										exp += fjconfig::getInstance().shizhuangnanlist[i].exp;
+									else
+										exp += fjconfig::getInstance().shizhuangnvlist[i].exp;
+									for(DWORD j=1;j<=pUser->packs.m_Shizhuang[i].level && j<shizhuangLevelSize;j++)
+										exp += fjconfig::getInstance().shizhuanglevellist[j].exp;
+								}
+								Send.Shizhuang[i].level=pUser->packs.m_Shizhuang[i].level;
+								Send.Shizhuang[i].state=pUser->packs.m_Shizhuang[i].state;
+								if (1 == pUser->charbase.type)
+								{
+									bcopy(fjconfig::getInstance().shizhuangnanlist[i].name,Send.Shizhuang[i].name,sizeof(Send.Shizhuang[i].name));
+									bcopy(fjconfig::getInstance().shizhuangnanlist[i].strDesc,Send.Shizhuang[i].strDesc,sizeof(Send.Shizhuang[i].strDesc));
+									bcopy(fjconfig::getInstance().shizhuangnanlist[i].pic,Send.Shizhuang[i].pic,sizeof(Send.Shizhuang[i].pic));
+									Send.Shizhuang[i].bodyNum=fjconfig::getInstance().shizhuangnanlist[i].bodyNum;
+								}
+								else
+								{
+									bcopy(fjconfig::getInstance().shizhuangnvlist[i].name,Send.Shizhuang[i].name,sizeof(Send.Shizhuang[i].name));
+									bcopy(fjconfig::getInstance().shizhuangnvlist[i].strDesc,Send.Shizhuang[i].strDesc,sizeof(Send.Shizhuang[i].strDesc));
+									bcopy(fjconfig::getInstance().shizhuangnvlist[i].pic,Send.Shizhuang[i].pic,sizeof(Send.Shizhuang[i].pic));
+									Send.Shizhuang[i].bodyNum=fjconfig::getInstance().shizhuangnvlist[i].bodyNum;
 								}
 							}
-							Send.Shizhuang[i].level=pUser->packs.m_Shizhuang[i].level;
-							Send.Shizhuang[i].state=pUser->packs.m_Shizhuang[i].state;
-							if(fjconfig::getInstance().shizhuangnanlist[i].name)
-							{
-								bcopy(fjconfig::getInstance().shizhuangnanlist[i].name,Send.Shizhuang[i].name,sizeof(Send.Shizhuang[i].name));
-								Send.Shizhuang[i].bodyNum=fjconfig::getInstance().shizhuangnanlist[i].bodyNum;
-							}
-							else{
-								bcopy("",Send.Shizhuang[i].name,sizeof(Send.Shizhuang[i].name));
-								Send.Shizhuang[i].bodyNum=0;
-							}
 						}
-					}
-					else{
-						for(int i=0;i<300;i++)
+
+						for (int i = 0; i < 100; i++)
 						{
-							if(pUser->packs.m_Shizhuang[i].state==1)
+							if ((unsigned int)i < pifengSize)
 							{
-								exp+=fjconfig::getInstance().shizhuangnvlist[i].exp;
-								for(int j=0;j<=packs.m_Shizhuang[i].level;j++)
+								if (pUser->packs.m_Pifeng[i].state == 1)
 								{
-									exp += fjconfig::getInstance().shizhuanglevellist[j].exp;
+									exp += fjconfig::getInstance().pifenglist[i].exp;
+									for (DWORD j = 1; j <= pUser->packs.m_Pifeng[i].level && j < pifengLevelSize; j++)
+										exp += fjconfig::getInstance().pifenglevellist[j].exp;
 								}
-								
+								Send.Pifeng[i].level = pUser->packs.m_Pifeng[i].level;
+								Send.Pifeng[i].state = pUser->packs.m_Pifeng[i].state;
+								bcopy(fjconfig::getInstance().pifenglist[i].name, Send.Pifeng[i].name, sizeof(Send.Pifeng[i].name));
+								bcopy(fjconfig::getInstance().pifenglist[i].strDesc, Send.Pifeng[i].strDesc, sizeof(Send.Pifeng[i].strDesc));
+								Send.Pifeng[i].itemNum = fjconfig::getInstance().pifenglist[i].itemNum;
 							}
-							Send.Shizhuang[i].level=pUser->packs.m_Shizhuang[i].level;
-							Send.Shizhuang[i].state=pUser->packs.m_Shizhuang[i].state;
-							if(fjconfig::getInstance().shizhuangnvlist[i].name)
+						}
+
+						for (int i = 0; i < 100; i++)
+						{
+							if ((unsigned int)i < chibangSize)
 							{
-								bcopy(fjconfig::getInstance().shizhuangnvlist[i].name,Send.Shizhuang[i].name,sizeof(Send.Shizhuang[i].name));
-								Send.Shizhuang[i].bodyNum=fjconfig::getInstance().shizhuangnvlist[i].bodyNum;
-							}
-							else{
-								bcopy("",Send.Shizhuang[i].name,sizeof(Send.Shizhuang[i].name));
-								Send.Shizhuang[i].bodyNum=0;
+								if (pUser->packs.m_Chibang[i].state == 1)
+								{
+									exp += fjconfig::getInstance().chibanglist[i].exp;
+									for (DWORD j = 1; j <= pUser->packs.m_Chibang[i].level && j < chibangLevelSize; j++)
+										exp += fjconfig::getInstance().chibanglevellist[j].exp;
+								}
+								Send.Chibang[i].level = pUser->packs.m_Chibang[i].level;
+								Send.Chibang[i].state = pUser->packs.m_Chibang[i].state;
+								bcopy(fjconfig::getInstance().chibanglist[i].name, Send.Chibang[i].name, sizeof(Send.Chibang[i].name));
+								bcopy(fjconfig::getInstance().chibanglist[i].strDesc, Send.Chibang[i].strDesc, sizeof(Send.Chibang[i].strDesc));
+								Send.Chibang[i].itemNum = fjconfig::getInstance().chibanglist[i].itemNum;
 							}
 						}
-					}
 
-					for (int i = 0; i < 100; i++)
-					{
-						if (pUser->packs.m_Pifeng[i].state == 1)
+						for (int i = 0; i < 100; i++)
 						{
-							exp += fjconfig::getInstance().pifenglist[i].exp;
-							for (int j = 0; j <= packs.m_Pifeng[i].level; j++)
+							if ((unsigned int)i < zuoqiSize)
 							{
-								exp += fjconfig::getInstance().pifenglevellist[j].exp;
+								if (pUser->packs.m_Zuoqi[i].state == 1)
+									exp += fjconfig::getInstance().zuoqi2list[i].exp;
+								Send.Zuoqi[i].level = pUser->packs.m_Zuoqi[i].level;
+								Send.Zuoqi[i].state = pUser->packs.m_Zuoqi[i].state;
+								bcopy(fjconfig::getInstance().zuoqi2list[i].name, Send.Zuoqi[i].name, sizeof(Send.Zuoqi[i].name));
+								bcopy(fjconfig::getInstance().zuoqi2list[i].strDesc, Send.Zuoqi[i].strDesc, sizeof(Send.Zuoqi[i].strDesc));
+								Send.Zuoqi[i].npcNum = fjconfig::getInstance().zuoqi2list[i].npcNum;
 							}
 						}
-						Send.Pifeng[i].level = pUser->packs.m_Pifeng[i].level;
-						Send.Pifeng[i].state = pUser->packs.m_Pifeng[i].state;
-						if (fjconfig::getInstance().pifenglist[i].name)
-						{
-							bcopy(fjconfig::getInstance().pifenglist[i].name, Send.Pifeng[i].name, sizeof(Send.Pifeng[i].name));
-							Send.Pifeng[i].itemNum = fjconfig::getInstance().pifenglist[i].itemNum;
-						}
-						else
-						{
-							bcopy("", Send.Pifeng[i].name, sizeof(Send.Pifeng[i].name));
-							Send.Pifeng[i].itemNum = 0;
-						}
-					}
 
-					for (int i = 0; i < 100; i++)
-					{
-						if (pUser->packs.m_Chibang[i].state == 1)
+						for (int i = 0; i < 100; i++)
 						{
-							exp += fjconfig::getInstance().chibanglist[i].exp;
-							for (int j = 0; j <= packs.m_Chibang[i].level; j++)
+							if ((unsigned int)i < jiemianSize)
 							{
-								exp += fjconfig::getInstance().chibanglevellist[j].exp;
+								if (pUser->packs.m_Jiemian[i].state == 1)
+									exp += fjconfig::getInstance().jiemianlist[i].exp;
+								Send.Jiemian[i].level = pUser->packs.m_Jiemian[i].level;
+								Send.Jiemian[i].state = pUser->packs.m_Jiemian[i].state;
+								Send.Jiemian[i].dongtai = fjconfig::getInstance().jiemianlist[i].dongtai;
+								bcopy(fjconfig::getInstance().jiemianlist[i].name, Send.Jiemian[i].name, sizeof(Send.Jiemian[i].name));
+								bcopy(fjconfig::getInstance().jiemianlist[i].strDesc, Send.Jiemian[i].strDesc, sizeof(Send.Jiemian[i].strDesc));
+								Send.Jiemian[i].activityNum = fjconfig::getInstance().jiemianlist[i].activityNum;
 							}
 						}
-						Send.Chibang[i].level = pUser->packs.m_Chibang[i].level;
-						Send.Chibang[i].state = pUser->packs.m_Chibang[i].state;
-						if (fjconfig::getInstance().chibanglist[i].name)
+
+						unsigned int moheSize = fjconfig::getInstance().mohelist.size();
+						pUser->refreshMagicBoxLevel();
+						level = pUser->getMagicBoxLevel();
+						exp = pUser->charbase.moheexp;
+						Send.mohelevel = level;
+						Send.moheexp = exp;
+						Send.mohemaxexp = (level >= 20) ? 100000 : (level + 1) * 5000;
+
+						int pDam = 0;
+						int mDam = 0;
+						int pDef = 0;
+						int mDef = 0;
+						int hp = 0;
+						int juejiattack = 0;
+						int qiegeattack = 0;
+						for(DWORD i=0;i<moheSize;i++)
 						{
-							bcopy(fjconfig::getInstance().chibanglist[i].name, Send.Chibang[i].name, sizeof(Send.Chibang[i].name));
-							Send.Chibang[i].itemNum = fjconfig::getInstance().chibanglist[i].itemNum;
+							if (fjconfig::getInstance().mohelist[i].level >= 1 && fjconfig::getInstance().mohelist[i].level <= pUser->charbase.mohelevel)
+							{
+								pDam += fjconfig::getInstance().mohelist[i].pDam;
+								mDam += fjconfig::getInstance().mohelist[i].mDam;
+								pDef += fjconfig::getInstance().mohelist[i].pDef;
+								mDef += fjconfig::getInstance().mohelist[i].mDef;
+								hp += fjconfig::getInstance().mohelist[i].hp;
+								juejiattack += fjconfig::getInstance().mohelist[i].juejiattack;
+								qiegeattack += fjconfig::getInstance().mohelist[i].qiegeattack;
+							}
 						}
-						else
-						{
-							bcopy("", Send.Chibang[i].name, sizeof(Send.Chibang[i].name));
-							Send.Chibang[i].itemNum = 0;
-						}
+						Send.num1 = pDam;
+						Send.num2 = mDam;
+						Send.num3 = pDef;
+						Send.num4 = mDef;
+						Send.num5 = hp;
+						Send.num6 = juejiattack;
+						Send.num7 = qiegeattack;
+						Send.shizhuang_select = pUser->charbase.shizhuang_select;
+						Send.pifeng_select = pUser->charbase.pifeng_select;
+						Send.chibang_select = pUser->charbase.chibang_select;
+						Send.zuoqi_select = pUser->charbase.zuoqi_select;
+						Send.jiemian_select = pUser->charbase.jiemian_select;
+						Send.mohelevel = pUser->charbase.mohelevel;
+						Send.moheexp = pUser->charbase.moheexp;
+						pUser->sendCmdToMe(&Send,sizeof(Send));
 					}
-
-
-					for (int i = 0; i < 100; i++)
-					{
-						if (pUser->packs.m_Zuoqi[i].state == 1)
-						{
-							exp += fjconfig::getInstance().zuoqi2list[i].exp;
-							
-						}
-						Send.Zuoqi[i].level = pUser->packs.m_Zuoqi[i].level;
-						Send.Zuoqi[i].state = pUser->packs.m_Zuoqi[i].state;
-						if (fjconfig::getInstance().zuoqi2list[i].name)
-						{
-							bcopy(fjconfig::getInstance().zuoqi2list[i].name, Send.Zuoqi[i].name, sizeof(Send.Zuoqi[i].name));
-							Send.Zuoqi[i].npcNum = fjconfig::getInstance().zuoqi2list[i].npcNum;
-						}
-						else
-						{
-							bcopy("", Send.Zuoqi[i].name, sizeof(Send.Zuoqi[i].name));
-							Send.Zuoqi[i].npcNum = 0;
-						}
-					}
-
-					for (int i = 0; i < 100; i++)
-					{
-						if (pUser->packs.m_Jiemian[i].state == 1)  //魔盒界面
-						{
-							exp += fjconfig::getInstance().jiemianlist[i].exp;
-							// for (int j = 0; j <= packs.m_Jiemian[i].level; j++)
-							// {
-							// 	exp += fjconfig::getInstance().pifenglevellist[j].exp;
-							// }
-						}
-						Send.Jiemian[i].level = pUser->packs.m_Jiemian[i].level;
-						Send.Jiemian[i].state = pUser->packs.m_Jiemian[i].state;
-						Send.Jiemian[i].dongtai = fjconfig::getInstance().jiemianlist[i].dongtai;
-						if (fjconfig::getInstance().jiemianlist[i].name)
-						{
-							bcopy(fjconfig::getInstance().jiemianlist[i].name, Send.Jiemian[i].name, sizeof(Send.Jiemian[i].name));
-							Send.Jiemian[i].activityNum = fjconfig::getInstance().jiemianlist[i].activityNum;
-						}
-						else
-						{
-							bcopy("", Send.Jiemian[i].name, sizeof(Send.Jiemian[i].name));
-							Send.Jiemian[i].activityNum = 0;
-						}
-					}
-
-					//时装魔盒最高等级
-					for(int i=0;i<20;i++)
-					{
-						if(exp >= fjconfig::getInstance().mohelist[i].exp)
-						{
-							level++;
-							
-						}
-						
-					}
-					pUser->charbase.mohelevel = level;
-					pUser->charbase.moheexp = exp;
-					Send.mohelevel = level;
-					Send.moheexp = exp;
-					Send.mohemaxexp = fjconfig::getInstance().mohelist[level].exp;
-
-					int pDam = 0;
-					int mDam = 0;
-					int pDef = 0;
-					int mDef = 0;
-					int hp = 0;
-					for(DWORD i=0;i<=pUser->charbase.mohelevel;i++)
-					{
-						pDam += fjconfig::getInstance().mohelist[i].pDam;
-						mDam += fjconfig::getInstance().mohelist[i].mDam;
-						pDef += fjconfig::getInstance().mohelist[i].pDef;
-						mDef += fjconfig::getInstance().mohelist[i].mDef;
-						hp += fjconfig::getInstance().mohelist[i].hp;
-					}	
-					Send.num1 = pDam;
-					Send.num2 = mDam;
-					Send.num3 = pDef;
-					Send.num4 = mDef;
-					Send.num5 = hp;
-					Send.shizhuang_select = pUser->charbase.shizhuang_select;
-					Send.pifeng_select = pUser->charbase.pifeng_select;
-					Send.chibang_select = pUser->charbase.chibang_select;
-					Send.zuoqi_select = pUser->charbase.zuoqi_select;
-					Send.jiemian_select = pUser->charbase.jiemian_select;  //魔盒界面
-					Send.mohelevel = pUser->charbase.mohelevel;
-					Send.moheexp = pUser->charbase.moheexp;
-					sendCmdToMe(&Send,sizeof(Send));
 				}
-			}
-			break;
-		case SETSHIZHUANG_USERCMD: //sky 佩戴时装
+				break;
+			case SETSHIZHUANG_USERCMD: //sky 佩戴时装
 			{
 				using namespace Cmd;
 				stSetShizhuangUserCmd *equip = (stSetShizhuangUserCmd *)(rev);
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->shizhuangid >= 400)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
+					unsigned int shizhuangSize = (1 == pUser->charbase.type) ? fjconfig::getInstance().shizhuangnanlist.size() : fjconfig::getInstance().shizhuangnvlist.size();
+					if(equip->shizhuangid >= shizhuangSize || pUser->packs.m_Shizhuang[equip->shizhuangid].level >= fjconfig::getInstance().shizhuanglevellist.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Shizhuang[equip->shizhuangid].state!=1)
 					{
 						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此时装未激活，无法装备");
@@ -1912,6 +1885,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->shizhuangid >= 400)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					pUser->charbase.shizhuang_select = 9999;
 					zObject *obj = pUser->packs.equip.getObjectByEquipPos(Cmd::EQUIPCELLTYPE_FASHION);
 					if(obj)
@@ -1934,6 +1912,17 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->shizhuangid >= 400)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
+					unsigned int shizhuangSize = (1 == pUser->charbase.type) ? fjconfig::getInstance().shizhuangnanlist.size() : fjconfig::getInstance().shizhuangnvlist.size();
+					if(equip->shizhuangid >= shizhuangSize)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Shizhuang[equip->shizhuangid].state == 0)//激活 
 					{
 						SessionItemObjectComparet found;
@@ -1942,13 +1931,13 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							found.dwObjectID = fjconfig::getInstance().shizhuangnanlist[equip->shizhuangid].jihuoID;
 						}
 						else
-						{
-							found.dwObjectID = fjconfig::getInstance().shizhuangnanlist[equip->shizhuangid].jihuoID;
-						}
+							{
+								found.dwObjectID = fjconfig::getInstance().shizhuangnvlist[equip->shizhuangid].jihuoID;
+							}
 						zObject *itemobj = pUser->packs.uom.getObject(found);// 查找道具
 						if(itemobj)
 						{
-							DWORD jihuoNum = fjconfig::getInstance().shizhuangnanlist[equip->shizhuangid].jihuoNum;
+							DWORD jihuoNum = (1 == pUser->charbase.type) ? fjconfig::getInstance().shizhuangnanlist[equip->shizhuangid].jihuoNum : fjconfig::getInstance().shizhuangnvlist[equip->shizhuangid].jihuoNum;
 							if(itemobj->data.dwNum < jihuoNum)
 							{
 								Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"缺少激活时装道具【时装布料】");
@@ -1968,6 +1957,8 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							}
 							pUser->packs.m_Shizhuang[equip->shizhuangid].state=1;
 							pUser->packs.m_Shizhuang[equip->shizhuangid].level=0;
+							pUser->refreshMagicBoxLevel();
+							pUser->setupCharBase();
 							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"时装激活成功");
 					 	}
 						else{
@@ -1975,11 +1966,12 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 						}
 					}
 					else{//升级
-						if(pUser->packs.m_Shizhuang[equip->shizhuangid].level >= 6)
-						{
-							Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此时装已达到最高等级");
-							return true;	
-						}
+						unsigned int shizhuangLevelSize = fjconfig::getInstance().shizhuanglevellist.size();
+							if(shizhuangLevelSize == 0 || pUser->packs.m_Shizhuang[equip->shizhuangid].level >= shizhuangLevelSize - 1)
+							{
+								Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+								return true;
+							}
 						SessionItemObjectComparet found;
 						
 						found.dwObjectID = fjconfig::getInstance().shizhuanglevellist[pUser->packs.m_Shizhuang[equip->shizhuangid].level].costID;
@@ -2010,6 +2002,8 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							}
 							pUser->packs.m_Shizhuang[equip->shizhuangid].state=1;
 							pUser->packs.m_Shizhuang[equip->shizhuangid].level++;
+							pUser->refreshMagicBoxLevel();
+							pUser->setupCharBase();
 							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"时装进阶成功");
 					 	}
 						else{
@@ -2029,6 +2023,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->pifengid >= 100 || equip->pifengid >= fjconfig::getInstance().pifenglist.size() || pUser->packs.m_Pifeng[equip->pifengid].level >= fjconfig::getInstance().pifenglevellist.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Pifeng[equip->pifengid].state!=1)
 					{
 						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此披风未激活，无法装备");
@@ -2109,6 +2108,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->pifengid >= 100)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					pUser->charbase.pifeng_select = 9999;
 					zObject *obj = pUser->packs.equip.getObjectByType(99);
 					if(obj)
@@ -2131,6 +2135,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->pifengid >= 100 || equip->pifengid >= fjconfig::getInstance().pifenglist.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Pifeng[equip->pifengid].state == 0)//激活 
 					{
 						SessionItemObjectComparet found;
@@ -2158,6 +2167,8 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							}
 							pUser->packs.m_Pifeng[equip->pifengid].state=1;
 							pUser->packs.m_Pifeng[equip->pifengid].level=0;
+							pUser->refreshMagicBoxLevel();
+							pUser->setupCharBase();
 							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"披风激活成功");
 					 	}
 						else{
@@ -2165,11 +2176,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 						}
 					}
 					else{//升级
-						if(pUser->packs.m_Pifeng[equip->pifengid].level >= 6)
-						{
-							Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此披风已达到最高等级");
-							return true;	
-						}
+						if(pUser->packs.m_Pifeng[equip->pifengid].level >= fjconfig::getInstance().pifenglevellist.size())
+							{
+								Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+								return true;
+							}
 						SessionItemObjectComparet found;
 						
 						found.dwObjectID = fjconfig::getInstance().pifenglevellist[pUser->packs.m_Pifeng[equip->pifengid].level].costID;
@@ -2200,6 +2211,8 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							}
 							pUser->packs.m_Pifeng[equip->pifengid].state=1;
 							pUser->packs.m_Pifeng[equip->pifengid].level++;
+							pUser->refreshMagicBoxLevel();
+							pUser->setupCharBase();
 							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"披风进阶成功");
 					 	}
 						else{
@@ -2219,6 +2232,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->chibangid >= 100 || equip->chibangid >= fjconfig::getInstance().chibanglist.size() || pUser->packs.m_Chibang[equip->chibangid].level >= fjconfig::getInstance().chibanglevellist.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Chibang[equip->chibangid].state!=1)
 					{
 						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此翅膀未激活，无法装备");
@@ -2299,6 +2317,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->chibangid >= 100)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					pUser->charbase.chibang_select = 9999;
 					zObject *obj = pUser->packs.equip.getObjectByType(93);
 					if(obj)
@@ -2321,6 +2344,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->chibangid >= 100 || equip->chibangid >= fjconfig::getInstance().chibanglist.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Chibang[equip->chibangid].state == 0)//激活 
 					{
 						SessionItemObjectComparet found;
@@ -2348,6 +2376,8 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							}
 							pUser->packs.m_Chibang[equip->chibangid].state=1;
 							pUser->packs.m_Chibang[equip->chibangid].level=0;
+							pUser->refreshMagicBoxLevel();
+							pUser->setupCharBase();
 							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"翅膀激活成功");
 					 	}
 						else{
@@ -2355,11 +2385,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 						}
 					}
 					else{//升级
-						if(pUser->packs.m_Chibang[equip->chibangid].level >= 6)
-						{
-							Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此翅膀已达到最高等级");
-							return true;	
-						}
+						if(pUser->packs.m_Chibang[equip->chibangid].level >= fjconfig::getInstance().chibanglevellist.size())
+							{
+								Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+								return true;
+							}
 						SessionItemObjectComparet found;
 						
 						found.dwObjectID = fjconfig::getInstance().chibanglevellist[pUser->packs.m_Chibang[equip->chibangid].level].costID;
@@ -2390,6 +2420,8 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							}
 							pUser->packs.m_Chibang[equip->chibangid].state=1;
 							pUser->packs.m_Chibang[equip->chibangid].level++;
+							pUser->refreshMagicBoxLevel();
+							pUser->setupCharBase();
 							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"翅膀进阶成功");
 					 	}
 						else{
@@ -2409,6 +2441,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->zuoqiid >= 100 || equip->zuoqiid >= fjconfig::getInstance().zuoqi2list.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Zuoqi[equip->zuoqiid].state!=1)
 					{
 						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"此坐骑未激活，无法装备");
@@ -2436,6 +2473,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->zuoqiid >= 100)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					pUser->charbase.zuoqi_select = 9999;
 					pUser->horse.horse(3256);	
 				}
@@ -2448,6 +2490,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->zuoqiid >= 100 || equip->zuoqiid >= fjconfig::getInstance().zuoqi2list.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Zuoqi[equip->zuoqiid].state == 0)//激活 
 					{
 						SessionItemObjectComparet found;
@@ -2475,6 +2522,8 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							}
 							pUser->packs.m_Zuoqi[equip->zuoqiid].state=1;
 							pUser->packs.m_Zuoqi[equip->zuoqiid].level=0;
+							pUser->refreshMagicBoxLevel();
+							pUser->setupCharBase();
 							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"坐骑激活成功");
 					 	}
 						else{
@@ -2497,6 +2546,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->jiemianid >= 100 || equip->jiemianid >= fjconfig::getInstance().jiemianlist.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(equip->jiemianid>100)
 					{
 						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"未找到该界面!");
@@ -2527,6 +2581,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->jiemianid >= 100)
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					pUser->charbase.jiemian_select = 9999;
 					// 刷新用户数据
 					pUser->setupCharBase();
@@ -2546,6 +2605,11 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 				SceneUser* pUser = SceneUserManager::getMe().getUserByID(equip->dwOldTempID);
 				if(pUser)
 				{
+					if(equip->jiemianid >= 100 || equip->jiemianid >= fjconfig::getInstance().jiemianlist.size())
+					{
+						Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL,"MagicBox config error");
+						return true;
+					}
 					if(pUser->packs.m_Jiemian[equip->jiemianid].state == 0)//激活 
 					{
 						SessionItemObjectComparet found;
@@ -2573,6 +2637,8 @@ bool SceneUser::doPropertyCmd(const Cmd::stPropertyUserCmd *rev,unsigned int cmd
 							}
 							pUser->packs.m_Jiemian[equip->jiemianid].state=1;
 							pUser->packs.m_Jiemian[equip->jiemianid].level=0;
+							pUser->refreshMagicBoxLevel();
+							pUser->setupCharBase();
 							Channel::sendSys(pUser, Cmd::INFO_TYPE_GAME,"界面激活成功");
 					 	}
 						else{

@@ -310,6 +310,7 @@ class TeamManager
 		DWORD getExpPlus(WORD wdExp);
 		DWORD getAttPlus();
 		DWORD getDefPlus();
+		DWORD getPetBowAuraRate();
 		DWORD getFiveElementPlus();
 		DWORD getActiveTeamFiveMask();
 		void putMoneyPlus(WORD wdMoney);

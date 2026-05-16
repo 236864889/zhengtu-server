@@ -12,6 +12,59 @@
 #include "QuestTable.h"
 #include "QuestAction.h"
 #include "script.h"
+namespace
+{
+	bool isPetEquipRefreshLocation(const stObjectLocation &loc)
+	{
+		return loc.loc()==Cmd::OBJECTCELLTYPE_PET_EQUIP ||
+			(loc.loc()==Cmd::OBJECTCELLTYPE_EQUIP && loc.ypos()==Cmd::EQUIPCELLTYPE_HANDR);
+	}
+
+	bool isValidPetEquipCell(DWORD cell)
+	{
+		return cell>Cmd::PETEQUIP_NONE && cell<Cmd::PETEQUIP_MAX;
+	}
+
+	bool isPetEquipKindAllowed(DWORD cell, DWORD kind)
+	{
+		switch(cell)
+		{
+			case Cmd::PETEQUIP_HANDR:
+				return kind==ItemType_Crossbow;
+			case Cmd::PETEQUIP_HELM:
+				return kind==ItemType_Helm;
+			case Cmd::PETEQUIP_BODY:
+				return kind==ItemType_ClothBody || kind==ItemType_FellBody || kind==ItemType_MetalBody;
+			case Cmd::PETEQUIP_NECKLACE:
+				return kind==ItemType_Necklace;
+			case Cmd::PETEQUIP_GLOVES_R:
+			case Cmd::PETEQUIP_GLOVES_L:
+				return kind==ItemType_Cuff;
+			case Cmd::PETEQUIP_RING_R:
+			case Cmd::PETEQUIP_RING_L:
+				return kind==ItemType_Fing;
+			case Cmd::PETEQUIP_BELT:
+				return kind==ItemType_Caestus;
+			case Cmd::PETEQUIP_SHOES:
+				return kind==ItemType_Shoes;
+			case Cmd::PETEQUIP_HORSESHOE:
+				return kind==ItemType_HorseShoe;
+			case Cmd::PETEQUIP_HORSEROPE:
+				return kind==ItemType_HorseRope;
+			case Cmd::PETEQUIP_HORSESADDLE:
+				return kind==ItemType_HorseSaddle;
+			case Cmd::PETEQUIP_HORSESAFE:
+				return kind==ItemType_HorseSafe;
+			case Cmd::PETEQUIP_HORSEIRON:
+				return kind==ItemType_HorseIron;
+			case Cmd::PETEQUIP_HORSEFASHION:
+				return kind==ItemType_HorseFashion;
+			default:
+				break;
+		}
+		return false;
+	}
+}
 /**
  * \brief 构造函数
  */
@@ -1420,6 +1473,7 @@ bool EquipPack::isTonic()
  */
 void EquipPack::updateDurability(SceneUser *pThis , DWORD value)
 {
+	bool needPetEquipStateRefresh=false;
 	for (int i=0;i<Cmd::EQUIPCELLTYPE_MAX;i++)
 	{
 		if(container[i]!=NULL)
@@ -1433,6 +1487,8 @@ void EquipPack::updateDurability(SceneUser *pThis , DWORD value)
 			}
 //////////////////////////////////////////////////////
 			freshDurability(pThis, container[i]);
+				if(i==Cmd::EQUIPCELLTYPE_HANDR)
+					needPetEquipStateRefresh=true;
 
 			/*
 			if(equip[i]!=NULL && equip[i]->data.dur < equip[i]->data.maxdur)
@@ -1441,6 +1497,10 @@ void EquipPack::updateDurability(SceneUser *pThis , DWORD value)
 			}
 			*/
 		}
+	}
+	if(needPetEquipStateRefresh && pThis)
+	{
+		pThis->refreshPetEquipState();
 	}
 }
 
@@ -1495,6 +1555,8 @@ void EquipPack::restituteDurability(SceneUser *pThis , const zRTime &ct)
 							freshDurability(pThis , container[i]);
 							calcAll();
 							freshUserData(pThis);
+								if(i==Cmd::EQUIPCELLTYPE_HANDR && pThis)
+									pThis->refreshPetEquipState();
 						}
 					}
 				}
@@ -1551,6 +1613,8 @@ bool EquipPack::reduceDur(SceneUser *pThis , DWORD which)
 	if(container[which]->data.dur == 0)
 	{
 		calcAll();
+		if(which==Cmd::EQUIPCELLTYPE_HANDR && pThis)
+			pThis->refreshPetEquipState();
 
 		//soke 根据策划要求，装备耐久为0时不消失，只是不可用啦
 		//if (container[which]->base->kind <= 118 && container[which]->base->kind >= 101 && container[which]->data.bind)
@@ -1655,6 +1719,8 @@ int EquipPack::reduceDur(SceneUser *pThis , DWORD which , DWORD type , DWORD num
 		{
 			calcAll();
 		}
+		if(which==Cmd::EQUIPCELLTYPE_HANDR && pThis)
+			pThis->refreshPetEquipState();
 
 		//临时增加,便于QA测试
 		//再次根据策划文档修改
@@ -8753,6 +8819,9 @@ Package * Packages::getPackage(DWORD type,DWORD id)
 		case Cmd::OBJECTCELLTYPE_PET:
 			return (Package *)&petPack;
 			break;
+		case Cmd::OBJECTCELLTYPE_PET_EQUIP:
+			return (Package *)&petEquipPack;
+			break;
 		//////////////////////////////////////////////	
         case Cmd::OBJECTCELLTYPE_RECAST:
             return (Package *)&recastPack;
@@ -8882,6 +8951,8 @@ bool Packages::moveObject(SceneUser *pUser,zObject *srcObj,stObjectLocation &dst
 		Zebra::logger->warn("物品%s[%x]定位错误，不能移动", srcObj->name, srcObj);		
 		return false;
 	}
+	stObjectLocation srcPos=srcObj->data.pos;
+	bool needPetEquipStateRefresh=isPetEquipRefreshLocation(srcPos) || isPetEquipRefreshLocation(dst);
 	if(srcpack->type() == Cmd::OBJECTCELLTYPE_EQUIP)
 	{
 		if (
@@ -8908,6 +8979,8 @@ bool Packages::moveObject(SceneUser *pUser,zObject *srcObj,stObjectLocation &dst
 	if (dst.loc() == Cmd::OBJECTCELLTYPE_NONE) {
 		zObject::logger(srcObj->createid,srcObj->data.qwThisID,srcObj->base->name,srcObj->data.dwNum,srcObj->data.dwNum,0,0,NULL,pUser->id,pUser->name,"扔东西",srcObj->base,srcObj->data.kind,srcObj->data.upgrade);
 		removeObject(srcObj);
+		if(needPetEquipStateRefresh && pUser)
+			pUser->refreshPetEquipState();
 		return true;
 	}
 
@@ -9061,6 +9134,9 @@ bool Packages::moveObject(SceneUser *pUser,zObject *srcObj,stObjectLocation &dst
 							break;
 					}
 				}
+
+				if(needPetEquipStateRefresh && pUser)
+					pUser->refreshPetEquipState();
 
 				return true;
 			}
@@ -10718,6 +10794,34 @@ bool PetPack::isEmpty() const
 }
 
 //////////////////////////////////////////////////////////
+PetEquipPack::PetEquipPack()
+:Package(Cmd::OBJECTCELLTYPE_PET_EQUIP, 0, PETEQUIP_PACK_WIDTH, PETEQUIP_PACK_HEIGHT)
+{
+}
+
+PetEquipPack::~PetEquipPack()
+{
+}
+
+bool PetEquipPack::checkAdd(SceneUser* pUser, zObject* object, WORD x, WORD y)
+{
+	zObject *temp=NULL;
+	if(x!=0 || !isValidPetEquipCell(y))
+		return false;
+	if(!getObjectByZone(&temp, x, y))
+		return false;
+	if(object==NULL)
+		return true;
+	if(!object->base)
+		return false;
+	if(pUser && object->data.needlevel > pUser->getLevel())
+	{
+		Channel::sendSys(pUser, Cmd::INFO_TYPE_FAIL, "等级不足，无法给宠物穿戴该装备");
+		return false;
+	}
+	return isPetEquipKindAllowed(y, object->base->kind);
+}
+
 RecastPack::RecastPack()
 :Package(Cmd::OBJECTCELLTYPE_RECAST, 0, RECAST_PACK_WIDTH, RECAST_PACK_HEIGHT)
 {

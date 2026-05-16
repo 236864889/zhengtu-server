@@ -588,6 +588,8 @@ struct SceneUser:public SceneEntryPk
 		void finishSeptGuard();
 
 		void setupCharBase(bool lock=true);
+		void calcMagicBoxExpAndLevel(DWORD &exp, DWORD &level) const;
+		DWORD refreshMagicBoxLevel();
 		DWORD getCivilOfficialRank() const;
 		DWORD getMilitaryOfficialRank() const;
 		DWORD getCivilSealLevel() const;
@@ -1039,6 +1041,8 @@ virtual uint64_t getMaxMDefence();
 		 */
 		DWORD getLevel() const;
 
+		DWORD getMagicBoxLevel() const;
+
 		/**
 		 * \brief 获取角色的五行类型
 		 * \author fqnewman
@@ -1455,6 +1459,14 @@ virtual uint64_t getMaxMDefence();
         //soke 温泉
 		bool isSpa() const;
 		bool isDance() const;
+		bool isRightHandStick();
+		bool isRightHandCrossbow();
+		bool isPetEquipDoubleCrossbowActive();
+		bool clearNormalPetWithoutCrossbow();
+		void refreshPetEquipState(bool notify=true);
+		void calcPetEquipBaseAttr(PetEquipAttr &attr);
+		void calcPetEquipSuitAttr(PetEquipState &state);
+		void fillPetEquipDisplayState(PetEquipState &state);
 		void getSummonAppendDamage(DWORD &minDamage, DWORD &maxDamage);
 		void exchangeMeAndSummonPet();
 		DWORD getMP();
@@ -1479,6 +1491,7 @@ virtual uint64_t getMaxMDefence();
 		 * \return true为这次攻击是有效的，false为一次无效的攻击
 		 */
 		void showCurrentEffect(const WORD &state, bool isShow,bool notify=true);
+			void refreshPkPreValue();
 
 	private:
 		/**

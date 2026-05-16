@@ -23,6 +23,124 @@ petBonus bonusTable[] =
 	{4,125,120,120}
 };
 
+namespace
+{
+	uint64_t petMax64()
+	{
+		return ~(uint64_t)0;
+	}
+
+	uint64_t petAdd64(uint64_t left, uint64_t right)
+	{
+		uint64_t maxValue = petMax64();
+		if (maxValue - left < right) return maxValue;
+		return left + right;
+	}
+
+	uint64_t petSub64(uint64_t left, uint64_t right)
+	{
+		return left > right ? left - right : 0;
+	}
+
+	uint64_t petApplyRate64(uint64_t value, uint64_t rate)
+	{
+		long double result = (long double)value * (100.0L + (long double)rate) / 100.0L;
+		if (result >= (long double)petMax64()) return petMax64();
+		return (uint64_t)result;
+	}
+
+	uint64_t petReduceRate64(uint64_t value, uint64_t rate)
+	{
+		if (rate >= 100) return 0;
+		long double result = (long double)value * (100.0L - (long double)rate) / 100.0L;
+		return (uint64_t)result;
+	}
+
+	void clearPetEquipDisplayFields(Cmd::t_PetData &data)
+	{
+		data.pet_base_atk = 0;
+		data.pet_base_maxatk = 0;
+		data.pet_base_matk = 0;
+		data.pet_base_maxmatk = 0;
+		data.pet_base_def = 0;
+		data.pet_base_mdef = 0;
+		data.pet_base_maxhp = 0;
+		data.pet_equip_atk = 0;
+		data.pet_equip_maxatk = 0;
+		data.pet_equip_matk = 0;
+		data.pet_equip_maxmatk = 0;
+		data.pet_equip_def = 0;
+		data.pet_equip_mdef = 0;
+		data.pet_equip_maxhp = 0;
+		data.pet_suit_atk = 0;
+		data.pet_suit_maxatk = 0;
+		data.pet_suit_matk = 0;
+		data.pet_suit_maxmatk = 0;
+		data.pet_suit_def = 0;
+		data.pet_suit_mdef = 0;
+		data.pet_suit_maxhp = 0;
+		data.pet_final_atk = 0;
+		data.pet_final_maxatk = 0;
+		data.pet_final_matk = 0;
+		data.pet_final_maxmatk = 0;
+		data.pet_final_def = 0;
+		data.pet_final_mdef = 0;
+		data.pet_final_maxhp = 0;
+		data.pet_suit_id = 0;
+		data.pet_suit_level = 0;
+		data.pet_suit_piece_count = 0;
+		data.pet_suit_active_mask = 0;
+		data.pet_ignore_def = 0;
+		data.pet_reel = 0;
+		data.pet_vip_suppress = 0;
+		data.pet_charm_suppress = 0;
+		data.pet_magicbox_suppress = 0;
+		data.pet_restrain_suppress = 0;
+	}
+
+	void fillPetEquipDisplayFields(Cmd::t_PetData &data, const PetEquipState &state)
+	{
+		data.pet_base_atk = data.atk;
+		data.pet_base_maxatk = data.maxatk;
+		data.pet_base_matk = data.matk;
+		data.pet_base_maxmatk = data.maxmatk;
+		data.pet_base_def = data.def;
+		data.pet_base_mdef = data.mdef;
+		data.pet_base_maxhp = data.maxhp;
+		data.pet_equip_atk = state.equipAttr.minPDamage;
+		data.pet_equip_maxatk = state.equipAttr.maxPDamage;
+		data.pet_equip_matk = state.equipAttr.minMDamage;
+		data.pet_equip_maxmatk = state.equipAttr.maxMDamage;
+		data.pet_equip_def = state.equipAttr.pDefence;
+		data.pet_equip_mdef = state.equipAttr.mDefence;
+		data.pet_equip_maxhp = state.equipAttr.maxHP;
+		data.pet_suit_atk = state.suitAttr.minPDamage;
+		data.pet_suit_maxatk = state.suitAttr.maxPDamage;
+		data.pet_suit_matk = state.suitAttr.minMDamage;
+		data.pet_suit_maxmatk = state.suitAttr.maxMDamage;
+		data.pet_suit_def = state.suitAttr.pDefence;
+		data.pet_suit_mdef = state.suitAttr.mDefence;
+		data.pet_suit_maxhp = state.suitAttr.maxHP;
+		data.pet_final_atk = petAdd64(data.atk, data.atk_plus);
+		data.pet_final_maxatk = petAdd64(data.maxatk, data.maxatk_plus);
+		data.pet_final_matk = petAdd64(data.matk, data.matk_plus);
+		data.pet_final_maxmatk = petAdd64(data.maxmatk, data.maxmatk_plus);
+		data.pet_final_def = petAdd64(data.def, data.pdef_plus);
+		data.pet_final_mdef = petAdd64(data.mdef, data.mdef_plus);
+		data.pet_final_maxhp = petAdd64(data.maxhp, data.maxhp_plus);
+		data.pet_suit_id = state.suitId;
+		data.pet_suit_level = state.suitLevel;
+		data.pet_suit_piece_count = state.suitPieceCount;
+		data.pet_suit_active_mask = state.suitActiveMask;
+		data.pet_ignore_def = state.ignoreDef;
+		data.pet_reel = state.reel;
+		data.pet_vip_suppress = state.vipSuppress;
+		data.pet_charm_suppress = state.charmSuppress;
+		data.pet_magicbox_suppress = state.magicBoxSuppress;
+		data.pet_restrain_suppress = state.restrainSuppress;
+	}
+}
+
 /**
  * \brief 构造
  */
@@ -42,6 +160,10 @@ ScenePet::ScenePet(Scene* scene, zNpcB *npc, const t_NpcDefine *define, const Sc
 	masterPDefence = 0;
 	masterMDefence = 0;
 	masterMaxHP = 0;
+	masterDamageBonus = 0;
+	masterJuejiAttack = 0;
+	masterQiegeAttack = 0;
+	clearPetEquipState();
 
 	//full_PetDataStruct(petData);
 	petData.id = this->id;
@@ -682,6 +804,7 @@ void ScenePet::returnToRegion()
  */
 void ScenePet::full_PetDataStruct(Cmd::t_PetData & data)
 {
+	clearPetEquipDisplayFields(petData);
 	//by=>friday 对于召唤兽，直接更新petData中的属性值，确保发送给客户端的是正确的大数值
 	if (type == Cmd::PET_TYPE_SUMMON)
 	{
@@ -705,22 +828,66 @@ void ScenePet::full_PetDataStruct(Cmd::t_PetData & data)
 	}
 	else
 	{
-		petData.maxhp_plus = getMaxHP() - petData.maxhp;
-		petData.atk_plus = getMinPDamage() - petData.atk;
-		petData.maxatk_plus = getMaxPDamage() - petData.maxatk;
-		petData.matk_plus = getMinMDamage() - petData.matk;
-		petData.maxmatk_plus = getMaxMDamage() - petData.maxmatk;
-		petData.pdef_plus = getMaxPDefence() - petData.def;
-		petData.mdef_plus = getMaxMDefence() - petData.mdef;
+		petData.maxhp_plus = petSub64(getMaxHP(), petData.maxhp);
+		petData.atk_plus = petSub64(getMinPDamage(), petData.atk);
+		petData.maxatk_plus = petSub64(getMaxPDamage(), petData.maxatk);
+		petData.matk_plus = petSub64(getMinMDamage(), petData.matk);
+		petData.maxmatk_plus = petSub64(getMaxMDamage(), petData.maxmatk);
+		petData.pdef_plus = petSub64(getMaxPDefence(), petData.def);
+		petData.mdef_plus = petSub64(getMaxMDefence(), petData.mdef);
 	}
 
 	if (hp>getMaxHP())
 		hp = getMaxHP();
 	petData.hp = hp;
+	if (type == Cmd::PET_TYPE_PET)
+		fillPetEquipDisplayFields(petData, petEquipState);
 #ifdef _DEBUGLOG
 	Zebra::logger->debug("发送宠物hp plus=%llu getMaxHP=%llu - petData.maxhp=%llu", petData.maxhp_plus, getMaxHP(), petData.maxhp); //by=>friday 支持uint64_t
 #endif
 	bcopy(&petData, &data, sizeof(petData));
+}
+
+void ScenePet::clearPetEquipState()
+{
+	petEquipState.clear();
+}
+
+void ScenePet::setPetEquipActive(bool active)
+{
+	if (type!=Cmd::PET_TYPE_PET)
+	{
+		petEquipState.clear();
+		return;
+	}
+	petEquipState.active = active;
+}
+
+void ScenePet::setPetEquipState(const PetEquipState &state)
+{
+	if (type!=Cmd::PET_TYPE_PET)
+	{
+		petEquipState.clear();
+		return;
+	}
+	petEquipState = state;
+}
+
+bool ScenePet::isPetEquipActive() const
+{
+	return type==Cmd::PET_TYPE_PET && petEquipState.active;
+}
+
+WORD ScenePet::getPetEquipIgnoreDef() const
+{
+	if (type!=Cmd::PET_TYPE_PET) return 0;
+	return petEquipState.ignoreDef;
+}
+
+WORD ScenePet::getPetEquipReel() const
+{
+	if (type!=Cmd::PET_TYPE_PET) return 0;
+	return petEquipState.reel;
 }
 
 /**
@@ -781,22 +948,40 @@ void ScenePet::setMaster(SceneEntryPk * m)
 	if (this->type==Cmd::PET_TYPE_SUMMON && getMaster())
 	{
 		getMaster()->getSummonAppendDamage(appendMinDamage, appendMaxDamage);
-		
-		//by=>friday 立即更新召唤兽继承的master属性
-		SceneEntryPk* m = getMaster();
-		if (m && m->getType() == zSceneEntry::SceneEntry_Player)
-		{
-			SceneUser *master = (SceneUser*)m;
-			this->masterMinPDamage = (master->charstate.pdamage * 4) / 5;
-			this->masterMaxPDamage = (master->charstate.maxpdamage * 4) / 5;
-			this->masterMinMDamage = (master->charstate.mdamage * 4) / 5;
-			this->masterMaxMDamage = (master->charstate.maxmdamage * 4) / 5;
-			this->masterPDefence = (master->charstate.pdefence * 4) / 5;
-			this->masterMDefence = (master->charstate.mdefence * 4) / 5;
-			this->masterMaxHP = (master->charstate.maxhp * 4) / 5;
-			
-			
-		}
+		refreshMasterInheritedAttr();
+	}
+}
+
+void ScenePet::refreshMasterInheritedAttr()
+{
+	masterMinPDamage = 0;
+	masterMaxPDamage = 0;
+	masterMinMDamage = 0;
+	masterMaxMDamage = 0;
+	masterPDefence = 0;
+	masterMDefence = 0;
+	masterMaxHP = 0;
+	masterDamageBonus = 0;
+	masterJuejiAttack = 0;
+	masterQiegeAttack = 0;
+
+	if (this->type!=Cmd::PET_TYPE_SUMMON) return;
+
+	SceneEntryPk* m = getMaster();
+	if (m && m->getType() == zSceneEntry::SceneEntry_Player)
+	{
+		SceneUser *master = (SceneUser*)m;
+		if (!master->isRightHandStick()) return;
+		this->masterMinPDamage = (master->charstate.pdamage * 4) / 5;
+		this->masterMaxPDamage = (master->charstate.maxpdamage * 4) / 5;
+		this->masterMinMDamage = (master->charstate.mdamage * 4) / 5;
+		this->masterMaxMDamage = (master->charstate.maxmdamage * 4) / 5;
+		this->masterPDefence = (master->charstate.pdefence * 4) / 5;
+		this->masterMDefence = (master->charstate.mdefence * 4) / 5;
+		this->masterMaxHP = (master->charstate.maxhp * 4) / 5;
+		this->masterDamageBonus = master->getDamageBonus();
+		this->masterJuejiAttack = (master->charstate.juejiattack * 4) / 5;
+		this->masterQiegeAttack = (master->charstate.qiegeattack * 4) / 5;
 	}
 }
 
@@ -818,7 +1003,10 @@ void ScenePet::setMaster(DWORD id, DWORD type)
 	masterType = type;
 
 	if (this->type==Cmd::PET_TYPE_SUMMON && getMaster())
+	{
 		getMaster()->getSummonAppendDamage(appendMinDamage, appendMaxDamage);
+		refreshMasterInheritedAttr();
+	}
 }
 
 /**
@@ -1042,6 +1230,33 @@ void ScenePet::setAppendDamage(DWORD mindamage, DWORD maxdamage)
 	this->sendData();
 }
 
+WORD ScenePet::getDamageBonus()
+{
+	if (type==Cmd::PET_TYPE_SUMMON)
+		return masterDamageBonus;
+	if (type==Cmd::PET_TYPE_PET && petEquipState.active)
+		return SceneNpc::getDamageBonus() + petEquipState.finalAttr.damageBonus;
+	return SceneNpc::getDamageBonus();
+}
+
+uint64_t ScenePet::getMasterJuejiAttack()
+{
+	if (type==Cmd::PET_TYPE_SUMMON)
+		return masterJuejiAttack;
+	if (type==Cmd::PET_TYPE_PET && petEquipState.active)
+		return petEquipState.finalAttr.juejiAttack;
+	return 0;
+}
+
+uint64_t ScenePet::getMasterQiegeAttack()
+{
+	if (type==Cmd::PET_TYPE_SUMMON)
+		return masterQiegeAttack;
+	if (type==Cmd::PET_TYPE_PET && petEquipState.active)
+		return petEquipState.finalAttr.qiegeAttack;
+	return 0;
+}
+
 /**
  * \brief 增加宠物经验
  *
@@ -1183,22 +1398,25 @@ SceneEntryPk * ScenePet::chooseEnemy(SceneEntryPk_vec &enemies)
  */
 uint64_t ScenePet::getMinPDamage()
 {
-  SDWORD value = 0;
-  switch (type)
-  {
-    case Cmd::PET_TYPE_PET:
-      value =  (SDWORD)((petData.atk+appendMinDamage+skillValue.uppetdamage-skillValue.dpdam-skillValue.theurgy_dpdam)*(1.0f+((float)boostupPet+(float)skillValue.protectUpAtt)/100.0f));
-      if (value <0) value = 0;
-      return value;
-      break;
-    case Cmd::PET_TYPE_SUMMON:
-      return (uint64_t)(SceneNpc::getMinPDamage()+boostupSummon+masterMinPDamage);
-      break;
-    default:
-      return SceneNpc::getMinPDamage();
-  }
+	switch (type)
+	{
+		case Cmd::PET_TYPE_PET:
+		{
+			uint64_t value = petAdd64(petData.atk, appendMinDamage);
+			value = petAdd64(value, petEquipState.active?petEquipState.finalAttr.minPDamage:0);
+			value = petAdd64(value, skillValue.uppetdamage);
+			value = petSub64(value, skillValue.dpdam);
+			value = petSub64(value, skillValue.theurgy_dpdam);
+			uint64_t rate = petAdd64(boostupPet, skillValue.protectUpAtt);
+			rate = petAdd64(rate, petEquipState.active?petEquipState.finalAttr.pDamageRate:0);
+			return petApplyRate64(value, rate);
+		}
+		case Cmd::PET_TYPE_SUMMON:
+			return petAdd64(SceneNpc::getMinPDamage(), petAdd64(boostupSummon, masterMinPDamage));
+		default:
+			return SceneNpc::getMinPDamage();
+	}
 }
-
 /*
  * \brief 得到最大物理攻击力
  *
@@ -1207,22 +1425,25 @@ uint64_t ScenePet::getMinPDamage()
  */
 uint64_t ScenePet::getMaxPDamage()
 {
-  SDWORD value = 0;
-  switch (type)
-  {
-    case Cmd::PET_TYPE_PET:
-      value = (SDWORD)((petData.maxatk+appendMaxDamage+skillValue.uppetdamage-skillValue.dpdam-skillValue.theurgy_dpdam)*(1.0f+((float)boostupPet+(float)skillValue.protectUpAtt)/100.0f));
-      if (value <0) value =0;
-      return value;
-      break;
-    case Cmd::PET_TYPE_SUMMON:
-      return (uint64_t)( SceneNpc::getMaxPDamage()+boostupSummon+masterMaxPDamage);
-      break;
-    default:
-      return SceneNpc::getMaxPDamage();
-  }
+	switch (type)
+	{
+		case Cmd::PET_TYPE_PET:
+		{
+			uint64_t value = petAdd64(petData.maxatk, appendMaxDamage);
+			value = petAdd64(value, petEquipState.active?petEquipState.finalAttr.maxPDamage:0);
+			value = petAdd64(value, skillValue.uppetdamage);
+			value = petSub64(value, skillValue.dpdam);
+			value = petSub64(value, skillValue.theurgy_dpdam);
+			uint64_t rate = petAdd64(boostupPet, skillValue.protectUpAtt);
+			rate = petAdd64(rate, petEquipState.active?petEquipState.finalAttr.pDamageRate:0);
+			return petApplyRate64(value, rate);
+		}
+		case Cmd::PET_TYPE_SUMMON:
+			return petAdd64(SceneNpc::getMaxPDamage(), petAdd64(boostupSummon, masterMaxPDamage));
+		default:
+			return SceneNpc::getMaxPDamage();
+	}
 }
-
 /*
  * \brief 得到最小魔法攻击力
  *
@@ -1231,22 +1452,25 @@ uint64_t ScenePet::getMaxPDamage()
  */
 uint64_t ScenePet::getMinMDamage()
 {
-  SDWORD value = 0;
-  switch (type)
-  {
-    case Cmd::PET_TYPE_PET:
-      value = (SDWORD)((petData.matk+appendMinDamage+skillValue.uppetdamage-skillValue.dmdam-skillValue.theurgy_dmdam)*(1.0f+((float)boostupPet+(float)skillValue.protectUpAtt)/100.0f));
-      if (value<0) value =0;
-      return value;
-      break;
-    case Cmd::PET_TYPE_SUMMON:
-      return (uint64_t)(SceneNpc::getMinMDamage()+boostupSummon+masterMinMDamage);
-      break;
-    default:
-      return SceneNpc::getMinMDamage();
-  }
+	switch (type)
+	{
+		case Cmd::PET_TYPE_PET:
+		{
+			uint64_t value = petAdd64(petData.matk, appendMinDamage);
+			value = petAdd64(value, petEquipState.active?petEquipState.finalAttr.minMDamage:0);
+			value = petAdd64(value, skillValue.uppetdamage);
+			value = petSub64(value, skillValue.dmdam);
+			value = petSub64(value, skillValue.theurgy_dmdam);
+			uint64_t rate = petAdd64(boostupPet, skillValue.protectUpAtt);
+			rate = petAdd64(rate, petEquipState.active?petEquipState.finalAttr.mDamageRate:0);
+			return petApplyRate64(value, rate);
+		}
+		case Cmd::PET_TYPE_SUMMON:
+			return petAdd64(SceneNpc::getMinMDamage(), petAdd64(boostupSummon, masterMinMDamage));
+		default:
+			return SceneNpc::getMinMDamage();
+	}
 }
-
 /*
  * \brief 得到最大魔法攻击力
  *
@@ -1255,22 +1479,25 @@ uint64_t ScenePet::getMinMDamage()
  */
 uint64_t ScenePet::getMaxMDamage()
 {
-  SDWORD value = 0;
-  switch (type)
-  {
-    case Cmd::PET_TYPE_PET:
-      value = (SDWORD)((petData.maxmatk+appendMinDamage+skillValue.uppetdamage-skillValue.dmdam-skillValue.theurgy_dmdam)*(1.0f+((float)boostupPet+(float)skillValue.protectUpAtt)/100.0f));
-      if (value <0) value =0;
-      return value;
-      break;
-    case Cmd::PET_TYPE_SUMMON:
-      return (uint64_t)(SceneNpc::getMaxMDamage()+boostupSummon+masterMaxMDamage);
-      break;
-    default:
-      return SceneNpc::getMaxMDamage();
-  }
+	switch (type)
+	{
+		case Cmd::PET_TYPE_PET:
+		{
+			uint64_t value = petAdd64(petData.maxmatk, appendMinDamage);
+			value = petAdd64(value, petEquipState.active?petEquipState.finalAttr.maxMDamage:0);
+			value = petAdd64(value, skillValue.uppetdamage);
+			value = petSub64(value, skillValue.dmdam);
+			value = petSub64(value, skillValue.theurgy_dmdam);
+			uint64_t rate = petAdd64(boostupPet, skillValue.protectUpAtt);
+			rate = petAdd64(rate, petEquipState.active?petEquipState.finalAttr.mDamageRate:0);
+			return petApplyRate64(value, rate);
+		}
+		case Cmd::PET_TYPE_SUMMON:
+			return petAdd64(SceneNpc::getMaxMDamage(), petAdd64(boostupSummon, masterMaxMDamage));
+		default:
+			return SceneNpc::getMaxMDamage();
+	}
 }
-
 /*
  * \brief 得到最小物理防御力
  *
@@ -1279,21 +1506,21 @@ uint64_t ScenePet::getMaxMDamage()
  */
 uint64_t ScenePet::getMinPDefence()
 {
-    if (type==Cmd::PET_TYPE_PET)
-    {
-        SDWORD value = (SDWORD)((petData.def+skillValue.uppetdefence-skillValue.theurgy_dpdef)*(1.0f+((float)boostupPet)/100.0f));
-        if (value <0) value =0;
-        return static_cast<uint64_t>(value);
-    }
-    else if (type==Cmd::PET_TYPE_SUMMON)
-    {
-        //by=>friday 召唤兽直接返回继承的防御值，避免SDWORD截断
-        return SceneNpc::getMinPDefence() + masterPDefence;
-    }
-    else
-        return SceneNpc::getMinPDefence();
+	if (type==Cmd::PET_TYPE_PET)
+	{
+		uint64_t value = petAdd64(petData.def, petEquipState.active?petEquipState.finalAttr.pDefence:0);
+		value = petAdd64(value, skillValue.uppetdefence);
+		value = petSub64(value, skillValue.theurgy_dpdef);
+		uint64_t rate = petAdd64(boostupPet, petEquipState.active?petEquipState.finalAttr.pDefenceRate:0);
+		return petApplyRate64(value, rate);
+	}
+	else if (type==Cmd::PET_TYPE_SUMMON)
+	{
+		return petAdd64(SceneNpc::getMinPDefence(), masterPDefence);
+	}
+	else
+		return SceneNpc::getMinPDefence();
 }
-
 /*
  * \brief 得到最大物理防御力
  *
@@ -1302,21 +1529,21 @@ uint64_t ScenePet::getMinPDefence()
  */
 uint64_t ScenePet::getMaxPDefence()
 {
-    if (type==Cmd::PET_TYPE_PET)
-    {
-        SDWORD value = (SDWORD)((petData.def+skillValue.uppetdefence-skillValue.theurgy_dpdef)*(1.0f+((float)boostupPet)/100.0f));
-        if (value <0) value = 0;
-        return static_cast<uint64_t>(value);
-    }
-    else if (type==Cmd::PET_TYPE_SUMMON)
-    {
-        //by=>friday 召唤兽直接返回继承的防御值，避免SDWORD截断
-        return SceneNpc::getMaxPDefence() + masterPDefence;
-    }
-    else
-        return SceneNpc::getMaxPDefence();
+	if (type==Cmd::PET_TYPE_PET)
+	{
+		uint64_t value = petAdd64(petData.def, petEquipState.active?petEquipState.finalAttr.pDefence:0);
+		value = petAdd64(value, skillValue.uppetdefence);
+		value = petSub64(value, skillValue.theurgy_dpdef);
+		uint64_t rate = petAdd64(boostupPet, petEquipState.active?petEquipState.finalAttr.pDefenceRate:0);
+		return petApplyRate64(value, rate);
+	}
+	else if (type==Cmd::PET_TYPE_SUMMON)
+	{
+		return petAdd64(SceneNpc::getMaxPDefence(), masterPDefence);
+	}
+	else
+		return SceneNpc::getMaxPDefence();
 }
-
 /*
  * \brief 得到最大魔法防御力
  *
@@ -1325,22 +1552,23 @@ uint64_t ScenePet::getMaxPDefence()
  */
 uint64_t ScenePet::getMinMDefence()
 {
-    if (type==Cmd::PET_TYPE_PET)
-    {
-        SDWORD value = (SDWORD)((petData.mdef+skillValue.uppetdefence+this->boostupPetMDef-skillValue.theurgy_dmdef)*(1.0f+((float)boostupPet)/100.0f));
-        value = (SDWORD)(value *( 1 - skillValue.dmdefp/100.0f));
-        if (value <0) value =0;
-        return static_cast<uint64_t>(value);
-    }
-    else if (type==Cmd::PET_TYPE_SUMMON)
-    {
-        //by=>friday 召唤兽直接返回继承的魔法防御值，避免SDWORD截断
-        return SceneNpc::getMinMDefence() + masterMDefence;
-    }
-    else
-        return SceneNpc::getMinMDefence();
+	if (type==Cmd::PET_TYPE_PET)
+	{
+		uint64_t value = petAdd64(petData.mdef, petEquipState.active?petEquipState.finalAttr.mDefence:0);
+		value = petAdd64(value, skillValue.uppetdefence);
+		value = petAdd64(value, this->boostupPetMDef);
+		value = petSub64(value, skillValue.theurgy_dmdef);
+		uint64_t rate = petAdd64(boostupPet, petEquipState.active?petEquipState.finalAttr.mDefenceRate:0);
+		value = petApplyRate64(value, rate);
+		return petReduceRate64(value, skillValue.dmdefp);
+	}
+	else if (type==Cmd::PET_TYPE_SUMMON)
+	{
+		return petAdd64(SceneNpc::getMinMDefence(), masterMDefence);
+	}
+	else
+		return SceneNpc::getMinMDefence();
 }
-
 /*
  * \brief 得到最大魔法防御力
  *
@@ -1349,22 +1577,23 @@ uint64_t ScenePet::getMinMDefence()
  */
 uint64_t ScenePet::getMaxMDefence()
 {
-    if (type==Cmd::PET_TYPE_PET)
-    {
-        SDWORD value = (SDWORD)((petData.mdef+skillValue.uppetdefence+this->boostupPetMDef-skillValue.theurgy_dmdef)*(1.0f+((float)boostupPet)/100.0f));
-        value = (SDWORD)(value *( 1 - skillValue.dmdefp/100.0f));
-        if (value <0) value =0;
-        return static_cast<uint64_t>(value);
-    }
-    else if (type==Cmd::PET_TYPE_SUMMON)
-    {
-        //by=>friday 召唤兽直接返回继承的魔法防御值，避免SDWORD截断
-        return SceneNpc::getMaxMDefence() + masterMDefence;
-    }
-    else
-        return SceneNpc::getMaxMDefence();
+	if (type==Cmd::PET_TYPE_PET)
+	{
+		uint64_t value = petAdd64(petData.mdef, petEquipState.active?petEquipState.finalAttr.mDefence:0);
+		value = petAdd64(value, skillValue.uppetdefence);
+		value = petAdd64(value, this->boostupPetMDef);
+		value = petSub64(value, skillValue.theurgy_dmdef);
+		uint64_t rate = petAdd64(boostupPet, petEquipState.active?petEquipState.finalAttr.mDefenceRate:0);
+		value = petApplyRate64(value, rate);
+		return petReduceRate64(value, skillValue.dmdefp);
+	}
+	else if (type==Cmd::PET_TYPE_SUMMON)
+	{
+		return petAdd64(SceneNpc::getMaxMDefence(), masterMDefence);
+	}
+	else
+		return SceneNpc::getMaxMDefence();
 }
-
 /*
  * \brief 从表格读取宠物的能力
  *
@@ -1521,13 +1750,18 @@ uint64_t ScenePet::getBaseMaxHP()
 uint64_t ScenePet::getMaxHP()
 {
 	if (type==Cmd::PET_TYPE_PET)
-		return (uint64_t)((petData.maxhp+(anpc?anpc->hp:0)+skillValue.maxhp)*(1.0f+boostupPet/100.0f));
+	{
+		uint64_t value = petAdd64(petData.maxhp, (anpc?anpc->hp:0));
+		value = petAdd64(value, skillValue.maxhp);
+		value = petAdd64(value, petEquipState.active?petEquipState.finalAttr.maxHP:0);
+		uint64_t rate = petAdd64(boostupPet, petEquipState.active?petEquipState.finalAttr.maxHPRate:0);
+		return petApplyRate64(value, rate);
+	}
 	else if (type==Cmd::PET_TYPE_SUMMON)
-		return SceneNpc::getMaxHP() + masterMaxHP;  //by=>friday 召唤兽包含继承的master血量
+		return petAdd64(SceneNpc::getMaxHP(), masterMaxHP);
 	else
 		return SceneNpc::getMaxHP();
 }
-
 void ScenePet::full_t_MapPetData(Cmd::t_MapPetData &data)
 {
 	data.tempID = tempid;

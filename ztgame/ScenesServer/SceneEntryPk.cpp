@@ -8,6 +8,7 @@
 
 #include "zSceneEntry.h"
 #include "SceneNpc.h"
+#include "ScenePet.h"
 #include "SceneUser.h"
 #include "Zebra.h"
 #include "Scene.h"
@@ -79,6 +80,48 @@ namespace
 
 		const long double adjustedValue = (long double)damage * (long double)rateBase / 100.0L;
 		return adjustedValue > 0.0L ? (uint64_t)adjustedValue : 0;
+	}
+
+	SceneUser *getActiveNormalPetOwner(SceneEntryPk *attacker)
+	{
+		if (NULL == attacker || attacker->getType() != zSceneEntry::SceneEntry_NPC)
+			return NULL;
+		SceneNpc *npc = (SceneNpc *)attacker;
+		if (npc->getPetType() != Cmd::PET_TYPE_PET)
+			return NULL;
+		ScenePet *pet = (ScenePet *)npc;
+		if (!pet->isPetEquipActive())
+			return NULL;
+		SceneEntryPk *master = pet->getMaster();
+		if (NULL == master || master->getType() != zSceneEntry::SceneEntry_Player)
+			return NULL;
+		return (SceneUser *)master;
+	}
+
+	int getPetVipSuppressRate(SceneUser *owner, SceneUser *defender)
+	{
+		if (NULL == owner || NULL == defender) return 0;
+		return clampSuppressRate((int)owner->getVipLevelByCharvip() - (int)defender->getVipLevelByCharvip(), 0, 20);
+	}
+
+	int getPetCharmSuppressRate(SceneUser *owner, SceneUser *defender)
+	{
+		if (NULL == owner || NULL == defender) return 0;
+		int rate = getFlowerSuppressRate(owner->charbase.folwers, defender->charbase.folwers);
+		return clampSuppressRate(rate, 0, 10);
+	}
+
+	int getPetMagicBoxSuppressRate(SceneUser *owner, SceneUser *defender)
+	{
+		if (NULL == owner || NULL == defender) return 0;
+		return clampSuppressRate((int)owner->getMagicBoxLevel() - (int)defender->getMagicBoxLevel(), 0, 20);
+	}
+
+	int getPetRestrictSuppressRate(SceneUser *owner, SceneUser *defender)
+	{
+		if (NULL == owner || NULL == defender) return 0;
+		if (owner->IsOppose(defender->getFiveType()) != 1) return 0;
+		return clampSuppressRate((int)owner->getFivePoint(), 0, 20);
 	}
 
 	static DWORD getNpcSlashDamageRate(SceneNpc *npc)
@@ -163,12 +206,23 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 	uint64_t dwDam; // by=>friday 修复32位溢出问题，改为无符号类型
 	uint64_t nTempDam = 0; // by=>friday 修复32位截断问题
 	uint64_t nMempDam = 0; // by=>friday 修复32位截断问题
+	bool petIgnoreDefActive = false;
+	if (pAtt->getType() == zSceneEntry::SceneEntry_NPC)
+	{
+		SceneNpc *pNpcAtt = (SceneNpc *)pAtt;
+		if (pNpcAtt && pNpcAtt->getPetType() == Cmd::PET_TYPE_PET)
+		{
+			WORD ignoreDef = ((ScenePet *)pNpcAtt)->getPetEquipIgnoreDef();
+			petIgnoreDefActive = (ignoreDef > 0 && zMisc::selectByPercent(ignoreDef));
+		}
+	}
 
 	if (physics) 
 	{
 		nTempDam = pAtt->pkValue.pdamage + pAtt->skillValue.physic_add; //soke 主动增加物理攻击力
-		dwDam = nTempDam > (this->pdeftozero?0:this->pkValue.pdefence) ? 
-		(nTempDam - (this->pdeftozero?0:this->pkValue.pdefence)) : 0; //by=>friday 修复64位计算，防止负数
+		uint64_t nDefence = (this->pdeftozero||petIgnoreDefActive)?0:this->pkValue.pdefence;
+		dwDam = nTempDam > nDefence ? 
+		(nTempDam - nDefence) : 0; //by=>friday fix pet ignore def
 		//by=>friday 添加物理伤害计算详细日志
 		Zebra::logger->info("[物理伤害计算] 攻击者:%s 防御者:%s", pAtt->name, this->name);
 		Zebra::logger->info("[物理伤害计算] 基础攻击力:%llu + 技能加成:%d = 总攻击力:%llu", 
@@ -188,8 +242,9 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 	else
 	{
 		nMempDam = pAtt->pkValue.mdamage + pAtt->skillValue.magic_add; //soke 主动增加魔法攻击力
-		dwDam = nMempDam > (this->mdeftozero?0:this->pkValue.mdefence) ? 
-		(nMempDam - (this->mdeftozero?0:this->pkValue.mdefence)) : 0; //by=>friday 修复64位计算，防止负数
+		uint64_t nDefence = (this->mdeftozero||petIgnoreDefActive)?0:this->pkValue.mdefence;
+		dwDam = nMempDam > nDefence ? 
+		(nMempDam - nDefence) : 0; //by=>friday fix pet ignore def
 		//by=>friday 添加法术伤害计算详细日志
 		Zebra::logger->info("[法术伤害计算] 攻击者:%s 防御者:%s", pAtt->name, this->name);
 		Zebra::logger->info("[法术伤害计算] 基础攻击力:%llu + 技能加成:%d = 总攻击力:%llu", 
@@ -521,6 +576,7 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 	
 	// PVP suppress: star suit difference + flower(charm) tier difference.
 	// Keep ta/me in the outer AttackMe scope because later NPC/country-cart logic also uses ta.
+	// Do not use topMaster here: normal pets have their own suppress path below.
 	SceneUser *ta = (pAtt->getType() == zSceneEntry::SceneEntry_Player) ? (SceneUser *)pAtt : NULL;
 	SceneUser *me = (getType() == zSceneEntry::SceneEntry_Player) ? (SceneUser *)this : NULL;
 	if (ta && me)
@@ -541,6 +597,48 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 			Zebra::logger->debug("PVP_SUPPRESS attacker=%s defender=%s attackerStar=%d defenderStar=%d starRate=%d attackerFlowers=%u defenderFlowers=%u flowerRate=%d totalRate=%d before=%llu after=%llu",
 				ta->name, me->name, attackerStar, defenderStar, starSuppressRate, ta->charbase.folwers, me->charbase.folwers, flowerSuppressRate, totalSuppressRate,
 				static_cast<unsigned long long>(beforeSuppress), static_cast<unsigned long long>(dwDamDef));
+#endif
+		}
+	}
+
+	// MagicBox charm suppress: PVP final damage bonus by MagicBox level difference.
+	if (ta && me)
+	{
+		int magicBoxSuppressRate = (int)ta->getMagicBoxLevel() - (int)me->getMagicBoxLevel();
+		if (magicBoxSuppressRate > 20)
+			magicBoxSuppressRate = 20;
+		if (magicBoxSuppressRate > 0)
+		{
+#ifdef _DEBUGLOG
+			const uint64_t beforeMagicBoxSuppress = dwDamDef;
+#endif
+			dwDamDef = dwDamDef * (uint64_t)(100 + magicBoxSuppressRate) / 100;
+#ifdef _DEBUGLOG
+			Zebra::logger->debug("MAGICBOX_SUPPRESS attacker=%s defender=%s attackerLevel=%u defenderLevel=%u rate=%d before=%llu after=%llu",
+				ta->name, me->name, ta->getMagicBoxLevel(), me->getMagicBoxLevel(), magicBoxSuppressRate,
+				static_cast<unsigned long long>(beforeMagicBoxSuppress), static_cast<unsigned long long>(dwDamDef));
+#endif
+		}
+	}
+
+	SceneUser *petOwner = getActiveNormalPetOwner(pAtt);
+	if (petOwner && me)
+	{
+		const int petVipSuppressRate = getPetVipSuppressRate(petOwner, me);
+		const int petCharmSuppressRate = getPetCharmSuppressRate(petOwner, me);
+		const int petMagicBoxSuppressRate = getPetMagicBoxSuppressRate(petOwner, me);
+		const int petRestrictSuppressRate = getPetRestrictSuppressRate(petOwner, me);
+		const int petTotalSuppressRate = clampSuppressRate(petVipSuppressRate + petCharmSuppressRate + petMagicBoxSuppressRate + petRestrictSuppressRate, 0, 70);
+		if (petTotalSuppressRate > 0)
+		{
+#ifdef _DEBUGLOG
+			const uint64_t beforePetSuppress = dwDamDef;
+#endif
+			dwDamDef = applySuppressRate(dwDamDef, petTotalSuppressRate);
+#ifdef _DEBUGLOG
+			Zebra::logger->debug("PET_EQUIP_SUPPRESS pet=%s owner=%s defender=%s vip=%d charm=%d magicbox=%d restrain=%d total=%d before=%llu after=%llu",
+				pAtt->name, petOwner->name, me->name, petVipSuppressRate, petCharmSuppressRate, petMagicBoxSuppressRate, petRestrictSuppressRate, petTotalSuppressRate,
+				static_cast<unsigned long long>(beforePetSuppress), static_cast<unsigned long long>(dwDamDef));
 #endif
 		}
 	}
@@ -1046,13 +1144,18 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 				this->attackRTHpAndMp();
 				
 				//by=>friday 绝技伤害计算和处理 (PVP)
-				if (hpAfter > 0 && this->getType() == zSceneEntry::SceneEntry_Player && pAtt->getType() == zSceneEntry::SceneEntry_Player)
+				if (hpAfter > 0 && this->getType() == zSceneEntry::SceneEntry_Player)
 				{
-					SceneUser* attacker = (SceneUser*)pAtt;
+					SceneUser* attacker = NULL;
+					ScenePet* attackPet = NULL;
 					SceneUser* defender = (SceneUser*)this;
+					if (pAtt->getType() == zSceneEntry::SceneEntry_Player)
+						attacker = (SceneUser*)pAtt;
+					else if (pAtt->getType() == zSceneEntry::SceneEntry_NPC && (((SceneNpc*)pAtt)->getPetType() == Cmd::PET_TYPE_SUMMON || ((SceneNpc*)pAtt)->getPetType() == Cmd::PET_TYPE_PET))
+						attackPet = (ScenePet*)pAtt;
 					
 					//by=>friday 计算绝技伤害：攻击者的绝技攻击 - 防御者的绝技防御
-					uint64_t juejiattack = attacker->charstate.juejiattack;
+					uint64_t juejiattack = attacker ? attacker->charstate.juejiattack : (attackPet ? attackPet->getMasterJuejiAttack() : 0);
 					uint64_t juejidefence = defender->charstate.juejidefence;
 					
 					if (juejiattack > juejidefence)
@@ -1081,16 +1184,22 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 				}
 				
 				//by=>friday 切割伤害计算和处理 (PVE)
-				if (hpAfter > 0 && this->getType() == zSceneEntry::SceneEntry_NPC && pAtt->getType() == zSceneEntry::SceneEntry_Player)
+				if (hpAfter > 0 && this->getType() == zSceneEntry::SceneEntry_NPC)
 				{
-					SceneUser* attacker = (SceneUser*)pAtt;
+					SceneUser* attacker = NULL;
+					ScenePet* attackPet = NULL;
+					if (pAtt->getType() == zSceneEntry::SceneEntry_Player)
+						attacker = (SceneUser*)pAtt;
+					else if (pAtt->getType() == zSceneEntry::SceneEntry_NPC && (((SceneNpc*)pAtt)->getPetType() == Cmd::PET_TYPE_SUMMON || ((SceneNpc*)pAtt)->getPetType() == Cmd::PET_TYPE_PET))
+						attackPet = (ScenePet*)pAtt;
 					SceneNpc* defender = (SceneNpc*)this;
 					DWORD slashRate = getNpcSlashDamageRate(defender);
 					
 					if (slashRate > 0)
 					{
 						//by=>friday 计算切割伤害：攻击者的切割攻击 - 防御者的切割防御(NPC暂时没有切割防御，设为0)
-						uint64_t qiegeattack = attacker->charstate.qiegeattack;
+						uint64_t qiegeattack = attacker ? attacker->charstate.qiegeattack : (attackPet ? attackPet->getMasterQiegeAttack() : 0);
+						const char *slashAttackerName = attacker ? attacker->name : (attackPet ? attackPet->name : (pAtt ? pAtt->name : "unknown"));
 						uint64_t qiegedefence = 0; //by=>friday NPC暂时没有切割防御属性
 						
 						if (qiegeattack > qiegedefence)
@@ -1110,7 +1219,7 @@ bool SceneEntryPk::AttackMe(SceneEntryPk *pAtt, const Cmd::stAttackMagicUserCmd 
 								uint64_t hpAfterSlash = defender->hp;
 								
 								Zebra::logger->info("[切割伤害] %s 对 %s 造成切割伤害:%llu (切割攻击:%llu - 切割防御:%llu, 生效率:%u), HP变化:%llu -> %llu", 
-									attacker->name, defender->name, slashDamage, qiegeattack, qiegedefence, slashRate, hpBeforeSlash, hpAfterSlash);
+									slashAttackerName, defender->name, slashDamage, qiegeattack, qiegedefence, slashRate, hpBeforeSlash, hpAfterSlash);
 								
 								//by=>friday 发送切割伤害数据到客户端，使用DAMAGE_TYPE_SLASH标识切割伤害
 								if (slashHP > 0)

@@ -28508,9 +28508,16 @@ bool RebuildObject::equipCompose33( SceneUser &user,zObjectB *base, const Cmd::I
 		 }
  
 		 //这是每颗升级宝石额外增加的升星机率，最多可以叠加4颗
+		 DWORD material_count() const
+		 {
+			 if (count <= 0) return 0;
+			 return count >= 4 ? 4 : count;
+		 }
+
 		 int odds() const
 		 {
-			 DWORD num = count >= 1 ? 1 : count;
+			 DWORD num = material_count();
+			 if (num <= 1) return 0;
 			 return 2*(num-1);
 		 }
  
@@ -28596,18 +28603,17 @@ bool RebuildObject::equipCompose33( SceneUser &user,zObjectB *base, const Cmd::I
 		 zObject* ob = zObject::create(dc.up_ob);
 		 struct MultiItemDelCB : public PackageCallback
 		 {
-			 MultiItemDelCB(SceneUser* pUser) : up_ob(NULL), delObj(NULL),  realDelCnt(0), pOwner(pUser)
+			 MultiItemDelCB(SceneUser* pUser, DWORD stuffID, DWORD delCount) : up_ob(NULL), delObj(NULL),  realDelCnt(0), pOwner(pUser), stuff(stuffID), maxDelCount(delCount)
 			 { }
  
 			 bool exec(zObject* ob)
 			 {
-				 if ( ob->data.dwObjectID == 3980 )
+				 if ( ob->data.dwObjectID == stuff )
 				 {
 					 delObj = ob;
-					 static const DWORD MAX_DEL_COUNT = 1;
-					 if ( pOwner && realDelCnt < MAX_DEL_COUNT )
+					 if ( pOwner && realDelCnt < maxDelCount )
 					 {
-						 DWORD needDelNum = MAX_DEL_COUNT - realDelCnt;
+						 DWORD needDelNum = maxDelCount - realDelCnt;
  
 						 DWORD realDelNum = 0;
 						 if ( delObj->data.dwNum > needDelNum )
@@ -28646,10 +28652,12 @@ bool RebuildObject::equipCompose33( SceneUser &user,zObjectB *base, const Cmd::I
 			 zObject* delObj;
 			 DWORD  realDelCnt; //实际删除的数量
 			 SceneUser* pOwner;
+			 DWORD stuff;
+			 DWORD maxDelCount;
 			 stObjectLocation oldPos;
 		 };
  
-		 MultiItemDelCB del(&user);
+		 MultiItemDelCB del(&user, uob->stuff, dc.material_count());
 		 pack->execEvery(del);
 		 if (ob ) 
 		 {	

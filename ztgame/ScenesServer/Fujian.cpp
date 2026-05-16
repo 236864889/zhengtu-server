@@ -6,14 +6,34 @@
 #include "Command.h"
 #include "fjconfig.h"
 #include <string>
+
+template <class T>
+static DWORD getConfigMaxLevel(const std::vector<T> &list)
+{
+	DWORD maxLevel = 0;
+	for (typename std::vector<T>::const_iterator it = list.begin(); it != list.end(); ++it)
+	{
+		if (it->level > maxLevel)
+			maxLevel = it->level;
+	}
+	return maxLevel;
+}
+
+static DWORD getMaxLevelWithFallback(const char *key, DWORD fallback)
+{
+	DWORD value = atoi(Zebra::global[key].c_str());
+	if (value == 0 && fallback > 0)
+		return fallback;
+	return value;
+}
 // 附件 Sc附件 附件系统 by:醉梦
 bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdLen)
 {
-	DWORD MAX_JIANZHONG=atoi(Zebra::global["max_jianzhong"].c_str());
-	DWORD MAX_JINGMAI=atoi(Zebra::global["max_jingmai"].c_str());
-	DWORD MAX_SHENGXIAO=atoi(Zebra::global["max_shengxiao"].c_str());
-	DWORD MAX_SHENGQI=atoi(Zebra::global["max_shengqi"].c_str());
-	DWORD MAX_ZHENGTUZHUAN=atoi(Zebra::global["max_zhengtuzhuan"].c_str());
+	DWORD MAX_JIANZHONG = getMaxLevelWithFallback("max_jianzhong", getConfigMaxLevel(fjconfig::getInstance().fjlist));
+	DWORD MAX_JINGMAI = getMaxLevelWithFallback("max_jingmai", getConfigMaxLevel(fjconfig::getInstance().jingmailist));
+	DWORD MAX_SHENGXIAO = getMaxLevelWithFallback("max_shengxiao", getConfigMaxLevel(fjconfig::getInstance().shengxiaolist));
+	DWORD MAX_SHENGQI = getMaxLevelWithFallback("max_shengqi", getConfigMaxLevel(fjconfig::getInstance().shengqilist));
+	DWORD MAX_ZHENGTUZHUAN = getMaxLevelWithFallback("max_zhengtuzhuan", getConfigMaxLevel(fjconfig::getInstance().ztzlist));
 	
 	using namespace Cmd;
 	switch (ptCmd->byParam) //这里就是判断子命令了byParam
@@ -167,7 +187,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 1:
 				if (charbase.jian1 + 1 <= MAX_JIANZHONG)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().fjlist[charbase.jian1].salary, "剑冢升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().fjlist[charbase.jian1].salary, "剑冢升级"))
 					{
 						objnum =fjconfig::getInstance().fjlist[charbase.jian1].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -196,7 +216,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 2:
 				if (charbase.jian2 + 1 <= MAX_JIANZHONG)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().fjlist[charbase.jian2].salary, "剑冢升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().fjlist[charbase.jian2].salary, "剑冢升级"))
 					{
 						objnum =fjconfig::getInstance().fjlist[charbase.jian2].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -225,7 +245,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 3:
 				if (charbase.jian3 + 1 <= MAX_JIANZHONG)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().fjlist[charbase.jian3].salary, "剑冢升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().fjlist[charbase.jian3].salary, "剑冢升级"))
 					{
 						objnum =fjconfig::getInstance().fjlist[charbase.jian3].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -254,7 +274,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 4:
 				if (charbase.jian4 + 1 <= MAX_JIANZHONG)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().fjlist[charbase.jian4].salary, "剑冢升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().fjlist[charbase.jian4].salary, "剑冢升级"))
 					{
 						objnum =fjconfig::getInstance().fjlist[charbase.jian4].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -277,7 +297,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 5:
 				if (charbase.jian5 + 1 <= MAX_JIANZHONG)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().fjlist[charbase.jian5].salary, "剑冢升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().fjlist[charbase.jian5].salary, "剑冢升级"))
 					{
 						objnum =fjconfig::getInstance().fjlist[charbase.jian5].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -306,7 +326,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 6:
 				if (charbase.jian6 + 1 <= MAX_JIANZHONG)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().fjlist[charbase.jian6].salary, "剑冢升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().fjlist[charbase.jian6].salary, "剑冢升级"))
 					{
 						objnum =fjconfig::getInstance().fjlist[charbase.jian6].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -592,7 +612,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 				//这里 zhuan1 是 目前的等级  比如目前是 100级 那么 +1 就是我们即将要做的事情 对吧  如果当前等级+1 <=100 才会进行升级操作
 				if (charbase.zhuan1 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan1].salary, "征途传升级")) //这里removeMoney 执行了扣金子操作 fjconfig::getInstance().ztzlist[charbase.zhuan1].salary 是金额
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan1].salary, "征途传升级")) //这里removeMoney 执行了扣金子操作 fjconfig::getInstance().ztzlist[charbase.zhuan1].salary 是金额
 					{
 						//如果成功了 则 征途传1等级自增 并且 state为1
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan1].costNum;
@@ -624,7 +644,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 2:
 				if (charbase.zhuan2 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan2].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan2].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan2].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -653,7 +673,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 3:
 				if (charbase.zhuan3 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan3].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan3].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan3].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -682,7 +702,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 4:
 				if (charbase.zhuan4 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan4].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan4].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan4].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -706,7 +726,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 5:
 				if (charbase.zhuan5 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan5].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan5].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan5].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -735,7 +755,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 6:
 				if (charbase.zhuan6 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan6].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan6].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan6].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -764,7 +784,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 7:
 				if (charbase.zhuan7 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan7].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan7].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan7].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -793,7 +813,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 8:
 				if (charbase.zhuan8 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan8].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan8].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan8].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -822,7 +842,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 9:
 				if (charbase.zhuan9 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan9].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan9].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan9].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -851,7 +871,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 10:
 				if (charbase.zhuan10 + 1 <= MAX_ZHENGTUZHUAN)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().ztzlist[charbase.zhuan10].salary, "征途传升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().ztzlist[charbase.zhuan10].salary, "征途传升级"))
 					{
 						objnum =fjconfig::getInstance().ztzlist[charbase.zhuan10].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1185,7 +1205,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 				//这里 shengx1 是 目前的等级  比如目前是 100级 那么 +1 就是我们即将要做的事情 对吧  如果当前等级+1 <=100 才会进行升级操作
 				if (charbase.shengx1 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx1].salary, "十二生肖升级")) //这里removeMoney 执行了扣金子操作 fjconfig::getInstance().ztzlist[charbase.shengx1].salary 是金额
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx1].salary, "十二生肖升级")) //这里removeMoney 执行了扣金子操作 fjconfig::getInstance().ztzlist[charbase.shengx1].salary 是金额
 					{
 						//如果成功了 则 征途传1等级自增 并且 state为1
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx1].costNum;
@@ -1217,7 +1237,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 2:
 				if (charbase.shengx2 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx2].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx2].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx2].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1246,7 +1266,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 3:
 				if (charbase.shengx3 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx3].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx3].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx3].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1275,7 +1295,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 4:
 				if (charbase.shengx4 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx4].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx4].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx4].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1299,7 +1319,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 5:
 				if (charbase.shengx5 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx5].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx5].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx5].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1328,7 +1348,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 6:
 				if (charbase.shengx6 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx6].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx6].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx6].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1357,7 +1377,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 7:
 				if (charbase.shengx7 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx7].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx7].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx7].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1386,7 +1406,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 8:
 				if (charbase.shengx8 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx8].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx8].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx8].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1415,7 +1435,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 9:
 				if (charbase.shengx9 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx9].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx9].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx9].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1444,7 +1464,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 10:
 				if (charbase.shengx10 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx10].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx10].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx10].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1472,7 +1492,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 11:
 				if (charbase.shengx11 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx11].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx11].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx11].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1501,7 +1521,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 12:
 				if (charbase.shengx12 + 1 <= MAX_SHENGXIAO)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengxiaolist[charbase.shengx12].salary, "十二生肖升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengxiaolist[charbase.shengx12].salary, "十二生肖升级"))
 					{
 						objnum =fjconfig::getInstance().shengxiaolist[charbase.shengx12].costNum;
 						if(itemobj->data.dwNum < objnum)
@@ -1621,7 +1641,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 1:
 				if (charbase.shengq1 + 1 <= MAX_SHENGQI)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().shengqilist[charbase.shengq1].salary, "圣器升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().shengqilist[charbase.shengq1].salary, "圣器升级"))
 					{						
 						objnum =fjconfig::getInstance().shengqilist[charbase.shengq1].costNum;  //取配置文件 需求道具数量
 						if(itemobj->data.dwNum < objnum)
@@ -1775,7 +1795,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 			case 1:
 				if (charbase.jingm1 + 1 <= MAX_JINGMAI)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().jingmailist[charbase.jingm1].salary, "经脉升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().jingmailist[charbase.jingm1].salary, "经脉升级"))
 					{						
 						objnum =fjconfig::getInstance().jingmailist[charbase.jingm1].costNum;  //取配置文件 需求道具数量
 						if(itemobj->data.dwNum < objnum)
@@ -1804,7 +1824,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 				case 2:
 				if (charbase.jingm2 + 1 <= MAX_JINGMAI)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().jingmailist[charbase.jingm2].salary, "经脉升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().jingmailist[charbase.jingm2].salary, "经脉升级"))
 					{						
 						objnum =fjconfig::getInstance().jingmailist[charbase.jingm2].costNum;  //取配置文件 需求道具数量
 						if(itemobj->data.dwNum < objnum)
@@ -1833,7 +1853,7 @@ bool SceneUser::doFujianCmd(const Cmd::stFujianUserCmd *ptCmd, unsigned int cmdL
 				case 3:
 				if (charbase.jingm3 + 1 <= MAX_JINGMAI)
 				{
-					if (this->packs.removeMoney(fjconfig::getInstance().jingmailist[charbase.jingm3].salary, "经脉升级"))
+					if (this->packs.removeSalary(fjconfig::getInstance().jingmailist[charbase.jingm3].salary, "经脉升级"))
 					{						
 						objnum =fjconfig::getInstance().jingmailist[charbase.jingm3].costNum;  //取配置文件 需求道具数量
 						if(itemobj->data.dwNum < objnum)

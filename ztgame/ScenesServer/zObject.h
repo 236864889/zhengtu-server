@@ -4240,6 +4240,21 @@ private:
  * \brief  打造装备助手合成的随身容器，包裹格子视需求而定
  * 
  */
+class PetEquipPack : public Package
+{
+public:
+	enum PETEQUIP_PACK_WH
+	{
+		PETEQUIP_PACK_WIDTH = 1,
+		PETEQUIP_PACK_HEIGHT = Cmd::PETEQUIP_MAX,
+	};
+
+	PetEquipPack();
+	~PetEquipPack();
+
+private:
+	bool checkAdd(SceneUser* pUser, zObject* object, WORD x, WORD y);
+};
 class RecastPack : public Package
 {
 public:
@@ -4399,6 +4414,7 @@ class Packages
 		EquipPack equip;
 		StorePack store;
 		PetPack petPack;
+		PetEquipPack petEquipPack;
 		
 		//sky 一键换装
 		Cmd::One_Key_Equip m_OneKeyEquip[10];
@@ -4441,7 +4457,7 @@ class Packages
 		};
 	    jingcai_pro m_jingcai[28];
 		Chenghao_pro m_Chenghao[60];//称号
-		Shizhuang_pro m_Shizhuang[300];//时装魔盒
+		Shizhuang_pro m_Shizhuang[400];//时装魔盒
 		Pifeng_pro m_Pifeng[100];//时装魔盒
 		Chibang_pro m_Chibang[100];//时装魔盒
 		Zuoqi_pro m_Zuoqi[100];//时装魔盒
