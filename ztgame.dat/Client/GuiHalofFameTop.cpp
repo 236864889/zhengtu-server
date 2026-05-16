@@ -141,23 +141,37 @@ void CGuiHalofFameTopDialog::RefreshFlowerList()
 	}
 
 	int nIndex = m_pListBoxFlower->GetItemCount() - 1;
-	m_pListBoxFlower->SetItemText2(nIndex, 1, "鲜花压制说明", 240);
+	m_pListBoxFlower->SetItemText2(nIndex, 0, "", 50);
+	m_pListBoxFlower->SetItemText2(nIndex, 1, "魅力值压制说明", 109);
 	m_pListBoxFlower->SetItemColor(nIndex, 1, D3DCOLOR_ARGB(255,255,215,0));
 
 	m_pListBoxFlower->AddItem("", 0);
 	nIndex = m_pListBoxFlower->GetItemCount() - 1;
-	m_pListBoxFlower->SetItemText2(nIndex, 1, "鲜花差影响PVP压制效果", 240);
+	m_pListBoxFlower->SetItemText2(nIndex, 0, "", 50);
+	m_pListBoxFlower->SetItemText2(nIndex, 1, "PVP鲜花差：", 109);
 	m_pListBoxFlower->SetItemColor(nIndex, 1, D3DCOLOR_ARGB(255,255,215,0));
+	m_pListBoxFlower->SetItemText2(nIndex, 2, "1000/5000", 102);
+	m_pListBoxFlower->SetItemColor(nIndex, 2, D3DCOLOR_ARGB(255,255,215,0));
+	m_pListBoxFlower->SetItemText2(nIndex, 3, "10000/50000", 70);
+	m_pListBoxFlower->SetItemColor(nIndex, 3, D3DCOLOR_ARGB(255,255,215,0));
 
 	m_pListBoxFlower->AddItem("", 0);
 	nIndex = m_pListBoxFlower->GetItemCount() - 1;
-	m_pListBoxFlower->SetItemText2(nIndex, 1, "高花方获得压制优势", 240);
+	m_pListBoxFlower->SetItemText2(nIndex, 0, "", 50);
+	m_pListBoxFlower->SetItemText2(nIndex, 1, "高方压制：", 109);
 	m_pListBoxFlower->SetItemColor(nIndex, 1, D3DCOLOR_ARGB(255,255,215,0));
+	m_pListBoxFlower->SetItemText2(nIndex, 2, "1%/3%", 102);
+	m_pListBoxFlower->SetItemColor(nIndex, 2, D3DCOLOR_ARGB(255,255,215,0));
+	m_pListBoxFlower->SetItemText2(nIndex, 3, "5%/10%", 70);
+	m_pListBoxFlower->SetItemColor(nIndex, 3, D3DCOLOR_ARGB(255,255,215,0));
 
 	m_pListBoxFlower->AddItem("", 0);
 	nIndex = m_pListBoxFlower->GetItemCount() - 1;
-	m_pListBoxFlower->SetItemText2(nIndex, 1, "不是普通攻击/防御面板属性", 260);
+	m_pListBoxFlower->SetItemText2(nIndex, 0, "", 50);
+	m_pListBoxFlower->SetItemText2(nIndex, 1, "压制最高：", 109);
 	m_pListBoxFlower->SetItemColor(nIndex, 1, D3DCOLOR_ARGB(255,255,215,0));
+	m_pListBoxFlower->SetItemText2(nIndex, 2, "10%", 102);
+	m_pListBoxFlower->SetItemColor(nIndex, 2, D3DCOLOR_ARGB(255,255,215,0));
 
 	if(!findchar)
 	{

@@ -37,6 +37,34 @@
 
 #define ID_BUTTON_CLOSE       1   //关闭
 ///////////////////////////////////////////////////////////////////////////////
+#define QIEGE_PVE_COLOR D3DCOLOR_ARGB(255,0,255,0)
+
+static void AddQiegePveStatic(CGuiDialog* pDlg, int nID, int nRefID, int nXOffset)
+{
+	CGuiStatic* pRef = pDlg->GetStatic(nRefID);
+	if(!pRef || pDlg->GetStatic(nID))
+	{
+		return;
+	}
+
+	CGuiStatic* pStatic = NULL;
+	pDlg->AddStatic(nID, "", pRef->GetX() + nXOffset, pRef->GetY() + pRef->GetHeight() + 2, 320, pRef->GetHeight(), false, &pStatic);
+	if(pStatic)
+	{
+		pStatic->SetTextColor(QIEGE_PVE_COLOR);
+	}
+}
+
+static void SetQiegePveText(CGuiDialog* pDlg, int nID, const char* pszText)
+{
+	CGuiStatic* pStatic = pDlg->GetStatic(nID);
+	if(pStatic)
+	{
+		pStatic->SetText(pszText);
+		pStatic->SetTextColor(QIEGE_PVE_COLOR);
+	}
+}
+
 CGuijianzhongDlg::CGuijianzhongDlg()
 {
 	FUNCTION_BEGIN;
@@ -74,6 +102,8 @@ void CGuijianzhongDlg::OnCreate()
 	m_pTableMaterial1->m_EquipPosition = stPointI(0,1);
 	cltext = GetStatic(27);
 	moneytext = GetStatic(28);
+	AddQiegePveStatic(this, 9117, 117, 0);
+	AddQiegePveStatic(this, 9127, 127, -80);
 
 	FUNCTION_END;
 }
@@ -371,16 +401,18 @@ void CGuijianzhongDlg::UPDATE()
 	}
 	char num[256];
 	
-	sprintf(num,"常规属性");
+	sprintf(num,"+%d",pDam);
 	GetStatic(123)->SetText(num);
-	sprintf(num,"物攻 +%d 魔攻 +%d",pDam,mDam);
+	sprintf(num,"+%d",mDam);
 	GetStatic(124)->SetText(num);
-	sprintf(num,"物防 +%d 魔防 +%d",pDef,mDef);
+	sprintf(num,"+%d",pDef);
 	GetStatic(125)->SetText(num);
-	sprintf(num,"生命值 +%d",hp);
+	sprintf(num,"+%d",mDef);
 	GetStatic(126)->SetText(num);
-	sprintf(num,"PVE属性 切割攻击 +%d 切割防御 +%d",qiegeattack,qiegedefence);
-	GetStatic(127)->SetText(num);			
+	sprintf(num,"+%d",hp);
+	GetStatic(127)->SetText(num);
+	sprintf(num,"PVE：切攻 +%d        切防 +%d",qiegeattack,qiegedefence);
+	SetQiegePveText(this, 9127, num);			
 		
 }
 
@@ -405,28 +437,30 @@ void CGuijianzhongDlg::UPDATEJZSX(DWORD j1){
 		qiegedefence+=sjs.qiegedefence;
 	}
 	char num[256];
-	sprintf(num,"常规属性");
+	sprintf(num,"增加物攻:%d",pDam);
 	GetStatic(107)->SetText(num);
-	sprintf(num,"增加物攻:%d 增加魔攻:%d",pDam,mDam);
+	sprintf(num,"增加魔攻:%d",mDam);
 	GetStatic(108)->SetText(num);
-	sprintf(num,"增加物防:%d 增加魔防:%d",pDef,mDef);
+	sprintf(num,"增加物防:%d",pDef);
 	GetStatic(109)->SetText(num);
-	sprintf(num,"增加生命:%d",hp);
+	sprintf(num,"增加魔防:%d",mDef);
 	GetStatic(110)->SetText(num);
-	sprintf(num,"PVE属性 增加切割攻击:%d 增加切割防御:%d",qiegeattack,qiegedefence);
+	sprintf(num,"增加生命:%d",hp);
 	GetStatic(111)->SetText(num);
 
 	shenjianpeizhi sj = g_jianzhong[j1];
-	sprintf(num,"常规属性");
+	sprintf(num,"增加物攻:%d",sj.pDam);
 	GetStatic(113)->SetText(num);
-	sprintf(num,"增加物攻:%d 增加魔攻:%d",sj.pDam,sj.mDam);
+	sprintf(num,"增加魔攻:%d",sj.mDam);
 	GetStatic(114)->SetText(num);
-	sprintf(num,"增加物防:%d 增加魔防:%d",sj.pDef,sj.mDef);
+	sprintf(num,"增加物防:%d",sj.pDef);
 	GetStatic(115)->SetText(num);
-	sprintf(num,"增加生命:%d",sj.hp);
+	sprintf(num,"增加魔防:%d",sj.mDef);
 	GetStatic(116)->SetText(num);
-	sprintf(num,"PVE属性 增加切割攻击:%d 增加切割防御:%d",sj.qiegeattack,sj.qiegedefence);
+	sprintf(num,"增加生命:%d",sj.hp);
 	GetStatic(117)->SetText(num);
+	sprintf(num,"PVE：切攻 +%d        切防 +%d",sj.qiegeattack,sj.qiegedefence);
+	SetQiegePveText(this, 9117, num);
 
 	int money=sj.salary;
 

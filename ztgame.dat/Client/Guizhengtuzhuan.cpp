@@ -29,6 +29,34 @@
 
 #define ID_BUTTON_CLOSE 1 // ¹Ø±Õ
 ///////////////////////////////////////////////////////////////////////////////
+#define QIEGE_PVE_COLOR D3DCOLOR_ARGB(255,0,255,0)
+
+static void AddQiegePveStatic(CGuiDialog* pDlg, int nID, int nRefID, int nXOffset)
+{
+	CGuiStatic* pRef = pDlg->GetStatic(nRefID);
+	if(!pRef || pDlg->GetStatic(nID))
+	{
+		return;
+	}
+
+	CGuiStatic* pStatic = NULL;
+	pDlg->AddStatic(nID, "", pRef->GetX() + nXOffset, pRef->GetY() + pRef->GetHeight() + 2, 320, pRef->GetHeight(), false, &pStatic);
+	if(pStatic)
+	{
+		pStatic->SetTextColor(QIEGE_PVE_COLOR);
+	}
+}
+
+static void SetQiegePveText(CGuiDialog* pDlg, int nID, const char* pszText)
+{
+	CGuiStatic* pStatic = pDlg->GetStatic(nID);
+	if(pStatic)
+	{
+		pStatic->SetText(pszText);
+		pStatic->SetTextColor(QIEGE_PVE_COLOR);
+	}
+}
+
 CGuizhengtuzhuanDlg::CGuizhengtuzhuanDlg()
 {
 	FUNCTION_BEGIN;
@@ -88,6 +116,8 @@ void CGuizhengtuzhuanDlg::OnCreate() // OnCreate»¹¼ÇµÃ°É ½çÃæ´´½¨³É¹¦µÄÊ±ºò»áµ÷Ó
 	m_pTableMaterial1->m_iTableType = OBJECTCELLTYPE_FUJIAN;
 	m_pTableMaterial1->m_iTableID = 0;
 	m_pTableMaterial1->m_EquipPosition = stPointI(0,5);
+	AddQiegePveStatic(this, 9125, 125, -80);
+	AddQiegePveStatic(this, 9135, 135, -80);
 	//ÕâËÄÐÐ Ä¿Ç°ÊÇÉèÖÃ²ÄÁÏtable¿ò ¶¨Òå²ÄÁÏµÄ Ä¿Ç°ÓÐµãÎÊÌâ  ÏÈÕâÑùÐ´ ºóÐø ÎÒÐÞ¸´ºóÔÙ½ÌÄãÔõÃ´Ð´
 	FUNCTION_END;
 }
@@ -537,29 +567,31 @@ void CGuizhengtuzhuanDlg::update(int num) // ÕâÀï ÎÒÃÇ¶¨ÒåÁËÒ»¸ö·½·¨ ½Ðupdate ºó
 	}
 
 	char nums[256];
-	sprintf(nums,"³£¹æÊôÐÔ");
+	sprintf(nums,"+%d",pDam);
 	GetStatic(111)->SetText(nums);
-	sprintf(nums,"Îï¹¥ +%d Ä§¹¥ +%d",pDam,mDam);
+	sprintf(nums,"+%d",mDam);
 	GetStatic(112)->SetText(nums);
-	sprintf(nums,"Îï·À +%d Ä§·À +%d",pDef,mDef);
+	sprintf(nums,"+%d",pDef);
 	GetStatic(113)->SetText(nums);
-	sprintf(nums,"ÉúÃüÖµ +%d",hp);
+	sprintf(nums,"+%d",mDef);
 	GetStatic(114)->SetText(nums);
-	sprintf(nums,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",qiegeattack,qiegedefence);
+	sprintf(nums,"+%d",hp);
 	GetStatic(115)->SetText(nums);
 
 	//ÏÂÒ»¼¶
 	ztzpeizhi zt = g_ztz[num];
-	sprintf(nums,"³£¹æÊôÐÔ");
+	sprintf(nums,"+%d",zt.pDam);
 	GetStatic(121)->SetText(nums);
-	sprintf(nums,"?? +%d ?? +%d",zt.pDam,zt.mDam);
+	sprintf(nums,"+%d",zt.mDam);
 	GetStatic(122)->SetText(nums);
-	sprintf(nums,"?? +%d ?? +%d",zt.pDef,zt.mDef);
+	sprintf(nums,"+%d",zt.pDef);
 	GetStatic(123)->SetText(nums);
-	sprintf(nums,"??? +%d",zt.hp);
+	sprintf(nums,"+%d",zt.mDef);
 	GetStatic(124)->SetText(nums);
-	sprintf(nums,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",zt.qiegeattack,zt.qiegedefence);
+	sprintf(nums,"+%d",zt.hp);
 	GetStatic(125)->SetText(nums);
+	sprintf(nums,"PVE£ºÇÐ¹¥ +%d        ÇÐ·À +%d",zt.qiegeattack,zt.qiegedefence);
+	SetQiegePveText(this, 9125, nums);
 
 	//¶®ÁËÂð
 	int money=zt.salary;
@@ -1053,16 +1085,18 @@ void CGuizhengtuzhuanDlg::SHUAXIN() //´´½¨Ò»¸ö·½·¨½Ð Ë¢ÐÂ
 	}
 	char num[256];
 	
-	sprintf(num,"³£¹æÊôÐÔ");
+	sprintf(num,"+%d",pDam);
 	GetStatic(131)->SetText(num);
-	sprintf(num,"Îï¹¥ +%d Ä§¹¥ +%d",pDam,mDam);
+	sprintf(num,"+%d",mDam);
 	GetStatic(132)->SetText(num);
-	sprintf(num,"Îï·À +%d Ä§·À +%d",pDef,mDef);
+	sprintf(num,"+%d",pDef);
 	GetStatic(133)->SetText(num);
-	sprintf(num,"ÉúÃüÖµ +%d",hp);
+	sprintf(num,"+%d",mDef);
 	GetStatic(134)->SetText(num);
-	sprintf(num,"PVEÊôÐÔ ÇÐ¸î¹¥»÷ +%d ÇÐ¸î·ÀÓù +%d",qiegeattack,qiegedefence);
-	GetStatic(135)->SetText(num);	
+	sprintf(num,"+%d",hp);
+	GetStatic(135)->SetText(num);
+	sprintf(num,"PVE£ºÇÐ¹¥ +%d        ÇÐ·À +%d",qiegeattack,qiegedefence);
+	SetQiegePveText(this, 9135, num);	
 
 
 
