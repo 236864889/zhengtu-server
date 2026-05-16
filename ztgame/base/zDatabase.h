@@ -3531,7 +3531,7 @@ struct zUdqxwjjObjectB:public zEntry
 		
 		m29axhp = data.dwField13;
 		jj29_attack = data.dwField14;
-		jj29_attack = data.dwField15;
+		jj29_defence = data.dwField15;
 	}
 
 	zUdqxwjjObjectB():zEntry()
@@ -4065,6 +4065,7 @@ typedef std::vector<CarryObject> NpcLostObject;
 struct NpcCarryObject : private zNoncopyable
 {
 	NpcCarryObject() {};
+	bool empty() const { return cov.empty(); }
 	bool set(const char *objects)
 	{
 		bool retval = true;
