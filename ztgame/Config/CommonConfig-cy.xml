@@ -400,7 +400,6 @@ desc：描述
 				</map>
 			</WeaponItem>
 		</Weapon>
-	</MagicBox>
 
 <HorseUp>
     <item id="3355" objIds="663902" growths="100" producedesc="需求：每使用1个白金狮增加100点进阶成长值">

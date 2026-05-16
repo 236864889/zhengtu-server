@@ -1,400 +1,621 @@
-<?xml version="1.0" encoding="GB2312"?>
-<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<?xml version="1.0" encoding="GBK"?>
+<!-- 20260515 audit: removed missing-resource Shizhuang points and duplicate ManJiangHong points; valid pic paths normalized without trailing \0. Backup files keep originals. -->
 <config>
-	<!-- 时装魔盒时装类配置 -->
+	<!-- MagicBox Shizhuang config -->
 	<meridianMap>
-		<meridian index="1"><!-- 男魔盒配置 -->
+		<meridian index="1"><!-- male shizhuang -->
 			<pointMap>
-				<!--  name:时装名字 exp:时装激活魔盒增加经验 costID:时装道具ID jihuoID:激活需要道具 bodyNum:对应补丁图包 -->
-				<point name="西江月时装(男)" exp="100" costID="200000" jihuoID="1411" jihuoNum="100" bodyNum="798"/>
-				<point name="奥法职业时装(男)" exp="100" costID="200001" jihuoID="1411" jihuoNum="100" bodyNum="800"/>
-				<point name="禁卫职业时装(男)" exp="100" costID="200002" jihuoID="1411" jihuoNum="100" bodyNum="802"/>
-				<point name="枪职业时装(男)" exp="100" costID="200003" jihuoID="1411" jihuoNum="100" bodyNum="804"/>
-				<point name="神羿职业时装(男)" exp="100" costID="200004" jihuoID="1411" jihuoNum="100" bodyNum="806"/>
-				<point name="随风职业时装(男)" exp="100" costID="200005" jihuoID="1411" jihuoNum="100" bodyNum="808"/>
-				<point name="武圣职业时装(男)" exp="100" costID="200006" jihuoID="1411" jihuoNum="100" bodyNum="810"/>
-				<point name="仙魔职业时装(男)" exp="100" costID="200007" jihuoID="1411" jihuoNum="100" bodyNum="812"/>
-				<point name="阴阳师职业时装(男)" exp="100" costID="200008" jihuoID="1411" jihuoNum="100" bodyNum="814"/>
-				<point name="醉春风(男)" exp="100" costID="200009" jihuoID="1411" jihuoNum="100" bodyNum="816"/>
-				<point name="等闲春光时装(男)" exp="100" costID="200010" jihuoID="1411" jihuoNum="100" bodyNum="819"/>
-				<point name="青玉案(男)" exp="100" costID="200011" jihuoID="1411" jihuoNum="100" bodyNum="820"/>
-				<point name="鱼水同欢时装(男)" exp="100" costID="200012" jihuoID="1411" jihuoNum="100" bodyNum="822"/>
-				<point name="玉绣重茵(男)" exp="100" costID="200013" jihuoID="1411" jihuoNum="100" bodyNum="825"/>
-				<point name="萌萌动物时装(男)" exp="100" costID="200014" jihuoID="1411" jihuoNum="100" bodyNum="826"/>
-				<point name="追云逐日(男)" exp="100" costID="200015" jihuoID="1411" jihuoNum="100" bodyNum="828"/>
-				<point name="炒影摇红时装(男)" exp="100" costID="200016" jihuoID="1411" jihuoNum="100" bodyNum="830"/>
-				<point name="骤甫新荷(男)" exp="100" costID="200017" jihuoID="1411" jihuoNum="100" bodyNum="833"/>
-				<point name="荣耀之巅时装(男)" exp="100" costID="200018" jihuoID="1411" jihuoNum="100" bodyNum="834"/>
-				<point name="青梅竹马(男)" exp="100" costID="200019" jihuoID="1411" jihuoNum="100" bodyNum="837"/>
-				<point name="陌上花开时装(男)" exp="100" costID="200020" jihuoID="1411" jihuoNum="100" bodyNum="838"/>
-				<point name="夏日清凉时装(男)" exp="100" costID="200021" jihuoID="1411" jihuoNum="100" bodyNum="840"/>
-				<point name="虎跃龙骧时装(男)" exp="100" costID="200022" jihuoID="1411" jihuoNum="100" bodyNum="842"/>
-				<point name="逐风如炬(男)" exp="100" costID="200023" jihuoID="1411" jihuoNum="100" bodyNum="844"/>
-				<point name="水佩风裳(男)" exp="100" costID="200024" jihuoID="1411" jihuoNum="100" bodyNum="846"/>
-				<point name="2022嘉年华现场时装(男)" exp="100" costID="200025" jihuoID="1411" jihuoNum="100" bodyNum="848"/>
-				<point name="比翼连理时装(男)" exp="100" costID="200026" jihuoID="1411" jihuoNum="100" bodyNum="850"/>
-				<point name="侠动风云时装男(蓝色)" exp="100" costID="200027" jihuoID="1411" jihuoNum="100" bodyNum="852"/>
-				<point name="侠动风云时装男(橙色)" exp="100" costID="200028" jihuoID="1411" jihuoNum="100" bodyNum="854"/>
-				<point name="2022嘉年华时装(男)" exp="100" costID="200029" jihuoID="1411" jihuoNum="100" bodyNum="857"/>
-				<point name="风神俊彦(男)" exp="100" costID="200030" jihuoID="1411" jihuoNum="100" bodyNum="858"/>
-				<point name="告白宣言时装(男)" exp="100" costID="200031" jihuoID="1411" jihuoNum="100" bodyNum="861"/>
-				<point name="朔望念时装(男)" exp="100" costID="200032" jihuoID="1411" jihuoNum="100" bodyNum="862"/>
-				<point name="承晖采霞((男)" exp="100" costID="200033" jihuoID="1411" jihuoNum="100" bodyNum="864"/>
-				<point name="生死相许时装(男)" exp="100" costID="200034" jihuoID="1411" jihuoNum="100" bodyNum="866"/>
-				<point name="粉樱剑心时装(男)" exp="100" costID="200035" jihuoID="1411" jihuoNum="100" bodyNum="868"/>
-				<point name="碧波万顷时装(男)" exp="100" costID="200036" jihuoID="1411" jihuoNum="100" bodyNum="870"/>
-				<point name="荣耀金穗(男)" exp="100" costID="200037" jihuoID="1411" jihuoNum="100" bodyNum="872"/>
-				<point name="相思红枫时装(男)" exp="100" costID="200038" jihuoID="1411" jihuoNum="100" bodyNum="874"/>
-				<point name="平分秋色(男)" exp="100" costID="200039" jihuoID="1411" jihuoNum="100" bodyNum="876"/>
-				<point name="华月初升(男)" exp="100" costID="200040" jihuoID="1411" jihuoNum="100" bodyNum="878"/>
-				<point name="秋枫白露时装(男)" exp="100" costID="200041" jihuoID="1411" jihuoNum="100" bodyNum="880"/>
-				<point name="华清引(男)" exp="100" costID="200042" jihuoID="1411" jihuoNum="100" bodyNum="882"/>
-				<point name="森暖萤火时装(男)" exp="100" costID="200043" jihuoID="1411" jihuoNum="100" bodyNum="884"/>
-				<point name="书写爱意时装(男)" exp="100" costID="200044" jihuoID="1411" jihuoNum="100" bodyNum="886"/>
-				<point name="一念芳华时装(男)" exp="100" costID="200045" jihuoID="1411" jihuoNum="100" bodyNum="888"/>
-				<point name="和颜悦色(男)" exp="100" costID="200046" jihuoID="1411" jihuoNum="100" bodyNum="890"/>
-				<point name="十七周年庆时装(男)" exp="100" costID="200047" jihuoID="1411" jihuoNum="100" bodyNum="892"/>
-				<point name="盘古职业时装((男)" exp="100" costID="200048" jihuoID="1411" jihuoNum="100" bodyNum="894"/>
-				<point name="元气庆典(男)" exp="100" costID="200049" jihuoID="1411" jihuoNum="100" bodyNum="896"/>
-				<point name="沧海桑田时装(男)" exp="100" costID="200050" jihuoID="1411" jihuoNum="100" bodyNum="898"/>
-				<point name="惜秋华((男)" exp="100" costID="200051" jihuoID="1411" jihuoNum="100" bodyNum="900"/>
-				<point name="凌霜傲雪(男)" exp="100" costID="200052" jihuoID="1411" jihuoNum="100" bodyNum="902"/>
-				<point name="童心未泯时装(男)" exp="100" costID="200053" jihuoID="1411" jihuoNum="100" bodyNum="904"/>
-				<point name="乘风破浪(男)" exp="100" costID="200054" jihuoID="1411" jihuoNum="100" bodyNum="906"/>
-				<point name="唯心情深时装(男)" exp="100" costID="200055" jihuoID="1411" jihuoNum="100" bodyNum="908"/>
-				<point name="桃李不言时装(男)" exp="100" costID="200056" jihuoID="1411" jihuoNum="100" bodyNum="910"/>
-				<point name="荣耀流华时装((男)" exp="100" costID="200057" jihuoID="1411" jihuoNum="100" bodyNum="912"/>
-				<point name="青衫磊落(男)" exp="100" costID="200058" jihuoID="1411" jihuoNum="100" bodyNum="914"/>
-				<point name="虎年圣诞(男)" exp="100" costID="200059" jihuoID="1411" jihuoNum="100" bodyNum="916"/>
-				<point name="一点寒梅(男)" exp="100" costID="200060" jihuoID="1411" jihuoNum="100" bodyNum="918"/>
-				<point name="日始卯时(男)" exp="100" costID="200061" jihuoID="1411" jihuoNum="100" bodyNum="920"/>
-				<point name="凤归时装(男)" exp="100" costID="200062" jihuoID="1411" jihuoNum="100" bodyNum="922"/>
-				<point name="兔来运转时装(男)" exp="100" costID="200063" jihuoID="1411" jihuoNum="100" bodyNum="924"/>
-				<point name="等闲冬日时装(男)" exp="100" costID="200064" jihuoID="1411" jihuoNum="100" bodyNum="926"/>
-				<point name="风雪豪侠(男)" exp="100" costID="200065" jihuoID="1411" jihuoNum="100" bodyNum="928"/>
-				<point name="霜玉轻表(男)" exp="100" costID="200066" jihuoID="1411" jihuoNum="100" bodyNum="930"/>
-				<point name="魂牵梦萦(男)" exp="100" costID="200067" jihuoID="1411" jihuoNum="100" bodyNum="932"/>
-				<point name="烟柳轻尘(男)" exp="100" costID="200068" jihuoID="1411" jihuoNum="100" bodyNum="934"/>
-				<point name="逐风神印(男)" exp="100" costID="200069" jihuoID="1411" jihuoNum="100" bodyNum="936"/>
-				<point name="千金一诺(男)" exp="100" costID="200070" jihuoID="1411" jihuoNum="100" bodyNum="938"/>
-				<point name="星春月和时装(男)" exp="100" costID="200071" jihuoID="1411" jihuoNum="100" bodyNum="940"/>
-				<point name="密林游侠(男)" exp="100" costID="200072" jihuoID="1411" jihuoNum="100" bodyNum="942"/>
-				<point name="2022王者时装-金(男)" exp="100" costID="200073" jihuoID="1411" jihuoNum="100" bodyNum="944"/>
-				<point name="2022王者时装-银(男)" exp="100" costID="200074" jihuoID="1411" jihuoNum="100" bodyNum="945"/>
-				<point name="三月暖春时装(男)" exp="100" costID="200075" jihuoID="1411" jihuoNum="100" bodyNum="948"/>
-				<point name="幸福同行(男)" exp="100" costID="200076" jihuoID="1411" jihuoNum="100" bodyNum="950"/>
-				<point name="一缕青丝时装(男)" exp="100" costID="200077" jihuoID="1411" jihuoNum="100" bodyNum="952"/>
-				<point name="荣耀锦华时装(男)" exp="100" costID="200078" jihuoID="1411" jihuoNum="100" bodyNum="954"/>
-				<point name="落花独立(男)" exp="100" costID="200079" jihuoID="1411" jihuoNum="100" bodyNum="956"/>
-				<point name="临溪绘鲤时装(男)" exp="100" costID="200080" jihuoID="1411" jihuoNum="100" bodyNum="958"/>
-				<point name="金缕衣(男)" exp="100" costID="200081" jihuoID="1411" jihuoNum="100" bodyNum="960"/>
-				<point name="有凤来仪时装(男)" exp="100" costID="200082" jihuoID="1411" jihuoNum="100" bodyNum="962"/>
-				<point name="平步青云(男)" exp="100" costID="200083" jihuoID="1411" jihuoNum="100" bodyNum="964"/>
-				<point name="小甫如酥(男)" exp="100" costID="200084" jihuoID="1411" jihuoNum="100" bodyNum="966"/>
-				<point name="海枯石烂时装(男)" exp="100" costID="200085" jihuoID="1411" jihuoNum="100" bodyNum="968"/>
-				<point name="江南烟甫(男)" exp="100" costID="200086" jihuoID="1411" jihuoNum="100" bodyNum="970"/>
-				<point name="夏梅飘香时装(男)" exp="100" costID="200087" jihuoID="1411" jihuoNum="100" bodyNum="972"/>
-				<point name="生如夏花时装(男)" exp="100" costID="200088" jihuoID="1411" jihuoNum="100" bodyNum="974"/>
-				<point name="红尘三千时装((男)" exp="100" costID="200089" jihuoID="1411" jihuoNum="100" bodyNum="976"/>
-				<point name="欢歌一夏时装(男)" exp="100" costID="200090" jihuoID="1411" jihuoNum="100" bodyNum="978"/>
-				<point name="2023嘉年华现场时装(男)" exp="100" costID="200091" jihuoID="1411" jihuoNum="100" bodyNum="980"/>
-				<point name="流波将月(男)" exp="100" costID="200092" jihuoID="1411" jihuoNum="100" bodyNum="982"/>
-				<point name="满江红(男)" exp="100" costID="200093" jihuoID="1411" jihuoNum="100" bodyNum="984"/>
-				<point name="荣耀金刹时装(男)" exp="100" costID="200094" jihuoID="1411" jihuoNum="100" bodyNum="986"/>
-				<point name="火树银花时装(男)" exp="100" costID="200095" jihuoID="1411" jihuoNum="100" bodyNum="988"/>
-				<point name="清风无言(男)" exp="100" costID="200096" jihuoID="1411" jihuoNum="100" bodyNum="990"/>
-				<point name="江燕晚簇(男)" exp="100" costID="200097" jihuoID="1411" jihuoNum="100" bodyNum="992"/>
-				<point name="许你一生时装(男)" exp="100" costID="200098" jihuoID="1411" jihuoNum="100" bodyNum="994"/>
-				<point name="流星赶月时装(男)" exp="100" costID="200099" jihuoID="1411" jihuoNum="100" bodyNum="996"/>
-				<point name="梦挽西风(男)" exp="100" costID="200100" jihuoID="1411" jihuoNum="100" bodyNum="998"/>
-				<point name="情真依旧旧时装(男)" exp="100" costID="200101" jihuoID="1411" jihuoNum="100" bodyNum="1000"/>
-				<point name="逐风侠侣(男)" exp="100" costID="200102" jihuoID="1411" jihuoNum="100" bodyNum="1002"/>
-				<point name="秋日童真时装(男)" exp="100" costID="200103" jihuoID="1411" jihuoNum="100" bodyNum="1004"/>
-				<point name="人生如戏(男)" exp="100" costID="200104" jihuoID="1411" jihuoNum="100" bodyNum="1006"/>
-				<point name="枫火时装(男)" exp="100" costID="200105" jihuoID="1411" jihuoNum="100" bodyNum="1008"/>
-				<point name="荣耀衔金时装(男)" exp="100" costID="200106" jihuoID="1411" jihuoNum="100" bodyNum="1010"/>
-				<point name="西凉时装(男)" exp="100" costID="200107" jihuoID="1411" jihuoNum="100" bodyNum="1012"/>
-				<point name="水月清辉时装(男)" exp="100" costID="200108" jihuoID="1411" jihuoNum="100" bodyNum="1014"/>
-				<point name="玉京秋时装(男)" exp="100" costID="200109" jihuoID="1411" jihuoNum="100" bodyNum="1016"/>
-				<point name="2023周年庆时装(男)" exp="100" costID="200110" jihuoID="1411" jihuoNum="100" bodyNum="1018"/>
-				<point name="才子佳人(男)" exp="100" costID="200111" jihuoID="1411" jihuoNum="100" bodyNum="1020"/>
-				<point name="鲜衣怒马时装(男)" exp="100" costID="200112" jihuoID="1411" jihuoNum="100" bodyNum="1022"/>
-				<point name="阿拉斯加(男)" exp="100" costID="200113" jihuoID="1411" jihuoNum="100" bodyNum="1024"/>
-				<point name="童话镇时装(男)" exp="100" costID="200114" jihuoID="1411" jihuoNum="100" bodyNum="1026"/>
-				<point name="霜天晓角(男)" exp="100" costID="200115" jihuoID="1411" jihuoNum="100" bodyNum="1028"/>
-				<point name="兰亭时装(男)" exp="100" costID="200116" jihuoID="1411" jihuoNum="100" bodyNum="1031"/>
-				<point name="暮云江雪(男)" exp="100" costID="200117" jihuoID="1411" jihuoNum="100" bodyNum="1033"/>
-				<point name="兔年圣诞(男)" exp="100" costID="200118" jihuoID="1411" jihuoNum="100" bodyNum="1035"/>
-				<point name="猪猪(男)" exp="100" costID="200119" jihuoID="1411" jihuoNum="100" bodyNum="1037"/>
-				<point name="人中龙凤时装(男)" exp="100" costID="200120" jihuoID="1411" jihuoNum="100" bodyNum="1039"/>
-				<point name="紫罗时装(男)" exp="100" costID="200121" jihuoID="1411" jihuoNum="100" bodyNum="1041"/>
-				<point name="潇湘夜甫时装(男)" exp="100" costID="200122" jihuoID="1411" jihuoNum="100" bodyNum="1043"/>
-				<point name="猪猪(男)" exp="100" costID="200123" jihuoID="1411" jihuoNum="100" bodyNum="1045"/>
-				<point name="暖冬时装(男)" exp="100" costID="200124" jihuoID="1411" jihuoNum="100" bodyNum="1047"/>
-				<point name="荣耀阑珊时装(男)" exp="100" costID="200125" jihuoID="1411" jihuoNum="100" bodyNum="1049"/>
-				<point name="逐风开心(男)" exp="100" costID="200126" jihuoID="1411" jihuoNum="100" bodyNum="1051"/>
-				<point name="红袖添香时装(男)" exp="100" costID="200127" jihuoID="1411" jihuoNum="100" bodyNum="1053"/>
-				<point name="旧日繁花(男)" exp="100" costID="200128" jihuoID="1411" jihuoNum="100" bodyNum="1055"/>
-				<point name="诗说青瓷时装(男)" exp="100" costID="200129" jihuoID="1411" jihuoNum="100" bodyNum="1057"/>
-				<point name="金玉满堂(男)" exp="100" costID="200130" jihuoID="1411" jihuoNum="100" bodyNum="1059"/>
-				<point name="2023王者时装-金(男)" exp="100" costID="200131" jihuoID="1411" jihuoNum="100" bodyNum="1061"/>
-				<point name="2023王者时装-银(男)" exp="100" costID="200132" jihuoID="1411" jihuoNum="100" bodyNum="1063"/>
-				<point name="碧绦时装(男)" exp="100" costID="200133" jihuoID="1411" jihuoNum="100" bodyNum="1065"/>
-				<point name="浮梦相思时装(男)" exp="100" costID="200134" jihuoID="1411" jihuoNum="100" bodyNum="1067"/>
-				<point name="逐风江湖(男)" exp="100" costID="200135" jihuoID="1411" jihuoNum="100" bodyNum="1069"/>
-				<point name="杨花似雪(男)" exp="100" costID="200136" jihuoID="1411" jihuoNum="100" bodyNum="1071"/>
-				<point name="双珠时装(男)" exp="100" costID="200137" jihuoID="1411" jihuoNum="100" bodyNum="1073"/>
-				<point name="2024中小号春天时装(男)" exp="100" costID="200138" jihuoID="1411" jihuoNum="100" bodyNum="1075"/>
-				<point name="浣溪沙(男)" exp="100" costID="200139" jihuoID="1411" jihuoNum="100" bodyNum="1077"/>
-				<point name="春暖桃花时装(男)" exp="100" costID="200140" jihuoID="1411" jihuoNum="100" bodyNum="1079"/>
-				<point name="疏影横斜(男)" exp="100" costID="200141" jihuoID="1411" jihuoNum="100" bodyNum="1081"/>
-				<point name="月移花影(男)" exp="100" costID="200142" jihuoID="1411" jihuoNum="100" bodyNum="1083"/>
-				<point name="夜叉时装(男)" exp="100" costID="200143" jihuoID="1411" jihuoNum="100" bodyNum="1085"/>
-				<point name="荣耀开羽时装(男)" exp="100" costID="200144" jihuoID="1411" jihuoNum="100" bodyNum="1087"/>
-				<point name="微雨杏花(男)" exp="100" costID="200145" jihuoID="1411" jihuoNum="100" bodyNum="1089"/>
-				<point name="烟甫江南(男)" exp="100" costID="200146" jihuoID="1411" jihuoNum="100" bodyNum="1091"/>
-				<point name="金沙时装(男)" exp="100" costID="200147" jihuoID="1411" jihuoNum="100" bodyNum="1093"/>
-				<point name="逐风纪元(男)" exp="100" costID="200148" jihuoID="1411" jihuoNum="100" bodyNum="1095"/>
-				<point name="月上海棠(男)" exp="100" costID="200149" jihuoID="1411" jihuoNum="100" bodyNum="1097"/>
-				<point name="初夏软糖时装(男)" exp="100" costID="200150" jihuoID="1411" jihuoNum="100" bodyNum="1099"/>
-				<point name="竹摇清影(男)" exp="100" costID="200151" jihuoID="1411" jihuoNum="100" bodyNum="1101"/>
-				<point name="黑色狂欢时装(男)" exp="100" costID="200152" jihuoID="1411" jihuoNum="100" bodyNum="1103"/>
-				<point name="2024嘉年华时装(男)" exp="100" costID="200153" jihuoID="1411" jihuoNum="100" bodyNum="1105"/>
-				<point name="萌萌恐龙(男)" exp="100" costID="200154" jihuoID="1411" jihuoNum="100" bodyNum="1107"/>
-				<point name="2024嘉年华现场时装(男)" exp="100" costID="200155" jihuoID="1411" jihuoNum="100" bodyNum="1109"/>
-				<point name="微甫新荷(男)" exp="100" costID="200156" jihuoID="1411" jihuoNum="100" bodyNum="1111"/>
-				<point name="海月清辉时装(男)" exp="100" costID="200157" jihuoID="1411" jihuoNum="100" bodyNum="1113"/>
-				<point name="沙僧时装" exp="100" costID="200158" jihuoID="1411" jihuoNum="100" bodyNum="1115"/>
-				<point name="孙悟空时装" exp="100" costID="200159" jihuoID="1411" jihuoNum="100" bodyNum="1116"/>
-				<point name="唐僧时装" exp="100" costID="200160" jihuoID="1411" jihuoNum="100" bodyNum="1117"/>
-				<point name="猪八戒时装" exp="100" costID="200161" jihuoID="1411" jihuoNum="100" bodyNum="1118"/>
-				<point name="白龙马时装" exp="100" costID="200162" jihuoID="1411" jihuoNum="100" bodyNum="1119"/>
-				<point name="晴日暖风(男)" exp="100" costID="200163" jihuoID="1411" jihuoNum="100" bodyNum="1120"/>
-				<point name="荣耀辉煌时装(男)" exp="100" costID="200164" jihuoID="1411" jihuoNum="100" bodyNum="1122"/>
-				<point name="佳期如梦(男)" exp="100" costID="200165" jihuoID="1411" jihuoNum="100" bodyNum="1124"/>
-				<point name="万柿如意时装(男)" exp="100" costID="200166" jihuoID="1411" jihuoNum="100" bodyNum="1127"/>
-				<point name="劲节高枝时装(男)" exp="100" costID="200167" jihuoID="1411" jihuoNum="100" bodyNum="1129"/>
-				<point name="逐风展翅(男)" exp="100" costID="200168" jihuoID="1411" jihuoNum="100" bodyNum="1131"/>
-				<point name="征途x密扇联名时装(男)" exp="100" costID="200169" jihuoID="1411" jihuoNum="100" bodyNum="1133"/>
-				<point name="星辰幻梦时装(男)" exp="100" costID="200170" jihuoID="1411" jihuoNum="100" bodyNum="1135"/>
-				<point name="宿甫风荷(男)" exp="100" costID="200171" jihuoID="1411" jihuoNum="100" bodyNum="1137"/>
-				<point name="蓝澜白珑时装(男)" exp="100" costID="200172" jihuoID="1411" jihuoNum="100" bodyNum="1139"/>
-				<point name="广寒清秋(男)" exp="100" costID="200173" jihuoID="1411" jihuoNum="100" bodyNum="1141"/>
-				<point name="月映秋澜时装(男)" exp="100" costID="200174" jihuoID="1411" jihuoNum="100" bodyNum="1143"/>
-				<point name="风华正茂(男)" exp="100" costID="200175" jihuoID="1411" jihuoNum="100" bodyNum="1145"/>
-				<point name="白羽华裳时装(男)" exp="100" costID="200176" jihuoID="1411" jihuoNum="100" bodyNum="1147"/>
-				<point name="19周年庆时装(男)" exp="100" costID="200177" jihuoID="1411" jihuoNum="100" bodyNum="1149"/>
-				<point name="千幻舞曲(男)" exp="100" costID="200178" jihuoID="1411" jihuoNum="100" bodyNum="1151"/>
-				<point name="霜染江枫(男)" exp="100" costID="200179" jihuoID="1411" jihuoNum="100" bodyNum="1153"/>
-				<point name="荣耀虎孀时装(男)" exp="100" costID="200180" jihuoID="1411" jihuoNum="100" bodyNum="1155"/>
-				<point name="烟笼暗香时装(男)" exp="100" costID="200181" jihuoID="1411" jihuoNum="100" bodyNum="1157"/>
-				<point name="丹枫万叶(男)" exp="100" costID="200182" jihuoID="1411" jihuoNum="100" bodyNum="1159"/>
-				<point name="琼花初绽时装(男)" exp="100" costID="200183" jihuoID="1411" jihuoNum="100" bodyNum="1161"/>
-				<point name="落雪临风(男)" exp="100" costID="200184" jihuoID="1411" jihuoNum="100" bodyNum="1163"/>
-				<point name="红梅缀雪时装(男)" exp="100" costID="200185" jihuoID="1411" jihuoNum="100" bodyNum="1165"/>
-				<point name="逐风弥丘(男)" exp="100" costID="200186" jihuoID="1411" jihuoNum="100" bodyNum="1167"/>
-				<point name="寒光铁衣(男)" exp="100" costID="200187" jihuoID="1411" jihuoNum="100" bodyNum="1169"/>
-				<point name="空谷幽兰(男)" exp="100" costID="200188" jihuoID="1411" jihuoNum="100" bodyNum="1171"/>
-				<point name="雪绒华裳(男)" exp="100" costID="200189" jihuoID="1411" jihuoNum="100" bodyNum="1173"/>
-				<point name="蛇序呈祥时装(男)" exp="100" costID="200190" jihuoID="1411" jihuoNum="100" bodyNum="1175"/>
-				<point name="阳春白雪时装(男)" exp="100" costID="200191" jihuoID="1411" jihuoNum="100" bodyNum="1177"/>
+				<!-- fields: name exp costID jihuoID jihuoNum bodyNum pic strDesc -->
+				<point name="吕布（男）" exp="100" costID="690465" jihuoID="1411" jihuoNum="100" bodyNum="1250" pic="data\body15\1250" strDesc="密钥宝盒"/>
+				<point name="辰光织彩（男）" exp="100" costID="690429" jihuoID="1411" jihuoNum="100" bodyNum="1288" pic="data\body15\1288" strDesc="铁匠村"/>
+				<point name="剑影（男）" exp="100" costID="690431" jihuoID="1411" jihuoNum="100" bodyNum="1286" pic="data\body15\1286" strDesc="铁匠村"/>
+				<point name="暮衣（男）" exp="100" costID="690433" jihuoID="1411" jihuoNum="100" bodyNum="1284" pic="data\body15\1284" strDesc="铁匠村"/>
+				<point name="柿柿清欢（男）" exp="100" costID="690435" jihuoID="1411" jihuoNum="100" bodyNum="1282" pic="data\body15\1282" strDesc="铁匠村"/>
+				<point name="小鸡快跑（男）" exp="100" costID="690437" jihuoID="1411" jihuoNum="100" bodyNum="1280" pic="data\body15\1280" strDesc="铁匠村"/>
+				<point name="雾织彩霏（男）" exp="100" costID="690439" jihuoID="1411" jihuoNum="100" bodyNum="1278" pic="data\body15\1278" strDesc="铁匠村"/>
+				<point name="星翠蓝蓝（男）" exp="100" costID="690441" jihuoID="1411" jihuoNum="100" bodyNum="1276" pic="data\body15\1276" strDesc="铁匠村"/>
+				<point name="云溅绚（男）" exp="100" costID="690443" jihuoID="1411" jihuoNum="100" bodyNum="1274" pic="data\body15\1274" strDesc="铁匠村"/>
+				<point name="曙翠曈曈（男）" exp="100" costID="690445" jihuoID="1411" jihuoNum="100" bodyNum="1272" pic="data\body15\1272" strDesc="铁匠村"/>
+				<point name="笋茂巡礼（男）" exp="100" costID="690447" jihuoID="1411" jihuoNum="100" bodyNum="1270" pic="data\body15\1270" strDesc="铁匠村"/>
+				<point name="雾锁重楼（男）" exp="100" costID="690449" jihuoID="1411" jihuoNum="100" bodyNum="1267" pic="data\body15\1267" strDesc="铁匠村"/>
+				<point name="莹月晷（男）" exp="100" costID="690451" jihuoID="1411" jihuoNum="100" bodyNum="1265" pic="data\body15\1265" strDesc="铁匠村"/>
+				<point name="凤凰于飞（男）" exp="100" costID="690453" jihuoID="1411" jihuoNum="100" bodyNum="1263" pic="data\body15\1263" strDesc="铁匠村"/>
+				<point name="霜鞘蝴蝶（男）" exp="100" costID="690455" jihuoID="1411" jihuoNum="100" bodyNum="1261" pic="data\body15\1261" strDesc="铁匠村"/>
+				<point name="盛渊精灵（男）" exp="100" costID="690457" jihuoID="1411" jihuoNum="100" bodyNum="1259" pic="data\body15\1259" strDesc="铁匠村"/>
+				<point name="沧海明月（男）" exp="100" costID="690459" jihuoID="1411" jihuoNum="100" bodyNum="1257" pic="data\body15\1257" strDesc="铁匠村"/>
+				<point name="霜翼玄（男）" exp="100" costID="690461" jihuoID="1411" jihuoNum="100" bodyNum="1255" pic="data\body15\1255" strDesc="铁匠村"/>
+				<point name="海月纱影（男）" exp="100" costID="690463" jihuoID="1411" jihuoNum="100" bodyNum="1253" pic="data\body15\1253" strDesc="铁匠村"/>
+				<point name="诸葛孔明（男）" exp="100" costID="690467" jihuoID="1411" jihuoNum="100" bodyNum="1248" pic="data\body15\1248" strDesc="铁匠村"/>
+				<point name="征野之心（男）" exp="100" costID="690469" jihuoID="1411" jihuoNum="100" bodyNum="1246" pic="data\body15\1246" strDesc="铁匠村"/>
+				<point name="绯蓝之梦（男）" exp="100" costID="690471" jihuoID="1411" jihuoNum="100" bodyNum="1244" pic="data\body15\1244" strDesc="铁匠村"/>
+				<point name="云锦南帝（男）" exp="100" costID="690473" jihuoID="1411" jihuoNum="100" bodyNum="1242" pic="data\body15\1242" strDesc="铁匠村"/>
+				<point name="霜刃青峰（男）" exp="100" costID="690475" jihuoID="1411" jihuoNum="100" bodyNum="1240" pic="data\body15\1240" strDesc="铁匠村"/>
+				<point name="25周年华丽场（男）" exp="100" costID="690477" jihuoID="1411" jihuoNum="100" bodyNum="1238" pic="data\body15\1238" strDesc="铁匠村"/>
+				<point name="25周年华丽装（男）" exp="100" costID="690479" jihuoID="1411" jihuoNum="100" bodyNum="1234" pic="data\body15\1234" strDesc="铁匠村"/>
+				<point name="金缕霓裳（男）" exp="100" costID="690481" jihuoID="1411" jihuoNum="100" bodyNum="1232" pic="data\body15\1232" strDesc="铁匠村"/>
+				<point name="血爪狰（男）" exp="100" costID="690483" jihuoID="1411" jihuoNum="100" bodyNum="1236" pic="data\body15\1236" strDesc="铁匠村"/>
+				<point name="鸣呐鹿鸣（男）" exp="100" costID="690485" jihuoID="1411" jihuoNum="100" bodyNum="1230" pic="data\body15\1230" strDesc="铁匠村"/>
+				<point name="荣耀夜叉（男）" exp="100" costID="690487" jihuoID="1411" jihuoNum="100" bodyNum="1211" pic="data\body15\1211" strDesc="铁匠村"/>
+				<point name="绯影魅裳（男）" exp="100" costID="690489" jihuoID="1411" jihuoNum="100" bodyNum="1228" pic="data\body15\1228" strDesc="铁匠村"/>
+				<point name="幽夜凝霜（男）" exp="100" costID="690491" jihuoID="1411" jihuoNum="100" bodyNum="1222" pic="data\body15\1222" strDesc="产出:西郊牧场"/>
+				<point name="凤鸣金辉（男）" exp="100" costID="690493" jihuoID="1411" jihuoNum="100" bodyNum="1226" pic="data\body15\1226" strDesc="产出:西郊牧场"/>
+				<point name="暮云梦蝶（男）" exp="100" costID="690495" jihuoID="1411" jihuoNum="100" bodyNum="1224" pic="data\body15\1224" strDesc="产出:西郊牧场"/>
+				<point name="魔童降世（男）" exp="100" costID="690497" jihuoID="1411" jihuoNum="100" bodyNum="1220" pic="data\body15\1220" strDesc="产出:西郊牧场"/>
+				<point name="墨影仙踪（男）" exp="100" costID="690499" jihuoID="1411" jihuoNum="100" bodyNum="1218" pic="data\body15\1218" strDesc="产出:西郊牧场"/>
+				<point name="炽羽临风（男）" exp="100" costID="690501" jihuoID="1411" jihuoNum="100" bodyNum="1213" pic="data\body15\1213" strDesc="产出:西郊牧场"/>
+				<point name="春漫晴空（男）" exp="100" costID="690503" jihuoID="1411" jihuoNum="100" bodyNum="1205" pic="data\body14\1205" strDesc="产出:西郊牧场"/>
+				<point name="清竹雅韵（男）" exp="100" costID="690505" jihuoID="1411" jihuoNum="100" bodyNum="1203" pic="data\body14\1203" strDesc="产出:西郊牧场"/>
+				<point name="霜白啸风（男）" exp="100" costID="690507" jihuoID="1411" jihuoNum="100" bodyNum="1201" pic="data\body14\1201" strDesc="产出:西郊牧场"/>
+				<point name="绯蓝沧澜（男）" exp="100" costID="690509" jihuoID="1411" jihuoNum="100" bodyNum="1199" pic="data\body14\1199" strDesc="产出:西郊牧场"/>
+				<point name="心动音律（男）" exp="100" costID="690511" jihuoID="1411" jihuoNum="100" bodyNum="1197" pic="data\body14\1197" strDesc="产出:西郊牧场"/>
+				<point name="霜天鹤影（男）" exp="100" costID="690513" jihuoID="1411" jihuoNum="100" bodyNum="1183" pic="data\body14\1183" strDesc="产出:西郊牧场"/>
+				<point name="荣耀芳华（男）" exp="100" costID="690515" jihuoID="1411" jihuoNum="100" bodyNum="1195" pic="data\body14\1195" strDesc="产出:西郊牧场"/>
+				<point name="霞姿月韵（男）" exp="100" costID="690517" jihuoID="1411" jihuoNum="100" bodyNum="1193" pic="data\body14\1193" strDesc="产出:西郊牧场"/>
+				<point name="绮罗香（男）" exp="100" costID="690519" jihuoID="1411" jihuoNum="100" bodyNum="1191" pic="data\body14\1191" strDesc="产出:西郊牧场"/>
+				<point name="梅雪争春（男）" exp="100" costID="690521" jihuoID="1411" jihuoNum="100" bodyNum="1189" pic="data\body14\1189" strDesc="产出:待开放"/>
+				<point name="逐风幽竹（男）" exp="100" costID="690523" jihuoID="1411" jihuoNum="100" bodyNum="1187" pic="data\body14\1187" strDesc="产出:待开放"/>
+				<point name="苏幕遮（男）" exp="100" costID="690525" jihuoID="1411" jihuoNum="100" bodyNum="1185" pic="data\body14\1185" strDesc="产出:待开放"/>
+				<point name="春映风铃（男）" exp="100" costID="690527" jihuoID="1411" jihuoNum="100" bodyNum="1181" pic="data\body14\1181" strDesc="产出:待开放"/>
+				<point name="林鹿饮溪（男）" exp="100" costID="690529" jihuoID="1411" jihuoNum="100" bodyNum="1179" pic="data\body14\1179" strDesc="产出:待开放"/>
+				<point name="阳春白雪（男）" exp="100" costID="690531" jihuoID="1411" jihuoNum="100" bodyNum="1177" pic="data\body14\1177" strDesc="产出:待开放"/>
+				<point name="春绒华裳（男）" exp="100" costID="690533" jihuoID="1411" jihuoNum="100" bodyNum="1173" pic="data\body14\1173" strDesc="产出:待开放"/>
+				<point name="蛇序呈祥（男）" exp="100" costID="690535" jihuoID="1411" jihuoNum="100" bodyNum="1175" pic="data\body14\1175" strDesc="产出:待开放"/>
+				<point name="空谷幽兰（男）" exp="100" costID="690537" jihuoID="1411" jihuoNum="100" bodyNum="1171" pic="data\body14\1171" strDesc="产出:待开放"/>
+				<point name="寒光铁衣（男）" exp="100" costID="690539" jihuoID="1411" jihuoNum="100" bodyNum="1169" pic="data\body14\1169" strDesc="产出:待开放"/>
+				<point name="逐风弥丘（男）" exp="100" costID="690541" jihuoID="1411" jihuoNum="100" bodyNum="1167" pic="data\body14\1167" strDesc="产出:待开放"/>
+				<point name="红梅缀雪（男）" exp="100" costID="690543" jihuoID="1411" jihuoNum="100" bodyNum="1165" pic="data\body14\1165" strDesc="产出:待开放"/>
+				<point name="落雪临风（男）" exp="100" costID="690545" jihuoID="1411" jihuoNum="100" bodyNum="1163" pic="data\body14\1163" strDesc="产出:待开放"/>
+				<point name="琼花初绽（男）" exp="100" costID="690547" jihuoID="1411" jihuoNum="100" bodyNum="1161" pic="data\body14\1161" strDesc="产出:待开放"/>
+				<point name="丹枫万叶（男）" exp="100" costID="690549" jihuoID="1411" jihuoNum="100" bodyNum="1159" pic="data\body14\1159" strDesc="产出:待开放"/>
+				<point name="烟笼暗香（男）" exp="100" costID="690551" jihuoID="1411" jihuoNum="100" bodyNum="1157" pic="data\body14\1157" strDesc="产出:待开放"/>
+				<point name="荣耀虎啸（男）" exp="100" costID="690553" jihuoID="1411" jihuoNum="100" bodyNum="1155" pic="data\body14\1155" strDesc="产出:待开放"/>
+				<point name="霜染江枫（男）" exp="100" costID="690555" jihuoID="1411" jihuoNum="100" bodyNum="1153" pic="data\body14\1153" strDesc="产出:待开放"/>
+				<point name="千幻舞曲（男）" exp="100" costID="690557" jihuoID="1411" jihuoNum="100" bodyNum="1151" pic="data\body14\1151" strDesc="产出:待开放"/>
+				<point name="19周年庆（男）" exp="100" costID="690559" jihuoID="1411" jihuoNum="100" bodyNum="1149" pic="data\body14\1149" strDesc="产出:待开放"/>
+				<point name="月映秋澜（男）" exp="100" costID="690561" jihuoID="1411" jihuoNum="100" bodyNum="1143" pic="data\body14\1143" strDesc="产出:待开放"/>
+				<point name="白羽华裳（男）" exp="100" costID="690563" jihuoID="1411" jihuoNum="100" bodyNum="1147" pic="data\body14\1147" strDesc="产出:待开放"/>
+				<point name="风华正茂（男）" exp="100" costID="690565" jihuoID="1411" jihuoNum="100" bodyNum="1145" pic="data\body14\1145" strDesc="产出:待开放"/>
+				<point name="广寒清秋（男）" exp="100" costID="690567" jihuoID="1411" jihuoNum="100" bodyNum="1141" pic="data\body14\1141" strDesc="产出:待开放"/>
+				<point name="蓝澜白珑（男）" exp="100" costID="690569" jihuoID="1411" jihuoNum="100" bodyNum="1139" pic="data\body14\1139" strDesc="产出:待开放"/>
+				<point name="宿雨风荷（男）" exp="100" costID="690571" jihuoID="1411" jihuoNum="100" bodyNum="1137" pic="data\body14\1137" strDesc="产出:待开放"/>
+				<point name="征途X密扇联名（男）" exp="100" costID="690573" jihuoID="1411" jihuoNum="100" bodyNum="1133" pic="data\body14\1133" strDesc="产出:待开放"/>
+				<point name="星辰幻梦（男）" exp="100" costID="690575" jihuoID="1411" jihuoNum="100" bodyNum="1135" pic="data\body14\1135" strDesc="产出:待开放"/>
+				<point name="逐风展翅（男）" exp="100" costID="690577" jihuoID="1411" jihuoNum="100" bodyNum="1131" pic="data\body14\1131" strDesc="产出:待开放"/>
+				<point name="劲节高枝（男）" exp="100" costID="690579" jihuoID="1411" jihuoNum="100" bodyNum="1129" pic="data\body14\1129" strDesc="产出:待开放"/>
+				<point name="万柿如意（男）" exp="100" costID="690581" jihuoID="1411" jihuoNum="100" bodyNum="1127" pic="data\body14\1127" strDesc="产出:待开放"/>
+				<point name="佳期如梦（男）" exp="100" costID="690583" jihuoID="1411" jihuoNum="100" bodyNum="1124" pic="data\body14\1124" strDesc="产出:待开放"/>
+				<point name="荣耀辉煌（男）" exp="100" costID="690585" jihuoID="1411" jihuoNum="100" bodyNum="1122" pic="data\body14\1122" strDesc="产出:待开放"/>
+				<point name="晴日暖风（男）" exp="100" costID="690587" jihuoID="1411" jihuoNum="100" bodyNum="1120" pic="data\body14\1120" strDesc="产出:待开放"/>
+				<point name="白龙马" exp="100" costID="690589" jihuoID="1411" jihuoNum="100" bodyNum="1119" pic="data\body14\1119" strDesc="产出:待开放"/>
+				<point name="猪八戒" exp="100" costID="690590" jihuoID="1411" jihuoNum="100" bodyNum="1118" pic="data\body14\1118" strDesc="产出:待开放"/>
+				<point name="唐僧" exp="100" costID="690591" jihuoID="1411" jihuoNum="100" bodyNum="1117" pic="data\body14\1117" strDesc="产出:待开放"/>
+				<point name="孙悟空" exp="100" costID="690592" jihuoID="1411" jihuoNum="100" bodyNum="1116" pic="data\body14\1116" strDesc="产出:待开放"/>
+				<point name="沙僧" exp="100" costID="690593" jihuoID="1411" jihuoNum="100" bodyNum="1115" pic="data\body14\1115" strDesc="产出:待开放"/>
+				<point name="海月清辉（男）" exp="100" costID="690594" jihuoID="1411" jihuoNum="100" bodyNum="1113" pic="data\body14\1113" strDesc="产出:待开放"/>
+				<point name="微雨新荷（男）" exp="100" costID="690596" jihuoID="1411" jihuoNum="100" bodyNum="1111" pic="data\body14\1111" strDesc="产出:待开放"/>
+				<point name="2024嘉年华现场（男）" exp="100" costID="690598" jihuoID="1411" jihuoNum="100" bodyNum="1109" pic="data\body14\1109" strDesc="产出:待开放"/>
+				<point name="萌萌恐龙（男）" exp="100" costID="690600" jihuoID="1411" jihuoNum="100" bodyNum="1107" pic="data\body14\1107" strDesc="产出:待开放"/>
+				<point name="2024嘉年华（男）" exp="100" costID="690602" jihuoID="1411" jihuoNum="100" bodyNum="1105" pic="data\body14\1105" strDesc="产出:待开放"/>
+				<point name="黑色狂欢（男）" exp="100" costID="690604" jihuoID="1411" jihuoNum="100" bodyNum="1103" pic="data\body14\1103" strDesc="产出:待开放"/>
+				<point name="竹摇清影（男）" exp="100" costID="690606" jihuoID="1411" jihuoNum="100" bodyNum="1101" pic="data\body14\1101" strDesc="产出:待开放"/>
+				<point name="初夏软糖（男）" exp="100" costID="690608" jihuoID="1411" jihuoNum="100" bodyNum="1099" pic="data\body14\1099" strDesc="产出:待开放"/>
+				<point name="月上海棠（男）" exp="100" costID="690610" jihuoID="1411" jihuoNum="100" bodyNum="1097" pic="data\body14\1097" strDesc="产出:待开放"/>
+				<point name="逐风纪元（男）" exp="100" costID="690612" jihuoID="1411" jihuoNum="100" bodyNum="1095" pic="data\body14\1095" strDesc="产出:待开放"/>
+				<point name="金沙（男）" exp="100" costID="690614" jihuoID="1411" jihuoNum="100" bodyNum="1093" pic="data\body14\1093" strDesc="产出:待开放"/>
+				<point name="烟雨江南（男）" exp="100" costID="690616" jihuoID="1411" jihuoNum="100" bodyNum="1091" pic="data\body14\1091" strDesc="产出:待开放"/>
+				<point name="微雨杏花（男）" exp="100" costID="690618" jihuoID="1411" jihuoNum="100" bodyNum="1089" pic="data\body14\1089" strDesc="产出:待开放"/>
+				<point name="荣耀丹羽（男）" exp="100" costID="690620" jihuoID="1411" jihuoNum="100" bodyNum="1087" pic="data\body14\1087" strDesc="产出:待开放"/>
+				<point name="桔梗（男）" exp="100" costID="690622" jihuoID="1411" jihuoNum="100" bodyNum="1085" pic="data\body14\1085" strDesc="产出:待开放"/>
+				<point name="月移花影（男）" exp="100" costID="690624" jihuoID="1411" jihuoNum="100" bodyNum="1083" pic="data\body14\1083" strDesc="产出:待开放"/>
+				<point name="疏影横斜（男）" exp="100" costID="690626" jihuoID="1411" jihuoNum="100" bodyNum="1081" pic="data\body14\1081" strDesc="产出:待开放"/>
+				<point name="春暖桃花（男）" exp="100" costID="690628" jihuoID="1411" jihuoNum="100" bodyNum="1079" pic="data\body14\1079" strDesc="产出:待开放"/>
+				<point name="涴溪沙（男）" exp="100" costID="690630" jihuoID="1411" jihuoNum="100" bodyNum="1077" pic="data\body14\1077" strDesc="产出:待开放"/>
+				<point name="双珠（男）" exp="100" costID="690632" jihuoID="1411" jihuoNum="100" bodyNum="1073" pic="data\body14\1073" strDesc="产出:待开放"/>
+				<point name="2024中小号春天（男）" exp="100" costID="690634" jihuoID="1411" jihuoNum="100" bodyNum="1075" pic="data\body14\1075" strDesc="产出:待开放"/>
+				<point name="杨花似雪（男）" exp="100" costID="690636" jihuoID="1411" jihuoNum="100" bodyNum="1071" pic="data\body14\1071" strDesc="产出:待开放"/>
+				<point name="逐风江湖（男）" exp="100" costID="690638" jihuoID="1411" jihuoNum="100" bodyNum="1069" pic="data\body14\1069" strDesc="产出:待开放"/>
+				<point name="浮梦相思（男）" exp="100" costID="690640" jihuoID="1411" jihuoNum="100" bodyNum="1067" pic="data\body14\1067" strDesc="产出:待开放"/>
+				<point name="碧绦（男）" exp="100" costID="690642" jihuoID="1411" jihuoNum="100" bodyNum="1065" pic="data\body14\1065" strDesc="产出:待开放"/>
+				<point name="2023王者-银（男）" exp="100" costID="690644" jihuoID="1411" jihuoNum="100" bodyNum="1063" pic="data\body14\1063" strDesc="产出:待开放"/>
+				<point name="2023王者-金（男）" exp="100" costID="690646" jihuoID="1411" jihuoNum="100" bodyNum="1061" pic="data\body14\1061" strDesc="产出:待开放"/>
+				<point name="金玉满堂（男）" exp="100" costID="690648" jihuoID="1411" jihuoNum="100" bodyNum="1059" pic="data\body14\1059" strDesc="产出:待开放"/>
+				<point name="诗说青瓷（男）" exp="100" costID="690650" jihuoID="1411" jihuoNum="100" bodyNum="1057" pic="data\body14\1057" strDesc="产出:待开放"/>
+				<point name="旧日繁花（男）" exp="100" costID="690652" jihuoID="1411" jihuoNum="100" bodyNum="1055" pic="data\body14\1055" strDesc="产出:待开放"/>
+				<point name="红袖添香（男）" exp="100" costID="690654" jihuoID="1411" jihuoNum="100" bodyNum="1053" pic="data\body14\1053" strDesc="产出:待开放"/>
+				<point name="逐风丹心（男）" exp="100" costID="690656" jihuoID="1411" jihuoNum="100" bodyNum="1051" pic="data\body14\1051" strDesc="产出:待开放"/>
+				<point name="荣耀阑珊（男）" exp="100" costID="690658" jihuoID="1411" jihuoNum="100" bodyNum="1049" pic="data\body14\1049" strDesc="产出:待开放"/>
+				<point name="暖冬（男）" exp="100" costID="690660" jihuoID="1411" jihuoNum="100" bodyNum="1047" pic="data\body14\1047" strDesc="产出:待开放"/>
+				<point name="潇湘夜雨（男）" exp="100" costID="690662" jihuoID="1411" jihuoNum="100" bodyNum="1043" pic="data\body14\1043" strDesc="产出:待开放"/>
+				<point name="紫罗（男）" exp="100" costID="690664" jihuoID="1411" jihuoNum="100" bodyNum="1041" pic="data\body14\1041" strDesc="产出:待开放"/>
+				<point name="人中龙凤（男）" exp="100" costID="690666" jihuoID="1411" jihuoNum="100" bodyNum="1039" pic="data\body14\1039" strDesc="产出:待开放"/>
+				<point name="猪猪（男）" exp="100" costID="690668" jihuoID="1411" jihuoNum="100" bodyNum="1045" pic="data\body14\1045" strDesc="产出:待开放"/>
+				<point name="兔年圣诞（男）" exp="100" costID="690670" jihuoID="1411" jihuoNum="100" bodyNum="1035" pic="data\body14\1035" strDesc="产出:待开放"/>
+				<point name="暮云江雪（男）" exp="100" costID="690672" jihuoID="1411" jihuoNum="100" bodyNum="1033" pic="data\body14\1033" strDesc="产出:待开放"/>
+				<point name="兰亭（男）" exp="100" costID="690674" jihuoID="1411" jihuoNum="100" bodyNum="1031" pic="data\body14\1031" strDesc="产出:待开放"/>
+				<point name="霜天晓角（男）" exp="100" costID="690676" jihuoID="1411" jihuoNum="100" bodyNum="1028" pic="data\body14\1028" strDesc="产出:待开放"/>
+				<point name="童话镇（男）" exp="100" costID="690678" jihuoID="1411" jihuoNum="100" bodyNum="1026" pic="data\body14\1026" strDesc="产出:待开放"/>
+				<point name="阿拉斯加（男）" exp="100" costID="690680" jihuoID="1411" jihuoNum="100" bodyNum="1024" pic="data\body14\1024" strDesc="产出:待开放"/>
+				<point name="鲜衣怒马（男）" exp="100" costID="690682" jihuoID="1411" jihuoNum="100" bodyNum="1022" pic="data\body14\1022" strDesc="产出:待开放"/>
+				<point name="才子佳人（男）" exp="100" costID="690684" jihuoID="1411" jihuoNum="100" bodyNum="1020" pic="data\body14\1020" strDesc="产出:待开放"/>
+				<point name="2023周年庆（男）" exp="100" costID="690686" jihuoID="1411" jihuoNum="100" bodyNum="1018" pic="data\body14\1018" strDesc="产出:待开放"/>
+				<point name="玉京秋（男）" exp="100" costID="690688" jihuoID="1411" jihuoNum="100" bodyNum="1016" pic="data\body14\1016" strDesc="产出:待开放"/>
+				<point name="水月清辉（男）" exp="100" costID="690690" jihuoID="1411" jihuoNum="100" bodyNum="1014" pic="data\body14\1014" strDesc="产出:待开放"/>
+				<point name="西凉（男）" exp="100" costID="690692" jihuoID="1411" jihuoNum="100" bodyNum="1012" pic="data\body14\1012" strDesc="产出:待开放"/>
+				<point name="荣耀衔金（男）" exp="100" costID="690694" jihuoID="1411" jihuoNum="100" bodyNum="1010" pic="data\body14\1010" strDesc="产出:待开放"/>
+				<point name="秋日童真（男）" exp="100" costID="690696" jihuoID="1411" jihuoNum="100" bodyNum="1004" pic="data\body14\1004" strDesc="产出:待开放"/>
+				<point name="枫火（男）" exp="100" costID="690698" jihuoID="1411" jihuoNum="100" bodyNum="1008" pic="data\body14\1008" strDesc="产出:待开放"/>
+				<point name="人生如戏（男）" exp="100" costID="690700" jihuoID="1411" jihuoNum="100" bodyNum="1006" pic="data\body14\1006" strDesc="产出:待开放"/>
+				<point name="情真依旧（男）" exp="100" costID="690702" jihuoID="1411" jihuoNum="100" bodyNum="1000" pic="data\body14\1000" strDesc="产出:待开放"/>
+				<point name="逐风侠侣（男）" exp="100" costID="690704" jihuoID="1411" jihuoNum="100" bodyNum="1002" pic="data\body14\1002" strDesc="产出:待开放"/>
+				<point name="梦晚西风（男）" exp="100" costID="690706" jihuoID="1411" jihuoNum="100" bodyNum="998" pic="data\body14\998" strDesc="产出:待开放"/>
+				<point name="流星赶月（男）" exp="100" costID="690708" jihuoID="1411" jihuoNum="100" bodyNum="996" pic="data\body14\996" strDesc="产出:待开放"/>
+				<point name="许你一生（男）" exp="100" costID="690710" jihuoID="1411" jihuoNum="100" bodyNum="994" pic="data\body14\994" strDesc="产出:待开放"/>
+				<point name="江燕晚簇（男）" exp="100" costID="690712" jihuoID="1411" jihuoNum="100" bodyNum="992" pic="data\body14\992" strDesc="产出:待开放"/>
+				<point name="清风无言（男）" exp="100" costID="690714" jihuoID="1411" jihuoNum="100" bodyNum="990" pic="data\body14\990" strDesc="产出:待开放"/>
+				<point name="火树银华（男）" exp="100" costID="690716" jihuoID="1411" jihuoNum="100" bodyNum="988" pic="data\body14\988" strDesc="产出:待开放"/>
+				<point name="荣耀金刹（男）" exp="100" costID="690718" jihuoID="1411" jihuoNum="100" bodyNum="986" pic="data\body14\986" strDesc="产出:待开放"/>
+				<point name="流波将月（男）" exp="100" costID="690722" jihuoID="1411" jihuoNum="100" bodyNum="982" pic="data\body14\982" strDesc="产出:待开放"/>
+				<point name="2023嘉年华现场（男）" exp="100" costID="690724" jihuoID="1411" jihuoNum="100" bodyNum="980" pic="data\body14\980" strDesc="产出:待开放"/>
+				<point name="欢歌一夏（男）" exp="100" costID="690726" jihuoID="1411" jihuoNum="100" bodyNum="978" pic="data\body14\978" strDesc="产出:待开放"/>
+				<point name="红尘三千（男）" exp="100" costID="690728" jihuoID="1411" jihuoNum="100" bodyNum="976" pic="data\body14\976" strDesc="产出:待开放"/>
+				<point name="生如夏花（男）" exp="100" costID="690730" jihuoID="1411" jihuoNum="100" bodyNum="974" pic="data\body14\974" strDesc="产出:待开放"/>
+				<point name="夏梅飘香（男）" exp="100" costID="690732" jihuoID="1411" jihuoNum="100" bodyNum="972" pic="data\body14\972" strDesc="产出:待开放"/>
+				<point name="江南烟雨（男）" exp="100" costID="690734" jihuoID="1411" jihuoNum="100" bodyNum="970" pic="data\body14\970" strDesc="产出:待开放"/>
+				<point name="海枯石烂（男）" exp="100" costID="690736" jihuoID="1411" jihuoNum="100" bodyNum="968" pic="data\body14\968" strDesc="产出:待开放"/>
+				<point name="小雨如酥（男）" exp="100" costID="690738" jihuoID="1411" jihuoNum="100" bodyNum="966" pic="data\body14\966" strDesc="产出:待开放"/>
+				<point name="平步青云（男）" exp="100" costID="690740" jihuoID="1411" jihuoNum="100" bodyNum="964" pic="data\body14\964" strDesc="产出:待开放"/>
+				<point name="金缕衣（男）" exp="100" costID="690742" jihuoID="1411" jihuoNum="100" bodyNum="960" pic="data\body14\960" strDesc="产出:待开放"/>
+				<point name="有凤来仪（男）" exp="100" costID="690744" jihuoID="1411" jihuoNum="100" bodyNum="962" pic="data\body14\962" strDesc="产出:待开放"/>
+				<point name="临溪绘鲤（男）" exp="100" costID="690746" jihuoID="1411" jihuoNum="100" bodyNum="958" pic="data\body14\958" strDesc="产出:待开放"/>
+				<point name="落花独立（男）" exp="100" costID="690748" jihuoID="1411" jihuoNum="100" bodyNum="956" pic="data\body14\956" strDesc="产出:待开放"/>
+				<point name="荣耀锦华（男）" exp="100" costID="690750" jihuoID="1411" jihuoNum="100" bodyNum="954" pic="data\body14\954" strDesc="产出:待开放"/>
+				<point name="幸福同行（男）" exp="100" costID="690752" jihuoID="1411" jihuoNum="100" bodyNum="950" pic="data\body14\950" strDesc="产出:待开放"/>
+				<point name="一缕青丝（男）" exp="100" costID="690754" jihuoID="1411" jihuoNum="100" bodyNum="952" pic="data\body14\952" strDesc="产出:待开放"/>
+				<point name="2022王者时装-金（男）" exp="100" costID="690756" jihuoID="1411" jihuoNum="100" bodyNum="944" pic="data\body14\944" strDesc="产出:待开放"/>
+				<point name="2022王者时装-银（男）" exp="100" costID="690758" jihuoID="1411" jihuoNum="100" bodyNum="945" pic="data\body14\945" strDesc="产出:待开放"/>
+				<point name="三月暖春（男）" exp="100" costID="690760" jihuoID="1411" jihuoNum="100" bodyNum="948" pic="data\body14\948" strDesc="产出:待开放"/>
+				<point name="密林游侠（男）" exp="100" costID="690762" jihuoID="1411" jihuoNum="100" bodyNum="942" pic="data\body14\942" strDesc="产出:待开放"/>
+				<point name="星春月和（男）" exp="100" costID="690764" jihuoID="1411" jihuoNum="100" bodyNum="940" pic="data\body14\940" strDesc="产出:待开放"/>
+				<point name="千金一诺（男）" exp="100" costID="690766" jihuoID="1411" jihuoNum="100" bodyNum="938" pic="data\body14\938" strDesc="产出:待开放"/>
+				<point name="逐风神印（男）" exp="100" costID="690768" jihuoID="1411" jihuoNum="100" bodyNum="936" pic="data\body14\936" strDesc="产出:待开放"/>
+				<point name="烟柳轻尘（男）" exp="100" costID="690770" jihuoID="1411" jihuoNum="100" bodyNum="934" pic="data\body14\934" strDesc="产出:待开放"/>
+				<point name="魂牵梦萦（男）" exp="100" costID="690772" jihuoID="1411" jihuoNum="100" bodyNum="932" pic="data\body14\932" strDesc="产出:待开放"/>
+				<point name="霜玉轻裘（男）" exp="100" costID="690774" jihuoID="1411" jihuoNum="100" bodyNum="930" pic="data\body14\930" strDesc="产出:待开放"/>
+				<point name="风雪豪侠（男）" exp="100" costID="690776" jihuoID="1411" jihuoNum="100" bodyNum="928" pic="data\body14\928" strDesc="产出:待开放"/>
+				<point name="等闲冬日（男）" exp="100" costID="690778" jihuoID="1411" jihuoNum="100" bodyNum="926" pic="data\body14\926" strDesc="产出:待开放"/>
+				<point name="兔来运转（男）" exp="100" costID="690780" jihuoID="1411" jihuoNum="100" bodyNum="924" pic="data\body14\924" strDesc="产出:待开放"/>
+				<point name="凰栖（男）" exp="100" costID="690782" jihuoID="1411" jihuoNum="100" bodyNum="922" pic="data\body14\922" strDesc="产出:待开放"/>
+				<point name="日始卯时（男）" exp="100" costID="690784" jihuoID="1411" jihuoNum="100" bodyNum="920" pic="data\body14\920" strDesc="产出:待开放"/>
+				<point name="一点寒梅（男）" exp="100" costID="690786" jihuoID="1411" jihuoNum="100" bodyNum="918" pic="data\body14\918" strDesc="产出:待开放"/>
+				<point name="虎年圣诞（男）" exp="100" costID="690788" jihuoID="1411" jihuoNum="100" bodyNum="916" pic="data\body14\916" strDesc="产出:待开放"/>
+				<point name="青衫磊落（男）" exp="100" costID="690790" jihuoID="1411" jihuoNum="100" bodyNum="914" pic="data\body14\914" strDesc="产出:待开放"/>
+				<point name="荣耀流华（男）" exp="100" costID="690792" jihuoID="1411" jihuoNum="100" bodyNum="912" pic="data\body14\912" strDesc="产出:待开放"/>
+				<point name="桃李不言（男）" exp="100" costID="690794" jihuoID="1411" jihuoNum="100" bodyNum="910" pic="data\body14\910" strDesc="产出:待开放"/>
+				<point name="唯心情深（男）" exp="100" costID="690796" jihuoID="1411" jihuoNum="100" bodyNum="908" pic="data\body14\908" strDesc="产出:待开放"/>
+				<point name="乘风破浪（男）" exp="100" costID="690798" jihuoID="1411" jihuoNum="100" bodyNum="906" pic="data\body14\906" strDesc="产出:待开放"/>
+				<point name="童心未泯（男）" exp="100" costID="690800" jihuoID="1411" jihuoNum="100" bodyNum="904" pic="data\body14\904" strDesc="产出:待开放"/>
+				<point name="凝霜傲雪（男）" exp="100" costID="690802" jihuoID="1411" jihuoNum="100" bodyNum="902" pic="data\body14\902" strDesc="产出:待开放"/>
+				<point name="惜秋华（男）" exp="100" costID="690804" jihuoID="1411" jihuoNum="100" bodyNum="900" pic="data\body14\900" strDesc="产出:待开放"/>
+				<point name="沧海桑田（男）" exp="100" costID="690806" jihuoID="1411" jihuoNum="100" bodyNum="898" pic="data\body14\898" strDesc="产出:待开放"/>
+				<point name="元气庆典（男）" exp="100" costID="690808" jihuoID="1411" jihuoNum="100" bodyNum="896" pic="data\body14\896" strDesc="产出:待开放"/>
+				<point name="盘古职业（男）" exp="100" costID="690810" jihuoID="1411" jihuoNum="100" bodyNum="894" pic="data\body14\894" strDesc="产出:待开放"/>
+				<point name="十七周年庆（男）" exp="100" costID="690812" jihuoID="1411" jihuoNum="100" bodyNum="892" pic="data\body14\892" strDesc="产出:待开放"/>
+				<point name="和颜悦色（男）" exp="100" costID="690814" jihuoID="1411" jihuoNum="100" bodyNum="890" pic="data\body14\890" strDesc="产出:待开放"/>
+				<point name="一念芳华（男）" exp="100" costID="690816" jihuoID="1411" jihuoNum="100" bodyNum="888" pic="data\body14\888" strDesc="产出:待开放"/>
+				<point name="书写爱意（男）" exp="100" costID="690818" jihuoID="1411" jihuoNum="100" bodyNum="886" pic="data\body14\886" strDesc="产出:待开放"/>
+				<point name="森暖萤火（男）" exp="100" costID="690820" jihuoID="1411" jihuoNum="100" bodyNum="884" pic="data\body14\884" strDesc="产出:待开放"/>
+				<point name="华清引（男）" exp="100" costID="690822" jihuoID="1411" jihuoNum="100" bodyNum="882" pic="data\body14\882" strDesc="产出:待开放"/>
+				<point name="荣耀金穗（男）" exp="100" costID="690824" jihuoID="1411" jihuoNum="100" bodyNum="872" pic="data\body14\872" strDesc="产出:待开放"/>
+				<point name="平分秋色（男）" exp="100" costID="690826" jihuoID="1411" jihuoNum="100" bodyNum="876" pic="data\body14\876" strDesc="产出:待开放"/>
+				<point name="秋枫白露（男）" exp="100" costID="690828" jihuoID="1411" jihuoNum="100" bodyNum="880" pic="data\body14\880" strDesc="产出:待开放"/>
+				<point name="华月初升（男）" exp="100" costID="690830" jihuoID="1411" jihuoNum="100" bodyNum="878" pic="data\body14\878" strDesc="产出:待开放"/>
+				<point name="相思红枫（男）" exp="100" costID="690832" jihuoID="1411" jihuoNum="100" bodyNum="874" pic="data\body14\874" strDesc="产出:待开放"/>
+				<point name="碧波万顷（男）" exp="100" costID="690834" jihuoID="1411" jihuoNum="100" bodyNum="870" pic="data\body14\870" strDesc="产出:待开放"/>
+				<point name="粉樱剑心（男）" exp="100" costID="690836" jihuoID="1411" jihuoNum="100" bodyNum="868" pic="data\body14\868" strDesc="产出:待开放"/>
+				<point name="生死相许（男）" exp="100" costID="690838" jihuoID="1411" jihuoNum="100" bodyNum="866" pic="data\body14\866" strDesc="产出:待开放"/>
+				<point name="承晖采霞（男）" exp="100" costID="690840" jihuoID="1411" jihuoNum="100" bodyNum="864" pic="data\body14\864" strDesc="产出:待开放"/>
+				<point name="朔望念（男）" exp="100" costID="690842" jihuoID="1411" jihuoNum="100" bodyNum="862" pic="data\body14\862" strDesc="产出:待开放"/>
+				<point name="告白宣言（男）" exp="100" costID="690844" jihuoID="1411" jihuoNum="100" bodyNum="861" pic="data\body14\861" strDesc="产出:待开放"/>
+				<point name="惊才风逸（男）" exp="100" costID="690846" jihuoID="1411" jihuoNum="100" bodyNum="858" pic="data\body14\858" strDesc="产出:待开放"/>
+				<point name="2022嘉年华现场（男）" exp="100" costID="690848" jihuoID="1411" jihuoNum="100" bodyNum="848" pic="data\body14\848" strDesc="产出:待开放"/>
+				<point name="2022嘉年华（男）" exp="100" costID="690850" jihuoID="1411" jihuoNum="100" bodyNum="857" pic="data\body14\857" strDesc="产出:待开放"/>
+				<point name="侠动风云-蓝（男）" exp="100" costID="690852" jihuoID="1411" jihuoNum="100" bodyNum="852" pic="data\body14\852" strDesc="产出:待开放"/>
+				<point name="侠动风云-橙（男）" exp="100" costID="690854" jihuoID="1411" jihuoNum="100" bodyNum="854" pic="data\body14\854" strDesc="产出:待开放"/>
+				<point name="比翼连理（男）" exp="100" costID="690856" jihuoID="1411" jihuoNum="100" bodyNum="850" pic="data\body14\850" strDesc="产出:待开放"/>
+				<point name="出水芙蓉（男）" exp="100" costID="690858" jihuoID="1411" jihuoNum="100" bodyNum="846" pic="data\body14\846" strDesc="产出:待开放"/>
+				<point name="逐风如炬（男）" exp="100" costID="690860" jihuoID="1411" jihuoNum="100" bodyNum="844" pic="data\body14\844" strDesc="产出:待开放"/>
+				<point name="虎跃龙骧（男）" exp="100" costID="690862" jihuoID="1411" jihuoNum="100" bodyNum="842" pic="data\body14\842" strDesc="产出:待开放"/>
+				<point name="夏日清凉（男）" exp="100" costID="690864" jihuoID="1411" jihuoNum="100" bodyNum="840" pic="data\body14\840" strDesc="产出:待开放"/>
+				<point name="陌上花开（男）" exp="100" costID="690866" jihuoID="1411" jihuoNum="100" bodyNum="838" pic="data\body14\838" strDesc="产出:待开放"/>
+				<point name="荣耀之巅（男）" exp="100" costID="690868" jihuoID="1411" jihuoNum="100" bodyNum="834" pic="data\body14\834" strDesc="产出:待开放"/>
+				<point name="青梅竹马（男）" exp="100" costID="690870" jihuoID="1411" jihuoNum="100" bodyNum="837" pic="data\body14\837" strDesc="产出:待开放"/>
+				<point name="逐雨新荷（男）" exp="100" costID="690872" jihuoID="1411" jihuoNum="100" bodyNum="833" pic="data\body14\833" strDesc="产出:待开放"/>
+				<point name="烛影摇红（男）" exp="100" costID="690874" jihuoID="1411" jihuoNum="100" bodyNum="830" pic="data\body14\830" strDesc="产出:待开放"/>
+				<point name="萌萌动物（男）" exp="100" costID="690876" jihuoID="1411" jihuoNum="100" bodyNum="826" pic="data\body14\826" strDesc="产出:待开放"/>
+				<point name="追云逐日（男）" exp="100" costID="690878" jihuoID="1411" jihuoNum="100" bodyNum="828" pic="data\body14\828" strDesc="产出:待开放"/>
+				<point name="玉绣重茵（男）" exp="100" costID="690880" jihuoID="1411" jihuoNum="100" bodyNum="824" pic="data\body14\824" strDesc="产出:待开放"/>
+				<point name="鱼水同欢（男）" exp="100" costID="690882" jihuoID="1411" jihuoNum="100" bodyNum="822" pic="data\body14\822" strDesc="产出:待开放"/>
+				<point name="青玉案（男）" exp="100" costID="690884" jihuoID="1411" jihuoNum="100" bodyNum="820" pic="data\body14\820" strDesc="产出:待开放"/>
+				<point name="等闲春光（男）" exp="100" costID="690886" jihuoID="1411" jihuoNum="100" bodyNum="819" pic="data\body14\819" strDesc="产出:待开放"/>
+				<point name="醉春风（男）" exp="100" costID="690888" jihuoID="1411" jihuoNum="100" bodyNum="816" pic="data\body14\816" strDesc="产出:待开放"/>
+				<point name="阴阳师职业（男）" exp="100" costID="690890" jihuoID="1411" jihuoNum="100" bodyNum="814" pic="data\body14\814" strDesc="产出:待开放"/>
+				<point name="奥法职业（男）" exp="100" costID="690892" jihuoID="1411" jihuoNum="100" bodyNum="800" pic="data\body14\800" strDesc="产出:待开放"/>
+				<point name="神羿职业（男）" exp="100" costID="690894" jihuoID="1411" jihuoNum="100" bodyNum="806" pic="data\body14\806" strDesc="产出:待开放"/>
+				<point name="仙魔职业（男）" exp="100" costID="690896" jihuoID="1411" jihuoNum="100" bodyNum="812" pic="data\body14\812" strDesc="产出:待开放"/>
+				<point name="武圣职业（男）" exp="100" costID="690898" jihuoID="1411" jihuoNum="100" bodyNum="810" pic="data\body14\810" strDesc="产出:待开放"/>
+				<point name="枪职业（男）" exp="100" costID="690900" jihuoID="1411" jihuoNum="100" bodyNum="804" pic="data\body14\804" strDesc="产出:待开放"/>
+				<point name="禁卫职业（男）" exp="100" costID="690902" jihuoID="1411" jihuoNum="100" bodyNum="802" pic="data\body14\802" strDesc="产出:待开放"/>
+				<point name="随风职业（男）" exp="100" costID="690904" jihuoID="1411" jihuoNum="100" bodyNum="808" pic="data\body14\808" strDesc="产出:待开放"/>
+				<point name="西江月（男）" exp="100" costID="690906" jihuoID="1411" jihuoNum="100" bodyNum="798" pic="data\body14\798" strDesc="产出:待开放"/>
+				<point name="惊鸿游龙（男）" exp="100" costID="690908" jihuoID="1411" jihuoNum="100" bodyNum="797" pic="data\body13\797" strDesc="产出:待开放"/>
+				<point name="至死不渝（男）" exp="100" costID="690910" jihuoID="1411" jihuoNum="100" bodyNum="794" pic="data\body13\794" strDesc="产出:待开放"/>
+				<point name="荣耀凯旋（男）" exp="100" costID="690912" jihuoID="1411" jihuoNum="100" bodyNum="792" pic="data\body13\792" strDesc="产出:待开放"/>
+				<point name="逐风捉影（男）" exp="100" costID="690914" jihuoID="1411" jihuoNum="100" bodyNum="790" pic="data\body13\790" strDesc="产出:待开放"/>
+				<point name="2022王者时装-金（男）" exp="100" costID="690916" jihuoID="1411" jihuoNum="100" bodyNum="786" pic="data\body13\786" strDesc="产出:待开放"/>
+				<point name="2022王者时装-银（男）" exp="100" costID="690918" jihuoID="1411" jihuoNum="100" bodyNum="787" pic="data\body13\787" strDesc="产出:待开放"/>
+				<point name="山盟海誓（男）" exp="100" costID="690920" jihuoID="1411" jihuoNum="100" bodyNum="784" pic="data\body13\784" strDesc="产出:待开放"/>
+				<point name="锦绣华年（男）" exp="100" costID="690922" jihuoID="1411" jihuoNum="100" bodyNum="783" pic="data\body13\783" strDesc="产出:待开放"/>
+				<point name="花好月圆（男）" exp="100" costID="690924" jihuoID="1411" jihuoNum="100" bodyNum="780" pic="data\body13\780" strDesc="产出:待开放"/>
+				<point name="虎啸风生（男）" exp="100" costID="690926" jihuoID="1411" jihuoNum="100" bodyNum="778" pic="data\body13\778" strDesc="产出:待开放"/>
+				<point name="欢乐圣诞（男）" exp="100" costID="690928" jihuoID="1411" jihuoNum="100" bodyNum="776" pic="data\body13\776" strDesc="产出:待开放"/>
+				<point name="圣夜礼赞（男）" exp="100" costID="690930" jihuoID="1411" jihuoNum="100" bodyNum="774" pic="data\body13\774" strDesc="产出:待开放"/>
+				<point name="荣耀紫薇（男）" exp="100" costID="690932" jihuoID="1411" jihuoNum="100" bodyNum="772" pic="data\body13\772" strDesc="产出:待开放"/>
+				<point name="侠语轻岚（男）" exp="100" costID="690934" jihuoID="1411" jihuoNum="100" bodyNum="771" pic="data\body13\771" strDesc="产出:待开放"/>
+				<point name="梅语忌廉（男）" exp="100" costID="690936" jihuoID="1411" jihuoNum="100" bodyNum="769" pic="data\body13\769" strDesc="产出:待开放"/>
+				<point name="一帘幽梦（男）" exp="100" costID="690938" jihuoID="1411" jihuoNum="100" bodyNum="766" pic="data\body13\766" strDesc="产出:待开放"/>
+				<point name="醉江雨（男）" exp="100" costID="690940" jihuoID="1411" jihuoNum="100" bodyNum="763" pic="data\body13\763" strDesc="产出:待开放"/>
+				<point name="月满西楼（男）" exp="100" costID="690942" jihuoID="1411" jihuoNum="100" bodyNum="761" pic="data\body13\761" strDesc="产出:待开放"/>
+				<point name="逐风破晓（男）" exp="100" costID="690944" jihuoID="1411" jihuoNum="100" bodyNum="759" pic="data\body13\759" strDesc="产出:待开放"/>
+				<point name="十六周年庆（男）" exp="100" costID="690946" jihuoID="1411" jihuoNum="100" bodyNum="757" pic="data\body13\757" strDesc="产出:待开放"/>
+				<point name="清秋染苍（男）" exp="100" costID="690948" jihuoID="1411" jihuoNum="100" bodyNum="755" pic="data\body13\755" strDesc="产出:待开放"/>
+				<point name="锦城花满（男）" exp="100" costID="690950" jihuoID="1411" jihuoNum="100" bodyNum="753" pic="data\body13\753" strDesc="产出:待开放"/>
+				<point name="落星织梦（男）" exp="100" costID="690952" jihuoID="1411" jihuoNum="100" bodyNum="751" pic="data\body13\751" strDesc="产出:待开放"/>
+				<point name="荣耀云影（男）" exp="100" costID="690954" jihuoID="1411" jihuoNum="100" bodyNum="749" pic="data\body13\749" strDesc="产出:待开放"/>
+				<point name="广寒清梦（男）" exp="100" costID="690956" jihuoID="1411" jihuoNum="100" bodyNum="746" pic="data\body13\746" strDesc="产出:待开放"/>
+				<point name="月照玉楼（男）" exp="100" costID="690958" jihuoID="1411" jihuoNum="100" bodyNum="744" pic="data\body13\744" strDesc="产出:待开放"/>
+				<point name="白璧无瑕（男）" exp="100" costID="690960" jihuoID="1411" jihuoNum="100" bodyNum="742" pic="data\body13\742" strDesc="产出:待开放"/>
+				<point name="飞絮落花（男）" exp="100" costID="690962" jihuoID="1411" jihuoNum="100" bodyNum="740" pic="data\body13\740" strDesc="产出:待开放"/>
+				<point name="纤云弄巧（男）" exp="100" costID="690964" jihuoID="1411" jihuoNum="100" bodyNum="734" pic="data\body13\734" strDesc="产出:待开放"/>
+				<point name="飞星银汉（男）" exp="100" costID="690966" jihuoID="1411" jihuoNum="100" bodyNum="736" pic="data\body13\736" strDesc="产出:待开放"/>
+				<point name="脚却人间（男）" exp="100" costID="690968" jihuoID="1411" jihuoNum="100" bodyNum="738" pic="data\body13\738" strDesc="产出:待开放"/>
+				<point name="凛风雄心-狮子（男）" exp="100" costID="690970" jihuoID="1411" jihuoNum="100" bodyNum="732" pic="data\body13\732" strDesc="产出:待开放"/>
+				<point name="荣耀辉光（男）" exp="100" costID="690972" jihuoID="1411" jihuoNum="100" bodyNum="730" pic="data\body13\730" strDesc="产出:待开放"/>
+				<point name="佳人烟雨（男）" exp="100" costID="690974" jihuoID="1411" jihuoNum="100" bodyNum="729" pic="data\body13\729" strDesc="产出:待开放"/>
+				<point name="似水柔情-巨蟹（男）" exp="100" costID="690976" jihuoID="1411" jihuoNum="100" bodyNum="726" pic="data\body13\726" strDesc="产出:待开放"/>
+				<point name="烟花巷陌（男）" exp="100" costID="690978" jihuoID="1411" jihuoNum="100" bodyNum="725" pic="data\body13\725" strDesc="产出:待开放"/>
+				<point name="嘉年华邀请函专属（男）" exp="100" costID="690980" jihuoID="1411" jihuoNum="100" bodyNum="721" pic="data\body13\721" strDesc="产出:待开放"/>
+				<point name="黄金大师赛（男）" exp="100" costID="690982" jihuoID="1411" jihuoNum="100" bodyNum="723" pic="data\body13\723" strDesc="产出:待开放"/>
+				<point name="墨意假面-双子（男）" exp="100" costID="690984" jihuoID="1411" jihuoNum="100" bodyNum="718" pic="data\body13\718" strDesc="产出:待开放"/>
+				<point name="2021嘉年华现场（男）" exp="100" costID="690986" jihuoID="1411" jihuoNum="100" bodyNum="716" pic="data\body13\716" strDesc="产出:待开放"/>
+				<point name="乱分春色（男）" exp="100" costID="690988" jihuoID="1411" jihuoNum="100" bodyNum="715" pic="data\body13\715" strDesc="产出:待开放"/>
+				<point name="沽酒拨雪-金牛（男）" exp="100" costID="690990" jihuoID="1411" jihuoNum="100" bodyNum="710" pic="data\body13\710" strDesc="产出:待开放"/>
+				<point name="雅欢幽会（男）" exp="100" costID="690992" jihuoID="1411" jihuoNum="100" bodyNum="709" pic="data\body13\709" strDesc="产出:待开放"/>
+				<point name="踏雪孤鸿-白羊（男）" exp="100" costID="690994" jihuoID="1411" jihuoNum="100" bodyNum="707" pic="data\body13\707" strDesc="产出:待开放"/>
+				<point name="荣耀天狼（男）" exp="100" costID="690996" jihuoID="1411" jihuoNum="100" bodyNum="705" pic="data\body13\705" strDesc="产出:待开放"/>
+				<point name="春暖花开（男）" exp="100" costID="690998" jihuoID="1411" jihuoNum="100" bodyNum="702" pic="data\body13\702" strDesc="产出:待开放"/>
+				<point name="诗书芳华（男）" exp="100" costID="691000" jihuoID="1411" jihuoNum="100" bodyNum="712" pic="data\body13\712" strDesc="产出:待开放"/>
+				<point name="花前月下（男）" exp="100" costID="691002" jihuoID="1411" jihuoNum="100" bodyNum="701" pic="data\body13\701" strDesc="产出:待开放"/>
+				<point name="寒漠风情-双鱼（男）" exp="100" costID="691004" jihuoID="1411" jihuoNum="100" bodyNum="669" pic="data\body13\669" strDesc="产出:待开放"/>
+				<point name="终成眷属（男）" exp="100" costID="691006" jihuoID="1411" jihuoNum="100" bodyNum="666" pic="data\body13\666" strDesc="产出:待开放"/>
+				<point name="莺歌（男）" exp="100" costID="691008" jihuoID="1411" jihuoNum="100" bodyNum="664" pic="data\body13\664" strDesc="产出:待开放"/>
+				<point name="龙凤呈祥（男）" exp="100" costID="691010" jihuoID="1411" jihuoNum="100" bodyNum="663" pic="data\body13\663" strDesc="产出:待开放"/>
+				<point name="2020王者-金（男）" exp="100" costID="691012" jihuoID="1411" jihuoNum="100" bodyNum="660" pic="data\body13\660" strDesc="产出:待开放"/>
+				<point name="2020王者-银（男）" exp="100" costID="691014" jihuoID="1411" jihuoNum="100" bodyNum="661" pic="data\body13\661" strDesc="产出:待开放"/>
+				<point name="幻梦一瞬-水瓶（男）" exp="100" costID="691016" jihuoID="1411" jihuoNum="100" bodyNum="656" pic="data\body13\656" strDesc="产出:待开放"/>
+				<point name="朱门映柳（男）" exp="100" costID="691018" jihuoID="1411" jihuoNum="100" bodyNum="655" pic="data\body13\655" strDesc="产出:待开放"/>
+				<point name="幽冥影风（男）" exp="100" costID="691020" jihuoID="1411" jihuoNum="100" bodyNum="652" pic="data\body13\652" strDesc="产出:待开放"/>
+				<point name="气冲牛斗（男）" exp="100" costID="691022" jihuoID="1411" jihuoNum="100" bodyNum="650" pic="data\body13\650" strDesc="产出:待开放"/>
+				<point name="荣耀暗金（男）" exp="100" costID="691024" jihuoID="1411" jihuoNum="100" bodyNum="648" pic="data\body13\648" strDesc="产出:待开放"/>
+				<point name="美美时装（男）" exp="100" costID="691026" jihuoID="1411" jihuoNum="100" bodyNum="646" pic="data\body13\646" strDesc="产出:待开放"/>
+				<point name="耐寒时装（男）" exp="100" costID="691028" jihuoID="1411" jihuoNum="100" bodyNum="645" pic="data\body13\645" strDesc="产出:待开放"/>
+				<point name="碧彩荧霞-射手（男）" exp="100" costID="691030" jihuoID="1411" jihuoNum="100" bodyNum="643" pic="data\body13\643" strDesc="产出:待开放"/>
 			</pointMap>
 		</meridian>
-		<meridian index="2"><!-- 女魔盒配置 -->
+		<meridian index="2"><!-- female shizhuang -->
 			<pointMap>
-				<!--  level:等级[配合层级] exp:当前等级1头衔令所加经验 costID:扣除道具 salary:单次扣工资(文) pDam:物攻 mDam:魔攻 pDef:物防 mDef:魔防 hp:血量 -->
-				<point name="西江月时装(女)" exp="100" costID="210000" jihuoID="1411" jihuoNum="100" bodyNum="799"/>	
-				<point name="奥法职业时装(女)" exp="100" costID="210001" jihuoID="1411" jihuoNum="100" bodyNum="801"/>
-				<point name="禁卫职业时装(女)" exp="100" costID="210002" jihuoID="1411" jihuoNum="100" bodyNum="803"/>
-				<point name="枪职业时装(女)" exp="100" costID="210003" jihuoID="1411" jihuoNum="100" bodyNum="805"/>
-				<point name="神羿职业时装(女)" exp="100" costID="210004" jihuoID="1411" jihuoNum="100" bodyNum="807"/>
-				<point name="随风职业时装(女)" exp="100" costID="210005" jihuoID="1411" jihuoNum="100" bodyNum="809"/>
-				<point name="武圣职业时装(女)" exp="100" costID="210006" jihuoID="1411" jihuoNum="100" bodyNum="811"/>
-				<point name="仙魔职业时装(女)" exp="100" costID="210007" jihuoID="1411" jihuoNum="100" bodyNum="813"/>
-				<point name="阴阳师职业时装(女)" exp="100" costID="210008" jihuoID="1411" jihuoNum="100" bodyNum="815"/>
-				<point name="醉春风(女)" exp="100" costID="210009" jihuoID="1411" jihuoNum="100" bodyNum="817"/>
-				<point name="等闲春光时装(女)" exp="100" costID="210010" jihuoID="1411" jihuoNum="100" bodyNum="818"/>
-				<point name="青玉案(女)" exp="100" costID="210011" jihuoID="1411" jihuoNum="100" bodyNum="821"/>
-				<point name="鱼水同欢时装(女)" exp="100" costID="210012" jihuoID="1411" jihuoNum="100" bodyNum="823"/>
-				<point name="玉绣重茵(女)" exp="100" costID="210013" jihuoID="1411" jihuoNum="100" bodyNum="824"/>
-				<point name="萌萌动物时装(女)" exp="100" costID="210014" jihuoID="1411" jihuoNum="100" bodyNum="827"/>
-				<point name="追云逐日(女)" exp="100" costID="210015" jihuoID="1411" jihuoNum="100" bodyNum="829"/>
-				<point name="炒影摇红时装(女)" exp="100" costID="210016" jihuoID="1411" jihuoNum="100" bodyNum="831"/>
-				<point name="骤甫新荷(女)" exp="100" costID="210017" jihuoID="1411" jihuoNum="100" bodyNum="832"/>
-				<point name="荣耀之巅时装(女)" exp="100" costID="210018" jihuoID="1411" jihuoNum="100" bodyNum="835"/>
-				<point name="青梅竹马(女)" exp="100" costID="210019" jihuoID="1411" jihuoNum="100" bodyNum="836"/>
-				<point name="陌上花开时装(女)" exp="100" costID="210020" jihuoID="1411" jihuoNum="100" bodyNum="839"/>
-				<point name="夏日清凉时装(女)" exp="100" costID="210021" jihuoID="1411" jihuoNum="100" bodyNum="841"/>
-				<point name="虎跃龙骧时装(女)" exp="100" costID="210022" jihuoID="1411" jihuoNum="100" bodyNum="843"/>
-				<point name="逐风如炬(女)" exp="100" costID="210023" jihuoID="1411" jihuoNum="100" bodyNum="845"/>
-				<point name="水佩风裳(女)" exp="100" costID="210024" jihuoID="1411" jihuoNum="100" bodyNum="847"/>
-				<point name="2022嘉年华现场时装(女)" exp="100" costID="210025" jihuoID="1411" jihuoNum="100" bodyNum="849"/>
-				<point name="比翼连理时装(女)" exp="100" costID="210026" jihuoID="1411" jihuoNum="100" bodyNum="851"/>
-				<point name="侠动风云时装女(蓝色)" exp="100" costID="210027" jihuoID="1411" jihuoNum="100" bodyNum="853"/>
-				<point name="侠动风云时装女(橙色)" exp="100" costID="210028" jihuoID="1411" jihuoNum="100" bodyNum="855"/>
-				<point name="2022嘉年华时装(女)" exp="100" costID="210029" jihuoID="1411" jihuoNum="100" bodyNum="856"/>
-				<point name="风神俊彦(女)" exp="100" costID="210030" jihuoID="1411" jihuoNum="100" bodyNum="859"/>
-				<point name="告白宣言时装(女)" exp="100" costID="210031" jihuoID="1411" jihuoNum="100" bodyNum="860"/>
-				<point name="朔望念时装(女)" exp="100" costID="210032" jihuoID="1411" jihuoNum="100" bodyNum="863"/>
-				<point name="承晖采霞((女)" exp="100" costID="210033" jihuoID="1411" jihuoNum="100" bodyNum="865"/>
-				<point name="生死相许时装(女)" exp="100" costID="210034" jihuoID="1411" jihuoNum="100" bodyNum="867"/>
-				<point name="粉樱剑心时装(女)" exp="100" costID="210035" jihuoID="1411" jihuoNum="100" bodyNum="869"/>
-				<point name="碧波万顷时装(女)" exp="100" costID="210036" jihuoID="1411" jihuoNum="100" bodyNum="871"/>
-				<point name="荣耀金穗(女)" exp="100" costID="210037" jihuoID="1411" jihuoNum="100" bodyNum="873"/>
-				<point name="相思红枫时装(女)" exp="100" costID="210038" jihuoID="1411" jihuoNum="100" bodyNum="875"/>
-				<point name="平分秋色(女)" exp="100" costID="210039" jihuoID="1411" jihuoNum="100" bodyNum="877"/>
-				<point name="华月初升(女)" exp="100" costID="210040" jihuoID="1411" jihuoNum="100" bodyNum="879"/>
-				<point name="秋枫白露时装(女)" exp="100" costID="210041" jihuoID="1411" jihuoNum="100" bodyNum="881"/>
-				<point name="华清引(女)" exp="100" costID="210042" jihuoID="1411" jihuoNum="100" bodyNum="883"/>
-				<point name="森暖萤火时装(女)" exp="100" costID="210043" jihuoID="1411" jihuoNum="100" bodyNum="885"/>
-				<point name="书写爱意时装(女)" exp="100" costID="210044" jihuoID="1411" jihuoNum="100" bodyNum="887"/>
-				<point name="一念芳华时装(女)" exp="100" costID="210045" jihuoID="1411" jihuoNum="100" bodyNum="889"/>
-				<point name="和颜悦色(女)" exp="100" costID="210046" jihuoID="1411" jihuoNum="100" bodyNum="891"/>
-				<point name="十七周年庆时装(女)" exp="100" costID="210047" jihuoID="1411" jihuoNum="100" bodyNum="893"/>
-				<point name="盘古职业时装((女)" exp="100" costID="210048" jihuoID="1411" jihuoNum="100" bodyNum="895"/>
-				<point name="元气庆典(女)" exp="100" costID="210049" jihuoID="1411" jihuoNum="100" bodyNum="897"/>
-				<point name="沧海桑田时装(女)" exp="100" costID="210050" jihuoID="1411" jihuoNum="100" bodyNum="899"/>
-				<point name="惜秋华((女)" exp="100" costID="210051" jihuoID="1411" jihuoNum="100" bodyNum="901"/>
-				<point name="凌霜傲雪(女)" exp="100" costID="210052" jihuoID="1411" jihuoNum="100" bodyNum="903"/>
-				<point name="童心未泯时装(女)" exp="100" costID="210053" jihuoID="1411" jihuoNum="100" bodyNum="905"/>
-				<point name="乘风破浪(女)" exp="100" costID="210054" jihuoID="1411" jihuoNum="100" bodyNum="907"/>
-				<point name="唯心情深时装(女)" exp="100" costID="210055" jihuoID="1411" jihuoNum="100" bodyNum="909"/>
-				<point name="桃李不言时装(女)" exp="100" costID="210056" jihuoID="1411" jihuoNum="100" bodyNum="911"/>
-				<point name="荣耀流华时装((女)" exp="100" costID="210057" jihuoID="1411" jihuoNum="100" bodyNum="913"/>
-				<point name="青衫磊落(女)" exp="100" costID="210058" jihuoID="1411" jihuoNum="100" bodyNum="915"/>
-				<point name="虎年圣诞(女)" exp="100" costID="210059" jihuoID="1411" jihuoNum="100" bodyNum="917"/>
-				<point name="一点寒梅(女)" exp="100" costID="210060" jihuoID="1411" jihuoNum="100" bodyNum="919"/>
-				<point name="日始卯时(女)" exp="100" costID="210061" jihuoID="1411" jihuoNum="100" bodyNum="921"/>
-				<point name="凤归时装(女)" exp="100" costID="210062" jihuoID="1411" jihuoNum="100" bodyNum="923"/>
-				<point name="兔来运转时装(女)" exp="100" costID="210063" jihuoID="1411" jihuoNum="100" bodyNum="925"/>
-				<point name="等闲冬日时装(女)" exp="100" costID="210064" jihuoID="1411" jihuoNum="100" bodyNum="927"/>
-				<point name="风雪豪侠(女)" exp="100" costID="210065" jihuoID="1411" jihuoNum="100" bodyNum="929"/>
-				<point name="霜玉轻表(女)" exp="100" costID="210066" jihuoID="1411" jihuoNum="100" bodyNum="931"/>
-				<point name="魂牵梦萦(女)" exp="100" costID="210067" jihuoID="1411" jihuoNum="100" bodyNum="933"/>
-				<point name="烟柳轻尘(女)" exp="100" costID="210068" jihuoID="1411" jihuoNum="100" bodyNum="935"/>
-				<point name="逐风神印(女)" exp="100" costID="210069" jihuoID="1411" jihuoNum="100" bodyNum="937"/>
-				<point name="千金一诺(女)" exp="100" costID="210070" jihuoID="1411" jihuoNum="100" bodyNum="939"/>
-				<point name="星春月和时装(女)" exp="100" costID="210071" jihuoID="1411" jihuoNum="100" bodyNum="941"/>
-				<point name="密林游侠(女)" exp="100" costID="210072" jihuoID="1411" jihuoNum="100" bodyNum="943"/>
-				<point name="2022王者时装-金(女)" exp="100" costID="210073" jihuoID="1411" jihuoNum="100" bodyNum="946"/>
-				<point name="2022王者时装-银(女)" exp="100" costID="210074" jihuoID="1411" jihuoNum="100" bodyNum="947"/>
-				<point name="三月暖春时装(女)" exp="100" costID="210075" jihuoID="1411" jihuoNum="100" bodyNum="949"/>
-				<point name="幸福同行(女)" exp="100" costID="210076" jihuoID="1411" jihuoNum="100" bodyNum="951"/>
-				<point name="一缕青丝时装(女)" exp="100" costID="210077" jihuoID="1411" jihuoNum="100" bodyNum="953"/>
-				<point name="荣耀锦华时装(女)" exp="100" costID="210078" jihuoID="1411" jihuoNum="100" bodyNum="955"/>
-				<point name="落花独立(女)" exp="100" costID="210079" jihuoID="1411" jihuoNum="100" bodyNum="957"/>
-				<point name="临溪绘鲤时装(女)" exp="100" costID="210080" jihuoID="1411" jihuoNum="100" bodyNum="959"/>
-				<point name="金缕衣(女)" exp="100" costID="210081" jihuoID="1411" jihuoNum="100" bodyNum="961"/>
-				<point name="有凤来仪时装(女)" exp="100" costID="210082" jihuoID="1411" jihuoNum="100" bodyNum="963"/>
-				<point name="平步青云(女)" exp="100" costID="210083" jihuoID="1411" jihuoNum="100" bodyNum="965"/>
-				<point name="小甫如酥(女)" exp="100" costID="210084" jihuoID="1411" jihuoNum="100" bodyNum="967"/>
-				<point name="海枯石烂时装(女)" exp="100" costID="210085" jihuoID="1411" jihuoNum="100" bodyNum="969"/>
-				<point name="江南烟甫(女)" exp="100" costID="210086" jihuoID="1411" jihuoNum="100" bodyNum="971"/>
-				<point name="夏梅飘香时装(女)" exp="100" costID="210087" jihuoID="1411" jihuoNum="100" bodyNum="973"/>
-				<point name="生如夏花时装(女)" exp="100" costID="210088" jihuoID="1411" jihuoNum="100" bodyNum="975"/>
-				<point name="红尘三千时装((女)" exp="100" costID="210089" jihuoID="1411" jihuoNum="100" bodyNum="977"/>
-				<point name="欢歌一夏时装(女)" exp="100" costID="210090" jihuoID="1411" jihuoNum="100" bodyNum="979"/>
-				<point name="2023嘉年华现场时装(女)" exp="100" costID="210091" jihuoID="1411" jihuoNum="100" bodyNum="981"/>
-				<point name="流波将月(女)" exp="100" costID="210092" jihuoID="1411" jihuoNum="100" bodyNum="983"/>
-				<point name="满江红(女)" exp="100" costID="210093" jihuoID="1411" jihuoNum="100" bodyNum="985"/>
-				<point name="荣耀金刹时装(女)" exp="100" costID="210094" jihuoID="1411" jihuoNum="100" bodyNum="987"/>
-				<point name="火树银花时装(女)" exp="100" costID="210095" jihuoID="1411" jihuoNum="100" bodyNum="989"/>
-				<point name="清风无言(女)" exp="100" costID="210096" jihuoID="1411" jihuoNum="100" bodyNum="991"/>
-				<point name="江燕晚簇(女)" exp="100" costID="210097" jihuoID="1411" jihuoNum="100" bodyNum="993"/>
-				<point name="许你一生时装(女)" exp="100" costID="210098" jihuoID="1411" jihuoNum="100" bodyNum="995"/>
-				<point name="流星赶月时装(女)" exp="100" costID="210099" jihuoID="1411" jihuoNum="100" bodyNum="997"/>
-				<point name="梦挽西风(女)" exp="100" costID="210100" jihuoID="1411" jihuoNum="100" bodyNum="999"/>
-				<point name="情真依旧旧时装(女)" exp="100" costID="210101" jihuoID="1411" jihuoNum="100" bodyNum="1001"/>
-				<point name="逐风侠侣(女)" exp="100" costID="210102" jihuoID="1411" jihuoNum="100" bodyNum="1003"/>
-				<point name="秋日童真时装(女)" exp="100" costID="210103" jihuoID="1411" jihuoNum="100" bodyNum="1005"/>
-				<point name="人生如戏(女)" exp="100" costID="210104" jihuoID="1411" jihuoNum="100" bodyNum="1007"/>
-				<point name="枫火时装(女)" exp="100" costID="210105" jihuoID="1411" jihuoNum="100" bodyNum="1009"/>
-				<point name="荣耀衔金时装(女)" exp="100" costID="210106" jihuoID="1411" jihuoNum="100" bodyNum="1011"/>
-				<point name="西凉时装(女)" exp="100" costID="210107" jihuoID="1411" jihuoNum="100" bodyNum="1013"/>
-				<point name="水月清辉时装(女)" exp="100" costID="210108" jihuoID="1411" jihuoNum="100" bodyNum="1015"/>
-				<point name="玉京秋时装(女)" exp="100" costID="210109" jihuoID="1411" jihuoNum="100" bodyNum="1017"/>
-				<point name="2023周年庆时装(女)" exp="100" costID="210110" jihuoID="1411" jihuoNum="100" bodyNum="1019"/>
-				<point name="才子佳人(女)" exp="100" costID="210111" jihuoID="1411" jihuoNum="100" bodyNum="1021"/>
-				<point name="鲜衣怒马时装(女)" exp="100" costID="210112" jihuoID="1411" jihuoNum="100" bodyNum="1023"/>
-				<point name="阿拉斯加(女)" exp="100" costID="210113" jihuoID="1411" jihuoNum="100" bodyNum="1025"/>
-				<point name="童话镇时装(女)" exp="100" costID="210114" jihuoID="1411" jihuoNum="100" bodyNum="1027"/>
-				<point name="霜天晓角(女)" exp="100" costID="210115" jihuoID="1411" jihuoNum="100" bodyNum="1029"/>
-				<point name="兰亭时装(女)" exp="100" costID="210116" jihuoID="1411" jihuoNum="100" bodyNum="1032"/>
-				<point name="暮云江雪(女)" exp="100" costID="210117" jihuoID="1411" jihuoNum="100" bodyNum="1034"/>
-				<point name="兔年圣诞(女)" exp="100" costID="210118" jihuoID="1411" jihuoNum="100" bodyNum="1036"/>
-				<point name="猪猪(女)" exp="100" costID="210119" jihuoID="1411" jihuoNum="100" bodyNum="1038"/>
-				<point name="人中龙凤时装(女)" exp="100" costID="210120" jihuoID="1411" jihuoNum="100" bodyNum="1040"/>
-				<point name="紫罗时装(女)" exp="100" costID="210121" jihuoID="1411" jihuoNum="100" bodyNum="1042"/>
-				<point name="潇湘夜甫时装(女)" exp="100" costID="210122" jihuoID="1411" jihuoNum="100" bodyNum="1044"/>
-				<point name="猪猪(女)" exp="100" costID="210123" jihuoID="1411" jihuoNum="100" bodyNum="1046"/>
-				<point name="暖冬时装(女)" exp="100" costID="210124" jihuoID="1411" jihuoNum="100" bodyNum="1048"/>
-				<point name="荣耀阑珊时装(女)" exp="100" costID="210125" jihuoID="1411" jihuoNum="100" bodyNum="1050"/>
-				<point name="逐风开心(女)" exp="100" costID="210126" jihuoID="1411" jihuoNum="100" bodyNum="1052"/>
-				<point name="红袖添香时装(女)" exp="100" costID="210127" jihuoID="1411" jihuoNum="100" bodyNum="1054"/>
-				<point name="旧日繁花(女)" exp="100" costID="210128" jihuoID="1411" jihuoNum="100" bodyNum="1056"/>
-				<point name="诗说青瓷时装(女)" exp="100" costID="210129" jihuoID="1411" jihuoNum="100" bodyNum="1058"/>
-				<point name="金玉满堂(女)" exp="100" costID="210130" jihuoID="1411" jihuoNum="100" bodyNum="1060"/>
-				<point name="2023王者时装-金(女)" exp="100" costID="210131" jihuoID="1411" jihuoNum="100" bodyNum="1062"/>
-				<point name="2023王者时装-银(女)" exp="100" costID="210132" jihuoID="1411" jihuoNum="100" bodyNum="1064"/>
-				<point name="碧绦时装(女)" exp="100" costID="210133" jihuoID="1411" jihuoNum="100" bodyNum="1066"/>
-				<point name="浮梦相思时装(女)" exp="100" costID="210134" jihuoID="1411" jihuoNum="100" bodyNum="1068"/>
-				<point name="逐风江湖(女)" exp="100" costID="210135" jihuoID="1411" jihuoNum="100" bodyNum="1070"/>
-				<point name="杨花似雪(女)" exp="100" costID="210136" jihuoID="1411" jihuoNum="100" bodyNum="1072"/>
-				<point name="双珠时装(女)" exp="100" costID="210137" jihuoID="1411" jihuoNum="100" bodyNum="1074"/>
-				<point name="2024中小号春天时装(女)" exp="100" costID="210138" jihuoID="1411" jihuoNum="100" bodyNum="1076"/>
-				<point name="浣溪沙(女)" exp="100" costID="210139" jihuoID="1411" jihuoNum="100" bodyNum="1078"/>
-				<point name="春暖桃花时装(女)" exp="100" costID="210140" jihuoID="1411" jihuoNum="100" bodyNum="1080"/>
-				<point name="疏影横斜(女)" exp="100" costID="210141" jihuoID="1411" jihuoNum="100" bodyNum="1082"/>
-				<point name="月移花影(女)" exp="100" costID="210142" jihuoID="1411" jihuoNum="100" bodyNum="1084"/>
-				<point name="夜叉时装(女)" exp="100" costID="210143" jihuoID="1411" jihuoNum="100" bodyNum="1086"/>
-				<point name="荣耀开羽时装(女)" exp="100" costID="210144" jihuoID="1411" jihuoNum="100" bodyNum="1088"/>
-				<point name="微雨杏花(女)" exp="100" costID="210145" jihuoID="1411" jihuoNum="100" bodyNum="1090"/>
-				<point name="烟甫江南(女)" exp="100" costID="210146" jihuoID="1411" jihuoNum="100" bodyNum="1092"/>
-				<point name="金沙时装(女)" exp="100" costID="210147" jihuoID="1411" jihuoNum="100" bodyNum="1094"/>
-				<point name="逐风纪元(女)" exp="100" costID="210148" jihuoID="1411" jihuoNum="100" bodyNum="1096"/>
-				<point name="月上海棠(女)" exp="100" costID="210149" jihuoID="1411" jihuoNum="100" bodyNum="1098"/>
-				<point name="初夏软糖时装(女)" exp="100" costID="210150" jihuoID="1411" jihuoNum="100" bodyNum="1100"/>
-				<point name="竹摇清影(女)" exp="100" costID="210151" jihuoID="1411" jihuoNum="100" bodyNum="1102"/>
-				<point name="黑色狂欢时装(女)" exp="100" costID="210152" jihuoID="1411" jihuoNum="100" bodyNum="1104"/>
-				<point name="2024嘉年华时装(女)" exp="100" costID="210153" jihuoID="1411" jihuoNum="100" bodyNum="1106"/>
-				<point name="萌萌恐龙(女)" exp="100" costID="210154" jihuoID="1411" jihuoNum="100" bodyNum="1108"/>
-				<point name="2024嘉年华现场时装(女)" exp="100" costID="210155" jihuoID="1411" jihuoNum="100" bodyNum="1110"/>
-				<point name="微甫新荷(女)" exp="100" costID="210156" jihuoID="1411" jihuoNum="100" bodyNum="1112"/>
-				<point name="海月清辉时装(女)" exp="100" costID="210157" jihuoID="1411" jihuoNum="100" bodyNum="1114"/>
-				<point name="沙僧时装" exp="100" costID="210158" jihuoID="1411" jihuoNum="100" bodyNum="1115"/>
-				<point name="孙悟空时装" exp="100" costID="210159" jihuoID="1411" jihuoNum="100" bodyNum="1116"/>
-				<point name="唐僧时装" exp="100" costID="210160" jihuoID="1411" jihuoNum="100" bodyNum="1117"/>
-				<point name="猪八戒时装" exp="100" costID="210161" jihuoID="1411" jihuoNum="100" bodyNum="1118"/>
-				<point name="白龙马时装" exp="100" costID="210162" jihuoID="1411" jihuoNum="100" bodyNum="1119"/>
-				<point name="晴日暖风(女)" exp="100" costID="210163" jihuoID="1411" jihuoNum="100" bodyNum="1121"/>
-				<point name="荣耀辉煌时装(女)" exp="100" costID="210164" jihuoID="1411" jihuoNum="100" bodyNum="1123"/>
-				<point name="佳期如梦(女)" exp="100" costID="210165" jihuoID="1411" jihuoNum="100" bodyNum="1125"/>
-				<point name="万柿如意时装(女)" exp="100" costID="210166" jihuoID="1411" jihuoNum="100" bodyNum="1128"/>
-				<point name="劲节高枝时装(女)" exp="100" costID="210167" jihuoID="1411" jihuoNum="100" bodyNum="1130"/>
-				<point name="逐风展翅(女)" exp="100" costID="210168" jihuoID="1411" jihuoNum="100" bodyNum="1132"/>
-				<point name="征途x密扇联名时装(女)" exp="100" costID="210169" jihuoID="1411" jihuoNum="100" bodyNum="1134"/>
-				<point name="星辰幻梦时装(女)" exp="100" costID="210170" jihuoID="1411" jihuoNum="100" bodyNum="1136"/>
-				<point name="宿甫风荷(女)" exp="100" costID="210171" jihuoID="1411" jihuoNum="100" bodyNum="1138"/>
-				<point name="蓝澜白珑时装(女)" exp="100" costID="210172" jihuoID="1411" jihuoNum="100" bodyNum="1140"/>
-				<point name="广寒清秋(女)" exp="100" costID="210173" jihuoID="1411" jihuoNum="100" bodyNum="1142"/>
-				<point name="月映秋澜时装(女)" exp="100" costID="210174" jihuoID="1411" jihuoNum="100" bodyNum="1144"/>
-				<point name="风华正茂(女)" exp="100" costID="210175" jihuoID="1411" jihuoNum="100" bodyNum="1146"/>
-				<point name="白羽华裳时装(女)" exp="100" costID="210176" jihuoID="1411" jihuoNum="100" bodyNum="1148"/>
-				<point name="19周年庆时装(女)" exp="100" costID="210177" jihuoID="1411" jihuoNum="100" bodyNum="1150"/>
-				<point name="千幻舞曲(女)" exp="100" costID="210178" jihuoID="1411" jihuoNum="100" bodyNum="1152"/>
-				<point name="霜染江枫(女)" exp="100" costID="210179" jihuoID="1411" jihuoNum="100" bodyNum="1154"/>
-				<point name="荣耀虎孀时装(女)" exp="100" costID="210180" jihuoID="1411" jihuoNum="100" bodyNum="1156"/>
-				<point name="烟笼暗香时装(女)" exp="100" costID="210181" jihuoID="1411" jihuoNum="100" bodyNum="1158"/>
-				<point name="丹枫万叶(女)" exp="100" costID="210182" jihuoID="1411" jihuoNum="100" bodyNum="1160"/>
-				<point name="琼花初绽时装(女)" exp="100" costID="210183" jihuoID="1411" jihuoNum="100" bodyNum="1162"/>
-				<point name="落雪临风(女)" exp="100" costID="210184" jihuoID="1411" jihuoNum="100" bodyNum="1164"/>
-				<point name="红梅缀雪时装(女)" exp="100" costID="210185" jihuoID="1411" jihuoNum="100" bodyNum="1166"/>
-				<point name="逐风弥丘(女)" exp="100" costID="210186" jihuoID="1411" jihuoNum="100" bodyNum="1168"/>
-				<point name="寒光铁衣(女)" exp="100" costID="210187" jihuoID="1411" jihuoNum="100" bodyNum="1170"/>
-				<point name="空谷幽兰(女)" exp="100" costID="210188" jihuoID="1411" jihuoNum="100" bodyNum="1172"/>
-				<point name="雪绒华裳(女)" exp="100" costID="210189" jihuoID="1411" jihuoNum="100" bodyNum="1174"/>
-				<point name="蛇序呈祥时装(女)" exp="100" costID="210190" jihuoID="1411" jihuoNum="100" bodyNum="1176"/>
-				<point name="阳春白雪时装(女)" exp="100" costID="210191" jihuoID="1411" jihuoNum="100" bodyNum="1178"/>
+				<point name="吕布（女）" exp="100" costID="690466" jihuoID="1411" jihuoNum="100" bodyNum="1251" pic="data\body15\1251" strDesc="密钥宝盒"/>
+				<point name="辰光织彩（女）" exp="100" costID="690430" jihuoID="1411" jihuoNum="100" bodyNum="1289" pic="data\body15\1289" strDesc="铁匠村"/>
+				<point name="剑影（女）" exp="100" costID="690432" jihuoID="1411" jihuoNum="100" bodyNum="1287" pic="data\body15\1287" strDesc="铁匠村"/>
+				<point name="暮衣（女）" exp="100" costID="690434" jihuoID="1411" jihuoNum="100" bodyNum="1285" pic="data\body15\1285" strDesc="铁匠村"/>
+				<point name="柿柿清欢（女）" exp="100" costID="690436" jihuoID="1411" jihuoNum="100" bodyNum="1283" pic="data\body15\1283" strDesc="铁匠村"/>
+				<point name="小鸡快跑（女）" exp="100" costID="690438" jihuoID="1411" jihuoNum="100" bodyNum="1281" pic="data\body15\1281" strDesc="铁匠村"/>
+				<point name="雾织彩霏（女）" exp="100" costID="690440" jihuoID="1411" jihuoNum="100" bodyNum="1279" pic="data\body15\1279" strDesc="铁匠村"/>
+				<point name="星翠蓝蓝（女）" exp="100" costID="690442" jihuoID="1411" jihuoNum="100" bodyNum="1277" pic="data\body15\1277" strDesc="铁匠村"/>
+				<point name="云溅绚（女）" exp="100" costID="690444" jihuoID="1411" jihuoNum="100" bodyNum="1275" pic="data\body15\1275" strDesc="铁匠村"/>
+				<point name="曙翠曈曈（女）" exp="100" costID="690446" jihuoID="1411" jihuoNum="100" bodyNum="1273" pic="data\body15\1273" strDesc="铁匠村"/>
+				<point name="笋茂巡礼（女）" exp="100" costID="690448" jihuoID="1411" jihuoNum="100" bodyNum="1271" pic="data\body15\1271" strDesc="铁匠村"/>
+				<point name="雾锁重楼（女）" exp="100" costID="690450" jihuoID="1411" jihuoNum="100" bodyNum="1268" pic="data\body15\1268" strDesc="铁匠村"/>
+				<point name="莹月晷（女）" exp="100" costID="690452" jihuoID="1411" jihuoNum="100" bodyNum="1266" pic="data\body15\1266" strDesc="铁匠村"/>
+				<point name="凤凰于飞（女）" exp="100" costID="690454" jihuoID="1411" jihuoNum="100" bodyNum="1264" pic="data\body15\1264" strDesc="铁匠村"/>
+				<point name="霜鞘蝴蝶（女）" exp="100" costID="690456" jihuoID="1411" jihuoNum="100" bodyNum="1262" pic="data\body15\1262" strDesc="铁匠村"/>
+				<point name="盛渊精灵（女）" exp="100" costID="690458" jihuoID="1411" jihuoNum="100" bodyNum="1260" pic="data\body15\1260" strDesc="铁匠村"/>
+				<point name="沧海明月（女）" exp="100" costID="690460" jihuoID="1411" jihuoNum="100" bodyNum="1258" pic="data\body15\1258" strDesc="铁匠村"/>
+				<point name="霜翼玄（女）" exp="100" costID="690462" jihuoID="1411" jihuoNum="100" bodyNum="1256" pic="data\body15\1256" strDesc="铁匠村"/>
+				<point name="海月纱影（女）" exp="100" costID="690464" jihuoID="1411" jihuoNum="100" bodyNum="1254" pic="data\body15\1254" strDesc="铁匠村"/>
+				<point name="诸葛孔明（女）" exp="100" costID="690468" jihuoID="1411" jihuoNum="100" bodyNum="1249" pic="data\body15\1249" strDesc="铁匠村"/>
+				<point name="征野之心（女）" exp="100" costID="690470" jihuoID="1411" jihuoNum="100" bodyNum="1247" pic="data\body15\1247" strDesc="铁匠村"/>
+				<point name="绯蓝之梦（女）" exp="100" costID="690472" jihuoID="1411" jihuoNum="100" bodyNum="1245" pic="data\body15\1245" strDesc="铁匠村"/>
+				<point name="云锦南帝（女）" exp="100" costID="690474" jihuoID="1411" jihuoNum="100" bodyNum="1243" pic="data\body15\1243" strDesc="铁匠村"/>
+				<point name="霜刃青峰（女）" exp="100" costID="690476" jihuoID="1411" jihuoNum="100" bodyNum="1241" pic="data\body15\1241" strDesc="铁匠村"/>
+				<point name="25周年华丽场（女）" exp="100" costID="690478" jihuoID="1411" jihuoNum="100" bodyNum="1239" pic="data\body15\1239" strDesc="铁匠村"/>
+				<point name="25周年华丽装（女）" exp="100" costID="690480" jihuoID="1411" jihuoNum="100" bodyNum="1235" pic="data\body15\1235" strDesc="铁匠村"/>
+				<point name="金缕霓裳（女）" exp="100" costID="690482" jihuoID="1411" jihuoNum="100" bodyNum="1233" pic="data\body15\1233" strDesc="铁匠村"/>
+				<point name="血爪狰（女）" exp="100" costID="690484" jihuoID="1411" jihuoNum="100" bodyNum="1237" pic="data\body15\1237" strDesc="铁匠村"/>
+				<point name="鸣呐鹿鸣（女）" exp="100" costID="690486" jihuoID="1411" jihuoNum="100" bodyNum="1231" pic="data\body15\1231" strDesc="铁匠村"/>
+				<point name="荣耀夜叉（女）" exp="100" costID="690488" jihuoID="1411" jihuoNum="100" bodyNum="1212" pic="data\body15\1212" strDesc="铁匠村"/>
+				<point name="绯影魅裳（女）" exp="100" costID="690490" jihuoID="1411" jihuoNum="100" bodyNum="1229" pic="data\body15\1229" strDesc="铁匠村"/>
+				<point name="幽夜凝霜（女）" exp="100" costID="690492" jihuoID="1411" jihuoNum="100" bodyNum="1223" pic="data\body15\1223" strDesc="产出:西郊牧场"/>
+				<point name="凤鸣金辉（女）" exp="100" costID="690494" jihuoID="1411" jihuoNum="100" bodyNum="1227" pic="data\body15\1227" strDesc="产出:西郊牧场"/>
+				<point name="青丘梦瑶（女）" exp="100" costID="690496" jihuoID="1411" jihuoNum="100" bodyNum="1225" pic="data\body15\1225" strDesc="产出:西郊牧场"/>
+				<point name="魔童降世（女）" exp="100" costID="690498" jihuoID="1411" jihuoNum="100" bodyNum="1221" pic="data\body15\1221" strDesc="产出:西郊牧场"/>
+				<point name="墨影仙踪（女）" exp="100" costID="690500" jihuoID="1411" jihuoNum="100" bodyNum="1219" pic="data\body15\1219" strDesc="产出:西郊牧场"/>
+				<point name="炽羽临风（女）" exp="100" costID="690502" jihuoID="1411" jihuoNum="100" bodyNum="1214" pic="data\body15\1214" strDesc="产出:西郊牧场"/>
+				<point name="春漫晴空（女）" exp="100" costID="690504" jihuoID="1411" jihuoNum="100" bodyNum="1206" pic="data\body14\1206" strDesc="产出:西郊牧场"/>
+				<point name="清竹雅韵（女）" exp="100" costID="690506" jihuoID="1411" jihuoNum="100" bodyNum="1204" pic="data\body14\1204" strDesc="产出:西郊牧场"/>
+				<point name="霜白啸风（女）" exp="100" costID="690508" jihuoID="1411" jihuoNum="100" bodyNum="1202" pic="data\body14\1202" strDesc="产出:西郊牧场"/>
+				<point name="绯红沧澜（女）" exp="100" costID="690510" jihuoID="1411" jihuoNum="100" bodyNum="1200" pic="data\body14\1200" strDesc="产出:西郊牧场"/>
+				<point name="心动音律（女）" exp="100" costID="690512" jihuoID="1411" jihuoNum="100" bodyNum="1198" pic="data\body14\1198" strDesc="产出:西郊牧场"/>
+				<point name="霜天鹤影（女）" exp="100" costID="690514" jihuoID="1411" jihuoNum="100" bodyNum="1184" pic="data\body14\1184" strDesc="产出:西郊牧场"/>
+				<point name="荣耀芳华（女）" exp="100" costID="690516" jihuoID="1411" jihuoNum="100" bodyNum="1196" pic="data\body14\1196" strDesc="产出:西郊牧场"/>
+				<point name="霞姿月韵（女）" exp="100" costID="690518" jihuoID="1411" jihuoNum="100" bodyNum="1194" pic="data\body14\1194" strDesc="产出:西郊牧场"/>
+				<point name="绮罗香（女）" exp="100" costID="690520" jihuoID="1411" jihuoNum="100" bodyNum="1192" pic="data\body14\1192" strDesc="产出:西郊牧场"/>
+				<point name="梅雪争春（女）" exp="100" costID="690522" jihuoID="1411" jihuoNum="100" bodyNum="1190" pic="data\body14\1190" strDesc="产出:待开放"/>
+				<point name="逐风幽竹（女）" exp="100" costID="690524" jihuoID="1411" jihuoNum="100" bodyNum="1188" pic="data\body14\1188" strDesc="产出:待开放"/>
+				<point name="苏幕遮（女）" exp="100" costID="690526" jihuoID="1411" jihuoNum="100" bodyNum="1186" pic="data\body14\1186" strDesc="产出:待开放"/>
+				<point name="春映风铃（女）" exp="100" costID="690528" jihuoID="1411" jihuoNum="100" bodyNum="1182" pic="data\body14\1182" strDesc="产出:待开放"/>
+				<point name="林鹿饮溪（女）" exp="100" costID="690530" jihuoID="1411" jihuoNum="100" bodyNum="1180" pic="data\body14\1180" strDesc="产出:待开放"/>
+				<point name="阳春白雪（女）" exp="100" costID="690532" jihuoID="1411" jihuoNum="100" bodyNum="1178" pic="data\body14\1178" strDesc="产出:待开放"/>
+				<point name="春绒华裳（女）" exp="100" costID="690534" jihuoID="1411" jihuoNum="100" bodyNum="1174" pic="data\body14\1174" strDesc="产出:待开放"/>
+				<point name="蛇序呈祥（女）" exp="100" costID="690536" jihuoID="1411" jihuoNum="100" bodyNum="1176" pic="data\body14\1176" strDesc="产出:待开放"/>
+				<point name="空谷幽兰（女）" exp="100" costID="690538" jihuoID="1411" jihuoNum="100" bodyNum="1172" pic="data\body14\1172" strDesc="产出:待开放"/>
+				<point name="寒光铁衣（女）" exp="100" costID="690540" jihuoID="1411" jihuoNum="100" bodyNum="1170" pic="data\body14\1170" strDesc="产出:待开放"/>
+				<point name="逐风弥丘（女）" exp="100" costID="690542" jihuoID="1411" jihuoNum="100" bodyNum="1168" pic="data\body14\1168" strDesc="产出:待开放"/>
+				<point name="红梅缀雪（女）" exp="100" costID="690544" jihuoID="1411" jihuoNum="100" bodyNum="1166" pic="data\body14\1166" strDesc="产出:待开放"/>
+				<point name="落雪临风（女）" exp="100" costID="690546" jihuoID="1411" jihuoNum="100" bodyNum="1164" pic="data\body14\1164" strDesc="产出:待开放"/>
+				<point name="琼花初绽（女）" exp="100" costID="690548" jihuoID="1411" jihuoNum="100" bodyNum="1162" pic="data\body14\1162" strDesc="产出:待开放"/>
+				<point name="丹枫万叶（女）" exp="100" costID="690550" jihuoID="1411" jihuoNum="100" bodyNum="1160" pic="data\body14\1160" strDesc="产出:待开放"/>
+				<point name="烟笼暗香（女）" exp="100" costID="690552" jihuoID="1411" jihuoNum="100" bodyNum="1158" pic="data\body14\1158" strDesc="产出:待开放"/>
+				<point name="荣耀虎啸（女）" exp="100" costID="690554" jihuoID="1411" jihuoNum="100" bodyNum="1156" pic="data\body14\1156" strDesc="产出:待开放"/>
+				<point name="霜染江枫（女）" exp="100" costID="690556" jihuoID="1411" jihuoNum="100" bodyNum="1154" pic="data\body14\1154" strDesc="产出:待开放"/>
+				<point name="千幻舞曲（女）" exp="100" costID="690558" jihuoID="1411" jihuoNum="100" bodyNum="1152" pic="data\body14\1152" strDesc="产出:待开放"/>
+				<point name="19周年庆（女）" exp="100" costID="690560" jihuoID="1411" jihuoNum="100" bodyNum="1150" pic="data\body14\1150" strDesc="产出:待开放"/>
+				<point name="月映秋澜（女）" exp="100" costID="690562" jihuoID="1411" jihuoNum="100" bodyNum="1144" pic="data\body14\1144" strDesc="产出:待开放"/>
+				<point name="白羽华裳（女）" exp="100" costID="690564" jihuoID="1411" jihuoNum="100" bodyNum="1148" pic="data\body14\1148" strDesc="产出:待开放"/>
+				<point name="风华正茂（女）" exp="100" costID="690566" jihuoID="1411" jihuoNum="100" bodyNum="1146" pic="data\body14\1146" strDesc="产出:待开放"/>
+				<point name="广寒清秋（女）" exp="100" costID="690568" jihuoID="1411" jihuoNum="100" bodyNum="1142" pic="data\body14\1142" strDesc="产出:待开放"/>
+				<point name="蓝澜白珑（女）" exp="100" costID="690570" jihuoID="1411" jihuoNum="100" bodyNum="1140" pic="data\body14\1140" strDesc="产出:待开放"/>
+				<point name="宿雨风荷（女）" exp="100" costID="690572" jihuoID="1411" jihuoNum="100" bodyNum="1138" pic="data\body14\1138" strDesc="产出:待开放"/>
+				<point name="征途X密扇联名（女）" exp="100" costID="690574" jihuoID="1411" jihuoNum="100" bodyNum="1134" pic="data\body14\1134" strDesc="产出:待开放"/>
+				<point name="星辰幻梦（女）" exp="100" costID="690576" jihuoID="1411" jihuoNum="100" bodyNum="1136" pic="data\body14\1136" strDesc="产出:待开放"/>
+				<point name="逐风展翅（女）" exp="100" costID="690578" jihuoID="1411" jihuoNum="100" bodyNum="1132" pic="data\body14\1132" strDesc="产出:待开放"/>
+				<point name="劲节高枝（女）" exp="100" costID="690580" jihuoID="1411" jihuoNum="100" bodyNum="1130" pic="data\body14\1130" strDesc="产出:待开放"/>
+				<point name="万柿如意（女）" exp="100" costID="690582" jihuoID="1411" jihuoNum="100" bodyNum="1128" pic="data\body14\1128" strDesc="产出:待开放"/>
+				<point name="佳期如梦（女）" exp="100" costID="690584" jihuoID="1411" jihuoNum="100" bodyNum="1125" pic="data\body14\1125" strDesc="产出:待开放"/>
+				<point name="荣耀辉煌（女）" exp="100" costID="690586" jihuoID="1411" jihuoNum="100" bodyNum="1123" pic="data\body14\1123" strDesc="产出:待开放"/>
+				<point name="晴日暖风（女）" exp="100" costID="690588" jihuoID="1411" jihuoNum="100" bodyNum="1121" pic="data\body14\1121" strDesc="产出:待开放"/>
+				<point name="海月清辉（女）" exp="100" costID="690595" jihuoID="1411" jihuoNum="100" bodyNum="1114" pic="data\body14\1114" strDesc="产出:待开放"/>
+				<point name="微雨新荷（女）" exp="100" costID="690597" jihuoID="1411" jihuoNum="100" bodyNum="1112" pic="data\body14\1112" strDesc="产出:待开放"/>
+				<point name="2024嘉年华现场（女）" exp="100" costID="690599" jihuoID="1411" jihuoNum="100" bodyNum="1110" pic="data\body14\1110" strDesc="产出:待开放"/>
+				<point name="萌萌恐龙（女）" exp="100" costID="690601" jihuoID="1411" jihuoNum="100" bodyNum="1108" pic="data\body14\1108" strDesc="产出:待开放"/>
+				<point name="2024嘉年华（女）" exp="100" costID="690603" jihuoID="1411" jihuoNum="100" bodyNum="1106" pic="data\body14\1106" strDesc="产出:待开放"/>
+				<point name="黑色狂欢（女）" exp="100" costID="690605" jihuoID="1411" jihuoNum="100" bodyNum="1104" pic="data\body14\1104" strDesc="产出:待开放"/>
+				<point name="竹摇清影（女）" exp="100" costID="690607" jihuoID="1411" jihuoNum="100" bodyNum="1102" pic="data\body14\1102" strDesc="产出:待开放"/>
+				<point name="初夏软糖（女）" exp="100" costID="690609" jihuoID="1411" jihuoNum="100" bodyNum="1100" pic="data\body14\1100" strDesc="产出:待开放"/>
+				<point name="月上海棠（女）" exp="100" costID="690611" jihuoID="1411" jihuoNum="100" bodyNum="1098" pic="data\body14\1098" strDesc="产出:待开放"/>
+				<point name="逐风纪元（女）" exp="100" costID="690613" jihuoID="1411" jihuoNum="100" bodyNum="1096" pic="data\body14\1096" strDesc="产出:待开放"/>
+				<point name="金沙（女）" exp="100" costID="690615" jihuoID="1411" jihuoNum="100" bodyNum="1094" pic="data\body14\1094" strDesc="产出:待开放"/>
+				<point name="烟雨江南（女）" exp="100" costID="690617" jihuoID="1411" jihuoNum="100" bodyNum="1092" pic="data\body14\1092" strDesc="产出:待开放"/>
+				<point name="微雨杏花（女）" exp="100" costID="690619" jihuoID="1411" jihuoNum="100" bodyNum="1090" pic="data\body14\1090" strDesc="产出:待开放"/>
+				<point name="荣耀丹羽（女）" exp="100" costID="690621" jihuoID="1411" jihuoNum="100" bodyNum="1088" pic="data\body14\1088" strDesc="产出:待开放"/>
+				<point name="桔梗（女）" exp="100" costID="690623" jihuoID="1411" jihuoNum="100" bodyNum="1086" pic="data\body14\1086" strDesc="产出:待开放"/>
+				<point name="月移花影（女）" exp="100" costID="690625" jihuoID="1411" jihuoNum="100" bodyNum="1084" pic="data\body14\1084" strDesc="产出:待开放"/>
+				<point name="疏影横斜（女）" exp="100" costID="690627" jihuoID="1411" jihuoNum="100" bodyNum="1082" pic="data\body14\1082" strDesc="产出:待开放"/>
+				<point name="春暖桃花（女）" exp="100" costID="690629" jihuoID="1411" jihuoNum="100" bodyNum="1080" pic="data\body14\1080" strDesc="产出:待开放"/>
+				<point name="涴溪沙（女）" exp="100" costID="690631" jihuoID="1411" jihuoNum="100" bodyNum="1078" pic="data\body14\1078" strDesc="产出:待开放"/>
+				<point name="双珠（女）" exp="100" costID="690633" jihuoID="1411" jihuoNum="100" bodyNum="1074" pic="data\body14\1074" strDesc="产出:待开放"/>
+				<point name="2024中小号春天（女）" exp="100" costID="690635" jihuoID="1411" jihuoNum="100" bodyNum="1076" pic="data\body14\1076" strDesc="产出:待开放"/>
+				<point name="杨花似雪（女）" exp="100" costID="690637" jihuoID="1411" jihuoNum="100" bodyNum="1072" pic="data\body14\1072" strDesc="产出:待开放"/>
+				<point name="逐风江湖（女）" exp="100" costID="690639" jihuoID="1411" jihuoNum="100" bodyNum="1070" pic="data\body14\1070" strDesc="产出:待开放"/>
+				<point name="浮梦相思（女）" exp="100" costID="690641" jihuoID="1411" jihuoNum="100" bodyNum="1068" pic="data\body14\1068" strDesc="产出:待开放"/>
+				<point name="碧绦（女）" exp="100" costID="690643" jihuoID="1411" jihuoNum="100" bodyNum="1066" pic="data\body14\1066" strDesc="产出:待开放"/>
+				<point name="2023王者-银（女）" exp="100" costID="690645" jihuoID="1411" jihuoNum="100" bodyNum="1064" pic="data\body14\1064" strDesc="产出:待开放"/>
+				<point name="2023王者-金（女）" exp="100" costID="690647" jihuoID="1411" jihuoNum="100" bodyNum="1062" pic="data\body14\1062" strDesc="产出:待开放"/>
+				<point name="金玉满堂（女）" exp="100" costID="690649" jihuoID="1411" jihuoNum="100" bodyNum="1060" pic="data\body14\1060" strDesc="产出:待开放"/>
+				<point name="诗说青瓷（女）" exp="100" costID="690651" jihuoID="1411" jihuoNum="100" bodyNum="1058" pic="data\body14\1058" strDesc="产出:待开放"/>
+				<point name="旧日繁花（女）" exp="100" costID="690653" jihuoID="1411" jihuoNum="100" bodyNum="1056" pic="data\body14\1056" strDesc="产出:待开放"/>
+				<point name="红袖添香（女）" exp="100" costID="690655" jihuoID="1411" jihuoNum="100" bodyNum="1054" pic="data\body14\1054" strDesc="产出:待开放"/>
+				<point name="逐风丹心（女）" exp="100" costID="690657" jihuoID="1411" jihuoNum="100" bodyNum="1052" pic="data\body14\1052" strDesc="产出:待开放"/>
+				<point name="荣耀阑珊（女）" exp="100" costID="690659" jihuoID="1411" jihuoNum="100" bodyNum="1050" pic="data\body14\1050" strDesc="产出:待开放"/>
+				<point name="暖冬（女）" exp="100" costID="690661" jihuoID="1411" jihuoNum="100" bodyNum="1048" pic="data\body14\1048" strDesc="产出:待开放"/>
+				<point name="潇湘夜雨（女）" exp="100" costID="690663" jihuoID="1411" jihuoNum="100" bodyNum="1044" pic="data\body14\1044" strDesc="产出:待开放"/>
+				<point name="紫罗（女）" exp="100" costID="690665" jihuoID="1411" jihuoNum="100" bodyNum="1042" pic="data\body14\1042" strDesc="产出:待开放"/>
+				<point name="人中龙凤（女）" exp="100" costID="690667" jihuoID="1411" jihuoNum="100" bodyNum="1040" pic="data\body14\1040" strDesc="产出:待开放"/>
+				<point name="猪猪（女）" exp="100" costID="690669" jihuoID="1411" jihuoNum="100" bodyNum="1046" pic="data\body14\1046" strDesc="产出:待开放"/>
+				<point name="兔年圣诞（女）" exp="100" costID="690671" jihuoID="1411" jihuoNum="100" bodyNum="1036" pic="data\body14\1036" strDesc="产出:待开放"/>
+				<point name="暮云江雪（女）" exp="100" costID="690673" jihuoID="1411" jihuoNum="100" bodyNum="1034" pic="data\body14\1034" strDesc="产出:待开放"/>
+				<point name="兰亭（女）" exp="100" costID="690675" jihuoID="1411" jihuoNum="100" bodyNum="1032" pic="data\body14\1032" strDesc="产出:待开放"/>
+				<point name="霜天晓角（女）" exp="100" costID="690677" jihuoID="1411" jihuoNum="100" bodyNum="1029" pic="data\body14\1029" strDesc="产出:待开放"/>
+				<point name="童话镇（女）" exp="100" costID="690679" jihuoID="1411" jihuoNum="100" bodyNum="1027" pic="data\body14\1027" strDesc="产出:待开放"/>
+				<point name="阿拉斯加（女）" exp="100" costID="690681" jihuoID="1411" jihuoNum="100" bodyNum="1025" pic="data\body14\1025" strDesc="产出:待开放"/>
+				<point name="鲜衣怒马（女）" exp="100" costID="690683" jihuoID="1411" jihuoNum="100" bodyNum="1023" pic="data\body14\1023" strDesc="产出:待开放"/>
+				<point name="才子佳人（女）" exp="100" costID="690685" jihuoID="1411" jihuoNum="100" bodyNum="1021" pic="data\body14\1021" strDesc="产出:待开放"/>
+				<point name="2023周年庆（女）" exp="100" costID="690687" jihuoID="1411" jihuoNum="100" bodyNum="1019" pic="data\body14\1019" strDesc="产出:待开放"/>
+				<point name="玉京秋（女）" exp="100" costID="690689" jihuoID="1411" jihuoNum="100" bodyNum="1017" pic="data\body14\1017" strDesc="产出:待开放"/>
+				<point name="水月清辉（女）" exp="100" costID="690691" jihuoID="1411" jihuoNum="100" bodyNum="1015" pic="data\body14\1015" strDesc="产出:待开放"/>
+				<point name="西凉（女）" exp="100" costID="690693" jihuoID="1411" jihuoNum="100" bodyNum="1013" pic="data\body14\1013" strDesc="产出:待开放"/>
+				<point name="荣耀衔金（女）" exp="100" costID="690695" jihuoID="1411" jihuoNum="100" bodyNum="1011" pic="data\body14\1011" strDesc="产出:待开放"/>
+				<point name="秋日童真（女）" exp="100" costID="690697" jihuoID="1411" jihuoNum="100" bodyNum="1005" pic="data\body14\1005" strDesc="产出:待开放"/>
+				<point name="枫火（女）" exp="100" costID="690699" jihuoID="1411" jihuoNum="100" bodyNum="1009" pic="data\body14\1009" strDesc="产出:待开放"/>
+				<point name="人生如戏（女）" exp="100" costID="690701" jihuoID="1411" jihuoNum="100" bodyNum="1007" pic="data\body14\1007" strDesc="产出:待开放"/>
+				<point name="情真依旧（女）" exp="100" costID="690703" jihuoID="1411" jihuoNum="100" bodyNum="1001" pic="data\body14\1001" strDesc="产出:待开放"/>
+				<point name="逐风侠侣（女）" exp="100" costID="690705" jihuoID="1411" jihuoNum="100" bodyNum="1003" pic="data\body14\1003" strDesc="产出:待开放"/>
+				<point name="梦晚西风（女）" exp="100" costID="690707" jihuoID="1411" jihuoNum="100" bodyNum="999" pic="data\body14\999" strDesc="产出:待开放"/>
+				<point name="流星赶月（女）" exp="100" costID="690709" jihuoID="1411" jihuoNum="100" bodyNum="997" pic="data\body14\997" strDesc="产出:待开放"/>
+				<point name="许你一生（女）" exp="100" costID="690711" jihuoID="1411" jihuoNum="100" bodyNum="995" pic="data\body14\995" strDesc="产出:待开放"/>
+				<point name="江燕晚簇（女）" exp="100" costID="690713" jihuoID="1411" jihuoNum="100" bodyNum="993" pic="data\body14\993" strDesc="产出:待开放"/>
+				<point name="清风无言（女）" exp="100" costID="690715" jihuoID="1411" jihuoNum="100" bodyNum="991" pic="data\body14\991" strDesc="产出:待开放"/>
+				<point name="火树银华（女）" exp="100" costID="690717" jihuoID="1411" jihuoNum="100" bodyNum="989" pic="data\body14\989" strDesc="产出:待开放"/>
+				<point name="荣耀金刹（女）" exp="100" costID="690719" jihuoID="1411" jihuoNum="100" bodyNum="987" pic="data\body14\987" strDesc="产出:待开放"/>
+				<point name="流波将月（女）" exp="100" costID="690723" jihuoID="1411" jihuoNum="100" bodyNum="983" pic="data\body14\983" strDesc="产出:待开放"/>
+				<point name="2023嘉年华现场（女）" exp="100" costID="690725" jihuoID="1411" jihuoNum="100" bodyNum="981" pic="data\body14\981" strDesc="产出:待开放"/>
+				<point name="欢歌一夏（女）" exp="100" costID="690727" jihuoID="1411" jihuoNum="100" bodyNum="979" pic="data\body14\979" strDesc="产出:待开放"/>
+				<point name="红尘三千（女）" exp="100" costID="690729" jihuoID="1411" jihuoNum="100" bodyNum="977" pic="data\body14\977" strDesc="产出:待开放"/>
+				<point name="生如夏花（女）" exp="100" costID="690731" jihuoID="1411" jihuoNum="100" bodyNum="975" pic="data\body14\975" strDesc="产出:待开放"/>
+				<point name="夏梅飘香（女）" exp="100" costID="690733" jihuoID="1411" jihuoNum="100" bodyNum="973" pic="data\body14\973" strDesc="产出:待开放"/>
+				<point name="江南烟雨（女）" exp="100" costID="690735" jihuoID="1411" jihuoNum="100" bodyNum="971" pic="data\body14\971" strDesc="产出:待开放"/>
+				<point name="海枯石烂（女）" exp="100" costID="690737" jihuoID="1411" jihuoNum="100" bodyNum="969" pic="data\body14\969" strDesc="产出:待开放"/>
+				<point name="小雨如酥（女）" exp="100" costID="690739" jihuoID="1411" jihuoNum="100" bodyNum="967" pic="data\body14\967" strDesc="产出:待开放"/>
+				<point name="平步青云（女）" exp="100" costID="690741" jihuoID="1411" jihuoNum="100" bodyNum="965" pic="data\body14\965" strDesc="产出:待开放"/>
+				<point name="金缕衣（女）" exp="100" costID="690743" jihuoID="1411" jihuoNum="100" bodyNum="961" pic="data\body14\961" strDesc="产出:待开放"/>
+				<point name="有凤来仪（女）" exp="100" costID="690745" jihuoID="1411" jihuoNum="100" bodyNum="963" pic="data\body14\963" strDesc="产出:待开放"/>
+				<point name="临溪绘鲤（女）" exp="100" costID="690747" jihuoID="1411" jihuoNum="100" bodyNum="959" pic="data\body14\959" strDesc="产出:待开放"/>
+				<point name="落花独立（女）" exp="100" costID="690749" jihuoID="1411" jihuoNum="100" bodyNum="957" pic="data\body14\957" strDesc="产出:待开放"/>
+				<point name="荣耀锦华（女）" exp="100" costID="690751" jihuoID="1411" jihuoNum="100" bodyNum="955" pic="data\body14\955" strDesc="产出:待开放"/>
+				<point name="幸福同行（女）" exp="100" costID="690753" jihuoID="1411" jihuoNum="100" bodyNum="951" pic="data\body14\951" strDesc="产出:待开放"/>
+				<point name="一缕青丝（女）" exp="100" costID="690755" jihuoID="1411" jihuoNum="100" bodyNum="953" pic="data\body14\953" strDesc="产出:待开放"/>
+				<point name="2022王者时装-金（女）" exp="100" costID="690757" jihuoID="1411" jihuoNum="100" bodyNum="946" pic="data\body14\946" strDesc="产出:待开放"/>
+				<point name="2022王者时装-银（女）" exp="100" costID="690759" jihuoID="1411" jihuoNum="100" bodyNum="947" pic="data\body14\947" strDesc="产出:待开放"/>
+				<point name="三月暖春（女）" exp="100" costID="690761" jihuoID="1411" jihuoNum="100" bodyNum="949" pic="data\body14\949" strDesc="产出:待开放"/>
+				<point name="密林游侠（女）" exp="100" costID="690763" jihuoID="1411" jihuoNum="100" bodyNum="943" pic="data\body14\943" strDesc="产出:待开放"/>
+				<point name="星春月和（女）" exp="100" costID="690765" jihuoID="1411" jihuoNum="100" bodyNum="941" pic="data\body14\941" strDesc="产出:待开放"/>
+				<point name="千金一诺（女）" exp="100" costID="690767" jihuoID="1411" jihuoNum="100" bodyNum="939" pic="data\body14\939" strDesc="产出:待开放"/>
+				<point name="逐风神印（女）" exp="100" costID="690769" jihuoID="1411" jihuoNum="100" bodyNum="937" pic="data\body14\937" strDesc="产出:待开放"/>
+				<point name="烟柳轻尘（女）" exp="100" costID="690771" jihuoID="1411" jihuoNum="100" bodyNum="935" pic="data\body14\935" strDesc="产出:待开放"/>
+				<point name="魂牵梦萦（女）" exp="100" costID="690773" jihuoID="1411" jihuoNum="100" bodyNum="933" pic="data\body14\933" strDesc="产出:待开放"/>
+				<point name="霜玉轻裘（女）" exp="100" costID="690775" jihuoID="1411" jihuoNum="100" bodyNum="931" pic="data\body14\931" strDesc="产出:待开放"/>
+				<point name="风雪豪侠（女）" exp="100" costID="690777" jihuoID="1411" jihuoNum="100" bodyNum="929" pic="data\body14\929" strDesc="产出:待开放"/>
+				<point name="等闲冬日（女）" exp="100" costID="690779" jihuoID="1411" jihuoNum="100" bodyNum="927" pic="data\body14\927" strDesc="产出:待开放"/>
+				<point name="兔来运转（女）" exp="100" costID="690781" jihuoID="1411" jihuoNum="100" bodyNum="925" pic="data\body14\925" strDesc="产出:待开放"/>
+				<point name="凰栖（女）" exp="100" costID="690783" jihuoID="1411" jihuoNum="100" bodyNum="923" pic="data\body14\923" strDesc="产出:待开放"/>
+				<point name="日始卯时（女）" exp="100" costID="690785" jihuoID="1411" jihuoNum="100" bodyNum="921" pic="data\body14\921" strDesc="产出:待开放"/>
+				<point name="一点寒梅（女）" exp="100" costID="690787" jihuoID="1411" jihuoNum="100" bodyNum="919" pic="data\body14\919" strDesc="产出:待开放"/>
+				<point name="虎年圣诞（女）" exp="100" costID="690789" jihuoID="1411" jihuoNum="100" bodyNum="917" pic="data\body14\917" strDesc="产出:待开放"/>
+				<point name="青衫磊落（女）" exp="100" costID="690791" jihuoID="1411" jihuoNum="100" bodyNum="915" pic="data\body14\915" strDesc="产出:待开放"/>
+				<point name="荣耀流华（女）" exp="100" costID="690793" jihuoID="1411" jihuoNum="100" bodyNum="913" pic="data\body14\913" strDesc="产出:待开放"/>
+				<point name="桃李不言（女）" exp="100" costID="690795" jihuoID="1411" jihuoNum="100" bodyNum="911" pic="data\body14\911" strDesc="产出:待开放"/>
+				<point name="唯心情深（女）" exp="100" costID="690797" jihuoID="1411" jihuoNum="100" bodyNum="909" pic="data\body14\909" strDesc="产出:待开放"/>
+				<point name="乘风破浪（女）" exp="100" costID="690799" jihuoID="1411" jihuoNum="100" bodyNum="907" pic="data\body14\907" strDesc="产出:待开放"/>
+				<point name="童心未泯（女）" exp="100" costID="690801" jihuoID="1411" jihuoNum="100" bodyNum="905" pic="data\body14\905" strDesc="产出:待开放"/>
+				<point name="凝霜傲雪（女）" exp="100" costID="690803" jihuoID="1411" jihuoNum="100" bodyNum="903" pic="data\body14\903" strDesc="产出:待开放"/>
+				<point name="惜秋华（女）" exp="100" costID="690805" jihuoID="1411" jihuoNum="100" bodyNum="901" pic="data\body14\901" strDesc="产出:待开放"/>
+				<point name="沧海桑田（女）" exp="100" costID="690807" jihuoID="1411" jihuoNum="100" bodyNum="899" pic="data\body14\899" strDesc="产出:待开放"/>
+				<point name="元气庆典（女）" exp="100" costID="690809" jihuoID="1411" jihuoNum="100" bodyNum="897" pic="data\body14\897" strDesc="产出:待开放"/>
+				<point name="盘古职业（女）" exp="100" costID="690811" jihuoID="1411" jihuoNum="100" bodyNum="895" pic="data\body14\895" strDesc="产出:待开放"/>
+				<point name="十七周年庆（女）" exp="100" costID="690813" jihuoID="1411" jihuoNum="100" bodyNum="893" pic="data\body14\893" strDesc="产出:待开放"/>
+				<point name="和颜悦色（女）" exp="100" costID="690815" jihuoID="1411" jihuoNum="100" bodyNum="891" pic="data\body14\891" strDesc="产出:待开放"/>
+				<point name="一念芳华（女）" exp="100" costID="690817" jihuoID="1411" jihuoNum="100" bodyNum="889" pic="data\body14\889" strDesc="产出:待开放"/>
+				<point name="书写爱意（女）" exp="100" costID="690819" jihuoID="1411" jihuoNum="100" bodyNum="887" pic="data\body14\887" strDesc="产出:待开放"/>
+				<point name="森暖萤火（女）" exp="100" costID="690821" jihuoID="1411" jihuoNum="100" bodyNum="885" pic="data\body14\885" strDesc="产出:待开放"/>
+				<point name="华清引（女）" exp="100" costID="690823" jihuoID="1411" jihuoNum="100" bodyNum="883" pic="data\body14\883" strDesc="产出:待开放"/>
+				<point name="荣耀金穗（女）" exp="100" costID="690825" jihuoID="1411" jihuoNum="100" bodyNum="873" pic="data\body14\873" strDesc="产出:待开放"/>
+				<point name="平分秋色（女）" exp="100" costID="690827" jihuoID="1411" jihuoNum="100" bodyNum="877" pic="data\body14\877" strDesc="产出:待开放"/>
+				<point name="秋枫白露（女）" exp="100" costID="690829" jihuoID="1411" jihuoNum="100" bodyNum="881" pic="data\body14\881" strDesc="产出:待开放"/>
+				<point name="华月初升（女）" exp="100" costID="690831" jihuoID="1411" jihuoNum="100" bodyNum="879" pic="data\body14\879" strDesc="产出:待开放"/>
+				<point name="相思红枫（女）" exp="100" costID="690833" jihuoID="1411" jihuoNum="100" bodyNum="875" pic="data\body14\875" strDesc="产出:待开放"/>
+				<point name="碧波万顷（女）" exp="100" costID="690835" jihuoID="1411" jihuoNum="100" bodyNum="871" pic="data\body14\871" strDesc="产出:待开放"/>
+				<point name="粉樱剑心（女）" exp="100" costID="690837" jihuoID="1411" jihuoNum="100" bodyNum="869" pic="data\body14\869" strDesc="产出:待开放"/>
+				<point name="生死相许（女）" exp="100" costID="690839" jihuoID="1411" jihuoNum="100" bodyNum="867" pic="data\body14\867" strDesc="产出:待开放"/>
+				<point name="承晖采霞（女）" exp="100" costID="690841" jihuoID="1411" jihuoNum="100" bodyNum="865" pic="data\body14\865" strDesc="产出:待开放"/>
+				<point name="朔望念（女）" exp="100" costID="690843" jihuoID="1411" jihuoNum="100" bodyNum="863" pic="data\body14\863" strDesc="产出:待开放"/>
+				<point name="告白宣言（女）" exp="100" costID="690845" jihuoID="1411" jihuoNum="100" bodyNum="860" pic="data\body14\860" strDesc="产出:待开放"/>
+				<point name="闭月羞花（女）" exp="100" costID="690847" jihuoID="1411" jihuoNum="100" bodyNum="859" pic="data\body14\859" strDesc="产出:待开放"/>
+				<point name="2022嘉年华现场（女）" exp="100" costID="690849" jihuoID="1411" jihuoNum="100" bodyNum="849" pic="data\body14\849" strDesc="产出:待开放"/>
+				<point name="2022嘉年华（女）" exp="100" costID="690851" jihuoID="1411" jihuoNum="100" bodyNum="856" pic="data\body14\856" strDesc="产出:待开放"/>
+				<point name="侠动风云-蓝（女）" exp="100" costID="690853" jihuoID="1411" jihuoNum="100" bodyNum="853" pic="data\body14\853" strDesc="产出:待开放"/>
+				<point name="侠动风云-橙（女）" exp="100" costID="690855" jihuoID="1411" jihuoNum="100" bodyNum="855" pic="data\body14\855" strDesc="产出:待开放"/>
+				<point name="比翼连理（女）" exp="100" costID="690857" jihuoID="1411" jihuoNum="100" bodyNum="851" pic="data\body14\851" strDesc="产出:待开放"/>
+				<point name="出水芙蓉（女）" exp="100" costID="690859" jihuoID="1411" jihuoNum="100" bodyNum="847" pic="data\body14\847" strDesc="产出:待开放"/>
+				<point name="逐风如炬（女）" exp="100" costID="690861" jihuoID="1411" jihuoNum="100" bodyNum="845" pic="data\body14\845" strDesc="产出:待开放"/>
+				<point name="虎跃龙骧（女）" exp="100" costID="690863" jihuoID="1411" jihuoNum="100" bodyNum="843" pic="data\body14\843" strDesc="产出:待开放"/>
+				<point name="夏日清凉（女）" exp="100" costID="690865" jihuoID="1411" jihuoNum="100" bodyNum="841" pic="data\body14\841" strDesc="产出:待开放"/>
+				<point name="陌上花开（女）" exp="100" costID="690867" jihuoID="1411" jihuoNum="100" bodyNum="839" pic="data\body14\839" strDesc="产出:待开放"/>
+				<point name="荣耀之巅（女）" exp="100" costID="690869" jihuoID="1411" jihuoNum="100" bodyNum="835" pic="data\body14\835" strDesc="产出:待开放"/>
+				<point name="青梅竹马（女）" exp="100" costID="690871" jihuoID="1411" jihuoNum="100" bodyNum="836" pic="data\body14\836" strDesc="产出:待开放"/>
+				<point name="逐雨新荷（女）" exp="100" costID="690873" jihuoID="1411" jihuoNum="100" bodyNum="832" pic="data\body14\832" strDesc="产出:待开放"/>
+				<point name="烛影摇红（女）" exp="100" costID="690875" jihuoID="1411" jihuoNum="100" bodyNum="831" pic="data\body14\831" strDesc="产出:待开放"/>
+				<point name="萌萌动物（女）" exp="100" costID="690877" jihuoID="1411" jihuoNum="100" bodyNum="827" pic="data\body14\827" strDesc="产出:待开放"/>
+				<point name="追云逐日（女）" exp="100" costID="690879" jihuoID="1411" jihuoNum="100" bodyNum="829" pic="data\body14\829" strDesc="产出:待开放"/>
+				<point name="玉绣重茵（女）" exp="100" costID="690881" jihuoID="1411" jihuoNum="100" bodyNum="825" pic="data\body14\825" strDesc="产出:待开放"/>
+				<point name="鱼水同欢（女）" exp="100" costID="690883" jihuoID="1411" jihuoNum="100" bodyNum="823" pic="data\body14\823" strDesc="产出:待开放"/>
+				<point name="青玉案（女）" exp="100" costID="690885" jihuoID="1411" jihuoNum="100" bodyNum="821" pic="data\body14\821" strDesc="产出:待开放"/>
+				<point name="等闲春光（女）" exp="100" costID="690887" jihuoID="1411" jihuoNum="100" bodyNum="818" pic="data\body14\818" strDesc="产出:待开放"/>
+				<point name="醉春风（女）" exp="100" costID="690889" jihuoID="1411" jihuoNum="100" bodyNum="817" pic="data\body14\817" strDesc="产出:待开放"/>
+				<point name="阴阳师职业（女）" exp="100" costID="690891" jihuoID="1411" jihuoNum="100" bodyNum="815" pic="data\body14\815" strDesc="产出:待开放"/>
+				<point name="奥法职业（女）" exp="100" costID="690893" jihuoID="1411" jihuoNum="100" bodyNum="801" pic="data\body14\801" strDesc="产出:待开放"/>
+				<point name="神羿职业（女）" exp="100" costID="690895" jihuoID="1411" jihuoNum="100" bodyNum="807" pic="data\body14\807" strDesc="产出:待开放"/>
+				<point name="仙魔职业（女）" exp="100" costID="690897" jihuoID="1411" jihuoNum="100" bodyNum="813" pic="data\body14\813" strDesc="产出:待开放"/>
+				<point name="武圣职业（女）" exp="100" costID="690899" jihuoID="1411" jihuoNum="100" bodyNum="811" pic="data\body14\811" strDesc="产出:待开放"/>
+				<point name="枪职业（女）" exp="100" costID="690901" jihuoID="1411" jihuoNum="100" bodyNum="805" pic="data\body14\805" strDesc="产出:待开放"/>
+				<point name="禁卫职业（女）" exp="100" costID="690903" jihuoID="1411" jihuoNum="100" bodyNum="803" pic="data\body14\803" strDesc="产出:待开放"/>
+				<point name="随风职业（女）" exp="100" costID="690905" jihuoID="1411" jihuoNum="100" bodyNum="809" pic="data\body14\809" strDesc="产出:待开放"/>
+				<point name="西江月（女）" exp="100" costID="690907" jihuoID="1411" jihuoNum="100" bodyNum="799" pic="data\body14\799" strDesc="产出:待开放"/>
+				<point name="惊鸿游龙（女）" exp="100" costID="690909" jihuoID="1411" jihuoNum="100" bodyNum="796" pic="data\body13\796" strDesc="产出:待开放"/>
+				<point name="至死不渝（女）" exp="100" costID="690911" jihuoID="1411" jihuoNum="100" bodyNum="795" pic="data\body13\795" strDesc="产出:待开放"/>
+				<point name="荣耀凯旋（女）" exp="100" costID="690913" jihuoID="1411" jihuoNum="100" bodyNum="793" pic="data\body13\793" strDesc="产出:待开放"/>
+				<point name="逐风捉影（女）" exp="100" costID="690915" jihuoID="1411" jihuoNum="100" bodyNum="791" pic="data\body13\791" strDesc="产出:待开放"/>
+				<point name="2022王者时装-金（女）" exp="100" costID="690917" jihuoID="1411" jihuoNum="100" bodyNum="788" pic="data\body13\788" strDesc="产出:待开放"/>
+				<point name="2022王者时装-银（女）" exp="100" costID="690919" jihuoID="1411" jihuoNum="100" bodyNum="789" pic="data\body13\789" strDesc="产出:待开放"/>
+				<point name="山盟海誓（女）" exp="100" costID="690921" jihuoID="1411" jihuoNum="100" bodyNum="785" pic="data\body13\785" strDesc="产出:待开放"/>
+				<point name="锦绣华年（女）" exp="100" costID="690923" jihuoID="1411" jihuoNum="100" bodyNum="782" pic="data\body13\782" strDesc="产出:待开放"/>
+				<point name="花好月圆（女）" exp="100" costID="690925" jihuoID="1411" jihuoNum="100" bodyNum="781" pic="data\body13\781" strDesc="产出:待开放"/>
+				<point name="虎啸风生（女）" exp="100" costID="690927" jihuoID="1411" jihuoNum="100" bodyNum="779" pic="data\body13\779" strDesc="产出:待开放"/>
+				<point name="欢乐圣诞（女）" exp="100" costID="690929" jihuoID="1411" jihuoNum="100" bodyNum="777" pic="data\body13\777" strDesc="产出:待开放"/>
+				<point name="圣夜礼赞（女）" exp="100" costID="690931" jihuoID="1411" jihuoNum="100" bodyNum="775" pic="data\body13\775" strDesc="产出:待开放"/>
+				<point name="荣耀紫薇（女）" exp="100" costID="690933" jihuoID="1411" jihuoNum="100" bodyNum="773" pic="data\body13\773" strDesc="产出:待开放"/>
+				<point name="侠语轻岚（女）" exp="100" costID="690935" jihuoID="1411" jihuoNum="100" bodyNum="770" pic="data\body13\770" strDesc="产出:待开放"/>
+				<point name="梅语忌廉（女）" exp="100" costID="690937" jihuoID="1411" jihuoNum="100" bodyNum="768" pic="data\body13\768" strDesc="产出:待开放"/>
+				<point name="一帘幽梦（女）" exp="100" costID="690939" jihuoID="1411" jihuoNum="100" bodyNum="767" pic="data\body13\767" strDesc="产出:待开放"/>
+				<point name="醉江雨（女）" exp="100" costID="690941" jihuoID="1411" jihuoNum="100" bodyNum="762" pic="data\body13\762" strDesc="产出:待开放"/>
+				<point name="月满西楼（女）" exp="100" costID="690943" jihuoID="1411" jihuoNum="100" bodyNum="760" pic="data\body13\760" strDesc="产出:待开放"/>
+				<point name="逐风破晓（女）" exp="100" costID="690945" jihuoID="1411" jihuoNum="100" bodyNum="758" pic="data\body13\758" strDesc="产出:待开放"/>
+				<point name="十六周年庆（女）" exp="100" costID="690947" jihuoID="1411" jihuoNum="100" bodyNum="756" pic="data\body13\756" strDesc="产出:待开放"/>
+				<point name="清秋染苍（女）" exp="100" costID="690949" jihuoID="1411" jihuoNum="100" bodyNum="754" pic="data\body13\754" strDesc="产出:待开放"/>
+				<point name="锦城花满（女）" exp="100" costID="690951" jihuoID="1411" jihuoNum="100" bodyNum="752" pic="data\body13\752" strDesc="产出:待开放"/>
+				<point name="落星织梦（女）" exp="100" costID="690953" jihuoID="1411" jihuoNum="100" bodyNum="750" pic="data\body13\750" strDesc="产出:待开放"/>
+				<point name="荣耀云影（女）" exp="100" costID="690955" jihuoID="1411" jihuoNum="100" bodyNum="748" pic="data\body13\748" strDesc="产出:待开放"/>
+				<point name="广寒清梦（女）" exp="100" costID="690957" jihuoID="1411" jihuoNum="100" bodyNum="747" pic="data\body13\747" strDesc="产出:待开放"/>
+				<point name="月照玉楼（女）" exp="100" costID="690959" jihuoID="1411" jihuoNum="100" bodyNum="745" pic="data\body13\745" strDesc="产出:待开放"/>
+				<point name="白璧无瑕（女）" exp="100" costID="690961" jihuoID="1411" jihuoNum="100" bodyNum="743" pic="data\body13\743" strDesc="产出:待开放"/>
+				<point name="飞絮落花（女）" exp="100" costID="690963" jihuoID="1411" jihuoNum="100" bodyNum="741" pic="data\body13\741" strDesc="产出:待开放"/>
+				<point name="纤云弄巧（女）" exp="100" costID="690965" jihuoID="1411" jihuoNum="100" bodyNum="735" pic="data\body13\735" strDesc="产出:待开放"/>
+				<point name="飞星银汉（女）" exp="100" costID="690967" jihuoID="1411" jihuoNum="100" bodyNum="737" pic="data\body13\737" strDesc="产出:待开放"/>
+				<point name="脚却人间（女）" exp="100" costID="690969" jihuoID="1411" jihuoNum="100" bodyNum="739" pic="data\body13\739" strDesc="产出:待开放"/>
+				<point name="凛风雄心-狮子（女）" exp="100" costID="690971" jihuoID="1411" jihuoNum="100" bodyNum="733" pic="data\body13\733" strDesc="产出:待开放"/>
+				<point name="荣耀辉光（女）" exp="100" costID="690973" jihuoID="1411" jihuoNum="100" bodyNum="731" pic="data\body13\731" strDesc="产出:待开放"/>
+				<point name="佳人烟雨（女）" exp="100" costID="690975" jihuoID="1411" jihuoNum="100" bodyNum="728" pic="data\body13\728" strDesc="产出:待开放"/>
+				<point name="似水柔情-巨蟹（女）" exp="100" costID="690977" jihuoID="1411" jihuoNum="100" bodyNum="727" pic="data\body13\727" strDesc="产出:待开放"/>
+				<point name="烟花巷陌（女）" exp="100" costID="690979" jihuoID="1411" jihuoNum="100" bodyNum="724" pic="data\body13\724" strDesc="产出:待开放"/>
+				<point name="嘉年华邀请函专属（女）" exp="100" costID="690981" jihuoID="1411" jihuoNum="100" bodyNum="720" pic="data\body13\720" strDesc="产出:待开放"/>
+				<point name="黄金大师赛（女）" exp="100" costID="690983" jihuoID="1411" jihuoNum="100" bodyNum="722" pic="data\body13\722" strDesc="产出:待开放"/>
+				<point name="墨意假面-双子（女）" exp="100" costID="690985" jihuoID="1411" jihuoNum="100" bodyNum="719" pic="data\body13\719" strDesc="产出:待开放"/>
+				<point name="2021嘉年华现场（女）" exp="100" costID="690987" jihuoID="1411" jihuoNum="100" bodyNum="717" pic="data\body13\717" strDesc="产出:待开放"/>
+				<point name="乱分春色（女）" exp="100" costID="690989" jihuoID="1411" jihuoNum="100" bodyNum="714" pic="data\body13\714" strDesc="产出:待开放"/>
+				<point name="沽酒拨雪-金牛（女）" exp="100" costID="690991" jihuoID="1411" jihuoNum="100" bodyNum="711" pic="data\body13\711" strDesc="产出:待开放"/>
+				<point name="雅欢幽会（女）" exp="100" costID="690993" jihuoID="1411" jihuoNum="100" bodyNum="708" pic="data\body13\708" strDesc="产出:待开放"/>
+				<point name="踏雪孤鸿-白羊（女）" exp="100" costID="690995" jihuoID="1411" jihuoNum="100" bodyNum="706" pic="data\body13\706" strDesc="产出:待开放"/>
+				<point name="荣耀天狼（女）" exp="100" costID="690997" jihuoID="1411" jihuoNum="100" bodyNum="704" pic="data\body13\704" strDesc="产出:待开放"/>
+				<point name="春暖花开（女）" exp="100" costID="690999" jihuoID="1411" jihuoNum="100" bodyNum="703" pic="data\body13\703" strDesc="产出:待开放"/>
+				<point name="诗书芳华（女）" exp="100" costID="691001" jihuoID="1411" jihuoNum="100" bodyNum="713" pic="data\body13\713" strDesc="产出:待开放"/>
+				<point name="花前月下（女）" exp="100" costID="691003" jihuoID="1411" jihuoNum="100" bodyNum="700" pic="data\body13\700" strDesc="产出:待开放"/>
+				<point name="寒漠风情-双鱼（女）" exp="100" costID="691005" jihuoID="1411" jihuoNum="100" bodyNum="668" pic="data\body13\668" strDesc="产出:待开放"/>
+				<point name="终成眷属（女）" exp="100" costID="691007" jihuoID="1411" jihuoNum="100" bodyNum="667" pic="data\body13\667" strDesc="产出:待开放"/>
+				<point name="莺歌（女）" exp="100" costID="691009" jihuoID="1411" jihuoNum="100" bodyNum="665" pic="data\body13\665" strDesc="产出:待开放"/>
+				<point name="龙凤呈祥（女）" exp="100" costID="691011" jihuoID="1411" jihuoNum="100" bodyNum="662" pic="data\body13\662" strDesc="产出:待开放"/>
+				<point name="2020王者-金（女）" exp="100" costID="691013" jihuoID="1411" jihuoNum="100" bodyNum="658" pic="data\body13\658" strDesc="产出:待开放"/>
+				<point name="2020王者-银（女）" exp="100" costID="691015" jihuoID="1411" jihuoNum="100" bodyNum="659" pic="data\body13\659" strDesc="产出:待开放"/>
+				<point name="幻梦一瞬-水瓶（女）" exp="100" costID="691017" jihuoID="1411" jihuoNum="100" bodyNum="657" pic="data\body13\657" strDesc="产出:待开放"/>
+				<point name="朱门映柳（女）" exp="100" costID="691019" jihuoID="1411" jihuoNum="100" bodyNum="654" pic="data\body13\654" strDesc="产出:待开放"/>
+				<point name="幽冥影风（女）" exp="100" costID="691021" jihuoID="1411" jihuoNum="100" bodyNum="653" pic="data\body13\653" strDesc="产出:待开放"/>
+				<point name="气冲牛斗（女）" exp="100" costID="691023" jihuoID="1411" jihuoNum="100" bodyNum="651" pic="data\body13\651" strDesc="产出:待开放"/>
+				<point name="荣耀暗金（女）" exp="100" costID="691025" jihuoID="1411" jihuoNum="100" bodyNum="649" pic="data\body13\649" strDesc="产出:待开放"/>
+				<point name="美美时装（女）" exp="100" costID="691027" jihuoID="1411" jihuoNum="100" bodyNum="647" pic="data\body13\647" strDesc="产出:待开放"/>
+				<point name="耐寒时装（女）" exp="100" costID="691029" jihuoID="1411" jihuoNum="100" bodyNum="644" pic="data\body13\644" strDesc="产出:待开放"/>
+				<point name="碧彩荧霞-射手（女）" exp="100" costID="691031" jihuoID="1411" jihuoNum="100" bodyNum="642" pic="data\body13\642" strDesc="产出:待开放"/>
+				<point name="白龙马" exp="100" costID="691032" jihuoID="1411" jihuoNum="100" bodyNum="1119" pic="data\body14\1119" strDesc="产出:待开放"/>
+				<point name="猪八戒" exp="100" costID="691033" jihuoID="1411" jihuoNum="100" bodyNum="1118" pic="data\body14\1118" strDesc="产出:待开放"/>
+				<point name="唐僧" exp="100" costID="691034" jihuoID="1411" jihuoNum="100" bodyNum="1117" pic="data\body14\1117" strDesc="产出:待开放"/>
+				<point name="孙悟空" exp="100" costID="691035" jihuoID="1411" jihuoNum="100" bodyNum="1116" pic="data\body14\1116" strDesc="产出:待开放"/>
+				<point name="沙僧" exp="100" costID="691036" jihuoID="1411" jihuoNum="100" bodyNum="1115" pic="data\body14\1115" strDesc="产出:待开放"/>
 			</pointMap>
 		</meridian>
 	</meridianMap>

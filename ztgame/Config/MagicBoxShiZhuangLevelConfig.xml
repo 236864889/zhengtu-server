@@ -2,6 +2,7 @@
 <!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
 <config>
 	<!-- 时装魔盒时装类进阶配置 -->
+	<!-- 20260515 note: Shizhuang item-level max follows this file; source no longer hard-caps at level 6. MagicBox total level still follows MagicBoxConfig.xml. -->
 	<meridianMap>
 		<meridian index="1">
 			<pointMap>

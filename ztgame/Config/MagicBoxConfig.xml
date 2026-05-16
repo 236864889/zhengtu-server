@@ -1,34 +1,11 @@
 <?xml version="1.0" encoding="GB2312"?>
-<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- MagicBox growth config: level is growth level/range, exp is per-level required exp, attrs are per-level increments. -->
 <config>
-	<!-- 时装魔盒加成类配置 -->
 	<meridianMap>
 		<meridian index="1">
 			<pointMap>
-				<point level="0" exp="100" pDam="0" mDam="0" pDef="0" mDef="0" hp="0"/>
-				<point level="1" exp="200" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="2" exp="400" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="3" exp="600" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="4" exp="800" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="5" exp="1200" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="6" exp="2400" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="7" exp="4000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="8" exp="6000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="9" exp="8500" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="10" exp="9800" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="11" exp="12000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="12" exp="14000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="13" exp="17000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="14" exp="22000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="15" exp="26000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="16" exp="30000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="17" exp="35000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="18" exp="42000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="19" exp="50000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				<point level="20" exp="60000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000"/>
-				
+				<point level="1-20" exp="5000" pDam="10000" mDam="10000" pDef="10000" mDef="10000" hp="200000" juejiattack="100" qiegeattack="100"/>
 			</pointMap>
 		</meridian>
-		
 	</meridianMap>
 </config>
