@@ -26,6 +26,8 @@
 #define scPetButtonid			3
 #define scSummon				4
 #define scCartoon				5
+#define scPetEquipButtonid		6
+#define scPetEquipCloseButtonid	717
 
 #define scFollowMasterid		20
 #define scRemoveHorseid			21
@@ -40,6 +42,8 @@
 #define scPetImageid			114
 #define scSummonImageid			214
 #define scCartoonImageid		310
+#define scPetEquipTableStart	701
+#define scPetEquipTableEnd		716
 
 
 #define scCartoonAddCentID		300
@@ -64,6 +68,7 @@
 #define Pet_AddTabButton(id)				{CGuiButton *p##id = GetButton(id);if(p##id) p##id->SetButtonGroup(1);}
 #define Pet_EnableCtrl(id,b)				{bool bRes = b; CGuiControl *p = GetControl(id);if(p) {p->SetEnabled(bRes);if(bRes){ p->SetVisible(bRes);}Pet_Trace("Pet_EnableCtrl",id,bRes);} }
 #define Pet_ShowCtrl(id,b)					{bool bRes = b; CGuiControl *p = GetControl(id);if(p) {p->SetVisible(bRes);Pet_Trace("Pet_ShowCtrl",id,bRes);} }
+#define Pet_ShowMainTabButtons(b)			{Pet_ShowCtrl(scHorseButtonid,b);Pet_ShowCtrl(scPetButtonid,b);Pet_ShowCtrl(scSummon,b);Pet_ShowCtrl(scCartoon,b);}
 #define Pet_ShowAndEnable(id,b)				{bool bRes = b; CGuiControl *p = GetControl(id);if(p) {p->SetVisible(bRes);p->SetEnabled(bRes);Pet_Trace("Pet_ShowAndEnable",id,bRes);}}
 #define Pet_ShowAndEnableGrouped(id1,id2,b1,b2)	{	CGuiButton* p1 = GetButton( id1 );	CGuiButton* p2 = GetButton( id2 );			\
 													bool bRes1 = b1;bool bRes2 = b2;												\
@@ -98,6 +103,7 @@ CGuiPetDialog::CGuiPetDialog()
 	m_pCurCartoonPet = NULL;
 	m_pBmpExp = NULL;
 	m_pCurHorse = NULL;
+	m_petEquipTables.clear();
 
 	FUNCTION_END;
 }
@@ -111,6 +117,7 @@ CGuiPetDialog::~CGuiPetDialog()
 	FUNCTION_BEGIN;
 	//Engine_WriteLogF("CGuiPetDialog析构 \n");
 	m_pCurCartoonPet = NULL;
+	m_petEquipTables.clear();
 
 	FUNCTION_END;
 }
@@ -151,6 +158,15 @@ CGuiTable* & CGuiPetDialog::GetEquipTable(int equip_type,int x )
 	FUNCTION_END;
 }
 
+CGuiTable* & CGuiPetDialog::GetPetEquipTable(int pet_equip_cell)
+{
+	FUNCTION_BEGIN;
+
+	return m_petEquipTables[pet_equip_cell];
+
+	FUNCTION_END;
+}
+
 CRoleItem* CGuiPetDialog::GetEquipItem( int equip_type,int x /* = 0 */ )
 {
 	CRoleItem* pRoleItem = NULL;
@@ -165,6 +181,34 @@ CRoleItem* CGuiPetDialog::GetEquipItem( int equip_type,int x /* = 0 */ )
 	}
 
 	return pRoleItem;
+}
+
+
+CRoleItem* CGuiPetDialog::GetPetEquipItem( int pet_equip_cell )
+{
+	CRoleItem* pRoleItem = NULL;
+
+	CGuiTable* pTable = GetPetEquipTable(pet_equip_cell);
+	if (pTable)
+	{
+		if (pTable->m_listItem.size()>0)
+		{
+			pRoleItem =(CRoleItem*) pTable->m_listItem[0]->m_pItemData;
+		}
+	}
+
+	return pRoleItem;
+}
+
+void CGuiPetDialog::BindPetEquipTable(int table_id,int pet_equip_cell)
+{
+	CGuiTable* pTable = GetTable(table_id);
+	GetPetEquipTable(pet_equip_cell) = pTable;
+	if (pTable)
+	{
+		pTable->m_iTableType = OBJECTCELLTYPE_PET_EQUIP;
+		pTable->m_EquipPosition = stPointI(0,pet_equip_cell);
+	}
 }
 
 /**
@@ -203,6 +247,23 @@ void CGuiPetDialog::OnCreate(void)
 	GetEquipTable(EQUIPCELLTYPE_HORSEFASHION) = GetTable(220);
 	GetEquipTable(EQUIPCELLTYPE_HORSEFASHION)->m_iTableType = nTableType;
 	GetEquipTable(EQUIPCELLTYPE_HORSEFASHION)->m_EquipPosition = stPointI(0,EQUIPCELLTYPE_HORSEFASHION);	
+
+	BindPetEquipTable(701,PETEQUIP_HANDR);
+	BindPetEquipTable(702,PETEQUIP_HELM);
+	BindPetEquipTable(703,PETEQUIP_BODY);
+	BindPetEquipTable(704,PETEQUIP_NECKLACE);
+	BindPetEquipTable(705,PETEQUIP_GLOVES_R);
+	BindPetEquipTable(706,PETEQUIP_GLOVES_L);
+	BindPetEquipTable(707,PETEQUIP_RING_R);
+	BindPetEquipTable(708,PETEQUIP_RING_L);
+	BindPetEquipTable(709,PETEQUIP_BELT);
+	BindPetEquipTable(710,PETEQUIP_SHOES);
+	BindPetEquipTable(711,PETEQUIP_HORSESHOE);
+	BindPetEquipTable(712,PETEQUIP_HORSEROPE);
+	BindPetEquipTable(713,PETEQUIP_HORSESADDLE);
+	BindPetEquipTable(714,PETEQUIP_HORSESAFE);
+	BindPetEquipTable(715,PETEQUIP_HORSEIRON);
+	BindPetEquipTable(716,PETEQUIP_HORSEFASHION);
 	m_ptIcon.x = 33;
 	m_ptIcon.y = 90;
 
@@ -304,10 +365,27 @@ void CGuiPetDialog::OnCreate(void)
 	Pet_AddControlToTab(3,318);
 	Pet_AddControlToTab(3,319);
 
+	for (int i=scPetEquipTableStart;i<=scPetEquipTableEnd;i++)
+	{
+		Pet_AddControlToTab(4,i);
+	}
+	AddControl2Tab(pTab,1,scPetEquipButtonid);
+	AddControl2Tab(pTab,4,scPetEquipCloseButtonid);
+
 	Pet_AddTabButton(scHorseButtonid);
 	Pet_AddTabButton(scPetButtonid);
 	Pet_AddTabButton(scSummon);
 	Pet_AddTabButton(scCartoon);	
+	Pet_AddTabButton(scPetEquipButtonid);	
+	{
+		CGuiButton* pPetEquipBtn = GetButton(scPetEquipButtonid);
+		if(pPetEquipBtn)
+		{
+			pPetEquipBtn->SetLocation(288,326);
+			pPetEquipBtn->SetSize(58,24);
+			pPetEquipBtn->SetText("\xd7\xb0 \xb1\xb8");
+		}
+	}
 
 	{   //经验条显示
 		stToolTipRect ttr;									
@@ -347,6 +425,15 @@ bool CGuiPetDialog::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 
 	switch(nEvent)
 	{
+	case EVENT_DIALOG_SHOW:
+		{
+			CGuiTab *pTab = GetTab(scTabid);
+			if(pTab && pTab->GetCurItem() == 4)
+			{
+				OnPetTab();
+			}
+		}
+		break;
 	case EVENT_BUTTON_CLICKED:	
 		{
 #define Pet_Button_Clicked_Event(id,fun) case (id):{if( fun() ) return true;}break
@@ -358,6 +445,8 @@ bool CGuiPetDialog::OnGuiEvent(UINT nEvent,UINT nID,CGuiControl* pControl)
 				Pet_Button_Clicked_Event(scPetButtonid,OnPetTab);
 				Pet_Button_Clicked_Event(scSummon,OnSummonTab);
 				Pet_Button_Clicked_Event(scCartoon,OnCartoonTab);
+				Pet_Button_Clicked_Event(scPetEquipButtonid,OnPetEquipTab);
+				Pet_Button_Clicked_Event(scPetEquipCloseButtonid,OnPetTab);
 				Pet_Button_Clicked_Event(scRenamePetBtnid,OnPetRename);
 				Pet_Button_Clicked_Event(scRenameSummonBtnid,OnSummonRename);
 
@@ -438,6 +527,8 @@ bool CGuiPetDialog::OnHorseTab(void)
 {
 	FUNCTION_BEGIN;
 
+	Pet_ShowMainTabButtons(true);
+
 	UpdateHorseTab();
 	CGuiTab *pTab = GetTab(scTabid);
 	if(pTab)
@@ -457,6 +548,8 @@ bool CGuiPetDialog::OnHorseTab(void)
 bool CGuiPetDialog::OnPetTab(void)
 {
 	FUNCTION_BEGIN;
+
+	Pet_ShowMainTabButtons(true);
 
 	UpdatePetTab();
 	CGuiTab *pTab = GetTab(scTabid);
@@ -481,9 +574,30 @@ bool CGuiPetDialog::OnPetTab(void)
 *
 * \return void
 */
+bool CGuiPetDialog::OnPetEquipTab(void)
+{
+	FUNCTION_BEGIN;
+
+	Pet_ShowMainTabButtons(false);
+	CGuiTab *pTab = GetTab(scTabid);
+	if(pTab)
+	{
+		pTab->SetCurItem(4);
+		SetBackImage(stResourceLocation("data\\interfaces.gl",3,600));
+		SetIcon(&stResourceLocation("data\\interfaces.gl",22,31));
+	}
+	UpdatePetEquipTab();
+	return true;
+
+	FUNCTION_END;
+}
+
+
 bool CGuiPetDialog::OnSummonTab(void)
 {
 	FUNCTION_BEGIN;
+
+	Pet_ShowMainTabButtons(true);
 
 	UpdateSummonTab();
 	CGuiTab *pTab = GetTab(scTabid);
@@ -504,6 +618,8 @@ bool CGuiPetDialog::OnSummonTab(void)
 bool CGuiPetDialog::OnCartoonTab()
 {
 	FUNCTION_BEGIN;
+
+	Pet_ShowMainTabButtons(true);
 
 	CGuiTab *pTab = GetTab(scTabid);
 	if(pTab)
@@ -540,6 +656,12 @@ void CGuiPetDialog::OnClose(void)
 {
 	FUNCTION_BEGIN;
 
+	CGuiTab *pTab = GetTab(scTabid);
+	if(pTab && pTab->GetCurItem() == 4)
+	{
+		OnPetTab();
+	}
+
 	GetGameGuiManager()->m_guiPetDlg = NULL;
 
 	FUNCTION_END;
@@ -562,6 +684,7 @@ void CGuiPetDialog::UpdateContents()
 	case 0:	{UpdateHorseTab();	AfterOnUpdateTab(scHorseImageid,PET_TYPE_RIDE);	}	break;
 	case 1: {UpdatePetTab();	AfterOnUpdateTab(scPetImageid,PET_TYPE_PET);}		break;
 	case 2: {UpdateSummonTab();	AfterOnUpdateTab(scSummonImageid,PET_TYPE_SUMMON);}	break;
+	case 4: {UpdatePetEquipTab();}	break;
 	//case 3: {UpdateCartoonTab();AfterOnUpdateTab(scCartoonImageid,PET_TYPE_SUMMON);}	break;
 	default: break;
 	}	
@@ -588,6 +711,29 @@ void CGuiPetDialog::SetCartoonPetImage(int id,CCartoonPet* pCartoon)
 		SetIcon(&stResourceLocation("data\\interfaces.gl",22,31));
 		SetPetImage(id,-1);
 	}	
+}
+
+void CGuiPetDialog::UpdatePetEquipTab()
+{
+	RefreshPetEquipItems();
+}
+
+void CGuiPetDialog::RefreshPetEquipItems()
+{
+	CMainCharacter* pMainChar = GetScene()->GetMainCharacter();
+	if (pMainChar == NULL)
+	{
+		return ;
+	}
+
+	for(CMainCharacter::tListItem::iterator it = pMainChar->m_listItem.begin(); it != pMainChar->m_listItem.end(); ++it)
+	{
+		CRoleItem* pItem = (*it);
+		if (pItem && pItem->GetLocation().dwLocation == OBJECTCELLTYPE_PET_EQUIP)
+		{
+			pItem->OnUpdate(-1);
+		}
+	}
 }
 
 void CGuiPetDialog::UpdateCartoonTab()
@@ -1020,6 +1166,7 @@ void CGuiPetDialog::RenderTab(float fElapsedTime,int cur)
 	case 1: bRes = RenderText1(fElapsedTime,PET_TYPE_PET);	break;
 	case 2: bRes = RenderText1(fElapsedTime,PET_TYPE_SUMMON);break;
 	case 3: RenderCartoonPetExp(m_pCurCartoonPet); bRes = true; break;
+	case 4: bRes = RenderText1(fElapsedTime,PET_TYPE_PET); break;
 	default:break;
 	}
 	if(!bRes)
@@ -1033,6 +1180,7 @@ void CGuiPetDialog::RenderTab(float fElapsedTime,int cur)
 		case 0: sprintf(name,"坐骑");	sprintf(level,"你还没有坐骑");		break;
 		case 1: sprintf(name,"宠物");	sprintf(level,"你还没有宠物");		break;
 		case 2: sprintf(name,"召唤兽");	sprintf(level,"你还没有召唤兽");	break;
+		case 4: sprintf(name,"宠物装备");	sprintf(level,"你还没有宠物");	break;
 		default:break;
 		}
 		{
@@ -1046,9 +1194,161 @@ void CGuiPetDialog::RenderTab(float fElapsedTime,int cur)
 			GetDevice()->DrawString(level,rect,ColorBlend(-1,0xffffffff),DT_VCENTER|DT_CENTER);
 		}
 	}
+	if(cur == 4)
+	{
+		RenderPetEquipAttr();
+	}
 	GetDevice()->SetFont(iOldFont);
 }
 
+void CGuiPetDialog::RenderPetEquipAttr()
+{
+	char buf[192];
+	CPet* pPet = GetScene()->FindPetByType(PET_TYPE_PET);
+	const t_PetData *pData = pPet ? pPet->GetProperty() : NULL;
+	stPointI pt = GetLocation();
+	if(!pData)
+	{
+		_snprintf(buf,sizeof(buf),"\xC4\xE3\xBB\xB9\xC3\xBB\xD3\xD0\xB3\xE8\xCE\xEF");
+		buf[sizeof(buf)-1] = 0;
+		GetDevice()->DrawString(buf,stPointI(140,260)+pt,0xffffff00);
+		return;
+	}
+
+	if(GetGuiManager()->GetMouseOverDlg()!=this)
+		return;
+
+	stPointI mouse(Engine_GetCursor()->GetPosition());
+	mouse -= pt;
+	stRectI hoverRect(58,82,332,368);
+	if(!hoverRect.PtInRect(mouse))
+		return;
+
+	const char *suitState = "\xCE\xB4\xBC\xA4\xBB\xEE";
+	if((pData->pet_suit_active_mask & 0x02) || pData->pet_suit_level >= 10)
+		suitState = "10\xBC\xFE\xBC\xA4\xBB\xEE";
+	else if((pData->pet_suit_active_mask & 0x01) || pData->pet_suit_level >= 6)
+		suitState = "6\xBC\xFE\xBC\xA4\xBB\xEE";
+
+	const bool active = (pData->pet_ignore_def > 0 || pData->pet_reel > 0 || pData->pet_final_maxhp > pData->pet_base_maxhp);
+	const char *activeText = active ? "\xD2\xD1\xBC\xA4\xBB\xEE" : "\xCE\xB4\xBC\xA4\xBB\xEE";
+
+	stRectI panelRect(50,100,340,322);
+	panelRect.OffsetRect(pt.x,pt.y);
+	GetDevice()->FillRect(&panelRect,COLOR_ARGB(176,0,0,0));
+	GetDevice()->DrawRectangle(&panelRect,COLOR_ARGB(220,180,120,40));
+
+	stRectI titleRect(50,106,340,124);
+	titleRect.OffsetRect(pt.x,pt.y);
+	GetDevice()->DrawString("\xB3\xE8\xCE\xEF\xD7\xB0\xB1\xB8\xCA\xF4\xD0\xD4",titleRect,0xffffff00,DT_CENTER|DT_VCENTER);
+
+	int lLabel = 66;
+	int lValue = 132;
+	int rLabel = 220;
+	int rValue = 286;
+	int y = 132;
+	int dy = 15;
+	DWORD baseColor = 0xffffffff;
+	DWORD equipColor = 0xff88ff88;
+	DWORD suitColor = 0xff88ccff;
+	DWORD finalColor = 0xffffff00;
+	DWORD suppressColor = 0xffffcc66;
+
+	GetDevice()->DrawString("\xBB\xF9\xB4\xA1\xB9\xA5\xA3\xBA",stPointI(lLabel,y)+pt,baseColor);
+	_snprintf(buf,sizeof(buf),"%s-%s",FormatLargeNumber(pData->pet_base_atk).c_str(),FormatLargeNumber(pData->pet_base_maxatk).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,baseColor);
+	GetDevice()->DrawString("\xD7\xEE\xD6\xD5\xB9\xA5\xA3\xBA",stPointI(rLabel,y)+pt,finalColor);
+	_snprintf(buf,sizeof(buf),"%s-%s",FormatLargeNumber(pData->pet_final_atk).c_str(),FormatLargeNumber(pData->pet_final_maxatk).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,finalColor);
+	y += dy;
+
+	GetDevice()->DrawString("\xBB\xF9\xB4\xA1\xB7\xC0\xA3\xBA",stPointI(lLabel,y)+pt,baseColor);
+	_snprintf(buf,sizeof(buf),"%s",FormatLargeNumber(pData->pet_base_def).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,baseColor);
+	GetDevice()->DrawString("\xD7\xEE\xD6\xD5\xB7\xC0\xA3\xBA",stPointI(rLabel,y)+pt,finalColor);
+	_snprintf(buf,sizeof(buf),"%s",FormatLargeNumber(pData->pet_final_def).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,finalColor);
+	y += dy;
+
+	GetDevice()->DrawString("\xBB\xF9\xB4\xA1\xD1\xAA\xA3\xBA",stPointI(lLabel,y)+pt,baseColor);
+	_snprintf(buf,sizeof(buf),"%s",FormatLargeNumber(pData->pet_base_maxhp).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,baseColor);
+	GetDevice()->DrawString("\xD7\xEE\xD6\xD5\xD1\xAA\xA3\xBA",stPointI(rLabel,y)+pt,finalColor);
+	_snprintf(buf,sizeof(buf),"%s",FormatLargeNumber(pData->pet_final_maxhp).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,finalColor);
+	y += dy + 5;
+
+	GetDevice()->DrawString("\xD7\xB0\xB1\xB8\xB9\xA5\xA3\xBA",stPointI(lLabel,y)+pt,equipColor);
+	_snprintf(buf,sizeof(buf),"%s-%s",FormatLargeNumber(pData->pet_equip_atk).c_str(),FormatLargeNumber(pData->pet_equip_maxatk).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,equipColor);
+	GetDevice()->DrawString("\xBA\xF6\xCA\xD3\xA3\xBA",stPointI(rLabel,y)+pt,suppressColor);
+	_snprintf(buf,sizeof(buf),"%u%%",pData->pet_ignore_def);
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,suppressColor);
+	y += dy;
+
+	GetDevice()->DrawString("\xD7\xB0\xB1\xB8\xB7\xC0\xA3\xBA",stPointI(lLabel,y)+pt,equipColor);
+	_snprintf(buf,sizeof(buf),"%s",FormatLargeNumber(pData->pet_equip_def).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,equipColor);
+	GetDevice()->DrawString("VIP\xA3\xBA",stPointI(rLabel,y)+pt,suppressColor);
+	_snprintf(buf,sizeof(buf),"%u%%",pData->pet_vip_suppress);
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,suppressColor);
+	y += dy;
+
+	GetDevice()->DrawString("\xD7\xB0\xB1\xB8\xD1\xAA\xA3\xBA",stPointI(lLabel,y)+pt,equipColor);
+	_snprintf(buf,sizeof(buf),"%s",FormatLargeNumber(pData->pet_equip_maxhp).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,equipColor);
+	GetDevice()->DrawString("\xF7\xC8\xC1\xA6\xA3\xBA",stPointI(rLabel,y)+pt,suppressColor);
+	_snprintf(buf,sizeof(buf),"%u%%",pData->pet_charm_suppress);
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,suppressColor);
+	y += dy + 5;
+
+	GetDevice()->DrawString("\xCC\xD7\xD7\xB0\xA3\xBA",stPointI(lLabel,y)+pt,suitColor);
+	_snprintf(buf,sizeof(buf),"%s %u/%u",suitState,pData->pet_suit_piece_count,pData->pet_suit_level);
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,suitColor);
+	GetDevice()->DrawString("\xC4\xA7\xBA\xD0\xA3\xBA",stPointI(rLabel,y)+pt,suppressColor);
+	_snprintf(buf,sizeof(buf),"%u%%",pData->pet_magicbox_suppress);
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,suppressColor);
+	y += dy;
+
+	GetDevice()->DrawString("\xCC\xD7\xB9\xA5\xA3\xBA",stPointI(lLabel,y)+pt,suitColor);
+	_snprintf(buf,sizeof(buf),"%s-%s",FormatLargeNumber(pData->pet_suit_atk).c_str(),FormatLargeNumber(pData->pet_suit_maxatk).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,suitColor);
+	GetDevice()->DrawString("\xBF\xCB\xD6\xC6\xA3\xBA",stPointI(rLabel,y)+pt,suppressColor);
+	_snprintf(buf,sizeof(buf),"%u%%",pData->pet_restrain_suppress);
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,suppressColor);
+	y += dy;
+
+	GetDevice()->DrawString("\xCC\xD7\xB7\xC0\xA3\xBA",stPointI(lLabel,y)+pt,suitColor);
+	_snprintf(buf,sizeof(buf),"%s",FormatLargeNumber(pData->pet_suit_def).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,suitColor);
+	GetDevice()->DrawString("\xD6\xF7\xC8\xCB" "30%\xA3\xBA",stPointI(rLabel,y)+pt,suppressColor);
+	_snprintf(buf,sizeof(buf),"%s",activeText);
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(rValue,y)+pt,suppressColor);
+	y += dy;
+
+	GetDevice()->DrawString("\xCC\xD7\xD1\xAA\xA3\xBA",stPointI(lLabel,y)+pt,suitColor);
+	_snprintf(buf,sizeof(buf),"%s",FormatLargeNumber(pData->pet_suit_maxhp).c_str());
+	buf[sizeof(buf)-1] = 0;
+	GetDevice()->DrawString(buf,stPointI(lValue,y)+pt,suitColor);
+}
 bool CGuiPetDialog::RenderText(float fElapsedTime,petType type)
 {
 	CPet* pPet = GetScene()->FindPetByType( type );

@@ -1753,7 +1753,7 @@ HRESULT CGuiUserInfo::OnRender(float fElapsedTime)
 	FUNCTION_BEGIN;
 
 	//魔盒界面
-	if(m_UserData.pMapUserData->jiemian_select != 9999 && (m_UserData.pMapUserData->jiemian_select >= 0 && m_UserData.pMapUserData->jiemian_select < 100) )
+	if(m_UserData.pMapUserData && GetGameGuiManager()->m_guiMagicBox && m_UserData.pMapUserData->jiemian_select != 9999 && (m_UserData.pMapUserData->jiemian_select >= 0 && m_UserData.pMapUserData->jiemian_select < 100) )
 	{
 		if(GetGameGuiManager()->m_guiMagicBox->Jiemian[m_UserData.pMapUserData->jiemian_select].dongtai == 0)
 		{
@@ -1821,7 +1821,7 @@ HRESULT CGuiUserInfo::OnRender(float fElapsedTime)
 				rl.group = activityNum;
 				rl.frame = 10;
 				IBitmap * pBitmap = GetDevice()->FindBitmap(&rl);
-				if( pBitmap->GetWidth() >100)
+				if( pBitmap && pBitmap->GetWidth() >100)
 				{
 					GetButton( 25 )->SetLocation( 0, 0 );   //soke 有新的邮件
 				}
@@ -1873,7 +1873,7 @@ HRESULT CGuiUserInfo::OnRender(float fElapsedTime)
 				rl.group = activityNum;
 				rl.frame = 10;
 				IBitmap * pBitmap = GetDevice()->FindBitmap(&rl);
-				if( pBitmap->GetWidth() >100)
+				if( pBitmap && pBitmap->GetWidth() >100)
 				{
 					GetButton( 25 )->SetLocation( 0, 0 );   //soke 有新的邮件
 				}
@@ -2420,10 +2420,25 @@ HRESULT CGuiUserInfo::OnRender(float fElapsedTime)
 		pToolTips2->AddText(msg,0);
 
 		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 255, 255, 255));
-		pToolTips2->AddText("\n时装魔盒系统：每激活或升级一套时装即可增加魔盒经验，魔盒最高等级20级	",0);
+		pToolTips2->AddText("\012\324\366\274\323\310\313\316\357\276\370\274\274\271\245\273\367\243\272",0);
+		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 0, 255, 0));
+		sprintf(msg, "+%d", GetGameGuiManager()->m_guiMagicBox->num6);
+		pToolTips2->AddText(msg,0);
+
+		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 255, 255, 255));
+		pToolTips2->AddText("\012\324\366\274\323\310\313\316\357\307\320\270\356\271\245\273\367\243\272",0);
+		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 0, 255, 0));
+		sprintf(msg, "+%d", GetGameGuiManager()->m_guiMagicBox->num7);
+		pToolTips2->AddText(msg,0);
+
+		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 255, 255, 255));
+		pToolTips2->AddText("\012\304\247\272\320\276\255\321\351\323\311\274\244\273\356\304\247\272\320\267\326\300\340\317\356\304\277\273\361\265\303",0);
+		pToolTips2->AddText("\012\304\247\272\320\327\356\270\337\265\310\274\266\316\252\062\060\274\266",0);
+		pToolTips2->AddText("\012\303\277\274\266\320\350\322\252\065\060\060\060\304\247\272\320\276\255\321\351",0);
+		pToolTips2->AddText("\012\367\310\301\246\321\271\326\306\243\272\271\245\273\367\304\247\272\320\265\310\274\266\265\315\323\332\327\324\274\272\265\304\315\346\274\322\312\261\243\254\303\277\270\337\061\274\266\327\356\326\325\311\313\272\246\053\061\045\243\254\327\356\270\337\053\062\060\045\243\254\275\366\266\324\315\346\274\322\311\372\320\247\241\243",0);
 
 		pToolTips2->SetCurColor(D3DCOLOR_ARGB(255, 0, 255, 0));
-		pToolTips2->AddText("\n时装魔盒等级越高提供给人物加成越高",0);
+		pToolTips2->AddText("\012\304\247\272\320\265\310\274\266\324\275\270\337\314\341\271\251\270\370\310\313\316\357\274\323\263\311\324\275\270\337",0);
 
 		pToolTips2->Resize();
 	}

@@ -38,8 +38,11 @@ public:
 
 	void SetCharType(int type);
 	CGuiTable* & GetEquipTable(int equip_type,int x = 0);
+	CGuiTable* & GetPetEquipTable(int pet_equip_cell);
 
 	CRoleItem* GetEquipItem(int equip_type,int x = 0);
+	CRoleItem* GetPetEquipItem(int pet_equip_cell);
+	void RefreshPetEquipItems();
 
 	HRESULT OnRender(float fElapsedTime);
 
@@ -75,14 +78,18 @@ private:
 	bool OnPetTab();
 	bool OnSummonTab();
 	bool OnCartoonTab();
+	bool OnPetEquipTab();
 private:
 	void UpdateHorseTab();
 	void UpdatePetTab();
 	void UpdateSummonTab();
 	void UpdateCartoonTab();
+	void UpdatePetEquipTab();
+	void BindPetEquipTable(int table_id,int pet_equip_cell);
 
 	bool RenderText(float fElapsedTime,petType type);
-	bool RenderText1(float fElapsedTime,petType type);	
+	bool RenderText1(float fElapsedTime,petType type);
+	void RenderPetEquipAttr();	
 	void RenderHorse(float fElapsedTime);
 
 	void RenderTab(float fElapsedTime,int cur);	
@@ -101,6 +108,7 @@ private:
 
 	CCartoonPet*		m_pCurCartoonPet;
 	CHorse*				m_pCurHorse;
+	EquipTables			m_petEquipTables;
 	
 private:
 	struct stToolTipRect

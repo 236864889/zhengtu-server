@@ -16,11 +16,8 @@
 
 #define ID_BUTTON_CLOSE 0
 
-#define MAX_PAGE 32	 // 时装最大页数
-#define MAX_PAGE2 12 // 披风最大页数
-#define MAX_PAGE3 4 // 披风最大页数
-#define MAX_PAGE4 6 // 坐骑最大页数
-#define MAX_PAGE5 4 // 界面最大页数
+#define MAGICBOX_PAGE_SIZE 6
+#define MAGICBOX_JIEMIAN_PAGE_SIZE 2
 ///////////////////////////////////////////////////////////////////////////////
 
 CGuiMagicBoxDlg::CGuiMagicBoxDlg()
@@ -39,13 +36,135 @@ CGuiMagicBoxDlg::~CGuiMagicBoxDlg()
 	FUNCTION_END;
 }
 
+
+static bool MagicBoxHasName(const char *name)
+{
+	return name && name[0] != 0;
+}
+
+static void SetMagicBoxBodyResource(stResourceLocation &rl, const char *pic, DWORD bodyNum)
+{
+	rl.SetFileName("data\\body5.gl");
+	rl.group = bodyNum;
+	rl.frame = 0;
+	if (!pic || pic[0] == 0)
+		return;
+
+	char path[64];
+	strncpy(path, pic, sizeof(path) - 1);
+	path[sizeof(path) - 1] = 0;
+	for (int i = 0; path[i]; i++)
+	{
+		if (path[i] == '/')
+			path[i] = '\\';
+	}
+
+	char *first = strchr(path, '\\');
+	if (!first)
+		return;
+	char *second = strchr(first + 1, '\\');
+	if (!second)
+		return;
+	char *groupText = second + 1;
+	char *third = strchr(groupText, '\\');
+	char *frameText = NULL;
+	if (third)
+	{
+		*third = 0;
+		frameText = third + 1;
+	}
+	*second = 0;
+
+	char fileName[64];
+	sprintf(fileName, "%s.gl", path);
+	rl.SetFileName(fileName);
+	int group = atoi(groupText);
+	rl.group = group > 0 ? group : bodyNum;
+	rl.frame = frameText ? atoi(frameText) : 0;
+}
+
+static int GetMagicBoxPageSize(int type)
+{
+	return (type == 4) ? MAGICBOX_JIEMIAN_PAGE_SIZE : MAGICBOX_PAGE_SIZE;
+}
+
+static int GetMagicBoxItemCount(CGuiMagicBoxDlg *dlg, int type)
+{
+	if (!dlg)
+		return 0;
+	int count = 0;
+	int i = 0;
+	if (type == 0)
+	{
+		for (i = 0; i < 400; i++)
+			if (MagicBoxHasName(dlg->Shizhuang[i].name) || dlg->Shizhuang[i].bodyNum != 0)
+				count = i + 1;
+	}
+	else if (type == 1)
+	{
+		for (i = 0; i < 100; i++)
+			if (MagicBoxHasName(dlg->Pifeng[i].name) || dlg->Pifeng[i].itemNum != 0)
+				count = i + 1;
+	}
+	else if (type == 2)
+	{
+		for (i = 0; i < 100; i++)
+			if (MagicBoxHasName(dlg->Chibang[i].name) || dlg->Chibang[i].itemNum != 0)
+				count = i + 1;
+	}
+	else if (type == 3)
+	{
+		for (i = 0; i < 100; i++)
+			if (MagicBoxHasName(dlg->Zuoqi[i].name) || dlg->Zuoqi[i].npcNum != 0)
+				count = i + 1;
+	}
+	else if (type == 4)
+	{
+		for (i = 0; i < 100; i++)
+			if (MagicBoxHasName(dlg->Jiemian[i].name) || dlg->Jiemian[i].activityNum != 0)
+				count = i + 1;
+	}
+	return count;
+}
+
+static int GetMagicBoxMaxPage(CGuiMagicBoxDlg *dlg, int type)
+{
+	int pageSize = GetMagicBoxPageSize(type);
+	int count = GetMagicBoxItemCount(dlg, type);
+	int maxPage = (count + pageSize - 1) / pageSize;
+	return maxPage < 1 ? 1 : maxPage;
+}
+
+static void ClampMagicBoxPage(CGuiMagicBoxDlg *dlg)
+{
+	if (!dlg)
+		return;
+	int maxPage = GetMagicBoxMaxPage(dlg, dlg->type);
+	if (dlg->page < 1)
+		dlg->page = 1;
+	if (dlg->page > maxPage)
+		dlg->page = maxPage;
+}
+
 // 创建对话框
 void CGuiMagicBoxDlg::OnCreate(void)
 {
 	FUNCTION_BEGIN;
 
 	CGuiDialog::OnCreate();
+	memset(Shizhuang, 0, sizeof(Shizhuang));
+	memset(Pifeng, 0, sizeof(Pifeng));
+	memset(Chibang, 0, sizeof(Chibang));
+	memset(Zuoqi, 0, sizeof(Zuoqi));
+	memset(Jiemian, 0, sizeof(Jiemian));
+	shizhuang_select = 9999;
+	pifeng_select = 9999;
+	chibang_select = 9999;
+	zuoqi_select = 9999;
+	jiemian_select = 9999;
 	m_pTab = GetTab(10);
+	if (!m_pTab)
+		return;
 	m_pTab->AddItem("",NULL);
 	m_pTab->AddItem("",NULL);
 
@@ -126,12 +245,19 @@ void CGuiMagicBoxDlg::OnCreate(void)
 
 	mohelevel = 0;
 	moheexp = 0;
-	mohemaxexp = 50000;
+	mohemaxexp = 5000;
 	shizhuangshu = 0;
 	pifengshu = 0;
 	chibangshu = 0;
 	zuoqishu = 0;
 	jiemianshu = 0;
+	num1 = 0;
+	num2 = 0;
+	num3 = 0;
+	num4 = 0;
+	num5 = 0;
+	num6 = 0;
+	num7 = 0;
 	shuaxin();
 	FUNCTION_END;
 }
@@ -1170,6 +1296,12 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 			shuaxin();
 		}
 		break;
+		case 1007: // Touxiang
+		case 1008: // Zuji
+		{
+			GameMessageBox("该功能暂未开放");
+		}
+		break;
 		case 1:
 		{
 			// Close();
@@ -1178,76 +1310,18 @@ bool CGuiMagicBoxDlg::OnGuiEvent(UINT nEvent, UINT nID, CGuiControl *pControl)
 		break;
 		case 3: // 上一页
 		{
-			if (page <= 1)
-			{
-				page = 1;
-			}
-			else
-			{
+			if (page > 1)
 				page -= 1;
-			}
-
+			ClampMagicBoxPage(this);
 			shuaxin();
 		}
 		break;
 		case 4: // 下一页
 		{
-			if (type == 0)
-			{
-				if (page >= MAX_PAGE)
-				{
-					page = MAX_PAGE;
-				}
-				else
-				{
-					page += 1;
-				}
-			}
-			else if (type == 1)
-			{
-				if (page >= MAX_PAGE2)
-				{
-					page = MAX_PAGE2;
-				}
-				else
-				{
-					page += 1;
-				}
-			}
-			else if (type == 2)
-			{
-				if (page >= MAX_PAGE3)
-				{
-					page = MAX_PAGE3;
-				}
-				else
-				{
-					page += 1;
-				}
-			}
-			else if (type == 3)
-			{
-				if (page >= MAX_PAGE4)
-				{
-					page = MAX_PAGE4;
-				}
-				else
-				{
-					page += 1;
-				}
-			}
-			else if (type == 4)
-			{
-				if (page >= MAX_PAGE5)
-				{
-					page = MAX_PAGE5;
-				}
-				else
-				{
-					page += 1;
-				}
-			}
-
+			int maxPage = GetMagicBoxMaxPage(this, type);
+			if (page < maxPage)
+				page += 1;
+			ClampMagicBoxPage(this);
 			shuaxin();
 		}
 		break;
@@ -1374,8 +1448,9 @@ HRESULT CGuiMagicBoxDlg::OnRender(float fElapsedTime)
 	POINT pt2 = GetLocation();
 	if (type == 0)
 	{
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < MAGICBOX_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_PAGE_SIZE + i;
 			if (i < 3)
 			{
 				pt.x = -150 + 205 * i + pt2.x;
@@ -1392,8 +1467,9 @@ HRESULT CGuiMagicBoxDlg::OnRender(float fElapsedTime)
 	}
 	else if (type == 1)
 	{
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < MAGICBOX_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_PAGE_SIZE + i;
 			if (i < 3)
 			{
 				pt.x = 20 + 205 * i + pt2.x;
@@ -1411,8 +1487,9 @@ HRESULT CGuiMagicBoxDlg::OnRender(float fElapsedTime)
 	}
 	else if (type == 2)
 	{
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < MAGICBOX_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_PAGE_SIZE + i;
 			if (i < 3)
 			{
 				pt.x = -5 + 205 * i + pt2.x;
@@ -1466,8 +1543,9 @@ HRESULT CGuiMagicBoxDlg::OnRender(float fElapsedTime)
 	}
 	else if (type == 4)
 	{
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < MAGICBOX_JIEMIAN_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_JIEMIAN_PAGE_SIZE + i;
 
 			pt.x = 310 * i + pt2.x;
 			pt.y = 200 + pt2.y;
@@ -1494,7 +1572,7 @@ void CGuiMagicBoxDlg::OnClose(void)
 void CGuiMagicBoxDlg::shuaxin(void)
 {
 	shizhuangshu = 0;
-	for (int i = 0; i < 300; i++)
+	for (int i = 0; i < 400; i++)
 	{
 		if (Shizhuang[i].state == 1)
 		{
@@ -1544,7 +1622,8 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		GetCheckBox(65)->SetChecked(false);
 
 		char msg[256];
-		sprintf(msg, "%d/%d", page, MAX_PAGE);
+		ClampMagicBoxPage(this);
+			sprintf(msg, "%d/%d", page, GetMagicBoxMaxPage(this, type));
 		GetStatic(6)->SetText(msg);
 		
 		GetProcess(9)->SetRange(0, mohemaxexp);
@@ -1560,10 +1639,11 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		sprintf(msg, "当前拥有：[%d] 套时装", shizhuangshu);
 		GetStatic(111)->SetText(msg);
 		stResourceLocation rlAniBody;
-		rlAniBody.SetFileName("data\\body5.gl");
+		SetMagicBoxBodyResource(rlAniBody, NULL, 0);
 		POINT pt;
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < MAGICBOX_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_PAGE_SIZE + i;
 			if (i < 3)
 			{
 				pt.x = 10 + 205 * i;
@@ -1575,13 +1655,23 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				pt.y = 380;
 			}
 
-			rlAniBody.group = Shizhuang[(page - 1) * 6 + i].bodyNum;
-			rlAniBody.frame = 0;
+			if (index >= GetMagicBoxItemCount(this, type))
+			{
+				rlAniBody.group = 0;
+				rlAniBody.frame = 0;
+				m_AniBody[i].Create(&rlAniBody, 16, 19);
+				m_AniBody[i].SetColor(COLOR_ARGB(0, 255, 255, 255));
+				GetStatic((i + 1) * 10 + 3)->SetText("");
+				GetStatic((i + 1) * 10 + 4)->SetText("");
+				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\interfaces6.gl", 130, 9999));
+				continue;
+			}
+			SetMagicBoxBodyResource(rlAniBody, Shizhuang[index].pic, Shizhuang[index].bodyNum);
 			m_AniBody[i].Create(&rlAniBody, 16, 19);
 			m_AniBody[i].SetLoopPlay(true);
 			m_AniBody[i].SetSpeed(200);
 
-			if (Shizhuang[(page - 1) * 6 + i].state == 1)
+			if (Shizhuang[index].state == 1)
 			{
 				m_AniBody[i].SetColor(COLOR_ARGB(255, 255, 255, 255));
 			}
@@ -1590,17 +1680,18 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				m_AniBody[i].SetColor(COLOR_ARGB(50, 255, 255, 255));
 			}
 
-			GetStatic((i + 1) * 10 + 3)->SetText(Shizhuang[(page - 1) * 6 + i].name);
-			if (Shizhuang[(page - 1) * 6 + i].level >= 1)
+			GetStatic((i + 1) * 10 + 3)->SetText(Shizhuang[index].name);
+			GetStatic((i + 1) * 10 + 4)->SetText(Shizhuang[index].strDesc);
+			if (Shizhuang[index].level >= 1)
 			{
-				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Shizhuang[(page - 1) * 6 + i].level));
+				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Shizhuang[index].level));
 			}
 			else
 			{
 				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, 9999));
 			}
 
-			if (shizhuang_select == (page - 1) * 6 + i)
+			if (shizhuang_select == index)
 			{
 				GetCheckBox(((i + 1) * 10) + 5)->SetChecked(true);
 			}
@@ -1616,7 +1707,8 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		GetCheckBox(65)->SetChecked(false);
 
 		char msg[256];
-		sprintf(msg, "%d/%d", page, MAX_PAGE2);
+		ClampMagicBoxPage(this);
+			sprintf(msg, "%d/%d", page, GetMagicBoxMaxPage(this, type));
 		GetStatic(6)->SetText(msg);
 
 		GetProcess(9)->SetRange(0, mohemaxexp);
@@ -1641,8 +1733,9 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		stResourceLocation rlAniBody;
 		rlAniBody.SetFileName("data\\items.gl");
 		POINT pt;
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < MAGICBOX_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_PAGE_SIZE + i;
 			if (i < 3)
 			{
 				pt.x = 10 + 205 * i;
@@ -1654,13 +1747,24 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				pt.y = 380;
 			}
 
+			if (index >= GetMagicBoxItemCount(this, type))
+			{
+				rlAniBody.group = 0;
+				rlAniBody.frame = 0;
+				m_AniBody[i].Create(&rlAniBody);
+				m_AniBody[i].SetColor(COLOR_ARGB(0, 255, 255, 255));
+				GetStatic((i + 1) * 10 + 3)->SetText("");
+				GetStatic((i + 1) * 10 + 4)->SetText("");
+				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\interfaces6.gl", 130, 9999));
+				continue;
+			}
 			rlAniBody.group = 3;
-			rlAniBody.frame = Pifeng[(page - 1) * 6 + i].itemNum;
+			rlAniBody.frame = Pifeng[index].itemNum;
 			m_AniBody[i].Create(&rlAniBody);
 			m_AniBody[i].SetLoopPlay(true);
 			m_AniBody[i].SetSpeed(200);
 
-			if (Pifeng[(page - 1) * 6 + i].state == 1)
+			if (Pifeng[index].state == 1)
 			{
 				m_AniBody[i].SetColor(COLOR_ARGB(255, 255, 255, 255));
 			}
@@ -1669,17 +1773,18 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				m_AniBody[i].SetColor(COLOR_ARGB(50, 255, 255, 255));
 			}
 
-			GetStatic((i + 1) * 10 + 3)->SetText(Pifeng[(page - 1) * 6 + i].name);
-			if (Pifeng[(page - 1) * 6 + i].level >= 1)
+			GetStatic((i + 1) * 10 + 3)->SetText(Pifeng[index].name);
+			GetStatic((i + 1) * 10 + 4)->SetText(Pifeng[index].strDesc);
+			if (Pifeng[index].level >= 1)
 			{
-				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Pifeng[(page - 1) * 6 + i].level));
+				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Pifeng[index].level));
 			}
 			else
 			{
 				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, 9999));
 			}
 
-			if (pifeng_select == (page - 1) * 6 + i)
+			if (pifeng_select == index)
 			{
 				GetCheckBox(((i + 1) * 10) + 5)->SetChecked(true);
 			}
@@ -1695,7 +1800,8 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		GetCheckBox(65)->SetChecked(false);
 
 		char msg[256];
-		sprintf(msg, "%d/%d", page, MAX_PAGE3);
+		ClampMagicBoxPage(this);
+			sprintf(msg, "%d/%d", page, GetMagicBoxMaxPage(this, type));
 		GetStatic(6)->SetText(msg);
 
 		GetProcess(9)->SetRange(0, mohemaxexp);
@@ -1720,8 +1826,9 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		stResourceLocation rlAniBody;
 		rlAniBody.SetFileName("data\\items.gl");
 		POINT pt;
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < MAGICBOX_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_PAGE_SIZE + i;
 			if (i < 3)
 			{
 				pt.x = 10 + 205 * i;
@@ -1733,13 +1840,24 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				pt.y = 380;
 			}
 
+			if (index >= GetMagicBoxItemCount(this, type))
+			{
+				rlAniBody.group = 0;
+				rlAniBody.frame = 0;
+				m_AniBody[i].Create(&rlAniBody);
+				m_AniBody[i].SetColor(COLOR_ARGB(0, 255, 255, 255));
+				GetStatic((i + 1) * 10 + 3)->SetText("");
+				GetStatic((i + 1) * 10 + 4)->SetText("");
+				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\interfaces6.gl", 130, 9999));
+				continue;
+			}
 			rlAniBody.group = 3;
-			rlAniBody.frame = Chibang[(page - 1) * 6 + i].itemNum;
+			rlAniBody.frame = Chibang[index].itemNum;
 			m_AniBody[i].Create(&rlAniBody);
 			m_AniBody[i].SetLoopPlay(true);
 			m_AniBody[i].SetSpeed(200);
 
-			if (Chibang[(page - 1) * 6 + i].state == 1)
+			if (Chibang[index].state == 1)
 			{
 				m_AniBody[i].SetColor(COLOR_ARGB(255, 255, 255, 255));
 			}
@@ -1748,17 +1866,18 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				m_AniBody[i].SetColor(COLOR_ARGB(50, 255, 255, 255));
 			}
 
-			GetStatic((i + 1) * 10 + 3)->SetText(Chibang[(page - 1) * 6 + i].name);
-			if (Chibang[(page - 1) * 6 + i].level >= 1)
+			GetStatic((i + 1) * 10 + 3)->SetText(Chibang[index].name);
+			GetStatic((i + 1) * 10 + 4)->SetText(Chibang[index].strDesc);
+			if (Chibang[index].level >= 1)
 			{
-				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Chibang[(page - 1) * 6 + i].level));
+				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Chibang[index].level));
 			}
 			else
 			{
 				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, 9999));
 			}
 
-			if (chibang_select == (page - 1) * 6 + i)
+			if (chibang_select == index)
 			{
 				GetCheckBox(((i + 1) * 10) + 5)->SetChecked(true);
 			}
@@ -1774,7 +1893,8 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		GetCheckBox(65)->SetChecked(false);
 
 		char msg[256];
-		sprintf(msg, "%d/%d", page, MAX_PAGE4);
+		ClampMagicBoxPage(this);
+			sprintf(msg, "%d/%d", page, GetMagicBoxMaxPage(this, type));
 		GetStatic(6)->SetText(msg);
 
 		GetProcess(9)->SetRange(0, mohemaxexp);
@@ -1799,8 +1919,9 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		stResourceLocation rlAniBody;
 		rlAniBody.SetFileName("data\\npc11.gl");
 		POINT pt;
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < MAGICBOX_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_PAGE_SIZE + i;
 			if (i < 3)
 			{
 				pt.x = 10 + 205 * i;
@@ -1812,13 +1933,24 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				pt.y = 380;
 			}
 
-			rlAniBody.group = Zuoqi[(page - 1) * 6 + i].npcNum;
+			if (index >= GetMagicBoxItemCount(this, type))
+			{
+				rlAniBody.group = 0;
+				rlAniBody.frame = 0;
+				m_AniBody[i].Create(&rlAniBody, 10, 14);
+				m_AniBody[i].SetColor(COLOR_ARGB(0, 255, 255, 255));
+				GetStatic((i + 1) * 10 + 3)->SetText("");
+				GetStatic((i + 1) * 10 + 4)->SetText("");
+				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\interfaces6.gl", 130, 9999));
+				continue;
+			}
+			rlAniBody.group = Zuoqi[index].npcNum;
 			rlAniBody.frame = 14;
 			m_AniBody[i].Create(&rlAniBody, 10, 14);
 			m_AniBody[i].SetLoopPlay(true);
 			m_AniBody[i].SetSpeed(200);
 
-			if (Zuoqi[(page - 1) * 6 + i].state == 1)
+			if (Zuoqi[index].state == 1)
 			{
 				m_AniBody[i].SetColor(COLOR_ARGB(255, 255, 255, 255));
 			}
@@ -1827,17 +1959,18 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				m_AniBody[i].SetColor(COLOR_ARGB(50, 255, 255, 255));
 			}
 
-			GetStatic((i + 1) * 10 + 3)->SetText(Zuoqi[(page - 1) * 6 + i].name);
-			if (Zuoqi[(page - 1) * 6 + i].level >= 1)
+			GetStatic((i + 1) * 10 + 3)->SetText(Zuoqi[index].name);
+			GetStatic((i + 1) * 10 + 4)->SetText(Zuoqi[index].strDesc);
+			if (Zuoqi[index].level >= 1)
 			{
-				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Zuoqi[(page - 1) * 6 + i].level));
+				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Zuoqi[index].level));
 			}
 			else
 			{
 				GetImage((i + 1) * 10 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, 9999));
 			}
 
-			if (zuoqi_select == (page - 1) * 6 + i)
+			if (zuoqi_select == index)
 			{
 				GetCheckBox(((i + 1) * 10) + 5)->SetChecked(true);
 			}
@@ -1850,7 +1983,8 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		
 
 		char msg[256];
-		sprintf(msg, "%d/%d", page, MAX_PAGE5);
+		ClampMagicBoxPage(this);
+			sprintf(msg, "%d/%d", page, GetMagicBoxMaxPage(this, type));
 		GetStatic(6)->SetText(msg);
 
 		GetProcess(9)->SetRange(0, mohemaxexp);
@@ -1875,21 +2009,33 @@ void CGuiMagicBoxDlg::shuaxin(void)
 		stResourceLocation rlAniBody;
 		rlAniBody.SetFileName("data\\activity.gl");
 		POINT pt;
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < MAGICBOX_JIEMIAN_PAGE_SIZE; i++)
 		{
+			int index = (page - 1) * MAGICBOX_JIEMIAN_PAGE_SIZE + i;
 			
 			pt.x = 20 + 300 * i;
 			pt.y = 240;
 			
 
-			rlAniBody.group = Jiemian[(page - 1) * 2 + i].activityNum;
+			if (index >= GetMagicBoxItemCount(this, type))
+			{
+				rlAniBody.group = 0;
+				rlAniBody.frame = 0;
+				m_AniBody[i].Create(&rlAniBody);
+				m_AniBody[i].SetColor(COLOR_ARGB(0, 255, 255, 255));
+				GetStatic((i + 1) * 100 + 3)->SetText("");
+				GetStatic((i + 1) * 100 + 4)->SetText("");
+				GetImage((i + 1) * 100 + 6)->SetImage(stResourceLocation("data\interfaces6.gl", 130, 9999));
+				continue;
+			}
+			rlAniBody.group = Jiemian[index].activityNum;
 			rlAniBody.frame = 3;
 
 			m_AniBody[i].Create(&rlAniBody);
 			m_AniBody[i].SetLoopPlay(true);
 			m_AniBody[i].SetSpeed(50);
 
-			if (Jiemian[(page - 1) * 2 + i].state == 1)
+			if (Jiemian[index].state == 1)
 			{
 				m_AniBody[i].SetColor(COLOR_ARGB(255, 255, 255, 255));
 			}
@@ -1898,17 +2044,18 @@ void CGuiMagicBoxDlg::shuaxin(void)
 				m_AniBody[i].SetColor(COLOR_ARGB(50, 255, 255, 255));
 			}
 
-			GetStatic((i + 1) * 100 + 3)->SetText(Jiemian[(page - 1) * 2 + i].name);
-			if (Jiemian[(page - 1) * 2 + i].level >= 1)
+			GetStatic((i + 1) * 100 + 3)->SetText(Jiemian[index].name);
+			GetStatic((i + 1) * 100 + 4)->SetText(Jiemian[index].strDesc);
+			if (Jiemian[index].level >= 1)
 			{
-				GetImage((i + 1) * 100 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Jiemian[(page - 1) * 2 + i].level));
+				GetImage((i + 1) * 100 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, Jiemian[index].level));
 			}
 			else
 			{
 				GetImage((i + 1) * 100 + 6)->SetImage(stResourceLocation("data\\interfaces6.gl", 130, 9999));
 			}
 
-			if (jiemian_select == (page - 1) * 2 + i)
+			if (jiemian_select == index)
 			{
 				GetCheckBox(((i + 1) * 100) + 5)->SetChecked(true);
 			}

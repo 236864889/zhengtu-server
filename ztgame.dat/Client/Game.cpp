@@ -1965,6 +1965,8 @@ bool ParsePropertyMessage(stNullUserCmd* pCmd,size_t size)
 					pDlg->num3 = OneEquip->num3;
 					pDlg->num4 = OneEquip->num4;
 					pDlg->num5 = OneEquip->num5;
+					pDlg->num6 = OneEquip->num6;
+					pDlg->num7 = OneEquip->num7;
 					pDlg->shuaxin();
 					return true;
 				}

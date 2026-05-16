@@ -3096,6 +3096,28 @@ enum{
 	EQUIPCELLTYPE_RIGHT,		///右边
 };
 
+	enum PetEquipCell
+	{
+		PETEQUIP_NONE = 0,
+		PETEQUIP_HANDR = 1,
+		PETEQUIP_HELM,
+		PETEQUIP_BODY,
+		PETEQUIP_NECKLACE,
+		PETEQUIP_GLOVES_R,
+		PETEQUIP_GLOVES_L,
+		PETEQUIP_RING_R,
+		PETEQUIP_RING_L,
+		PETEQUIP_BELT,
+		PETEQUIP_SHOES,
+		PETEQUIP_HORSESHOE,
+		PETEQUIP_HORSEROPE,
+		PETEQUIP_HORSESADDLE,
+		PETEQUIP_HORSESAFE,
+		PETEQUIP_HORSEIRON,
+		PETEQUIP_HORSEFASHION,
+		PETEQUIP_MAX
+	};
+
 ///得到另一只手
 #define otherHand(hand)	(hand)^3
 ///得到另一只手镯
@@ -3139,6 +3161,7 @@ enum{
 	OBJECTCELLTYPE_FUJIAN,
 	OBJECTCELLTYPE_YUANSHEN,     ///22 元神进阶格子
 	OBJECTCELLTYPE_BABYRECAST,   ///23 孩子装备升级格子
+	OBJECTCELLTYPE_PET_EQUIP,    /// pet equip isolated pack
 };
 
 
@@ -4720,14 +4743,17 @@ struct stResponsePropertyUserCmdShizhuang : public stPropertyUserCmd
 	struct one_shizhuang
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
+		char pic[MAX_NAMESIZE];
 		DWORD bodyNum;
 		DWORD level;
 		DWORD state;
 	};
-	struct one_shizhuang Shizhuang[300]; 
+	struct one_shizhuang Shizhuang[400]; 
 	struct one_pifeng
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
 		DWORD itemNum;
 		DWORD level;
 		DWORD state;
@@ -4735,6 +4761,7 @@ struct stResponsePropertyUserCmdShizhuang : public stPropertyUserCmd
 	struct one_chibang
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
 		DWORD itemNum;
 		DWORD level;
 		DWORD state;
@@ -4742,6 +4769,7 @@ struct stResponsePropertyUserCmdShizhuang : public stPropertyUserCmd
 	struct one_zuoqi
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
 		DWORD npcNum;
 		DWORD level;
 		DWORD state;
@@ -4749,6 +4777,7 @@ struct stResponsePropertyUserCmdShizhuang : public stPropertyUserCmd
 	struct one_jiemian  //魔盒界面
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
 		DWORD activityNum;
 		DWORD dongtai;
 		DWORD level;
@@ -4758,6 +4787,8 @@ struct stResponsePropertyUserCmdShizhuang : public stPropertyUserCmd
 	struct one_chibang Chibang[100]; 
 	struct one_zuoqi Zuoqi[100]; 
 	struct one_jiemian Jiemian[100];  //魔盒界面
+	DWORD num6;     //MagicBox jueji attack bonus
+	DWORD num7;     //MagicBox qiege attack bonus
 	DWORD mohelevel;
 	DWORD moheexp;
 	DWORD mohemaxexp;
@@ -7644,7 +7675,44 @@ struct t_PetData
 	uint64_t mdef_plus;         //附加魔防 //by=>friday
 	petType type;           //类型
 	petState state;         //状态
-};
+	uint64_t pet_base_atk;
+	uint64_t pet_base_maxatk;
+	uint64_t pet_base_matk;
+	uint64_t pet_base_maxmatk;
+	uint64_t pet_base_def;
+	uint64_t pet_base_mdef;
+	uint64_t pet_base_maxhp;
+	uint64_t pet_equip_atk;
+	uint64_t pet_equip_maxatk;
+	uint64_t pet_equip_matk;
+	uint64_t pet_equip_maxmatk;
+	uint64_t pet_equip_def;
+	uint64_t pet_equip_mdef;
+	uint64_t pet_equip_maxhp;
+	uint64_t pet_suit_atk;
+	uint64_t pet_suit_maxatk;
+	uint64_t pet_suit_matk;
+	uint64_t pet_suit_maxmatk;
+	uint64_t pet_suit_def;
+	uint64_t pet_suit_mdef;
+	uint64_t pet_suit_maxhp;
+	uint64_t pet_final_atk;
+	uint64_t pet_final_maxatk;
+	uint64_t pet_final_matk;
+	uint64_t pet_final_maxmatk;
+	uint64_t pet_final_def;
+	uint64_t pet_final_mdef;
+	uint64_t pet_final_maxhp;
+	DWORD pet_suit_id;
+	DWORD pet_suit_level;
+	DWORD pet_suit_piece_count;
+	DWORD pet_suit_active_mask;
+	WORD pet_ignore_def;
+	WORD pet_reel;
+	WORD pet_vip_suppress;
+	WORD pet_charm_suppress;
+	WORD pet_magicbox_suppress;
+	WORD pet_restrain_suppress;};
 // 请求宠物的数据
 const BYTE REQUESTDATA_PET_PARA = 2;
 struct stRequestDataPetCmd : public stPetUserCmd

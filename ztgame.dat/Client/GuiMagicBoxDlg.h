@@ -18,15 +18,18 @@ public:
 	struct one_shizhuang
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
+		char pic[MAX_NAMESIZE];
 		DWORD bodyNum;
 		DWORD level;
 		DWORD state;
 	};
-	struct one_shizhuang Shizhuang[300]; 
+	struct one_shizhuang Shizhuang[400]; 
 	//Åû·ç
 	struct one_pifeng
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
 		DWORD itemNum;
 		DWORD level;
 		DWORD state;
@@ -36,6 +39,7 @@ public:
 	struct one_chibang
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
 		DWORD itemNum;
 		DWORD level;
 		DWORD state;
@@ -46,6 +50,7 @@ public:
 	struct one_zuoqi
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
 		DWORD npcNum;
 		DWORD level;
 		DWORD state;
@@ -56,6 +61,7 @@ public:
 	struct one_jiemian
 	{
 		char name[MAX_NAMESIZE];
+		char strDesc[MAX_NAMESIZE];
 		DWORD activityNum;
 		DWORD dongtai;
 		DWORD level;
@@ -80,6 +86,8 @@ public:
 	DWORD num3;
 	DWORD num4;
 	DWORD num5;
+	DWORD num6;
+	DWORD num7;
 	int page;
 	void shuaxin(void);
 	void OnClose(void);

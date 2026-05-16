@@ -360,6 +360,46 @@ bool IsCellItemType(WORD eCellType,WORD eItemType)
 	FUNCTION_END;
 }
 
+static bool IsPetEquipCellItemType(WORD eCellType,WORD eItemType)
+{
+	switch(eCellType)
+	{
+	case PETEQUIP_HANDR:
+		return eItemType == ItemType_Bow;
+	case PETEQUIP_HELM:
+		return eItemType == ItemType_Helm;
+	case PETEQUIP_BODY:
+		return eItemType == ItemType_ClothBody || eItemType == ItemType_FellBody || eItemType == ItemType_MetalBody;
+	case PETEQUIP_NECKLACE:
+		return eItemType == ItemType_Necklace;
+	case PETEQUIP_GLOVES_R:
+	case PETEQUIP_GLOVES_L:
+		return eItemType == ItemType_Cuff;
+	case PETEQUIP_RING_R:
+	case PETEQUIP_RING_L:
+		return eItemType == ItemType_Fing;
+	case PETEQUIP_BELT:
+		return eItemType == ItemType_Caestus;
+	case PETEQUIP_SHOES:
+		return eItemType == ItemType_Shoes;
+	case PETEQUIP_HORSESHOE:
+		return eItemType == ItemType_HorseShoe;
+	case PETEQUIP_HORSEROPE:
+		return eItemType == ItemType_HorseRope;
+	case PETEQUIP_HORSESADDLE:
+		return eItemType == ItemType_HorseSaddle;
+	case PETEQUIP_HORSESAFE:
+		return eItemType == ItemType_HorseSafe;
+	case PETEQUIP_HORSEIRON:
+		return eItemType == ItemType_HorseIron;
+	case PETEQUIP_HORSEFASHION:
+		return eItemType == ItemType_HorseFashion;
+	default:
+		break;
+	}
+	return false;
+}
+
 /**
 * \brief 简短描述
 * 
@@ -1686,6 +1726,12 @@ CGuiTable* GetItemTable(const stObjectLocation & pos)
 			return GetGameGuiManager()->m_guiItem->GetEquipTable(pos.y,pos.x);
 		}
 		break;
+	case OBJECTCELLTYPE_PET_EQUIP:
+		if (GetGameGuiManager()->m_guiPetDlg)
+		{
+			return GetGameGuiManager()->m_guiPetDlg->GetPetEquipTable(pos.y);
+		}
+		break;
 	case OBJECTCELLTYPE_EQUIPSHOW:
 		if (GetGameGuiManager()->m_guiUserInfoShow)
 			return GetGameGuiManager()->m_guiUserInfoShow->GetEquipTable(pos.y,pos.x);
@@ -1890,7 +1936,7 @@ void TableRender(CGuiTable* pTable,float fElapsedTime)
 	}
 
 	//sky 装备栏的显示
-	if ((pTable->m_iTableType==OBJECTCELLTYPE_EQUIP || OBJECTCELLTYPE_EQUIPSHOW)&&(pTable->m_listItem.size()==1)) //修复查看别人装备栏问题OBJECTCELLTYPE_EQUIPSHOW是非自己穿着装备
+	if ((pTable->m_iTableType==OBJECTCELLTYPE_EQUIP || pTable->m_iTableType==OBJECTCELLTYPE_EQUIPSHOW)&&(pTable->m_listItem.size()==1)) //修复查看别人装备栏问题OBJECTCELLTYPE_EQUIPSHOW是非自己穿着装备
 	{
 		CRoleItem* pItem =(CRoleItem*) ((CGuiItemCell*)pTable->m_listItem[0])->m_pItemData;
 		if (pItem&&GetGameGuiManager()->m_guiUserInfo&&((pFloatItem==NULL)||(pFloatItem&&pFloatItem->GetItem()->m_pItemData!=pItem)))
@@ -5181,7 +5227,16 @@ static bool OnMoveItemEvent( CGuiTable* pTable,UINT uMsg, POINT pt, WPARAM wPara
 					}
 				}
 
-				if(pTable->m_iTableType == OBJECTCELLTYPE_EQUIP)
+				if(pTable->m_iTableType == OBJECTCELLTYPE_PET_EQUIP)
+				{
+					if(!IsPetEquipCellItemType(pTable->m_EquipPosition.y,pSrcItem->GetItemType()))
+					{
+						GetGameGuiManager()->AddClientSystemMessage("该物品不能放入此宠物装备格");
+						return true;
+					}
+					ptDestGrid = pTable->m_EquipPosition;
+				}
+				else if(pTable->m_iTableType == OBJECTCELLTYPE_EQUIP)
 				{
 					// 目标是装备栏
 					if( pSrcItem->IsMoppet() )
